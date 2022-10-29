@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
@@ -32,6 +33,15 @@ public class Test3_hashmap {
 
         hashMap.computeIfPresent("d",
                 (key, val) -> val + 100);
+
+        HashMap<String, ArrayList<String>> parents = new HashMap<String, ArrayList<String>>();
+        ArrayList<String> emptyList = new ArrayList<>();
+        parents.putIfAbsent("first",  emptyList);
+        parents.get("first").add("1111");
+        parents.putIfAbsent("third",   new ArrayList<>());
+
+        parents.computeIfAbsent("second", key -> new ArrayList<>()).add("2222");
+        parents.computeIfAbsent("second", key -> new ArrayList<>()).add("2222a");
 
         for (String key : hashMap.keySet()) {
             System.out.println("Key " + key);
