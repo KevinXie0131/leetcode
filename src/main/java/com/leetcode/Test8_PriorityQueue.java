@@ -25,6 +25,15 @@ public class Test8_PriorityQueue {
         priorityQueue2.add("bb");
         priorityQueue2.add("cc");
         System.out.println(priorityQueue2.poll());
+
+
+        PriorityQueue<Integer> priorityQueue3 = new PriorityQueue<Integer>();
+        priorityQueue3.add(18);
+        priorityQueue3.add(12);
+        priorityQueue3.add(13);
+        priorityQueue3.add(9);
+        priorityQueue3.add(15);
+        System.out.println(priorityQueue3.peek());
     }
 }
 
