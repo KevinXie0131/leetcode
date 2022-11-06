@@ -2,7 +2,7 @@ package com.leetcode;
 
 import java.util.Arrays;
 
-public class Test9_Array {
+public class Test10_Array {
 
     public static void main(String[] args) {
 
