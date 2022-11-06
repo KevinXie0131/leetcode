@@ -18,12 +18,16 @@ public class Test8_PriorityQueue {
         priorityQueue1.add(12);
         priorityQueue1.add(13);
         priorityQueue1.add(15);
+
+        priorityQueue1.offer(17);
         System.out.println(priorityQueue1.poll());
 
         PriorityQueue<String> priorityQueue2 = new PriorityQueue<String>((a, b) -> -b.compareTo(a));
         priorityQueue2.add("aa");
         priorityQueue2.add("bb");
         priorityQueue2.add("cc");
+
+        priorityQueue2.offer("dd");
         System.out.println(priorityQueue2.poll());
     }
 }
