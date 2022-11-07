@@ -8,9 +8,11 @@ public class Test13_LinkedList {
         LinkedList<Integer> list = new LinkedList<>();
 
         list.add(3);
+        list.add(9);
         list.add(5);
         list.add(6);
         list.add(7);
+        list.add(6);
         list.add(9);
 
         System.out.println(list.getFirst());
@@ -35,5 +37,14 @@ public class Test13_LinkedList {
         System.out.println(list.pop());
         list.push(16);
         System.out.println(list);
+
+        System.out.println(list.remove());
+        System.out.println(list.removeLast());
+    //    System.out.println(list.removeFirstOccurrence(6));
+        System.out.println(list.removeLastOccurrence(6));
+        System.out.println(list);
+
+        System.out.println(list.indexOf(7));
+        System.out.println(list.lastIndexOf(9));
     }
 }
