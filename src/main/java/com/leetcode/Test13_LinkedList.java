@@ -49,10 +49,13 @@ public class Test13_LinkedList {
 
         LinkedList<String> list2 = new LinkedList<>();
         list2.add("a");
-        list2.add("b");
+        list2.addFirst("b");
         list2.add("c");
+        list2.addLast("d");
         System.out.println(list2);
         list2.remove(list2.size() - 1);
+        System.out.println(list2);
+        list2.removeFirst();
         System.out.println(list2);
     }
 }

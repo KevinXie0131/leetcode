@@ -12,22 +12,27 @@ public class Test5_sort {
 
         Arrays.sort(unsortedArray);
         for(int item : unsortedArray){
-            System.out.println(item);
+            System.out.print(item + " ");
         }
+        System.out.println();
 
         Arrays.sort(unsortedArray, ( a,  b) ->  b-a);
         for(int item : unsortedArray){
-            System.out.println(item);
+            System.out.print(item + " ");
         }
+        System.out.println();
 
         Arrays.sort(unsortedArray1);
         for(String item : unsortedArray1){
-            System.out.println(item);
+            System.out.print(item + " ");
         }
+        System.out.println();
+
         Arrays.sort(unsortedArray1, (a, b) -> b.compareTo(a));
         for(String item : unsortedArray1){
-            System.out.println(item);
+            System.out.print(item + " ");
         }
+        System.out.println();
 
         ArrayList<Integer> list = new ArrayList<>();
         list.add(4);
@@ -55,8 +60,10 @@ public class Test5_sort {
         Integer[] arrayToList = new Integer[] {3,2,1};
         List<Integer> toList = Arrays.asList(arrayToList);
         for (Integer i : toList) {
-            System.out.println(i);
+            System.out.print(i + " ");
         }
+        System.out.println();
+
         Integer[] listToArray = (Integer [])toList.toArray();
         System.out.println(listToArray.length);
         System.out.println(listToArray[1]);
@@ -64,8 +71,10 @@ public class Test5_sort {
         String[] arrayToList1 = new String[] {"rr","xx","yy"};
         List<String> toList1 = Arrays.asList(arrayToList1);
         for (String i : toList1) {
-            System.out.println(i);
+            System.out.print(i + " ");
         }
+        System.out.println();
+
         String[] listToArray1 = (String [])toList1.toArray();
         System.out.println(listToArray1.length);
         System.out.println(listToArray1[1]);
