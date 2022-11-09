@@ -50,7 +50,20 @@ public class Test3_hashmap {
             System.out.println("entry " + entry.getKey() + " " + hashMap.get(entry.getKey()));
         }
 
-       String mapDefault =  hashMap.getOrDefault("ff","this is f");
+        String mapDefault =  hashMap.getOrDefault("ff","this is f");
         System.out.println("mapDefault " + mapDefault);
+
+        HashMap<String, Integer> products = new HashMap<>();
+        String[] inventory = {"Shirt", "TShirt", "Shirt", "Shoe", "Shoe", "TShirt", "Shoe", "Sneaker"};
+        for (String item : inventory) {
+           if (!products.containsKey(item)) {
+            //    products.computeIfAbsent(item, key -> 1);
+                products.putIfAbsent(item, 1);
+            } else {
+                products.computeIfPresent(item, (key, value) -> value + 1);
+            }
+        }
+        System.out.println("products " + products);
+
      }
 }
