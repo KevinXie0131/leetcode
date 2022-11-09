@@ -46,5 +46,13 @@ public class Test13_LinkedList {
 
         System.out.println(list.indexOf(7));
         System.out.println(list.lastIndexOf(9));
+
+        LinkedList<String> list2 = new LinkedList<>();
+        list2.add("a");
+        list2.add("b");
+        list2.add("c");
+        System.out.println(list2);
+        list2.remove(list2.size() - 1);
+        System.out.println(list2);
     }
 }
