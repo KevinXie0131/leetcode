@@ -1,9 +1,6 @@
 package com.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Test14_HashSet {
 
@@ -22,5 +19,21 @@ public class Test14_HashSet {
 
         List<List<Integer>> list1 = new ArrayList<>(set);
         System.out.println(list1);
+
+        HashSet<Integer> set1 = new HashSet<>(Arrays.asList(1, 2, 3, 5));
+        System.out.println(set1);
+        System.out.println(set1.contains(2));
+        set1.remove(2);
+        System.out.println(set1);
+        System.out.println(set1.contains(2));
+        Iterator iter = set1.iterator();
+        while (iter.hasNext()) {
+            Integer value = (Integer)iter.next();
+            if (value == 3) {
+                iter.remove();
+            }
+        }
+        System.out.println(set1);
+
     }
 }
