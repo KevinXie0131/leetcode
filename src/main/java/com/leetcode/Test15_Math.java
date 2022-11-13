@@ -26,5 +26,9 @@ public class Test15_Math {
         System.out.println("a >> 1 -> " + (a >> 1));
         System.out.println("a % 3 -> " + (a % 3));
 
+        Integer x = 11;
+        Integer y = 12;
+        System.out.println("x == y -> " + (x == y));
+        System.out.println("x == y -> " + (x.equals(y)));
     }
 }
