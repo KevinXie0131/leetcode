@@ -54,6 +54,7 @@ public class Test3_hashmap {
         System.out.println("mapDefault " + mapDefault);
 
         HashMap<String, Integer> products = new HashMap<>();
+        HashMap<String, Integer> products1 = new HashMap<>();
         String[] inventory = {"Shirt", "TShirt", "Shirt", "Shoe", "Shoe", "TShirt", "Shoe", "Sneaker"};
         for (String item : inventory) {
            if (!products.containsKey(item)) {
@@ -62,8 +63,10 @@ public class Test3_hashmap {
             } else {
                 products.computeIfPresent(item, (key, value) -> value + 1);
             }
+
+            products1.put(item, products1.getOrDefault(item, 0) + 1);
         }
         System.out.println("products " + products);
-
+        System.out.println("products1 " + products1);
      }
 }

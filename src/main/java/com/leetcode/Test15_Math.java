@@ -30,5 +30,9 @@ public class Test15_Math {
         Integer y = 12;
         System.out.println("x == y -> " + (x == y));
         System.out.println("x == y -> " + (x.equals(y)));
+
+        System.out.println("'a'^'b' -> " + ('a' ^ 'b'));
+        System.out.println("'a'^'b'^'a' -> " + ('a' ^ 'b' ^ 'a'));
+        System.out.println("'a'^'b'^'a'^'b' -> " + ('a' ^ 'b' ^ 'a' ^ 'b'));
     }
 }
