@@ -18,5 +18,10 @@ public class Test16_String {
         int int_a = 'a';
         System.out.println(int_a);
         System.out.println((char)66);
+
+        System.out.println("apply".compareTo("apple"));
+        System.out.println("apple".compareTo("apply"));
+        System.out.println("b".compareTo("a"));
+        System.out.println("a".compareTo("b"));
     }
 }
