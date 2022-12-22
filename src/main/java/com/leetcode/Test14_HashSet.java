@@ -35,5 +35,9 @@ public class Test14_HashSet {
         }
         System.out.println(set1);
 
+        HashSet<Integer> set2 = new HashSet<>();
+        System.out.println(set2.add(1));
+        System.out.println(set2.add(2));
+        System.out.println(set2.add(2));
     }
 }
