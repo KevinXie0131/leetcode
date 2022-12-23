@@ -53,5 +53,26 @@ public class Test1_ArrayDeque {
         int a = 1;
         int b = -a;
         System.out.println("b " + b);
+
+        Deque<String> queue2 = new LinkedList<>();
+        queue2.add("aaa");
+        queue2.add("bbb");
+        System.out.println("queue2: " + queue2);
+        queue2.addFirst("ccc");
+        queue2.addLast("ddd");
+        System.out.println("queue2: " + queue2);
+        queue2.removeFirst();
+        System.out.println("queue2: " + queue2);
+        queue2.removeLast();
+        System.out.println("queue2: " + queue2);
+        queue2.offer("eee");
+        System.out.println("queue2: " + queue2);
+        System.out.println("queue2: " +  queue2.poll());
+        System.out.println("queue2: " + queue2);
+        queue2.push("fff");
+        System.out.println("queue2: " + queue2);
+        System.out.println("queue2: " +  queue2.peekLast());
+        System.out.println("queue2: " +  queue2.pop());
+        System.out.println("queue2: " + queue2);
     }
 }
