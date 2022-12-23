@@ -16,8 +16,11 @@ public class Test17_Character {
         System.out.println("4|6=  " + Integer.toBinaryString(4|6));
 
         System.out.println("~4=  " + Integer.toBinaryString(~4));
-
         System.out.println("-1=  " + Integer.toBinaryString(-1));
+        System.out.println("4<<1=  " + Integer.toBinaryString(4<<1));
+        System.out.println("4<<1=  " + Integer.parseInt(Integer.toBinaryString(4<<1), 2));
+        System.out.println("4>>1=  " + Integer.toBinaryString(4>>1));
+        System.out.println("4>>1=  " + Integer.parseInt(Integer.toBinaryString(4>>1), 2));
 
         System.out.println("17 % 4=  " + 17 % 4);
         System.out.println("17 & 3=  " + (17 & 3));
