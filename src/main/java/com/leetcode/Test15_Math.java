@@ -34,5 +34,12 @@ public class Test15_Math {
         System.out.println("'a'^'b' -> " + ('a' ^ 'b'));
         System.out.println("'a'^'b'^'a' -> " + ('a' ^ 'b' ^ 'a'));
         System.out.println("'a'^'b'^'a'^'b' -> " + ('a' ^ 'b' ^ 'a' ^ 'b'));
+
+        System.out.println("223 % 10 -> " + 223 % 10);
+
+        int a1 = 10;
+        int b1 = -a1;
+        System.out.println("b1 -> " + b1);
+      //  int  c1 = 2147483648;  // java: integer number too large: 2147483648
     }
 }
