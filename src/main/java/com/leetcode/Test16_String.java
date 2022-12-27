@@ -23,5 +23,10 @@ public class Test16_String {
         System.out.println("apple".compareTo("apply"));
         System.out.println("b".compareTo("a"));
         System.out.println("a".compareTo("b"));
+
+        String ss = "abcdef";
+        String ss1 = "abcdef";
+        System.out.println(ss.substring(0, 2));
+        System.out.println(ss1.substring(2));
     }
 }

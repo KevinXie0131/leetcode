@@ -18,6 +18,9 @@ public class Test15_Math {
         System.out.println(Math.round(7.6));
         System.out.println(Math.round(7.3));
 
+        System.out.println(Math.abs(1 - 2));
+        System.out.println(Math.abs(3 - 2));
+
         int a = 8;
         int b = 12;
         System.out.println("a & b -> " + (a & b));
