@@ -68,5 +68,12 @@ public class Test3_hashmap {
         }
         System.out.println("products " + products);
         System.out.println("products1 " + products1);
-     }
+
+        Map<Character, Character> pairs = new HashMap<Character, Character>() {{
+            put(')', '(');
+            put(']', '[');
+            put('}', '{');
+        }};
+        System.out.println("pairs " + pairs);
+    }
 }
