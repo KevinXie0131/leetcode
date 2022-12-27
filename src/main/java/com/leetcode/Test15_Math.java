@@ -44,5 +44,11 @@ public class Test15_Math {
         int b1 = -a1;
         System.out.println("b1 -> " + b1);
       //  int  c1 = 2147483648;  // java: integer number too large: 2147483648
+
+        int high = 2100000000;
+        int low = 2000000000;
+        System.out.println("mid using >>> 1 = " + ((low + high) >>> 1));
+        System.out.println("mid using / 2   = " + ((low + high) / 2));
+        System.out.println("mid using / 2   = " + (low + (high - low) / 2));
     }
 }
