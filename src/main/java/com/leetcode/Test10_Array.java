@@ -40,5 +40,6 @@ public class Test10_Array {
         System.out.println(new String(chArray));
         char[] chArray1 = st.toCharArray();
         System.out.println(chArray1);
+
     }
 }
