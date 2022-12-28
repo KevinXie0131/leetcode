@@ -33,5 +33,12 @@ public class Test10_Array {
 
         Integer[] arr2 = list1.toArray(new Integer[0]);
         System.out.println(arr2[4]);
+
+        char[] chArray = new char[] {'b', 'a', 'c'};
+        String st = String.valueOf(chArray);
+        System.out.println(st);
+        System.out.println(new String(chArray));
+        char[] chArray1 = st.toCharArray();
+        System.out.println(chArray1);
     }
 }
