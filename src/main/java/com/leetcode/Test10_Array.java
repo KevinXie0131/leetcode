@@ -9,7 +9,7 @@ public class Test10_Array {
     public static void main(String[] args) {
 
         int[] array0 = new int[] {1, 2, 3, 4, 5};
-        System.out.println(Arrays.toString(array0));
+        System.out.println(Arrays.toString(array0));\
 
         int[] array1 = new int[5];
         Arrays.fill(array1, -1);
@@ -18,7 +18,12 @@ public class Test10_Array {
         }
 
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 4, 5));
+        List<Integer> listCopy = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6));
         System.out.println(list);
+        System.out.println("indexOf ->"  + list.indexOf(3));
+        System.out.println("contains ->"  + list.contains(3));
+        System.out.println("contains ->"  + list.contains(6));
+        System.out.println("containsAll ->"  + list.containsAll(listCopy));
 
         List<Integer> list1 = Arrays.asList(1, 3, 4, 5, 6);
         System.out.println(list1);
