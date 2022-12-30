@@ -57,9 +57,7 @@ public class UnionFindEnhanced2 {
             id[pRoot] = id[qRoot];
         }
 
-
         count--;
     }
-
 
 }

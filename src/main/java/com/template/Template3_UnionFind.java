@@ -13,7 +13,7 @@ public class Template3_UnionFind {
         System.out.println(uf.find(3));
         System.out.println(uf.isConnected(3, 5));
         System.out.println(uf.isConnected(3, 0));
-        System.out.println(uf.getCount());
+        System.out.println("count: " + uf.getCount());
         System.out.println("id: " + Arrays.toString(uf.getId()));
         System.out.println("------------------");
 
@@ -24,8 +24,9 @@ public class Template3_UnionFind {
         System.out.println(ufe.find(3));
         System.out.println(ufe.isConnected(3, 5));
         System.out.println(ufe.isConnected(3, 0));
-        System.out.println(ufe.getCount());
+        System.out.println("count: " + ufe.getCount());
         System.out.println("id: " + Arrays.toString(ufe.getId()));
+        System.out.println("------------------");
 
         UnionFindEnhanced2 ufe2 = new UnionFindEnhanced2(10);
         ufe2.union(3, 5);
@@ -34,12 +35,21 @@ public class Template3_UnionFind {
         System.out.println(ufe2.find(3));
         System.out.println(ufe2.isConnected(3, 5));
         System.out.println(ufe2.isConnected(3, 0));
-        System.out.println(ufe2.getCount());
+        System.out.println("count: " + ufe2.getCount());
         System.out.println("id: " + Arrays.toString(ufe2.getId()));
         System.out.println("lv: " + Arrays.toString(ufe2.getLevel()));
-        ufe2.union(0, 5);
+      //  ufe2.union(0, 5);
         System.out.println("id: " + Arrays.toString(ufe2.getId()));
         System.out.println("lv: " + Arrays.toString(ufe2.getLevel()));
+        System.out.println("count: " + ufe2.getCount());
+
+        ufe2.union(1, 2);
+        ufe2.union(4, 6);
+        ufe2.union(4, 7);
+        System.out.println("id: " + Arrays.toString(ufe2.getId()));
+        System.out.println("lv: " + Arrays.toString(ufe2.getLevel()));
+        System.out.println("count: " + ufe2.getCount());
+
     }
 
 }
