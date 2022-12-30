@@ -1,11 +1,11 @@
 package com.template;
 
-public class UnionFind {
+public class UnionFindEnhanced {
 
     private int[] id;
     private int count;
 
-    public UnionFind (int N) {
+    public UnionFindEnhanced(int N) {
         this.count = N;
         this.id = new int[N];
         for (int i = 0; i < N; i ++) {
@@ -27,6 +27,7 @@ public class UnionFind {
 
     public int find(int p) {
         while (p != id[p]) {
+          id[p] = id[id[p]]; // Improve performance
           p = id[p];
         }
         return p;

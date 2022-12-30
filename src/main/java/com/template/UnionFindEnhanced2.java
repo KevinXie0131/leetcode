@@ -1,15 +1,18 @@
 package com.template;
 
-public class UnionFind {
+public class UnionFindEnhanced2 {
 
     private int[] id;
+    private int[] level;
     private int count;
 
-    public UnionFind (int N) {
+    public UnionFindEnhanced2(int N) {
         this.count = N;
         this.id = new int[N];
+        this.level = new int[N];
         for (int i = 0; i < N; i ++) {
             this.id[i] = i;
+            this.level[i] = 1;
         }
     }
 
@@ -21,12 +24,17 @@ public class UnionFind {
         return id;
     }
 
+    public int[] getLevel () {
+        return level;
+    }
+
     public boolean isConnected (int p, int q) {
         return find(p) == find(q);
     }
 
     public int find(int p) {
         while (p != id[p]) {
+          id[p] = id[id[p]]; // Improve performance
           p = id[p];
         }
         return p;
@@ -41,7 +49,14 @@ public class UnionFind {
             return;
         }
 
-        id[pRoot] = qRoot;
+        if (level[pRoot] > level[qRoot]) {
+            level[pRoot] += level[qRoot];
+            id[qRoot] = id[pRoot];
+        } else {
+            level[qRoot] += level[pRoot];
+            id[pRoot] = id[qRoot];
+        }
+
 
         count--;
     }
