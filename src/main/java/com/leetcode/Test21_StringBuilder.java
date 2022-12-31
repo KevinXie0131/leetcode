@@ -10,5 +10,10 @@ public class Test21_StringBuilder {
         System.out.println(sb);
 
         System.out.println(sb.reverse());
+
+        StringBuilder str = new StringBuilder("saa");
+        str.setLength(10);
+        System.out.print(str);
+        System.out.print(str);
     }
 }
