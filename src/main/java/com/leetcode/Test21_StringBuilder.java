@@ -38,5 +38,9 @@ public class Test21_StringBuilder {
 
         System.out.println(str1.length());
         System.out.println(str1.toString().toCharArray());
+
+        System.out.println(str1.charAt(4));
+        System.out.println(str1.toString().charAt(2));
+
     }
 }
