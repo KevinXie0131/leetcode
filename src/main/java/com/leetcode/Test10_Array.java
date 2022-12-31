@@ -41,5 +41,9 @@ public class Test10_Array {
         char[] chArray1 = st.toCharArray();
         System.out.println(chArray1);
 
+        int[] intArray = new int[4];
+        Arrays.fill(intArray, 3);
+        System.out.println(Arrays.toString(intArray));
+
     }
 }
