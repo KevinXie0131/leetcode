@@ -42,5 +42,7 @@ public class Test21_StringBuilder {
         System.out.println(str1.charAt(4));
         System.out.println(str1.toString().charAt(2));
 
+        str1.deleteCharAt(8);
+        System.out.println(str1);
     }
 }
