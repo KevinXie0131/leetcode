@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Test8_PriorityQueue {
@@ -38,6 +39,22 @@ public class Test8_PriorityQueue {
         priorityQueue3.add(9);
         priorityQueue3.add(15);
         System.out.println(priorityQueue3.peek());
+
+        PriorityQueue<Cord> priorityQueue4 = new PriorityQueue<>(new Comparator<Cord>() {
+            @Override
+            public int compare(Cord o1, Cord o2) {
+              //  return o1.val - o2.val;
+                return o2.val - o1.val;
+            }
+        });
+        priorityQueue4.add(new Cord(1,1,111));
+        priorityQueue4.add(new Cord(2,2,222));
+        priorityQueue4.add(new Cord(3,3,333));
+        System.out.println(priorityQueue4.poll().toString());
+        System.out.println(priorityQueue4.poll().toString());
+        priorityQueue4.add(new Cord(4,4,444));
+        System.out.println(priorityQueue4.poll().toString());
+        System.out.println(priorityQueue4.poll().toString());
     }
 }
 
@@ -52,5 +69,8 @@ class Cord {
         this.val = val;
     }
 
-
+    @Override
+    public String toString () {
+        return "Cord: " + i + ", " + j + ", " + val;
+    }
 }
