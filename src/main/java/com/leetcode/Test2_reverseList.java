@@ -19,7 +19,9 @@ public class Test2_reverseList {
            current = current.next;
        }
 
-        ListNode current1 = reverseList(node1);
+     //   ListNode current1 = reverseList(node1);
+     //   ListNode current1 = reverseListIterate(node1);
+        ListNode current1 = reverseListNew(node1, null);
         while (current1 != null)
         {
             System.out.println(current1.value);
@@ -35,5 +37,26 @@ public class Test2_reverseList {
         head.next.next = head;
         head.next = null;
         return p;
+    }
+
+    public static ListNode reverseListIterate(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    public static ListNode reverseListNew(ListNode cur, ListNode pre) {
+        if (cur == null) {
+            return pre;
+        }
+        ListNode next = cur.next;
+        cur.next = pre;
+        return reverseListNew(next, cur);
     }
 }
