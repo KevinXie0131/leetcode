@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class Template4_Monotone_queue {
     public static void main(String[] args) {
 
-        int[] nums = {1,3,-1,-3,5,3,6,7};
+        int[] nums = {1,3,-1,-3,-2,5,3,6,7};
         int k = 3;
         int n = nums.length;
 
@@ -15,7 +15,7 @@ public class Template4_Monotone_queue {
         for (int i = 0; i < n; ++i) {
             while (!deque.isEmpty() && nums[i] >= deque.peekLast()) {
                 deque.pollLast();
-                System.out.println(deque);
+             //   System.out.println(deque);
             }
             deque.offerLast(nums[i]);
             System.out.println(deque);
