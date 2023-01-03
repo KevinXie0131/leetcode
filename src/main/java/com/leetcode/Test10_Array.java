@@ -45,5 +45,14 @@ public class Test10_Array {
         Arrays.fill(intArray, 3);
         System.out.println(Arrays.toString(intArray));
 
+        int[][] intArray2D = new int[2][3];
+        intArray2D = new int[][]{{2, 3}, {1, 4}, {3, 5}};
+        int[] temp = intArray2D[0];
+        intArray2D[0] = intArray2D[2];
+        intArray2D[2] = temp;
+        System.out.println(Arrays.deepToString(intArray2D));
+
+        int[] intArraySearch = new int[]{2, 5, 6, 8, 10, 11, 15};
+        System.out.println(Arrays.binarySearch(intArraySearch, 11));
     }
 }
