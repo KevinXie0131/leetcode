@@ -1,9 +1,6 @@
 package com.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Test3_hashmap {
 
@@ -17,8 +14,9 @@ public class Test3_hashmap {
         set.add(9);
 
         for (Integer a : set) {
-            System.out.println(a);
+            System.out.print(a + " ");
         }
+        System.out.println();
 
         HashMap<String, String> hashMap = new HashMap();
         hashMap.put("c","c");
@@ -75,5 +73,19 @@ public class Test3_hashmap {
             put('}', '{');
         }};
         System.out.println("pairs " + pairs);
+
+        System.out.println("TreeMap");
+        TreeMap<String, Integer> treeMap = new TreeMap<>();
+        treeMap.put("c", 2);
+        treeMap.put("d", 3);
+        treeMap.put("a", 1);
+        treeMap.put("b", 5);
+        System.out.println(treeMap);
+        System.out.println(treeMap.firstKey());
+        System.out.println(treeMap.lastKey());
+        System.out.println(treeMap.lowerKey("c"));
+        System.out.println(treeMap.higherKey("c"));
+        System.out.println(treeMap.floorKey("c"));
+        System.out.println(treeMap.ceilingKey("c"));
     }
 }
