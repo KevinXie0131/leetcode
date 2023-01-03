@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class Test13_LinkedList {
@@ -57,5 +58,17 @@ public class Test13_LinkedList {
         System.out.println(list2);
         list2.removeFirst();
         System.out.println(list2);
+
+        System.out.println("Implement Deque by LinkedList");
+        Deque<String> deque = new LinkedList<>();
+        deque.push("a");
+        deque.push("b");
+        System.out.println(deque);
+        deque.pop();
+        System.out.println(deque);
+        deque.offer("c");
+        System.out.println(deque);
+        deque.poll();
+        System.out.println(deque);
     }
 }
