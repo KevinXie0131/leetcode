@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -55,6 +56,16 @@ public class Test8_PriorityQueue {
         priorityQueue4.add(new Cord(4,4,444));
         System.out.println(priorityQueue4.poll().toString());
         System.out.println(priorityQueue4.poll().toString());
+
+        PriorityQueue<Cordinate> priorityQueue5 = new PriorityQueue<>(Collections.reverseOrder());
+        priorityQueue5.add(new Cordinate(1,1,111));
+        priorityQueue5.add(new Cordinate(2,2,222));
+        System.out.println(priorityQueue5.poll().toString());
+
+        PriorityQueue<Cordinate> priorityQueue6 = new PriorityQueue<>(new MyComparator());
+        priorityQueue6.add(new Cordinate(1,1,111));
+        priorityQueue6.add(new Cordinate(2,2,222));
+        System.out.println(priorityQueue6.poll().toString());
     }
 }
 
@@ -72,5 +83,38 @@ class Cord {
     @Override
     public String toString () {
         return "Cord: " + i + ", " + j + ", " + val;
+    }
+}
+
+class Cordinate implements Comparable {
+    int i;
+    int j;
+    int val;
+
+    public Cordinate (int i, int j, int val) {
+        this.i = i;
+        this.j = j;
+        this.val = val;
+    }
+
+    public int getVal() {
+        return val;
+    }
+
+    @Override
+    public String toString () {
+        return "Cordinate: " + i + ", " + j + ", " + val;
+    }
+
+    @Override
+    public int compareTo(Object o1) {
+        return this.val - ((Cordinate)o1).val;
+    }
+}
+
+class MyComparator implements Comparator{
+    @Override
+    public int compare(Object o1, Object o2) {
+        return ((Cordinate)o2).val - ((Cordinate)o1).val;
     }
 }
