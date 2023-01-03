@@ -50,5 +50,19 @@ public class Test15_Math {
         System.out.println("mid using >>> 1 = " + ((low + high) >>> 1));
         System.out.println("mid using / 2   = " + ((low + high) / 2));
         System.out.println("mid using / 2   = " + (low + (high - low) / 2));
+
+        int val = 0b01100;
+        int shifted = val << 2;
+        System.out.println(Integer.toBinaryString(shifted));
+        System.out.println(Integer.numberOfLeadingZeros(33));
+        System.out.println(Integer.toBinaryString(33));
+
+        System.out.println((13 & 1) == 0); // isEven
+        System.out.println((12 & 1) == 0);
+
+        int n1 = 16;
+        int n2 = 17;
+        System.out.println((n1 & (n1 - 1)) == 0); //isPowerOfTwo;
+        System.out.println((n2 & (n2 - 1)) == 0);
     }
 }

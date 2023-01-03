@@ -16,7 +16,7 @@ public class Test10_Array {
         for (int arr : array1) {
             System.out.println(arr);
         }
-
+        
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 4, 5));
         List<Integer> listCopy = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6));
         System.out.println(list);
@@ -24,6 +24,11 @@ public class Test10_Array {
         System.out.println("contains ->"  + list.contains(3));
         System.out.println("contains ->"  + list.contains(6));
         System.out.println("containsAll ->"  + list.containsAll(listCopy));
+
+        List<int[]> list2 = new ArrayList<>();
+        list2.add(new int[]{1,2,3});
+        list2.add(new int[]{1,2,4});
+        System.out.println(list2.get(1).length);
 
         List<Integer> list1 = Arrays.asList(1, 3, 4, 5, 6);
         System.out.println(list1);
