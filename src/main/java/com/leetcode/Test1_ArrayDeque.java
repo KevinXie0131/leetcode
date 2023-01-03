@@ -34,13 +34,14 @@ public class Test1_ArrayDeque {
 
         Stack<Integer> stack = new Stack();
 
-        Deque<String> stack1 = new ArrayDeque<>();
+        Deque<String> stack1 = new ArrayDeque<>(4);
         stack1.push("first");
         stack1.push("second");
         stack1.push("third");
         System.out.println("stack1.pop() " + stack1.pop());
         System.out.println("stack1.pop() " + stack1.pop());
         System.out.println("stack1.pop() " + stack1.pop());
+    //    stack1.push(null);   // ArrayDeque also does not allow you to insert null elements.
 
         Deque<String> queue1 = new ArrayDeque<>();
         queue1.offer("first");

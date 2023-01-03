@@ -70,5 +70,8 @@ public class Test13_LinkedList {
         System.out.println(deque);
         deque.poll();
         System.out.println(deque);
+        deque.offer(null);
+        System.out.println(deque);
+
     }
 }
