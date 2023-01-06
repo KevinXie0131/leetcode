@@ -19,7 +19,8 @@ public class Test3_hashmap {
         System.out.println();
 
         HashMap<String, String> hashMap = new HashMap();
-        hashMap.put("c","c");
+        System.out.println(hashMap.put("c","c"));
+        System.out.println(hashMap.put("c","c"));
         hashMap.put("a","a");
         hashMap.put("b","b");
         hashMap.put("e","e");
