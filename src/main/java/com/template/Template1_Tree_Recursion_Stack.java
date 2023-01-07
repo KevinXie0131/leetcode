@@ -80,6 +80,10 @@ public class Template1_Tree_Recursion_Stack {
         list.stream().forEach(e -> System.out.print(e + "  "));
     }
 
+    /**
+     * In the implemented strategy, we push nodes into stack following the order Top->Bottom and Left->Right.
+     * Since DFS postorder transversal is Bottom->Top and Left->Right the output list should be reverted after the end of the loop.
+     */
     public static void postOrderRecursionAnother (Node root) {
         LinkedList<Integer> list = new LinkedList<>();
 
