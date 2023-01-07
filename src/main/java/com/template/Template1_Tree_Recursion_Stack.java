@@ -30,6 +30,9 @@ public class Template1_Tree_Recursion_Stack {
          * 3  4  2  6  7  5  1
          */
         postOrderRecursion(root);
+        System.out.println();
+
+        postOrderRecursionAnother(root);
     }
 
     public static void preOrderRecursion (Node root) {
@@ -74,6 +77,31 @@ public class Template1_Tree_Recursion_Stack {
         }
 
         Collections.reverse(list);
+        list.stream().forEach(e -> System.out.print(e + "  "));
+    }
+
+    public static void postOrderRecursionAnother (Node root) {
+        LinkedList<Integer> list = new LinkedList<>();
+
+        Deque<Node> stack = new ArrayDeque<>();
+        stack.push(root);
+
+        while(!stack.isEmpty()) {
+            Node node = stack.pop();
+            if (node != null) {
+                list.addFirst(node.value);  // Add val from the start
+            } else {
+                continue;
+            }
+            if(node.left != null) {   // left is before leftright
+                stack.push(node.left);
+            }
+            if(node.right != null) {
+                stack.push(node.right);
+            }
+        }
+
+       // Collections.reverse(list);
         list.stream().forEach(e -> System.out.print(e + "  "));
     }
 }
