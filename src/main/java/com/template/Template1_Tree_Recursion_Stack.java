@@ -27,6 +27,13 @@ public class Template1_Tree_Recursion_Stack {
         System.out.println();
 
         /**
+         * 3  2  4  1  6  5  7
+         */
+        List<Integer> list = inorderTraversalStack(root);
+        list.stream().forEach(e -> System.out.print(e + "  "));
+        System.out.println();
+
+        /**
          * 3  4  2  6  7  5  1
          */
         postOrderRecursion(root);
@@ -53,6 +60,27 @@ public class Template1_Tree_Recursion_Stack {
                 stack.push(node.left);
             }
         }
+    }
+
+    public static List<Integer> inorderTraversalStack (Node root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null){
+            return result;
+        }
+
+        Deque<Node> stack = new ArrayDeque<>();
+        Node cur = root;
+        while (cur != null || !stack.isEmpty()){
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                result.add(cur.value);
+                cur = cur.right;
+            }
+        }
+        return result;
     }
 
     public static void postOrderRecursion (Node root) {
