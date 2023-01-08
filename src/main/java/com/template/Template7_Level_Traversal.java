@@ -30,6 +30,9 @@ public class Template7_Level_Traversal {
         dfsRecursionAnother(root,0);
         System.out.println(resListRec1);
 
+        Collections.reverse(resListRec1);
+        System.out.println(resListRec1);
+
         bfsIteration(root);
         System.out.println(resList);
 
