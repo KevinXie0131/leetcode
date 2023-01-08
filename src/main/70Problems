@@ -1,46 +1,46 @@
 笔记：
 1.数据结构：
-数组Array 485/283/27
+数组Array 485/283/27 (485. Max Consecutive Ones | 283. Move Zeroes | 27. Remove Element)
 
-链表Linked List 203/206
+链表Linked List 203/206 (203. Remove Linked List Elements | 206. Reverse Linked List)
 
-队列Queue 933/225（用队列实现栈）/622/641
+队列Queue 933/225（用队列实现栈）/622/641 (933. Number of Recent Calls | 225. Implement Stack using Queues | 622. Design Circular Queue | 641. Design Circular Deque)
 
-栈stack 20/496/232（用栈实现队列）
+栈stack 20/496/232（用栈实现队列）(20. Valid Parentheses | 496. Next Greater Element I | 232. Implement Queue using Stacks)
 
-哈希表Hash table 217/389/496
+哈希表Hash table 217/389/496 (217. Contains Duplicate | 389. Find the Difference | 496. Next Greater Element I)
 
-集合set 217/705（设计哈希集合）
+集合set 217/705（设计哈希集合）(217. Contains Duplicate | 705. Design HashSet)
 
-堆Heap 215/692
+堆Heap 215/692 (215. Kth Largest Element in an Array | 692. Top K Frequent Words)
 
 树&图 -> 各种算法
 
 2.算法：
-双指针two pointers 141/344/881
+双指针two pointers 141/344/881 (141. Linked List Cycle | 344. Reverse String | 881. Boats to Save People)
 
-二分查找 binary search 704/35/162/74
+二分查找 binary search 704/35/162/74 (704. Binary Search | 35. Search Insert Position | 162. Find Peak Element | 74. Search a 2D Matrix)
 
-滑动窗口 sliding window（技巧） 209/1456
+滑动窗口 sliding window（技巧） 209/1456 (209. Minimum Size Subarray Sum | 1456. Maximum Number of Vowels in a Substring of Given Length)
 
-递归 recursion 509/206/344/687
+递归 recursion 509/206/344/687 (509. Fibonacci Number | 206. Reverse Linked List | 344. Reverse String | 687. Longest Univalue Path)
 
-分治 divide&conquer 169/53
+分治 divide&conquer 169/53 (169. Majority Element | 53. Maximum Subarray)
 
-回溯 backtracking 22/78/77/46（全都非常经典）
+回溯 backtracking 22/78/77/46（全都非常经典) (22. Generate Parentheses | 78. Subsets | 77. Combinations | 46. Permutations)
 
-深度优先搜索DFS 938/78/200
+深度优先搜索DFS 938/78/200 (938. Range Sum of BST | 78. Subsets | 200. Number of Islands)
 
-宽度优先搜索BFS  102 107 200
+宽度优先搜索BFS  102/107/200 (102. Binary Tree Level Order Traversal | 107. Binary Tree Level Order Traversal II | 200. Number of Islands)
 
-并查集 union find 200/547/721
+并查集 union find 200/547/721 (200. Number of Islands | 547. Number of Provinces | 721. Accounts Merge)
 
-贪心 greedy 322/1217/55
+贪心 greedy 322/1217/55 (322. Coin Change | 1217. Minimum Cost to Move Chips to The Same Position | 55. Jump Game)
 
-记忆化搜索（技巧）Memoization 509/322
+记忆化搜索（技巧）Memoization 509/322 (509. Fibonacci Number | 322. Coin Change)
 
-动态规划 dynamic programming 509/62/121/70/279/221
+动态规划 dynamic programming 509/62/121/70/279/221 (509. Fibonacci Number | 62. Unique Paths | 121. Best Time to Buy and Sell Stock | 70. Climbing Stairs | 279. Perfect Squares | 221. Maximal Square)
 
-拓扑排序 topological sort 207/210
+拓扑排序 topological sort 207/210 (207. Course Schedule | 210. Course Schedule II)
 
-前缀树 trie 208/720/692
+前缀树 trie 208/720/692 (208. Implement Trie (Prefix Tree) | 720. Longest Word in Dictionary | 692. Top K Frequent Words)
