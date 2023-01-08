@@ -125,7 +125,7 @@ public class Template1_Tree_Recursion_Stack {
             } else {
                 continue;
             }
-            if(node.left != null) {   // left is before leftright
+            if(node.left != null) {   // left is before right
                 stack.push(node.left);
             }
             if(node.right != null) {
