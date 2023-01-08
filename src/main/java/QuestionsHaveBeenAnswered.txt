@@ -15,11 +15,15 @@ Similar problems of Level Order Traversal:
 117. Populating Next Right Pointers in Each Node II
 104. Maximum Depth of Binary Tree
 111. Minimum Depth of Binary Tree
+543. Diameter of Binary Tree (additional)
+100. Same Tree (additional)
+572. Subtree of Another Tree (additional)
 ----------------------------------------
 226. Invert Binary Tree
 101. Symmetric Tree
 104. Maximum Depth of Binary Tree
 111. Minimum Depth of Binary Tree
+
 222. Count Complete Tree Nodes
 110. Balanced Binary Tree
 257. Binary Tree Paths
