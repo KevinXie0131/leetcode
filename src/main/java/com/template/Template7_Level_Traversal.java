@@ -6,6 +6,8 @@ public class Template7_Level_Traversal {
 
     static List<List<Integer>> resListRec = new ArrayList<List<Integer>>();
     static List<List<Integer>> resListRec1 = new ArrayList<List<Integer>>();
+    static List<Integer> resListRec2 = new ArrayList<Integer>();
+    static List<Integer> resListRec3 = new ArrayList<Integer>();
     static List<List<Integer>> resList = new ArrayList<List<Integer>>();
 
     public static void main(String[] args) {
@@ -24,22 +26,28 @@ public class Template7_Level_Traversal {
         node5.setLeft(node6);
         node5.setRight(node7);
 
-        dfsRecursion(root,0);
+        dfsRecursionLevel(root,0);
         System.out.println(resListRec);
 
-        dfsRecursionAnother(root,0);
+        dfsRecursionLevelAnother(root,0);
         System.out.println(resListRec1);
 
         Collections.reverse(resListRec1);
         System.out.println(resListRec1);
 
+        dfsIteration(root);
+        System.out.println(resListRec2);
+
         bfsIteration(root);
+        System.out.println(resListRec3);
+
+        bfsIterationLevel(root);
         System.out.println(resList);
 
     }
 
     //DFS--递归方式
-    public static void dfsRecursion(TreeNode node, Integer deep) {
+    public static void dfsRecursionLevel(TreeNode node, Integer deep) {
         if (node == null) return;
         deep++;
 
@@ -50,11 +58,11 @@ public class Template7_Level_Traversal {
         }
         resListRec.get(deep - 1).add(node.value);
 
-        dfsRecursion(node.left, deep);
-        dfsRecursion(node.right, deep);
+        dfsRecursionLevel(node.left, deep);
+        dfsRecursionLevel(node.right, deep);
     }
 
-    public static void dfsRecursionAnother(TreeNode node, Integer deep) {
+    public static void dfsRecursionLevelAnother(TreeNode node, Integer deep) {
         if (node == null) return;
      //   deep++;
 
@@ -65,12 +73,52 @@ public class Template7_Level_Traversal {
         }
         resListRec1.get(deep).add(node.value);
 
-        dfsRecursionAnother(node.left, deep + 1);
-        dfsRecursionAnother(node.right, deep + 1);
+        dfsRecursionLevelAnother(node.left, deep + 1);
+        dfsRecursionLevelAnother(node.right, deep + 1);
+    }
+
+    //DFS--迭代方式--借助Stack
+    public static void dfsIteration(TreeNode node) {
+        if (node == null) return;
+
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            TreeNode tmpNode = stack.pop();
+            resListRec2.add(tmpNode.value);
+
+            if (tmpNode.right != null) {
+                stack.push(tmpNode.right);
+            }
+            if (tmpNode.left != null) {
+                stack.push(tmpNode.left);
+            }
+        }
+    }
+
+    //BFS--迭代方式--借助Queue
+    public static void bfsIteration(TreeNode node) {
+        if (node == null) return;
+
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(node);
+
+        while (!queue.isEmpty()) {
+            TreeNode tmpNode = queue.poll();
+            resListRec3.add(tmpNode.value);
+
+            if (tmpNode.left != null) {
+                queue.offer(tmpNode.left);
+            }
+            if (tmpNode.right != null) {
+                queue.offer(tmpNode.right);
+            }
+        }
     }
 
     //BFS--迭代方式--借助队列
-    public static void bfsIteration(TreeNode node) {
+    public static void bfsIterationLevel(TreeNode node) {
         if (node == null) return;
 
         Queue<TreeNode> que = new LinkedList<TreeNode>();

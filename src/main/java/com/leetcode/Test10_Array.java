@@ -19,6 +19,7 @@ public class Test10_Array {
         
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 4, 5));
         list.set(1, 13);
+        list.remove(list.size() - 1);
 
         List<Integer> listCopy = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6));
         System.out.println(list);
