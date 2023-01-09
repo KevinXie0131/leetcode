@@ -6,6 +6,7 @@ import com.template.TreeNode;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 public class Test24_Tree_Path_Sum {
 
@@ -36,6 +37,7 @@ public class Test24_Tree_Path_Sum {
 
         System.out.println(hasPathSum5(root, 13));
 
+        System.out.println(pathSum0(root, 13));
     }
 
     /**
@@ -181,5 +183,38 @@ public class Test24_Tree_Path_Sum {
         }
 
         return false;
+    }
+
+    /**
+     * 113. Path Sum II
+     * https://leetcode.com/problems/path-sum-ii/
+     */
+    static List<List<Integer>> result = new ArrayList<List<Integer>>();
+    static ArrayList<Integer> pathSum0 = new ArrayList<>();
+
+    public  static List<List<Integer>> pathSum0(TreeNode root, int targetSum) {
+
+        dfs0(root, targetSum);
+        return result;
+    }
+
+    public static void dfs0(TreeNode root, int targetSum){
+        if (root == null) return;
+
+        pathSum0.add(root.value);
+        if (root.left == null && root.right == null) {
+            if(pathSum0.stream().reduce(0, (a, b) -> a + b) == targetSum){
+                ArrayList newList = new ArrayList(pathSum0);
+                result.add(newList);
+            }
+        }
+        if (root.left != null) {
+            pathSum0(root.left,  targetSum);
+            pathSum0.remove(pathSum0.size() - 1);
+        }
+        if (root.right != null) {
+            pathSum0(root.right,  targetSum);
+            pathSum0.remove(pathSum0.size() - 1);
+        }
     }
 }
