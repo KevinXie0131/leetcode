@@ -23,7 +23,6 @@ Similar problems of Level Order Traversal:
 101. Symmetric Tree
 104. Maximum Depth of Binary Tree
 111. Minimum Depth of Binary Tree
-
 222. Count Complete Tree Nodes
 110. Balanced Binary Tree
 257. Binary Tree Paths
