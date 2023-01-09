@@ -3,7 +3,9 @@ package com.leetcode;
 import com.template.Node;
 import com.template.TreeNode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class Test24_Tree_Path_Sum {
 
@@ -31,6 +33,9 @@ public class Test24_Tree_Path_Sum {
         System.out.println(hasPathSum3(root, 13));
 
         System.out.println(hasPathSum4(root, 13));
+
+        System.out.println(hasPathSum5(root, 13));
+
     }
 
     /**
@@ -148,5 +153,33 @@ public class Test24_Tree_Path_Sum {
         }
         return left || right;
 
+    }
+
+    public static boolean  hasPathSum5(TreeNode root, int targetSum) {
+        if (root == null) return false;
+
+        Deque<TreeNode> stackNode = new ArrayDeque<>();
+        Deque<Integer> stackVal = new ArrayDeque<>();
+        stackNode.push(root);
+        stackVal.push(root.getValue());
+
+        while (!stackNode.isEmpty()) {
+            int tmpVal = stackVal.pop();
+            TreeNode tmpNode = stackNode.pop();
+
+            if (tmpNode.getLeft() == null & tmpNode.getRight() == null) {
+                 if (tmpVal == targetSum) return true;
+            }
+            if (tmpNode.getRight() != null) {
+                stackNode.push(tmpNode.getRight());
+                stackVal.push(tmpNode.getRight().getValue() + tmpVal);
+            }
+            if (tmpNode.getLeft() != null) {
+                stackNode.push(tmpNode.getLeft());
+                stackVal.push(tmpNode.getLeft().getValue() + tmpVal);
+            }
+        }
+
+        return false;
     }
 }
