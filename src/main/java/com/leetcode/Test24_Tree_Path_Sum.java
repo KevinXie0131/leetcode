@@ -29,6 +29,8 @@ public class Test24_Tree_Path_Sum {
         System.out.println(hasPathSum2(root, 13));
 
         System.out.println(hasPathSum3(root, 13));
+
+        System.out.println(hasPathSum4(root, 13));
     }
 
     /**
@@ -109,6 +111,40 @@ public class Test24_Tree_Path_Sum {
         if (node.getRight() != null) {
             right = dfs3(node.getRight(), pathSum, targetSum);
             pathSum.remove(pathSum.size() - 1);
+        }
+        return left || right;
+
+    }
+
+    /**
+     * There is no need to backtracking mannual, since it is an Integer.
+     */
+    static Integer pathSum1 = new Integer(0);
+
+    public static boolean hasPathSum4(TreeNode root, int targetSum) {
+        if (root == null) return false;
+
+        return dfs4(root, pathSum1, targetSum);
+    }
+
+    public static boolean dfs4(TreeNode node, Integer pathSum1, int targetSum){
+
+        if (node == null)  return false;
+
+        pathSum1 += node.getValue();
+        if (node.getLeft() == null && node.getRight() == null) {
+            return pathSum1 == targetSum;
+        }
+
+        boolean left = false;
+        if (node.getLeft() != null) {
+            left = dfs4(node.getLeft(), pathSum1, targetSum);
+    //        pathSum1 -= node.getLeft().getValue();
+        }
+        boolean right = false;
+        if (node.getRight() != null) {
+            right = dfs4(node.getRight(), pathSum1, targetSum);
+    //        pathSum1 -= node.getRight().getValue();
         }
         return left || right;
 
