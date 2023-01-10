@@ -10,6 +10,10 @@ public class Test10_Array {
 
         int[] array0 = new int[] {1, 2, 3, 4, 5};
         System.out.println(Arrays.toString(array0));
+        int[] array0_Cloned = Arrays.copyOf(array0, 3);
+        System.out.println(Arrays.toString(array0_Cloned));
+        int[] array0_Cloned1 = Arrays.copyOfRange(array0, 1, 3);
+        System.out.println(Arrays.toString(array0_Cloned1));
 
         int[] array1 = new int[5];
         Arrays.fill(array1, -1);
@@ -20,6 +24,7 @@ public class Test10_Array {
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 4, 5));
         list.set(1, 13);
         list.remove(list.size() - 1);
+        System.out.println("subList-> " + list.subList(0,2));
 
         List<Integer> listCopy = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6));
         System.out.println(list);
