@@ -25,6 +25,7 @@ public class Test10_Array {
         list.set(1, 13);
         list.remove(list.size() - 1);
         System.out.println("subList-> " + list.subList(0,2));
+        System.out.println(list.stream().mapToInt(i -> i).toArray());
 
         List<Integer> listCopy = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 6));
         System.out.println(list);
