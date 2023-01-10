@@ -40,6 +40,7 @@ Similar problems of Level Order Traversal:
 98. Validate Binary Search Tree
 530. Minimum Absolute Difference in BST
 501. Find Mode in Binary Search Tree
+
 236. Lowest Common Ancestor of a Binary Tree
 235. Lowest Common Ancestor of a Binary Search Tree
 701. Insert into a Binary Search Tree
