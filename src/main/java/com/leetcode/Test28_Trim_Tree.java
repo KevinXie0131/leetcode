@@ -4,10 +4,24 @@ import com.template.TreeNode;
 
 public class Test28_Trim_Tree {
     public static void main(String[] args) {
+        /**
+         * [3,0,4,null,2,null,null,1], low = 1, high = 3
+         */
+        TreeNode root1 = new TreeNode(3);
+        TreeNode node2 = new TreeNode(0);
+        TreeNode node3 = new TreeNode(4);
+        TreeNode node4 = new TreeNode(2);
+        TreeNode node5 = new TreeNode(1);
+        root1.setLeft(node2);
+        root1.setRight(node3);
+        node2.setRight(node4);
+        node4.setLeft(node5);
 
+        TreeNode root = trimBST(root1, 1, 3);
+        System.out.println(root);
     }
 
-    public TreeNode trimBST(TreeNode root, int low, int high) {
+    static public TreeNode trimBST(TreeNode root, int low, int high) {
         if (root == null) return null;
         if(root.value < low){
             return trimBST(root.right,  low,  high);
@@ -23,7 +37,7 @@ public class Test28_Trim_Tree {
         return root;
     }
 
-    public TreeNode trimBST1(TreeNode root, int low, int high) {
+    static public TreeNode trimBST1(TreeNode root, int low, int high) {
         // 找到修剪之后的二叉搜索树的头节点 root
         if(root == null){
             return null;
@@ -54,5 +68,4 @@ public class Test28_Trim_Tree {
         }
         return root;
     }
-
 }
