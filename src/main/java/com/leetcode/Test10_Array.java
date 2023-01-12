@@ -68,5 +68,13 @@ public class Test10_Array {
 
         int[] intArraySearch = new int[]{2, 5, 6, 8, 10, 11, 15};
         System.out.println(Arrays.binarySearch(intArraySearch, 11));
+
+        func(intArraySearch);
+        System.out.println(Arrays.toString(intArraySearch));
+    }
+
+    static public void func(int[] intArraySearch){
+        intArraySearch = new int[]{1, 1, 1, 1};
+        System.out.println(Arrays.toString(intArraySearch));
     }
 }
