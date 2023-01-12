@@ -23,7 +23,8 @@ public class Test31_Comnbination1 {
             result.add(new ArrayList<Integer>(path));
             return;
         }
-        for(int i = startIndex; i <= n; i++){
+     //   for(int i = startIndex; i <= n; i++){
+        for(int i = startIndex; i <= n - (k - path.size()) + 1; i++){
             path.addLast(i);
             backtracking(n, k, i + 1, result, path);
             path.removeLast();
