@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import java.util.Arrays;
+
 public class Test16_String {
 
     public static void main(String[] args) {
@@ -28,5 +30,25 @@ public class Test16_String {
         String ss1 = "abcdef";
         System.out.println(ss.substring(0, 2));
         System.out.println(ss1.substring(2));
+
+        String str = "abc";
+        char[] array = str.toCharArray();
+        System.out.println(Arrays.toString(array));
+
+        System.out.println(isPalindrome("abba"));
+        System.out.println(isPalindrome("abcba"));
+        System.out.println(isPalindrome("abcdba"));
+
+        System.out.println(str.length());
+    }
+
+    public static boolean isPalindrome(String str){
+        char[] array = str.toCharArray();
+        for(int i = 0, j = array.length - 1; i < j; i++, j--){
+            if(array[i] != array[j]){
+                return false;
+            }
+        }
+        return true;
     }
 }
