@@ -23,6 +23,9 @@ public class Test35_Subset2 {
         }
 
         int[]  used = new int[nums.length];
+        /**
+         * Sort array before remove duplicates
+         */
         Arrays.sort(nums);
 
         backtracking(nums,0, used);
