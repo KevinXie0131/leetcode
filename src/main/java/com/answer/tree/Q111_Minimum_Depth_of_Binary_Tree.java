@@ -20,6 +20,9 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         return Math.min(left, right) + 1;
     }
 
+    /**
+     *
+     */
     public int minDepth1(TreeNode root) {
         if(root == null) {
             return 0;
@@ -37,6 +40,9 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         return ans + 1;
     }
 
+    /**
+     *
+     */
     public int minDepth2(TreeNode root) {
         int result = Integer.MAX_VALUE;
         if (root == null) {

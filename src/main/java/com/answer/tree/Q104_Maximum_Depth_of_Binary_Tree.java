@@ -14,13 +14,18 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         return Math.max(left, right) + 1;
     }
 
+    /**
+     *
+     */
     public int maxDepth1(TreeNode root) {
         if (root == null) {
             return 0;
         }
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
-
+    /**
+     *
+     */
     public int maxDepth2(TreeNode root) {
         int depth = 0;
         if (root == null) {

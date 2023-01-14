@@ -69,7 +69,6 @@ public class Q257_Binary_Tree_Paths {
     /**
      *
      */
-
     public List<String> binaryTreePaths2(TreeNode root) {
         List<String> res = new ArrayList<>();
         if (root == null) {

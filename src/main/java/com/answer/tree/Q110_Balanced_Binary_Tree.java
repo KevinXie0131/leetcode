@@ -31,6 +31,9 @@ public class Q110_Balanced_Binary_Tree {
         }
     }
 
+    /**
+     *
+     */
     public boolean isBalanced1(TreeNode root) {
         return getHeight1(root) != -1 ? true: false;
     }

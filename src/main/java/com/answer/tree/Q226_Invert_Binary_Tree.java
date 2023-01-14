@@ -19,6 +19,9 @@ public class Q226_Invert_Binary_Tree {
         return root;
     }
 
+    /**
+     *
+     */
     public TreeNode invertTree1(TreeNode root) {
         if (root == null) return root;
 
