@@ -1,4 +1,4 @@
-package com.answer;
+package com.answer.stack;
 
 import java.util.HashMap;
 import java.util.Map;
