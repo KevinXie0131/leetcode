@@ -1,4 +1,4 @@
-package com.answer.backtracking.Q77;
+package com.answer.backtracking;
 
 import java.util.ArrayList;
 import java.util.*;
