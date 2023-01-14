@@ -12,7 +12,7 @@ public class Test36_IP_Address {
     static List<String> result = new ArrayList<String>();
 
     public static List<String> restoreIpAddresses(String s) {
-        if(s.length()>12) return result;
+        if(s.length()>12 || s.length()<4) return result;
         backtracking(s,0,0);
         return result;
     }
@@ -24,6 +24,13 @@ public class Test36_IP_Address {
             }
             return;
         }
+        /**
+         * pruning
+         */
+        if (s.length() - startIndex > 3 * (4 - pointNum)) {
+            return;
+        }
+
         for(int i = startIndex; i < s.length(); i++){
             if(isValid(s, startIndex, i)){
                 s = s.substring(0, i+1)+"."+s.substring(i+1);
