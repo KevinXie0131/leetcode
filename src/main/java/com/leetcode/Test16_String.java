@@ -19,7 +19,7 @@ public class Test16_String {
 
         int int_a = 'a';
         System.out.println(int_a);
-        System.out.println((char)66);
+        System.out.println((char) 66);
 
         System.out.println("apply".compareTo("apple"));
         System.out.println("apple".compareTo("apply"));
@@ -40,6 +40,18 @@ public class Test16_String {
         System.out.println(isPalindrome("abcdba"));
 
         System.out.println(str.length());
+
+        char c = 'x';
+        String s1 = String.valueOf(c);
+        System.out.println(s1);
+        char[] c1 = {'x', 'y', 'z'};
+        String s2 = String.valueOf(c1);
+        System.out.println(s2);
+
+        Integer i1 = Integer.valueOf("123");
+        System.out.println(i1);
+        int i2 = Integer.parseInt("12345");
+        System.out.println(i2);
     }
 
     public static boolean isPalindrome(String str){
