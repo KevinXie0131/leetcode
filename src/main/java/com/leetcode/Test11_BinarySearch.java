@@ -15,6 +15,10 @@ public class Test11_BinarySearch {
         int[] array2 = {2, 5, 5, 5, 6, 6, 8, 9, 9, 9};
         int result2 = searchLastOccurrence(array2, 5);
         System.out.println("searchLastOccurrence: " + result2);
+
+        int[] array3 = {-1,0,3,5,9,12};
+        int result3 = binarySearchRecursion(array3, 9);
+        System.out.println("binarySearchRecursion: " + result3);
     }
 
     public static int searchExact (int[] array, int target) {
@@ -64,5 +68,33 @@ public class Test11_BinarySearch {
             }
         }
         return result;
+    }
+
+    /**
+     *
+     */
+    public static int binarySearchRecursion(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        int result = recursion(nums, target, left, right);
+        return result;
+
+    }
+
+    public static int recursion(int[] nums, int target, int left, int right){
+        if(left > right){
+            return -1;
+        }
+        int mid = (left + right) >>> 1;
+        if(nums[mid] == target){
+            return mid;
+        }
+        else if(nums[mid] < target){
+            return recursion(nums, target, mid + 1, right);
+        } else {
+            return recursion(nums, target, left, mid - 1);
+        }
+
     }
 }
