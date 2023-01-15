@@ -19,6 +19,14 @@ public class Test11_BinarySearch {
         int[] array3 = {-1,0,3,5,9,12};
         int result3 = binarySearchRecursion(array3, 9);
         System.out.println("binarySearchRecursion: " + result3);
+
+        int[] array4 = {-7,-4,3,9,9,9,12};
+        int result4 = binarySearchUpperBound(array4, 9);
+        System.out.println("binarySearchUpperBound: " + result4);
+
+        int[] array5 = {-7,-4,3,9,9,9,12};
+        int result5 = binarySearchLowerBound(array5, 9);
+        System.out.println("binarySearchLowerBound: " + result5);
     }
 
     public static int searchExact (int[] array, int target) {
@@ -96,5 +104,49 @@ public class Test11_BinarySearch {
             return recursion(nums, target, left, mid - 1);
         }
 
+    }
+    /**
+     * Approach 2: Find Upper bound
+     */
+    public static int binarySearchUpperBound(int[] nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = nums.length;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (left > 0 && nums[left - 1] == target) {
+            return left - 1;
+        } else {
+            return -1;
+        }
+    }
+    /**
+     * Approach 3: Find Lower bound
+     */
+    public static int binarySearchLowerBound(int[] nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = nums.length;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] >= target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        if (left < nums.length && nums[left] == target) {
+            return left;
+        } else {
+            return -1;
+        }
     }
 }
