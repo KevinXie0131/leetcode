@@ -24,9 +24,17 @@ public class Test11_BinarySearch {
         int result4 = binarySearchUpperBound(array4, 9);
         System.out.println("binarySearchUpperBound: " + result4);
 
+        int[] array4a = {-7,-4,3,9,9,9,12};
+        int result4a = binarySearchUpperBound_1(array4a, 9);
+        System.out.println("binarySearchUpperBound_1: " + result4a);
+
         int[] array5 = {-7,-4,3,9,9,9,12};
         int result5 = binarySearchLowerBound(array5, 9);
         System.out.println("binarySearchLowerBound: " + result5);
+
+        int[] array5a = {-7,-4,3,9,9,9,12};
+        int result5a = binarySearchLowerBound_1(array5a, 9);
+        System.out.println("binarySearchLowerBound_1: " + result5a);
     }
 
     public static int searchExact (int[] array, int target) {
@@ -127,6 +135,26 @@ public class Test11_BinarySearch {
             return -1;
         }
     }
+
+    public static int binarySearchUpperBound_1(int[] nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        if (left > 0 && nums[left - 1] == target) {
+            return left - 1;
+        } else {
+            return -1;
+        }
+    }
     /**
      * Approach 3: Find Lower bound
      */
@@ -138,6 +166,26 @@ public class Test11_BinarySearch {
             int mid = left + (right - left) / 2;
             if (nums[mid] >= target) {
                 right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        if (left < nums.length && nums[left] == target) {
+            return left;
+        } else {
+            return -1;
+        }
+    }
+
+    public static int binarySearchLowerBound_1(int[] nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] >= target) {
+                right = mid - 1;
             } else {
                 left = mid + 1;
             }
