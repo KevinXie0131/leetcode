@@ -35,6 +35,8 @@ public class Test11_BinarySearch {
         int[] array5a = {-7,-4,3,9,9,9,12};
         int result5a = binarySearchLowerBound_1(array5a, 9);
         System.out.println("binarySearchLowerBound_1: " + result5a);
+
+        System.out.println(mySqrt(8));
     }
 
     public static int searchExact (int[] array, int target) {
@@ -196,5 +198,19 @@ public class Test11_BinarySearch {
         } else {
             return -1;
         }
+    }
+
+    public static int mySqrt(int x) {
+        int left = 0, right = x;
+        while(left <= right){
+            int mid = (left + right) >>> 1;
+            if((long)mid * mid <= x) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return left - 1;
     }
 }
