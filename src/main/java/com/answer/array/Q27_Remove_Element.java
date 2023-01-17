@@ -16,6 +16,9 @@ public class Q27_Remove_Element {
         return slowIndex;
     }
 
+    /**
+     *
+     */
     public int removeElement_1(int[] nums, int val) {
 
         int left = 0;
