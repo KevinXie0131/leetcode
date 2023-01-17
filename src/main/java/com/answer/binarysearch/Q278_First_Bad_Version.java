@@ -1,4 +1,4 @@
-package com.leetcode.binarysearch;
+package com.answer.binarysearch;
 
 public class Q278_First_Bad_Version {
 
