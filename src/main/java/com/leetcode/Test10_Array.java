@@ -71,6 +71,9 @@ public class Test10_Array {
 
         func(intArraySearch);
         System.out.println(Arrays.toString(intArraySearch));
+
+        char[] array = {'a', 'b', 'c'};
+        System.out.println(String.valueOf(array));
     }
 
     static public void func(int[] intArraySearch){
