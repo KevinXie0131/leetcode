@@ -30,4 +30,27 @@ public class Q541_Reverse_String_II {
         }
 
     }
+
+    /**
+     *
+     */
+    public String reverseStr_1(String s, int k) {
+        StringBuffer result = new StringBuffer();
+        int start = 0;
+        int len = s.length();
+
+        while(start < len){
+            StringBuffer temp = new StringBuffer();
+            int first = (start + k > len)?len:start+k;
+            int second = (start + 2*k > len)?len:start+2*k;
+            temp.append(s.substring(start, first));
+            result.append(temp.reverse());
+
+            result.append(s.substring(first, second));
+
+            start += 2*k;
+        }
+
+        return result.toString();
+    }
 }
