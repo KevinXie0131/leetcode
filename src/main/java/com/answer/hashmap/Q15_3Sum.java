@@ -29,7 +29,8 @@ public class Q15_3Sum {
             while(left < right){
                 if(nums[i] + nums[left] + nums[right] == 0){
                     int[] res = new int[]{nums[i],nums[left],nums[right]};
-                    result.add(Arrays.stream(res).boxed().collect(Collectors.toList()));
+                 //   result.add(Arrays.stream(res).boxed().collect(Collectors.toList()));
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
 
                     while(left<right && nums[left]==nums[left+1]){
                         left++;
