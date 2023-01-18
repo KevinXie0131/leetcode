@@ -2,6 +2,11 @@ package com.answer.hashmap;
 
 public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
     /**
+     * Similar problem:
+     * 170. Two Sum III - Data structure design
+     * https://leetcode.com/problems/two-sum-iii-data-structure-design/solution/
+     */
+    /**
      * Two points
      */
     public int[] twoSum(int[] numbers, int target) {
