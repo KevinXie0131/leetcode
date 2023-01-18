@@ -12,6 +12,7 @@ public class Test3_hashmap {
         set.add(8);
         set.add(2);
         set.add(9);
+        set.remove(2);
 
         for (Integer a : set) {
             System.out.print(a + " ");
@@ -23,6 +24,7 @@ public class Test3_hashmap {
         System.out.println(hashMap.put("c","c"));
         hashMap.put("a","a");
         hashMap.put("b","b");
+        hashMap.remove("b");
         hashMap.put("e","e");
         hashMap.put("d","d");
         hashMap.put("f"," old f");
