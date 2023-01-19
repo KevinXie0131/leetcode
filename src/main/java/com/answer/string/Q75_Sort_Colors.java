@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Q75_Sort_Colors {
     public static void main(String[] args) {
        int[] nums = {1,0,2,0,2,1,1,0};
-       sortColors_2(nums);
+       sortColors_3(nums);
 
         System.out.println(Arrays.toString(nums));
 
@@ -80,5 +80,32 @@ public class Q75_Sort_Colors {
                 ++p0;
             }
         }
+    }
+    /**
+     *
+     */
+    public static void sortColors_3(int[] nums) {
+        int n = nums.length;
+        int zero = 0;
+        int one = 0;
+        int two = n - 1;
+
+        while (one <= two) {
+            if (nums[one] == 0) {
+                swap(nums, zero, one);
+                zero++;
+                one++;
+            } else if (nums[one] == 1) {
+                one++;
+            } else {
+                swap(nums, one, two);
+                two--;
+            }
+        }
+    }
+    static void  swap(int[] nums, int i, int j) {
+        int c = nums[i];
+        nums[i] = nums[j];
+        nums[j] = c;
     }
 }
