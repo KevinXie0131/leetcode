@@ -1,7 +1,9 @@
 package com.answer.array;
 
 public class Q26_Remove_Duplicates_from_Sorted_Array {
-
+    /**
+     * Approach 1: Two indexes approach
+     */
     public int removeDuplicates(int[] nums) {
         int n = nums.length;
         if(n == 0) return 0;
