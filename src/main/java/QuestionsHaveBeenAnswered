@@ -6,6 +6,7 @@ Binary Search:
 278. First Bad Version (Additional)
 378. Kth Smallest Element in a Sorted Matrix (Additional)
 875. Koko Eating Bananas (Additional)
+162. Find Peak Element (Additional)
 
 Array:
 27. Remove Element
@@ -15,6 +16,7 @@ Array:
 59. Spiral Matrix II
 26. Remove Duplicates from Sorted Array (Additional)
 80. Remove Duplicates from Sorted Array II (Additional)
+165. Compare Version Numbers (Additional)
 
 List:
 203. Remove Linked List Elements
@@ -58,3 +60,8 @@ PriorityQueue:
 215. Kth Largest Element in an Array (Additional)
 295. Find Median from Data Stream (Additional) - Hard
 剑指 Offer 40. 最小的k个数  https://leetcode.cn/problems/zui-xiao-de-kge-shu-lcof/ (Additional)
+
+Math:
+7. Reverse Integer (Additional)
+9. Palindrome Number (Additional)
+8. String to Integer (atoi) (Additional)
