@@ -8,31 +8,31 @@ import java.util.*;
 public class Offer_40_Least_K_Numbers {
 
     public static void main(String[] args) {
-        int[] arr = {3,2, 3, 2, 2 ,1 ,1, 4, 4, 5};
+        int[] arr = {3, 2, 3, 2, 2, 1, 1, 4, 4, 5};
         int k = 2;
 
-        int[] result = getLeastNumbers_1(arr, k);
+        int[] result = getLeastNumbers_2(arr, k);
         System.out.println(Arrays.toString(result));
     }
 
     public static int[] getLeastNumbers(int[] arr, int k) {
         int[] result = new int[k];
-        PriorityQueue<Integer> queue = new PriorityQueue<Integer>(new Comparator<Integer>()      {
+        PriorityQueue<Integer> queue = new PriorityQueue<Integer>(new Comparator<Integer>() {
             public int compare(Integer num1, Integer num2) {
                 return num2 - num1;
             }
         });
 
-        for(int i = 0; i < k; i++){
+        for (int i = 0; i < k; i++) {
             queue.offer(arr[i]);
         }
-        for(int i = k; i < arr.length; i++){
-            if(queue.peek() > arr[i]){
+        for (int i = k; i < arr.length; i++) {
+            if (queue.peek() > arr[i]) {
                 queue.poll();
                 queue.offer(arr[i]);
             }
         }
-        for(int i = 0; i < k; i++){
+        for (int i = 0; i < k; i++) {
             result[i] = queue.poll();
         }
 
@@ -50,7 +50,7 @@ public class Offer_40_Least_K_Numbers {
         // cnt表示当前map总共存了多少个数字。
         TreeMap<Integer, Integer> map = new TreeMap<>();
         int cnt = 0;
-        for (int num: arr) {
+        for (int num : arr) {
             // 1. 遍历数组，若当前map中的数字个数小于k，则map中当前数字对应个数+1
             if (cnt < k) {
                 map.put(num, map.getOrDefault(num, 0) + 1);
@@ -75,10 +75,42 @@ public class Offer_40_Least_K_Numbers {
         // 最后返回map中的元素
         int[] res = new int[k];
         int idx = 0;
-        for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             int freq = entry.getValue();
             while (freq-- > 0) {
                 res[idx++] = entry.getKey();
+            }
+        }
+        return res;
+    }
+
+    /**
+     * use array as counter
+     * \
+     */
+    public static int[] getLeastNumbers_2(int[] arr, int k) {
+        if (k == 0 || arr.length == 0) {
+            return new int[0];
+        }
+        // 统计每个数字出现的次数
+        int[] counter = new int[10001];
+        for (int num : arr) {
+            counter[num]++;
+        }
+        // 根据counter数组从头找出k个数作为返回结果
+        int[] res = new int[k];
+        int idx = 0;
+        for (int num = 0; num < counter.length; num++) {
+           /* while (counter[num]-- > 0 && idx < k) {
+                res[idx++] = num;
+            }*/
+            while (counter[num] > 0 && idx < k) {
+                counter[num]--;
+                res[idx] = num;
+                idx++;
+            }
+            if (idx == k) {
+                break;
             }
         }
         return res;
