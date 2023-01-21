@@ -90,5 +90,15 @@ public class Test3_hashmap {
         System.out.println(treeMap.higherKey("c"));
         System.out.println(treeMap.floorKey("c"));
         System.out.println(treeMap.ceilingKey("c"));
+        System.out.println(treeMap.firstEntry());
+        System.out.println(treeMap.lastEntry());
+        System.out.println(treeMap.pollFirstEntry());
+        System.out.println(treeMap);
+        System.out.println(treeMap.pollLastEntry());
+        System.out.println(treeMap);
+        treeMap.replace("b", 15);
+        System.out.println(treeMap);
+        treeMap.remove("b");
+        System.out.println(treeMap);
     }
 }
