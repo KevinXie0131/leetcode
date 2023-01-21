@@ -18,4 +18,19 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
         }
         return slow + 1;
     }
+
+    /**
+     * General solution
+     */
+    public int removeDuplicates_1(int[] nums) {
+        int index = 0;
+        int k = 1;
+        for (int i = 0; i < nums.length; i++) {
+            if (index < k || nums[index - k] != nums[i]) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        return index;
+    }
 }
