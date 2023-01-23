@@ -75,5 +75,9 @@ public class Test1_ArrayDeque {
         System.out.println("queue2: " +  queue2.peekLast());
         System.out.println("queue2: " +  queue2.pop());
         System.out.println("queue2: " + queue2);
+
+        for(String s : queue2){
+            System.out.println(s);
+        }
     }
 }
