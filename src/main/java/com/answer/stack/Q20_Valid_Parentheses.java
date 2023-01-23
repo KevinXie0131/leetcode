@@ -52,4 +52,31 @@ public class Q20_Valid_Parentheses {
 
         return stack.isEmpty();
     }
+    /**
+     * Use StringBuffer as stack
+     */
+    public boolean isValid_2(String s) {
+        StringBuffer sb = new StringBuffer();
+
+        for(char c : s.toCharArray()){
+            if(c == '['){
+                sb.append(']');
+            }else if(c == '{'){
+                sb.append('}');
+            }else if(c == '('){
+                sb.append(')');
+            } else if(sb.length() == 0){
+                return false;
+            } else {
+                char ch = sb.charAt(sb.length() - 1);
+                if(ch != c){
+                    return false;
+                }else{
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            }
+        }
+
+        return sb.length() == 0;
+    }
 }

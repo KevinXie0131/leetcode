@@ -52,6 +52,14 @@ public class Test16_String {
         System.out.println(i1);
         int i2 = Integer.parseInt("12345");
         System.out.println(i2);
+
+        StringBuffer sb= new StringBuffer();
+        sb.append('a');
+        sb.insert(0, 'b');
+        sb.insert(sb.length(), 'c');
+        StringBuffer sb1 = sb.deleteCharAt(sb.length() - 1);
+        System.out.println(sb1);
+        System.out.println(sb);
     }
 
     public static boolean isPalindrome(String str){
