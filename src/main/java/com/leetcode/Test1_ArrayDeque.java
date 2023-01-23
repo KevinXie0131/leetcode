@@ -79,5 +79,11 @@ public class Test1_ArrayDeque {
         for(String s : queue2){
             System.out.println(s);
         }
+
+        Deque<String> queue3 = new ArrayDeque<>();
+        queue3.offer("a");
+        queue3.offer("b");
+        System.out.println(queue3.peekFirst());
+        System.out.println(queue3.peekLast());
     }
 }
