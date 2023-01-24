@@ -11,6 +11,9 @@ public class Q239_Sliding_Window_Maximum_1 {
         int k = 3;*/
         int[] nums = {1,-1};
         int k = 1;
+
+/*        int[] nums = {-7,-8,7,5,7,1,6,0};
+        int k = 4;*/
         int[] result = maxSlidingWindow(nums, k);
         System.out.println(Arrays.toString(result));
     }
@@ -22,18 +25,24 @@ public class Q239_Sliding_Window_Maximum_1 {
         int n = nums.length;
         int index = 0;
 
-        for(int i = 0; i < n; i++){
-            while(!queue.isEmpty() && ((i >= k + 1 && queue.peek() == nums[i - k + 1]) || k == 1)){
-                queue.poll();
-            }
+        for(int i = 0; i < k; i++){
             while(!queue.isEmpty() && nums[i] > queue.getLast()){
                 queue.removeLast();
             }
             queue.offer(nums[i]);
+        }
+        result[index++] = queue.peek();
 
-            if(i >= k - 1){
-                result[index++] = queue.peek();
+        for(int i = k; i < nums.length; i++){
+            if(!queue.isEmpty() && nums[i - k] == queue.peek()){
+                queue.poll();
             }
+            while(!queue.isEmpty() && nums[i]  > queue.getLast()){
+                queue.removeLast();
+            }
+            queue.offer(nums[i]);
+
+            result[index++] = queue.peek();
         }
         return result;
     }

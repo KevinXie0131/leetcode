@@ -7,6 +7,8 @@ public class Q239_Sliding_Window_Maximum {
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
         int k = 3;
+/*        int[] nums = {1,-1};
+        int k = 1;*/
         int[] result = maxSlidingWindow(nums, k);
         System.out.println(Arrays.toString(result));
     }
