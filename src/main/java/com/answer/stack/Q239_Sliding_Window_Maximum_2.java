@@ -36,4 +36,26 @@ public class Q239_Sliding_Window_Maximum_2 {
         }
         return ans;
     }
+    /**
+     *
+     */
+    public int[] maxSlidingWindow_1(int[] nums, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a, b)->b[1]-a[1]);
+        int n = nums.length;
+        int len = nums.length - k + 1;
+        int index = 0;
+        int[] result = new int[len];
+
+        for(int i = 0 ; i < n; i++){
+            pq.offer(new int[]{i, nums[i]});
+            if(i >= k - 1 ){
+                while(!pq.isEmpty() && pq.peek()[0] < i - k + 1){
+                    pq.poll();
+                }
+
+                result[index++] = pq.peek()[1];
+            }
+        }
+        return result;
+    }
 }
