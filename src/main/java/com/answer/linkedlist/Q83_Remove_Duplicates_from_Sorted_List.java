@@ -19,29 +19,6 @@ public class Q83_Remove_Duplicates_from_Sorted_List {
         return head;
     }
     /**
-     * Use two nodes
-     */
-    public ListNode deleteDuplicates_1(ListNode head) {
-        ListNode dummy = new ListNode(-1, head);
-        ListNode pre = dummy;
-        ListNode cur = head;
-        while(cur != null && cur.next != null){
-            if(cur.val == cur.next.val){
-                int val = cur.val;
-
-                while(cur != null && cur.val == val){
-                    cur = cur.next;
-                }
-                pre.next = cur;
-            }else{
-                pre = cur;
-                cur = cur.next;
-            }
-        }
-
-        return dummy.next;
-    }
-    /**
      * Recursive - from tail to head
      */
     public static ListNode deleteDuplicates_Recursive_1(ListNode head) {
