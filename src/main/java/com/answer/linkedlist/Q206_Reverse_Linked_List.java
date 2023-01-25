@@ -10,10 +10,23 @@ public class Q206_Reverse_Linked_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseList_1(node1);
+        ListNode node = reverseList_Iterative(node1);
         node.print();
     }
-
+    /**
+     * Iterative
+     */
+    public static ListNode reverseList_Iterative(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
+        while(cur != null){
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
     /**
      * Recursive - from tail to head
      */
