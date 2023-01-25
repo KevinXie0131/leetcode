@@ -19,6 +19,22 @@ public class Q83_Remove_Duplicates_from_Sorted_List {
         return head;
     }
     /**
+     * Recursive - from haed to tail
+     */
+    public ListNode deleteDuplicates_Recursive(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        if(head.val == head.next.val){
+            return deleteDuplicates(head.next);
+        }else{
+            head.next = deleteDuplicates(head.next);
+        }
+
+        return head;
+    }
+    /**
      * Recursive - from tail to head
      */
     public static ListNode deleteDuplicates_Recursive_1(ListNode head) {
@@ -38,20 +54,5 @@ public class Q83_Remove_Duplicates_from_Sorted_List {
             return head;
         }
     }
-    /**
-     * Recursive - from haed to tail
-     */
-    public ListNode deleteDuplicates_Recursive(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
-        }
 
-        if(head.val == head.next.val){
-            return deleteDuplicates(head.next);
-        }else{
-            head.next = deleteDuplicates(head.next);
-        }
-
-        return head;
-    }
 }
