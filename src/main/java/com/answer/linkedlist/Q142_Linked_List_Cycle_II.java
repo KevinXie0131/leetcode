@@ -1,5 +1,8 @@
 package com.answer.linkedlist;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Q142_Linked_List_Cycle_II {
 
     public static void main(String[] args) {
@@ -24,5 +27,21 @@ public class Q142_Linked_List_Cycle_II {
         }
 
         return fast;
+    }
+    /**
+     * Use set
+     */
+    public ListNode detectCycle_1(ListNode head) {
+        ListNode cur = head;
+        Set<ListNode> set = new HashSet<>();
+        while (cur != null) {
+            if (set.contains(cur)) {
+                return cur;
+            }else{
+                set.add(cur);
+            }
+            cur = cur.next;
+        }
+        return null;
     }
 }
