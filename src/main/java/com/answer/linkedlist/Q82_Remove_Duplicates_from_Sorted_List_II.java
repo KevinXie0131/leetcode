@@ -1,0 +1,61 @@
+package com.answer.linkedlist;
+
+public class Q82_Remove_Duplicates_from_Sorted_List_II {
+
+    public static void main(String[] args) {
+        ListNode node8 = new ListNode(5, null);
+        ListNode node7 = new ListNode(4, node8);
+        ListNode node6 = new ListNode(4, node7);
+        ListNode node5 = new ListNode(3, node6);
+        ListNode node4 = new ListNode(3, node5);
+        ListNode node3 = new ListNode(3, node4);
+        ListNode node2 = new ListNode(2, node3);
+        ListNode node1= new ListNode(1,node2);
+
+        ListNode node = deleteDuplicates_1(node1);
+        node.print();
+    }
+    /**
+     * dummy node
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(-1, head);
+        ListNode cur = dummy;
+        while(cur.next != null && cur.next.next != null){
+            if(cur.next.val == cur.next.next.val){
+                int val = cur.next.val;
+                cur.next = cur.next.next;
+
+                while(cur.next != null && cur.next.val == val){
+                    cur.next = cur.next.next;
+                }
+            }else{
+                cur = cur.next;
+            }
+        }
+        return dummy.next;
+    }
+    /**
+     * Use dummy node and pre node
+     */
+    public static ListNode deleteDuplicates_1(ListNode head) {
+        ListNode dummy = new ListNode(-1, head);
+        ListNode pre = dummy;
+        ListNode cur = head;
+        while(cur != null && cur.next != null){
+            if(cur.val == cur.next.val){
+                int val = cur.val;
+
+                while(cur != null && cur.val == val){
+                    cur = cur.next;
+                }
+                pre.next = cur;
+            }else{
+                pre = cur;
+                cur = cur.next;
+            }
+        }
+
+        return dummy.next;
+    }
+}
