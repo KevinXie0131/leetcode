@@ -3,7 +3,7 @@ package com.answer.linkedlist;
 public class Q82_Remove_Duplicates_from_Sorted_List_II {
 
     public static void main(String[] args) {
-        ListNode node9 = new ListNode(5, null);
+/*        ListNode node9 = new ListNode(5, null);
         ListNode node8 = new ListNode(5, node9);
         ListNode node7 = new ListNode(4, node8);
         ListNode node6 = new ListNode(4, node7);
@@ -11,9 +11,16 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         ListNode node4 = new ListNode(3, node5);
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
+        ListNode node1= new ListNode(1,node2);*/
+
+        // [1,1,1,2,3]
+        ListNode node5 = new ListNode(3, null);
+        ListNode node4 = new ListNode(2, node5);
+        ListNode node3 = new ListNode(1, node4);
+        ListNode node2 = new ListNode(1, node3);
         ListNode node1= new ListNode(1,node2);
 
-        ListNode node = deleteDuplicates_Recursive(node1);
+        ListNode node = deleteDuplicates_Recursive_1(node1);
         node.print();
     }
     /**
@@ -61,7 +68,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
     }
 
     /**
-     * Recursive
+     * Recursive - from head to tail
      * 1 -> 2 -> 3 -> 3 -> 3 -> 4 -> 4 -> 5
      */
     public static ListNode deleteDuplicates_Recursive(ListNode head) {
@@ -73,7 +80,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
             while(head.next != null && head.val == head.next.val){
                 head = head.next;
             }
-            return deleteDuplicates_Recursive(head.next);
+            return deleteDuplicates_Recursive(head.next); // the current node doesn't need to be kept.
         }else{
             head.next = deleteDuplicates_Recursive(head.next);
         }
@@ -81,23 +88,25 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         return head;
     }
     /**
-     *
+     * Recursive - from tail to head
      */
     public static ListNode deleteDuplicates_Recursive_1(ListNode head) {
-        if(head == null || head.next == null){
+        return deleteDuplicates_Recursive_func(head, Integer.MAX_VALUE, head == null || head.next == null ? Integer.MAX_VALUE : head.next.val);
+    }
+
+    public static ListNode deleteDuplicates_Recursive_func(ListNode head, int preValue, int nextValue) {
+        if(head == null){
             return head;
         }
 
-        if(head.val == head.next.val){
-            int val = head.val;
-            while(head.next != null && head.val == head.next.val){
-                head = head.next;
-            }
-            head.next = deleteDuplicates_Recursive_1(head.next);
+        head.next = deleteDuplicates_Recursive_func(head.next, head.val,
+                head.next == null || head.next.next == null? Integer.MAX_VALUE : head.next.next.val);
+
+        if(head.val == preValue || head.val == nextValue){
+            return head.next;
         }else{
-            head.next = deleteDuplicates_Recursive_1(head.next);
+            return head;
         }
 
-        return head;
     }
 }
