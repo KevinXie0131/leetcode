@@ -12,7 +12,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
 
-        ListNode node = deleteDuplicates_1(node1);
+        ListNode node = deleteDuplicates_Recursive(node1);
         node.print();
     }
     /**
@@ -57,5 +57,25 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         }
 
         return dummy.next;
+    }
+
+    /**
+     * Recursive
+     */
+    public static ListNode deleteDuplicates_Recursive(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        if(head.val == head.next.val){
+            while(head.next != null && head.val == head.next.val){
+                head = head.next;
+            }
+            return deleteDuplicates_Recursive(head.next);
+        }else{
+            head.next = deleteDuplicates_Recursive(head.next);
+        }
+
+        return head;
     }
 }
