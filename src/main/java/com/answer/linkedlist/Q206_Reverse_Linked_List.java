@@ -3,8 +3,8 @@ package com.answer.linkedlist;
 public class Q206_Reverse_Linked_List {
 
     public static void main(String[] args) {
-        ListNode node6 = new ListNode(6, null);
-        ListNode node5 = new ListNode(5, node6);
+      //  ListNode node6 = new ListNode(6, null);
+        ListNode node5 = new ListNode(5, null);
         ListNode node4 = new ListNode(4, node5);
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
@@ -46,8 +46,8 @@ public class Q206_Reverse_Linked_List {
             nextNext= curNode.next.next;
             curNode.next.next = curNode;
         }
-
         curNode.next = previous;
+
         if(nextNext == null){
             if(next != null){
                 return next;
