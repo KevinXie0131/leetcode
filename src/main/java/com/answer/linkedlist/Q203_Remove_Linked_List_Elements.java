@@ -17,7 +17,7 @@ public class Q203_Remove_Linked_List_Elements {
       //  [1,2,6,3,4,5,6]
         int val = 6;
 
-        ListNode node = removeElements_3(node1, val);
+        ListNode node = removeElements_recursive_1(node1, val);
         node.print();
     }
     /**
@@ -55,7 +55,7 @@ public class Q203_Remove_Linked_List_Elements {
         return dummy.next;
     }
     /**
-     * Recursive
+     * Recursive - from tail to head
      */
     public static ListNode removeElements_recursive(ListNode head, int val) {
         if(head == null){
@@ -67,6 +67,19 @@ public class Q203_Remove_Linked_List_Elements {
         }else{
             return head;
         }
+    }
+    /**
+     * Recursive - from head to tail
+     */
+    public static ListNode removeElements_recursive_1(ListNode head, int val) {
+        if(head == null){
+            return null;
+        }
+        if(head.val == val){
+            return removeElements_recursive_1(head.next, val);
+        }
+        head.next = removeElements_recursive_1(head.next, val);
+        return head;
     }
     /**
      * Use stack

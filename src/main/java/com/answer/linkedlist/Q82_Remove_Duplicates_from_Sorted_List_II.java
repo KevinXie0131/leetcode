@@ -3,7 +3,8 @@ package com.answer.linkedlist;
 public class Q82_Remove_Duplicates_from_Sorted_List_II {
 
     public static void main(String[] args) {
-        ListNode node8 = new ListNode(5, null);
+        ListNode node9 = new ListNode(5, null);
+        ListNode node8 = new ListNode(5, node9);
         ListNode node7 = new ListNode(4, node8);
         ListNode node6 = new ListNode(4, node7);
         ListNode node5 = new ListNode(3, node6);
@@ -61,6 +62,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
 
     /**
      * Recursive
+     * 1 -> 2 -> 3 -> 3 -> 3 -> 4 -> 4 -> 5
      */
     public static ListNode deleteDuplicates_Recursive(ListNode head) {
         if(head == null || head.next == null){
@@ -74,6 +76,26 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
             return deleteDuplicates_Recursive(head.next);
         }else{
             head.next = deleteDuplicates_Recursive(head.next);
+        }
+
+        return head;
+    }
+    /**
+     *
+     */
+    public static ListNode deleteDuplicates_Recursive_1(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        if(head.val == head.next.val){
+            int val = head.val;
+            while(head.next != null && head.val == head.next.val){
+                head = head.next;
+            }
+            head.next = deleteDuplicates_Recursive_1(head.next);
+        }else{
+            head.next = deleteDuplicates_Recursive_1(head.next);
         }
 
         return head;
