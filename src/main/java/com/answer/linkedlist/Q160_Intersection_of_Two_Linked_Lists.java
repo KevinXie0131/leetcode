@@ -1,5 +1,8 @@
 package com.answer.linkedlist;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Q160_Intersection_of_Two_Linked_Lists {
 
     /**
@@ -23,5 +26,26 @@ public class Q160_Intersection_of_Two_Linked_Lists {
         }
 
         return curA;
+    }
+    /**
+     * Use set
+     */
+    public ListNode getIntersectionNode_1(ListNode headA, ListNode headB) {
+        Set<ListNode> visited = new HashSet<ListNode>();
+        ListNode cur = headA;
+        while(cur != null){
+            visited.add(cur);
+            cur = cur.next;
+        }
+
+        cur = headB;
+        while(cur != null){
+            if(visited.contains(cur)){
+                return cur;
+            }
+            cur = cur.next;
+        }
+
+        return null;
     }
 }
