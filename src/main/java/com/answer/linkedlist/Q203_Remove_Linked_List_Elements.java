@@ -1,6 +1,8 @@
 package com.answer.linkedlist;
 
 import javax.imageio.stream.ImageInputStream;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Q203_Remove_Linked_List_Elements {
 
@@ -15,11 +17,11 @@ public class Q203_Remove_Linked_List_Elements {
       //  [1,2,6,3,4,5,6]
         int val = 6;
 
-        ListNode node = removeElements_recursive(node1, val);
+        ListNode node = removeElements_3(node1, val);
         node.print();
     }
     /**
-     * Iterative
+     * Iterative / fast-slow pointers
      */
     public static ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1 , head);
@@ -36,7 +38,22 @@ public class Q203_Remove_Linked_List_Elements {
         }
         return dummy.next;
     }
+    /**
+     * Iterative / dummy header
+     */
+    public static ListNode removeElements_2(ListNode head, int val) {
+        ListNode dummy =  new ListNode(-1 , head);
+        ListNode cur = dummy;
 
+        while(cur.next != null){
+            if(cur.next.val == val){
+                cur.next = cur.next.next;
+            } else{
+                cur = cur.next;
+            }
+        }
+        return dummy.next;
+    }
     /**
      * Recursive
      */
@@ -50,5 +67,23 @@ public class Q203_Remove_Linked_List_Elements {
         }else{
             return head;
         }
+    }
+    /**
+     * Use stack
+     */
+    public static ListNode removeElements_3(ListNode head, int val) {
+        Deque<ListNode> stack = new ArrayDeque<>();
+        while(head != null){
+            if(head.val != val){
+                stack.push(head);
+            }
+            head = head.next;
+        }
+
+        while(!stack.isEmpty()){
+            stack.peek().next = head;
+            head = stack.pop();
+        }
+        return head;
     }
 }
