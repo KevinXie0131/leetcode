@@ -10,7 +10,7 @@ public class Q206_Reverse_Linked_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseList_Iterative(node1);
+        ListNode node = reverseList_Recursive_3(node1);
         node.print();
     }
     /**
@@ -70,6 +70,28 @@ public class Q206_Reverse_Linked_List {
         }
 
         ListNode newNode = reverseList_fun(nextNext, next);
+        return newNode;
+    }
+    /**
+     *
+     */
+    public static ListNode reverseList_Recursive_3(ListNode head) {
+        return reverse(null, head);
+    }
+
+    private  static ListNode reverse(ListNode prev, ListNode cur) {
+        if (cur == null) {
+            return prev;
+        }
+        ListNode temp = null;
+        temp = cur.next;// 先保存下一个节点
+        cur.next = prev;// 反转
+        // 更新prev、cur位置
+        // prev = cur;
+        // cur = temp;
+
+       // return reverse(cur, temp);
+        ListNode newNode = reverse(cur, temp);
         return newNode;
     }
 }
