@@ -76,7 +76,7 @@ public class Q203_Remove_Linked_List_Elements {
             return null;
         }
         if(head.val == val){
-            return removeElements_recursive_1(head.next, val);
+            return removeElements_recursive_1(head.next, val); // the current node doesn't need to be kept.
         }
         head.next = removeElements_recursive_1(head.next, val);
         return head;
