@@ -1,5 +1,7 @@
 package com.answer.linkedlist;
 
+import java.util.*;
+
 public class Q25_Reverse_Nodes_in_k_Group {
 
     public static void main(String[] args) {
@@ -11,10 +13,13 @@ public class Q25_Reverse_Nodes_in_k_Group {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseKGroup(node1, 3);
+        ListNode node = reverseKGroup_1(node1, 3);
         node.print();
     }
 
+    /**
+     * Iterative
+     */
     public static ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(-1, head);
         ListNode pre =dummy;
@@ -47,5 +52,33 @@ public class Q25_Reverse_Nodes_in_k_Group {
             cur = next;
         }
         return pre;
+    }
+    /**
+     *
+     */
+    public static ListNode reverseKGroup_1(ListNode head, int k) {
+        Deque<ListNode> stack = new ArrayDeque<ListNode>();
+        ListNode dummy = new ListNode(0);
+        ListNode p = dummy;
+        while (true) {
+            int count = 0;
+            ListNode tmp = head;
+            while (tmp != null && count < k) {
+                stack.add(tmp);
+                tmp = tmp.next;
+                count++;
+            }
+            if (count != k) {
+                p.next = head;
+                break;
+            }
+            while (!stack.isEmpty()){
+                p.next = stack.pollLast();
+                p = p.next;
+            }
+            p.next = tmp;
+            head = tmp;
+        }
+        return dummy.next;
     }
 }
