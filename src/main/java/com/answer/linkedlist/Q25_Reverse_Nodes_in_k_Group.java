@@ -54,7 +54,7 @@ public class Q25_Reverse_Nodes_in_k_Group {
         return pre;
     }
     /**
-     *
+     * Use stack
      */
     public static ListNode reverseKGroup_1(ListNode head, int k) {
         Deque<ListNode> stack = new ArrayDeque<ListNode>();
