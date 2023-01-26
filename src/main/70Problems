@@ -1,31 +1,31 @@
 笔记：
 1.数据结构：
-数组Array 485/283/27 (485. Max Consecutive Ones | 283. Move Zeroes | 27. Remove Element)
+数组Array 485/283/27 (485. Max Consecutive Ones(new) | 283. Move Zeroes(new) | 27. Remove Element)
 
 链表Linked List 203/206 (203. Remove Linked List Elements | 206. Reverse Linked List)
-Leetcode 2 两数相加 | Leetcode 21 合并两个有序链表 | Leetcode 24 两两交换链表中的节点 | Leetcode 206 反转链表 | Leetcode 989 数组形式的整数加
+Leetcode 2 两数相加 | Leetcode 21 合并两个有序链表 | Leetcode 24 两两交换链表中的节点 | Leetcode 206 反转链表 | Leetcode 989 数组形式的整数加(new)
 
-队列Queue 933/225（用队列实现栈）/622/641 (933. Number of Recent Calls | 225. Implement Stack using Queues | 622. Design Circular Queue | 641. Design Circular Deque)
-Leetcode 933 最近的有效请求
+队列Queue 933/225（用队列实现栈）/622/641 (933. Number of Recent Calls(new) | 225. Implement Stack using Queues | 622. Design Circular Queue(new) | 641. Design Circular Deque(new))
+Leetcode 933 最近的有效请求(new)
 
 栈stack 20/496/232（用栈实现队列）(20. Valid Parentheses | 496. Next Greater Element I | 232. Implement Queue using Stacks)
 Leetcode 20 有效的括号
 
-哈希表Hash table 217/389/496 (217. Contains Duplicate | 389. Find the Difference | 496. Next Greater Element I)
-Leetcode 1 两数之和 | Leetcode 49 字母异位词分组 | Leetcode 169 多数元素 | Leetcode 389 找不同 | Leetcode 1418 点菜展示表
+哈希表Hash table 217/389/496 (217. Contains Duplicate(new) | 389. Find the Difference(new) | 496. Next Greater Element I)
+Leetcode 1 两数之和 | Leetcode 49 字母异位词分组 | Leetcode 169 多数元素 | Leetcode 389 找不同(new) | Leetcode 1418 点菜展示表(new)
 
-集合set 217/705（设计哈希集合）(217. Contains Duplicate | 705. Design HashSet)
-Leetcode 217 存在重复元素 | Leetcode 268  缺失数字
+集合set 217/705（设计哈希集合）(217. Contains Duplicate(new) | 705. Design HashSet(new))
+Leetcode 217 存在重复元素(new) | Leetcode 268  缺失数字(new)
 
-堆Heap 215/692 (215. Kth Largest Element in an Array | 692. Top K Frequent Words)
-Leetcode 215 数组中第K大的元素 | Leetcode 264 丑数
+堆Heap 215/692 (215. Kth Largest Element in an Array | 692. Top K Frequent Words(new))
+Leetcode 215 数组中第K大的元素 | Leetcode 264 丑数(new)
 
 树&图 -> 各种算法
-Leetcode 94 二叉树的中序遍历 | Leetcode 102 二叉树的层序遍历 | Leetcode 107 二叉树的层序遍历II | Leetcode 662 二叉树最大宽度 | Leetcode 938 二叉搜索树的范围和
+Leetcode 94 二叉树的中序遍历 | Leetcode 102 二叉树的层序遍历 | Leetcode 107 二叉树的层序遍历II | Leetcode 662 二叉树最大宽度(new) | Leetcode 938 二叉搜索树的范围和(new)
 
 2.算法：
-双指针two pointers 141/344/881 (141. Linked List Cycle | 344. Reverse String | 881. Boats to Save People)
-Leetcode 27 移除元素 | Leetcode 56 合并区间 | Leetcode 57 插入区间 | Leetcode 234 回文链表 | Leetcode 287 寻找重复数 | Leetcode 344 反转字符串
+双指针two pointers 141/344/881 (141. Linked List Cycle | 344. Reverse String | 881. Boats to Save People(new))
+Leetcode 27 移除元素 | Leetcode 56 合并区间(new) | Leetcode 57 插入区间(new) | Leetcode 234 回文链表(new) | Leetcode 287 寻找重复数(new) | Leetcode 344 反转字符串(new)
 
 二分查找 binary search 704/35/162/74 (704. Binary Search | 35. Search Insert Position | 162. Find Peak Element | 74. Search a 2D Matrix)
 Leetcode 35 搜索插入位置 | Leetcode 231 2的幂 | Leetcode 342 4的幂 | Leetcode 704 二分查找
