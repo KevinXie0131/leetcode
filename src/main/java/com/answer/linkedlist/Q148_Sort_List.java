@@ -36,10 +36,11 @@ public class Q148_Sort_List {
         list.get(i).next = null;
     }
     /**
+     * Approach 1: Reverse the Second Part of the List and Merge Two Sorted Lists
      * This problem is a combination of these three easy problems:
      *
      * Middle of the Linked List.
-     * Reverse Linked List.
+     * Reverse the Second Part of the List.
      * Merge Two Sorted Lists.
      */
     public void reorderList_1(ListNode head) {
