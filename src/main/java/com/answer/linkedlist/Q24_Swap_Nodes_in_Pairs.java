@@ -9,7 +9,7 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
 
-        ListNode node =swapPairs_Recursive(node1);
+        ListNode node = swapPairs_Recursive_1(node1);
         node.print();
     }
 
@@ -74,7 +74,7 @@ public class Q24_Swap_Nodes_in_Pairs {
         return dummy.next;
     }
     /**
-     * Recursive
+     * Recursive - from head to tail
      */
     public static ListNode swapPairs_Recursive(ListNode head) {
         if(head == null || head.next == null){
@@ -89,5 +89,21 @@ public class Q24_Swap_Nodes_in_Pairs {
 
         return newNode;
 
+    }
+    /**
+     * Recursive - from tail to head
+     */
+    public static ListNode swapPairs_Recursive_1(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        ListNode temp = swapPairs_Recursive_1(head.next.next);
+
+        ListNode newNode = head.next;
+        newNode.next = head;
+        head.next = temp;
+
+        return newNode;
     }
 }
