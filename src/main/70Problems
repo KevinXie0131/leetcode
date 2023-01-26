@@ -82,3 +82,32 @@ Bit:
 Math:
 415. Add Strings(new)
 470. Implement Rand10() Using Rand7()(new)
+
+------------------------------------------------------------------------------------------------------------------------
+Array:
+1055. Shortest Way to Form String(new)
+31. Next Permutation(new)
+
+Tree:
+1123. Lowest Common Ancestor of Deepest Leaves(new)
+
+BFS/DFS:
+127. Word Ladder(new) - Hard
+126. Word Ladder II(new) - Hard
+133. Clone Graph(new)
+841. Keys and Rooms(new)
+994. Rotting Oranges(new)
+
+Recursion:
+115. Distinct Subsequences(new) - Hard
+
+Math:
+399. Evaluate Division(new)
+373. Find K Pairs with Smallest Sums(new)
+
+Heap:
+703. Kth Largest Element in a Stream(new)
+
+HashMap:
+706. Design HashMap(new)
+
