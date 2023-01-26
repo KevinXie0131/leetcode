@@ -2,6 +2,9 @@ package com.answer.linkedlist;
 
 public class Q707_Design_Linked_List {
 
+    /**
+     * Approach 1: Singly Linked List
+     */
     int size;
     ListNode head;
 

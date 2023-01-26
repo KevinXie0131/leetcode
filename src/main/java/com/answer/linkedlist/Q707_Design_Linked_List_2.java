@@ -2,6 +2,9 @@ package com.answer.linkedlist;
 
 public class Q707_Design_Linked_List_2 {
 
+    /**
+     * Approach 2: Doubly Linked List
+     */
     class ListNode {
         int val;
         ListNode next,prev;
