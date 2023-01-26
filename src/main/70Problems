@@ -27,34 +27,34 @@ Leetcode 94 二叉树的中序遍历 | Leetcode 102 二叉树的层序遍历 | L
 双指针two pointers 141/344/881 (141. Linked List Cycle | 344. Reverse String | 881. Boats to Save People(new))
 Leetcode 27 移除元素 | Leetcode 56 合并区间(new) | Leetcode 57 插入区间(new) | Leetcode 234 回文链表(new) | Leetcode 287 寻找重复数(new) | Leetcode 344 反转字符串(new)
 
-二分查找 binary search 704/35/162/74 (704. Binary Search | 35. Search Insert Position | 162. Find Peak Element | 74. Search a 2D Matrix)
-Leetcode 35 搜索插入位置 | Leetcode 231 2的幂 | Leetcode 342 4的幂 | Leetcode 704 二分查找
+二分查找 binary search 704/35/162/74 (704. Binary Search | 35. Search Insert Position | 162. Find Peak Element | 74. Search a 2D Matrix(new))
+Leetcode 35 搜索插入位置 | Leetcode 231 2的幂(new) | Leetcode 342 4的幂(new) | Leetcode 704 二分查找
 
-滑动窗口 sliding window（技巧） 209/1456 (209. Minimum Size Subarray Sum | 1456. Maximum Number of Vowels in a Substring of Given Length)
+滑动窗口 sliding window（技巧） 209/1456 (209. Minimum Size Subarray Sum | 1456. Maximum Number of Vowels in a Substring of Given Length(new))
 Leetcode 209 长度最小的子数组
 
-递归 recursion 509/206/344/687 (509. Fibonacci Number | 206. Reverse Linked List | 344. Reverse String | 687. Longest Univalue Path)
+递归 recursion 509/206/344/687 (509. Fibonacci Number | 206. Reverse Linked List | 344. Reverse String | 687. Longest Univalue Path(new))
 
-分治 divide&conquer 169/53 (169. Majority Element | 53. Maximum Subarray)
+分治 divide&conquer 169/53 (169. Majority Element | 53. Maximum Subarray(new))
 
 回溯 backtracking 22/78/77/46（全都非常经典) (22. Generate Parentheses | 78. Subsets | 77. Combinations | 46. Permutations)
 Leetcode 22 括号生成 | Leetcode 46 全排列 | Leetcode 77 组合 | Leetcode 78 子集 | Leetcode 90 子集
 
-深度优先搜索DFS 938/78/200 (938. Range Sum of BST | 78. Subsets | 200. Number of Islands)
+深度优先搜索DFS 938/78/200 (938. Range Sum of BST(new) | 78. Subsets | 200. Number of Islands(new))
 
 宽度优先搜索BFS  102/107/200 (102. Binary Tree Level Order Traversal | 107. Binary Tree Level Order Traversal II | 200. Number of Islands)
 
-并查集 union find 200/547/721 (200. Number of Islands | 547. Number of Provinces | 721. Accounts Merge)
+并查集 union find 200/547/721 (200. Number of Islands | 547. Number of Provinces(new) | 721. Accounts Merge(new))
 Leetcode 200 岛屿数量
 
-贪心 greedy 322/1217/55 (322. Coin Change | 1217. Minimum Cost to Move Chips to The Same Position | 55. Jump Game)
+贪心 greedy 322/1217/55 (322. Coin Change(new) | 1217. Minimum Cost to Move Chips to The Same Position(new) | 55. Jump Game(new))
 
-记忆化搜索（技巧）Memoization 509/322 (509. Fibonacci Number | 322. Coin Change)
+记忆化搜索（技巧）Memoization 509/322 (509. Fibonacci Number | 322. Coin Change(new))
 
-动态规划 dynamic programming 509/62/121/70/279/221 (509. Fibonacci Number | 62. Unique Paths | 121. Best Time to Buy and Sell Stock | 70. Climbing Stairs | 279. Perfect Squares | 221. Maximal Square)
-Leetcode 53 最大子序和 | Leetcode 485 最大连续1的个数
+动态规划 dynamic programming 509/62/121/70/279/221 (509. Fibonacci Number | 62. Unique Paths(new) | 121. Best Time to Buy and Sell Stock(new) | 70. Climbing Stairs | 279. Perfect Squares(new) | 221. Maximal Square(new))
+Leetcode 53 最大子序和 | Leetcode 485 最大连续1的个数(new)
 
-拓扑排序 topological sort 207/210 (207. Course Schedule | 210. Course Schedule II)
+拓扑排序 topological sort 207/210 (207. Course Schedule(new) | 210. Course Schedule II(new))
 
-前缀树 trie 208/720/692 (208. Implement Trie (Prefix Tree) | 720. Longest Word in Dictionary | 692. Top K Frequent Words)
+前缀树 trie 208/720/692 (208. Implement Trie (Prefix Tree)(new) | 720. Longest Word in Dictionary(new) | 692. Top K Frequent Words(new))
 Leetcode 720 词典中最长的单词
