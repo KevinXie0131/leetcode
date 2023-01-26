@@ -12,6 +12,9 @@ public class Q142_Linked_List_Cycle_II {
         System.out.println(result);
     }
 
+    /**
+     * fast-slow pointers
+     */
     public static ListNode detectCycle(ListNode head) {
         ListNode fast = head, slow = head;
         while (true) {

@@ -19,7 +19,7 @@ public class Q83_Remove_Duplicates_from_Sorted_List {
         return head;
     }
     /**
-     * Recursive - from haed to tail
+     * Recursive - from head to tail
      */
     public ListNode deleteDuplicates_Recursive(ListNode head) {
         if(head == null || head.next == null){

@@ -73,7 +73,7 @@ public class Q206_Reverse_Linked_List {
         return newNode;
     }
     /**
-     *
+     * Recursive - from head to tail - more simple
      */
     public static ListNode reverseList_Recursive_3(ListNode head) {
         return reverse(null, head);
