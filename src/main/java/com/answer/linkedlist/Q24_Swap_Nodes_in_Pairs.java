@@ -85,7 +85,7 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode newNode = head.next;
         newNode.next = head;
 
-        head.next = swapPairs(nextNextNode);
+        head.next = swapPairs_Recursive(nextNextNode);
 
         return newNode;
 
