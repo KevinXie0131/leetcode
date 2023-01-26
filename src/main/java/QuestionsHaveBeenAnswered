@@ -29,11 +29,13 @@ List:
 707. Design Linked List
 206. Reverse Linked List
 24. Swap Nodes in Pairs
+25. Reverse Nodes in k-Group (Additional) -Hard
 19. Remove Nth Node From End of List
 142. Linked List Cycle II
 141. Linked List Cycle (Additional)
 21. Merge Two Sorted Lists (Additional)
 83. Remove Duplicates from Sorted List (Additional)
+82. Remove Duplicates from Sorted List II (Additional)
 143. Reorder List (Additional)
 147. Insertion Sort List (Additional)
 148. Sort List (Additional)
@@ -42,8 +44,6 @@ List:
 
 328. Odd Even Linked List (Additional)
 2. Add Two Numbers (Additional)
-82. Remove Duplicates from Sorted List II (Additional)
-25. Reverse Nodes in k-Group (Additional) -Hard
 
 Hashmap:
 242. Valid Anagram
