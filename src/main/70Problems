@@ -58,3 +58,27 @@ Leetcode 53 最大子序和 | Leetcode 485 最大连续1的个数(new)
 
 前缀树 trie 208/720/692 (208. Implement Trie (Prefix Tree)(new) | 720. Longest Word in Dictionary(new) | 692. Top K Frequent Words(new))
 Leetcode 720 词典中最长的单词
+
+------------------------------------------------------------------------------------------------------------------------
+Array:
+448. Find All Numbers Disappeared in an Array(new)
+121. Best Time to Buy and Sell Stock(new)
+122. Best Time to Buy and Sell Stock II(new) (additional)
+123. Best Time to Buy and Sell Stock III(new) (additional) - Hard
+
+LinkedList:
+剑指 Offer 22. 链表中倒数第k个节点(https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)(new)
+
+Stack:
+394. Decode String(new)
+
+Sorting:
+912. Sort an Array(new)
+
+Bit:
+338. Counting Bits(new)
+461. Hamming Distance(new)
+
+Math:
+415. Add Strings(new)
+470. Implement Rand10() Using Rand7()(new)
