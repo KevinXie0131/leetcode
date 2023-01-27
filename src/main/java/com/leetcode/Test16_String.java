@@ -1,6 +1,8 @@
 package com.leetcode;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Test16_String {
 
@@ -60,6 +62,15 @@ public class Test16_String {
         StringBuffer sb1 = sb.deleteCharAt(sb.length() - 1);
         System.out.println(sb1);
         System.out.println(sb);
+
+        String[] str1 = new String[]{"abc", "def", "hij"};
+        List<String> list1 = Arrays.asList(str1);
+
+        Collections.reverse(list1);
+        String result = String.join(" ", list1);
+        System.out.println(result);
+        String result1 = String.join(" ", str1);
+        System.out.println(result1);
     }
 
     public static boolean isPalindrome(String str){
