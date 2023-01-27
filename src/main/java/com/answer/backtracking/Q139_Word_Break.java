@@ -8,7 +8,7 @@ public class Q139_Word_Break {
        List<String> wordDict = new ArrayList<>();
        wordDict.add("leet");
        wordDict.add("code");
-       boolean result =  wordBreak(s, wordDict);
+       boolean result =  wordBreak_2(s, wordDict);
         System.out.println(result);
     }
     /**
@@ -33,4 +33,83 @@ public class Q139_Word_Break {
 
         return false;
     }
+    /**
+     * DFS + Backtracking + memorization
+     */
+    public static boolean wordBreak_1(String s, List<String> wordDict) {
+        return dfs_1(s, wordDict, new HashSet<>(), 0);
+    }
+    //start表示的是从字符串s的哪个位置开始
+    public static boolean dfs_1(String s, List<String> wordDict, HashSet<Integer> indexSet, int start){
+        //字符串都拆分完了，返回true
+        if (start == s.length())
+            return true;
+        for (int i = start + 1; i <= s.length(); i++) {
+            //如果已经判断过了，就直接跳过，防止重复判断
+            if (indexSet.contains(i))
+                continue;
+            //截取子串，判断是否是在字典中
+            if (wordDict.contains(s.substring(start, i))) {
+                if (dfs_1(s, wordDict, indexSet, i))
+                    return true;
+                //标记为已判断过
+                indexSet.add(i);
+            }
+        }
+        return false;
+    }
+    /**
+     * BFS
+     */
+    public static boolean wordBreak_2(String s, List<String> wordDict) {
+        //这里为了提高效率，把list转化为set，因为set的查找效率要比list高
+        Set<String> setDict = new HashSet<>(wordDict);
+        //记录当前层开始遍历字符串s的位置
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        int length = s.length();
+        while (!queue.isEmpty()) {
+            int index = queue.poll();
+            //如果字符串到遍历完了，自己返回true
+            if (index == length)
+                return true;
+            for (int i = index + 1; i <= length; i++) {
+                if (setDict.contains(s.substring(index, i))) {
+                    queue.add(i);
+                }
+            }
+        }
+        return false;
+    }
+    /**
+     * BFS + Memorization
+     */
+    public boolean wordBreak_4(String s, List<String> wordDict) {
+        //这里为了提高效率，把list转化为set，因为set的查找效率要比list高
+        Set<String> setDict = new HashSet<>(wordDict);
+        //记录当前层开始遍历字符串s的位置
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        int length = s.length();
+        //记录访问过的位置，减少重复判断
+        boolean[] visited = new boolean[length];
+        while (!queue.isEmpty()) {
+            int index = queue.poll();
+            //如果字符串都遍历完了，直接返回true
+            if (index == length)
+                return true;
+            //如果被访问过，则跳过
+            if (visited[index])
+                continue;
+            //标记为访问过
+            visited[index] = true;
+            for (int i = index + 1; i <= length; i++) {
+                if (setDict.contains(s.substring(index, i))) {
+                    queue.add(i);
+                }
+            }
+        }
+        return false;
+    }
+
 }
