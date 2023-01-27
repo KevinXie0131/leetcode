@@ -7,7 +7,7 @@ public class Q283_Move_Zeroes {
     public static void main(String[] args) {
     //    int[] nums = {0,1,0,3,12};
         int[] nums = {4,0,0,3,2,5,0,4};
-        moveZeroes_2(nums);
+        moveZeroes_3(nums);
         System.out.println(Arrays.toString(nums));
 
     }
@@ -68,6 +68,20 @@ public class Q283_Move_Zeroes {
                 nums[i] = nums[j];
                 nums[j++] = temp;
             }
+        }
+    }
+
+    /**
+     * Official answer
+     */
+    public static void moveZeroes_3(int[] nums) {
+        int n = nums.length, left = 0, right = 0;
+        while (right < n) {
+            if (nums[right] != 0) {
+                swap(nums, left, right);
+                left++;
+            }
+            right++;
         }
     }
 }
