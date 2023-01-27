@@ -17,7 +17,7 @@ public class ListNode {
         this.next = next;
     }
 
-    void print(){
+    public void print(){
         ListNode cur = this;
         while(cur != null){
             System.out.print(cur.val + " -> " );
