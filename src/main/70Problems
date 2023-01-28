@@ -18,6 +18,7 @@ Leetcode 1 两数之和 | Leetcode 49 字母异位词分组 | Leetcode 169 多�
 
 集合set 217/705（设计哈希集合）(217. Contains Duplicate(new) | 705. Design HashSet(new))
 Leetcode 217 存在重复元素(new) | Leetcode 268  缺失数字(new)
+| 219. Contains Duplicate II (Additional) | 220. Contains Duplicate III (Additional) | 287. Find the Duplicate Number (Additional)
 
 堆Heap 215/692 (215. Kth Largest Element in an Array | 692. Top K Frequent Words(new))
 Leetcode 215 数组中第K大的元素 | Leetcode 264 丑数(new)
