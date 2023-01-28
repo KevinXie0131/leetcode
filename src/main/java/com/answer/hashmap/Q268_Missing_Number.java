@@ -49,7 +49,7 @@ public class Q268_Missing_Number {
         return n;
     }
     /**
-     * XOR
+     * Approach #3 Bit Manipulation: XOR
      */
     public int missingNumber_3(int[] nums) {
         int x = 0;
@@ -62,7 +62,7 @@ public class Q268_Missing_Number {
         return x;
     }
     /**
-     * Sum
+     * Approach #4 Gauss' Formula
      */
     public int missingNumber_4(int[] nums) {
         int n = nums.length;
