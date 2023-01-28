@@ -18,6 +18,9 @@ public class Test3_hashmap {
             System.out.print(a + " ");
         }
         System.out.println();
+        System.out.println("ceiling: " + set.ceiling(2));
+        System.out.println("floor: " + set.floor(2));
+        System.out.println();
 
         HashMap<String, String> hashMap = new HashMap();
         System.out.println(hashMap.put("c","c"));
