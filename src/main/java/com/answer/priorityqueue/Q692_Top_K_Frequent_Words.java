@@ -6,7 +6,7 @@ public class Q692_Top_K_Frequent_Words {
     public static void main(String[] args) {
         String[] words = {"the","day","is","sunny","the","the","the","sunny","is","is"};
         int k = 4;
-        List<String> list = topKFrequent_1(words, k);
+        List<String> list = topKFrequent_2(words, k);
         System.out.println(list);
     }
     /**
@@ -43,7 +43,7 @@ public class Q692_Top_K_Frequent_Words {
     }
 
     /**
-     * Use PriorityQueue
+     * Use PriorityQueue - Min heap
      */
     public static List<String> topKFrequent_1(String[] words, int k) {
         Map<String, Integer> map = new TreeMap<String, Integer>();
@@ -72,6 +72,34 @@ public class Q692_Top_K_Frequent_Words {
             list.add(queue.poll().getKey());
         }
         Collections.reverse(list);
+        return list;
+    }
+    /**
+     * Use PriorityQueue - Max heap
+     */
+    public static List<String> topKFrequent_2(String[] words, int k) {
+        Map<String, Integer> map = new TreeMap<String, Integer>();
+        List<String> list = new ArrayList<>();
+
+        for(String s : words){
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+
+        /**
+         * Max Heap
+         */
+        Queue<Map.Entry<String, Integer>> queue = new PriorityQueue<>(new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue() == o2.getValue() ? o1.getKey().compareTo(o2.getKey()) : o2.getValue() - o1.getValue();
+            }
+        });
+        for(Map.Entry<String, Integer> entry : map.entrySet()){
+            queue.offer(entry);
+        }
+        for (int i = 0; i < k ; i++) {
+            list.add(queue.poll().getKey());
+        }
         return list;
     }
 }
