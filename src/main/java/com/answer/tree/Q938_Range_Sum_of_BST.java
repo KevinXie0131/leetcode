@@ -2,6 +2,9 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
+import java.util.ArrayDeque;
+import java.util.*;
+
 public class Q938_Range_Sum_of_BST {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(10);
@@ -16,9 +19,12 @@ public class Q938_Range_Sum_of_BST {
         node1.right = node4;
         node2.right = node5;
 
-        System.out.println(rangeSumBST( root, 7, 15));
+        System.out.println(rangeSumBST_3( root, 7, 15));
     }
 
+    /**
+     * Recursive
+     */
     public static int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null){
             return 0;
@@ -31,5 +37,71 @@ public class Q938_Range_Sum_of_BST {
         } else {
             return left + right;
         }
+    }
+    /**
+     * Iterative
+     */
+    public static int rangeSumBST_1(TreeNode root, int low, int high) {
+        int sum = 0;
+        Deque<TreeNode> stack = new ArrayDeque<>();
+
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+
+            TreeNode cur = stack.pop();
+            if(cur.value >= low && cur.value <= high){
+                sum += cur.value;
+            }
+            root = cur.right;
+        }
+        return sum;
+    }
+    /**
+     * Level Order Iterative
+     */
+    public static int rangeSumBST_2(TreeNode root, int low, int high) {
+        int sum = 0;
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if(node.value > high){
+                if(node.left != null) queue.offer(node.left);
+            } else if (node.value < low){
+                if(node.right != null) queue.offer(node.right);
+            } else {
+                sum += node.value;
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
+            }
+        }
+        return sum;
+    }
+    /**
+     * Level Order Iterative / Improved
+     */
+    public static int rangeSumBST_3(TreeNode root, int low, int high) {
+        int sum = 0;
+        Deque<TreeNode> queue = new LinkedList<>(); // ArrayDeque cannot have null, but LinkedList can
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if(node == null){
+                continue;
+            }
+            if(node.value > high){
+                queue.offer(node.left);
+            } else if (node.value < low){
+                queue.offer(node.right);
+            } else {
+                sum += node.value;
+                queue.offer(node.left);
+                queue.offer(node.right);
+            }
+        }
+        return sum;
     }
 }
