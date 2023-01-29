@@ -25,4 +25,23 @@ public class Q933_Number_of_Recent_Calls {
         }
         return queue.size();
     }
+    /**
+     * Use array as queue
+     */
+    int left, right;
+    int []times;
+
+    public void RecentCounter_1() {
+        left = 0;
+        right = 0;
+        times = new int[10005];
+    }
+
+    public int ping_1(int t) {
+        times[right++] = t;
+        while (times[left] < t - 3000) {
+            left++;
+        }
+        return right - left;
+    }
 }
