@@ -30,6 +30,15 @@ public class Q692_Top_K_Frequent_Words {
                 return map.get(o1) == map.get(o2) ? o1.compareTo(o2) : map.get(o2) - map.get(o1);
             }
         });
+/*        candidates.sort((a, b) -> {
+            // 字符串频率相等按照字典序比较使得大的在堆顶,Java 可以直接使用 compareTo 方法即可。
+            if (count.get(a).equals(count.get(b))) {
+                return a.compareTo(b);
+            } else {
+                // 字符串频率不等则按照频率排列。
+                return count.get(b) - count.get(a);
+            }
+        });*/
         return list.subList(0, k);
     }
 
