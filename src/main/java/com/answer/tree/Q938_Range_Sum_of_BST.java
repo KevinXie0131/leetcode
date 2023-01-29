@@ -20,7 +20,7 @@ public class Q938_Range_Sum_of_BST {
     }
 
     public static int rangeSumBST(TreeNode root, int low, int high) {
-        if(root == null || (root.value < low && root.value > high)){
+        if(root == null){
             return 0;
         }
         int left = rangeSumBST(root.left, low, high);
