@@ -7,19 +7,26 @@ import java.util.*;
 
 public class Q938_Range_Sum_of_BST {
     public static void main(String[] args) {
+        // [10,5,15,3,7,13,18,1,null,6]
         TreeNode root = new TreeNode(10);
         TreeNode node1 = new TreeNode(5);
         TreeNode node2 = new TreeNode(15);
         TreeNode node3 = new TreeNode(3);
         TreeNode node4 = new TreeNode(7);
-        TreeNode node5 = new TreeNode(18);
+        TreeNode node5 = new TreeNode(13);
+        TreeNode node6 = new TreeNode(18);
+        TreeNode node7 = new TreeNode(1);
+        TreeNode node8 = new TreeNode(6);
         root.left = node1;
         root.right = node2;
         node1.left = node3;
         node1.right = node4;
-        node2.right = node5;
+        node2.left = node5;
+        node2.right = node6;
+        node3.left = node7;
+        node4.left = node8;
 
-        System.out.println(rangeSumBST_0( root, 7, 15));
+        System.out.println(rangeSumBST_0a( root, 6, 10));
     }
 
     /**
@@ -39,7 +46,7 @@ public class Q938_Range_Sum_of_BST {
         }
     }
     /**
-     * Recursive / Improved - fastest
+     * Inorder Recursive / Improved - fastest
      */
     public static int rangeSumBST_0(TreeNode root, int low, int high) {
         if(root == null){
@@ -47,17 +54,35 @@ public class Q938_Range_Sum_of_BST {
         }
         int left = 0;
         if(root.value >= low){
-            left = rangeSumBST(root.left, low, high);
+            left = rangeSumBST_0(root.left, low, high);
         }
         int right = 0;
         if(root.value <= high) {
-            right = rangeSumBST(root.right, low, high);
+            right = rangeSumBST_0(root.right, low, high);
         }
         if(root.value >= low && root.value <= high){
             return root.value + left + right;
         } else {
             return left + right;
         }
+    }
+    /**
+     * Inorder Recursive / Improved
+     */
+    static int result = 0;
+    public static int rangeSumBST_0a(TreeNode root, int low, int high) {
+        dfs(root, low, high);
+        return result;
+    }
+    public static void dfs(TreeNode node, int low, int high){
+        if(node == null){
+            return;
+        }
+        dfs(node.left, low, high);
+        if(node.value >= low && node.value <= high){
+            result += node.value;
+        }
+        dfs(node.right, low, high);
     }
     /**
      * Inorder Iterative
@@ -126,5 +151,20 @@ public class Q938_Range_Sum_of_BST {
             }
         }
         return sum;
+    }
+    /**
+     * Official answer
+     */
+    public static int rangeSumBST_5(TreeNode root, int L, int R) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.value < L) {
+            return rangeSumBST_5(root.right, L, R);
+        }
+        if (root.value > R) {
+            return rangeSumBST_5(root.left, L, R);
+        }
+        return root.value + rangeSumBST_5(root.left, L, R) + rangeSumBST_5(root.right, L, R);
     }
 }
