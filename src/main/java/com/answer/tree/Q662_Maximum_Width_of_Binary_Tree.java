@@ -1,6 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         node3.left = node5;
         node4.left = node6;
 
-        System.out.println(widthOfBinaryTree_0( root));
+        System.out.println(widthOfBinaryTree_1( root));
     }
 
     /**
@@ -73,7 +74,6 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         if (root == null) {
             return 0;
         }
-
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
@@ -91,5 +91,44 @@ public class Q662_Maximum_Width_of_Binary_Tree {
             res = Math.max(res, end - start + 1);
         }
         return res;
+    }
+    /**
+     * Improved and works
+     */
+    public static int widthOfBinaryTree_1(TreeNode root) {
+        int res = 0;
+        if (root == null) {
+            return 0;
+        }
+        List<NodePair> list = new LinkedList<>();
+        list.add(new NodePair(root, 1) );
+        while (!list.isEmpty()) {
+            List<NodePair> temp = new LinkedList<>();
+
+            for(int i = 0; i < list.size(); i++){
+                TreeNode cur = list.get(i).node;
+                int value = list.get(i).val;
+                if(cur.left != null){
+                    temp.add(new NodePair(cur.left, value * 2 + 1) );
+                }
+                if(cur.right != null){
+                    temp.add(new NodePair(cur.right, value * 2 + 2) );
+                }
+            }
+            res = Math.max(res, list.get(list.size() - 1).val - list.get(0).val + 1);
+
+            list = temp;
+        }
+        return res;
+    }
+}
+
+class NodePair {
+    TreeNode node;
+    Integer val;
+
+    public NodePair(TreeNode node, Integer val) {
+        this.node = node;
+        this.val = val;
     }
 }
