@@ -80,4 +80,15 @@ public class Q389_Find_the_Difference {
 
         return (char)xor;
     }
+    /**
+     *
+     */
+    public char findTheDifference_4(String s, String t) {
+        char exor = 0;
+        for (char c : (new StringBuilder()).append(s).append(t).toString().toCharArray()) {
+            exor ^= c;
+        }
+        return exor;
+
+    }
 }
