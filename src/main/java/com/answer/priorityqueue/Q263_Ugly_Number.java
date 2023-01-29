@@ -2,6 +2,9 @@ package com.answer.priorityqueue;
 
 public class Q263_Ugly_Number {
 
+    /**
+     * An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
+     */
     public boolean isUgly(int n) {
         if(n <= 0) return false;
         int[] factors = {2, 3, 5};
