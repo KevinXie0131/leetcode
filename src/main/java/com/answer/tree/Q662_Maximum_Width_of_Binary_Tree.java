@@ -23,7 +23,7 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         node3.left = node5;
         node4.left = node6;
 
-        System.out.println(widthOfBinaryTree_1( root));
+        System.out.println(widthOfBinaryTree_4( root));
     }
 
     /**
@@ -95,6 +95,30 @@ public class Q662_Maximum_Width_of_Binary_Tree {
     /**
      * Improved and works
      */
+    public static int widthOfBinaryTree_0a(TreeNode root) {
+        int res = 0;
+        if (root == null) {
+            return 0;
+        }
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.offer(new TreeNode(1, root.left, root.right));
+        while (!queue.isEmpty()) {
+            int size = queue.size(), start = -1, end = -1;
+
+            for(int i = 0; i < size; i++){
+                TreeNode cur = queue.poll();
+                end = cur.value;
+                if(start == -1) start = cur.value;
+                if(cur.left != null) queue.offer(new TreeNode(cur.value * 2, cur.left.left, cur.left.right));
+                if(cur.right != null) queue.offer(new TreeNode(cur.value * 2 + 1, cur.right.left, cur.right.right));
+            }
+            res = Math.max(res, end - start + 1);
+        }
+        return res;
+    }
+    /**
+     * Improved and works
+     */
     public static int widthOfBinaryTree_1(TreeNode root) {
         int res = 0;
         if (root == null) {
@@ -120,6 +144,40 @@ public class Q662_Maximum_Width_of_Binary_Tree {
             list = temp;
         }
         return res;
+    }
+    /**
+     * Recursion
+     */
+    public static int widthOfBinaryTree_4(TreeNode root) {
+        // 给每个节点一个编号（索引）
+        // 按满二叉树来算，如果一个节点的索引为 x，那么它左右子节点的索引分别是 2x 和 2x+1
+        int ans = 0;
+
+        // 记录每个层级最小和最大的编号
+        // 也可以只记录最小编号，边遍历边计算结果
+        List<int[]> list = new ArrayList<>();
+        dfs(list, root, 1, 0);
+
+        for (int[] arr : list) {
+            ans = Math.max(ans, arr[1] - arr[0] + 1);
+        }
+
+        return ans;
+    }
+
+    private static void dfs(List<int[]> list, TreeNode node, int index, int level) {
+        if (node == null) {
+            return;
+        }
+
+        if (list.size() <= level) {
+            list.add(new int[] {index, index});
+        } else {
+            list.get(level)[1] = index;
+        }
+
+        dfs(list, node.left, 2 * index, level + 1);
+        dfs(list, node.right, 2 * index + 1, level + 1);
     }
 }
 
