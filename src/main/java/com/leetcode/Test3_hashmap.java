@@ -12,15 +12,27 @@ public class Test3_hashmap {
         set.add(8);
         set.add(2);
         set.add(9);
+        set.add(0);
         set.remove(2);
 
         for (Integer a : set) {
             System.out.print(a + " ");
         }
         System.out.println();
-        System.out.println("ceiling: " + set.ceiling(2));
-        System.out.println("floor: " + set.floor(2));
-        System.out.println();
+        System.out.println("ceiling: " + set.ceiling(5));
+        System.out.println("floor: " + set.floor(5));
+        System.out.println("higher: " + set.higher(5));
+        System.out.println("lower: " + set.lower(5));
+        System.out.println("ceiling 3: " + set.ceiling(3));
+        System.out.println("floor 3: " + set.floor(3));
+        System.out.println("higher 3: " + set.higher(3));
+        System.out.println("lower 3: " + set.lower(3));
+
+        System.out.println(set.first());
+        System.out.println(set.last());
+        System.out.println(set.pollFirst());
+        System.out.println(set.pollLast());
+        System.out.println(set);
 
         HashMap<String, String> hashMap = new HashMap();
         System.out.println(hashMap.put("c","c"));
