@@ -26,6 +26,21 @@ public class Q389_Find_the_Difference {
         return set.iterator().next();
     }
     /**
+     * this method works
+     */
+    public char findTheDifference_0(String s, String t) {
+        Set<Character> set = new HashSet<>();
+        char[] array = s.concat(t).toCharArray();
+        for(int i = 0; i <array.length; i++){
+            if(set.contains(array[i])){
+                set.remove(array[i]);
+            }else{
+                set.add(array[i]);
+            }
+        }
+        return (char)set.toArray()[0];
+    }
+    /**
      *
      */
     public static char findTheDifference_1(String s, String t) {
