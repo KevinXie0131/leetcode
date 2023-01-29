@@ -19,7 +19,7 @@ public class Q938_Range_Sum_of_BST {
         node1.right = node4;
         node2.right = node5;
 
-        System.out.println(rangeSumBST_3( root, 7, 15));
+        System.out.println(rangeSumBST_1( root, 7, 15));
     }
 
     /**
@@ -39,7 +39,7 @@ public class Q938_Range_Sum_of_BST {
         }
     }
     /**
-     * Iterative
+     * Inorder Iterative
      */
     public static int rangeSumBST_1(TreeNode root, int low, int high) {
         int sum = 0;
@@ -54,6 +54,8 @@ public class Q938_Range_Sum_of_BST {
             TreeNode cur = stack.pop();
             if(cur.value >= low && cur.value <= high){
                 sum += cur.value;
+            } else if(cur.value > high) { // since it is BST, it can jump out at this point.
+                break;
             }
             root = cur.right;
         }
