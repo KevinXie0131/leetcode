@@ -33,7 +33,7 @@ public class Q264_Ugly_Number_II {
         return n == 1;
     }
     /**
-     * PriorityQueue
+     * Approach 1: Heap - PriorityQueue
      */
     public static int nthUglyNumber_2(int n) {
         int[] factors = new int[]{2, 3, 5};
@@ -56,5 +56,22 @@ public class Q264_Ugly_Number_II {
             }
         }
         return -1;
+    }
+    /**
+     * TreeMap - don't worry about duplicated elements
+     */
+    public int nthUglyNumber_3(int n) {
+        TreeSet<Long> set = new TreeSet<Long>();
+        int count = 0;
+        long result = 1;
+        set.add(result);
+        while (count < n) {
+            result = set.pollFirst();
+            count++;
+            set.add(result * 2);
+            set.add(result * 3);
+            set.add(result * 5);
+        }
+        return (int) result;
     }
 }
