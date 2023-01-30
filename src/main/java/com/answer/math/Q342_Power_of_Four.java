@@ -2,7 +2,7 @@ package com.answer.math;
 
 public class Q342_Power_of_Four {
     public static void main(String[] args) {
-        System.out.println(isPowerOfFour_1a(16));
+        System.out.println(isPowerOfFour_6(16));
     }
     /**
      * Bineary Search
@@ -66,5 +66,14 @@ public class Q342_Power_of_Four {
         int x = (int)Math.sqrt(n);
         return x * x == n && (x & -x) == x;
 
+    }
+    /**
+     * Math
+     */
+    public static boolean isPowerOfFour_6(int num) {
+        System.out.println(Math.log(num));
+        System.out.println(Math.log(2));
+        System.out.println(Math.log(num) / Math.log(2));
+        return (num > 0) && (Math.log(num) / Math.log(4) % 2 == 0);
     }
 }
