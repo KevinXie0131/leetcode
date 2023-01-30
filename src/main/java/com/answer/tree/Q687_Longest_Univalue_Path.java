@@ -79,4 +79,22 @@ public class Q687_Longest_Univalue_Path {
         res = Math.max(res, left1 + right1);
         return Math.max(left1, right1);
     }
+    /**
+     *
+     */
+    int ans = 0;
+    public int longestUnivaluePath_2(TreeNode root) {
+        if (root == null) return 0;
+        dfs_2(root, Integer.MAX_VALUE);
+        return ans;
+    }
+    int dfs_2(TreeNode root, int val) {
+        if (root == null) {
+            return 0;
+        }
+        int L = dfs_2(root.left, root.value);
+        int R = dfs_2(root.right, root.value);
+        ans = Math.max(ans, L + R);
+        return root.value != val ? 0 : Math.max(L, R) + 1;
+    }
 }
