@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 
 public class Q326_Power_of_Three {
     public static void main(String[] args) {
-        System.out.println(isPowerOfThree_2(243));
+        System.out.println(isPowerOfThree_5(243));
     }
     /**
      * Binary Search
@@ -64,5 +64,27 @@ public class Q326_Power_of_Three {
 
     public boolean isPowerOfThree_3(int n) {
         return n > 0 && Math.pow(3, 19) % n == 0;
+    }
+
+    /**
+     * This solution is problematic because we start using doubles, which means we are subject to precision errors.
+     * This means, we should never use == when comparing doubles. That is because the result of Math.log10(n) / Math.log10(3) could be 5.0000001 or 4.9999999.
+     * This effect can be observed by using the function Math.log() instead of Math.log10().
+     *
+     * In order to fix that, we need to compare the result against an epsilon.
+     */
+    public static boolean isPowerOfThree_4(int n) {
+        System.out.println(Math.log10(n));
+        System.out.println( Math.log10(3));
+        System.out.println((Math.log10(n) / Math.log10(3)));
+        return (Math.log10(n) / Math.log10(3)) % 1 == 0;
+    }
+
+    public static boolean isPowerOfThree_5(int n) {
+        System.out.println(Math.log(n));
+        System.out.println( Math.log(3));
+        System.out.println((Math.log(n) / Math.log(3)));
+        System.out.println((Math.log(n) / Math.log(3)) % 1);
+        return (Math.log(n) / Math.log(3) + Math.pow(10,-9)) % 1 <=  Math.pow(10,-9); //doesn't work
     }
 }
