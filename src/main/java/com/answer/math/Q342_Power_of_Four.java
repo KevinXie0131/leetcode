@@ -2,7 +2,7 @@ package com.answer.math;
 
 public class Q342_Power_of_Four {
     public static void main(String[] args) {
-        System.out.println(isPowerOfFour_1(16));
+        System.out.println(isPowerOfFour_1a(16));
     }
     /**
      * Bineary Search
@@ -34,6 +34,15 @@ public class Q342_Power_of_Four {
         return n == 1;
     }
     /**
+     * Convert brute force to recursion
+     */
+    public static boolean isPowerOfFour_1a(int n) {
+        if (n < 1) return false;
+        if (n == 1) return true;
+        if (n % 4 != 0) return false;
+        return isPowerOfFour_1a(n / 4);
+    }
+    /**
      * Bit manipulation
      */
     public boolean isPowerOfFour_2(int n) {
@@ -41,5 +50,21 @@ public class Q342_Power_of_Four {
         for (int i = 1, sub = 1; i < 32; i = i + 2, sub <<= 2)
             if (sub == n) return true;
         return false;
+    }
+
+    public boolean isPowerOfFou_3(int n) {
+        return n > 0 && (n & (n - 1)) == 0 && (n & 0xaaaaaaaa) == 0;
+    }
+    public boolean isPowerOfFour_4(int n) {
+        return n > 0 && (n & (n - 1)) == 0 && n % 3 == 1;
+    }
+    /**
+     * use Sqrt() first
+     */
+    public boolean isPowerOfFour_5(int n) {
+        if (n <= 0) return false;
+        int x = (int)Math.sqrt(n);
+        return x * x == n && (x & -x) == x;
+
     }
 }
