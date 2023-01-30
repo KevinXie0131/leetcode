@@ -2,14 +2,15 @@ package com.answer.linkedlist;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.*;
 
 public class Q234_Palindrome_Linked_List_1 {
     public static void main(String[] args) {
-    //    ListNode node4 = new ListNode(1, null);
-     //   ListNode node3 = new ListNode(2, node4);
-        ListNode node2 = new ListNode(2, null);
+        ListNode node4 = new ListNode(1, null);
+        ListNode node3 = new ListNode(2, node4);
+        ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
-        System.out.println(isPalindrome(node1));
+        System.out.println(isPalindrome_3(node1));
     }
 
     /**
@@ -68,6 +69,25 @@ public class Q234_Palindrome_Linked_List_1 {
             temp = temp.next;
         }
 
+        return true;
+    }
+    /**
+     * use list and two pointers.
+     */
+    public static boolean isPalindrome_3(ListNode head) {
+        List<ListNode> list = new ArrayList<>();
+        while(head != null){
+            list.add(head);
+            head = head.next;
+        }
+        int left = 0, right = list.size() - 1;
+        while(left <= right){
+            if(list.get(left).val != list.get(right).val){
+                return false;
+            }
+            left++;
+            right--;
+        }
         return true;
     }
 
