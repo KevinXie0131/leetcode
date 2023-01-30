@@ -14,6 +14,7 @@ public class Q234_Palindrome_Linked_List_1 {
     }
 
     /**
+     * Approach 3: Reverse Second Half In-place
      * Find mid node + reverse + compare
      */
     public static boolean isPalindrome(ListNode head) {
@@ -72,6 +73,7 @@ public class Q234_Palindrome_Linked_List_1 {
         return true;
     }
     /**
+     * Approach 1: Copy into Array List and then Use Two Pointer Technique
      * use list and two pointers.
      */
     public static boolean isPalindrome_3(ListNode head) {
