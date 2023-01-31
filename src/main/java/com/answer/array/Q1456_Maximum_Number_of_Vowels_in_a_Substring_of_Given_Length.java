@@ -44,4 +44,60 @@ public class Q1456_Maximum_Number_of_Vowels_in_a_Substring_of_Given_Length {
 
         return max;
     }
+    /**
+     * Use function to check valid character
+     */
+    public int maxVowels_1(String s, int k) {
+        int n = s.length();
+        char[] ch = s.toCharArray();
+        int max = 0;
+
+        Deque<Character> queue = new ArrayDeque<>();
+        for(int i = 0; i < k; i++){
+            if(isVowel(ch[i])){
+                queue.offer(ch[i]);
+            }
+        }
+        max = queue.size();
+
+        for(int i = k; i < n; i++){
+            if(isVowel(ch[i])){
+                queue.offer(ch[i]);
+            }
+            if(isVowel(ch[i - k])){
+                queue.poll();
+            }
+            max =Math.max(max, queue.size());
+        }
+
+        return max;
+    }
+    public boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+    /**
+     * Use two pointer as sliding window
+     */
+    public int maxVowels_2(String s, int k) {
+        int n = s.length();
+        char[] ch = s.toCharArray();
+        int max = 0;
+
+        for(int i = 0; i < k; i++){
+            if(isVowel_1(ch[i]) == 1){
+                max++;
+            }
+        }
+        int count = max;
+        for(int i = k; i < n; i++){
+            count += isVowel_1(ch[i]);
+            count -= isVowel_1(ch[i - k]);
+            max = Math.max(max, count);
+        }
+
+        return max;
+    }
+    public int isVowel_1(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ? 1 : 0;
+    }
 }
