@@ -31,12 +31,13 @@ Leetcode 94 二叉树的中序遍历 | Leetcode 102 二叉树的层序遍历 | L
 Leetcode 27 移除元素 | Leetcode 56 合并区间(new) | Leetcode 57 插入区间(new) | Leetcode 234 回文链表(new) | Leetcode 287 寻找重复数(new) | Leetcode 344 反转字符串(new)
 
 二分查找 binary search 704/35/162/74 (704. Binary Search | 35. Search Insert Position | 162. Find Peak Element | 74. Search a 2D Matrix(new))
-Leetcode 35 搜索插入位置 | Leetcode 231 2的幂(new) | Leetcode 342 4的幂(new) | Leetcode 704 二分查找
+Leetcode 35 搜索插入位置 | Leetcode 231 2的幂(new) | Leetcode 342 4的幂(new) | Leetcode 704 二分查找 | 326. Power of Three (Additional) | 240. Search a 2D Matrix II (Additional)
 
 滑动窗口 sliding window（技巧） 209/1456 (209. Minimum Size Subarray Sum | 1456. Maximum Number of Vowels in a Substring of Given Length(new))
 Leetcode 209 长度最小的子数组
 
 递归 recursion 509/206/344/687 (509. Fibonacci Number | 206. Reverse Linked List | 344. Reverse String | 687. Longest Univalue Path(new))
+| 437. Path Sum III (Additional) | 998. Maximum Binary Tree II (Additional)
 
 分治 divide&conquer 169/53 (169. Majority Element | 53. Maximum Subarray(new))
 
