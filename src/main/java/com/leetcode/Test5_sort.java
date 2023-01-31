@@ -16,7 +16,7 @@ public class Test5_sort {
         }
         System.out.println();
 
-        Arrays.sort(unsortedArray, ( a,  b) ->  b-a);
+        Arrays.sort(unsortedArray, ( a,  b) ->  b-a); // since Java 8, there is no need for Comparator
         for(int item : unsortedArray){
             System.out.print(item + " ");
         }
