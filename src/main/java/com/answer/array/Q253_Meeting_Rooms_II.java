@@ -10,11 +10,13 @@ public class Q253_Meeting_Rooms_II {
         System.out.println(res);
     }
     /**
-     * PriorityQueue
+     * Approach 1: Priority Queues
+     * Use PriorityQueue - Min Heap
      */
     public static  int minMeetingRooms(int[][] intervals) {
 
-        PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> o1[0] == o2[0] ? o1[1] - o2[1] : o1[0] - o2[0]);
+        PriorityQueue<int[]> queue = new PriorityQueue<>(intervals.length,
+                (o1, o2) -> o1[0] == o2[0] ? o1[1] - o2[1] : o1[0] - o2[0]);
 
         for(int[] interval : intervals){
             queue.offer(new int[]{interval[0], 1});
@@ -42,6 +44,7 @@ public class Q253_Meeting_Rooms_II {
         return max;
     }
     /**
+     * Approach 2: Chronological Ordering
      * Sorting
      */
     public static int minMeetingRooms_1(int[][] intervals) {
