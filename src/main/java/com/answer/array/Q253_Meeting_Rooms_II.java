@@ -1,11 +1,12 @@
 package com.answer.array;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class Q253_Meeting_Rooms_II {
     public static void main(String[] args) {
         int[][] intervals =  {{0,30},{5,10},{15,20}};
-        int res = minMeetingRooms(intervals);
+        int res = minMeetingRooms_1(intervals);
         System.out.println(res);
     }
     /**
@@ -40,7 +41,27 @@ public class Q253_Meeting_Rooms_II {
         }
         return max;
     }
+    /**
+     * Sorting
+     */
+    public static int minMeetingRooms_1(int[][] intervals) {
+        int n = intervals.length;
+        int[][] temp = new int[n * 2][2];
 
+        int index = 0;
+        for(int[] interval : intervals){
+            temp[index++] = new int[]{interval[0], 1};
+            temp[index++] = new int[]{interval[1], -1};
+        }
 
+        Arrays.sort(temp, (a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
 
+        int count = 0;
+        int max = 0;
+        for(int[] t: temp){
+            count += t[1];
+            max = Math.max(max, count);
+        }
+        return max;
+    }
 }
