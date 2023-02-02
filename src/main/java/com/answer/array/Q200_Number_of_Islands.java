@@ -18,8 +18,8 @@ public class Q200_Number_of_Islands {
          * 0 0 0 1 1
          */
         char[][] grid1 = {{'1', '1', '0', '0', '0'}, {'1', '1', '0', '0', '0'}, {'0', '0', '1', '0', '0'}, {'0', '0', '0', '1', '1'}};
-        System.out.println(numIslands_1(grid));
-        System.out.println(numIslands_1(grid1));
+        System.out.println(numIslands(grid));
+        System.out.println(numIslands(grid1));
     }
     /**
      * Approach #1 DFS
