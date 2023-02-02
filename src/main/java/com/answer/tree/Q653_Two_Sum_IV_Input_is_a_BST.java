@@ -6,7 +6,8 @@ import java.util.*;
 
 public class Q653_Two_Sum_IV_Input_is_a_BST {
     /**
-     * Approach #3 Using BST
+     * Approach #3 Using BST (Binary Search Tree)
+     * Inorder traversal of a BST gives the nodes in ascending order
      */
     public boolean findTarget(TreeNode root, int k) {
         List<Integer> list = new ArrayList<>();
@@ -34,7 +35,7 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
         dfs(root.right, list);
     }
     /**
-     * Approach #1 Using HashSet
+     * Approach #1 Using HashSet + Recursion
      */
     public boolean findTarget_1(TreeNode root, int k) {
         Set<Integer> set = new HashSet();
@@ -54,7 +55,7 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
         return left || right;
     }
     /**
-     * Approach #2 Using BFS and HashSet
+     * Approach #2 Using Iteration and HashSet
      */
     public boolean findTarget_2(TreeNode root, int k) {
         Set<Integer> set = new HashSet();
