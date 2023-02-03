@@ -6,7 +6,7 @@ public class Q448_Find_All_Numbers_Disappeared_in_an_Array {
     public static void main(String[] args) {
         int[] nums = {4,3,2,7,8,2,3,1};
       //  int[] nums = {1,1};
-        List<Integer> res = findDisappearedNumbers_2(nums);
+        List<Integer> res = findDisappearedNumbers_4(nums);
         System.out.println(res);
     }
 
@@ -62,6 +62,27 @@ public class Q448_Find_All_Numbers_Disappeared_in_an_Array {
         }
         for(int i = 0; i <= nums.length - 1; i++){
             if(nums[i] <= len){
+                res.add(i + 1);
+            }
+        }
+
+        return res;
+    }
+    /**
+     *
+     */
+    public static List<Integer> findDisappearedNumbers_4(int[] nums) {
+        int len = nums.length;
+        List<Integer> res = new ArrayList<Integer>();
+
+        for(int i = 0; i <= nums.length - 1; i++){
+            int x = Math.abs(nums[i]) - 1;
+            if(nums[x] > 0){
+                nums[x] = -nums[x];
+            }
+        }
+        for(int i = 0; i <= nums.length - 1; i++){
+            if(nums[i] > 0){
                 res.add(i + 1);
             }
         }
