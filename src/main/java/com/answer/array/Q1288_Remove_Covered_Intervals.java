@@ -4,8 +4,9 @@ import java.util.*;
 
 public class Q1288_Remove_Covered_Intervals {
     public static void main(String[] args) {
-        int[][] intervals = {{1,2},{1,4},{3,4}};
-        System.out.println(removeCoveredIntervals(intervals));
+       // int[][] intervals = {{1,2},{1,4},{3,4}};
+        int[][] intervals = {{1,4},{3,6},{2,8}};
+        System.out.println(removeCoveredIntervals_1(intervals));
     }
     public static int removeCoveredIntervals(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> a[0] == b[0] ? b[1]-a[1]:a[0]-b[0]);
@@ -25,8 +26,9 @@ public class Q1288_Remove_Covered_Intervals {
     }
     /**
      * Approach 1: Greedy Algorithm
+     * The idea of greedy algorithm is to pick the locally optimal move at each step, which would lead to the globally optimal solution.
      */
-    public int removeCoveredIntervals_1(int[][] intervals) {
+    public static int removeCoveredIntervals_1(int[][] intervals) {
         Arrays.sort(intervals, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
