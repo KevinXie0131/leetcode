@@ -51,4 +51,25 @@ public class Q56_Merge_Intervals {
         }
         return res.toArray(new int[0][]); //toArray方法中的参数只是为了说明返回数组的元素类型，并不需要开辟空间
     }
+    /**
+     *
+     */
+    public static int[][] merge_2(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        LinkedList<int[]> merged = new LinkedList<>();
+        for (int[] interval : intervals) {
+            // if the list of merged intervals is empty or if the current
+            // interval does not overlap with the previous, simply append it.
+            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
+                merged.add(interval);
+            }
+            // otherwise, there is overlap, so we merge the current and previous
+            // intervals.
+            else {
+                merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+            }
+        }
+     //   return merged.toArray(new int[merged.size()][]);
+        return merged.toArray(new int[0][]);
+    }
 }
