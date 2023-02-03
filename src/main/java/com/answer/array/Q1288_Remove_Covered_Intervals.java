@@ -8,7 +8,7 @@ public class Q1288_Remove_Covered_Intervals {
         System.out.println(removeCoveredIntervals(intervals));
     }
     public static int removeCoveredIntervals(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> a[0] == b[0] ? a[1]-b[1]:a[0]-b[0]);
+        Arrays.sort(intervals, (a, b) -> a[0] == b[0] ? b[1]-a[1]:a[0]-b[0]);
         int len = intervals.length;
         int count = len;
         int right = intervals[0][1];
