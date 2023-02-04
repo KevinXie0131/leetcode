@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -66,6 +67,16 @@ public class Test8_PriorityQueue {
         priorityQueue6.add(new Cordinate(1,1,111));
         priorityQueue6.add(new Cordinate(2,2,222));
         System.out.println(priorityQueue6.poll().toString());
+
+        int[] nums = {4, 5, 6, -1, 0, 8, -2,-6, 9, -10};
+        PriorityQueue<Integer> queue10 = new PriorityQueue<>((a,b) -> -(nums[a] - nums[b]));
+        for(int i = 0 ; i < nums.length; i++){
+            queue10.add(i);
+        }
+        while(!queue10.isEmpty()){
+            int n = queue10.poll();
+            System.out.print(n + ":(" + nums[n] + ") -> ");
+        }
     }
 }
 
