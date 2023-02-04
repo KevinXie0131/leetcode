@@ -1,0 +1,20 @@
+Greedy algorithm:
+
+455. Assign Cookies
+376. Wiggle Subsequence
+53. Maximum Subarray
+122. Best Time to Buy and Sell Stock II
+55. Jump Game
+45. Jump Game II
+1005. Maximize Sum Of Array After K Negations
+134. Gas Station
+135. Candy - Hard
+860. Lemonade Change
+406. Queue Reconstruction by Height
+452. Minimum Number of Arrows to Burst Balloons
+435. Non-overlapping Intervals
+763. Partition Labels
+56. Merge Intervals
+738. Monotone Increasing Digits
+714. Best Time to Buy and Sell Stock with Transaction Fee
+968. Binary Tree Cameras - Hard
