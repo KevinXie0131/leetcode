@@ -2,7 +2,8 @@ package com.answer.greedy;
 
 public class Q45_Jump_Game_II {
     public static void main(String[] args) {
-        int[] nums = {2,3,1,1,4};
+     //   int[] nums = {2,3,1,1,4};
+        int[] nums = {1,1,1,1,1};
         System.out.println(jump_1(nums));
     }
 
@@ -30,6 +31,7 @@ public class Q45_Jump_Game_II {
     }
     /**
      * Brute force
+     * Time complexity n2 for 1,1,1,1,1
      */
     public static int jump_1(int[] nums) {
         int position = nums.length - 1; //要找的位置
