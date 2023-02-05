@@ -23,7 +23,7 @@ public class Q461_Hamming_Distance {
     }
 
     /**
-     * Approach 3: Brian Kernighan's Algorithm
+     * Approach 3: Brian Kernighan's Algorithm (More efficient)
      * Not use built-in function
      * When we do AND bit operation between number and number-1, the rightmost bit of one in the original number would be cleared.
      */
@@ -47,6 +47,12 @@ public class Q461_Hamming_Distance {
         int xor = x ^ y;
 
         while(xor > 0){
+            /**
+             * while(xor > 0){
+             *    count += xor & 1;
+             *    xor = xor >> 1;
+             * }
+             */
             if(xor % 2 == 1){
                 count++;
             }
