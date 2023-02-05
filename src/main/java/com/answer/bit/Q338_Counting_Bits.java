@@ -1,4 +1,4 @@
-package com.answer.math;
+package com.answer.bit;
 
 public class Q338_Counting_Bits {
     /**
