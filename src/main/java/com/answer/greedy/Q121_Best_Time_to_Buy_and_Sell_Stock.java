@@ -24,5 +24,18 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
 
         return profit;
     }
+    /**
+     * Greedy
+     */
+    public int maxProfit_1(int[] prices) {
+        int cost = Integer.MAX_VALUE;
+        int profit = 0;
 
+        for(int price : prices){
+            cost = Math.min(cost, price);
+            profit = Math.max(profit, price - cost);
+        }
+
+        return profit;
+    }
 }
