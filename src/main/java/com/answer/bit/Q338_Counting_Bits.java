@@ -2,7 +2,7 @@ package com.answer.bit;
 
 public class Q338_Counting_Bits {
     /**
-     * Approach 1: Pop Count
+     * Approach 1: Pop Count (Brian Kernighan's Algorithm: https://www.educative.io/answers/what-is-kernighans-algorithm)
      * Time complexity: O(nlogn)
      * Space complexity: O(1)
      */

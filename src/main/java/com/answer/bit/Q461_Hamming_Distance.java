@@ -7,6 +7,7 @@ public class Q461_Hamming_Distance {
     }
 
     /**
+     * Approach 1: Built-in BitCounting Functions
      * Use built-in function
      */
     public static int hammingDistance(int x, int y) {
@@ -16,9 +17,11 @@ public class Q461_Hamming_Distance {
         res = Integer.bitCount(z);
 
         return res;
+        // return Integer.bitCount(x ^ y);
     }
 
     /**
+     * Approach 3: Brian Kernighan's Algorithm
      * Not use built-in function
      */
     public static int hammingDistance_1(int x, int y) {
@@ -31,4 +34,7 @@ public class Q461_Hamming_Distance {
         }
         return count;
     }
+    /**
+     * Approach 2: Bit Shift
+     */
 }
