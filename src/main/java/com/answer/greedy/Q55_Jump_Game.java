@@ -25,6 +25,7 @@ public class Q55_Jump_Game {
         return true;
     }
     /**
+     * Approach 4: Greedy
      * Official answer
      */
     public boolean canJump_1(int[] nums) {
