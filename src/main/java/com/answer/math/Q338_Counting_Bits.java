@@ -33,4 +33,16 @@ public class Q338_Counting_Bits {
 
         return count;
     }
+    /**
+     * Approach 2: DP + Most Significant Bit
+     */
+    // TO DO
+    /**
+     * Approach 3: DP + Least Significant Bit
+     */
+    // TO DO
+    /**
+     * Approach 4: DP + Last Set Bit
+     */
+    // TO DO
 }
