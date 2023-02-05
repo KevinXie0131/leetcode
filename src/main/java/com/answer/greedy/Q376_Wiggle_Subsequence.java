@@ -7,7 +7,7 @@ public class Q376_Wiggle_Subsequence {
         System.out.println(wiggleMaxLength(nums));
     }
     /**
-     * Greedy
+     * Approach #5 Greedy Approach
      */
     public static int wiggleMaxLength(int[] nums) {
         int res = 1;
@@ -25,5 +25,19 @@ public class Q376_Wiggle_Subsequence {
             }
         }
         return res;
+    }
+    /**
+     * Greedy 2
+     */
+    public int wiggleMaxLength_1(int[] nums) {
+        int down = 1, up = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1])
+                up = down + 1;
+            else if (nums[i] < nums[i - 1])
+                down = up + 1;
+        }
+        return nums.length == 0 ? 0 : Math.max(down, up);
+
     }
 }
