@@ -37,6 +37,8 @@ public class Q470_Implement_Rand10_Using_Rand7 {
             int row = rand7();
             int col = rand7();
             int index = (row - 1) * 7 + col;
+            // If the number is out of the desired range, reject it and re-sample again. As each number in the desired range
+            // has the same probability of being chosen, a uniform distribution is produced.
             if(index <= 40){
                 return (index - 1) % 10 + 1;
             }
