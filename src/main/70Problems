@@ -110,6 +110,8 @@ Recursion:
 Math:
 399. Evaluate Division(new)
 373. Find K Pairs with Smallest Sums(new)
+719 Find K-th Smallest Pair Distance (Additional)
+786. K-th Smallest Prime Fraction (Additional)
 
 Heap:
 703. Kth Largest Element in a Stream(new)
