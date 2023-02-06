@@ -13,7 +13,13 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
     }
 
     /**
-     * Approach: Heap
+     * Approach: Heap - min heap
+     * Time:
+     *   initial: O(nlogk)
+     *   add: O(logk)
+     * Space: O(k)
+     * 为什么使用小根堆？
+     * 因为我们需要在堆中保留数据流中的前K大元素，使用小根堆能保证每次调用堆的 pop() 函数时，从堆中删除的是堆中的最小的元素（堆顶）
      */
     PriorityQueue<Integer> heap = null;
     int k = 0;
