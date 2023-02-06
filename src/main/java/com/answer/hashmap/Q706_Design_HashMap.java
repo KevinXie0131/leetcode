@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Q706_Design_HashMap {
+    /**
+     * 1). hash function design and 2). collision handling
+     */
     private class Pair {
         private int key;
         private int value;
