@@ -11,6 +11,8 @@ public class Q786_Kth_Smallest_Prime_Fraction {
 
     /**
      * Approach #2: Heap
+     * Time: O(klogn)
+     * Space: O(n)
      */
     public static int[] kthSmallestPrimeFraction(int[] arr, int k) {
         int[] res = new int[2];
@@ -33,5 +35,18 @@ public class Q786_Kth_Smallest_Prime_Fraction {
         }
         return new int[]{arr[heap.peek()[0]], arr[heap.peek()[1]]};
     }
-
+    /**
+     * Sorting
+     */
+    public int[] kthSmallestPrimeFraction_1(int[] arr, int k) {
+        int m = arr.length;
+        List<int[]> frac = new ArrayList<int[]>();
+        for(int i = 0; i < m; i++){
+            for(int j = i + 1;j < m;j++){
+                frac.add(new int[]{arr[i], arr[j]});
+            }
+        }
+        Collections.sort(frac, (x,y)->x[0]*y[1] -x[1]*y[0]);
+        return frac.get(k-1);
+    }
 }
