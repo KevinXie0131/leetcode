@@ -13,7 +13,7 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
     }
 
     /**
-     * Approach: Heap - min heap
+     * Approach: Heap - use a min-heap (min means that the heap will remove/find the smallest element, a max heap is the same thing but for the largest element)
      * Time:
      *   initial: O(nlogk)
      *   add: O(logk)
