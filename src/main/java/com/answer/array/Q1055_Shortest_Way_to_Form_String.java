@@ -7,7 +7,8 @@ public class Q1055_Shortest_Way_to_Form_String {
     }
 
     /**
-     * Two Pointers
+     * Approach 3: Two Pointers + Greedy
+     *
      * 子序列（subsequence）：并不要求连续，序列 [4, 6, 5] 是 [1, 2, 4, 3, 7, 6, 5] 的一个子序列。(子序列（subsequence）：并不要求在原序列中连续)
      * 子串（substring、subarray）：一定是连续的 (子串（substring、subarray）：在原序列中一定是连续的)
      *
