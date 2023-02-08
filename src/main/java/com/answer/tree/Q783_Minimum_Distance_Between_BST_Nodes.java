@@ -16,7 +16,7 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
         node5.left = node4;
         node4.left = node3;
 
-        System.out.println(minDiffInBST(node1));
+        System.out.println(minDiffInBST_3(node1));
 
     }
 
@@ -53,10 +53,10 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
     /**
      * Another form of In-order Traversal by recursion
      */
-    TreeNode pre1 = null;
-    int result =  Integer.MAX_VALUE;
+    static TreeNode pre1 = null;
+    static int result =  Integer.MAX_VALUE;
 
-    public int minDiffInBST_3(TreeNode root) {
+    public static int minDiffInBST_3(TreeNode root) {
         if(root == null) return result;
 
         int left = minDiffInBST(root.left);
