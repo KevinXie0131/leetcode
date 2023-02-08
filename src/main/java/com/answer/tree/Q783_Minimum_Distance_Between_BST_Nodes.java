@@ -51,6 +51,27 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
         dfs(root.right);
     }
     /**
+     * Another form of In-order Traversal by recursion
+     */
+    TreeNode pre1 = null;
+    int result =  Integer.MAX_VALUE;
+
+    public int minDiffInBST_3(TreeNode root) {
+        if(root == null) return result;
+
+        int left = minDiffInBST(root.left);
+
+        if(pre1 != null){
+            result = Math.min(left, root.value - pre1.value);
+        }
+        pre1 = root;
+
+        int right = minDiffInBST(root.right);
+
+        result = Math.min(right, result);
+        return result;
+    }
+    /**
      * Approach 1: In-order Traversal with List
      */
     // List to store the tree nodes in the inorder traversal.
