@@ -1,4 +1,4 @@
-package com.answer.dynamicprogramming;
+package com.answer.dynamic_programming;
 
 import java.util.*;
 

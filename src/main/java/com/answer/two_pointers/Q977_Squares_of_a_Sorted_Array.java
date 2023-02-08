@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.two_pointers;
 
 public class Q977_Squares_of_a_Sorted_Array {
 

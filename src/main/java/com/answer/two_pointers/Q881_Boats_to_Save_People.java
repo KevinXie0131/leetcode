@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.two_pointers;
 
 import java.util.Arrays;
 

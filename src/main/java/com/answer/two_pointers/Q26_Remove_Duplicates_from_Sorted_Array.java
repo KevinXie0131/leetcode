@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.two_pointers;
 
 public class Q26_Remove_Duplicates_from_Sorted_Array {
     /**

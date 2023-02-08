@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.dfs_bfs;
 
 public class Q463_Island_Perimeter {
     /**

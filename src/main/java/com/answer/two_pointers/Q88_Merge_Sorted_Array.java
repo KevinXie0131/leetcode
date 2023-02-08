@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.two_pointers;
 
 public class Q88_Merge_Sorted_Array {
 

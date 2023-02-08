@@ -1,7 +1,10 @@
-package com.answer.array;
+package com.answer.binarysearch;
 
 public class Q33_Search_in_Rotated_Sorted_Array {
 
+    /**
+     * Binary search
+     */
     public int search(int[] nums, int target) {
         if (nums == null || nums.length == 0) {
             return -1;

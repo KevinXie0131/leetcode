@@ -1,4 +1,4 @@
-package com.answer.math;
+package com.answer.priorityqueue;
 
 import java.util.*;
 

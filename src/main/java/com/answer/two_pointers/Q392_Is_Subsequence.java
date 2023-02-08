@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.two_pointers;
 
 public class Q392_Is_Subsequence {
     public static void main(String[] args) {

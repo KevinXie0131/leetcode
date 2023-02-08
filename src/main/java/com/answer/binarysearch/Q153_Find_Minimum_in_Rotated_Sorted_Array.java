@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.binarysearch;
 
 public class Q153_Find_Minimum_in_Rotated_Sorted_Array {
 

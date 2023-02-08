@@ -1,4 +1,4 @@
-package com.answer.array;
+package com.answer.binarysearch;
 
 public class Q74_Search_a_2D_Matrix {
     public static void main(String[] args) {
