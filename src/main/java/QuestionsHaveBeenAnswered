@@ -66,6 +66,7 @@ String:
 75. Sort Colors (Additional)
 49. Group Anagrams (Additional)
 125. Valid Palindrome (Additional)
+387. First Unique Character in a String (Additional)
 
 Stack/Queue:
 232. Implement Queue using Stacks
@@ -91,6 +92,7 @@ Math:
 169. Majority Element (Additional)
 229. Majority Element II (Additional)
 405. Convert a Number to Hexadecimal (Additional)
+1523. Count Odd Numbers in an Interval Range (Additional)
 
 Bit Manipulation:
 136. Single Number (Additional)
