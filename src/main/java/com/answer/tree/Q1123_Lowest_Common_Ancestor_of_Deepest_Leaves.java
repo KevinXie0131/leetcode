@@ -27,6 +27,11 @@ public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
         System.out.println(node.value);
     }
     /**
+     * DFS
+     * 如果左子树深度比右子树深，那么最深的叶子结点肯定在左边，最近公共祖先也肯定在左子树那边；
+     * 如果右子树深度比左子树深，那么最深的叶子结点肯定在右边，最近公共祖先也肯定在右子树那边；
+     * 如果左右两边深度一样，那么最下面那一层肯定都是叶子节点，所以最近公共祖先就是当前结点；
+     *
      * Q104 Maximum Depth of Binary Tree
      * Q236 Lowest Common Ancestor of a Binary Tree
      */
