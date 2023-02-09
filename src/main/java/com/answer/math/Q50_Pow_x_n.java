@@ -3,8 +3,8 @@ package com.answer.math;
 public class Q50_Pow_x_n {
     public static void main(String[] args) {
         double x = 2.00000;
-        int n = -2147483648;
-        double res = myPow_3(x, n);
+        int n = 8;
+        double res = myPow_2(x, n);
         System.out.println(res);
     }
 
@@ -43,8 +43,10 @@ public class Q50_Pow_x_n {
     }
     /**
      * Approach 2: Fast Power Algorithm Recursive
+     * Time: logN
+     * Space: logN
      */
-    public double myPow_2(double x, int n) {
+    public static double myPow_2(double x, int n) {
         int k = n;
         if(n < 0){
             k = -n;
@@ -56,7 +58,7 @@ public class Q50_Pow_x_n {
         }
         return res;
     }
-    public double recursion(double x, int n){
+    public static double recursion(double x, int n){
         if(n == 0){
             return 1.0;
         }
