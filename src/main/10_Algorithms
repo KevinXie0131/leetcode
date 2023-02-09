@@ -10,14 +10,14 @@
 2. Graph Traversal - DFS, BFS, Topological Sorting
  a. 133. Clone Graph https://leetcode.com/problems/clone-g... BFS / DFS
  b. 127. Word Ladder https://leetcode.com/problems/word-la... BFS
- c. 490. The Maze https://leetcode.com/problems/the-maze/
+ c. 490. The Maze https://leetcode.com/problems/the-maze/ (undone)
  d. 210. Course Schedule II https://leetcode.com/problems/course-... (Topological Sorting)
- e. 269. Alien Dictionary https://leetcode.com/problems/alien-d... (Topological Sorting)
+ e. 269. Alien Dictionary https://leetcode.com/problems/alien-d... (Topological Sorting) (undone)
 
 3. Binary Tree / Binary Search Tree (BST)
  a. 94. Binary Tree Inorder Traversal https://leetcode.com/problems/binary-...
  b. 236. Lowest Common Ancestor of a Binary Tree https://leetcode.com/problems/lowest-...
- c. 297. Serialize and Deserialize Binary Tree https://leetcode.com/problems/seriali...
+ c. 297. Serialize and Deserialize Binary Tree https://leetcode.com/problems/seriali... (undone)
  d. 98. Validate Binary Search Tree https://leetcode.com/problems/validat...
  e. 102. Binary Tree Level Order Traversal https://leetcode.com/problems/binary-... (BFS)
 
@@ -34,7 +34,7 @@
  d. 155. Min Stack https://leetcode.com/problems/min-stack/ (Stack)
  e. 225. Implement Stack using Queues https://leetcode.com/problems/impleme... (Stack / Queue)
  f. 215. Kth Largest Element in an Array https://leetcode.com/problems/kth-lar... (PriorityQueue)
- g. 23. Merge k Sorted Lists https://leetcode.com/problems/merge-k... (PriorityQueue)
+ g. 23. Merge k Sorted Lists https://leetcode.com/problems/merge-k... (PriorityQueue) (undone)
 
 6. Linked List Manipulation
  a. 237. Delete Node in a Linked List https://leetcode.com/problems/delete-...
@@ -44,8 +44,8 @@
 
 7. Pointer Manipulation
  a. 239. Sliding Window Maximum https://leetcode.com/problems/sliding...
- b. 3. Longest Substring Without Repeating Characters https://leetcode.com/problems/longest...
- c. 76. Minimum Window Substring https://leetcode.com/problems/minimum...
+ b. 3. Longest Substring Without Repeating Characters https://leetcode.com/problems/longest... (undone)
+ c. 76. Minimum Window Substring https://leetcode.com/problems/minimum... (undone)
 
 8. Sorting
  a. Time -- O(N log N)
@@ -54,9 +54,9 @@
  d. 148. Sort List https://leetcode.com/problems/sort-list/
 
 9. Convert Real Life Problem to Code
- a. 146. LRU Cache https://leetcode.com/problems/lru-cache/
- b. 1066. Compus Bike https://leetcode.com/problems/campus-...
- c. 490. The Maze https://leetcode.com/problems/the-maze/
+ a. 146. LRU Cache https://leetcode.com/problems/lru-cache/ (undone)
+ b. 1066. Compus Bike https://leetcode.com/problems/campus-... (undone)
+ c. 490. The Maze https://leetcode.com/problems/the-maze/ (undone)
 
  知乎里有个提问和分类:
    * 滑动窗口(Sliding window)
@@ -74,13 +74,13 @@
    * 拓扑排序类型(Topological Sort)
 
 挑了幾題我很喜歡的
-Longest Substring Without Repeating Characters
+3. Longest Substring Without Repeating Characters
 https://leetcode.com/problems/longest...
-Kth Smallest Element in a BST
+230. Kth Smallest Element in a BST (undone)
 https://leetcode.com/problems/kth-sma...
-Split Array into Consecutive Subsequences
+659. Split Array into Consecutive Subsequences (undone)
 https://leetcode.com/problems/split-a...
-Best Time to Buy and Sell Stock III
+123. Best Time to Buy and Sell Stock III
 https://leetcode.com/problems/best-ti...
-Divide Array in Sets of K Consecutive Numbers
+1296. Divide Array in Sets of K Consecutive Numbers (undone)
 https://leetcode.com/problems/divide-...
