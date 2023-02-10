@@ -23,7 +23,10 @@ public class Q452_Minimum_Number_of_Arrows_to_Burst_Balloons {
             else if (a[0] < b[0]) return -1;
             else return 0;
         });
-
+        /**
+         * The following sorting works too.
+         * Arrays.sort(points, (a, b)->a[0] > b[0] ? 1 : -1);
+         */
         for(int i = 1; i < points.length; i++){
             if(points[i][0] > points[i -1][1]){
                 count++;
