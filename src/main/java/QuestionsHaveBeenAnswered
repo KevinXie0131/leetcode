@@ -75,6 +75,7 @@ String:
 125. Valid Palindrome (Additional)
 387. First Unique Character in a String (Additional)
 58. Length of Last Word (Additional)
+3. Longest Substring Without Repeating Characters (Additional)
 
 Stack/Queue:
 232. Implement Queue using Stacks
@@ -109,3 +110,4 @@ Bit Manipulation:
 260. Single Number III (Additional)
 191. Number of 1 Bits (Additional)
 29. Divide Two Integers (Additional)
+190. Reverse Bits (Additional)
