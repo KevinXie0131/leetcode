@@ -1,4 +1,4 @@
-package com.answer.two_pointers;
+package com.answer.sliding_window;
 
 public class Q643_Maximum_Average_Subarray_I {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.answer.two_pointers;
+package com.answer.sliding_window;
 
 public class Q485_Max_Consecutive_Ones {
 
