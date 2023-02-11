@@ -12,6 +12,10 @@ public class Q567_Permutation_in_String {
 
     /**
      * Approach 5: Sliding Window
+     *
+     * Instead of making use of a special HashMap datastructure just to store the frequency of occurence of characters,
+     * we can use a simpler array data structure to store the frequencies. Given strings contains only lowercase alphabets ('a' to 'z').
+     * So we need to take an array of size 26.
      */
     public static boolean checkInclusion(String s1, String s2) {
         int slen = s2.length();
