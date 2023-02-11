@@ -33,5 +33,13 @@ public class Test9_LinkedHashSet {
         for(Map.Entry<String, String> entry : map.entrySet()){
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
+
+        LinkedHashMap<String, String> map_1 = new LinkedHashMap<>();
+        map_1.put("b", "b2");
+        map_1.put("e", "e5");
+        map_1.put("c", "c3");
+        map_1.put("d", "d4");
+        map_1.put("a", "A1");
+        System.out.println(map.equals(map_1));
     }
 }
