@@ -4,14 +4,14 @@ import java.util.*;
 
 public class Q438_Find_All_Anagrams_in_a_String {
     public static void main(String[] args) {
-/*        String s1 = "cbaebabacd";
-        String s2 = "abc";*/
+        String s1 = "cbaebabacd";
+        String s2 = "abc";
 /*        String s1 = "acdcaeccde";
         String s2 ="c";*/
-        String s1 = "aa";
-        String s2 ="bb";
+      /*  String s1 = "aa";
+        String s2 ="bb";*/
 
-        System.out.println(findAnagrams_1(s1, s2));
+        System.out.println(findAnagrams_2(s1, s2));
     }
 
     /**
@@ -77,4 +77,35 @@ public class Q438_Find_All_Anagrams_in_a_String {
     /**
      * Approach 1: Sliding Window with HashMap
      */
+    public static List<Integer> findAnagrams_2(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        int slen = s.length();
+        int plen = p.length();
+        if (slen < plen) {
+            return new ArrayList<Integer>();
+        }
+        Map<Character, Integer> pCount = new HashMap();
+        Map<Character, Integer> sCount = new HashMap();
+        for (char ch : p.toCharArray()) {
+            pCount.put(ch, pCount.getOrDefault(ch, 0) + 1);
+        }
+
+        for(int i = 0; i < slen; i++){
+            char ch = s.charAt(i);
+            sCount.put(ch, sCount.getOrDefault(ch, 0) + 1);
+
+            if(i >= plen){
+                char ch1 = s.charAt(i - plen);
+                if(sCount.get(ch1) == 1){
+                    sCount.remove(ch1);
+                }else{
+                    sCount.put(ch1, sCount.get(ch1) - 1);
+                }
+            }
+            if(pCount.equals(sCount)){
+                res.add(i - plen + 1);
+            }
+        }
+        return res;
+    }
 }
