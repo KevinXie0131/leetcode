@@ -78,6 +78,8 @@ String:
 3. Longest Substring Without Repeating Characters (Additional)
 159. Longest Substring with At Most Two Distinct Characters (Additional)
 340. Longest Substring with At Most K Distinct Characters (Additional)
+438. Find All Anagrams in a String (Additional)
+567. Permutation in String (Additional)
 
 Stack/Queue:
 232. Implement Queue using Stacks
