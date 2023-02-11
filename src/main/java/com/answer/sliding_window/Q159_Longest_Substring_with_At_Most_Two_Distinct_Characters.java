@@ -46,7 +46,6 @@ public class Q159_Longest_Substring_with_At_Most_Two_Distinct_Characters {
                 Integer index = Collections.min(map.values());
                 map.remove(ch[index]);
                 left = Math.max(left, index + 1);
-
             }
             max = Math.max(max, i - left + 1);
         }
