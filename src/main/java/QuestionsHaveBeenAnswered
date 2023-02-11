@@ -76,6 +76,7 @@ String:
 387. First Unique Character in a String (Additional)
 58. Length of Last Word (Additional)
 3. Longest Substring Without Repeating Characters (Additional)
+159. Longest Substring with At Most Two Distinct Characters (Additional)
 
 Stack/Queue:
 232. Implement Queue using Stacks
