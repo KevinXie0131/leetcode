@@ -27,5 +27,11 @@ public class Test9_LinkedHashSet {
         for(Map.Entry<String, String> entry : map.entrySet()){
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
+        System.out.println("------------------------");
+        map.remove("a");
+        map.put("a", "A1");
+        for(Map.Entry<String, String> entry : map.entrySet()){
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
