@@ -80,6 +80,11 @@ String:
 340. Longest Substring with At Most K Distinct Characters (Additional)
 438. Find All Anagrams in a String (Additional)
 567. Permutation in String (Additional)
+487. Max Consecutive Ones II (Additional)
+1004. Max Consecutive Ones III (Additional)
+1493. Longest Subarray of 1's After Deleting One Element (Additional)
+424. Longest Repeating Character Replacement (Additional)
+1208. Get Equal Substrings Within Budget (Additional)
 
 Stack/Queue:
 232. Implement Queue using Stacks
@@ -89,6 +94,7 @@ Stack/Queue:
 150. Evaluate Reverse Polish Notation
 239. Sliding Window Maximum
 155. Min Stack (Additional)
+346. Moving Average from Data Stream (Additional)
 
 PriorityQueue:
 347. Top K Frequent Elements
