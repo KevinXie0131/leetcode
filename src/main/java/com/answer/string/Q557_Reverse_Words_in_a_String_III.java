@@ -8,6 +8,16 @@ public class Q557_Reverse_Words_in_a_String_III {
 
     /**
      * Approach 2: Using Two Pointers - In-place
+     *
+     * Here's the code snippet for reversing the string stored in character array chArray using two pointer approach.
+     *
+     * while (startIndex < endIndex) {
+     *    char temp = chArray[startIndex];
+     *    chArray[startIndex] = chArray[endIndex];
+     *    chArray[endIndex] = temp;
+     *    startIndex++;
+     *    endIndex--;
+     * }
      */
     public static String reverseWords(String s) {
         char[] ch = s.toCharArray();
