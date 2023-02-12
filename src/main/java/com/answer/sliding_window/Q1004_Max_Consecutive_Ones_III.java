@@ -9,6 +9,8 @@ public class Q1004_Max_Consecutive_Ones_III {
     }
 
     /**
+     * Similar with Q487 Max Consecutive Ones II
+     *
      * Approach: Sliding Window
      */
     public static int longestOnes(int[] nums, int k) {
