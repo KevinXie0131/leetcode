@@ -32,7 +32,28 @@ public class Q487_Max_Consecutive_Ones_II {
             max = Math.max(max, right - left + 1);
             right++;
         }
-
         return max;
+    }
+    /**
+     * Another form of slding window
+     */
+    public int findMaxConsecutiveOnes_1(int[] nums) {
+        int l = 0;
+        int maxLen = 0;
+        int count = 1;
+        for (int r = 0; r < nums.length; r++) {
+            int num = nums[r];
+            if (num == 0) {
+                count--;
+            }
+            while (count < 0) {
+                if (nums[l] == 0) {
+                    count++;
+                }
+                l++;
+            }
+            maxLen = Math.max(maxLen, r - l + 1);
+        }
+        return maxLen;
     }
 }
