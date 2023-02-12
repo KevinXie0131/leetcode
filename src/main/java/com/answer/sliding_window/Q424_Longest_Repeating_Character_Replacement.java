@@ -8,6 +8,8 @@ public class Q424_Longest_Repeating_Character_Replacement {
     }
 
     /**
+     * Similar with Q487 Max Consecutive Ones II
+     *
      * Approach 3: Sliding Window (Fast)
      *
      * 首先需要区分两个概念：子串（子数组） 和 子序列。这两个名词经常在题目中出现，非常有必要加以区分。
