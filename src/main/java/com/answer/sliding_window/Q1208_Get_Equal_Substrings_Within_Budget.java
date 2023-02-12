@@ -13,6 +13,9 @@ public class Q1208_Get_Equal_Substrings_Within_Budget {
      * Similar with Q487 Max Consecutive Ones II
      *
      * Sliding window
+     *
+     * 「滑动窗口」是固定大小的，「双指针」是不固定大小的；
+     * 「滑动窗口」一定是同向移动的，「双指针」可以相向移动。
      */
     public static int equalSubstring(String s, String t, int maxCost) {
         int max = 0;
@@ -34,5 +37,27 @@ public class Q1208_Get_Equal_Substrings_Within_Budget {
 
         return max;
     }
-
+    /**
+     * Official answer
+     */
+    public int equalSubstring_1(String s, String t, int maxCost) {
+        int n = s.length();
+        int[] diff = new int[n];
+        for (int i = 0; i < n; i++) {
+            diff[i] = Math.abs(s.charAt(i) - t.charAt(i));
+        }
+        int maxLength = 0;
+        int start = 0, end = 0;
+        int sum = 0;
+        while (end < n) {
+            sum += diff[end];
+            while (sum > maxCost) {
+                sum -= diff[start];
+                start++;
+            }
+            maxLength = Math.max(maxLength, end - start + 1);
+            end++;
+        }
+        return maxLength;
+    }
 }
