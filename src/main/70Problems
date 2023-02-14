@@ -50,7 +50,7 @@ Leetcode 22 括号生成 | Leetcode 46 全排列 | Leetcode 77 组合 | Leetcode
 宽度优先搜索BFS  102/107/200 (102. Binary Tree Level Order Traversal | 107. Binary Tree Level Order Traversal II | 200. Number of Islands)
 
 并查集 union find 200/547/721 (200. Number of Islands | 547. Number of Provinces(new) | 721. Accounts Merge(new))
-Leetcode 200 岛屿数量
+Leetcode 200 岛屿数量 990. Satisfiability of Equality Equations (Additional)
 
 贪心 greedy 322/1217/55 (322. Coin Change(new) | 1217. Minimum Cost to Move Chips to The Same Position(new) | 55. Jump Game(new))
 
