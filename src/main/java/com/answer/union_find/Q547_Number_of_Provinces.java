@@ -39,6 +39,8 @@ public class Q547_Number_of_Provinces {
     }
     /**
      * Approach #1 Using Depth First Search
+     * The given matrix can be viewed as the Adjacency Matrix of a graph. By viewing the matrix in such a manner
+     * The problem reduces to the problem of finding the number of connected components in an undirected graph
      */
     public static int findCircleNum_0(int[][] isConnected) {
         int cityNum = isConnected.length;
