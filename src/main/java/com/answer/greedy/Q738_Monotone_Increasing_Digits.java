@@ -3,7 +3,7 @@ package com.answer.greedy;
 public class Q738_Monotone_Increasing_Digits {
     public static void main(String[] args) {
         int n = 332;
-        System.out.println(monotoneIncreasingDigits(n));
+        System.out.println(monotoneIncreasingDigits_1(n));
     }
 
     /**
@@ -30,7 +30,9 @@ public class Q738_Monotone_Increasing_Digits {
      * Another form
      */
     public static int monotoneIncreasingDigits_1(int n) {
-        char[] arr = new String(n + "").toCharArray();
+   //     char[] arr = new String(n + "").toCharArray();
+        char[] arr = String.valueOf(n).toCharArray();
+
         int startIndex = arr.length;
 
         for(int i = arr.length - 1; i > 0; i--){
@@ -43,6 +45,7 @@ public class Q738_Monotone_Increasing_Digits {
         for(int i = startIndex; i < arr.length; i++){
             arr[i] = '9';
         }
-        return Integer.parseInt(new String(arr));
+      //  return Integer.parseInt(new String(arr));
+        return Integer.parseInt(String.valueOf(arr));
     }
 }
