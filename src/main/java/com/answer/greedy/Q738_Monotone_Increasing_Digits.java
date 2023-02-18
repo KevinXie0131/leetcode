@@ -26,4 +26,23 @@ public class Q738_Monotone_Increasing_Digits {
         }
         return Integer.parseInt(sb.toString());
     }
+    /**
+     * Another form
+     */
+    public static int monotoneIncreasingDigits_1(int n) {
+        char[] arr = new String(n + "").toCharArray();
+        int startIndex = arr.length;
+
+        for(int i = arr.length - 1; i > 0; i--){
+            if(arr[i] < arr[i - 1]){
+                arr[i - 1]--;
+                startIndex = i;
+            }
+        }
+
+        for(int i = startIndex; i < arr.length; i++){
+            arr[i] = '9';
+        }
+        return Integer.parseInt(new String(arr));
+    }
 }
