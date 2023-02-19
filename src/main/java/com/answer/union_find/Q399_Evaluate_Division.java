@@ -21,6 +21,9 @@ public class Q399_Evaluate_Division {
     }
     /**
      * Approach 2: Union-Find with Weights
+     * As a reminder, the Union-Find data structure, also known as Disjoint Set, is used to track a set of elements partitioned
+     * into a number of disjoint (non-overlapping) subsets. The Union-Find data structure is often applied to solve
+     * the graph partition problem, where we partition a graph into a set of inter-connected subgraph.
      */
     public static double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
         int equationsSize = equations.size();
