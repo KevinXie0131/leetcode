@@ -42,6 +42,9 @@ public class Q797_All_Paths_From_Source_to_Target {
         Queue<List<Integer>> queue = new LinkedList<>();
         queue.offer(Arrays.asList(0));
         while (!queue.isEmpty()) {
+            /**
+             * Note: this line is usefule
+             */
             int n = queue.size();
             for (int i = 0; i < n; i++) {
                 List<Integer> cul = queue.poll();
