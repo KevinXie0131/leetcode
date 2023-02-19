@@ -12,7 +12,31 @@ public class Q841_Keys_and_Rooms {
         System.out.println(canVisitAllRooms_1(rooms));
     }
     /**
-     * Approach #1: Depth-First Search
+     * Approach #1: Depth-First Search - Recursion
+     */
+    boolean[] visited;
+
+    public boolean canVisitAllRooms_0(List<List<Integer>> rooms) {
+        visited = new boolean[rooms.size()];
+        dfs(rooms, 0);
+
+        for(int i = 1; i < visited.length; i++){
+            if(visited[i] == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void dfs(List<List<Integer>> rooms, int n) {
+        visited[n] = true;
+        for(int i : rooms.get(n)){
+            if(!visited[i]){
+                dfs(rooms, i);
+            }
+        }
+    }
+    /**
+     * Approach #1: Depth-First Search - use Stack
      */
     public static boolean canVisitAllRooms_1(List<List<Integer>> rooms) {
         if(rooms.size() == 0) return false;
