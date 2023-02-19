@@ -81,6 +81,24 @@ public class Q270_Closest_Binary_Search_Tree_Value {
         return closest;
     }
     /**
+     * Another form of Approach 3
+     */
+    public int closestValue_5(TreeNode root, double target) {
+        if(root.value == target) return root.value;
+        int res = root.value;
+        while(root != null){
+            if(Math.abs(root.value - target) < Math.abs(res - target)){
+                res = root.value;
+            }
+            if(root.value < target){
+                root = root.right;
+            }else{
+                root = root.left;
+            }
+        }
+        return res;
+    }
+    /**
      * Approach 1: Recursive Inorder + Linear search, O(N) time
      */
     public static void inorder(TreeNode root, List<Integer> nums) {
@@ -94,7 +112,7 @@ public class Q270_Closest_Binary_Search_Tree_Value {
     public static int closestValue_4(TreeNode root, double target) {
         List<Integer> nums = new ArrayList();
         inorder(root, nums);
-  //     Collections.sort(nums,(o1, o2) -> Math.abs(o1 - target) < Math.abs(o2 - target) ? -1 : 1);
+        //     Collections.sort(nums,(o1, o2) -> Math.abs(o1 - target) < Math.abs(o2 - target) ? -1 : 1);
 
         Collections.sort(nums, new Comparator<Integer>() {
             @Override
@@ -103,8 +121,7 @@ public class Q270_Closest_Binary_Search_Tree_Value {
             }
         });
 
-      //  return Collections.min(nums);
+        //  return Collections.min(nums);
         return nums.get(0);
     }
-
 }
