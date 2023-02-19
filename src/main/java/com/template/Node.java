@@ -1,7 +1,10 @@
 package com.template;
 
+import java.util.ArrayList;
+
 public class Node {
 
+    public ArrayList<Node> neighbors;
     int value;
     Node left;
     Node right;
