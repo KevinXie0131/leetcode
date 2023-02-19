@@ -4,9 +4,11 @@ public class Q744_Find_Smallest_Letter_Greater_Than_Target {
     public static void main(String[] args) {
 /*        char[] letters = {'c','f','j'};
         char target = 'c';*/
-        char[] letters = {'c','f','j'};
-        char target = 'j';
-        System.out.println(nextGreatestLetter(letters, target));
+/*        char[] letters = {'c','f','j'};
+        char target = 'j';*/
+        char[] letters = {'e','e','e','e','e','e','n','n','n','n'};
+        char target = 'e';
+        System.out.println(nextGreatestLetter_0a(letters, target));
     }
 
     /**
@@ -41,18 +43,42 @@ public class Q744_Find_Smallest_Letter_Greater_Than_Target {
     /**
      * Official answer
      */
-    public char nextGreatestLetter_0(char[] letters, char target) {
-        int lo = 0, hi = letters.length;
-        while (lo < hi) {
-            int mi = lo + (hi - lo) / 2;
-            if (letters[mi] <= target) {
-                lo = mi + 1;
-            }
-            else {
-                hi = mi;
+    public static char nextGreatestLetter_0a(char[] letters, char target) {
+        int length = letters.length;
+        if (target >= letters[length - 1]) {
+            return letters[0];
+        }
+        int low = 0, high = length - 1;
+        while (low < high) {
+            int mid = (high - low) / 2 + low;
+            if (letters[mid] > target) {
+                high = mid;
+            } else {
+                low = mid + 1;
             }
         }
-        return letters[lo % letters.length];
+        return letters[low];
+    }
+    /**
+     * 查找过程：
+     *
+     * - 取中间m
+     * - m大于目标：答案可能是m或左侧，故先记下m，再在m左侧查找（right = m - 1）
+     * - m小于等于目标：答案可能是m右侧，在m右侧查找（left = m + 1）
+     */
+    public char nextGreatestLetter_0b(char[] letters, char target) {
+        int l=0, r=letters.length-1;
+        int ret = 0;
+        while(l <= r){
+            int m = l + (r-l)/2;
+            if(letters[m] <= target){
+                l = m + 1;
+            }else{
+                ret = m;
+                r = m - 1;
+            }
+        }
+        return letters[ret];
     }
     /**
      * Approach #1: Record Letters Seen
