@@ -39,23 +39,24 @@ public class Q797_All_Paths_From_Source_to_Target {
     public static List<List<Integer>> allPathsSourceTarget_1(int[][] graph) {
         List<List<Integer>> res = new ArrayList<>();
         int size = graph.length;
-        Queue<List<Integer>> queue = new LinkedList<>();
+        Deque<List<Integer>> queue = new ArrayDeque<>();
         queue.offer(Arrays.asList(0));
-        while (!queue.isEmpty()) {
+
+        while(!queue.isEmpty()){
             /**
              * Note: this line is usefule
              */
-            int n = queue.size();
-            for (int i = 0; i < n; i++) {
-                List<Integer> cul = queue.poll();
-                int last = cul.get(cul.size() - 1);
-                if (last == size - 1) {
-                    res.add(cul);
+            int len = queue.size();
+            for(int i = 0; i < len; i++){
+                List<Integer> cur = queue.poll();
+                int last = cur.get(cur.size() - 1);
+                if(last == size - 1){
+                    res.add(cur);
                     continue;
                 }
-                int[] dist = graph[last];
-                for (int num : dist) {
-                    List<Integer> list = new ArrayList<>(cul);
+                int[] route = graph[last];
+                for(int num : route){
+                    List<Integer> list = new ArrayList<>(cur);
                     list.add(num);
                     queue.offer(list);
                 }
