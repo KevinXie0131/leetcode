@@ -9,6 +9,14 @@ public class Q785_Is_Graph_Bipartite {
 
     /**
      * Approach #1: Coloring by Depth-First Search - Recursion
+     *
+     * 二分图定义：图中的顶点由两个集合组成，且所有边的两个顶点正好分别处在两个集合里
+     * 更形象化地去表示：我们可以用两种颜色代表这两个集合，相邻的顶点不能是同一种颜色
+     *
+     * 二分图的代码逻辑可以这样写：
+     * - 遍历节点 v 的所有相邻节点
+     *   1. 如果相邻节点 neighbor 没有被访问过, 那么应该给节点 neighbor 涂上和节点 v 不同的颜色
+     *   2. 相邻节点 neighbor 已经被访问过, 那么应该比较节点 neighbor 和节点 v 的颜色, 若相同，则此图不是二分图
      */
     //涂颜色使用的颜色，分别是：无色、红色和绿色
     private static final int UNCOLORED = 0;
