@@ -18,3 +18,5 @@ Greedy algorithm:
 738. Monotone Increasing Digits
 714. Best Time to Buy and Sell Stock with Transaction Fee
 968. Binary Tree Cameras - Hard
+
+561. Array Partition (Additional)
