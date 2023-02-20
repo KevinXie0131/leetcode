@@ -1,4 +1,4 @@
-package com.learn.binarysearch;
+package com.learn;
 
 public class BinarySearchTemplate_III {
 

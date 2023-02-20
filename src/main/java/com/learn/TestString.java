@@ -1,4 +1,4 @@
-package com.learn.string;
+package com.learn;
 
 public class TestString {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.learn.binarysearch;
+package com.learn;
 
 import java.util.Arrays;
 
