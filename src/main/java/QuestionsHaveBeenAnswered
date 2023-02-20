@@ -96,6 +96,7 @@ Hashmap:
 771. Jewels and Stones (Additional)
 288. Unique Word Abbreviation (Additional)
 380. Insert Delete GetRandom O(1) (Additional)
+311. Sparse Matrix Multiplication (Additional)
 
 String:
 344. Reverse String
@@ -166,6 +167,10 @@ Math:
 405. Convert a Number to Hexadecimal (Additional)
 1523. Count Odd Numbers in an Interval Range (Additional)
 50. Pow(x, n) (Additional)
+504. Base 7 (Additional)
+371. Sum of Two Integers (Additional)
+89. Gray Code (Additional)
+201. Bitwise AND of Numbers Range (Additional)
 
 Bit Manipulation:
 136. Single Number (Additional)
