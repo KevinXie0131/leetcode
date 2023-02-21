@@ -51,6 +51,8 @@ Leetcode 22 括号生成 | Leetcode 46 全排列 | Leetcode 77 组合 | Leetcode
 
 并查集 union find 200/547/721 (200. Number of Islands | 547. Number of Provinces(new) | 721. Accounts Merge(new))
 Leetcode 200 岛屿数量 | 990. Satisfiability of Equality Equations (Additional) | 684. Redundant Connection (Additional)
+| 1319. Number of Operations to Make Network Connected (Additional) | 959. Regions Cut By Slashes (Additional)
+| 1202. Smallest String With Swaps (Additional) | 947. Most Stones Removed with Same Row or Column (Additional)
 
 贪心 greedy 322/1217/55 (322. Coin Change(new) | 1217. Minimum Cost to Move Chips to The Same Position(new) | 55. Jump Game(new))
 
