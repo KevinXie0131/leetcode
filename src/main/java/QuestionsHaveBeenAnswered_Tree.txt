@@ -57,3 +57,6 @@ Similar problems of Level Order Traversal:
 783. Minimum Distance Between BST Nodes (additional)
 671. Second Minimum Node In a Binary Tree (additional)
 230. Kth Smallest Element in a BST (additional)
+
+250. Count Univalue Subtrees (additional)
+285. Inorder Successor in BST (additional)
