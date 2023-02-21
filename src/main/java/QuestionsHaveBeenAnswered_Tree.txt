@@ -60,3 +60,7 @@ Similar problems of Level Order Traversal:
 
 250. Count Univalue Subtrees (additional)
 285. Inorder Successor in BST (additional)
+589. N-ary Tree Preorder Traversal (additional)
+590. N-ary Tree Postorder Traversal (additional)
+429. N-ary Tree Level Order Traversal (additional)
+559. Maximum Depth of N-ary Tree (additional)
