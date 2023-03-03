@@ -1,9 +1,9 @@
-package com.learn.template.unionfind;
+package com.learn.template.graph.unionfind;
 
-public class UnionFindMoreEfficientEample {
+public class UnionFind_UnionbyRank_Example {
 
     public static void main(String[] args) throws Exception {
-        UnionFindMoreEfficientEample uf = new UnionFindMoreEfficientEample(10);
+        UnionFind_UnionbyRank_Example uf = new UnionFind_UnionbyRank_Example(10);
         // 1-2-5-6-7 3-8-9 4
         uf.union(1, 2);
         uf.union(2, 5);
@@ -18,17 +18,18 @@ public class UnionFindMoreEfficientEample {
         uf.union(9, 4);
         System.out.println(uf.connected(4, 9)); // true
     }
-
     /**
-     * Quick Union More Efficient than Quick Find
-     * Here is a sample quick union implementation of the Disjoint Set.
+     * Here is the sample implementation of union by rank.
      */
     private int[] root;
+    private int[] rank;
 
-    public UnionFindMoreEfficientEample(int size) {
+    public UnionFind_UnionbyRank_Example(int size) {
         root = new int[size];
+        rank = new int[size];
         for (int i = 0; i < size; i++) {
             root[i] = i;
+            rank[i] = 1;
         }
     }
 
@@ -43,7 +44,14 @@ public class UnionFindMoreEfficientEample {
         int rootX = find(x);
         int rootY = find(y);
         if (rootX != rootY) {
-            root[rootY] = rootX;
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                root[rootX] = rootY;
+            } else {
+                root[rootY] = rootX;
+                rank[rootX] += 1;
+            }
         }
     }
 

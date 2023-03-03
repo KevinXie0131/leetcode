@@ -1,9 +1,9 @@
-package com.learn.template.unionfind;
+package com.learn.template.graph.unionfind;
 
-public class UnionFind_UnionbyRank_Example {
+public class UnionFind_PathCompression_Example {
 
     public static void main(String[] args) throws Exception {
-        UnionFind_UnionbyRank_Example uf = new UnionFind_UnionbyRank_Example(10);
+        UnionFind_PathCompression_Example uf = new UnionFind_PathCompression_Example(10);
         // 1-2-5-6-7 3-8-9 4
         uf.union(1, 2);
         uf.union(2, 5);
@@ -18,40 +18,28 @@ public class UnionFind_UnionbyRank_Example {
         uf.union(9, 4);
         System.out.println(uf.connected(4, 9)); // true
     }
-    /**
-     * Here is the sample implementation of union by rank.
-     */
-    private int[] root;
-    private int[] rank;
 
-    public UnionFind_UnionbyRank_Example(int size) {
+    private int[] root;
+
+    public UnionFind_PathCompression_Example(int size) {
         root = new int[size];
-        rank = new int[size];
         for (int i = 0; i < size; i++) {
             root[i] = i;
-            rank[i] = 1;
         }
     }
 
     public int find(int x) {
-        while (x != root[x]) {
-            x = root[x];
+        if (x == root[x]) {
+            return x;
         }
-        return x;
+        return root[x] = find(root[x]);
     }
 
     public void union(int x, int y) {
         int rootX = find(x);
         int rootY = find(y);
         if (rootX != rootY) {
-            if (rank[rootX] > rank[rootY]) {
-                root[rootY] = rootX;
-            } else if (rank[rootX] < rank[rootY]) {
-                root[rootX] = rootY;
-            } else {
-                root[rootY] = rootX;
-                rank[rootX] += 1;
-            }
+            root[rootY] = rootX;
         }
     }
 

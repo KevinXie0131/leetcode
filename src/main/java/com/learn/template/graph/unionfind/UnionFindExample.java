@@ -1,4 +1,4 @@
-package com.learn.template.unionfind;
+package com.learn.template.graph.unionfind;
 
 public class UnionFindExample {
 

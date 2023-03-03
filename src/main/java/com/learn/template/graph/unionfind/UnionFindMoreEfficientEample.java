@@ -1,9 +1,9 @@
-package com.learn.template.unionfind;
+package com.learn.template.graph.unionfind;
 
-public class UnionFind_PathCompression_Example {
+public class UnionFindMoreEfficientEample {
 
     public static void main(String[] args) throws Exception {
-        UnionFind_PathCompression_Example uf = new UnionFind_PathCompression_Example(10);
+        UnionFindMoreEfficientEample uf = new UnionFindMoreEfficientEample(10);
         // 1-2-5-6-7 3-8-9 4
         uf.union(1, 2);
         uf.union(2, 5);
@@ -19,9 +19,13 @@ public class UnionFind_PathCompression_Example {
         System.out.println(uf.connected(4, 9)); // true
     }
 
+    /**
+     * Quick Union More Efficient than Quick Find
+     * Here is a sample quick union implementation of the Disjoint Set.
+     */
     private int[] root;
 
-    public UnionFind_PathCompression_Example(int size) {
+    public UnionFindMoreEfficientEample(int size) {
         root = new int[size];
         for (int i = 0; i < size; i++) {
             root[i] = i;
@@ -29,10 +33,10 @@ public class UnionFind_PathCompression_Example {
     }
 
     public int find(int x) {
-        if (x == root[x]) {
-            return x;
+        while (x != root[x]) {
+            x = root[x];
         }
-        return root[x] = find(root[x]);
+        return x;
     }
 
     public void union(int x, int y) {

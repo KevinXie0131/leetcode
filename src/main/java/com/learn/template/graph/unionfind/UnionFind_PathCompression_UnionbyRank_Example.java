@@ -1,4 +1,4 @@
-package com.learn.template.unionfind;
+package com.learn.template.graph.unionfind;
 
 public class UnionFind_PathCompression_UnionbyRank_Example {
     public static void main(String[] args) throws Exception {
