@@ -2,6 +2,8 @@
 496. Next Greater Element I (https://leetcode.com/problems/next-greater-element-i/) - Monotonic Stack
 503. Next Greater Element II (https://leetcode.com/problems/next-greater-element-ii/) - Monotonic Stack
 901. Online Stock Span (https://leetcode.com/problems/online-stock-span/) - Monotonic Stack
+42. Trapping Rain Water (https://leetcode.com/problems/trapping-rain-water/) - Monotonic Stack - Hard
+84. Largest Rectangle in Histogram (https://leetcode.com/problems/largest-rectangle-in-histogram/) - Monotonic Stack - Hard
 
 22. Generate Parentheses (https://leetcode.com/problems/generate-parentheses/) - Backtracking
 79. Word Search (https://leetcode.com/problems/word-search/) - Backtracking
