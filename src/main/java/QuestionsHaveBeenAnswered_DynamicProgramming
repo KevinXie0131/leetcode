@@ -10,3 +10,39 @@ Dynamic Programming:
 
 55. Jump Game (https://leetcode.com/problems/jump-game/solution/) - Dynamic Programming (Additional)
 312. Burst Balloons (https://leetcode.com/problems/burst-balloons/)(Hard) - Dynamic Programming (Additional)
+
+---------------------------
+746. Min Cost Climbing Stairs
+62. Unique Paths
+63. Unique Paths II
+343. Integer Break
+96. Unique Binary Search Trees
+416. Partition Equal Subset Sum
+1049. Last Stone Weight II
+494. Target Sum
+474. Ones and Zeroes
+518. Coin Change II
+377. Combination Sum IV
+322. Coin Change
+279. Perfect Squares
+139. Word Break (saved in backtracking)
+198. House Robber
+213. House Robber II
+337. House Robber III
+121. Best Time to Buy and Sell Stock (saved in greedy)
+122. Best Time to Buy and Sell Stock II (saved in greedy)
+123. Best Time to Buy and Sell Stock III
+188. Best Time to Buy and Sell Stock IV
+309. Best Time to Buy and Sell Stock with Cooldown
+714. Best Time to Buy and Sell Stock with Transaction Fee
+300. Longest Increasing Subsequence
+674. Longest Continuous Increasing Subsequence
+718. Maximum Length of Repeated Subarray
+1143. Longest Common Subsequence
+1035. Uncrossed Lines
+392. Is Subsequence (saved in two_pointers)
+115. Distinct Subsequences
+583. Delete Operation for Two Strings
+72. Edit Distance
+647. Palindromic Substrings
+516. Longest Palindromic Subsequence
