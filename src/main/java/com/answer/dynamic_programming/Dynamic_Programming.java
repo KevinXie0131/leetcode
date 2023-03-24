@@ -20,6 +20,11 @@ public class Dynamic_Programming {
      * The second characteristic:
      *   In DP problems, future "decisions" depend on earlier decisions
      */
+    /**
+     * 1. A function or array that answers the problem for a given state
+     * 2. A recurrence relation to transition between states
+     * 3. Base cases
+     */
     public static void main(String[] args) {
         LocalTime start = LocalTime.now();
 
