@@ -2,6 +2,12 @@ package com.answer.dynamic_programming;
 
 public class Q70_Climbing_Stairs {
     /**
+     * Approach 1: Brute Force
+     */
+    /**
+     * Approach 2: Recursion with Memoization
+     */
+    /**
      * Approach 3: Dynamic Programming
      */
     public int climbStairs(int n) {
