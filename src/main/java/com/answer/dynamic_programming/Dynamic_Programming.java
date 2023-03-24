@@ -10,6 +10,10 @@ public class Dynamic_Programming {
      * 2. optimal substructure
      * 3. state transition equation
      *
+     * There are two ways to implement a DP algorithm:
+     * 1. Bottom-up, also known as tabulation.
+     * 2. Top-down, also known as memoization.
+     *
      * The first characteristic:
      *   What is the minimum cost of doing...
      *   What is the maximum profit from...
