@@ -1,5 +1,7 @@
 package com.answer.dynamic_programming;
 
+import java.util.HashMap;
+
 public class Q70_Climbing_Stairs {
     /**
      * Approach 1: Brute Force
@@ -7,6 +9,21 @@ public class Q70_Climbing_Stairs {
     /**
      * Approach 2: Recursion with Memoization
      */
+    HashMap<Integer, Integer> map = new  HashMap<>();
+
+    int climb(int i){
+        if (i <= 2) return i;
+
+        if (!map.containsKey(i)) {
+            map.put(i, climb(i - 1) + climb(i - 2));
+        }
+
+        return map.get(i);
+    }
+
+    public int climbStairs_1(int n) {
+        return climb(n);
+    }
     /**
      * Approach 3: Dynamic Programming
      */
