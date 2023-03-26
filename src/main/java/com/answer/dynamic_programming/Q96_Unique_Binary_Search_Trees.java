@@ -3,7 +3,7 @@ package com.answer.dynamic_programming;
 public class Q96_Unique_Binary_Search_Trees {
 
     /**
-     * DP
+     * Approach 1: Dynamic Programming
      */
     public int numTrees(int n) {
         int[] dp = new int[n+1];
