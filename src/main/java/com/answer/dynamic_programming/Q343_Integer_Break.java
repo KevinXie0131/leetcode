@@ -1,10 +1,13 @@
 package com.answer.dynamic_programming;
 
 public class Q343_Integer_Break {
+    public static void main(String[] args) {
+        System.out.println(integerBreak(10));
+    }
     /**
      * DP
      */
-    public int integerBreak(int n) {
+    public static int integerBreak(int n) {
         int[] dp = new int[n + 1];
         dp[2] = 1;
 
