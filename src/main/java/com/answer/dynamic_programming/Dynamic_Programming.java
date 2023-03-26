@@ -29,6 +29,14 @@ public class Dynamic_Programming {
      * 2. A recurrence relation to transition between states
      * 3. Base cases
      */
+    /**
+     * 五步曲:
+     * 确定dp数组（dp table）以及下标的含义
+     * 确定递推公式
+     * dp数组如何初始化
+     * 确定遍历顺序
+     * 举例推导dp数组
+     */
     public static void main(String[] args) {
         LocalTime start = LocalTime.now();
 
