@@ -3,6 +3,7 @@ package com.answer.dynamic_programming;
 public class Q416_Partition_Equal_Subset_Sum {
 
     /**
+     * classic Knapsack problem
      * Approach 3: Bottom Up Dynamic Programming
      */
     public boolean canPartition_1(int[] nums) {
