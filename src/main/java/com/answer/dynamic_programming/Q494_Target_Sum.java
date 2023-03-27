@@ -1,7 +1,64 @@
 package com.answer.dynamic_programming;
 
+import java.util.Arrays;
+
 public class Q494_Target_Sum {
 
+    public static void main(String[] args) {
+        int[] nums = {1,1,1,1,1};
+        int target = 3;
+        System.out.println(findTargetSumWays_1(nums, target));
+    }
+    /**
+     * Approach 1: Brute Force / Backtracking
+     */
+    static int count = 0;
+
+    public static int findTargetSumWays_1(int[] nums, int S) {
+        calculate(nums, 0, 0, S);
+        return count;
+    }
+    public static void calculate(int[] nums, int i, int sum, int S) {
+        if (i == nums.length) {
+            if (sum == S) {
+                count++;
+            }
+        } else {
+            calculate(nums, i + 1, sum + nums[i], S);
+            calculate(nums, i + 1, sum - nums[i], S);
+        }
+    }
+    /**
+     * Approach 2: Recursion with Memoization
+     */
+    int total;
+    public int findTargetSumWays_2(int[] nums, int S) {
+        total = Arrays.stream(nums)
+                      .sum();
+
+        int[][] memo = new int[nums.length][2 * total + 1];
+        for (int[] row : memo) {
+            Arrays.fill(row, Integer.MIN_VALUE);
+        }
+        return calculate1(nums, 0, 0, S, memo);
+    }
+    public int calculate1(int[] nums, int i, int sum, int S, int[][] memo) {
+        if (i == nums.length) {
+            if (sum == S) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            if (memo[i][sum + total] != Integer.MIN_VALUE) {
+                return memo[i][sum + total];
+            }
+            int add = calculate1(nums, i + 1, sum + nums[i], S, memo);
+            int subtract = calculate1(nums, i + 1, sum - nums[i], S, memo);
+            memo[i][sum + total] = add + subtract;
+            return memo[i][sum + total];
+        }
+    }
     /**
      * Approach 4: 1D Dynamic Programming
      */
