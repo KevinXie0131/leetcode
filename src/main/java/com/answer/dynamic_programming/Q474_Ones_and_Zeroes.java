@@ -46,7 +46,8 @@ public class Q474_Ones_and_Zeroes {
         return memo[i][zeroes][ones];
     }
     /**
-     * Approach #5 Dynamic Programming [Accepted]
+     * Approach #5 2-D Dynamic Programming [Accepted]
+     * dp[m][n] denotes the maximum number of strings that can be included in the subset given only i 0's and j 1's are available.
      */
     public int findMaxForm(String[] strs, int m, int n) {
         int[][] dp = new int[m + 1][n + 1];
