@@ -47,9 +47,10 @@ public class Dynamic_Programming_Knapsack {
             for (int w = W; w >= wt[i]; w--) {
                 dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i]);
             }
+            System.out.println(Arrays.toString(dp));
         }
 
-        System.out.println(Arrays.toString(dp));
+      //  System.out.println(Arrays.toString(dp));
 
         return dp[W];
     }
