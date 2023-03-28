@@ -3,7 +3,9 @@ package com.answer.dynamic_programming;
 import java.util.Arrays;
 
 public class Dynamic_Programming_Knapsack1 {
-
+    /**
+     * Unbounded Knapsack Problem
+     */
     public static void main(String[] args) {
 
         int[] val = {15, 20, 30};

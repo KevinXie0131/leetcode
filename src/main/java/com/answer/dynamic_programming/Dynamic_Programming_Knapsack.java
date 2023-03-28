@@ -3,7 +3,9 @@ package com.answer.dynamic_programming;
 import java.util.Arrays;
 
 public class Dynamic_Programming_Knapsack {
-
+    /**
+     * 0/1 Knapsack Problem
+     */
     public static void main(String[] args) {
 /*        int[] val = {1, 2, 4, 2, 3};
         int[] wt = {2, 3, 3 ,1, 2};*/
