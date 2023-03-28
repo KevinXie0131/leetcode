@@ -10,6 +10,7 @@ public class Q279_Perfect_Squares {
     /**
      * Approach 2: Dynamic Programming
      *  // 版本一，先遍历物品, 再遍历背包
+     *  https://leetcode.com/problems/perfect-squares/Figures/279/279_dp.png
      */
     public static int numSquares(int n) {
         int[] dp = new int[n + 1];
