@@ -31,4 +31,36 @@ public class Q1137_N_th_Tribonacci_Number {
 
         return dp[n];
     }
+    /**
+     * Approach 2: Performance Optimisation : Recursion with Memoization
+     */
+    int[] nums = new int[38];
+
+    public int tribonacci_1(int n) {
+
+        if(n == 0) {
+            return 0;
+        }else if(n == 1) {
+            return 1;
+        }if(n == 2) {
+            return 1;
+        }
+
+
+        nums[0] = 0;
+        nums[1] = 1;
+        nums[2] = 1;
+
+        helper(n);
+
+        return nums[n];
+    }
+
+    int helper(int k) {
+        if (k == 0) return 0;
+        if (nums[k] != 0) return nums[k];
+
+        nums[k] = helper(k - 1) + helper(k - 2) + helper(k - 3);
+        return nums[k];
+    }
 }
