@@ -8,7 +8,7 @@ public class Q139_Word_Break {
        List<String> wordDict = new ArrayList<>();
        wordDict.add("leet");
        wordDict.add("code");
-       boolean result =  wordBreak_2(s, wordDict);
+       boolean result =  wordBreak_5(s, wordDict);
         System.out.println(result);
     }
     /**
@@ -110,6 +110,27 @@ public class Q139_Word_Break {
             }
         }
         return false;
+    }
+
+    /**
+     * Approach 4: Using Dynamic Programming
+     * Time complexity : O(n3)
+     */
+    public static boolean wordBreak_5(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+
+        for(int i = 1; i <= s.length(); i++){
+            for(int j = 0; j < i; j++){
+                String word = s.substring(j, i);
+                if(wordDict.contains(word) && dp[j]){
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(dp));
+        return dp[s.length()];
     }
 
 }
