@@ -40,6 +40,9 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
     }
     /**
      * Dynamic Programming
+     *
+     * dp[i][0] 表⽰第i天持有股票所得现⾦。
+     * dp[i][1] 表⽰第i天不持有股票所得最多现⾦
      */
     public int maxProfit_3(int[] prices) {
         int len = prices.length;
