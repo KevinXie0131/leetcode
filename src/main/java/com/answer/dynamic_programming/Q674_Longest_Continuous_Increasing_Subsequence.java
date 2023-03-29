@@ -25,16 +25,17 @@ public class Q674_Longest_Continuous_Increasing_Subsequence {
     }
     /**
      * Approach #1: Sliding Window [Accepted]
+     * Greedy
      */
     public int findLengthOfLCIS_1(int[] nums) {
         int max = 0;
-        int anchor = 0;
+        int start  = 0;
 
         for(int i = 0; i < nums.length; i++){
             if(i > 0 && nums[i - 1] >= nums[i]){
-                anchor = i;
+                start  = i;
             }
-            max = Math.max(max, i - anchor + 1);
+            max = Math.max(max, i - start  + 1);
         }
 
         return max;
