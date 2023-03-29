@@ -3,9 +3,12 @@ package com.answer.dynamic_programming;
 import java.util.Arrays;
 
 public class Q300_Longest_Increasing_Subsequence {
-
     /**
      * Approach 1: Dynamic Programming
+     *
+     * First, the question is asking for the maximum or minimum of something.
+     * Second, we have to make decisions that may depend on previously made decisions,
+     * which is very typical of a problem involving subsequences.
      */
     public int lengthOfLIS(int[] nums) {
         int[] dp= new int[nums.length];
