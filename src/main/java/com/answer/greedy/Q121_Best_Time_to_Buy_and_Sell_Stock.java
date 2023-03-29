@@ -1,11 +1,11 @@
 package com.answer.greedy;
 
 public class Q121_Best_Time_to_Buy_and_Sell_Stock {
+
     public static void main(String[] args) {
         int[] prices = {2,4,1};
         System.out.println(maxProfit(prices));
     }
-
     /**
      * Approach 2: One Pass
      */
@@ -37,5 +37,24 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
         }
 
         return profit;
+    }
+    /**
+     * Dynamic Programming
+     */
+    public int maxProfit_3(int[] prices) {
+        int len = prices.length;
+        if (len == 0) return 0;
+
+        int[][] dp = new int[prices.length][2];
+
+        dp[0][0] -= prices[0];
+        dp[0][1] = 0;
+
+        for (int i = 1; i < len; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], -prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], prices[i] + dp[i - 1][0]);
+        }
+
+        return dp[len - 1][1];
     }
 }
