@@ -38,7 +38,7 @@ public class Q518_Coin_Change_II {
     }
     /**
      * 究其原因，该代码计算的结果是 排列数，而不是 组合数
-     * the rsult is not correct
+     * the result is not correct
      */
     public static int change_1(int amount, int[] coins) {
         int[] dp = new int[amount + 1];
