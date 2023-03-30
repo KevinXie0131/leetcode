@@ -19,6 +19,8 @@ public class Dynamic_Programming_Knapsack {
         System.out.println(knapsack_2( 5, wt, val));
         System.out.println("------------");
         System.out.println(knapsack_3());
+        System.out.println("------------");
+        System.out.println(knapsack_4());
     }
 
     /**
@@ -89,4 +91,22 @@ public class Dynamic_Programming_Knapsack {
         System.out.println(dp[weight.length - 1][bagWeight]);
         return dp[weight.length - 1][bagWeight];
     }
+    /**
+     *
+     */
+    static int knapsack_4(){
+        int[]  weight = {1, 3, 4};
+        int[]  value = {15, 20, 30};
+        int bagWeight = 4;
+
+        // 初始化
+        int[]  dp = new int[bagWeight + 1];
+
+        for (int i = 0; i < weight.length; i++)// 遍历物品
+            for (int j = bagWeight; j >= weight[i]; j--)// 遍历背包容量
+                dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]); //不取或者取第i个
+
+        return dp[bagWeight];
+    }
+
 }
