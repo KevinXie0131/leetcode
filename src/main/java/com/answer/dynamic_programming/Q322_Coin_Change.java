@@ -91,4 +91,54 @@ public class Q322_Coin_Change {
         memo[amount-1] = (min == Integer.MAX_VALUE ? -1 : min);
         return memo[amount-1];
     }
+    /**
+     * 二维DP，三层循环
+     * 完全背包问题
+     */
+    int INF = Integer.MAX_VALUE / 2;  // 后续有加法操作，所以要除以2防止溢出
+    public int coinChange_4(int[] coins, int amount) {
+        if(amount == 0) {
+            return 0;
+        }
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        for(int[] a: dp) {
+            Arrays.fill(a, INF);  // 初始化
+        }
+        dp[0][0] = 0; // 合法的初始化，其他dp[0][j]均不合法
+        for(int i = 1; i < n + 1; i ++) {
+            for(int j = 0; j < amount + 1; j ++) {
+                int k = 0;
+                while (j - k * coins[i - 1] >= 0) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - k * coins[i - 1]] + k);
+                    k ++;
+                }
+            }
+        }
+        return dp[n][amount] == INF ? -1 : dp[n][amount];
+    }
+    /**
+     * 二维DP，两层循环
+     */
+    // int INF = Integer.MAX_VALUE / 2;  // 后续有加法操作，所以要除以2防止溢出
+    public int coinChange_5(int[] coins, int amount) {
+        if(amount == 0) {
+            return 0;
+        }
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        for(int[] a: dp) {
+            Arrays.fill(a, INF);
+        }
+        dp[0][0] = 0;  // 合法的初始化，其他dp[0][j]均不合法
+        for(int i = 1; i < n + 1; i ++) {
+            for(int j = 0; j < amount + 1; j ++) {
+                dp[i][j] = dp[i - 1][j];
+                if(j - coins[i - 1] >= 0) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][j - coins[i - 1]] + 1);
+                }
+            }
+        }
+        return dp[n][amount] == INF ? -1 : dp[n][amount];
+    }
 }
