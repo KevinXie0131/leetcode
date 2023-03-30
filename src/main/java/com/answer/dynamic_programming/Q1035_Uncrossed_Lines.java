@@ -11,6 +11,7 @@ public class Q1035_Uncrossed_Lines {
 
     /**
      * Approach 3: Dynamic Programming with Space Optimization
+     * Note that the above recursive relation is exactly the same as in the classical problem, Longest Common Subsequence (LCS)
      */
     public static int maxUncrossedLines(int[] nums1, int[] nums2) {
         int M = nums1.length;
