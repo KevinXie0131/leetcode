@@ -40,7 +40,7 @@ public class Q416_Partition_Equal_Subset_Sum {
             sum += nums[i];
         }
         if(sum % 2 == 1) return false;
-        int target = sum / 2;
+        int target = sum / 2;  // 背包体积是sum/2
 
         // 每个数组中的元素不会超过 100，数组的⼤⼩不会超过 200总和不会⼤于20000，背包最⼤只需要其中⼀半，所以10001⼤⼩就可以了
         int[] dp = new int[20001];
