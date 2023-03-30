@@ -76,14 +76,19 @@ public class Q474_Ones_and_Zeroes {
      */
     public int findMaxForm_3(String[] strs, int m, int n) {
         int length = strs.length;
+        // dp[i][j][k] 表示输入字符串在子区间 [0, i] 能够使用 j 个 0 和 k 个 1 的字符串的最大数量
         int[][][] dp = new int[length + 1][m + 1][n + 1];
+
         for (int i = 1; i <= length; i++) {
             int[] zerosOnes = getZerosOnes(strs[i - 1]);
-            int zeros = zerosOnes[0], ones = zerosOnes[1];
+            int zeros = zerosOnes[0];
+            int ones = zerosOnes[1];
+
             for (int j = 0; j <= m; j++) {
                 for (int k = 0; k <= n; k++) {
                     dp[i][j][k] = dp[i - 1][j][k];
                     if (j >= zeros && k >= ones) {
+                        // 对应于不选当前第 i 个字符串 和 选择当前第 i 个字符串的情况下能够得到的字符串数目的最大值
                         dp[i][j][k] = Math.max(dp[i][j][k], dp[i - 1][j - zeros][k - ones] + 1);
                     }
                 }
