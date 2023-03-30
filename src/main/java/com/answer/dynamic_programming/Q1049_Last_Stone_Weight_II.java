@@ -35,7 +35,7 @@ public class Q1049_Last_Stone_Weight_II {
     public int lastStoneWeightII_2(int[] stones) {
         int n = stones.length;
         int sum = 0;
-        for (int i=0;i<n;i++) {
+        for (int i = 0; i < n; i++) {
             sum += stones[i];
         }
 
@@ -45,8 +45,8 @@ public class Q1049_Last_Stone_Weight_II {
             dp[0][j] = j >= stones[0] ? stones[0] : 0;
         }
 
-        for (int i=1;i<n;i++) {
-            for (int j=0;j<=target;j++) {
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j <= target; j++) {
                 if (j < stones[i]) { // 不选第 i 个元素
                     dp[i][j] = dp[i - 1][j];
                 } else { // 选第 i 个元素
