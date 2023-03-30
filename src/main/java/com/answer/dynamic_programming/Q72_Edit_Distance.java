@@ -4,6 +4,11 @@ public class Q72_Edit_Distance {
     /**
      * Hard
      * Dynamic Programming
+     *
+     * Edit distance is a string metric, a way of quantifying how dissimilar two strings (e.g. words) are to one another,
+     * measured by counting the minimum number of operations required to transform one string into the other.
+     *
+     * three types of transformation operations: addition, deletions, and replacements
      */
     public int minDistance(String word1, String word2) {
         int m = word1.length();
@@ -25,6 +30,14 @@ public class Q72_Edit_Distance {
                 } else {
                     dp[i][j] = Math.min(Math.min(dp[i - 1][j - 1], dp[i][j - 1]), dp[i - 1][j]) + 1;
                 }
+                /**
+                 * if (word1[i - 1] == word2[j - 1])
+                 *     不操作
+                 * if (word1[i - 1] != word2[j - 1])
+                 *     增   dp[i][j] = dp[i][j - 1] + 1
+                 *     删   dp[i][j] = dp[i - 1][j] + 1
+                 *     换   dp[i][j] = dp[i - 1][j - 1] + 1
+                 */
             }
         }
         return dp[m][n];
