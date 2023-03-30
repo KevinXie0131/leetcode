@@ -53,4 +53,22 @@ public class Q518_Coin_Change_II {
         }
         return dp[amount];
     }
+    /**
+     * 2D Dynamic Programming
+     */
+    public int change_3(int amount, int[] coins) {
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+
+        dp[0][0] = 1;  // 合法的初始化，其他dp[0][j]均不合法
+        for(int i = 1; i < n + 1; i ++) {
+            for(int j = 0; j < amount + 1; j ++) {
+                dp[i][j] = dp[i - 1][j];
+                if(j - coins[i - 1] >= 0) {
+                    dp[i][j] += dp[i][j - coins[i - 1]];
+                }
+            }
+        }
+        return dp[n][amount];
+    }
 }
