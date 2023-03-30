@@ -3,6 +3,7 @@ package com.answer.dynamic_programming;
 public class Q583_Delete_Operation_for_Two_Strings {
     /**
      * Dynamic Programming
+     * 关于最长公共子序列，请读者参考「1143. 最长公共子序列」
      */
     public int minDistance(String word1, String word2) {
         int[][] dp = new int[word1.length() + 1][word2.length() + 1];
