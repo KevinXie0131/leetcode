@@ -2,6 +2,7 @@ package com.answer.dynamic_programming;
 
 public class Q115_Distinct_Subsequences {
     /**
+     * Hard
      * Dynamic Programming
      */
     public int numDistinct(String s, String t) {
@@ -17,6 +18,15 @@ public class Q115_Distinct_Subsequences {
                 }else{
                     dp[i][j] = dp[i - 1][j];
                 }
+                /**
+                 *  // 包含两种决策：
+                 *  // 不使用 cs[i] 进行匹配，则有 f[i][j] = f[i - 1][j]
+                 *  f[i][j] = f[i - 1][j];
+                 *  // 使用 cs[i] 进行匹配，则要求 cs[i] == ct[j]，然后有  f[i][j] += f[i - 1][j - 1]
+                 *  if (cs[i] == ct[j]) {
+                 *     f[i][j] += f[i - 1][j - 1];
+                 *  }
+                 */
             }
         }
 
