@@ -3,6 +3,7 @@ package com.answer.dynamic_programming;
 public class Q1143_Longest_Common_Subsequence {
     /**
      * Approach 3: Dynamic Programming
+     * 2-D Dynamic Programming
      */
     public int longestCommonSubsequence(String text1, String text2) {
         int M = text1.length();
@@ -22,6 +23,7 @@ public class Q1143_Longest_Common_Subsequence {
     }
     /**
      * Approach 4: Dynamic Programming with Space Optimization
+     * 1-D Dynamic Programming
      */
     public int longestCommonSubsequence_1(String text1, String text2) {
 
