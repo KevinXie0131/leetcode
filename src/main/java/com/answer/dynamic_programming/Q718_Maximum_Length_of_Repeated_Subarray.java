@@ -2,7 +2,7 @@ package com.answer.dynamic_programming;
 
 public class Q718_Maximum_Length_of_Repeated_Subarray {
     /**
-     * Dynamic Programming
+     * 2-D Dynamic Programming
      */
     public int findLength(int[] nums1, int[] nums2) {
         int[][] dp = new int[nums1.length + 1][nums2.length + 1];
