@@ -17,7 +17,7 @@ public class Q91_Decode_Ways {
         s = " " + s;
         char[] cs = s.toCharArray();
         int[] f = new int[n + 1];
-        f[0] = 1;
+        f[0] = 1; // 空字符串可以有 1 种解码方法，解码出一个空字符串
 
         for (int i = 1; i <= n; i++) {
             // a : 代表「当前位置」单独形成 item
@@ -29,6 +29,25 @@ public class Q91_Decode_Ways {
             if (1 <= a && a <= 9) f[i] = f[i - 1];
             // 如果 b 属于有效值，那么 f[i] 可以由 f[i - 2] 或者 f[i - 1] & f[i - 2] 转移过来
             if (10 <= b && b <= 26) f[i] += f[i - 2];
+        }
+        return f[n];
+    }
+    /**
+     * Another Form of Dynamic Programming
+     */
+    public int numDecodings_1(String s) {
+        int n = s.length();
+        int[] f = new int[n + 1];
+        f[0] = 1;
+
+        for (int i = 1; i <= n; ++i) {
+            if (s.charAt(i - 1) != '0') {
+                f[i] += f[i - 1];
+            }
+            if (i > 1 && s.charAt(i - 2) != '0'
+                    && ((s.charAt(i - 2) - '0') * 10 + (s.charAt(i - 1) - '0') <= 26)) {
+                f[i] += f[i - 2];
+            }
         }
         return f[n];
     }
