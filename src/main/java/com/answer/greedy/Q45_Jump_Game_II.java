@@ -9,6 +9,12 @@ public class Q45_Jump_Game_II {
 
     /**
      * Greedy
+     * 可以对每一个能作为 起跳点 的格子都尝试跳一次，把 能跳到最远的距离 不断更新
+     *
+     * 所以，当一次跳跃结束时，从下一个格子开始，到现在能跳到最远的距离，都是下一次跳跃的起跳点
+     * 1. 对每一次跳跃用 for 循环来模拟
+     * 2. 跳完一次之后，更新下一次起跳点的范围
+     * 3. 在新的范围内跳，更新能跳到最远的距离
      */
     public static int jump(int[] nums) {
         if(nums.length == 1) return 0;
@@ -20,11 +26,12 @@ public class Q45_Jump_Game_II {
         while(end < nums.length){
             int cover = 0;
             for(int i = start; i < end; i++){
+                // 能跳到最远的距离
                 cover = Math.max(cover, nums[i] + i);
             }
-            start = end;
-            end = cover + 1;
-            res++;
+            start = end; // 下一次起跳点范围开始的格子
+            end = cover + 1;  // 下一次起跳点范围结束的格子
+            res++; // 跳跃次数
         }
 
         return res;
