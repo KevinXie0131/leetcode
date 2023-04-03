@@ -28,6 +28,11 @@ public class Q738_Monotone_Increasing_Digits {
     }
     /**
      * Another form
+     *
+     * 局部最优：遇到strNum[i - 1] > strNum[i]的情况，让strNum[i - 1]--，然后strNum[i]给为9，可以保证这两位变成最大单调递增整数。
+     * 全局最优：得到小于等于N的最大单调递增的整数。
+     *
+     * 从后向前遍历
      */
     public static int monotoneIncreasingDigits_1(int n) {
    //     char[] arr = new String(n + "").toCharArray();
