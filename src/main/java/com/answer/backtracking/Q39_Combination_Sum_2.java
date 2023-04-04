@@ -26,7 +26,7 @@ public class Q39_Combination_Sum_2 {
             return;
         }
         for(int i = startIndex; i < candidates.length; i++){
-            if(target < candidates[i]){
+            if(target < candidates[i]){ // 剪枝优化 终⽌遍历
                 break;
             }
             if(i > 0 && candidates[i-1] == candidates[i] && used[i] == 0){

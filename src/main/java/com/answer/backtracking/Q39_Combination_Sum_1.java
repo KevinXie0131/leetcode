@@ -24,7 +24,7 @@ public class Q39_Combination_Sum_1 {
             return;
         }
         for(int i = startIndex; i < candidates.length; i++){
-            if(target < candidates[i]){
+            if(target < candidates[i]){  // 剪枝优化 终⽌遍历
                 break;
             }
             path.addLast(candidates[i]);
