@@ -3,8 +3,11 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q216_Combination_Sum_III {
+    public static void main(String[] args) {
+        System.out.println(combinationSum3(3, 9));
+    }
 
-    public List<List<Integer>> combinationSum3(int k, int n) {
+    public static List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         Deque<Integer> path = new ArrayDeque<>();
         int[] candidates = {1,2,3,4,5,6,7,8,9};
