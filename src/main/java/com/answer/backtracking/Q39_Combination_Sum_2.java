@@ -35,10 +35,10 @@ public class Q39_Combination_Sum_2 {
             path.addLast(candidates[i]);
             target -= candidates[i];
             used[i] = 1;
-            backtracking(candidates, used, target, i, result, path);
+            backtracking(candidates, used, target, i, result, path); // 关键点:不⽤i+1了，表示可以重复读取当前的数
             path.removeLast();
             target += candidates[i];
-            used[i] = 1;
+        //    used[i] = 1;
         }
         return;
     }

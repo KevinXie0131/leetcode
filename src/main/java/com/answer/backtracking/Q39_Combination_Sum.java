@@ -23,9 +23,9 @@ public class Q39_Combination_Sum {
         for(int i = startIndex; i < candidates.length; i++){
             path.addLast(candidates[i]);
             target -= candidates[i];
-            backtracking(candidates, target, i, result, path);
-            path.removeLast();
-            target += candidates[i];
+            backtracking(candidates, target, i, result, path); // 关键点:不⽤i+1了，表示可以重复读取当前的数
+            path.removeLast(); // 回溯
+            target += candidates[i]; // 回溯
         }
         return;
     }
