@@ -9,6 +9,10 @@ public class Q784_Letter_Case_Permutation {
     }
     /**
      * Backtracking
+     *
+     * 大写字符与其对应的小写字符的 ASCII 的差为 32
+     *    如果字符是小写字符，减去 32 得到大写字符；
+     *    如果字符是大写字符，加上 32 得到小写字符。
      */
     static List<String> result = new ArrayList<String>();
     static public List<String> letterCasePermutation(String s) {
