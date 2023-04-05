@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Q93_Restore_IP_Addresses {
 
-    List<String> result = new ArrayList<String>();
-
+    List<String> result = new ArrayList<String>(); // 记录结果
+    // startIndex: 搜索的起始位置，pointNum:添加逗点的数量
     public List<String> restoreIpAddresses(String s) {
         if(s.length()>12 || s.length()<4) return result;
         backtracking(s,0,0);
@@ -13,6 +13,8 @@ public class Q93_Restore_IP_Addresses {
     }
 
     public void backtracking(String s, int startIndex, int pointNum){
+        // 逗点数量为3时，分隔结束
+        // 判断第四段⼦字符串是否合法，如果合法就放进result中
         if(pointNum == 3 && isValid(s, startIndex, s.length()-1)){
             result.add(s);
             return;
@@ -21,18 +23,19 @@ public class Q93_Restore_IP_Addresses {
             return;
         }
         for(int i = startIndex; i < s.length(); i++){
-            if(isValid(s, startIndex, i)){
-                s= s.substring(0, i+1)+"."+s.substring(i+1);
+            if(isValid(s, startIndex, i)){ // 判断 [startIndex,i] 这个区间的⼦串是否合法
+                s= s.substring(0, i+1)+"."+s.substring(i+1); // 在i的后⾯插⼊⼀个逗点
                 pointNum++;
-                backtracking(s,i+2,pointNum);
-                pointNum--;
-                s = s.substring(0, i+1)+s.substring(i+2);
+                backtracking(s,i+2,pointNum); // 插⼊逗点之后下⼀个⼦串的起始位置为i+2
+                pointNum--; // 回溯
+                s = s.substring(0, i+1)+s.substring(i+2); // 回溯删掉逗点
             } else {
-                break;
+                break; // 不合法，直接结束本层循环
             }
         }
     }
 
+    // 判断字符串s在左闭⼜闭区间[start, end]所组成的数字是否合法
     private Boolean isValid(String s, int start, int end) {
         if (start > end) {
             return false;
