@@ -3,6 +3,14 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q332_Reconstruct_Itinerary {
+    public static void main(String[] args) {
+        List<List<String>> tickets = new ArrayList<List<String>>();
+        tickets.add(Arrays.asList("MUC","LHR"));
+        tickets.add(Arrays.asList("JFK","MUC"));
+        tickets.add(Arrays.asList("SFO","SJC"));
+        tickets.add(Arrays.asList("LHR","SFO"));
+        System.out.println(findItinerary(tickets));
+    }
     /**
      * Backtracking - Hard
      *
@@ -13,10 +21,10 @@ public class Q332_Reconstruct_Itinerary {
      *
      * Typically, backtracking is used to enumerate all possible solutions for a problem, in a trial-fail-and-fallback strategy.
      */
-    private Deque<String> res;
-    private Map<String, Map<String, Integer>> map;
+    static private Deque<String> res;
+    static private Map<String, Map<String, Integer>> map;
 
-    private boolean backTracking(int ticketNum){
+    static private boolean backTracking(int ticketNum){
         if(res.size() == ticketNum + 1){
             return true;
         }
@@ -27,7 +35,10 @@ public class Q332_Reconstruct_Itinerary {
                 if(count > 0){
                     res.add(target.getKey());
                     target.setValue(count - 1);
-                    if(backTracking(ticketNum)) return true;
+                    // backtracking
+                    if(backTracking(ticketNum)) {
+                        return true;
+                    }
                     res.removeLast();
                     target.setValue(count);
                 }
@@ -36,12 +47,13 @@ public class Q332_Reconstruct_Itinerary {
         return false;
     }
 
-    public List<String> findItinerary(List<List<String>> tickets) {
+    static public List<String> findItinerary(List<List<String>> tickets) {
         /**
          * Adopted the hashmap (or dictionary) data structure, with each entry as <origin, [destinations]>.
          */
         map = new HashMap<String, Map<String, Integer>>();
         res = new LinkedList<>();
+        // build the graph first
         for(List<String> t : tickets){
             Map<String, Integer> temp;
             if(map.containsKey(t.get(0))){
@@ -52,8 +64,9 @@ public class Q332_Reconstruct_Itinerary {
                 temp.put(t.get(1), 1);
             }
             map.put(t.get(0), temp);
-
         }
+        System.out.println(map);
+
         res.add("JFK");
         backTracking(tickets.size());
         return new ArrayList<>(res);
