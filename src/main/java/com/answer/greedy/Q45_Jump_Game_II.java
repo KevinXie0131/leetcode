@@ -9,6 +9,12 @@ public class Q45_Jump_Game_II {
 
     /**
      * Greedy
+     * A greedy algorithm is any algorithm that follows the problem-solving heuristic of making locally optimal choice at
+     * each step, with the intent of reaching the global optimum at the end.
+     *
+     * A greedy algorithm does not necessarily lead to a globally optimal solution, but rather a reasonable approximation
+     * in exchange of less computing time.
+     *
      * 可以对每一个能作为 起跳点 的格子都尝试跳一次，把 能跳到最远的距离 不断更新
      *
      * 所以，当一次跳跃结束时，从下一个格子开始，到现在能跳到最远的距离，都是下一次跳跃的起跳点
