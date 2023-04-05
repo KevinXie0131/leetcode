@@ -14,7 +14,7 @@ public class Q90_Subsets_II_1 {
         }
         int[]  used = new int[nums.length];
         used = new int[nums.length];
-        Arrays.sort(nums);
+        Arrays.sort(nums); // 去重需要排序
         backtracking(nums, 0, used);
         return result;
     }

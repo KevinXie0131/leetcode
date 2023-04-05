@@ -12,7 +12,7 @@ public class Q90_Subsets_II {
             result.add(new ArrayList());
             return result;
         }
-        int[]  used = new int[nums.length];
+        int[]  used = new int[nums.length]; // 定义set对同⼀节点下的本层去重
         used = new int[nums.length];
         backtracking(nums, 0, used);
         return result;
