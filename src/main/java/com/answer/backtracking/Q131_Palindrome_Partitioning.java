@@ -8,7 +8,7 @@ public class Q131_Palindrome_Partitioning {
     /**
      * Deque<String> path = new LinkedList<>();
      */
-    Deque<String> path = new ArrayDeque<>();
+    Deque<String> path = new ArrayDeque<>(); // 放已经回⽂的⼦串
 
     public List<List<String>> partition(String s) {
         backtracking(s, 0);
@@ -16,19 +16,20 @@ public class Q131_Palindrome_Partitioning {
     }
 
     public void backtracking(String s, int startIndex){
+        // 如果起始位置已经⼤于s的⼤⼩，说明已经找到了⼀组分割⽅案了
         if(startIndex >= s.length()){
             result.add(new ArrayList(path));
             return;
         }
         for(int i = startIndex; i < s.length(); i++){
-            if(isPalindrome(s, startIndex, i)){
-                String newStr = s.substring(startIndex, i + 1);
+            if(isPalindrome(s, startIndex, i)){ // 是回⽂⼦串
+                String newStr = s.substring(startIndex, i + 1); // 获取[startIndex,i]在s中的⼦串
                 path.add(newStr);
             } else {
-                continue;
+                continue; // 不是回⽂，跳过
             }
-            backtracking(s, i + 1);
-            path.removeLast();
+            backtracking(s, i + 1); // 寻找i+1为起始位置的⼦串
+            path.removeLast(); // 回溯过程，弹出本次已经填在的⼦串
         }
 
     }
