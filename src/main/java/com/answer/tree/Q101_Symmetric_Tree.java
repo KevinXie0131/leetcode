@@ -38,7 +38,9 @@ public class Q101_Symmetric_Tree {
     }
 
     /**
-     *
+     * 使⽤队列 迭代法
+     * 在迭代法中我们使⽤了队列，需要注意的是这不是层序遍历，⽽且仅仅通过⼀个容器来成对
+     * 的存放我们要⽐较的元素，知道这⼀本质之后就发现，⽤队列，⽤栈，甚⾄⽤数组，都是可以的。
      */
     public boolean isSymmetric_1c(TreeNode root) {
 
@@ -47,26 +49,26 @@ public class Q101_Symmetric_Tree {
         }
 
         Deque<TreeNode> queue = new LinkedList<>();
-        queue.offerFirst(root.left);
-        queue.offerLast(root.right);
-        while (!queue.isEmpty()) {
+        queue.offerFirst(root.left); // 将左⼦树头结点加⼊队列
+        queue.offerLast(root.right); // 将右⼦树头结点加⼊队列
+        while (!queue.isEmpty()) { // 接下来就要判断这这两个树是否相互翻转
 
             TreeNode left = queue.pollFirst();
             TreeNode right = queue.pollLast();
 
-            if (left == null && right == null) {
+            if (left == null && right == null) { // 左节点为空、右节点为空，此时说明是对称的
                 continue;
             }
-            if (left == null || right == null) {
+            if (left == null || right == null) { // 左右⼀个节点不为空，或者都不为空但数值不相同，返回false
                 return false;
             }
             if (left.value != right.value) {
                 return false;
             }
-            queue.offerFirst(left.left);
-            queue.offerFirst(left.right);
-            queue.offerLast(right.right);
-            queue.offerLast(right.left);
+            queue.offerFirst(left.left);  // 加⼊左节点左孩⼦
+            queue.offerFirst(left.right); // 加⼊右节点右孩⼦
+            queue.offerLast(right.right); // 加⼊左节点右孩⼦
+            queue.offerLast(right.left);  // 加⼊右节点左孩⼦
         }
 
         return true;
