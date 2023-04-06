@@ -117,6 +117,9 @@ public class Template7_Level_Traversal {
         }
     }
 
+    /**
+     * ⼆叉树的层序遍历
+     */
     //BFS--迭代方式--借助队列
     public static void bfsIterationLevel(TreeNode node) {
         if (node == null) return;
@@ -126,6 +129,9 @@ public class Template7_Level_Traversal {
 
         while (!que.isEmpty()) {
             List<Integer> itemList = new ArrayList<Integer>();
+            /**
+             * 这⾥⼀定要使⽤固定⼤⼩size，不要使⽤que.size()，因为que.size是不断变化的
+             */
             int len = que.size();
 
             while (len > 0) {
