@@ -21,7 +21,7 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row {
 
         while (!queue.isEmpty()) {
             int size = queue.size();
-            int max = Integer.MIN_VALUE;
+            int max = Integer.MIN_VALUE; // 取每⼀层的最⼤值
             while (size > 0) {
                 TreeNode cur = queue.poll();
                 if (cur.value > max) {
@@ -33,7 +33,7 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row {
 
                 size--;
             }
-            list.add(max);
+            list.add(max); // 把最⼤值放进数组
         }
 
 
