@@ -21,7 +21,7 @@ public class Q199_Binary_Tree_Right_Side_View_1 {
     public void dfs(TreeNode root, int depth) {
         if (root == null) return;
 
-        if (depth == list.size()) {
+        if (depth == list.size()) { //将每⼀层的最后元素放⼊result数组中
             list.add(root.value);
         }
         dfs(root.right, depth + 1);
