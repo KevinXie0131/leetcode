@@ -23,7 +23,7 @@ public class Q199_Binary_Tree_Right_Side_View {
 
             while (size > 0) {
                 TreeNode cur = queue.poll();
-                if (size == 1) {
+                if (size == 1) {  //将每⼀层的最后元素放⼊result数组中
                     list.add(cur.value);
                 }
 
