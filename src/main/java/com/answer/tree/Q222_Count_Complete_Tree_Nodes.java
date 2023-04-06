@@ -50,7 +50,12 @@ public class Q222_Count_Complete_Tree_Nodes {
         return size;
     }
     /**
+     * 完全⼆叉树
+     * 完全⼆叉树只有两种情况，情况⼀：就是满⼆叉树，情况⼆：最后⼀层叶⼦节点没有满
+     *    对于情况⼀，可以直接⽤ 2^树深度 - 1 来计算，注意这⾥根节点深度为1
+     *    对于情况⼆，分别递归左孩⼦，和右孩⼦，递归到某⼀深度⼀定会有左孩⼦或者右孩⼦为满⼆叉树，然后依然可以按照情况1来计算。
      *
+     * 可以看出如果整个树不是满⼆叉树，就递归其左右孩⼦，直到遇到满⼆叉树为⽌，⽤公式计算这个⼦树（满⼆叉树）的节点数量
      */
     public int countNodes_3(TreeNode root) {
         if(root == null) {
@@ -74,5 +79,30 @@ public class Q222_Count_Complete_Tree_Nodes {
             depth++;
         }
         return depth;
+    }
+    /**
+     * More clear answer
+     */
+    public int countNodes_5(TreeNode root) {
+        if (root == null) return 0;
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        int leftHeight = 0, rightHeight = 0; // 这⾥初始为0是有⽬的的，为了下⾯求指数⽅便
+        while (left != null) { // 求左⼦树深度
+            left = left.left;
+            leftHeight++;
+        }
+        while (right != null) { // 求右⼦树深度
+            right = right.right;
+            rightHeight++;
+        }
+
+        if (leftHeight == rightHeight) {
+            return (2 << leftHeight) - 1; // 注意(2<<1) 相当于2^2，所以leftHeight初始为0
+        }
+
+        return countNodes_5(root.left) + countNodes_5(root.right) + 1;
+
     }
 }
