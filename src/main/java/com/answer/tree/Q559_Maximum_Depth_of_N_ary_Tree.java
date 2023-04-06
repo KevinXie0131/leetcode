@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Q559_Maximum_Depth_of_N_ary_Tree {
     /**
-     * Recursion
+     * Recursion 递归法
+     * refer to Q104_Maximum_Depth_of_Binary_Tree
      */
     public int maxDepth(Node root) {
         if (root == null) {
@@ -14,14 +15,14 @@ public class Q559_Maximum_Depth_of_N_ary_Tree {
         for(Node child : root.children) {
             int depth = maxDepth(child);
             if(depth > max){
-                max = depth;
+                max = depth;  // depth = max (depth, maxDepth(root->children[i]));
             }
         }
 
         return max + 1;
     }
     /**
-     * Iteration
+     * Iteration 迭代法
      */
     public int maxDepth_1(Node root) {
         int depth = 0;
