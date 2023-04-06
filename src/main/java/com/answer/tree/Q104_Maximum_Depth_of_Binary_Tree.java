@@ -20,7 +20,8 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         return Math.max(left, right) + 1;  // 中
     }
     /**
-     *
+     * 代码精简
+     * 精简之后的代码根本看不出是哪种遍历⽅式，也看不出递归三部曲的步骤
      */
     public int maxDepth1(TreeNode root) {
         if (root == null) {
@@ -29,7 +30,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
     /**
-     *
+     * 迭代法 层序遍历
      */
     public int maxDepth2(TreeNode root) {
         int depth = 0;
@@ -51,7 +52,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
 
                 size--;
             }
-            depth++;
+            depth++; // 记录深度
         }
         return depth;
     }
