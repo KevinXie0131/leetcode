@@ -82,6 +82,8 @@ public class Q222_Count_Complete_Tree_Nodes {
     }
     /**
      * More clear answer
+     * 时间复杂度：O(logn * logn)
+     * 空间复杂度：O(logn)
      */
     public int countNodes_5(TreeNode root) {
         if (root == null) return 0;
