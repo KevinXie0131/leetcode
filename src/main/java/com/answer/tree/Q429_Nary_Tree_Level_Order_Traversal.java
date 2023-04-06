@@ -25,7 +25,7 @@ public class Q429_Nary_Tree_Level_Order_Traversal {
                 Node cur = queue.poll();
                 sublist.add(cur.val);
 
-                for (Node node : cur.children) {
+                for (Node node : cur.children) { // 将节点孩⼦加⼊队列
                     queue.offer(node);
                 }
 
