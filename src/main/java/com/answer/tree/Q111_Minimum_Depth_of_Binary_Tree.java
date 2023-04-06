@@ -77,7 +77,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
     }
 
     /**
-     *
+     * 迭代法 层序遍历
      */
     public int minDepth2(TreeNode root) {
         int result = Integer.MAX_VALUE;
@@ -91,11 +91,11 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         while (!queue.isEmpty()) {
 
             int size = queue.size();
-            depth++;
+            depth++; // 记录最⼩深度
             while (size > 0) {
                 TreeNode cur = queue.poll();
                 if (cur.left == null && cur.right == null) {
-                    result = Math.min(result, depth);
+                    result = Math.min(result, depth); // 当左右孩⼦都为空的时候，说明是最低点的⼀层了，退出
                 }
 
                 if (cur.left != null) {queue.offer(cur.left);}
