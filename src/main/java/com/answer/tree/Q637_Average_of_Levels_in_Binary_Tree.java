@@ -24,13 +24,13 @@ public class Q637_Average_of_Levels_in_Binary_Tree {
 
             for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.poll();
-                sum += cur.value;
+                sum += cur.value; // 统计每⼀层的和
 
                 if (cur.left != null) {queue.offer(cur.left);}
                 if (cur.right != null) {queue.offer(cur.right);}
 
             }
-            double result = sum/size;
+            double result = sum/size; // 将每⼀层均值放进结果集
             list.add(sum/size);
         }
 
