@@ -10,7 +10,7 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         dfs(root, 0);
-        Collections.reverse(resListRec);
+        Collections.reverse(resListRec); // 在这⾥反转⼀下数组即可
         return resListRec;
     }
 
