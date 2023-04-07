@@ -48,7 +48,7 @@ public class Q513_Find_Bottom_Left_Tree_Value {
          */
     }
     /**
-     *
+     * 迭代法
      */
     public int findBottomLeftValue1(TreeNode root) {
         if (root == null) return 0;
@@ -68,6 +68,34 @@ public class Q513_Find_Bottom_Left_Tree_Value {
             }
 
             value = tmpNode.value;
+        }
+        return value;
+    }
+
+    /**
+     * 层序遍历
+     */
+    public int findBottomLeftValue_2(TreeNode root) {
+        if (root == null) return 0;
+        int value = 0;
+
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for(int i = 0; i < size; i++){
+                TreeNode tmpNode = queue.poll();
+                if (i == 0) {  // 记录最后⼀⾏第⼀个元素
+                    value = tmpNode.value;
+                }
+                if (tmpNode.left != null) {
+                    queue.offer(tmpNode.left);
+                }
+                if (tmpNode.right != null) {
+                    queue.offer(tmpNode.right);
+                }
+            }
         }
         return value;
     }
