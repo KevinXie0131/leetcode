@@ -60,7 +60,9 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
             idx_map.put(val, idx++);
         return helper(0, inorder.length - 1);
     }
-
+    /**
+     * 递归
+     */
     public static TreeNode buildTree_1(int[] preorder, int[] inorder) {
 
         if(inorder.length == 0){ // 第⼀步
