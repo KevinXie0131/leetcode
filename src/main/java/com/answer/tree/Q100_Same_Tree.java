@@ -2,10 +2,25 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class Q100_Same_Tree {
+    public static void main(String[] args) {
+        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(2);
+        TreeNode root2 = new TreeNode(1);
+        root2.right = new TreeNode(2);
+/*        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(2);
+        root1.right = new TreeNode(3);
+        TreeNode root2 = new TreeNode(1);
+        root2.left = new TreeNode(2);
+        root2.right = new TreeNode(3);*/
+        System.out.println(isSameTree_2(root1, root2));
+    }
 
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null) {
@@ -41,5 +56,42 @@ public class Q100_Same_Tree {
         } else {
             return compare(left.left, right.left) && compare(left.right, right.right);
         }
+    }
+    /**
+     * 迭代法
+     */
+    static public boolean isSameTree_2(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+
+        Deque<TreeNode> que = new ArrayDeque<>();
+        que.offer(p);
+        que.offer(q);
+
+        while (!que.isEmpty()) {
+            TreeNode leftNode = que.poll();
+            TreeNode rightNode = que.poll();
+            if (leftNode != null && rightNode != null && leftNode.value != rightNode.value) {
+                return false;
+            }
+            if ((leftNode == null && rightNode == null)) {
+                continue;
+            }
+            if ((leftNode == null && rightNode != null) || (leftNode != null && rightNode == null)) {
+                return false;
+            }
+            // 相对于求对称⼆叉树，这⾥两个树都要保持⼀样的遍历顺序
+            if((leftNode.left != null && rightNode.left == null) || leftNode.left == null && rightNode.left != null){
+                return false;
+            }
+            if(leftNode.left != null) que.offer(leftNode.left);
+            if(rightNode.left != null) que.offer(rightNode.left);
+            if((leftNode.right != null && rightNode.right == null) || leftNode.right == null && rightNode.right != null){
+                return false;
+            }
+            if(leftNode.right != null) que.offer(leftNode.right);
+            if(rightNode.right != null)  que.offer(rightNode.right);
+        }
+        return true;
     }
 }
