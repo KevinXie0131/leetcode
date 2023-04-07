@@ -20,30 +20,33 @@ public class Q110_Balanced_Binary_Tree {
      * 求的是⼆叉树的最⼤深度，也⽤的是后序遍历? 那是因为代码的逻辑其实是求的根节点的⾼度，⽽根节点的⾼度就是这颗树的最⼤深度，所以才可以使⽤后序遍历
      */
     public boolean isBalanced(TreeNode root) {
-        return getHeight(root) != -1 ? true: false;
+        return getHeight(root) != -1 ? true: false; // -1 表示已经不是平衡⼆叉树了，否则返回值是以该节点为根节点树的⾼度
     }
-
+    /**
+     * 如果当前传⼊节点为根节点的⼆叉树已经不是⼆叉平衡树了，还返回⾼度的话就没有意义了。
+     * 所以如果已经不是⼆叉平衡树了，可以返回-1 来标记已经不符合平衡树的规则了
+     */
     int getHeight(TreeNode node) {
         if(node == null) {
             return 0;
         }
-        int left = getHeight(node.left);
+        int left = getHeight(node.left); // 左
         if (left == -1) {
             return -1;
         }
-        int right = getHeight(node.right);
+        int right = getHeight(node.right); // 右
         if (right == -1) {
             return -1;
         }
 
-        if (Math.abs(left - right) > 1) {
+        if (Math.abs(left - right) > 1) { // 中
             return -1;
         } else {
-            return Math.max(left, right) + 1;
+            return Math.max(left, right) + 1; // 以当前节点为根节点的最⼤⾼度
         }
     }
     /**
-     *
+     * 代码精简
      */
     public boolean isBalanced1(TreeNode root) {
         return getHeight1(root) != -1 ? true: false;
