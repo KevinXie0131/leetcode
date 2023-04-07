@@ -30,7 +30,7 @@ public class Q100_Same_Tree {
         } else if (p != null && q == null) {
             return false;
         } else if (p.value != q.value) { // 排除了空节点，再排除数值不相同的情况
-            return false;
+            return false;  // 注意这⾥我没有使⽤else
         }
         // 此时就是：左右节点都不为空，且数值相同的情况
         // 此时才做递归，做下⼀层的判断
