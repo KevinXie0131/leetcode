@@ -84,7 +84,6 @@ public class Q112_Path_Sum {
 
         return dfs3(root, pathSum, targetSum);
     }
-
     public boolean dfs3(TreeNode node, ArrayList<Integer> pathSum, int targetSum){
 
         if (node == null)  return false;
@@ -108,11 +107,11 @@ public class Q112_Path_Sum {
 
     }
     /**
-     *
+     * 迭代
      */
     public boolean hasPathSum3(TreeNode root, int targetSum) {
         if (root == null) return false;
-
+       // 此时栈⾥要放的是<节点指针，路径数值>
         Deque<TreeNode> stackNode = new ArrayDeque<>();
         Deque<Integer> stackVal = new ArrayDeque<>();
         stackNode.push(root);
@@ -122,13 +121,15 @@ public class Q112_Path_Sum {
             int tmpVal = stackVal.pop();
             TreeNode tmpNode = stackNode.pop();
 
-            if (tmpNode.left == null & tmpNode.right == null) {
+            if (tmpNode.left == null & tmpNode.right == null) { // 如果该节点是叶⼦节点了，同时该节点的路径数值等于sum，那么就返回true
                 if (tmpVal == targetSum) return true;
             }
+            // 右节点，压进去⼀个节点的时候，将该节点的路径数值也记录下来
             if (tmpNode.right != null) {
                 stackNode.push(tmpNode.right);
                 stackVal.push(tmpNode.right.value + tmpVal);
             }
+            // 左节点，压进去⼀个节点的时候，将该节点的路径数值也记录下来
             if (tmpNode.left != null) {
                 stackNode.push(tmpNode.left);
                 stackVal.push(tmpNode.left.value + tmpVal);
