@@ -67,6 +67,10 @@ public class Q257_Binary_Tree_Paths {
             res.add(path + node.value);
             return;
         }
+        /**
+         * 回溯就隐藏在 path + "->"。
+         * 每次函数调⽤完，path依然是没有加上"->" 的，这就是回溯了
+         */
         dfs1(node.left, path + node.value + "->", res); // 隐藏着回溯
         dfs1(node.right, path + node.value + "->", res);
 
