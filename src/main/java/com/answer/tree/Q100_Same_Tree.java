@@ -23,4 +23,23 @@ public class Q100_Same_Tree {
         boolean right = isSameTree(p.right, q.right); // 左⼦树: 右、 右⼦树：右
         return left && right; // 左⼦树: 中、 右⼦树: 中 （逻辑处理）
     }
+    /**
+     * 精简之后代码
+     */
+    public boolean isSameTree_1(TreeNode p, TreeNode q) {
+        return compare(p, q);
+    }
+    boolean compare(TreeNode left, TreeNode right) {
+        if (left == null && right != null) {
+            return false;
+        } else if (left != null && right == null) {
+            return false;
+        } else if (left == null && right == null) {
+            return true;
+        } else if (left.value != right.value) {
+            return false;
+        } else {
+            return compare(left.left, right.left) && compare(left.right, right.right);
+        }
+    }
 }
