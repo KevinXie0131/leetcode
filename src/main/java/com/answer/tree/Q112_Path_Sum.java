@@ -8,11 +8,17 @@ import java.util.Deque;
 import java.util.List;
 
 public class Q112_Path_Sum {
+    /**
+     * 路径总和
+     * 说明: 叶⼦节点是指没有⼦节点的节点
+     *
+     * 递归
+     */
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null) return false;
 
         targetSum -= root.value;
-        if (root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) { // 遇到叶⼦节点，并且计数为0
             return targetSum == 0;
         }
         if (root.left != null) {
@@ -31,7 +37,13 @@ public class Q112_Path_Sum {
 
     }
     /**
+     * 递归
      *
+     * 如果需要搜索整颗⼆叉树，那么递归函数就不要返回值，如果要搜索其中⼀条符合条件的路径，
+     * 递归函数就需要返回值，因为遇到符合条件的路径了就要及时返回
+     *
+     * 本题我们要找⼀条符合条件的路径，所以递归函数需要返回值，及时返回
+     * 遍历的路线，并不要遍历整棵树，所以递归函数需要返回值，可以⽤bool类型表⽰。
      */
     public boolean hasPathSum1(TreeNode root, int targetSum) {
         if (root == null) return false;
@@ -39,7 +51,7 @@ public class Q112_Path_Sum {
         return dfs(root, 0, targetSum);
     }
 
-    public boolean dfs(TreeNode node, int sum, int targetSum){
+    public boolean dfs(TreeNode node, int sum, int targetSum){ // 注意函数的返回类型
 
         if (node == null)  return false;
 
@@ -48,13 +60,22 @@ public class Q112_Path_Sum {
             return sum == targetSum;
         }
 
-        boolean left = dfs(node.left, sum, targetSum);
+        boolean left = dfs(node.left, sum, targetSum); // 隐藏回溯
         boolean right = dfs(node.right, sum, targetSum);
         return left || right;
-
+        /**
+         * 为了把回溯的过程体现出来
+         * if (cur->left) { // 左
+         *      count -= cur->left->val; // 递归，处理节点;
+         *      if (traversal(cur->left, count)) {
+         *          return true;
+         *      }
+         *      count += cur->left->val; // 回溯，撤销处理结果
+         * }
+         */
     }
     /**
-     *
+     * 回溯
      */
     ArrayList<Integer> pathSum = new ArrayList<>();
 
