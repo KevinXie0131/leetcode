@@ -67,37 +67,37 @@ public class Q257_Binary_Tree_Paths {
             res.add(path + node.value);
             return;
         }
-        dfs1(node.left, path + node.value + "->", res);
+        dfs1(node.left, path + node.value + "->", res); // 隐藏着回溯
         dfs1(node.right, path + node.value + "->", res);
 
     }
     /**
-     *
+     * 迭代法
      */
     public List<String> binaryTreePaths2(TreeNode root) {
-        List<String> res = new ArrayList<>();
+        List<String> res = new ArrayList<>(); // 保存最终路径集合
         if (root == null) {
             return res;
         }
-        Stack<Object> stack = new Stack<>();
+        Stack<Object> stack = new Stack<>(); // 保存树的遍历节点  保存遍历路径的节点
 
         stack.push(root);
         stack.push(root.value + "");
         while (!stack.isEmpty()) {
 
-            String path = (String) stack.pop();
-            TreeNode node = (TreeNode) stack.pop();
+            String path = (String) stack.pop(); // 取出节点 中
+            TreeNode node = (TreeNode) stack.pop(); // 取出该节点对应的路径
 
-            if (node.left == null && node.right == null) {
+            if (node.left == null && node.right == null) { // 遇到叶⼦节点
                 res.add(path);
             }
 
-            if (node.right != null) {
+            if (node.right != null) { // 右
                 stack.push(node.right);
                 stack.push(path + "->" + node.right.value);
             }
 
-            if (node.left != null) {
+            if (node.left != null) { // 左
                 stack.push(node.left);
                 stack.push(path + "->" + node.left.value);
             }
