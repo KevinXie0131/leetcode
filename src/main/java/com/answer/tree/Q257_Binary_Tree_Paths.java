@@ -5,41 +5,46 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q257_Binary_Tree_Paths {
-
+    /**
+     * 返回所有从根节点到叶⼦节点的路径。
+     * 说明: 叶⼦节点是指没有⼦节点的节点
+     */
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>(); // 存放结果集的result
         if(root == null){
             return result;
         }
 
-        List<String> path = new ArrayList<>();
+        List<String> path = new ArrayList<>(); // ，记录每⼀条路径的path
         dfs(root, path, result);
         return result;
     }
-
+    /**
+     * 前序遍历 + 回溯
+     */
     public void dfs(TreeNode node, List<String> path, List<String> result)     {
-        if(node.left == null && node.right == null){
+        if(node.left == null && node.right == null){ // 这才到了叶⼦节点 终⽌处理逻辑
             path.add(node.value + "");
 
             StringBuffer sb = new StringBuffer();
-            for(int i = 0; i < path.size() - 1; i++){
+            for(int i = 0; i < path.size() - 1; i++){ // 将path⾥记录的路径转为string格式
                 sb.append(path.get(i)).append("->");
             }
-            sb.append(path.get(path.size() - 1));
-            result.add(sb.toString());
+            sb.append(path.get(path.size() - 1)); // 记录最后⼀个节点（叶⼦节点）
+            result.add(sb.toString()); // 收集⼀个路径
             return;
         }
-
-        path.add(node.value + "");
-
-        if(node.left != null){
+        // 中
+        path.add(node.value + ""); // 因为是前序遍历，需要先处理中间节点，中间节点就是我们要记录路径上的节点，先放进path中
+        // 递归前要加上判断语句，下⾯要递归的节点是否为空
+        if(node.left != null){ // 左
             dfs(node.left, path, result);
-            path.remove(path.size() - 1);
+            path.remove(path.size() - 1); // 回溯
         }
 
-        if(node.right != null){
+        if(node.right != null){ // 右
             dfs(node.right, path, result);
-            path.remove(path.size() - 1);
+            path.remove(path.size() - 1); // 回溯
         }
 
     }
