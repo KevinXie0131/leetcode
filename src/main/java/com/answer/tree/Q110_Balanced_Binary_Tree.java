@@ -6,7 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Q110_Balanced_Binary_Tree {
-
+    /**
+     * ⼀棵⾼度平衡⼆叉树定义为：⼀个⼆叉树每个节点的左右两个⼦树的⾼度差的绝对值不超过1
+     *
+     * ⼆叉树节点的深度：指从根节点到该节点的最长简单路径边的条数。
+     * ⼆叉树节点的⾼度：指从该节点到叶⼦节点的最长简单路径边的条数
+     * 但leetcode中强调的深度和⾼度很明显是按照节点来计算的
+     *
+     * 关于根节点的深度究竟是1 还是 0，不同的地⽅有不⼀样的标准，leetcode的题⽬中都是以节
+     * 点为⼀度，即根节点深度是1。但维基百科上定义⽤边为⼀度，即根节点的深度是0，我们暂时以leetcode为准
+     *
+     * 求深度可以从上到下去查 所以需要前序遍历（中左右），⽽⾼度只能从下到上去查，所以只能后序遍历（左右中）
+     * 求的是⼆叉树的最⼤深度，也⽤的是后序遍历? 那是因为代码的逻辑其实是求的根节点的⾼度，⽽根节点的⾼度就是这颗树的最⼤深度，所以才可以使⽤后序遍历
+     */
     public boolean isBalanced(TreeNode root) {
         return getHeight(root) != -1 ? true: false;
     }
@@ -30,7 +42,6 @@ public class Q110_Balanced_Binary_Tree {
             return Math.max(left, right) + 1;
         }
     }
-
     /**
      *
      */
