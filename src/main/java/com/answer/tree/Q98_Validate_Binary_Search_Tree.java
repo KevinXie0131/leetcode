@@ -5,7 +5,36 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q98_Validate_Binary_Search_Tree {
+    /**
+     * 验证⼆叉搜索树
+     *
+     * 要知道中序遍历下，输出的⼆叉搜索树节点的数值是有序序列
+     * 有了这个特性，验证⼆叉搜索树，就相当于变成了判断⼀个序列是不是递增的了
+     */
+    /**
+     * 递归法
+     * 递归中序遍历将⼆叉搜索树转变成⼀个数组, 然后只要⽐较⼀下，这个数组是否是有序的，注意⼆叉搜索树中不能有重复元素
+     */
+    List<Integer> list = new ArrayList<>();
 
+    public boolean isValidBST_0(TreeNode root) {
+        traversal(root);
+        for (int i = 1; i < list.size(); i++) {
+            // 注意要⼩于等于，搜索树⾥不能有相同元素
+            if (list.get(i) <= list.get(i - 1)) return false;
+        }
+        return true;
+    }
+    void traversal(TreeNode root) {
+        if (root == null) return;
+
+        traversal(root.left);
+        list.add(root.value); // 将⼆叉搜索树转换为有序数组
+        traversal(root.right);
+    }
+    /**
+     *
+     */
     public boolean isValidBST(TreeNode root) {
         double result = -Double.MAX_VALUE;
         Deque<TreeNode> stack = new ArrayDeque<>();
