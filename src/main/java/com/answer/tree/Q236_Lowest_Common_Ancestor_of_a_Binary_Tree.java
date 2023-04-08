@@ -17,7 +17,9 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
         if (root == null) return null;
 
         if (root == p || root == q) return root; // 如果找到了 节点p或者q，或者遇到空节点，就返回
-
+        // left = 递归函数(root->left);
+        // right = 递归函数(root->right);
+        // left与right的逻辑处理
         TreeNode left = lowestCommonAncestor(root.left, p,  q);
         TreeNode right = lowestCommonAncestor(root.right, p,  q);
 
