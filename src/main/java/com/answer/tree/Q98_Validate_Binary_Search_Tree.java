@@ -14,6 +14,9 @@ public class Q98_Validate_Binary_Search_Tree {
     /**
      * 递归法
      * 递归中序遍历将⼆叉搜索树转变成⼀个数组, 然后只要⽐较⼀下，这个数组是否是有序的，注意⼆叉搜索树中不能有重复元素
+     *
+     * 陷阱1
+     *    不能单纯的⽐较左节点⼩于中间节点，右节点⼤于中间节点就完事了, 我们要⽐较的是 左⼦树所有节点⼩于中间节点，右⼦树所有节点⼤于中间节点
      */
     List<Integer> list = new ArrayList<>();
 
@@ -33,10 +36,11 @@ public class Q98_Validate_Binary_Search_Tree {
         traversal(root.right);
     }
     /**
-     *
+     * 陷阱2
+     *    样例中最⼩节点 可能是int的最⼩值，如果这样使⽤最⼩的int来⽐较也是不⾏的。此时可以初始化⽐较元素为double的最⼩值。
      */
     public boolean isValidBST(TreeNode root) {
-        double result = -Double.MAX_VALUE;
+        double result = -Double.MAX_VALUE; // 因为后台测试数据中有int最⼩值
         Deque<TreeNode> stack = new ArrayDeque<>();
 
         while (!stack.isEmpty() || root != null) {
@@ -56,45 +60,45 @@ public class Q98_Validate_Binary_Search_Tree {
         return true;
     }
     /**
-     *
+     * 迭代法
      */
     public boolean isValidBST1(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
-        long pre = Long.MIN_VALUE;
+        long pre = Long.MIN_VALUE; // 记录前⼀个节点
         while (root != null || !stack.isEmpty()) {
             while (root != null) {
                 stack.push(root);
-                root = root.left;
+                root = root.left; // 左
             }
 
-            TreeNode cur = stack.pop();
+            TreeNode cur = stack.pop(); // 中
             if (cur.value > pre) {
-                pre = cur.value;
+                pre = cur.value; //保存前⼀个访问的结点
             } else {
                 return false;
             }
-            root = cur.right;
+            root = cur.right; // 右
 
         }
         return true;
     }
     /**
-     *
+     * 递归
      */
-    TreeNode pre = null;
+    TreeNode pre = null; // ⽤来记录前⼀个节点
 
     public boolean isValidBST2(TreeNode root) {
 
         if (root == null) return true;
 
-        boolean left = isValidBST(root.left);
+        boolean left = isValidBST(root.left);         // 左
 
-        if (pre != null && pre.value >= root.value) {
-            return false;
+        if (pre != null && pre.value >= root.value) { // 中序遍历，验证遍历的元素是不是从⼩到⼤
+            return false;                             // 中
         }
-        pre = root;
+        pre = root; // 记录前⼀个节点
 
-        boolean right = isValidBST(root.right);
+        boolean right = isValidBST(root.right);      // 右
 
         return left && right;
     }
