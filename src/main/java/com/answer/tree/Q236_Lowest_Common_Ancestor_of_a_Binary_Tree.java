@@ -14,6 +14,9 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      * 后序遍历 - 如果找到⼀个节点，发现左⼦树出现结点p，右⼦树出现节点q，或者 左⼦树出现结点q，右⼦树出现节点p，那么该节点就是节点p和q的最近公共祖先
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // 从底向上遍历
+        // 遍历整棵树
+        // 把结果传到根节点的
         if (root == null) return null;
 
         if (root == p || root == q) return root; // 如果找到了 节点p或者q，或者遇到空节点，就返回
