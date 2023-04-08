@@ -51,4 +51,47 @@ public class Q501_Find_Mode_in_Binary_Search_Tree {
 
         recursion(root.right); // 右
     }
+    /**
+     * 迭代法
+     */
+    public int[] findMode_1(TreeNode root) {
+        TreeNode pre = null;
+        int maxCount = 0; // 最⼤频率
+        int count = 0; // 统计频率
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        ArrayList<Integer> list = new ArrayList<>();
+
+        while (!stack.isEmpty() || root != null) {
+            while(root != null){
+                stack.push(root);
+                root= root.left; // 左
+            }
+
+            TreeNode cur = stack.pop(); // 中
+
+            if(pre == null){ // 第⼀个节点
+                count = 1; // 频率为1
+            } else if(pre.value == cur.value) { // 与前⼀个节点数值相同
+                count++;
+            } else if (pre.value != cur.value){ // 与前⼀个节点数值不同
+                count = 1;
+            }
+            pre = cur; // 更新上⼀个节点
+
+            // 要求最⼤频率的元素集合（注意是集合，不是⼀个元素，可以有多个众数）
+            if(count == maxCount){ // 如果和最⼤值相同，放进result中
+                list.add(cur.value);
+            }
+            if (count > maxCount) { // 如果计数⼤于最⼤值
+                maxCount = count; // 更新最⼤频率
+                list.clear(); // 很关键的⼀步，不要忘记清空result，之前result⾥的元素都失效了
+                list.add(cur.value);
+            }
+
+            root = cur.right; // 右
+
+        }
+        return list.stream().mapToInt(i -> i).toArray();
+
+    }
 }
