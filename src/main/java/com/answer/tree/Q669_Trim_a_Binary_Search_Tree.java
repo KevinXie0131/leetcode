@@ -35,22 +35,28 @@ public class Q669_Trim_a_Binary_Search_Tree {
         return root;
     }
     /**
-     *
+     * 迭代法
+     * 在剪枝的时候，可以分为三步：
+     *      将root移动到[L, R] 范围内，注意是左闭右闭区间
+     *      剪枝左⼦树
+     *      剪枝右⼦树
      */
     public TreeNode trimBST1(TreeNode root, int low, int high) {
         // 找到修剪之后的二叉搜索树的头节点 root
         if(root == null){
             return null;
         }
+        // 处理头结点，让root移动到[L, R] 范围内，注意是左闭右闭
         while(root != null && (root.value > high || root.value < low)){
             if(root.value > high){
-                root = root.left;
+                root = root.left; // ⼩于L往右⾛
             }
             else{
-                root = root.right;
+                root = root.right; // ⼤于R往左⾛
             }
         }
         TreeNode cur = root;
+        // 此时root已经在[L, R] 范围内，处理左孩⼦元素⼩于L的情况
         // 修剪 root 的左子树，将 < low 的节点删除
         while(cur != null){
             while(cur.left != null && cur.left.value < low){
@@ -58,6 +64,7 @@ public class Q669_Trim_a_Binary_Search_Tree {
             }
             cur = cur.left;
         }
+        // 此时root已经在[L, R] 范围内，处理右孩⼦⼤于R的情况
         // 修剪 root 的右子树，将 > high 的节点删除
         cur = root;
         while(cur != null){
