@@ -50,6 +50,53 @@ public class Q450_Delete_Node_in_a_BST {
         return root;
     }
     /**
+     * 迭代法
+     * 将⽬标节点（删除节点）的左⼦树放到 ⽬标节点的右⼦树的最左⾯节点的左孩⼦位置上,并返回⽬标节点右孩⼦为新的根节点
+     */
+    public TreeNode deleteNode_0(TreeNode root, int key) {
+        if (root == null) {
+            return root;
+        }
+        TreeNode cur = root;
+        TreeNode pre = null; // 记录cur的⽗节点，⽤来删除cur
+        while (cur != null) {
+            if (cur.value == key) {
+                break;
+            }
+            pre = cur;
+            if (cur.value > key) {
+                cur = cur.left;
+            } else {
+                cur = cur.right;
+            }
+        }
+        if (pre == null) { // 如果搜索树只有头结点
+            return deleteOneNode(cur);
+        }
+        // pre 要知道是删左孩⼦还是右孩⼦
+        if (pre.left != null && pre.left.value == key) {
+            pre.left = deleteOneNode(cur);
+        }
+        if (pre.right != null && pre.right.value == key) {
+            pre.right = deleteOneNode(cur);
+        }
+        return root;
+    }
+    TreeNode deleteOneNode(TreeNode target) {
+        if (target == null) {
+            return target;
+        }
+        if (target.right == null) {
+            return target.left;
+        }
+        TreeNode cur = target.right;
+        while (cur.left != null) {
+            cur = cur.left;
+        }
+        cur.left = target.left;
+        return target.right;
+    }
+    /**
      *
      */
     public TreeNode deleteNode1(TreeNode root, int key) {
