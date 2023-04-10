@@ -56,15 +56,15 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
 
             if (left <= mid - 1) { // 处理左区间
                 curNode.left = new TreeNode(0);
-                nodeQue.push(curNode.left);
-                leftQue.push(left);
-                rightQue.push(mid - 1);
+                nodeQue.offer(curNode.left);
+                leftQue.offer(left);
+                rightQue.offer(mid - 1);
             }
             if (right >= mid + 1) { // 处理右区间
                 curNode.right = new TreeNode(0);
-                nodeQue.push(curNode.right);
-                leftQue.push(mid + 1);
-                rightQue.push(right);
+                nodeQue.offer(curNode.right);
+                leftQue.offer(mid + 1);
+                rightQue.offer(right);
             }
         }
         return root;
