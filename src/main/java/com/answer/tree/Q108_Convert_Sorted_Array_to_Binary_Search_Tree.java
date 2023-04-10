@@ -4,6 +4,11 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
+    public static void main(String[] args) {
+        int[] nums = {-10,-3,0,5,9};
+        TreeNode root  = sortedArrayToBST_1(nums);
+        System.out.println(root);
+    }
     /**
      * 将有序数组转换为⼆叉搜索树 (构造⼀棵⼆叉平衡搜索树)
      * 将⼀个按照升序排列的有序数组，转换为⼀棵⾼度平衡⼆叉搜索树
@@ -33,7 +38,7 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
      * 迭代法
      * 可以通过三个队列来模拟，⼀个队列放遍历的节点，⼀个队列放左区间下表，⼀个队列放右区间下表
      */
-    public TreeNode sortedArrayToBST_1(int[] nums) {
+    public static TreeNode sortedArrayToBST_1(int[] nums) {
         if (nums.length == 0) {
             return null;
         }
