@@ -1,12 +1,12 @@
 package com.answer.linkedlist;
 
-public class Q707_Design_Linked_List_5 {
+public class Q707_Design_Linked_List_4 {
     //记录链表中元素的数量
     int size;
     //记录链表的虚拟头结点和尾结点
     DoublyListNode1 head,tail;
 
-    public Q707_Design_Linked_List_5() {
+    public Q707_Design_Linked_List_4() {
         //初始化操作
         this.size = 0;
         this.head = new DoublyListNode1(0);
