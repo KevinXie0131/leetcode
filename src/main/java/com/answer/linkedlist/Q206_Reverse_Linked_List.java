@@ -28,19 +28,36 @@ public class Q206_Reverse_Linked_List {
         return pre;
     }
     /**
-     * Recursive - from tail to head
+     * Iterative 双指针法
+     */
+    public ListNode reverseList_Iterative1(ListNode head) {
+        ListNode prev = null;
+        ListNode cur = head;
+        ListNode temp = null; // 保存cur的下一个节点
+        while (cur != null) {
+            temp = cur.next; // 保存一下 cur的下一个节点，因为接下来要改变cur->next
+            cur.next = prev; // 翻转操作
+            // 更新pre 和 cur指针
+            prev = cur;
+            cur = temp;
+        }
+        return prev;
+    }
+    /**
+     * Recursive - from tail to head // 从后向前递归
      */
     public static ListNode reverseList(ListNode head) {
-        if(head == null || head.next == null) {
+        if(head == null || head.next == null) {  // 边缘条件判断
             return head;
         }
-
-        ListNode newNode = reverseList(head.next);
-
+        // 递归调用，翻转第二个节点开始往后的链表
+        ListNode last  = reverseList(head.next);
+        // 翻转头节点与第二个节点的指向
         head.next.next = head;
+        // 此时的 head 节点为尾节点，next 需要指向 NULL
         head.next = null;
 
-        return newNode;
+        return last ;
     }
     /**
      * Recursive - from head to tail
