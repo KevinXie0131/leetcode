@@ -4,3 +4,8 @@ Array:
 977. Squares of a Sorted Array
 209. Minimum Size Subarray Sum
 59. Spiral Matrix II
+
+LInkedList
+203. Remove Linked List Elements
+707. Design Linked List
+206. Reverse Linked List
