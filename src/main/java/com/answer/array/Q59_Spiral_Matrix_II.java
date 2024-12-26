@@ -6,11 +6,12 @@ import java.util.Arrays;
 
 public class Q59_Spiral_Matrix_II {
     public static void main(String[] args) {
-        int[][] result = generateMatrix(5);
+        int[][] result = generateMatrix_0(5);
     //    System.out.println(Arrays.deepToString(result));
         Print2dArray.print2D(result);
     }
 
+    //左闭右闭
     public static int[][] generateMatrix(int n) {
         int[][] result = new int[n][n];
         int row = n;
@@ -40,7 +41,7 @@ public class Q59_Spiral_Matrix_II {
         return result;
     }
 
-    // This method has problem. It doesn't work.
+    // 左闭右开
     public static int[][] generateMatrix_0(int n) {
         int[][] result = new int[n][n];
         int row = n;
@@ -53,26 +54,28 @@ public class Q59_Spiral_Matrix_II {
             for(int i = left; i < right && top <= bottom; i++){
                 result[top][i] = count++;
             }
-           // top++;
-          //  left++;
+
             for(int i = top; i < bottom && left <= right; i++){
                 result[i][right] = count++;
             }
-            top++;
-         // right--;
+
             for(int i = right; i > left && top <= bottom; i--){
                 result[bottom][i] = count++;
             }
-            right--;
-         //   bottom--;
+
             for(int i = bottom; i > top && left <= right; i--){
                 result[i][left] = count++;
             }
+            top++;
             bottom--;
-        //    left++;
+            left++;
+            right--;
         }
         if (n % 2 == 1) { // n 为奇数时，单独处理矩阵中心的值
             result[n/2][n/2] = count;
+        }
+        if(n == 1){
+            result[0][0] = 1;
         }
         return result;
     }
