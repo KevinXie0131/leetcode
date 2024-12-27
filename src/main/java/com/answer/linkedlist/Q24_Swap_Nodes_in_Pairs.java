@@ -74,6 +74,46 @@ public class Q24_Swap_Nodes_in_Pairs {
         return dummy.next;
     }
     /**
+     * 虚拟头结点
+     */
+    public ListNode swapPairs_3(ListNode head) {
+        ListNode dummy = new ListNode(); // 设置一个虚拟头结点
+        dummy.next =head; // 将虚拟头结点指向head，这样方便后面做删除操作
+        ListNode cur = dummy;
+        ListNode temp; // 临时节点，保存两个节点后面的节点
+        ListNode first; // 临时节点，保存两个节点之中的第一个节点
+        ListNode second; // 临时节点，保存两个节点之中的第二个节点
+
+        while(cur.next != null &&  cur.next.next != null){
+            first = cur.next;
+            second = cur.next.next;
+            temp = second.next;
+
+            cur.next = second;  // 步骤一
+            second.next = first; // 步骤二
+            first.next = temp;  // 步骤三
+
+            cur = first;// cur移动，准备下一轮交换
+        }
+        return dummy.next;
+    }
+    /**
+     * 将步骤 2,3 交换顺序，这样不用定义 temp 节点
+     */
+    public ListNode swapPairs_4(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        while (cur.next != null && cur.next.next != null) {
+            ListNode node1 = cur.next;// 第 1 个节点
+            ListNode node2 = cur.next.next;// 第 2 个节点
+            cur.next = node2; // 步骤 1
+            node1.next = node2.next;// 步骤 3
+            node2.next = node1;// 步骤 2
+            cur = cur.next.next;
+        }
+        return dummy.next;
+    }
+    /**
      * Recursive - from head to tail
      */
     public static ListNode swapPairs_Recursive(ListNode head) {
@@ -105,5 +145,21 @@ public class Q24_Swap_Nodes_in_Pairs {
         head.next = temp;
 
         return newNode;
+    }
+
+    public static ListNode swapPairs_Recursive_2(ListNode first) {
+        // base case 退出提交
+        if(first == null || first.next == null) {
+            return first;
+        }
+        // 获取当前节点的下一个节点
+        ListNode second = first.next;
+        // 进行递归
+        ListNode third = swapPairs_Recursive_2(second.next);
+        // 这里进行交换
+        second.next = first;
+        first.next = third;
+
+        return second;
     }
 }
