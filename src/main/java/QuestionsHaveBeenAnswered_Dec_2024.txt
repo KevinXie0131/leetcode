@@ -11,3 +11,4 @@ LInkedList
 206. Reverse Linked List
 24. Swap Nodes in Pairs
 19. Remove Nth Node From End of List
+160. Intersection of Two Linked Lists
