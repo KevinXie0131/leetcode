@@ -111,5 +111,10 @@ public class UseArrays {
         int[] arr = new int[] { 1, 2, 3, 4};
         Arrays.parallelPrefix(arr, (left, right) -> left + right);
         System.out.println(Arrays.toString(arr)); // [1, 3, 6, 10]
+        /**
+         * deepToString 打印二维数组
+         */
+        int[][] matrix = new int[][] {{1,2,3}, {4,5,6}, {7,8,9}, {10,11,12}};
+        System.out.println(Arrays.deepToString(matrix)); // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
     }
 }
