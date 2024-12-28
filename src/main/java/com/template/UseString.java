@@ -42,6 +42,8 @@ public class UseString {
         sb.reverse();
         System.out.println( sb.toString() );
         System.out.println( sb.indexOf("c") ); // return -1 if not found
+        sb.setCharAt(0, 'f');
+        System.out.println( sb.toString() );
         // 字符串长度
         int len = "Runoob".length();
         System.out.println( "length : " + len );
