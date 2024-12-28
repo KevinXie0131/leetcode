@@ -11,6 +11,7 @@ public class Q18_4Sum {
         System.out.println(res);
     }
     /**
+     * 推荐使用双指针法
      * 四数之和的双指针解法是两层for循环nums[k] + nums[i]为确定值，依然是循环内有left和right下标作为双指针，
      * 找出nums[k] + nums[i] + nums[left] + nums[right] == target的情况，
      * 三数之和的时间复杂度是O(n^2)，四数之和的时间复杂度是O(n^3) 。

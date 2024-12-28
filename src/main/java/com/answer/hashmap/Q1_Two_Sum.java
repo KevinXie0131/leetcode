@@ -27,6 +27,8 @@ public class Q1_Two_Sum {
     }
     /**
      * 使用哈希表
+     * 两数之和这道题目，不仅要判断y是否存在而且还要记录y的下标位置，因为要返回x 和 y的下标
+     * map是一种<key, value>的结构，本题可以用key保存数值，用value在保存数值所在的下标。所以使用map最为合适。
      */
     public int[] twoSum_0(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
