@@ -20,3 +20,4 @@ HashMap
 202. Happy Number
 1. Two Sum
 454. 4Sum II
+383. Ransom Note
