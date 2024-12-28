@@ -42,7 +42,7 @@ public class UseArrays {
         colloctor2.add(500); // 此处可以add
         System.out.println(colloctor2);
         /**
-         * copyOf
+         * copyOf 复制指定的数组，截取或用 null 填充
           */
         String[] intro = new String[] { "a", "b", "c", "d" };
         String[] revised = Arrays.copyOf(intro, 3);
@@ -50,18 +50,51 @@ public class UseArrays {
         System.out.println(Arrays.toString(revised));
         System.out.println(Arrays.toString(expanded));
         /**
-         * copyOfRange
+         * copyOfRange 复制指定范围内的数组到一个新的数组
+         * copyOfRange() 方法需要三个参数，第一个是指定的数组，第二个是起始位置（包含），第三个是截止位置（不包含）
          */
         String[] abridgement = Arrays.copyOfRange(intro, 0, 3);
         System.out.println(Arrays.toString(abridgement));
         String[] abridgementExpanded = Arrays.copyOfRange(intro, 0, 6);
         System.out.println(Arrays.toString(abridgementExpanded));
         /**
-         * fill
+         * fill 对数组进行填充
          */
         String[] stutter = new String[4];
         Arrays.fill(stutter, "ABC");
-        System.out.println(Arrays.toString(stutter));
-        //
+        System.out.println(Arrays.toString(stutter)); // [ABC, ABC, ABC, ABC]
+        /**
+         * equals 比较数组
+         */
+        String[] intro1 = new String[] { "A", "B", "C", "D" };
+        boolean result = Arrays.equals(new String[] { "A", "B", "C", "D" }, intro1);
+        System.out.println(result);
+        /**
+         * sort 数组排序
+         */
+        String[] intro2 = new String[] { "chen", "mo", "wang", "er" };
+        Arrays.sort(intro2); // 排序会改变原有的数组
+        System.out.println(Arrays.toString(intro2));
+        /**
+         * binarySearch 数组检索
+         */
+        String[] intro3 = new String[] { "chen", "mo", "wang", "er" };
+        int exact = Arrays.binarySearch(intro3, "wang");
+        System.out.println(exact);
+        int caseInsensitive = Arrays.binarySearch(intro3, "Wang", String::compareToIgnoreCase);
+        System.out.println(caseInsensitive);
+        /**
+         * setAll: Java 8 新增了 setAll() 方法, 它提供了一个函数式编程的入口，可以对数组的元素进行填
+         */
+        int[] array = new int[10];
+        Arrays.setAll(array, i -> i * 10);
+        System.out.println(Arrays.toString(array));
+        /**
+         * parallelPrefix() 是 Java 8 提供的，提供了一个函数式编程的入口，通过遍历数组中的元素，
+         * 将当前下标位置上的元素与它之前下标的元素进行操作，然后将操作后的结果覆盖当前下标位置上的元素。
+         */
+        int[] arr = new int[] { 1, 2, 3, 4};
+        Arrays.parallelPrefix(arr, (left, right) -> left + right);
+        System.out.println(Arrays.toString(arr)); // [1, 3, 6, 10]
     }
 }
