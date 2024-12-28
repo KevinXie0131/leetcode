@@ -1,9 +1,6 @@
 package com.template;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UseArrays {
@@ -64,7 +61,7 @@ public class UseArrays {
         Arrays.fill(stutter, "ABC");
         System.out.println(Arrays.toString(stutter)); // [ABC, ABC, ABC, ABC]
         /**
-         * equals 比较数组
+         * equals 比较数组 (能够进行数组内容的比较, Arrays.equals()才是比较数组内容是否相同的正确方法)
          */
         String[] intro1 = new String[] { "A", "B", "C", "D" };
         boolean result = Arrays.equals(new String[] { "A", "B", "C", "D" }, intro1);
@@ -75,6 +72,24 @@ public class UseArrays {
         String[] intro2 = new String[] { "chen", "mo", "wang", "er" };
         Arrays.sort(intro2); // 排序会改变原有的数组
         System.out.println(Arrays.toString(intro2));
+
+        String[] intro2a = new String[] { "chen", "mo", "wang", "er" };
+        Arrays.sort(intro2a, Collections.reverseOrder()); // Collections.reverseOrder()
+        System.out.println(Arrays.toString(intro2a));
+
+        String[] intro2b = new String[] { "chen", "mo", "p", "wang", "er" };
+        Arrays.sort(intro2b, new Comparator<String>() { // 匿名内部类
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        });
+        System.out.println(Arrays.toString(intro2b));
+
+        String[] intro2c = new String[] { "chen", "mo", "p", "wang", "er" };
+        Arrays.sort(intro2c, (e1, e2) -> e2.length() - e1.length()); // lambda
+        System.out.println(Arrays.toString(intro2c));
+
         /**
          * binarySearch 数组检索
          */
