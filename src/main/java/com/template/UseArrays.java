@@ -9,8 +9,10 @@ public class UseArrays {
          * asList
           */
         String[] original = new String[] { "a1", "b2", "c3", "d4" };
-        List<String> list = Arrays.asList(original);
-        // 通过asList()方法获得的列表是固定大小的，不支持添加（add）或删除（remove）元素操作
+        List<String> list = Arrays.asList(original); //引用类型的数组
+        List<Character> listA = Arrays.asList('X','Y','Z'); //一组相同类型的动态参数
+        System.out.println(listA.toString());
+         // 通过asList()方法获得的列表是固定大小的，不支持添加（add）或删除（remove）元素操作
         // 尝试进行这些操作会抛出 UnsupportedOperationException 异常
         // list.add("e5");
         // 转换为ArrayList，才能进行add()操作。
@@ -60,6 +62,8 @@ public class UseArrays {
         String[] stutter = new String[4];
         Arrays.fill(stutter, "ABC");
         System.out.println(Arrays.toString(stutter)); // [ABC, ABC, ABC, ABC]
+        Arrays.fill(stutter, 1, 3,"ABCD"); // [ABC, ABCD, ABCD, ABC]
+        System.out.println(Arrays.toString(stutter));
         /**
          * equals 比较数组 (能够进行数组内容的比较, Arrays.equals()才是比较数组内容是否相同的正确方法)
          */
@@ -91,7 +95,7 @@ public class UseArrays {
         System.out.println(Arrays.toString(intro2c));
 
         /**
-         * binarySearch 数组检索
+         * binarySearch 数组检索。 通过二分查找在 “有序数组”中查找目标值
          */
         String[] intro3 = new String[] { "chen", "mo", "wang", "er" };
         int exact = Arrays.binarySearch(intro3, "wang");
