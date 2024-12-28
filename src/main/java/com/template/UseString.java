@@ -3,6 +3,10 @@ package com.template;
 public class UseString {
     public static void main(String[] args) {
         /**
+         * 在String中，subString()、concat()和replace()等等操作都不是在原有的字符串对象上进行的，而是生成了新的String对象,
+         * 然后将原String的变量引用指向新生成的对象
+         */
+        /**
          * 字符串—>基本数据类型、包装类
          * Integer包装类的public static int parseInt(String s)可将由“数字”字符组成的字符串转换为整型
          */
@@ -30,7 +34,7 @@ public class UseString {
          * StringBuilder：JDK 5.0新增 ，可变的字符序列；线程不安全，效率高；底层使用char[]来保存
          * 效率从高到低排列：StringBuilder > StringBuffer> String
          */
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(20); // 为了提高效率，建议使用StringBuffer(int capacity) 或 StringBuilder(int capacity)指定初始容量，尽量避免自动扩容
         sb.append('a');
         sb.insert(0, 'b');
         System.out.println( sb.toString() );
