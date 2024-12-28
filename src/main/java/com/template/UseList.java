@@ -36,7 +36,7 @@ public class UseList {
         list2.add(666);
         int[] result4 = list2.stream().mapToInt(i -> i).toArray();
         System.out.println(Arrays.toString(result4));
-
+        // Or
         int[] result5 = list2.stream().mapToInt(Integer::intValue).toArray();
         System.out.println(Arrays.toString(result5));
     }
