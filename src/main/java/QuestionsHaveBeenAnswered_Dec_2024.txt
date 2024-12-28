@@ -23,3 +23,12 @@ HashMap
 383. Ransom Note
 15. 3Sum
 18. 4Sum
+
+String
+344. Reverse String
+541. Reverse String II
+151. Reverse Words in a String
+28. Find the Index of the First Occurrence in a String
+459. Repeated Substring Pattern
+
+Two Pointer
