@@ -13,7 +13,30 @@ public class Q349_Intersection_of_Two_Arrays {
         int[] result = intersection_1(nums1, nums2);
         System.out.println(Arrays.toString(result));
     }
+    /**
+     * 使用Hash數組
+     */
+    public int[] intersection_0(int[] nums1, int[] nums2) {
+        int[] hash1 = new int[1002];
+        int[] hash2 = new int[1002];
 
+        for(int i = 0; i < nums1.length; i++){
+            hash1[nums1[i]]++;
+        }
+        for(int i = 0; i < nums2.length; i++){
+            hash2[nums2[i]]++;
+        }
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < 1002; i++){
+            if(hash1[i] > 0 && hash2[i] > 0){
+                result.add(i);
+            }
+        }
+        return result.stream().mapToInt(i -> i).toArray();
+    }
+    /**
+     * 使用HashSet
+     */
     public int[] intersection(int[] nums1, int[] nums2) {
         if(nums1 == null || nums1.length == 0 || nums2 == null || nums2.length == 0){
             return new int[0];
@@ -30,6 +53,7 @@ public class Q349_Intersection_of_Two_Arrays {
                 set2.add(i);
             }
         }
+        // return set2.stream().mapToInt(i -> i).toArray();
         int[] result = new int[set2.size()];
         result =  set2.stream().mapToInt(Number::intValue).toArray();
         return result;

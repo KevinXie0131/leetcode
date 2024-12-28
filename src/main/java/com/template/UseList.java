@@ -29,5 +29,15 @@ public class UseList {
         Object[] result3 = list1.toArray();  //此时数组的元素类型是 `Object`，如果需要更具体的类型，可以强制转换。
         System.out.println(Arrays.toString(result3));
 
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(999);
+        list2.add(888);
+        list2.add(777);
+        list2.add(666);
+        int[] result4 = list2.stream().mapToInt(i -> i).toArray();
+        System.out.println(Arrays.toString(result4));
+
+        int[] result5 = list2.stream().mapToInt(Integer::intValue).toArray();
+        System.out.println(Arrays.toString(result5));
     }
 }
