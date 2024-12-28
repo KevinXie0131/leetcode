@@ -21,3 +21,5 @@ HashMap
 1. Two Sum
 454. 4Sum II
 383. Ransom Note
+15. 3Sum
+18. 4Sum
