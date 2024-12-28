@@ -24,7 +24,24 @@ public class UseString {
         float num1 = 4321.123f;
         String valueStr4 = String.valueOf(num1);
         System.out.println( valueStr4 );
-
+        /**
+         * String： 1.0 ，不可变的字符序列；底层使用char[]来保存
+         * StringBuffer：1.0 ，可变的字符序列；线程安全的，效率低；底层使用char[]来保存
+         * StringBuilder：JDK 5.0新增 ，可变的字符序列；线程不安全，效率高；底层使用char[]来保存
+         * 效率从高到低排列：StringBuilder > StringBuffer> String
+         */
+        StringBuilder sb = new StringBuilder();
+        sb.append('a');
+        sb.insert(0, 'b');
+        System.out.println( sb.toString() );
+        sb.append('d');
+        sb.replace(1, 2,"c");
+        System.out.println( sb.toString() );
+        sb.deleteCharAt(0);
+        System.out.println( sb.toString() );
+        sb.reverse();
+        System.out.println( sb.toString() );
+        System.out.println( sb.indexOf("c") ); // return -1 if not found
         // 字符串长度
         int len = "Runoob".length();
         System.out.println( "length : " + len );
@@ -53,6 +70,7 @@ public class UseString {
         // 如果参数表示的字符序列是此对象表示的字符序列的后缀，则返回 true；否则返回 false。
         System.out.println("www.runoob".endsWith( "runoob" ));
         // 返回指定字符在字符串中第一次出现处的索引
+        // 注：indexOf和lastIndexOf方法如果未找到都是返回-1
         String string = "aaa456ac";
         System.out.println(string.indexOf("b")); // indexOf(String str); 返回结果：-1，"b"不存在
         System.out.println(string.indexOf("a",3));//indexOf(String str, int fromIndex); 返回结果：6
@@ -86,5 +104,10 @@ public class UseString {
         String str9 = "hello";
         System.out.println(str9.replaceAll("l","L"));//输出heLLo
         System.out.println(str9.replaceFirst("e","E"));//输出hEllo
+        System.out.println(str9); // 此时的replace是新创建的字符串，str9本身并没有改变
+        // 判断字符串中是否包含指定的字符或字符串
+        String myStr = "Runoob";
+        System.out.println(myStr.contains("Run"));
+        System.out.println(myStr.contains("s"));
     }
 }
