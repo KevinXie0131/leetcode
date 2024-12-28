@@ -12,6 +12,8 @@ public class UseArrays {
         List<String> list = Arrays.asList(original); //引用类型的数组
         List<Character> listA = Arrays.asList('X','Y','Z'); //一组相同类型的动态参数
         System.out.println(listA.toString());
+        List<Integer> listB = Arrays.asList(321,432,543); //一组相同类型的动态参数
+        System.out.println(listB.toString());
          // 通过asList()方法获得的列表是固定大小的，不支持添加（add）或删除（remove）元素操作
         // 尝试进行这些操作会抛出 UnsupportedOperationException 异常
         // list.add("e5");
@@ -97,8 +99,9 @@ public class UseArrays {
         /**
          * binarySearch 数组检索。 通过二分查找在 “有序数组”中查找目标值
          */
-        String[] intro3 = new String[] { "chen", "mo", "wang", "er" };
-        int exact = Arrays.binarySearch(intro3, "wang");
+        String[] intro3 = new String[] { "3chen", "8mo", "9wang", "2er" ,"7z"};
+        Arrays.sort(intro3);
+        int exact = Arrays.binarySearch(intro3, "9wang");
         System.out.println(exact);
         int caseInsensitive = Arrays.binarySearch(intro3, "Wang", String::compareToIgnoreCase);
         System.out.println(caseInsensitive);
