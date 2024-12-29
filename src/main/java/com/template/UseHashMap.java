@@ -2,6 +2,8 @@ package com.template;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class UseHashMap {
     /**
@@ -88,8 +90,46 @@ public class UseHashMap {
             String value = linkedHashMap.get(key);
             System.out.println(key + " 对应的值为：" + value); // LinkedHashMap 维持了键值对的插入顺序. 同样的数据HashMap不能, HashMap 没有维持键值对的插入顺序
         }
-
-
+        /**
+         * TreeMap 实现了 SortedMap 接口，可以自动将键按照自然顺序或指定的比较器顺序排序，并保证其元素的顺序。内部使用红黑树来实现键的排序和查找。
+         * 与 HashMap 不同的是，TreeMap 会按照键的顺序来进行排序。
+         * 默认情况下，已经按照键的自然顺序排序
+         */
+        // 创建一个 TreeMap 对象
+        Map<String, String> treeMap = new TreeMap<>();
+        // 向 TreeMap 中添加键值对
+        treeMap.put("8沉默", "cenzhong");
+        treeMap.put("1王二", "wanger");
+        treeMap.put("2陈清扬", "chenqingyang");
+        // 查找键值对
+        String name = "8沉默";
+        if (treeMap.containsKey(name)) {
+            System.out.println("找到了 " + name + ": " + treeMap.get(name));
+        } else {
+            System.out.println("没有找到 " + name);
+        }
+        // 修改键值对
+        name = "1王二";
+        if (treeMap.containsKey(name)) {
+            System.out.println("修改前的 " + name + ": " + treeMap.get(name));
+            treeMap.put(name, "newWanger");
+            System.out.println("修改后的 " + name + ": " + treeMap.get(name));
+        } else {
+            System.out.println("没有找到 " + name);
+        }
+        // 删除键值对
+        name = "2陈清扬";
+        if (treeMap.containsKey(name)) {
+            System.out.println("删除前的 " + name + ": " + treeMap.get(name));
+            treeMap.remove(name);
+            System.out.println("删除后的 " + name + ": " + treeMap.get(name));
+        } else {
+            System.out.println("没有找到 " + name);
+        }
+        // 遍历 TreeMap
+        for (Map.Entry<String, String> entry : treeMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 
 }
