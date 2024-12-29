@@ -189,11 +189,13 @@ public class Q151_Reverse_Words_in_a_String {
             //先用 fast 移除所有空格
             if (chars[fast] != ' ') {
                 //在用 slow 加空格。 除第一个单词外，单词末尾要加空格
-                if (slow != 0)
+                if (slow != 0) {
                     chars[slow++] = ' ';
+                }
                 //fast 遇到空格或遍历到字符串末尾，就证明遍历完一个单词了
-                while (fast < chars.length && chars[fast] != ' ')
+                while (fast < chars.length && chars[fast] != ' ') {
                     chars[slow++] = chars[fast++];
+                }
             }
         }
         //相当于 c++ 里的 resize()
