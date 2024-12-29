@@ -12,6 +12,8 @@ public class Q541_Reverse_String_II {
     }
     /**
      * 解法1
+     * 当需要固定规律一段一段去处理字符串的时候，要想想在在for循环的表达式上做做文章
+     * 只要让 i += (2 * k)，i 每次移动 2 * k 就可以了，然后判断是否需要有反转的区间
      */
     public static String reverseStr(String s, int k) {
         char[] array = s.toCharArray();

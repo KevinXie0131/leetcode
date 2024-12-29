@@ -21,7 +21,7 @@ public class Q151_Reverse_Words_in_a_String {
         return result;
     }
     /**
-     * 解法1: 不使用Java内置方法实现
+     * 解法1: 不使用Java内置方法实现. 先整体反转再局部反转
      * 1.去除首尾以及中间多余空格
      * 2.反转整个字符串
      * 3.反转各个单词
