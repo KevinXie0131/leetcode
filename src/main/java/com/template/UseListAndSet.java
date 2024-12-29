@@ -118,6 +118,7 @@ public class UseListAndSet {
         treeSet.add("b沉默");
         treeSet.add("t王二");
         treeSet.add("a陈清扬");
+        //treeSet.add(null); // Exception in thread "main" java.lang.NullPointerException
         System.out.println(treeSet); // 输出 [a陈清扬, b沉默, t王二]
         System.out.println(treeSet.ceiling("c")); // t王二
         System.out.println(treeSet.floor("c")); // b沉默

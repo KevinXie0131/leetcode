@@ -101,6 +101,7 @@ public class UseHashMap {
         treeMap.put("8沉默", "cenzhong");
         treeMap.put("1王二", "wanger");
         treeMap.put("2陈清扬", "chenqingyang");
+       // treeMap.put(null, null); //Exception in thread "main" java.lang.NullPointerException
         // 查找键值对
         String name = "8沉默";
         if (treeMap.containsKey(name)) {
