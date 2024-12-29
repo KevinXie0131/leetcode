@@ -1,6 +1,7 @@
 package com.template;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class UseHashMap {
     /**
@@ -45,6 +46,50 @@ public class UseHashMap {
 
         sites.compute(1, (key, value) -> value + "?");
         System.out.println(sites);
+        /**
+         * Map 保存的是键值对，键要求保持唯一性，值可以重复
+         */
+        /**
+         * HashMap 中的键和值都可以为 null。如果键为 null，则将该键映射到哈希表的第一个位置。
+         * 可以使用迭代器或者 forEach 方法遍历 HashMap 中的键值对。
+         * HashMap 有一个初始容量和一个负载因子。初始容量是指哈希表的初始大小，负载因子是指哈希表在扩容之前可以存储的键值对数量与哈希表大小的比率。默认的初始容量是 16，负载因子是 0.75。
+         */
+        // 创建一个 HashMap 对象
+        HashMap<String, String> hashMap = new HashMap<>();
+        // 添加键值对
+        hashMap.put("沉默", "cenzhong");
+        hashMap.put("王二", "wanger");
+        hashMap.put("陈清扬", "chenqingyang");
+        hashMap.put(null,null);
+        // 获取指定键的值
+        String valueA = hashMap.get("沉默");
+        System.out.println("沉默对应的值为：" + valueA);
+        // 修改键对应的值
+        hashMap.put("沉默", "chenmo");
+        String valueB = hashMap.get("沉默");
+        System.out.println("修改后沉默对应的值为：" + valueB);
+        // 删除指定键的键值对
+        hashMap.remove("王二");
+        hashMap.replace("沉默", "chenmo1");
+        System.out.println(hashMap); // {null=null, 沉默=chenmo1, 陈清扬=chenqingyang}
+        /**
+         * HashMap 已经非常强大了，但它是无序的。如果我们需要一个有序的 Map，就要用到 LinkedHashMap。
+         * LinkedHashMap 是 HashMap 的子类，它使用链表来记录插入/访问元素的顺序。
+         *
+         * LinkedHashMap 可以看作是 HashMap + LinkedList 的合体，它使用了哈希表来存储数据，又用了双向链表来维持顺序。
+         */
+        // 创建一个 LinkedHashMap，插入的键值对为 沉默 王二 陈清扬
+        LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put("8沉默", "cenzhong");
+        linkedHashMap.put("1王二", "wanger");
+        linkedHashMap.put("2陈清扬", "chenqingyang");
+        // 遍历 LinkedHashMap
+        for (String key : linkedHashMap.keySet()) {
+            String value = linkedHashMap.get(key);
+            System.out.println(key + " 对应的值为：" + value); // LinkedHashMap 维持了键值对的插入顺序. 同样的数据HashMap不能, HashMap 没有维持键值对的插入顺序
+        }
+
+
     }
 
 }
