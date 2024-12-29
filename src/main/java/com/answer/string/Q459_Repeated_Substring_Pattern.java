@@ -32,10 +32,14 @@ public class Q459_Repeated_Substring_Pattern {
     }
 
     /**
-     *
+     * 当然，我们在判断 s + s 拼接的字符串里是否出现一个s的的时候，要刨除 s + s 的首字符和尾字符，这样避免在s+s中搜索出原来的s，
+     * 我们要搜索的是中间拼接出来的s。
+     * 如果有一个字符串s，在 s + s 拼接后， 不算首尾字符，如果能凑成s字符串，说明s 一定是重复子串组成。
+     * 时间复杂度: O(n)
+     * 空间复杂度: O(1)
      */
     public boolean repeatedSubstringPattern_1(String s) {
         String str = s + s;
-        return str.substring(1, str.length() - 1).contains(s);
+        return str.substring(1, str.length() - 1).contains(s); // 掐头去尾
     }
 }
