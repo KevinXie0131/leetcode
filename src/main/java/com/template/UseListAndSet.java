@@ -2,7 +2,7 @@ package com.template;
 
 import java.util.*;
 
-public class UseCollection {
+public class UseListAndSet {
     public static void main(String[] args) {
         /**
          * ArrayList 是由数组实现的，支持随机存取，也就是可以通过下标直接存取元素；
@@ -57,7 +57,7 @@ public class UseCollection {
         linkedList.addFirst("A"); // offerFirst(), offerLast(), peekFirst(), peekLast()
         linkedList.addLast("B");  // peekFirst(), peekLast()
         System.out.println(linkedList);
-        linkedList.removeFirst();
+        linkedList.removeFirst(); // pollFirst(), pollLast()
         linkedList.removeLast();
         System.out.println(linkedList);
         /**
@@ -84,13 +84,13 @@ public class UseCollection {
         System.out.println("Modified set? " + (removeChenmo && addBuChenmo)); // output: true
         // 输出修改后的HashSet
         System.out.println("HashSet after modification: " + set); // output: [陈清扬, 不沉默]
+        // HashSet 会自动去重，因为它是用 HashMap 实现的，HashMap 的键是唯一的（哈希值），相同键的值会覆盖掉原来的值
         set.add("陈清扬");
         System.out.println("HashSet 会自动去重: " + set);
         /**
          * LinkedHashSet 虽然继承自 HashSet，其实是由 LinkedHashMap 实现的。
          * LinkedHashSet 是一种基于哈希表实现的 Set 接口，它继承自 HashSet，并且使用链表维护了元素的插入顺序。
          * 因此，它既具有 HashSet 的快速查找、插入和删除操作的优点，又可以维护元素的插入顺序。
-         * TreeSet 不允许插入 null 元素，否则会抛出 NullPointerException 异常。
          */
         LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
         // 添加元素
@@ -110,6 +110,7 @@ public class UseCollection {
          * TreeSet 是由 TreeMap（后面会讲） 实现的，只不过同样操作的键位，值由一个固定的 Object 对象填充
          * 与 TreeMap 相似，TreeSet 是一种基于红黑树实现的有序集合，它实现了 SortedSet 接口，可以自动对集合中的元素进行排序。
          * 按照键的自然顺序或指定的比较器顺序进行排序。
+         * TreeSet 不允许插入 null 元素，否则会抛出 NullPointerException 异常。
          */
         // 创建一个 TreeSet 对象
         TreeSet<String> treeSet = new TreeSet<>();
