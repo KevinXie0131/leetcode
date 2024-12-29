@@ -2,6 +2,7 @@ package com.template;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class UseListConverter {
@@ -39,5 +40,29 @@ public class UseListConverter {
         // Or
         int[] result5 = list2.stream().mapToInt(Integer::intValue).toArray();
         System.out.println(Arrays.toString(result5));
+        /**
+         * 通过Iterator迭代器操作
+         */
+        List<String> listA = new ArrayList<>();
+        listA.add("A1");
+        listA.add("B2");
+        listA.add("C3");
+        listA.add("D4");
+        for (String str : listA) {
+            if (str.equals("B2")) {
+                // 将代码中的移除集合中索引为2的数据 list.remove(2)改为迭代器的remove方法即可，即：iterator.remove()
+              //  listA.remove(2); // Exception in thread "main" java.util.ConcurrentModificationException
+            }
+        }
+        System.out.println(listA);
+        Iterator iter = listA.iterator();
+        while (iter.hasNext()) {
+            String next = (String) iter.next();
+            System.out.println(next);
+            if (next.equals("C3")) {
+                iter.remove();
+            }
+        }
+        System.out.println(listA);
     }
 }
