@@ -63,6 +63,7 @@ public class UseListAndSet {
         /**
          * HashSet 其实是由 HashMap 实现的，只不过值由一个固定的 Object 对象填充，而键用于操作。
          * HashSet 主要用于去重，比如，我们需要统计一篇文章中有多少个不重复的单词，就可以使用 HashSet 来实现。
+         * 底层数据结构：HashSet 也是采用数组 + 链表 + 红黑树实现, HashSet 也线程不安全
          */
         // 创建一个新的HashSet
         HashSet<String> set = new HashSet<>();
@@ -91,6 +92,7 @@ public class UseListAndSet {
          * LinkedHashSet 虽然继承自 HashSet，其实是由 LinkedHashMap 实现的。
          * LinkedHashSet 是一种基于哈希表实现的 Set 接口，它继承自 HashSet，并且使用链表维护了元素的插入顺序。
          * 因此，它既具有 HashSet 的快速查找、插入和删除操作的优点，又可以维护元素的插入顺序。
+         * LinkedHashSet 可以按照元素的插入顺序遍历元素
          */
         LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
         // 添加元素
@@ -107,10 +109,11 @@ public class UseListAndSet {
         boolean hasChenQingYang = linkedHashSet.contains("陈清扬3");
         System.out.println("set包含陈清扬吗？" + hasChenQingYang);
         /**
-         * TreeSet 是由 TreeMap（后面会讲） 实现的，只不过同样操作的键位，值由一个固定的 Object 对象填充
-         * 与 TreeMap 相似，TreeSet 是一种基于红黑树实现的有序集合，它实现了 SortedSet 接口，可以自动对集合中的元素进行排序。
+         * TreeSet 是由 TreeMap（后面会讲） 实现的，只不过同样操作的键位，值由一个固定的 Object 对象填充, 操作的平均时间复杂度为 O(logN)
+         * 与 TreeMap 相似，TreeSet 是一种基于数组 + 红黑树实现的有序集合，它实现了 SortedSet 接口，可以自动对集合中的元素进行排序。
          * 按照键的自然顺序或指定的比较器顺序进行排序。
          * TreeSet 不允许插入 null 元素，否则会抛出 NullPointerException 异常。
+         * 注意:TreeSet判断元素是否重复的方法是判断compareTo()方法是否返回0，而不是调用 hashcode() 和 equals() 方法，如果返回 0 则认为集合内已经存在相同的元素，不会再加入到集合当中。
          */
         // 创建一个 TreeSet 对象
         TreeSet<String> treeSet = new TreeSet<>();

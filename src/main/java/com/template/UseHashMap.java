@@ -55,6 +55,7 @@ public class UseHashMap {
          * HashMap 中的键和值都可以为 null。如果键为 null，则将该键映射到哈希表的第一个位置。
          * 可以使用迭代器或者 forEach 方法遍历 HashMap 中的键值对。
          * HashMap 有一个初始容量和一个负载因子。初始容量是指哈希表的初始大小，负载因子是指哈希表在扩容之前可以存储的键值对数量与哈希表大小的比率。默认的初始容量是 16，负载因子是 0.75。
+         * HashMap 底层是用数组 + 链表 + 红黑树这三种数据结构实现，它是非线程安全的集合
          */
         // 创建一个 HashMap 对象
         HashMap<String, String> hashMap = new HashMap<>();
@@ -78,7 +79,8 @@ public class UseHashMap {
          * HashMap 已经非常强大了，但它是无序的。如果我们需要一个有序的 Map，就要用到 LinkedHashMap。
          * LinkedHashMap 是 HashMap 的子类，它使用链表来记录插入/访问元素的顺序。
          *
-         * LinkedHashMap 可以看作是 HashMap + LinkedList 的合体，它使用了哈希表来存储数据，又用了双向链表来维持顺序。
+         * LinkedHashMap 可以看作是 HashMap + LinkedList 的合体，它使用了哈希表来存储数据，又用了双向链表来维持顺序
+         * 它在 HashMap 的基础上添加了一条双向链表，默认存储各个元素的插入顺序
          */
         // 创建一个 LinkedHashMap，插入的键值对为 沉默 王二 陈清扬
         LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<>();
@@ -92,10 +94,11 @@ public class UseHashMap {
         }
         /**
          * TreeMap 实现了 SortedMap 接口，可以自动将键按照自然顺序或指定的比较器顺序排序，并保证其元素的顺序。内部使用红黑树来实现键的排序和查找。
-         * 与 HashMap 不同的是，TreeMap 会按照键的顺序来进行排序。
-         * 默认情况下，已经按照键的自然顺序排序
+         * 与 HashMap 不同的是，TreeMap 会按照键的顺序来进行排序。默认情况下，已经按照键的自然顺序排序
+         * TreeMap 底层使用了数组+红黑树实现, 所以操作的时间复杂度恒为O(logN)
+         *
          */
-        // 创建一个 TreeMap 对象
+        // 创建一个 TreeMap 对象. 按照 key 自然排序
         Map<String, String> treeMap = new TreeMap<>();
         // 向 TreeMap 中添加键值对
         treeMap.put("8沉默", "cenzhong");
@@ -131,6 +134,13 @@ public class UseHashMap {
         for (Map.Entry<String, String> entry : treeMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+        // 定制排序，按照 key 降序排序
+        TreeMap<Integer, String> customSortTree = new TreeMap<>((o1, o2) -> Integer.compare(o2, o1));
+        customSortTree.put(5, "e");
+        customSortTree.put(1, "a");
+        customSortTree.put(3, "c");
+        customSortTree.put(7, "g");
+        System.out.println("customSortTree " + customSortTree); // {7=g, 5=e, 3=c, 1=a}
     }
 
 }
