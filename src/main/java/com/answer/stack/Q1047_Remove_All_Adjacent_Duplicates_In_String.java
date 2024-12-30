@@ -76,7 +76,11 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
         /*while(stack.size() > 0){
             sb.append(stack.pop()); // 将栈中元素放到result字符串汇总
         }
-
         return sb.reverse().toString();  // 此时字符串需要反转一下*/
+
+/*        while(stack.size() > 0){
+            sb.insert(0, stack.pop()); //字符串不需要反转
+        }
+        return sb.toString();*/
     }
 }
