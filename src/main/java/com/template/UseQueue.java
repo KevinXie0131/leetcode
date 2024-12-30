@@ -95,6 +95,9 @@ public class UseQueue {
         }
         /**
          * PriorityQueue 是一种优先级队列，它的出队顺序与元素的优先级有关，执行 remove 或者 poll 方法，返回的总是优先级最高的元素
+         * 该数组中的元素通过传入 Comparator 进行定制排序，如果不传入Comparator时，则按照元素本身自然排序，但要求元素实现了Comparable接口，
+         * 所以 PriorityQueue 不允许存储 NULL 元素
+         * PriorityQueue 是基于优先级堆heap实现的优先级队列，而堆是用数组维护的
          */
         // 创建一个 PriorityQueue 对象
         PriorityQueue<String> priorityQueue = new PriorityQueue<>();
