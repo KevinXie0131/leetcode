@@ -6,29 +6,34 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
 
     public static void main(String[] args) {
         String s = "abbaca";
-        System.out.println(removeDuplicates(s));
+        System.out.println(removeDuplicates_1(s));
     }
-
+    /**
+     * Use StringBuffer as stack
+     * 可以拿字符串直接作为栈，这样省去了栈还要转为字符串的操作
+     * 也可以用 StringBuilder 来修改字符串，速度更快
+     */
     public static String removeDuplicates(String s) {
         StringBuffer stack = new StringBuffer();
-        int top = -1;
+        int top = -1;  // top为 res 的长度
         for(int i = 0 ; i < s.length(); i++){
             char ch = s.charAt(i);
+            // 当 top > 0,即栈中有字符时，当前字符如果和栈中字符相等，弹出栈顶字符，同时 top--
             if(top >= 0 && ch == stack.charAt(top)){
                 stack.deleteCharAt(top);
                 top--;
+            // 否则，将该字符 入栈，同时top++
             }else{
                 stack.append(ch);
                 top++;
             }
         }
-
         return stack.toString();
     }
     /**
-     * Two Pointers
+     * Two Pointers 双指针
      */
-    public String removeDuplicates_1(String s) {
+    public static String removeDuplicates_1(String s) {
         char[] ch = s.toCharArray();
         int fast = 0;
         int slow = 0;
@@ -47,7 +52,7 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
 
     }
     /**
-     * Use stack
+     * Use stack 使用 Deque 作为堆栈
      */
     public String removeDuplicates_2(String s) {
         //ArrayDeque会比LinkedList在除了删除元素这一点外会快一点
@@ -59,7 +64,7 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
             if (deque.isEmpty() || deque.peek() != ch) {
                 deque.push(ch);
             } else {
-                deque.pop();
+                deque.pop(); // s 与 st.top()相等的情况
             }
         }
         String str = "";
@@ -68,5 +73,10 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
             str = deque.pop() + str;
         }
         return str;
+        /*while(stack.size() > 0){
+            sb.append(stack.pop()); // 将栈中元素放到result字符串汇总
+        }
+
+        return sb.reverse().toString();  // 此时字符串需要反转一下*/
     }
 }
