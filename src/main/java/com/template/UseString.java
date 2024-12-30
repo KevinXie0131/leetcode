@@ -13,6 +13,8 @@ public class UseString {
         String valueStr = "123";
         int value = Integer.parseInt(valueStr);
         System.out.println( value );
+        int value0 = Integer.valueOf(valueStr);
+        System.out.println( value0 );
         valueStr = "123.321";
         double value1 = Double.parseDouble(valueStr);
         System.out.println( value1 );
