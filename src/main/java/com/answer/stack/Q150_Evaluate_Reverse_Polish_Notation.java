@@ -30,7 +30,9 @@ public class Q150_Evaluate_Reverse_Polish_Notation {
 
         return stack.pop();
     }
-
+    /**
+     * Use array as stack
+     */
     public int evalRPN_1(String[] tokens) {
         int n = tokens.length;
         int[] stack = new int[(n + 1) / 2];
