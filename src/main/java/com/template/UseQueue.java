@@ -128,7 +128,6 @@ public class UseQueue {
          */
         // 创建一个按照总成绩排序的优先级队列
         PriorityQueue<MyStudent> myStudentQueue = new PriorityQueue<>(new MyStudentComparator());
-
         // 添加元素
         myStudentQueue.offer(new MyStudent("王二", 80, 90));
         System.out.println(myStudentQueue);
@@ -139,8 +138,36 @@ public class UseQueue {
         myStudentQueue.offer(new MyStudent("沉默", 90, 80));
         System.out.println(myStudentQueue);
         while (!myStudentQueue.isEmpty()) {
-            System.out.print(myStudentQueue.poll() + " ");
+            System.out.println(myStudentQueue.poll() + " ");
         }
+        /**
+         * 小顶堆
+         */
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(5);
+        minHeap.add(4);
+        minHeap.add(10);
+        minHeap.add(1);
+        minHeap.add(7);
+        minHeap.add(3);
+        while(minHeap.size() > 0){
+            System.out.print(minHeap.poll() + " -> ");
+        }
+        System.out.println();
+        /**
+         * 大顶堆
+         * 括号里是重写比较器的lambda表达式,k是初始化大小, 小顶堆可以省略
+         */
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(5, (a,b)->b-a);
+        maxHeap.add(4);
+        maxHeap.add(10);
+        maxHeap.add(1);
+        maxHeap.add(7);
+        maxHeap.add(3);
+        while(maxHeap.size() > 0){
+            System.out.print(maxHeap.poll() + " -> ");
+        }
+        System.out.println();
+
     }
 
 }
