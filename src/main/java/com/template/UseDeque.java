@@ -1,6 +1,7 @@
 package com.template;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 public class UseDeque {
     public static void main(String[] args) {
@@ -23,15 +24,15 @@ public class UseDeque {
         deque.addLast(2);  // 在尾部添加
         deque.offerLast(2);  // 在尾部添加
 
-        deque.removeFirst(); // 删除头部元素
-        deque.pollFirst(); // 删除头部元素
-        deque.removeLast();  // 删除尾部元素
-        deque.pollLast();  // 删除尾部元素
+    //    deque.removeFirst(); // 删除头部元素
+    //    deque.pollFirst(); // 删除头部元素
+    //    deque.removeLast();  // 删除尾部元素
+    //    deque.pollLast();  // 删除尾部元素
 
-        System.out.println(deque.getFirst()); // 输出
-        System.out.println(deque.peekFirst()); // 输出
-        System.out.println(deque.getLast());  // 输出
-        System.out.println(deque.peekLast());  // 输出
+        System.out.println(deque.getFirst()); // 输出 1
+        System.out.println(deque.peekFirst()); // 输出 1
+        System.out.println(deque.getLast());  // 输出 2
+        System.out.println(deque.peekLast());  // 输出 2
 
         deque.clear();
         deque.size();
@@ -49,6 +50,16 @@ public class UseDeque {
         queue.offer(2);
         System.out.println(queue.poll()); // 移除头部元素，输出：1
         System.out.println(queue.peek()); // 获取头部元素，输出：2
+
+        // Deque可以使用Iterator
+        Deque<Integer> myDeque = new ArrayDeque<>();
+        myDeque.add(3);
+        myDeque.add(2);
+        myDeque.add(1);
+        Iterator iter = myDeque.iterator();
+        while(iter.hasNext()){
+            System.out.println(iter.next());
+        }
 
     }
 /*  数据类型        插入、删除时间复杂度      查询时间复杂度     底层数据结构               是否线程安全
