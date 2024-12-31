@@ -82,7 +82,7 @@ public class Q347_Top_K_Frequent_Elements {
             queue.offer(entry);
         }
 
-        for(int i = k-1; i >= 0; i--){
+        for(int i = k-1; i >= 0; i--){  //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
             result[i] = queue.poll().getKey();
         }
         return result;
