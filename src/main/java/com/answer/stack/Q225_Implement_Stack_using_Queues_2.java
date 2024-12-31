@@ -76,7 +76,11 @@ public class Q225_Implement_Stack_using_Queues_2 {
             }
             return result;
         }
-
+/*        public int top() {
+            int result = this.pop();
+            myQue1.offer(result);
+            return result;
+        }*/
         public boolean empty() {
             return myQue1.isEmpty();
         }
