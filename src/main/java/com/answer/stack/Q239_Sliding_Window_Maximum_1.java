@@ -46,9 +46,11 @@ public class Q239_Sliding_Window_Maximum_1 {
         }
         return result;
     }
-
+    // 解法二
+    // 利用双端队列手动实现单调队列
     /**
-     *
+     * 用一个单调队列来存储对应的下标，每当窗口滑动的时候，直接取队列的头部指针对应的值放入结果集即可
+     * 单调队列类似 （tail -->） 3 --> 2 --> 1 --> 0 (--> head) (右边为头结点，元素存的是下标)
      */
     public int[] maxSlidingWindow_1(int[] nums, int k) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
