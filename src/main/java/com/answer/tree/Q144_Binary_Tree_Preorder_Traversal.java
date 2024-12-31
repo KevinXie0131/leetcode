@@ -5,24 +5,28 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q144_Binary_Tree_Preorder_Traversal {
+    /**
+     * 二叉树的前序遍历 (迭代法)
+     * 中序遍历顺序: 左-中-右 入栈顺序： 中-左-右
+     */
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> returnList = new ArrayList<Integer>();
 
-        if(root == null)
+        if(root == null) {
             return returnList;
-
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 
-        while(!stack.empty()){
-            TreeNode n = stack.pop();
-            returnList.add(n.value);
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop(); // 中
+            returnList.add(node.value);
 
-            if(n.right != null){
-                stack.push(n.right);
+            if(node.right != null){  // 右（空节点不入栈）
+                stack.push(node.right);
             }
-            if(n.left != null){
-                stack.push(n.left);
+            if(node.left != null){   // 左（空节点不入栈）
+                stack.push(node.left);
             }
 
         }

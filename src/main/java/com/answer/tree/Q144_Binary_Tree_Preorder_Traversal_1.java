@@ -12,8 +12,7 @@ public class Q144_Binary_Tree_Preorder_Traversal_1 {
         return result;
     }
     /**
-     * 递归
-     * 前序遍历
+     * 二叉树的前序遍历 (递归)
      */
     private void inorder(TreeNode root, List<Integer> result) {
         if(root == null) {
