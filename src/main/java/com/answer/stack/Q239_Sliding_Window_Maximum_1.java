@@ -17,7 +17,7 @@ public class Q239_Sliding_Window_Maximum_1 {
         int[] result = maxSlidingWindow(nums, k);
         System.out.println(Arrays.toString(result));
     }
-
+    // 利用双端队列手动实现单调队列
     public static int[] maxSlidingWindow(int[] nums, int k) {
         Deque<Integer> queue = new ArrayDeque<>();
         int len = nums.length - k + 1;
