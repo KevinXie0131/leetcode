@@ -12,15 +12,17 @@ public class Q94_Binary_Tree_Inorder_Traversal_1 {
         inorder(root, result);
 
         return result;
-
     }
-
+    /**
+     * 递归
+     * 后序遍历
+     */
     private void inorder(TreeNode root, List<Integer> result) {
         if(root == null) {
             return;
         }
-        inorder(root.left, result);
-        result.add(root.value);
-        inorder(root.right, result);
+        inorder(root.left, result);   // 左
+        result.add(root.value);       // 右
+        inorder(root.right, result);  // 中
     }
 }
