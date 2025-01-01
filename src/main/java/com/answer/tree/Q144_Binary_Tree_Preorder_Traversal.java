@@ -41,11 +41,11 @@ public class Q144_Binary_Tree_Preorder_Traversal {
             while (root != null) {
                 list.add(root.value);
                 stack.push(root);
-                root = root.left;
+                root = root.left; //找到中间节点 和 左节点
             }
 
             TreeNode cur = stack.pop();
-            root = cur.right;
+            root = cur.right; //最后再找 右节点
         }
 
         return list;
