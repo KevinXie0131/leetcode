@@ -41,7 +41,7 @@ public class Q637_Average_of_Levels_in_Binary_Tree_1 {
         dfs(root.right, deep);
     }
     /**
-     *
+     * 递归(另一种形式)
      */
     public void dfs_1(TreeNode root, int deep) {
         if (root == null) {

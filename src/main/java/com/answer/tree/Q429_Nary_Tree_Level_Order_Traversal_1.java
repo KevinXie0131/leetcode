@@ -12,7 +12,9 @@ public class Q429_Nary_Tree_Level_Order_Traversal_1 {
         dfs(root, 0);
         return resListRec;
     }
-
+    /**
+     * 递归
+     */
     public void dfs(Node root, int deep) {
         if (root == null) return;
         deep++;
@@ -26,6 +28,25 @@ public class Q429_Nary_Tree_Level_Order_Traversal_1 {
 
         for (Node child : root.children) {
             dfs(child,  deep);
+        }
+    }
+    /**
+     * 递归(另一种形式)
+     */
+    public void dfs_1(Node root, int deep) {
+        if (root == null) {
+            return;
+        }
+
+        if (resListRec.size() == deep) {
+            List<Integer> sublist = new ArrayList<Integer>();
+            resListRec.add(sublist);
+        }
+
+        resListRec.get(deep).add(root.val);
+
+        for (Node child : root.children) {
+            dfs(child,  deep + 1);
         }
     }
 }
