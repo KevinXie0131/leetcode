@@ -34,6 +34,8 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
     }
     /**
      * 迭代法 层序遍历
+     * 使用迭代法的话，使用层序遍历是最为合适的，因为最大的深度就是二叉树的层数，和层序遍历的方式极其吻合。
+     * 在二叉树中，一层一层的来遍历二叉树，记录一下遍历的层数就是二叉树的深度
      */
     public int maxDepth2(TreeNode root) {
         int depth = 0;
@@ -61,7 +63,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
     }
 
     /**
-     *
+     * 递归
      */
     int depth = 0;
 
