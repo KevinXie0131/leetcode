@@ -15,17 +15,22 @@ public class Q102_Binary_Tree_Level_Order_Traversal_1 {
         dfs(root, 0);
         return resListRec;
     }
-
+    /**
+     * BFS--递归方式
+     */
     public void dfs(TreeNode root, int deep) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         deep++;
 
         if (resListRec.size() < deep) {
+            //当层级增加时，list的Item也增加，利用list的索引值进行层级界定
             List<Integer> sublist = new ArrayList<Integer>();
             resListRec.add(sublist);
         }
 
-        resListRec.get(deep-1).add(root.value);
+        resListRec.get(deep - 1).add(root.value);
 
         dfs(root.left,  deep);
         dfs(root.right, deep);
