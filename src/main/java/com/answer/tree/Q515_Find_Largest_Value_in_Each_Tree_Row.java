@@ -8,6 +8,9 @@ import java.util.Deque;
 import java.util.List;
 
 public class Q515_Find_Largest_Value_in_Each_Tree_Row {
+    /**
+     * 层序遍历，取每一层的最大值
+     */
     public List<Integer> largestValues(TreeNode root) {
 
         List<Integer> list = new ArrayList<Integer>();
@@ -35,7 +38,6 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row {
             }
             list.add(max); // 把最⼤值放进数组
         }
-
 
         return list;
     }
