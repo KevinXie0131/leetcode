@@ -47,12 +47,12 @@ public class Q94_Binary_Tree_Inorder_Traversal {
         while (node != null || !stack.isEmpty()) {
             while (node != null) {
                 stack.push(node);
-                node = node.left;
+                node = node.left; // 左
             }
 
             TreeNode cur = stack.pop();
             list.add(cur.value); //这里记录节点值
-            node = cur.right;
+            node = cur.right; // 右
         }
         return list;
     }
