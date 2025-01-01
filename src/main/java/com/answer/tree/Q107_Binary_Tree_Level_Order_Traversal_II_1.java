@@ -15,7 +15,9 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
     }
 
     public void dfs(TreeNode root, int deep) {
-        if (root == null) return;
+        if (root == null){
+            return;
+        }
         deep++;
 
         if (resListRec.size() < deep) {

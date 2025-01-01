@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class Q107_Binary_Tree_Level_Order_Traversal_II {
-
+    /**
+     * 相对于102.二叉树的层序遍历，就是最后把result数组反转一下就可以了
+     *
+     * 解法：队列，迭代。
+     * 层序遍历，再翻转数组即可。
+     */
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();
         if (root == null) {
@@ -28,10 +33,39 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II {
 
                 size--;
             }
-            list.add(0,sublist);
+            list.add(0,sublist); // 在这里反转一下数组即可
         }
-
+/*        List<List<Integer>> result = new ArrayList<>();
+        for (int i = list.size() - 1; i >= 0; i-- ) {
+            result.add(list.get(i));
+        }*/
 
         return list;
+    }
+    /**
+     * 思路和模板相同, 对收集答案的方式做了优化, 最后不需要反转
+     */
+    public List<List<Integer>> levelOrderBottom_1(TreeNode root) {
+        // 利用链表可以进行 O(1) 头部插入, 这样最后答案不需要再反转
+        LinkedList<List<Integer>> ans = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if (root != null) {
+            q.offer(root);
+        }
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> temp = new ArrayList<>();
+
+            for (int i = 0; i < size; i ++) {
+                TreeNode node = q.poll();
+                temp.add(node.value);
+                if (node.left != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            // 新遍历到的层插到头部, 这样就满足按照层次反序的要求
+            ans.addFirst(temp);
+        }
+
+        return ans;
     }
 }
