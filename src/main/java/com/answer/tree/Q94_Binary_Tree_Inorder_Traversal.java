@@ -11,6 +11,7 @@ public class Q94_Binary_Tree_Inorder_Traversal {
      * 这就造成了处理顺序和访问顺序是不一致的。
      *
      * 那么在使用迭代法写中序遍历，就需要借用指针的遍历来帮助访问节点，栈则用来处理节点上的元素。
+     * 中序遍历顺序: 左-中-右 入栈顺序： 左-右
      */
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         ArrayList<Integer> result = new ArrayList<Integer>();
