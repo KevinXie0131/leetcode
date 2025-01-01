@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Queue;
 
 public class Q637_Average_of_Levels_in_Binary_Tree {
+    /**
+     * 本题就是层序遍历的时候把一层求个总和再取一个均值。
+     * 解法：队列，迭代。
+     * 每次返回每层的最后一个字段即可。
+     */
     public List<Double> averageOfLevels(TreeNode root) {
 
         List<Double> list = new ArrayList<>();

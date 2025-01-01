@@ -8,7 +8,12 @@ import java.util.Deque;
 import java.util.List;
 
 public class Q199_Binary_Tree_Right_Side_View {
-
+    /**
+     * 层序遍历的时候，判断是否遍历到单层的最后面的元素，如果是，就放进result数组中，随后返回result就可以了。
+     * 解法：队列，迭代。
+     *  每次返回每层的最后一个字段即可。
+     * 小优化：每层右孩子先入队。代码略。
+     */
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> list = new ArrayList<Integer>();
         if (root == null) {

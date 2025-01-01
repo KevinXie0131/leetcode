@@ -20,9 +20,11 @@ public class Q637_Average_of_Levels_in_Binary_Tree_1 {
         }
         return resListRec;
     }
-
+    // 递归
     public void dfs(TreeNode root, int deep) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         deep++;
 
         if (resListRec.size() < deep) {
@@ -37,5 +39,26 @@ public class Q637_Average_of_Levels_in_Binary_Tree_1 {
 
         dfs(root.left,  deep);
         dfs(root.right, deep);
+    }
+    /**
+     *
+     */
+    public void dfs_1(TreeNode root, int deep) {
+        if (root == null) {
+            return;
+        }
+
+        if (resListRec.size() == deep) {
+            count.add(0);
+            sum.add(1.0 * 0);
+            resListRec.add(1.0 * 0);
+        }
+        double s = sum.get(deep);
+        int c = count.get(deep);
+        sum.set(deep, s + root.value);
+        count.set(deep, c + 1);
+
+        dfs(root.left,  deep + 1);
+        dfs(root.right, deep + 1);
     }
 }
