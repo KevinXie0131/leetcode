@@ -42,20 +42,35 @@ Stack & Queue
 239. Sliding Window Maximum
 347. Top K Frequent Elements
 
-Tree
-102. Binary Tree Level Order Traversal
-107. Binary Tree Level Order Traversal II
-199. Binary Tree Right Side View
-637. Average of Levels in Binary Tree
-429. N-ary Tree Level Order Traversal
-515. Find Largest Value in Each Tree Row
-116. Populating Next Right Pointers in Each Node
-117. Populating Next Right Pointers in Each Node II
-104. Maximum Depth of Binary Tree
-111. Minimum Depth of Binary Tree
+Binary Tree
+144. Binary Tree Preorder Traversal
+145. Binary Tree Postorder Traversal
+94. Binary Tree Inorder Traversal
++ Level Order Traversal
+    - 102. Binary Tree Level Order Traversal
+    - 107. Binary Tree Level Order Traversal II
+    - 199. Binary Tree Right Side View
+    - 637. Average of Levels in Binary Tree
+    - 429. N-ary Tree Level Order Traversal
+    - 515. Find Largest Value in Each Tree Row
+    - 116. Populating Next Right Pointers in Each Node
+    - 117. Populating Next Right Pointers in Each Node II
+    - 104. Maximum Depth of Binary Tree
+    - 111. Minimum Depth of Binary Tree
 226. Invert Binary Tree
 
 101. Symmetric Tree
     - 101. Symmetric Tree
     - 572. Subtree of Another Tree
-559. Maximum Depth of N-ary Tree
+104. Maximum Depth of Binary Tree
+    - 559. Maximum Depth of N-ary Tree
+111. Minimum Depth of Binary Tree
+222. Count Complete Tree Nodes
+110. Balanced Binary Tree
+257. Binary Tree Paths
+
+404. Sum of Left Leaves
+513. Find Bottom Left Tree Value
+112. Path Sum
+106. Construct Binary Tree from Inorder and Postorder Traversal
+654. Maximum Binary Tree
