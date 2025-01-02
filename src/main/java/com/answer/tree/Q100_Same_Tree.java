@@ -2,10 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q100_Same_Tree {
     public static void main(String[] args) {
@@ -91,6 +88,43 @@ public class Q100_Same_Tree {
             }
             if(leftNode.right != null) que.offer(leftNode.right);
             if(rightNode.right != null)  que.offer(rightNode.right);
+        }
+        return true;
+    }
+    /**
+     * 迭代法
+     * 参考Q101_Symmetric_Tree
+     */
+    public boolean isSameTree_3(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.offer(p);
+        queue.offer(q);
+        while (!queue.isEmpty()) {
+
+            TreeNode left = queue.poll();
+            TreeNode right = queue.poll();
+
+            if (left == null && right == null) {
+                continue;
+            }
+            if (left == null || right == null) {
+                return false;
+            }
+            if (left.value != right.value) {
+                return false;
+            }
+            // 以上两个判断条件合并
+    /*             if (left == null || right == null || left.val != right.val) {
+                    return false;
+                }*/
+            queue.offerFirst(left.left);
+            queue.offerFirst(right.left);
+            queue.offerLast(left.right);
+            queue.offerLast(right.right);
         }
         return true;
     }
