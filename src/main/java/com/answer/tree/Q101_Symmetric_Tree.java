@@ -54,12 +54,13 @@ public class Q101_Symmetric_Tree {
         if (root == null) {
             return true;
         }
+
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offerFirst(root.left); // 将左⼦树头结点加⼊队列
         queue.offerLast(root.right); // 将右⼦树头结点加⼊队列
         while (!queue.isEmpty()) { // 接下来就要判断这这两个树是否相互翻转
 
-            TreeNode left = queue.pollFirst();
+            TreeNode left = queue.pollFirst(); // 使用双端队列，相当于两个栈
             TreeNode right = queue.pollLast();
 
             if (left == null && right == null) { // 左节点为空、右节点为空，此时说明是对称的
@@ -71,10 +72,51 @@ public class Q101_Symmetric_Tree {
             if (left.value != right.value) {
                 return false;
             }
+            // 以上两个判断条件合并
+    /*             if (left == null || right == null || left.val != right.val) {
+                    return false;
+                }*/
             queue.offerFirst(left.left);  // 加⼊左节点左孩⼦
             queue.offerFirst(left.right); // 加⼊右节点右孩⼦
             queue.offerLast(right.right); // 加⼊左节点右孩⼦
             queue.offerLast(right.left);  // 加⼊右节点左孩⼦
+        }
+        return true;
+    }
+    /**
+     * 迭代法
+     * 使用普通队列
+     */
+    public boolean isSymmetric_1d(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+        while (!queue.isEmpty()) {
+
+            TreeNode left = queue.poll();
+            TreeNode right = queue.poll();
+
+            if (left == null && right == null) {
+                continue;
+            }
+            if (left == null || right == null) {
+                return false;
+            }
+            if (left.value != right.value) {
+                return false;
+            }
+            // 以上两个判断条件合并
+    /*             if (left == null || right == null || left.val != right.val) {
+                    return false;
+                }*/
+            queue.offerFirst(left.left); // 这里顺序与使用Deque不同
+            queue.offerFirst(right.right);
+            queue.offerLast(left.right);
+            queue.offerLast(right.left);
         }
         return true;
     }
