@@ -15,7 +15,7 @@ public class Q559_Maximum_Depth_of_N_ary_Tree {
         for(Node child : root.children) {
             int depth = maxDepth(child);
             if(depth > max){
-                max = depth;  // depth = max (depth, maxDepth(root->children[i]));
+                max = depth;  // depth = max (depth, maxDepth(root.children[i]));
             }
         }
 

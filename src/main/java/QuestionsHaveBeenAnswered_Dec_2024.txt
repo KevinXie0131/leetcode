@@ -53,3 +53,7 @@ Tree
 117. Populating Next Right Pointers in Each Node II
 104. Maximum Depth of Binary Tree
 111. Minimum Depth of Binary Tree
+226. Invert Binary Tree
+
+101. Symmetric Tree
+559. Maximum Depth of N-ary Tree
