@@ -56,4 +56,5 @@ Tree
 226. Invert Binary Tree
 
 101. Symmetric Tree
+    - 101. Symmetric Tree
 559. Maximum Depth of N-ary Tree
