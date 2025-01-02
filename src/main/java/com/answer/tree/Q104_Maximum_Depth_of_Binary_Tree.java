@@ -121,5 +121,27 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         }*/
         return ;
     }
-
+    /**
+     * 递归法(求深度法)
+     */
+    int result1 = 0;  //定义最大深度
+    int maxDepth_2(TreeNode root) {
+        if (root == null) {
+            return result1;
+        }
+        getdepth(root, 1);
+        return result1;
+    }
+    public void getdepth2(TreeNode node, int depth) {
+        //递归求解最大深度
+        if (node == null) {
+            return;
+        }
+        // 前序（中左右）
+        result1 = Math.max(depth ,result1); // 中
+        depth++;
+        getdepth2(node.left, depth);
+        getdepth2(node.right, depth);
+        depth--;
+    }
 }
