@@ -88,6 +88,8 @@ public class Q222_Count_Complete_Tree_Nodes {
      * More clear answer
      * 时间复杂度：O(logn * logn)
      * 空间复杂度：O(logn)
+     *
+     *  针对Perfect二叉树的解法. Perfect二叉树的结点数为：2^depth - 1
      */
     public int countNodes_5(TreeNode root) {
         if (root == null) return 0;
@@ -103,11 +105,16 @@ public class Q222_Count_Complete_Tree_Nodes {
             right = right.right;
             rightHeight++;
         }
-
+        // 情况一，可以直接用 2^树深度 - 1 来计算
         if (leftHeight == rightHeight) {
             return (2 << leftHeight) - 1; // 注意(2<<1) 相当于2^2，所以leftHeight初始为0
         }
-
-        return countNodes_5(root.left) + countNodes_5(root.right) + 1;
+        // 情况二，分别递归左孩子，和右孩子，递归到某一深度一定会有左孩子或者右孩子为Perfect二叉树，然后依然可以按照情况1来计算
+        return countNodes_5(root.left) + countNodes_5(root.right) + 1; // 精简之后代码
+        // 递归三部曲，第三部，单层递归的逻辑：（可以看出使用后序遍历）
+/*        int leftTreeNum = countNodes(root.left);       // 左
+        int rightTreeNum = countNodes(root.right);     // 右
+        int result = leftTreeNum + rightTreeNum + 1;    // 中
+        return result;*/
     }
 }
