@@ -53,7 +53,7 @@ public class Q404_Sum_of_Left_Leaves {
         if (root == null) return 0;
         if (root.left == null && root.right== null) return 0;
         int leftValue = sumOfLeftLeaves(root.left);    // 左
-
+        // 通过节点的父节点来判断其左孩子是不是左叶子
         if (root.left != null && root.left.left == null && root.left.right == null) { // 左子树就是一个左叶子的情况
             leftValue = root.left.value;
         }
@@ -62,7 +62,7 @@ public class Q404_Sum_of_Left_Leaves {
         return sum;
     }
     /**
-     * 迭代法
+     * 迭代法 (迭代法使用前中后序都是可以的，只要把左叶子节点统计出来，就可以了)
      * 通过节点的⽗节点来判断其左孩⼦是不是左叶⼦
      */
     public int sumOfLeftLeaves2(TreeNode root) {
@@ -90,5 +90,31 @@ public class Q404_Sum_of_Left_Leaves {
 
     public boolean isLeafNode(TreeNode node) {
         return node.left == null && node.right == null;
+    }
+    /**
+     * 层序遍历迭代法
+     */
+    public int sumOfLeftLeaves3(TreeNode root) {
+        int sum = 0;
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode cur = queue.poll();
+
+                if (cur.left != null) { // 左节点不为空
+                    queue.offer(cur.left);
+                    if(cur.left.left == null && cur.left.right == null){ // 左叶子节点
+                        sum += cur.left.value;
+                    }
+                }
+                if (cur.right != null) {queue.offer(cur.right);}
+
+                size--;
+            }
+        }
+        return sum;
+
     }
 }
