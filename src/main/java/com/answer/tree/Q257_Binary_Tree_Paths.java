@@ -46,10 +46,41 @@ public class Q257_Binary_Tree_Paths {
             dfs(node.right, path, result);
             path.remove(path.size() - 1); // 回溯
         }
-
     }
     /**
-     *
+     * 前序遍历 + 回溯 (略有修改)
+     */
+    public void dfs_0(TreeNode root,  List<String> path,  List<String> result) {
+        if(root == null) {
+            return;
+        }
+        path.add(root.value + ""); // 前序遍历，中
+
+        if(root.left == null && root.right == null){ // 遇到叶子结点
+            StringBuilder sb = new StringBuilder();
+            for (String str : path){
+                sb.append(str);
+                sb.append("->");
+            }
+            if(path.size() > 0){
+                sb.deleteCharAt(sb.length() -1);
+                sb.deleteCharAt(sb.length() -1);
+            }
+            result.add(sb.toString()); // 收集一个路径
+            return;
+        }
+        // 递归和回溯是同时进行，所以要放在同一个花括号里
+        if(root.left != null){
+            dfs_0(root.left, path, result);  // 左
+            path.remove(path.size() -1);// 回溯
+        }
+        if(root.right != null){
+            dfs_0(root.right, path, result); // 右
+            path.remove(path.size() -1);// 回溯
+        }
+    }
+    /**
+     * 精简版
      */
     public List<String> binaryTreePaths1(TreeNode root) {
         List<String> res = new ArrayList<>();
@@ -64,7 +95,7 @@ public class Q257_Binary_Tree_Paths {
             return;
         }
         if (node.left == null && node.right == null) {
-            res.add(path + node.value);
+            res.add(path + node.value); // result.add(new StringBuilder(s).append(node.val).toString());
             return;
         }
         /**
@@ -73,10 +104,12 @@ public class Q257_Binary_Tree_Paths {
          */
         dfs1(node.left, path + node.value + "->", res); // 隐藏着回溯
         dfs1(node.right, path + node.value + "->", res);
-
+/*        String tmp = new StringBuilder(s).append(node.val).append("->").toString();
+        deal(node.left, tmp);
+        deal(node.right, tmp);*/
     }
     /**
-     * 迭代法
+     * 迭代法 使用stack
      */
     public List<String> binaryTreePaths2(TreeNode root) {
         List<String> res = new ArrayList<>(); // 保存最终路径集合
@@ -109,7 +142,7 @@ public class Q257_Binary_Tree_Paths {
         return res;
     }
     /**
-     *
+     * 迭代法 使用queue
      */
     public List<String> binaryTreePaths3(TreeNode root) {
         List<String> res = new ArrayList<>();
@@ -126,7 +159,6 @@ public class Q257_Binary_Tree_Paths {
             if (node.left == null && node.right == null) {
                 res.add(path);
             }
-
 
             if (node.right != null) {
                 queue.add(node.right);
