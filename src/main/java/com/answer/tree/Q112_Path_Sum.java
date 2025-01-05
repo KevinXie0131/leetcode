@@ -16,21 +16,27 @@ public class Q112_Path_Sum {
      */
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null) return false;
-
+        /**
+         * 不要去累加然后判断是否等于目标和，那么代码比较麻烦，可以用递减，让计数器count初始为目标和，然后每次减去遍历路径节点上的数值
+         */
         targetSum -= root.value;
         if (root.left == null && root.right == null) { // 遇到叶⼦节点，并且计数为0
+            /**
+             * targetSum == 0，同时到了叶子节点的话，说明找到了目标和。
+             * 如果遍历到了叶子节点，targetSum，就是没找到。
+             */
             return targetSum == 0;
         }
         if (root.left != null) {
             boolean left = hasPathSum(root.left,  targetSum);
             if (left) {
-                return true;
+                return true; // 递归函数是有返回值的，如果递归函数返回true，说明找到了合适的路径，应该立刻返回。
             }
         }
         if (root.right != null) {
             boolean right = hasPathSum(root.right,  targetSum);
             if (right) {
-                return true;
+                return true; // 已经找到
             }
         }
         return false;
@@ -52,7 +58,6 @@ public class Q112_Path_Sum {
     }
 
     public boolean dfs(TreeNode node, int sum, int targetSum){ // 注意函数的返回类型
-
         if (node == null)  return false;
 
         sum += node.value;
@@ -96,12 +101,12 @@ public class Q112_Path_Sum {
         boolean left = false;
         if (node.left != null) {
             left = dfs3(node.left, pathSum, targetSum);
-            pathSum.remove(pathSum.size() - 1);
+            pathSum.remove(pathSum.size() - 1); // 回溯
         }
         boolean right = false;
         if (node.right != null) {
             right = dfs3(node.right, pathSum, targetSum);
-            pathSum.remove(pathSum.size() - 1);
+            pathSum.remove(pathSum.size() - 1); // 回溯
         }
         return left || right;
 
