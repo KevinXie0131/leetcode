@@ -60,7 +60,7 @@ public class Q513_Find_Bottom_Left_Tree_Value {
         while (!queue.isEmpty()) {
             TreeNode tmpNode = queue.poll();
 
-            if (tmpNode.right != null) {
+            if (tmpNode.right != null) { // 右在左前面
                 queue.offer(tmpNode.right);
             }
             if (tmpNode.left != null) {
@@ -73,7 +73,7 @@ public class Q513_Find_Bottom_Left_Tree_Value {
     }
 
     /**
-     * 层序遍历
+     * 层序遍历 (本题使用层序遍历再合适不过了，比递归要好理解得多！只需要记录最后一行第一个节点的数值就可以了。)
      */
     public int findBottomLeftValue_2(TreeNode root) {
         if (root == null) return 0;
@@ -84,6 +84,7 @@ public class Q513_Find_Bottom_Left_Tree_Value {
 
         while (!queue.isEmpty()) {
             int size = queue.size();
+       //     value = queue.peek().value
             for(int i = 0; i < size; i++){
                 TreeNode tmpNode = queue.poll();
                 if (i == 0) {  // 记录最后⼀⾏第⼀个元素
