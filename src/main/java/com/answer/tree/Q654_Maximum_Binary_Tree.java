@@ -24,22 +24,25 @@ public class Q654_Maximum_Binary_Tree {
     }
     // 在左闭右开区间[left, right)，构造⼆叉树
     public TreeNode dfs(int[] nums, int left, int right){
-        if(right - left < 1){ // 终⽌条件，是遇到空节点，也就是数组区间为0，就终⽌
+        if(right - left < 1){ // 允许空节点进入递归当然终止条件也要有相应的改变。 终⽌条件，是遇到空节点，也就是数组区间为0，就终⽌
             return null;
         }
-        if(right - left == 1){
+        if(right - left == 1){ // 不加也可以
             return new TreeNode(nums[left]);
         }
+/*        if (leftIndex >= rightIndex) {// 可替代上面两个 （左闭右开）
+            return null;
+        }*/
         // 1. 先要找到数组中最⼤的值和对应的下表， 最⼤的值构造根节点，下表⽤来下⼀步分割数组
-        int maxIndex = left;
-        int maxVal = nums[left];
+        int maxIndex = left;      // 最大值所在位置
+        int maxVal = nums[left]; ;// 最大值
         for (int i = left + 1; i< right; i++) {
             if (nums[i] > maxVal){
                 maxIndex = i; // 分割点下表：maxValueIndex
                 maxVal = nums[i];
             }
         }
-        TreeNode root = new TreeNode(maxVal);
+        TreeNode root = new TreeNode(maxVal);  // 根据maxIndex划分左右子树
         // 左闭右开：[left, maxValueIndex)
         root.left = dfs(nums, left, maxIndex); // 2. 最⼤值所在的下表左区间 构造左⼦树
         // 左闭右开：[maxValueIndex + 1, right)
