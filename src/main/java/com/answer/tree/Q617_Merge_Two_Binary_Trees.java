@@ -8,12 +8,51 @@ import java.util.Deque;
 import java.util.List;
 
 public class Q617_Merge_Two_Binary_Trees {
+    public static void main(String[] args) {
+      //  root1 = [1,3,2,5]
+      //  root2 = [2,1,3,null,4,null,7]
+        TreeNode root1 = new TreeNode(1);
+        TreeNode root1a = new TreeNode(3);
+        TreeNode root1b = new TreeNode(2);
+        TreeNode root1c = new TreeNode(5);
+        TreeNode root2 = new TreeNode(2);
+        TreeNode root2a = new TreeNode(1);
+        TreeNode root2b = new TreeNode(3);
+        TreeNode root2c = new TreeNode(4);
+        TreeNode root2d = new TreeNode(7);
+        root1.left = root1a;
+        root1.right = root1b;
+        root1a.left = root1c;
+        root2.left = root2a;
+        root2.right = root2b;
+        root2a.right = root2c;
+        root2b.right = root2d;
+
+        TreeNode node = mergeTrees4(root1, root2);
+        System.out.println(node);
+    }
     /**
      * 合并两个⼆叉树
      * 注意: 合并必须从两个树的根节点开始。
      *
-     * 递归 前序遍历
-     * 中序遍历也是可以的
+     * 递归 前序遍历是最好理解的
+     * 中序遍历, 后序遍历也是可以的
+     */
+    public TreeNode mergeTrees0(TreeNode root1, TreeNode root2) {
+        // 确定终止条件
+        if(root2 == null) return root1; // 如果t1 == NULL，两个树合并就应该是t2（如果t2也为NULL也无所谓，合并之后就是NULL）
+        if(root1 == null) return root2; // 如果t2 == NULL，那么两个数合并就是t1（如果t1也为NULL也无所谓，合并之后就是NULL）
+
+        // 确定单层递归的逻辑
+        // 修改了t1的数值和结构, 重复利用一下t1这个树，t1就是合并之后树的根节点（就是修改了原来树的结构）
+        root1.value += root2.value;                          // 中
+
+        root1.left = mergeTrees(root1.left, root2.left);     // 左
+        root1.right = mergeTrees(root1.right, root2.right);  // 右
+        return root1;
+    }
+    /**
+     * 重新定义新的节点，不修改原有两个树的结构
      */
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         if (root1 == null) { // 如果t1为空，合并之后就应该是t2
@@ -28,10 +67,10 @@ public class Q617_Merge_Two_Binary_Trees {
         return node;
     }
     /**
-     *
+     * 递归
      */
     public TreeNode mergeTrees1(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) {
+        if (root1 == null && root2 == null) { // 可以省略号
             return null;
         }
         if (root1 == null && root2 != null) {
@@ -46,9 +85,8 @@ public class Q617_Merge_Two_Binary_Trees {
         return node;
     }
     /**
-     * 迭代法
-     * 把两
-     * 个树的节点同时加⼊队列
+     * 迭代法 使用队列迭代
+     * 把两个树的节点同时加⼊队列
      */
     public TreeNode mergeTrees2(TreeNode root1, TreeNode root2) {
         if (root1 == null) {
@@ -82,6 +120,53 @@ public class Q617_Merge_Two_Binary_Trees {
             }
         }
 
+        return root1;
+    }
+    /**
+     * 使用栈迭代
+     */
+    public static TreeNode mergeTrees4(TreeNode root1, TreeNode root2) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        if(root1 == null) {return root2;}
+        if(root2 == null) {return root1;}
+        stack.push(root2);
+        stack.push(root1);
+        while(!stack.isEmpty()){
+            TreeNode node1 = stack.pop();
+            TreeNode node2 = stack.pop();
+            node1.value = node1.value + node2.value;
+
+            if(node1.right != null && node2.right != null) {
+                stack.push(node2.right);
+                stack.push(node1.right);
+            }
+            if(node1.left != null && node2.left != null) {
+                stack.push(node2.left);
+                stack.push(node1.left);
+            }
+            if(node1.left == null && node2.left != null) {
+                node1.left = node2.left;
+            }
+            if(node1.right == null && node2.right != null) {
+                node1.right = node2.right;
+            }
+          /*  if (node2.right != null && node1.right != null) {
+                stack.push(node2.right);
+                stack.push(node1.right);
+            } else {
+                if (node1.right == null) {
+                    node1.right = node2.right;
+                }
+            }
+            if (node2.left != null && node1.left != null) {
+                stack.push(node2.left);
+                stack.push(node1.left);
+            } else {
+                if (node1.left == null) {
+                    node1.left = node2.left;
+                }
+            }*/
+        }
         return root1;
     }
 }
