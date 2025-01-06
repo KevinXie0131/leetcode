@@ -2,6 +2,8 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
+import java.util.Stack;
+
 public class Q700_Search_in_a_Binary_Search_Tree {
     /**
      * ⼆叉搜索树中的搜索
@@ -19,6 +21,7 @@ public class Q700_Search_in_a_Binary_Search_Tree {
         TreeNode result = null;
         if (root.value > val)
             result = searchBST(root.left, val);
+        // 递归函数的返回值是什么? 是 左子树如果搜索到了val，要将该节点返回。 如果不用一个变量将其接住，那么返回值不就没了
         if (root.value < val)
             result = searchBST(root.right, val);
 
@@ -26,19 +29,54 @@ public class Q700_Search_in_a_Binary_Search_Tree {
 
     }
     /**
-     *
+     * 递归遍历
      */
     public TreeNode searchBST1(TreeNode root, int val) {
-        if (root == null || root.value == val) {
+        // 确定终止条件
+        if (root == null || root.value == val) { // 如果root为空，或者找到这个数值了，就返回root节点
             return root;
         }
-        if (root.value < val) {
+        // 确定单层递归的逻辑
+        if (root.value < val) { // 因为二叉搜索树的节点是有序的，所以可以有方向的去搜索
             return searchBST(root.right, val);
         }
         if (root.value > val) {
-            return searchBST(root.left, val);
+            return searchBST(root.left, val); // 不要忘了 递归函数还有返回值
         }
         return null;
+    }
+    /**
+     * 另一种形式  递归，利用二叉搜索树特点，优化
+     */
+    public TreeNode searchBST_3(TreeNode root, int val) {
+        if(root == null) return null;
+
+        if(root.value == val){
+            return root;
+        } else if(root.value > val){
+            return searchBST_3(root.left , val);
+        }else  {
+            return searchBST_3(root.right , val);
+        }
+    }
+    /**
+     * 递归，普通二叉树
+     */
+    public TreeNode searchBST_5(TreeNode root, int val) {
+        if (root == null || root.value == val) {
+            return root;
+        }
+        TreeNode left = searchBST(root.left, val);
+        if (left != null) {
+            return left;
+        }
+        return searchBST(root.right, val);
+/*      TreeNode left = searchBST(root.left, val);
+        TreeNode right = searchBST(root.right, val);
+
+        if(left != null ) return left ;
+        if(right != null ) return right ;
+        return null;*/
     }
     /**
      * 迭代法
@@ -59,7 +97,32 @@ public class Q700_Search_in_a_Binary_Search_Tree {
             } else if (root.value < val) {
                 root = root.right;
             }
-
+/*            else {
+                root = root.right;
+            }*/
+        }
+        return null;
+    }
+    /**
+     * 迭代，普通二叉树
+     */
+    public TreeNode searchBST_6(TreeNode root, int val) {
+        if (root == null || root.value == val) {
+            return root;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode pop = stack.pop();
+            if (pop.value == val) {
+                return pop;
+            }
+            if (pop.right != null) {
+                stack.push(pop.right);
+            }
+            if (pop.left != null) {
+                stack.push(pop.left);
+            }
         }
         return null;
     }
