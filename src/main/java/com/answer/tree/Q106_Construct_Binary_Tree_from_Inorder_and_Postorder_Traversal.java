@@ -35,7 +35,67 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         return root;
     }
     /**
-     *
+     * 递归
+     */
+    public TreeNode buildTree0(int[] inorder, int[] postorder) {
+        return buildHelper(inorder, 0, inorder.length, postorder, 0, postorder.length);
+    }
+    private TreeNode buildHelper(int[] inorder, int inorderStart, int inorderEnd, int[] postorder, int postorderStart, int postorderEnd){
+        if(postorderStart == postorderEnd){
+            return null;
+        }
+        int rootValue = postorder[postorderEnd - 1]; // 后序遍历数组最后一个元素，就是当前的中间节点
+        TreeNode root = new TreeNode(rootValue);
+        int index;
+        for( index = inorderStart; index < inorderEnd - 1; index++ ){ // 找切割点
+            if(inorder[index] == rootValue){
+                break;
+            }
+        }
+        int leftInorderStart = inorderStart; // 切割中序数组，得到 中序左数组和中序右数组
+        int leftInorderEnd =  index;         // 左闭右开区间：[0, delimiterIndex)
+        int rightInorderStart =  index + 1;  // [delimiterIndex + 1, end)
+        int rightInorderEnd = inorderEnd;
+
+        int leftPostStart = postorderStart; // 切割后序数组，得到 后序左数组和后序右数组
+        int leftPostEnd = postorderStart + (leftInorderEnd - leftInorderStart); // 左闭右开，注意这里使用了左中序数组大小作为切割点：[0, leftInorder.size)
+        int rightPostStart = postorderStart  + (leftInorderEnd - leftInorderStart); // [leftInorder.size(), end)
+        int rightPostEnd = postorderEnd - 1; // postorder 舍弃末尾元素，因为这个元素就是中间节点，已经用过了
+
+        root.left = buildHelper(inorder, leftInorderStart, leftInorderEnd, postorder, leftPostStart, leftPostEnd); // (中序左数组, 后序左数组)
+        root.right = buildHelper(inorder, rightInorderStart, rightInorderEnd, postorder, rightPostStart, rightPostEnd); // (中序右数组, 后序右数组)
+
+        return root;
+    }
+    /**
+     * 使用map方便根据数值查找位置
+     */
+    Map<Integer, Integer> map;  // 方便根据数值查找位置
+    public TreeNode buildTree_3(int[] inorder, int[] postorder) {
+        map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) { // 用map保存中序序列的数值对应位置
+            map.put(inorder[i], i);
+        }
+        return findNode(inorder,  0, inorder.length, postorder,0, postorder.length);  // 前闭后开
+    }
+
+    public TreeNode findNode(int[] inorder, int inBegin, int inEnd, int[] postorder, int postBegin, int postEnd) {
+        // 参数里的范围都是前闭后开
+        if (inBegin >= inEnd || postBegin >= postEnd) {  // 不满足左闭右开，说明没有元素，返回空树
+            return null;
+        }
+        int rootIndex = map.get(postorder[postEnd - 1]);  // 找到后序遍历的最后一个元素在中序遍历中的位置
+        TreeNode root = new TreeNode(inorder[rootIndex]);  // 构造结点
+        int lenOfLeft = rootIndex - inBegin;  // 保存中序左子树个数，用来确定后序数列的个数
+        root.left = findNode(inorder, inBegin, rootIndex,
+                postorder, postBegin, postBegin + lenOfLeft);
+        root.right = findNode(inorder, rootIndex + 1, inEnd,
+                postorder, postBegin + lenOfLeft, postEnd - 1);
+
+        return root;
+    }
+    /**
+     * 同上
      */
     int post_idx;
     int[] postorder;
