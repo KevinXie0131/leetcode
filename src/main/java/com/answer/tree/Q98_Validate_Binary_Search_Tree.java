@@ -5,6 +5,11 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q98_Validate_Binary_Search_Tree {
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(0);
+        boolean isValid = isValidBST5(root);
+        System.out.println(isValid);
+    }
     /**
      * 验证⼆叉搜索树
      *
@@ -14,6 +19,7 @@ public class Q98_Validate_Binary_Search_Tree {
     /**
      * 递归法
      * 递归中序遍历将⼆叉搜索树转变成⼀个数组, 然后只要⽐较⼀下，这个数组是否是有序的，注意⼆叉搜索树中不能有重复元素
+     * 但其实不用转变成数组，可以在递归遍历的过程中直接判断是否有序
      *
      * 陷阱1
      *    不能单纯的⽐较左节点⼩于中间节点，右节点⼤于中间节点就完事了, 我们要⽐较的是 左⼦树所有节点⼩于中间节点，右⼦树所有节点⼤于中间节点
@@ -34,6 +40,31 @@ public class Q98_Validate_Binary_Search_Tree {
         traversal(root.left);
         list.add(root.value); // 将⼆叉搜索树转换为有序数组
         traversal(root.right);
+    }
+    /**
+     * Double.MAX_VALUE is the biggest finite number that double can hold. (A very large positive number.)
+     * Double.MIN_VALUE is the smallest positive number that double can hold. (A very small positive number.)
+     * So -Double.MAX_VALUE is a very large negative number. That's a lower number than a very small positive number.
+     * Contrarily, Integer.MIN_VALUE is the most negative number that an int can hold. It has a different meaning from the similarly named constant in Double.
+     */
+    static double max = -Double.MAX_VALUE ;
+    //  long max = Long.MIN_VALUE; // 这个也可以
+    public static boolean isValidBST5(TreeNode root) {
+        if(root == null) return true;
+
+        boolean left = isValidBST5( root.left); // 左
+/*        if (!left) {
+            return false;
+        }*/
+
+        if(root.value > max){ // 中序遍历，验证遍历的元素是不是从小到大
+            max = root.value; // 中
+        }else {
+            return false;
+        }
+
+        boolean right = isValidBST5( root.right); // 右
+        return left && right;
     }
     /**
      * 陷阱2
@@ -60,7 +91,7 @@ public class Q98_Validate_Binary_Search_Tree {
         return true;
     }
     /**
-     * 迭代法
+     * 迭代法 同上
      */
     public boolean isValidBST1(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
@@ -84,6 +115,7 @@ public class Q98_Validate_Binary_Search_Tree {
     }
     /**
      * 递归
+     * 因为后台数据有int最小值测试用例, 建议避免初始化最小值，如下方法取到最左面节点的数值来比较
      */
     TreeNode pre = null; // ⽤来记录前⼀个节点
 
@@ -103,13 +135,13 @@ public class Q98_Validate_Binary_Search_Tree {
         return left && right;
     }
     /**
-     *
+     * 简洁实现·递归解法
      */
     public boolean isValidBST3(TreeNode root) {
-        return dfs(root, Long.MIN_VALUE, Long.MAX_VALUE);
+        return validBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    public boolean dfs(TreeNode root,  long lower, long upper){
+    public boolean validBST(TreeNode root,  long lower, long upper){
         if(root==null){
             return true;
         }
@@ -117,9 +149,25 @@ public class Q98_Validate_Binary_Search_Tree {
             return false;
         }
 
-        boolean left = dfs(root.left, lower, root.value);
-        boolean right = dfs(root.right, root.value, upper);
+        boolean left = validBST(root.left, lower, root.value);
+        boolean right = validBST(root.right, root.value, upper);
         return left && right;
-
+    }
+    /**
+     *  简洁实现·中序遍历
+     */
+    private long prev = Long.MIN_VALUE;
+    public boolean isValidBST_5(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (!isValidBST_5(root.left)) {
+            return false;
+        }
+        if (root.value <= prev) { // 不满足二叉搜索树条件
+            return false;
+        }
+        prev = root.value;
+        return isValidBST_5(root.right);
     }
 }
