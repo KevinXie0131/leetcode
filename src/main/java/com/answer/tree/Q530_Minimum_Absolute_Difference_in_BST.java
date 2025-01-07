@@ -5,6 +5,19 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q530_Minimum_Absolute_Difference_in_BST {
+    public static void main(String[] args) {
+        TreeNode root1 = new TreeNode(4);
+        TreeNode root1a = new TreeNode(2);
+        TreeNode root1b = new TreeNode(6);
+        TreeNode root1c = new TreeNode(1);
+        TreeNode root1d = new TreeNode(3);
+        root1.left = root1a;
+        root1.right = root1b;
+        root1a.left = root1c;
+        root1a.right = root1d;
+        int result = getMinimumDifference_5(root1);
+        System.out.println(result);
+    }
     /**
      * ⼆叉搜索树的最⼩绝对差
      * 给你⼀棵所有节点为⾮负值的⼆叉搜索树，请你计算树中任意两节点的差的绝对值的最⼩值
@@ -15,7 +28,7 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
      * 递归
      */
     int result = Integer.MAX_VALUE;
-    TreeNode pre = null;
+    TreeNode pre = null; // 记录一下cur节点的前一个节点
 
     public int getMinimumDifference(TreeNode root) {
         find(root);
@@ -25,14 +38,17 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
 
         if (root == null) return;
 
-        find(root.left);
+        find(root.left);  // 左
 
-        if (pre != null) {
+        if (pre != null) {  // 中
             result = Math.min(result, root.value - pre.value);
         }
-        pre = root;
+/*        if (pre != null && result > (root.value - pre.value) ) {
+            result =  root.value - pre.value;
+        }*/
+        pre = root; // 记录前一个
 
-        find(root.right);
+        find(root.right); // 右
 
     }
     /**
@@ -51,7 +67,7 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
 
         return (int)result;
     }
-    public void inOrder1 (TreeNode root) {
+    public void inOrder1 (TreeNode root) { // 中序遍历
         if (root == null) return;
 
         inOrder1 (root.left);
@@ -114,4 +130,28 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
         }
         return (int)result1;
     }
+    /**
+     * 中序遍历的迭代法
+     */
+    static TreeNode pre2 = null;
+    static int result2 = Integer.MAX_VALUE;
+    public static int getMinimumDifference_5(TreeNode root) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = root;
+
+        while(!stack.isEmpty() || cur != null){
+            while(cur != null){ // 指针来访问节点，访问到最底层
+                stack.push(cur); // 将访问的节点放进栈
+                cur = cur.left;   // 左
+            }
+            TreeNode node = stack.pop();
+            if (pre2 != null) {  // 中
+                result2 = Math.min(result2, node.value - pre2.value);
+            }
+            pre2 = node;
+            cur = node.right;// 右
+        }
+        return result2;
+    }
+
 }
