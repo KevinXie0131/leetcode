@@ -3,24 +3,36 @@ package com.answer.tree;
 import com.template.TreeNode;
 
 public class Q701_Insert_into_a_Binary_Search_Tree {
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(4);
+        TreeNode root1 = new TreeNode(2);
+        TreeNode root2 = new TreeNode(7);
+        TreeNode root3 = new TreeNode(1);
+        TreeNode root4 = new TreeNode(3);
+        root.left = root1;
+        root.right = root2;
+        root1.left = root3;
+        root1.right = root4;
+        TreeNode node = insertIntoBST1 (root, 5);
+    }
     /**
-     * ⼆叉搜索树中的插⼊操作
+     * ⼆叉搜索树中的插⼊操作 (递归法)
      *
      * 注意，可能存在多种有效的插⼊⽅式，只要树在插⼊后仍保持为⼆叉搜索树即可。 你可以返回任意有效的结果
      * 只要遍历⼆叉搜索树，找到空节点 插⼊元素就可以了，那么这道题其实就简单了. 需要调整⼆叉树的结构么？ 并不需要
      */
     public TreeNode insertIntoBST(TreeNode root, int val) {
-        if (root == null) {
+        if (root == null) { // 如果当前节点为空，也就意味着val找到了合适的位置，此时创建节点直接返回。
             TreeNode node = new TreeNode(val);
-            return node;
+            return node; // 终止条件就是找到遍历的节点为null的时候，就是要插入节点的位置了，并把插入的节点返回
         }
         // 通过递归函数返回值完成了新加⼊节点的⽗⼦关系赋值操作了，下⼀层将加⼊节点返回，
         // 本层⽤root->left或者root->right将其接住
         if (root.value > val) {
-            root.left = insertIntoBST(root.left, val);
+            root.left = insertIntoBST(root.left, val);  // 递归创建左子树
         }
         if (root.value < val) {
-            root.right = insertIntoBST(root.right, val);
+            root.right = insertIntoBST(root.right, val); // 递归创建右子树
         }
         return root; // 递归函数的返回值完成⽗⼦节点的赋值是可以带来便利的
     }
@@ -54,7 +66,7 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
      * 迭代
      * 在迭代法遍历的过程中，需要记录⼀下当前遍历的节点的⽗节点，这样才能做插⼊节点的操作
      */
-    public TreeNode insertIntoBST1(TreeNode root, int val) {
+    public static TreeNode insertIntoBST1(TreeNode root, int val) {
         if (root == null) {
             TreeNode node = new TreeNode(val);
             return node;
@@ -65,7 +77,7 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
             parent = cur;
             if(cur.value > val){
                 cur = cur.left;
-            } else if (cur.value < val){
+            } else if (cur.value < val){ // 需要加上else
                 cur = cur.right;
             }
         }
@@ -74,7 +86,7 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
         if(parent.value > val){
             parent.left =  node;
         }
-        if(parent.value < val){
+        else if(parent.value < val){
             parent.right = node;
         }
 
