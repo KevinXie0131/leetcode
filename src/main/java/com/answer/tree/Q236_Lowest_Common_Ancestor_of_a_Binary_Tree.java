@@ -13,6 +13,27 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      *
      * 后序遍历 - 如果找到⼀个节点，发现左⼦树出现结点p，右⼦树出现节点q，或者 左⼦树出现结点q，右⼦树出现节点p，那么该节点就是节点p和q的最近公共祖先
      */
+    public TreeNode lowestCommonAncestor0(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) { // 递归结束条件
+            return root;
+        }
+        // 后序遍历
+        TreeNode left = lowestCommonAncestor0(root.left, p, q);
+        TreeNode right = lowestCommonAncestor0(root.right, p, q);
+
+        if(left != null && right != null) {  // 若找到两个节点
+            return root;
+        }else if(left == null && right != null) { // 若找到一个节点
+            return right;
+        }else if(left != null && right == null) { // 若找到一个节点
+            return left;
+        }else { // 若未找到节点 p 或 q
+            return null;
+        }
+    }
+    /**
+     * 同上
+     */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         // 从底向上遍历
         // 遍历整棵树
@@ -37,6 +58,44 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
         } else {
             return null;
         }
+    }
+    /**
+     * 迭代
+     */
+    public TreeNode lowestCommonAncestor_2(TreeNode root, TreeNode p, TreeNode q) {
+        int max = Integer.MAX_VALUE;
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode cur = root, pre = null;
+        while (cur != null || !st.isEmpty()) {
+            while (cur != null) {
+                st.push(cur);
+                cur = cur.left;
+            }
+            cur = st.pop();
+            if (cur.right == null || cur.right == pre) {
+                // p/q是 中/左 或者 中/右 , 返回中
+                if (cur == p || cur == q) {
+                    if ((cur.left != null && cur.left.value == max) || (cur.right != null && cur.right.value == max)) {
+                        return cur;
+                    }
+                    cur.value = max;
+                }
+                // p/q是 左/右 , 返回中
+                if (cur.left != null && cur.left.value == max && cur.right != null && cur.right.value == max) {
+                    return cur;
+                }
+                // MAX_VALUE 往上传递
+                if ((cur.left != null && cur.left.value == max) || (cur.right != null && cur.right.value == max)) {
+                    cur.value = max;
+                }
+                pre = cur;
+                cur = null;
+            } else {
+                st.push(cur);
+                cur = cur.right;
+            }
+        }
+        return null;
     }
     /**
      * 归纳如下三点

@@ -28,23 +28,48 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
      * 如果 cur->val ⼩于 p->val，同时 cur->val ⼩于 q->val，那么就应该向右遍历（⽬标区间在右⼦树）。
      */
     public TreeNode lowestCommonAncestor_0(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null) return null;
+        if(root == null) return null; // 可省略 不存在遇到空的情况
 
         if (p.value < root.value && q.value < root.value) {
             TreeNode left = lowestCommonAncestor(root.left, p, q);
-            if(left != null) return left;
+            if(left != null) {
+                return left;
+            }
         }
         if (p.value > root.value && q.value > root.value) {
             TreeNode right = lowestCommonAncestor(root.right, p, q);
-            if(right != null) return right;
+            if(right != null) {
+                return right;
+            }
         }
         return root;
+    }
+    /**
+     * 另一种形式的递归
+     * 当我们从上向下去递归遍历，第一次遇到 cur节点是数值在[q, p]区间中，那么cur就是 q和p的最近公共祖先。
+     */
+    public TreeNode lowestCommonAncestor_1(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode left = null;
+        if (p.value < root.value && q.value < root.value) { // 搜索整个树
+            left = lowestCommonAncestor_1(root.left, p, q);
+        }
+        TreeNode right = null;
+        if (p.value > root.value && q.value > root.value) {
+            right = lowestCommonAncestor_1(root.right, p, q);
+        }
+        if(left!= null){
+            return left;
+        } else if(right!= null) {
+            return right;
+        } else{
+            return root;
+        }
     }
     /**
      * 精简后代码
      */
     public TreeNode lowestCommonAncestor3(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) return null;
+        if (root == null) return null; // 可省略 不存在遇到空的情况
 
         if(root.value > p.value && root.value > q.value){
             return lowestCommonAncestor(root.left, p,q);
@@ -70,7 +95,7 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
         return root;
     }
     /**
-     *
+     * Q236题解  没有运用搜索树
      */
     public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return null;
@@ -93,7 +118,7 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
         }
     }
     /**
-     *
+     * Q236题解 没有运用搜索树
      */
     Map<Integer, TreeNode> parent = new HashMap<Integer, TreeNode>();
     Set<Integer> visited = new HashSet<Integer>();
