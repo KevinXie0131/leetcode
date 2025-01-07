@@ -4,34 +4,42 @@ import com.template.TreeNode;
 
 public class Q669_Trim_a_Binary_Search_Tree {
     /**
-     * 修剪⼆叉搜索树
+     * 修剪⼆叉搜索树 递归
+     */
+    public TreeNode trimBST_0(TreeNode root, int low, int high) {
+        if (root == null) return null;
+        if(root.value < low){
+            TreeNode right = trimBST_0( root.right,  low,  high);
+            return right;
+        }
+        if(root.value > high){
+            TreeNode left = trimBST_0( root.left,  low,  high);
+            return left;
+        }
+        // root在[low,high]范围内
+        root.left =  trimBST_0( root.left,  low,  high);
+        root.right =  trimBST_0( root.right,  low,  high);
+        return root;
+    }
+    /**
+     * 递归
      */
     public TreeNode trimBST(TreeNode root, int low, int high) {
-
         if(root == null){
             return null;
         }
         // 如果root（当前节点）的元素⼩于low的数值，那么应该递归右⼦树，并返回右⼦树符合条件的头结点。
         if (root.value < low) {
             return trimBST( root.right,  low,  high); // 寻找符合区间[low, high]的节点
-            /**
-             * TreeNode right = trimBST( root.right,  low,  high);
-             * return right;
-             */
         }
         // 如果root(当前节点)的元素⼤于high的，那么应该递归左⼦树，并返回左⼦树符合条件的头结点
         if (root.value > high) {
             return trimBST( root.left,  low,  high); // 寻找符合区间[low,high]的节点
-            /**
-             * TreeNode left = trimBST( root.left,  low,  high);
-             * return left;
-             */
         }
         if (root.value >= low && root.value <= high) {
             root.left = trimBST( root.left,  low,  high); // root->left接⼊符合条件的左孩⼦
             root.right = trimBST( root.right,  low,  high); // root->right接⼊符合条件的右孩⼦
         }
-
         return root;
     }
     /**
@@ -76,10 +84,10 @@ public class Q669_Trim_a_Binary_Search_Tree {
         return root;
     }
     /**
-     *
+     * 迭代 同上
+     * 因为二叉搜索树的有序性，不需要使用栈模拟递归的过程
      */
     public TreeNode trimBST2(TreeNode root, int low, int high) {
-
         if(root == null){
             return null;
         }
@@ -93,6 +101,7 @@ public class Q669_Trim_a_Binary_Search_Tree {
         }
 
         TreeNode cur = root;
+        //deal with root's left sub-tree, and deal with the value smaller than low.
         while(cur != null){
             while(cur.left != null && cur.left.value < low){
                 cur.left = cur.left.right;
@@ -100,7 +109,8 @@ public class Q669_Trim_a_Binary_Search_Tree {
             cur = cur.left;
         }
 
-        cur = root;
+        cur = root;  //go back to root;
+        //deal with root's righg sub-tree, and deal with the value bigger than high.
         while(cur != null){
             while(cur.right != null && cur.right.value > high){
                 cur.right = cur.right.left;

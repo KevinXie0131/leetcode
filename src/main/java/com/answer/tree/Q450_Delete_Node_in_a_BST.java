@@ -18,6 +18,34 @@ public class Q450_Delete_Node_in_a_BST {
      *      第五种情况：左右孩⼦节点都不为空，则将删除节点的左⼦树头结点（左孩⼦）放到删除节点的右⼦树的最左⾯节点的左孩⼦上，
      *                 返回删除节点右孩⼦为新的根节点。
      */
+    public TreeNode deleteNode0(TreeNode root, int key) { // 递归解法1(最好理解的版本)
+        if(root == null) return null;
+
+        if(root.value == key){
+            if(root.left == null && root.right == null){
+                return null;
+            }else if(root.left == null){
+                return root.right;
+            }else if(root.right == null){
+                return root.left;
+            }else {
+                TreeNode cur = root.right;
+                while(cur.left != null){
+                    cur = cur.left;
+                }
+                cur.left = root.left;
+                root = root.right;
+                return root;
+            }
+        }
+
+        if(key < root.value) root.left =  deleteNode( root.left,  key);
+        if(key > root.value) root.right =  deleteNode( root.right,  key);
+        return root;
+    }
+    /**
+     * 递归
+     */
     public TreeNode deleteNode(TreeNode root, int key) {
         if(root == null) { // 第⼀种情况：没找到删除的节点，遍历到空节点直接返回了
             return null;
@@ -57,6 +85,7 @@ public class Q450_Delete_Node_in_a_BST {
         if (root == null) {
             return root;
         }
+        //寻找对应的对应的前面的节点，以及他的前一个节点
         TreeNode cur = root;
         TreeNode pre = null; // 记录cur的⽗节点，⽤来删除cur
         while (cur != null) {
@@ -95,9 +124,11 @@ public class Q450_Delete_Node_in_a_BST {
         }
         cur.left = target.left;
         return target.right;
+/*        target = target.right;
+        return target;*/
     }
     /**
-     *
+     * 迭代
      */
     public TreeNode deleteNode1(TreeNode root, int key) {
         TreeNode cur = root, curParent = null;
