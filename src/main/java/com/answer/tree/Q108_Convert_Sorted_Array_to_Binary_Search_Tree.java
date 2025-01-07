@@ -18,20 +18,37 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
      * 因为有序数组构造⼆叉搜索树，寻找分割点就⽐较容易了: 分割点就是数组中间位置的节点。
      */
     public TreeNode sortedArrayToBST(int[] nums) {
-        TreeNode root = dfs(nums, 0, nums.length - 1); // 左闭右闭区间[left, right]
+        TreeNode root = traversal(nums, 0, nums.length - 1); // 定义的区间为左闭右闭区间[left, right]
         return root;
     }
-
-    public TreeNode dfs(int[] nums, int left , int right){ // ⽤递归函数的返回值来构造中节点的左右孩⼦
+    public TreeNode traversal(int[] nums, int left , int right){ // ⽤递归函数的返回值来构造中节点的左右孩⼦
         if(left> right){
             return null;
         }
-
         int mid = (left + right) >>> 1;
         TreeNode root = new TreeNode(nums[mid]); // 在构造⼆叉树的时候尽量不要重新定义左右区间数组，⽽是⽤下表来操作原数组
-        root.left = dfs(nums, left, mid -1);   // root的左孩⼦接住下⼀层左区间的构造节点
-        root.right = dfs(nums, mid + 1, right); // 右孩⼦接住下⼀层右区间构造的节点
+        root.left = traversal(nums, left, mid -1);   // root的左孩⼦接住下⼀层左区间的构造节点
+        root.right = traversal(nums, mid + 1, right); // 右孩⼦接住下⼀层右区间构造的节点
 
+        return root;
+    }
+    /**
+     * 递归: 左闭右开 [left,right)
+     */
+    public TreeNode sortedArrayToBST1(int[] nums) {
+        return sortedArrayToBST1(nums, 0, nums.length);
+    }
+    public TreeNode sortedArrayToBST1(int[] nums, int left, int right) {
+        if (left >= right) {
+            return null;
+        }
+/*        if (right - left == 1) {  // 可省略
+            return new TreeNode(nums[left]);
+        }*/
+        int mid = left + (right - left) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = sortedArrayToBST1(nums, left, mid);
+        root.right = sortedArrayToBST1(nums, mid + 1, right);
         return root;
     }
     /**
