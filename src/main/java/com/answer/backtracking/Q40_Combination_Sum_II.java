@@ -93,7 +93,7 @@ public class Q40_Combination_Sum_II {
         for ( int i = start; i < candidates.length && sum + candidates[i] <= target; i++ ) {
             //正确剔除重复解的办法
             //跳过同一树层使用过的元素
-            if ( i > start && candidates[i] == candidates[i - 1] ) {
+            if ( i > start && candidates[i] == candidates[i - 1] ) { // 与used数组相似，当前数值已经在过去的遍历中被考虑进去了，所以这次可以跳过
                 continue;
             }
 
