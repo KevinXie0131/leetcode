@@ -16,7 +16,7 @@ public class Q39_Combination_Sum_2 {
         backtracking(candidates, used, target, 0, result, path);
         return result;
     }
-
+    // 应该是Q40的答案
     public void backtracking(int[] candidates, int[] used, int target, int startIndex, List<List<Integer>> result, Deque<Integer> path ){
         if (0 == target) {
             result.add(new ArrayList<Integer>(path));
@@ -29,7 +29,7 @@ public class Q39_Combination_Sum_2 {
             if(target < candidates[i]){ // 剪枝优化 终⽌遍历
                 break;
             }
-            if(i > 0 && candidates[i-1] == candidates[i] && used[i] == 0){
+            if(i > 0 && candidates[i-1] == candidates[i] && used[i] == 0){ // 没有发生作用
                 break;
             }
             path.addLast(candidates[i]);
