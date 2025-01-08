@@ -22,8 +22,15 @@ public class Q77_Combinations_1 {
             return;
         }
         /**
-         * for(int i = startIndex; i <= n - (k - path.size()) + 1; i++){ // 剪枝优化
+         * 如果for循环选择的起始位置之后的元素个数 已经不足 我们需要的元素个数了，那么就没有必要搜索了
+         * 优化过程如下：
+         *  已经选择的元素个数：path.size();
+         *  所需需要的元素个数为: k - path.size();
+         *  列表中剩余元素（n-i） >= 所需需要的元素个数（k - path.size()）
+         *  在集合n中至多要从该起始位置 : i <= n - (k - path.size()) + 1，开始遍历
+         *  为什么有个+1呢，因为包括起始位置，我们要是一个左闭的集合。
          */
+/*        for(int i = startIndex; i <= n - (k - path.size()) + 1; i++){  */ // 剪枝优化
         for(int i = startIndex; i <= n; i++){
             path.addLast(i);
             backtracking(n, k, i + 1, result, path);

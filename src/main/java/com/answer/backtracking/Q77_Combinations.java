@@ -7,6 +7,7 @@ public class Q77_Combinations {
         System.out.println(combine(4, 2));
     }
     /**
+     * n个数中求k个数的组合问题
      * 时间复杂度: O(n * 2^n)
      * 空间复杂度: O(n)
      * 回溯法模板
@@ -22,8 +23,8 @@ public class Q77_Combinations {
      *     }
      * }
      */
-    static List<List<Integer>> result = new ArrayList<List<Integer>>();
-    static List<Integer> path = new ArrayList<>();
+    static List<List<Integer>> result = new ArrayList<List<Integer>>(); // 存放符合条件结果的集合
+    static List<Integer> path = new ArrayList<>(); // 用来存放符合条件结果
 
     public static List<List<Integer>> combine(int n, int k) {
         backtracking(n, k, 1);
@@ -37,9 +38,9 @@ public class Q77_Combinations {
             return; // 不要省略
         }
         for(int i = startIndex; i <= n - (k-path.size()) + 1; i++){
-            path.add(i);
-            backtracking(n, k, i + 1);
-            path.remove(path.size() - 1);
+            path.add(i);  // 处理节点
+            backtracking(n, k, i + 1);  // 递归
+            path.remove(path.size() - 1);  // 回溯，撤销处理的节点
         }
     }
 }
