@@ -6,7 +6,22 @@ public class Q77_Combinations {
     public static void main(String[] args) {
         System.out.println(combine(4, 2));
     }
-
+    /**
+     * 时间复杂度: O(n * 2^n)
+     * 空间复杂度: O(n)
+     * 回溯法模板
+     * void backtracking(参数) {
+     *     if (终止条件) {
+     *         存放结果;
+     *         return;
+     *     }
+     *     for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
+     *         处理节点;
+     *         backtracking(路径，选择列表); // 递归
+     *         回溯，撤销处理结果
+     *     }
+     * }
+     */
     static List<List<Integer>> result = new ArrayList<List<Integer>>();
     static List<Integer> path = new ArrayList<>();
 
@@ -16,11 +31,12 @@ public class Q77_Combinations {
         return result;
     }
 
-    public static void backtracking(int n, int k, int startIndex){
+    public static void backtracking(int n, int k, int startIndex){ // 未剪枝优化
         if (path.size() == k) {
             result.add(new ArrayList<Integer>(path));
+            return; // 不要省略
         }
-        for(int i = startIndex; i <= n; i++){
+        for(int i = startIndex; i <= n - (k-path.size()) + 1; i++){
             path.add(i);
             backtracking(n, k, i + 1);
             path.remove(path.size() - 1);
