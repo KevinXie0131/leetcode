@@ -3,6 +3,10 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q491_Non_decreasing_Subsequences_1 {
+    public static void main(String[] args) {
+        int[]  nums = {4,7, 6,7};
+   //     System.out.println(findSubsequences(nums));
+    }
     /**
      * 这份代码在leetcode上提交，要⽐版本⼀耗时要好的多。
      */
@@ -24,8 +28,10 @@ public class Q491_Non_decreasing_Subsequences_1 {
             result.add(new ArrayList(path));
             //return;  // 注意这⾥不要加return，要取树上的节点
         }
-
-        int[] used = new int[201];
+        /**
+         * 一定要新建数组
+         */
+        int[] used = new int[201]; // boolean[] used   = new boolean[201];
 
         for (int i = startIndex; i < nums.length; i++) {
             if ((!path.isEmpty() && nums[i] < path.getLast())
