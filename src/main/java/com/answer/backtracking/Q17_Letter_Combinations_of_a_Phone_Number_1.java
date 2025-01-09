@@ -50,7 +50,9 @@ public class Q17_Letter_Combinations_of_a_Phone_Number_1 {
         }
         int digit = digits.charAt(index) - '0'; // 将index指向的数字转为 int
         String letters = letterMap[digit]; // 取数字对应的字符串
-
+        /**
+         * 本题不需要startIndex来控制for循环的起始位置, 如果是多个集合取组合，各个集合之间相互不影响，那么就不用startIndex
+         */
         for (int i = 0; i < letters.length(); i++) {
             str.append(letters.charAt(i)); // 处理
             backtracking(digits, index + 1); // 递归，处理下一层, 注意index+1，⼀下层要处理下⼀个数字了
