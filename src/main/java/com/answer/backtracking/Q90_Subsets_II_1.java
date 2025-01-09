@@ -63,7 +63,7 @@ public class Q90_Subsets_II_1 {
         }
 
         for (int i = startIndex; i < nums.length; i++) {
-            // 而我们要对同一树层使用过的元素进行跳过
+            // 而我们要对同一树层使用过的元素进行跳过.  跳过当前树层使用过的、相同的元素
             if (i > startIndex && nums[i] == nums[i - 1]) { // 注意这里使用i > startIndex
                 continue;
             }
