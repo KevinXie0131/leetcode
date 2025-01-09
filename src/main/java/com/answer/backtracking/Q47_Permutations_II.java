@@ -75,5 +75,4 @@ public class Q47_Permutations_II {
             path.remove(path.size() - 1);//回溯，说明同⼀树层nums[i]使⽤过，防止下一树层重复
             used[i] = false;//回溯
         }*/
-    }
 }
