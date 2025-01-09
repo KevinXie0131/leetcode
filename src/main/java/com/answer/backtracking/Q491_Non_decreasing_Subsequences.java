@@ -3,9 +3,6 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q491_Non_decreasing_Subsequences {
-    public static void main(String[] args) {
-
-    }
     /**
      * 这个递增子序列比较像是取有序的子集。而且本题也要求不能有相同的递增子序列。
      * 这又是子集，又是去重, 在90.子集II (opens new window)中我们是通过排序，再加一个标记数组来达到去重的目的,
@@ -26,13 +23,15 @@ public class Q491_Non_decreasing_Subsequences {
         return result;
     }
 
-    public void backtracking(int[] nums, int startIndex) {
+    public void backtracking(int[] nums, int startIndex) { // 本题求子序列，很明显一个元素不能重复使用，所以需要startIndex，调整下一层递归的起始位置
+        // startIndex每次都会加1，并不会无限递归
         if(path.size() >= 2){
             result.add(new ArrayList(path));
-            //return;  // 注意这⾥不要加return，要取树上的节点
+            //return;  // 注意这里不要加return，因为要取树上的所有节点
         }
         /**
          * 一定要新建HashSet
+         *  uset是记录本层元素是否重复使用，新的一层uset都会重新定义（清空），所以要知道uset只负责本层
          */
         HashSet<Integer> uset = new HashSet<>();
         for (int i = startIndex; i < nums.length; i++) {
@@ -40,10 +39,10 @@ public class Q491_Non_decreasing_Subsequences {
                 continue;
             }
             // 记录这个元素在本层⽤过了，本层后⾯不能再⽤了
-            if(!uset.add(nums[i])) { // 使⽤set来对本层元素进⾏去重 同⼀⽗节点下的同层上使⽤过的元素就不能在使⽤了
+            if(!uset.add(nums[i])) { // 使⽤set来对本层元素进⾏去重, 同⼀⽗节点下的同层上使⽤过的元素就不能在使⽤了
                 continue;
             }
-/*            if(used.contains(nums[i])){
+/*            if(used.contains(nums[i])){ // 记录这个元素在本层用过了，本层后面不能再用了
                 continue;
             }
             used.add(nums[i]);*/
