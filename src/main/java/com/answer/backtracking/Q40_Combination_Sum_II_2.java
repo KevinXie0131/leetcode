@@ -18,6 +18,8 @@ public class Q40_Combination_Sum_II_2 {
             res.add( new ArrayList<>( path ) );
             return;
         }
+        // Q40有去重要求： Each number in candidates may only be used once in the combination. The solution set must not contain duplicate combinations.
+        // （candidates 中的每个数字在每个组合中只能使用一次。解集不能包含重复的组合。）
         HashSet<Integer> uset = new HashSet<>(); // 参考Q491使用HashSet本层去重
         for ( int i = start; i < candidates.length && sum + candidates[i] <= target; i++ ) {
             // start
