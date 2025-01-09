@@ -51,5 +51,19 @@ public class Q491_Non_decreasing_Subsequences {
             path.removeLast();
         }
     }
+    // 使用map
+/*    HashMap<Integer, Integer> uset = new HashMap<>();
+        for (int i = startIndex; i < nums.length; i++) {
+        if (!path.isEmpty() && nums[i] < path.getLast()){
+            continue;
+        }
 
+        if(uset.getOrDefault(nums[i], 0) >= 1) { // 使用过了当前数字
+            continue;
+        }
+        uset.put(nums[i], uset.getOrDefault(nums[i], 0) + 1);
+        path.add(nums[i]);
+        backtracking(nums, i + 1);
+        path.removeLast();
+    }*/
 }
