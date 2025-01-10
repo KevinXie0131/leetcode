@@ -27,7 +27,9 @@ HashMap
 String
 344. Reverse String
 541. Reverse String II
+54. 替换数字 (https://programmercarl.com/kamacoder/0054.%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97.html#%E6%80%9D%E8%B7%AF)
 151. Reverse Words in a String
+55. 右旋字符串 (https://programmercarl.com/kamacoder/0055.%E5%8F%B3%E6%97%8B%E5%AD%97%E7%AC%A6%E4%B8%B2.html#%E6%80%9D%E8%B7%AF)
 28. Find the Index of the First Occurrence in a String
 459. Repeated Substring Pattern
 
