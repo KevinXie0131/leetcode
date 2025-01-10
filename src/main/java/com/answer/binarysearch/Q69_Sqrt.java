@@ -15,17 +15,18 @@ public class Q69_Sqrt {
      *
      */
     public static int mySqrt0(int x) {
-        long left = 0; // use long instead for too big input like 2147395599
-        long right = x;
+        int left = 0;
+        int right = x;
         int result = -1 ;
 
         while (left <= right) {
-            long mid = (left + right) >>> 1;
-            if ((mid * mid) > x) {
-                right = mid - 1;
-            } else if ((mid * mid) <= x) {
+            long mid = left + ((right - left) >> 1) ; // use long instead for too big input like 2147395599
+            long value = mid * mid;
+            if (value > x) {
+                right = (int)mid - 1;
+            } else if (value <= x) {
                 result = (int)mid;
-                left = mid + 1;
+                left = (int)mid + 1;
 
             }
         }
