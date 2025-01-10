@@ -44,6 +44,8 @@ public class Q35_Search_Insert_Position {
         // 目标值插入数组中的位置 [left, right]，return  right + 1
         // 目标值在数组所有元素之后的情况 [left, right]， 因为是右闭区间，所以 return right + 1
         return right + 1;
+        // return left 也可以工作
+        // return left;
     }
     /**
      * 第二种二分法：左闭右开
