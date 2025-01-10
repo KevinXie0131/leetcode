@@ -1,6 +1,10 @@
 package com.answer.binarysearch;
 
 public class Q69_Sqrt {
+    public static void main(String[] args) {
+        int re = mySqrt0(2147395599);
+        System.out.println(re);
+    }
     /**
      * 二分查找
      * 由于 x 平方根的整数部分 ans 是满足 k*k ≤x 的最大 k 值，因此我们可以对 k 进行二分查找，从而得到答案。
@@ -10,17 +14,17 @@ public class Q69_Sqrt {
      * 也就不需要再去尝试 ans+1 了。
      *
      */
-    public int mySqrt0(int x) {
-        int left = 0;
-        int right = x-1;
+    public static int mySqrt0(int x) {
+        long left = 0; // use long instead for too big input like 2147395599
+        long right = x;
         int result = -1 ;
 
         while (left <= right) {
-            int mid = (left + right) >>> 1;
+            long mid = (left + right) >>> 1;
             if ((mid * mid) > x) {
                 right = mid - 1;
             } else if ((mid * mid) <= x) {
-                result = mid;
+                result = (int)mid;
                 left = mid + 1;
 
             }
