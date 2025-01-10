@@ -12,6 +12,7 @@ public class Q332_Reconstruct_Itinerary {
         System.out.println(findItinerary(tickets));
     }
     /**
+     * 这道题目还是很难的, 实际上确实是图论中的深度优先搜索，但这是深搜中使用了回溯的例子
      * Backtracking - Hard
      *
      * Overall, we could consider this problem as a graph traversal problem, where an airport can be viewed as a vertex
