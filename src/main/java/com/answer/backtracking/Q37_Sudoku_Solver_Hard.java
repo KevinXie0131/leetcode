@@ -1,6 +1,8 @@
 package com.answer.backtracking;
 
 public class Q37_Sudoku_Solver_Hard {
+    // 解数独可以说是非常难的题目(二维递归)
+    // 本题中棋盘的每一个位置都要放一个数字（而N皇后是一行只放一个皇后），并检查数字是否合法，解数独的树形结构要比N皇后更宽更深
     public void solveSudoku(char[][] board) {
         solveSudokuHelper(board);
     }
@@ -15,11 +17,11 @@ public class Q37_Sudoku_Solver_Hard {
                 }
                 for (char k = '1'; k <= '9'; k++){ // (i, j) 这个位置放k是否合适
                     if (isValidSudoku(i, j, k, board)){
-                        board[i][j] = k;
+                        board[i][j] = k;   // 放置k
                         if (solveSudokuHelper(board)){ // 如果找到合适一组立刻返回
                             return true;
                         }
-                        board[i][j] = '.';
+                        board[i][j] = '.'; // 回溯，撤销k
                     }
                 }
                 // 9个数都试完了，都不行，那么就返回false
@@ -31,7 +33,6 @@ public class Q37_Sudoku_Solver_Hard {
         // 遍历完没有返回false，说明找到了合适棋盘位置了
         return true;
     }
-
     /**
      * 判断棋盘是否合法有如下三个维度:
      *     同行是否重复
@@ -64,5 +65,65 @@ public class Q37_Sudoku_Solver_Hard {
         }
         return true;
     }
+    /**
+     * 解法二(bitmap标记)
+     */
+    int[] rowBit = new int[9];
+    int[] colBit = new int[9];
+    int[] square9Bit = new int[9];
 
+    public void solveSudoku1(char[][] board) {
+        // 1 10 11
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[y].length; x++) {
+                int numBit = 1 << (board[y][x] - '1');
+                rowBit[y] ^= numBit;
+                colBit[x] ^= numBit;
+                square9Bit[(y / 3) * 3 + x / 3] ^= numBit;
+            }
+        }
+        backtrack(board, 0);
+    }
+
+    public boolean backtrack(char[][] board, int n) {
+        if (n >= 81) {
+            return true;
+        }
+        // 快速算出行列编号 n/9 n%9
+        int row = n / 9;
+        int col = n % 9;
+
+        if (board[row][col] != '.') {
+            return backtrack(board, n + 1);
+        }
+
+        for (char c = '1'; c <= '9'; c++) {
+            int numBit = 1 << (c - '1');
+            if (!isValid(numBit, row, col)) continue;
+            {
+                board[row][col] = c;    // 当前的数字放入到数组之中，
+                rowBit[row] ^= numBit; // 第一行rowBit[0],第一个元素eg: 1 , 0^1=1,第一个元素:4, 100^1=101,...
+                colBit[col] ^= numBit;
+                square9Bit[(row / 3) * 3 + col / 3] ^= numBit;
+            }
+            if (backtrack(board, n + 1)) return true;
+            {
+                board[row][col] = '.';    // 不满足条件，回退成'.'
+                rowBit[row] &= ~numBit; // 第一行rowBit[0],第一个元素eg: 1 , 101&=~1==>101&111111110==>100
+                colBit[col] &= ~numBit;
+                square9Bit[(row / 3) * 3 + col / 3] &= ~numBit;
+            }
+        }
+        return false;
+    }
+
+    boolean isValid(int numBit, int row, int col) {
+        // 左右
+        if ((rowBit[row] & numBit) > 0) return false;
+        // 上下
+        if ((colBit[col] & numBit) > 0) return false;
+        // 9宫格: 快速算出第n个九宫格,编号[0,8] , 编号=(row / 3) * 3 + col / 3
+        if ((square9Bit[(row / 3) * 3 + col / 3] & numBit) > 0) return false;
+        return true;
+    }
 }
