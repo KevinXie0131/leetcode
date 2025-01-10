@@ -72,4 +72,32 @@ public class Q90_Subsets_II_1 {
             path.removeLast();
         }
     }
+    /**
+     * Q90有去重要求, 使用set针对同一父节点本层去重，但子集问题一定要排序
+     * 不排序，子集会重复
+     */
+    public void backtracking3(int[] nums, int startIndex) {
+        result.add(new ArrayList(path));
+
+        if(startIndex >  nums.length ){
+            return;
+        }
+        HashSet<Integer> uset = new HashSet<>();  // 参考Q491使用HashSet本层去重
+        for(int i = startIndex; i < nums.length; i++){
+            if(uset.contains(nums[i])){  // 如果发现出现过就pass
+                continue;
+            }
+            uset.add(nums[i]); // set更新元素
+            path.add(nums[i]);
+            backtracking3(nums, i + 1);
+            path.removeLast();
+        }
+    }
+    /**
+     * 错误写法一: 把uset定义放到类成员位置，然后模拟回溯的样子 insert一次，erase一次。
+     *            在树形结构中，uset放在类成员的位置（相当于全局变量），就把树枝的情况都记录了，不是单纯的控制某一节点下的同一层了,而是控制整棵树，包括树枝
+     * 错误写法二：把uset放到类成员位置，然后每次进入单层的时候用uset.clear()
+     *            uset已经是全局变量，本层的uset记录了一个元素，然后进入下一层之后这个uset（和上一层是同一个uset）就被清空了，
+     *            也就是说，层与层之间的uset是同一个，那么就会相互影响。
+     */
 }

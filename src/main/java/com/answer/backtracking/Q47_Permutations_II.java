@@ -75,4 +75,41 @@ public class Q47_Permutations_II {
             path.remove(path.size() - 1);//回溯，说明同⼀树层nums[i]使⽤过，防止下一树层重复
             used[i] = false;//回溯
         }*/
+
+    /**
+     * 使用set去重的版本 (相对于used数组的版本效率都要低很多)
+     *
+     * 如果使用set去重，空间复杂度就变成了O(n^2)，因为每一层递归都有一个set集合，系统栈空间是n，每一个空间都有set集合
+     * used数组可是全局变量，每层与每层之间公用一个used数组，所以空间复杂度是O(n + n)，最终空间复杂度还是O(n)
+     */
+    private List<List<Integer>> res1 = new ArrayList<>();
+    private List<Integer> path1 = new ArrayList<>();
+    private boolean[] used1 = null;
+
+    public List<List<Integer>> permuteUnique1_0(int[] nums) {
+        used1 = new boolean[nums.length];
+        Arrays.sort(nums);
+        backtracking1(nums);
+        return res1;
+    }
+
+    public void backtracking1(int[] nums) {
+        if (path1.size() == nums.length) {
+            res1.add(new ArrayList<>(path1));
+            return;
+        }
+        HashSet<Integer> hashSet = new HashSet<>();//层去重
+        for (int i = 0; i < nums.length; i++) {
+            if (hashSet.contains(nums[i])) // 控制某一节点下的同一层元素不能重复
+                continue;
+            if (used1[i] == true)//枝去重
+                continue;
+            hashSet.add(nums[i]);//记录元素
+            used1[i] = true;
+            path1.add(nums[i]);
+            backtracking1(nums);
+            path1.remove(path1.size() - 1);
+            used1[i] = false;
+        }
+    }
 }
