@@ -2,12 +2,12 @@ package com.answer.two_pointers;
 
 public class Q26_Remove_Duplicates_from_Sorted_Array {
     public static void main(String[] args) {
-        int[] nums = {0,5,1,1,1,2,2,3,3,4};
-        int r = removeDuplicates_1(nums);
+        int[] nums = {0,0,1,1,1,2,2,3,3,4};
+        int r = removeDuplicates(nums);
     }
     /**
      * Approach 1: Two indexes approach
-     * 双指针法（快慢指针法）
+     * 双指针法（快慢指针法）- sorted in non-decreasing order,
      * 一个指针 i 进行数组遍历，另外一个指针 j 指向有效数组的最后一个位置。
      * 只有当 i 所指向的值和 j 不一致（不重复），才将 i 的值添加到 j 的下一位置。
      */
