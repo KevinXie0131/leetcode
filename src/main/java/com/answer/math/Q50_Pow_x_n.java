@@ -58,16 +58,16 @@ public class Q50_Pow_x_n {
         }
         return res;
     }
-    public static double recursion(double x, int n){
+    public static double recursion(double x, int n){ // 递归 分治法（时间复杂度：logN）
         if(n == 0){
             return 1.0;
         }
 
         double half = recursion(x, n/2);
         if(n % 2 == 0){
-            return half * half;
+            return half * half; //偶数
         }else{
-            return half * half * x;
+            return half * half * x;  //奇数
         }
     }
     /**
