@@ -32,4 +32,32 @@ public class Q22_Generate_Parentheses {
             sb.deleteCharAt(sb.length() - 1);
         }
     }
+    /**
+     * 另一种形式
+     */
+    public List<String> generateParenthesis1(int n) {
+        List<String> result = new ArrayList<String>();
+        if(n == 0){
+            return result;
+        }
+        backtracking1(new StringBuffer(), 0,0,n, result);
+        return result;
+    }
+
+    public void backtracking1(StringBuffer sb, int left, int right, int n, List<String> result){
+        if(left == n && right == n){
+            result.add(sb.toString());
+            return;
+        }
+        if(left < n){
+            sb.append("(");
+            backtracking1(sb, left + 1, right, n, result);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if(right < n && left > right){
+            sb.append(")");
+            backtracking1(sb, left, right + 1,n, result);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
 }
