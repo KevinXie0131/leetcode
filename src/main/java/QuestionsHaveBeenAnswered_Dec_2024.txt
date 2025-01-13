@@ -132,3 +132,8 @@ Extra
            941. Valid Mountain Array
            1207. Unique Number of Occurrences
            283. Move Zeroes
+           189. Rotate Array
+           剑指Offer58-II.左旋转字符串 https://programmercarl.com/%E5%89%91%E6%8C%87Offer58-II.%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2.html
+           724. Find Pivot Index
+           34. Find First and Last Position of Element in Sorted Array
+           922. Sort Array By Parity II
