@@ -29,4 +29,40 @@ public class Q455_Assign_Cookies {
 
         return res;
     }
+    /**
+     * 这里的局部最优就是大饼干喂给胃口大的，充分利用饼干尺寸喂饱一个，全局最优就是喂饱尽可能多的小孩。
+     * 可以尝试使用贪心策略，先将饼干数组和小孩数组排序。
+     * 然后从后向前遍历小孩数组，用大饼干优先满足胃口大的，并统计满足小孩数量。
+     * 时间复杂度：O(nlogn) 空间复杂度：O(1)
+     */
+    public int findContentChildren1(int[] g, int[] s) { // 先遍历的胃口，再遍历的饼干. 优先考虑胃口，先喂饱大胃口
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int result = 0;
+        int index =  s.length - 1; // 饼干数组的下标
+        for(int i = g.length - 1; i >= 0 ; i--){ // 遍历胃口
+            if(index >= 0 && s[index] >= g[i]){  // 遍历饼干
+                index--;
+                result++;
+            }
+        }
+        return result;
+    }
+    /**
+     * 也可以换一个思路，小饼干先喂饱小胃口. 因为遍历顺序变了，我们是从小到大遍历。
+     */
+    public int findContentChildren2(int[] g, int[] s) { // 优先考虑饼干，小饼干先喂饱小胃口
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int index = 0;
+        int count = 0;
+        for(int i = 0; i < s.length; i++) { // 饼干
+            if(index < g.length && g[index] <= s[i]){ // 胃口
+                index++;
+                count++;
+            }
+        }
+
+        return count;
+    }
 }

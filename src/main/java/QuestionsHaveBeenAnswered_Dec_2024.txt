@@ -121,3 +121,13 @@ Backtracking
 332. Reconstruct Itinerary
 51. N-Queens
 37. Sudoku Solver
+
+Greedy
+455. Assign Cookies
+
+Graph
+
+Extra
+    Array: 1365. How Many Numbers Are Smaller Than the Current Number
+           941. Valid Mountain Array
+           1207. Unique Number of Occurrences
