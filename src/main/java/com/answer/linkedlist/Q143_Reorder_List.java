@@ -1,6 +1,8 @@
 package com.answer.linkedlist;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class Q143_Reorder_List {
@@ -17,7 +19,31 @@ public class Q143_Reorder_List {
         node1.print();
     }
 
-    public static void reorderList(ListNode head) {
+   static public void reorderList(ListNode head) {
+        Deque<ListNode> list = new ArrayDeque<>();
+        ListNode cur = head.next;
+        while(cur != null){
+            list.offer(cur);
+            cur = cur.next;
+        }
+        int count = 0;
+        cur = head;
+        while(!list.isEmpty()){
+            ListNode node;
+            if(count % 2 != 0){
+                node = list.poll();
+
+            }else{
+                node = list.pollLast();
+            }
+            count++;
+            cur.next = node;
+            cur = cur.next;
+        }
+        cur.next = null;
+    }
+
+    public static void reorderList0(ListNode head) {
         List<ListNode> list = new ArrayList<>();
         ListNode cur = head;
         while(cur != null){
