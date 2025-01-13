@@ -12,6 +12,7 @@ public class Q283_Move_Zeroes {
     }
     /**
      * 双指针法（快慢指针法）
+     * 相当于对整个数组移除元素0，然后slowIndex之后都是移除元素0的冗余元素，把这些元素都赋值为0就可以了。
      */
     public void moveZeroes0(int[] nums) {
         int slow = 0;
@@ -21,7 +22,7 @@ public class Q283_Move_Zeroes {
                 slow++;
             }
         }
-        for(; slow < nums.length; slow++){
+        for(; slow < nums.length; slow++){ // 后面的元素全变成 0
             nums[slow] = 0;
         }
     }

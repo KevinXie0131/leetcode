@@ -131,3 +131,4 @@ Extra
     Array: 1365. How Many Numbers Are Smaller Than the Current Number
            941. Valid Mountain Array
            1207. Unique Number of Occurrences
+           283. Move Zeroes
