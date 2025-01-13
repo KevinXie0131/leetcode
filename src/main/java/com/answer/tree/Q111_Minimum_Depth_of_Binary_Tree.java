@@ -113,7 +113,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
     }
     /**
      * 这个模板与Q104_Maximum_Depth_of_Binary_Tree相似, 但是用了后序遍历
-     * 递归法（思路来自二叉树最大深度的递归法）
+     * DFS递归 (层序)（思路来自二叉树最大深度的递归法）
      * 该题求最小深度，最小深度为根节点到叶子节点的深度，所以在迭代到每个叶子节点时更新最小值。
      */
     int depth = 0;
@@ -136,7 +136,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         depth--;
     }
     /**
-     * 迭代法 层序遍历
+     * BFS迭代法 层序遍历
      */
     public int minDepth2(TreeNode root) {
         int result = Integer.MAX_VALUE;
