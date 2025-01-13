@@ -4,20 +4,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Q141_Linked_List_Cycle {
-
     /**
      * fast-slow pointers
+     * 快慢指针法， 分别定义 fast 和 slow指针，从头结点出发，fast指针每次移动两个节点，slow指针每次移动一个节点，如果 fast 和 slow指针在途中相遇 ，说明这个链表有环。
      */
     public boolean hasCycle(ListNode head) {
         ListNode slow = head, fast = head;
+        // 空链表、单节点链表一定不会有环
         while(fast != null && fast.next != null){
-            fast = fast.next.next;
-            slow = slow.next;
-            if(fast == slow){
+            fast = fast.next.next; // 快指针，一次移动两步
+            slow = slow.next;      // 慢指针，一次移动一步
+            if(fast == slow){       // 快慢指针相遇，表明有环
                 return true;
             }
         }
-        return false;
+        return false;  // 正常走到链表末尾，表明没有环
     }
     /**
      * Use set
