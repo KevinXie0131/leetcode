@@ -88,7 +88,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         return ans + 1;
     }
     /**
-     * 前序遍历的方式（中左右）
+     * DFS递归 (层序)
      * 这个模板与Q104_Maximum_Depth_of_Binary_Tree相似
      */
     int result1 = Integer.MAX_VALUE;
