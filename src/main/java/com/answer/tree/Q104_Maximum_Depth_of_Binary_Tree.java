@@ -68,7 +68,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
     }
 
     /**
-     * 递归
+     * DFS递归
      */
     int depth = 0;
 
