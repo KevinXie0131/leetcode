@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Q205_Isomorphic_Strings {
     public static void main(String[] args) {
-        String s = "egg";
-        String t = "add";
+        String s = "foo";
+        String t = "bar";
         System.out.println(isIsomorphic_4(s, t));
     }
     /**
@@ -34,6 +34,8 @@ public class Q205_Isomorphic_Strings {
     }
     /**
      * Use HashMap
+     * 字符串没有说都是小写字母之类的，所以用数组不合适了，用map来做映射。
+     * 使用两个map 保存 s[i] 到 t[j] 和 t[j] 到 s[i] 的映射关系，如果发现对应不上，立刻返回 false
      */
     public boolean isIsomorphic_1(String s, String t) {
         Map<Character, Character> s2t = new HashMap<Character, Character>();
@@ -46,6 +48,15 @@ public class Q205_Isomorphic_Strings {
             }
             s2t.put(x, y);
             t2s.put(y, x);
+/*            if(!s2t.containsKey(x)){ // map1保存s[i] 到 t[j]的映射
+                s2t.put(x,y);
+            }
+            if(!t2s.containsKey(y)){ // map2保存t[j] 到 s[i]的映射
+                t2s.put(y,x);
+            }
+            if(s2t.get(x) != y ||   t2s.get(y) != x ){   // 发现映射 对应不上，立刻返回false
+                return false;
+            }*/
         }
         return true;
     }

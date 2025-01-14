@@ -16,7 +16,7 @@ public class Q18_4Sum {
      * 找出nums[k] + nums[i] + nums[left] + nums[right] == target的情况，
      * 三数之和的时间复杂度是O(n^2)，四数之和的时间复杂度是O(n^3) 。
      *
-     * 对于15.三数之和 (opens new window)双指针法就是将原本暴力O(n^3)的解法，降为O(n^2)的解法，
+     * 对于15.三数之和 双指针法就是将原本暴力O(n^3)的解法，降为O(n^2)的解法，
      * 四数之和的双指针解法就是将原本暴力O(n^4)的解法，降为O(n^3)的解法。
      */
     public static List<List<Integer>> fourSum(int[] nums, int target) {

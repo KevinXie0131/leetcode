@@ -38,10 +38,10 @@ public class Q17_Letter_Combinations_of_a_Phone_Number_1 {
         return result;
     }
     /**
-     * 注意这个index可不是 77.组合 (opens new window)和216.组合总和III (opens new window)中的startIndex了。
+     * 注意这个index可不是 77.组合 和216.组合总和III 中的startIndex了。
      * 这个index是记录遍历第几个数字了，就是用来遍历digits的（题目中给出数字字符串），同时index也表示树的深度。
-     * 注意这里for循环，可不像是在回溯算法：求组合问题！ (opens new window)和回溯算法：求组合总和！ (opens new window)中从startIndex开始遍历的。
-     * 因为本题每一个数字代表的是不同集合，也就是求不同集合之间的组合，而77. 组合 (opens new window)和216.组合总和III (opens new window)都是求同一个集合中的组合！
+     * 注意这里for循环，可不像是在回溯算法：求组合问题！和回溯算法：求组合总和！ 中从startIndex开始遍历的。
+     * 因为本题每一个数字代表的是不同集合，也就是求不同集合之间的组合，而77. 组合 和216.组合总和III 都是求同一个集合中的组合！
      */
     public static void backtracking(String digits, int index){
         if (index == digits.length()) { // if(sb.length() == digits.length()){

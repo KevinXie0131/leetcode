@@ -12,10 +12,10 @@ public class Q40_Combination_Sum_II {
     /**
      * 时间复杂度: O(n * 2^n)
      * 空间复杂度: O(n)
-     * 这道题目和39.组合总和 (opens new window)如下区别：
+     * 这道题目和39.组合总和 如下区别：
      *    本题candidates 中的每个数字在每个组合中只能使用一次。
-     *    本题数组candidates的元素是有重复的，而39.组合总和 (opens new window)是无重复元素的数组candidates
-     * 最后本题和39.组合总和 (opens new window)要求一样，解集不能包含重复的组合。
+     *    本题数组candidates的元素是有重复的，而39.组合总和  是无重复元素的数组candidates
+     * 最后本题和39.组合总和  要求一样，解集不能包含重复的组合。
      *
      * 本题的难点在于区别2中：集合（数组candidates）有重复元素，但还不能有重复的组合。(我把所有组合求出来，再用set或者map去重，这么做很容易超时！)
      */

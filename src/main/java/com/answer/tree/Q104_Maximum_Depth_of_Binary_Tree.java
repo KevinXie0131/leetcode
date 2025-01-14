@@ -99,7 +99,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         return result;
     }
     public void getdepth(TreeNode node, int depth) {
-        // 在104.二叉树的最大深度 (opens new window)中，如果真正求取二叉树的最大深度，代码应该写成如下：（前序遍历）
+        // 在104.二叉树的最大深度 中，如果真正求取二叉树的最大深度，代码应该写成如下：（前序遍历）
         result = Math.max(depth ,result); // 中
 
         if (node.left == null && node.right == null) return;

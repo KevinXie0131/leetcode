@@ -144,3 +144,8 @@ Extra
            143. Reorder List
            141. Linked List Cycle
            160. Intersection of Two Linked Lists
+    HashMap:
+           205. Isomorphic Strings
+           1002. Find Common Characters
+    Tree:
+           129. Sum Root to Leaf Numbers

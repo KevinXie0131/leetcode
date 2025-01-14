@@ -42,11 +42,11 @@ public class Q113_Path_Sum_II {
             }
         }
         if (root.left != null) { // 左 （空节点不遍历）
-            pathSum(root.left,  targetSum); // 递归
+            dfs(root.left,  targetSum); // 递归
             pathSum.remove(pathSum.size() - 1); // 回溯
         }
         if (root.right != null) { // 右 （空节点不遍历）
-            pathSum(root.right,  targetSum);
+            dfs(root.right,  targetSum);
             pathSum.remove(pathSum.size() - 1); // 回溯
         }
     }
