@@ -12,6 +12,28 @@ public class Q234_Palindrome_Linked_List {
         System.out.println(isPalindrome(node1));
     }
     /**
+     * 递归（另一种形式）
+     */
+    ListNode root2 = null;
+
+    public boolean isPalindrome_0(ListNode head) {
+        if(head == null || head.next == null) return true;
+        root2 = head;
+        return dfs_2(head);
+    }
+
+    public boolean dfs_2(ListNode node){
+        if(node == null) {
+            return true;
+        }
+        boolean isFound = dfs_2(node.next);
+        if(root2.val != node.val){
+            return false;
+        }
+        root2 = root2.next;
+        return isFound;
+    }
+    /**
      * Recursion
      */
     static ListNode root = null;
