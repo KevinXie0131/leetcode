@@ -18,39 +18,43 @@ public class Q143_Reorder_List {
         reorderList(node1);
         node1.print();
     }
-
+    /**
+     * 方法二: 把链表放进双向队列，然后通过双向队列一前一后弹出数据，来构造新的链表。这种方法比操作数组容易一些，不用双指针模拟一前一后了
+     */
    static public void reorderList(ListNode head) {
-        Deque<ListNode> list = new ArrayDeque<>();
-        ListNode cur = head.next;
+        Deque<ListNode> list = new ArrayDeque<>(); // 使用双端队列，简化了数组的操作，代码相对于前者更简洁（避免一些边界条件）
+        ListNode cur = head.next;  // 这里是取head的下一个节点，head不需要再入队了，避免造成重复
         while(cur != null){
             list.offer(cur);
             cur = cur.next;
         }
-        int count = 0;
-        cur = head;
+        int count = 0; // 计数，偶数取后面，奇数取前面
+        cur = head;  // 回到头部
         while(!list.isEmpty()){
             ListNode node;
             if(count % 2 != 0){
-                node = list.poll();
+                node = list.poll(); // 奇数，取出队列左边头部的值
 
             }else{
-                node = list.pollLast();
+                node = list.pollLast();  // 偶数，取出队列右边尾部的值
             }
             count++;
             cur.next = node;
             cur = cur.next;
         }
-        cur.next = null;
+        cur.next = null; // 注意结尾
     }
-
+    /**
+     * 方法一: 使用数组存储节点, 把链表放进数组中，然后通过双指针法，一前一后，来遍历数组，构造链表。
+     */
     public static void reorderList0(ListNode head) {
-        List<ListNode> list = new ArrayList<>();
+        List<ListNode> list = new ArrayList<>();  // ArrayList底层是数组，可以使用下标随机访问
         ListNode cur = head;
         while(cur != null){
             list.add(cur);
             cur = cur.next;
         }
-        int i = 0, j = list.size() - 1;
+        int i = 0, j = list.size() - 1; // i j为之前前后的双指针
         while(i < j){
             list.get(i).next = list.get(j);
             i++;
@@ -60,7 +64,22 @@ public class Q143_Reorder_List {
             list.get(j).next = list.get(i);
             j--;
         }
-        list.get(i).next = null;
+        list.get(i).next = null;  // 注意结尾
+/*        int i = 0; int j = list.size() - 1;
+        while(i <= j){
+            ListNode node;
+            if(count % 2 == 0){ // 偶数
+                node = list.get(j);
+                j--;
+            }else{ // 奇数
+                node =list.get(i);
+                i++;
+            }
+            count++;
+            cur.next = node;
+            cur = cur.next;  // 每一次指针都需要移动
+        }
+        cur.next = null;*/  // 注意结尾要结束一波
     }
     /**
      * Approach 1: Reverse the Second Part of the List and Merge Two Sorted Lists
@@ -69,6 +88,7 @@ public class Q143_Reorder_List {
      * Middle of the Linked List.
      * Reverse the Second Part of the List.
      * Merge Two Sorted Lists.
+     * 方法三: 将链表分割成两个链表，然后把第二个链表反转，之后在通过两个链表拼接成新的链表。
      */
     public void reorderList_1(ListNode head) {
         ListNode fast = head, slow = head;
@@ -97,7 +117,7 @@ public class Q143_Reorder_List {
             right = curRight;
         }
     }
-
+    // 反转链表
     public ListNode reverseList(ListNode head) {
         ListNode headNode = new ListNode(0);
         ListNode cur = head;
