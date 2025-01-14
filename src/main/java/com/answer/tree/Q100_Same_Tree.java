@@ -16,9 +16,17 @@ public class Q100_Same_Tree {
         TreeNode root2 = new TreeNode(1);
         root2.left = new TreeNode(2);
         root2.right = new TreeNode(3);*/
-        System.out.println(isSameTree_2(root1, root2));
+        System.out.println(isSameTree_4(root1, root2));
     }
-
+    /**
+     * 我们要比较的是两个树（这两个树是根节点的左右子树），所以在递归遍历的过程中，也是要同时遍历两棵树
+     * 节点为空的情况有：
+     *   tree1为空，tree2不为空，不对称，return false
+     *   tree1不为空，tree2为空，不对称 return false
+     *   tree1，tree2都为空，对称，返回true
+     * 此时已经排除掉了节点为空的情况，那么剩下的就是tree1和tree2不为空的时候：
+     *   tree1、tree2都不为空，比较节点数值，不相同就return false
+     */
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null) {
             return true;
@@ -101,14 +109,14 @@ public class Q100_Same_Tree {
         }
 
         Deque<TreeNode> queue = new LinkedList<>();
-        queue.offer(p);
-        queue.offer(q);
+        queue.offer(p);  //  添加根节点p
+        queue.offer(q);  //  添加根节点q
         while (!queue.isEmpty()) {
 
             TreeNode left = queue.poll();
             TreeNode right = queue.poll();
 
-            if (left == null && right == null) {
+            if (left == null && right == null) { // 若p的节点与q的节点都为空
                 continue;
             }
             if (left == null || right == null) {
@@ -121,11 +129,34 @@ public class Q100_Same_Tree {
     /*             if (left == null || right == null || left.val != right.val) {
                     return false;
                 }*/
-            queue.offerFirst(left.left);
-            queue.offerFirst(right.left);
-            queue.offerLast(left.right);
-            queue.offerLast(right.right);
+            queue.offerFirst(left.left); // 添加p节点的左子树节点
+            queue.offerFirst(right.left); // 添加q节点的左子树节点
+            queue.offerLast(left.right); // 添加p节点的右子树节点
+            queue.offerLast(right.right); // 添加q节点的右子树节点
         }
+        return true;
+    }
+    /**
+     * 迭代法
+     */
+    static public boolean isSameTree_4(TreeNode p, TreeNode q) {
+        Deque<TreeNode> queue = new LinkedList<>(); // LinkedList可以接受null, ArrayDeque不可以
+        queue.offer(p);
+        queue.offer(q);
+        while(!queue.isEmpty()){
+            TreeNode node1= queue.poll();
+            TreeNode node2= queue.poll();
+            if(node1 == null && node2 == null) continue;
+            else if(node1 != null && node2 == null ) return false;
+            else if(node2 != null && node1 == null ) return false;
+            else if(node2.value != node1.value ) return false;
+
+            queue.offer(node1.left);
+            queue.offer(node2.left);
+            queue.offer(node1.right);
+            queue.offer(node2.right);
+        }
+
         return true;
     }
 }

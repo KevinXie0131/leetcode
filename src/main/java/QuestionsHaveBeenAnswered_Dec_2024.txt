@@ -74,7 +74,7 @@ Binary Tree
 226. Invert Binary Tree
 
 101. Symmetric Tree
-    - 101. Symmetric Tree
+    - 100. Same Tree
     - 572. Subtree of Another Tree
 104. Maximum Depth of Binary Tree
     - 559. Maximum Depth of N-ary Tree
@@ -152,3 +152,6 @@ Extra
            844. Backspace String Compare
     Tree:
            129. Sum Root to Leaf Numbers
+           1382. Balance a Binary Search Tree
+           100. Same Tree
+           116. Populating Next Right Pointers in Each Node
