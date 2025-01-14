@@ -138,6 +138,8 @@ Extra
            34. Find First and Last Position of Element in Sorted Array
            922. Sort Array By Parity II
            35. Search Insert Position
+           Q31. Next Permutation
+           463. Island Perimeter
     LInkedList
            24. Swap Nodes in Pairs
            234. Palindrome Linked List
@@ -150,8 +152,13 @@ Extra
     String:
            925. Long Pressed Name
            844. Backspace String Compare
+           657. Robot Return to Origin
     Tree:
            129. Sum Root to Leaf Numbers
            1382. Balance a Binary Search Tree
            100. Same Tree
            116. Populating Next Right Pointers in Each Node
+    Backtraking:
+           52. N-Queens II
+    Math:
+           1356. Sort Integers by The Number of 1 Bits
