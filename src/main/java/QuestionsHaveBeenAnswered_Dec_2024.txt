@@ -147,5 +147,8 @@ Extra
     HashMap:
            205. Isomorphic Strings
            1002. Find Common Characters
+    String:
+           925. Long Pressed Name
+           844. Backspace String Compare
     Tree:
            129. Sum Root to Leaf Numbers
