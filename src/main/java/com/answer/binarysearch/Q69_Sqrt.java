@@ -33,7 +33,7 @@ public class Q69_Sqrt {
         return result;
     }
     /**
-     *
+     * 同上
      */
     public int mySqrt(int x) {
         int left = 0, right = x;
@@ -49,7 +49,7 @@ public class Q69_Sqrt {
         return left - 1;
     }
     /**
-     *
+     * 同上
      */
     public int mySqrt_1(int x) {
         if (x < 2) return x;
@@ -65,5 +65,23 @@ public class Q69_Sqrt {
         }
 
         return right;
+    }
+    /**
+     * 方法三：牛顿迭代
+     */
+    public int mySqrt4(int x) {
+        if (x == 0) {
+            return 0;
+        }
+
+        double C = x, x0 = x;
+        while (true) {
+            double xi = 0.5 * (x0 + C / x0);
+            if (Math.abs(x0 - xi) < 1e-7) {
+                break;
+            }
+            x0 = xi;
+        }
+        return (int) x0;
     }
 }
