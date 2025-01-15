@@ -113,10 +113,12 @@ public class Q69_Sqrt {
      *  牛顿迭代 另一种形式
      */
     public int mySqrt6(int x) {
-        int r = x;
-        while(r * r > x){
+        if (x ==0) return 0;
+
+        long r = x;
+        while(r  > x / r){ // 用除法，不用乘法，防止int大数值
             r = (r + x / r) / 2;
         }
-        return r;
+        return (int)r;
     }
 }
