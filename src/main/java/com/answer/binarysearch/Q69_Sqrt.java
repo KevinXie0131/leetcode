@@ -109,4 +109,14 @@ public class Q69_Sqrt {
             return f(x, res); // 否则，继续迭代
         }
     }
+    /**
+     *  牛顿迭代 另一种形式
+     */
+    public int mySqrt6(int x) {
+        int r = x;
+        while(r * r > x){
+            r = (r + x / r) / 2;
+        }
+        return r;
+    }
 }
