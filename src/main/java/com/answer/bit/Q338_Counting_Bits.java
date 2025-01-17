@@ -24,7 +24,7 @@ public class Q338_Counting_Bits {
      * 1010 & 1001 = 1000
      * 1000 & 0111 = 0
      */
-    public int count(int x){
+    public int count(int x){ // 位运算
         int count = 0;
         while(x > 0){
             x = x & (x - 1); // zeroing out the least significant nonzero bit
@@ -32,6 +32,16 @@ public class Q338_Counting_Bits {
         }
 
         return count;
+    }
+    /**
+     * 另一种形式(时间复杂度：O(n))
+     */
+    public int[] countBits1(int n) {
+        int[] res = new int[n + 1];
+        for(int i = 1; i <= n; i++){
+            res[i] = res[i  & (i -1)] + 1;
+        }
+        return res;
     }
     /**
      * Approach 2: DP + Most Significant Bit

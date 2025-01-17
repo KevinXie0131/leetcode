@@ -67,11 +67,11 @@ public class Q231_Power_of_Two {
     }
 
     /**
-     * Bit manipulation
+     * Bit manipulation 位运算
      * Approach 2: Bitwise operators : Turn off the Rightmost 1-bit
      */
     public static boolean isPowerOfTwo_2(int n) {
-        return n > 0 && (n & (n - 1)) == 0;
+        return n > 0 && (n & (n - 1)) == 0;  // For example: 1000 & 0111 = 0
         // return n > 0 && (n & -n) == n;
     }
     /**
