@@ -65,7 +65,7 @@ public class Q2_Add_Two_Numbers {
      * 递归法(另一种形式)
      */
     public static ListNode addTwoNumbers_2(ListNode l1, ListNode l2) {
-        ListNode result = recursion(l1, l2, 0);
+        ListNode result = recursion0(l1, l2, 0);
        return result;
     }
 
@@ -98,6 +98,32 @@ public class Q2_Add_Two_Numbers {
         ListNode cur2 = l2 == null ? null : l2.next;
         head.next = recursion(cur1, cur2, sum / 10);
 
+        return head;
+    }
+    /**
+     * 用新节点防止出现null
+     */
+    public static ListNode recursion0(ListNode l1, ListNode l2 , int carry){
+        if(l1 == null && l2 != null) {
+            if(carry > 0) {
+                l2.val = l2.val + carry;
+                carry = 0;
+            }
+            l1 = new ListNode(0); // 用新节点防止出现null
+        }
+        if(l2 == null && l1 != null) {
+            if(carry > 0) {
+                l1.val = l1.val + carry;
+                carry = 0;
+            }
+            l2 = new ListNode(0);  // 用新节点防止出现null
+        }
+        if(l1 == null && l2 == null){
+            return carry > 0 ? new ListNode(carry) : null;
+        }
+        int sum = l1.val + l2.val + carry;
+        ListNode head = new ListNode(sum % 10);
+        head.next = recursion(l1.next, l2.next, sum / 10);
         return head;
     }
     /**

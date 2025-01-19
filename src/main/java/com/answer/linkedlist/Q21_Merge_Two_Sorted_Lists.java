@@ -12,8 +12,29 @@ public class Q21_Merge_Two_Sorted_Lists {
         ListNode node2a = new ListNode(3, node3a);
         ListNode node1a = new ListNode(1,node2a);
 
-        ListNode result = mergeTwoLists(node1, node1a);
+        ListNode result = mergeTwoLists0(node1, node1a);
         result.print();
+    }
+    /**
+     * 递归（另一种形式）
+     */
+    public static ListNode mergeTwoLists0(ListNode list1, ListNode list2) {
+        ListNode result =  resurse(list1, list2);
+        return result;
+    }
+
+    public static ListNode resurse(ListNode list1, ListNode list2 ){
+        if(list1 == null){
+            return list2;
+        }
+        if(list2 == null){
+            return list1;
+        }
+
+        ListNode head = new ListNode(); //创建一个新节点
+        head.val = list1.val < list2.val ? list1.val: list2.val;
+        head.next = list1.val < list2.val ? resurse(list1.next, list2) : resurse(list1, list2.next);
+        return head;
     }
     /**
      * Recursive
