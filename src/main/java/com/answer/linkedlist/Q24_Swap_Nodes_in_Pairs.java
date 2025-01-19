@@ -114,6 +114,20 @@ public class Q24_Swap_Nodes_in_Pairs {
         return dummy.next;
     }
     /**
+     * 递归
+     */
+    public ListNode swapPairs_Recursive_0(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        ListNode next = head.next;
+        head.next = swapPairs_Recursive_0(head.next.next);
+        next.next = head;
+
+        return next;
+    }
+    /**
      * Recursive - from head to tail
      */
     public static ListNode swapPairs_Recursive(ListNode head) {
@@ -125,7 +139,7 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode newNode = head.next;
         newNode.next = head;
 
-        head.next = swapPairs_Recursive(nextNextNode);
+        head.next = swapPairs_Recursive(nextNextNode); // 相当于head.next = swapPairs_Recursive(head.next.next);
 
         return newNode;
 
