@@ -13,7 +13,11 @@ public class Q22_Generate_Parentheses {
         backtracking(new StringBuffer(), n,n, result);
         return result;
     }
-
+    /**
+     * l >= r Valid
+     * l < r Invalid
+     * l == r == n Add in result
+     */
     public void backtracking(StringBuffer sb, int left, int right, List<String> result){
         if(left == 0 && right == 0){
             result.add(sb.toString());
@@ -54,7 +58,7 @@ public class Q22_Generate_Parentheses {
             backtracking1(sb, left + 1, right, n, result);
             sb.deleteCharAt(sb.length() - 1);
         }
-        if(right < n && left > right){
+        if(right < n && left > right){ // if(right < left){ // 相同作用
             sb.append(")");
             backtracking1(sb, left, right + 1,n, result);
             sb.deleteCharAt(sb.length() - 1);

@@ -43,10 +43,14 @@ public class Q21_Merge_Two_Sorted_Lists {
         if(list1 == null){
             return list2;
         }
-        else if(list2 == null){
+        if(list2 == null){
             return list1;
         }
-        else if(list1.val < list2.val){
+/*        if(list1 == null || list2 == null){ // 同上
+            return list1 == null ? list2 : list1;
+        }*/
+
+        if(list1.val < list2.val){
             list1.next = mergeTwoLists(list1.next, list2);
             return list1;
         }
