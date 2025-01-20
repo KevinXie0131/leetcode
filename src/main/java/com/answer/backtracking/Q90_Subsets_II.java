@@ -53,6 +53,7 @@ public class Q90_Subsets_II {
     }
     /**
      * 扩展法（暴力求解）
+     * 需要排序和去重
      */
     public List<List<Integer>> subsetsWithDup1(int[] nums) {
         HashSet<List<Integer>> set= new HashSet<>();
