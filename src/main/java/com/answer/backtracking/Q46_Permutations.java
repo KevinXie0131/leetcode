@@ -24,7 +24,7 @@ public class Q46_Permutations {
     public void backtracking(int[] nums, int[] used, List<List<Integer>> result, Deque<Integer> path){
         // 当收集元素的数组path的大小达到和nums数组一样大的时候，说明找到了一个全排列，也表示到达了叶子节点。
         if (path.size() == nums.length) {  // 此时说明找到了⼀组
-            result.add(new ArrayList<Integer>(path));
+            result.add(new ArrayList<Integer>(path)); // 避免引用传递
             return;
         }
         for(int i = 0; i < nums.length; i++){ // 最大的不同就是for循环里不用startIndex了
