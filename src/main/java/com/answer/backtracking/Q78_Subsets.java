@@ -5,7 +5,7 @@ import java.util.*;
 public class Q78_Subsets {
     public static void main(String[] args) {
         int[] nums = {1,2,3};
-        System.out.println(subsets(nums));
+        System.out.println(subsets_3(nums));
     }
     /**
      * 求子集问题和77.组合  和131.分割回文串 又不一样了。
@@ -39,5 +39,49 @@ public class Q78_Subsets {
             backtracking(nums, i + 1); // 注意从i+1开始，元素不重复取
             path.removeLast();                   // 回溯
         }
+    }
+    /**
+     * 思路二：循环枚举
+     * 逐个枚举，空集的幂集只有空集，每增加一个元素，让之前幂集中的每个集合，追加这个元素，就是新增的子集。
+     */
+    public static List<List<Integer>> subsets_2(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        res.add(new ArrayList<Integer>());
+        for (Integer n : nums) {
+            int size = res.size();
+            for (int i = 0; i < size; i++) {
+                List<Integer> newSub = new ArrayList<Integer>(res.get(i));
+                newSub.add(n);
+                res.add(newSub);
+                System.out.println(newSub);
+            }
+        }
+        return res;
+    }
+    /**
+     * 思路三：DFS
+     * 集合中每个元素的选和不选，构成了一个满二叉状态树，比如，左子树是不选，右子树是选，从根节点、到叶子节点的所有路径，构成了所有子集。
+     * 可以有前序、中序、后序的不同写法，结果的顺序不一样。本质上，其实是比较完整的中序遍历。
+     */
+    public static List<List<Integer>> subsets_3(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        ArrayList<Integer> subset = new ArrayList<Integer>();
+        inOrder(nums, 0, subset, res);
+        return res;
+
+    }
+    // 中序遍历
+    public static  void inOrder(int[] nums, int i, ArrayList<Integer> subset, List<List<Integer>> res) {
+        subset = new ArrayList<>(subset);
+        System.out.println(subset);
+
+        if (i == nums.length) { // 一直走到底
+            System.out.println("-> " + subset);
+            res.add(subset);
+            return;
+        }
+        inOrder(nums, i + 1, subset, res);
+        subset.add(nums[i]);
+        inOrder(nums, i + 1, subset, res);
     }
 }
