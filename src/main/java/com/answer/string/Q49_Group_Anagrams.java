@@ -3,15 +3,15 @@ package com.answer.string;
 import java.util.*;
 
 public class Q49_Group_Anagrams {
-
     /**
      * Approach 1: Categorize by Sorted String
+     * 排序法 (时间复杂度：NKlogK 空间复杂度：NK)
      */
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
         for(String s : strs) {
             char[] arr = s.toCharArray();
-            Arrays.sort(arr);
+            Arrays.sort(arr); // KlogK
             String key = new String(arr);
             //    String key = String.valueOf(arr);
             List<String> list = map.getOrDefault(key, new ArrayList<String>());
@@ -22,12 +22,16 @@ public class Q49_Group_Anagrams {
             */
             list.add(s);
             map.put(key, list);
+/*            if(!map.containsKey(key)){ // 这个也可以
+                map.put(key, new ArrayList<String>());
+            }
+            map.get(key).add(s);*/
         }
-
         return new ArrayList<List<String>>(map.values());
     }
     /**
      * Approach 2: Categorize by Count
+     * 哈希法 (时间复杂度：NK 空间复杂度：NK)
      */
     public List<List<String>> groupAnagrams_1(String[] strs) {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
@@ -44,6 +48,10 @@ public class Q49_Group_Anagrams {
                     sb.append((char) ('a' + i));
                     sb.append(counts[i]);
                 }
+               /* for (int i = 0; i < 26; i++) { // 有数字加#的组合作为key
+                    sb.append(counts[i]);
+                    sb.append("#");
+                }*/
             }
             String key = sb.toString();
             List<String> list = map.getOrDefault(key, new ArrayList<String>());
@@ -51,6 +59,5 @@ public class Q49_Group_Anagrams {
             map.put(key, list);
         }
         return new ArrayList<List<String>>(map.values());
-
     }
 }
