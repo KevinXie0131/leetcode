@@ -46,6 +46,7 @@ public class Q35_Search_Insert_Position {
         return right + 1; //必须要有+1. nums = [1,3,5,6] target = 2
         // return left 也可以工作
         // return left;
+        //return (left < nums.length && nums[left] < target) ? left + 1 : left; // 这个也可以，可以保证输出
     }
     /**
      * 第二种二分法：左闭右开
