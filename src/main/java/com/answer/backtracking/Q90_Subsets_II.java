@@ -74,4 +74,31 @@ public class Q90_Subsets_II {
         }
         return res;
     }
+    /**
+     * DFS 方法二：递归法实现子集枚举
+     * 在递归时，若发现没有选择上一个数，且当前数字与上一个数相同，则可以跳过当前生成的子集。
+     */
+    public List<List<Integer>> subsetsWithDup2(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        ArrayList<Integer> subset = new ArrayList<Integer>();
+        Arrays.sort(nums); // 数组排序
+
+        inOrder(false,nums, 0, subset, res);
+        return res;
+    }
+
+    public void inOrder(boolean choosePre,int[] nums, int i, ArrayList<Integer> subset, List<List<Integer>> res) {
+        subset = new ArrayList<>(subset);
+
+        if (i == nums.length) {
+            res.add(subset);
+            return;
+        }
+        inOrder(false, nums, i + 1, subset, res); //没有选择
+        if (!choosePre && i > 0 && nums[i] == nums[i - 1]) {
+            return; // 若发现没有选择上一个数，且当前数字与上一个数相同，则可以跳过当前生成的子集
+        }
+        subset.add(nums[i]);
+        inOrder(true, nums, i + 1, subset, res);  //选择
+    }
 }
