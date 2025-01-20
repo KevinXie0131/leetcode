@@ -10,8 +10,10 @@ public class Q27_Remove_Element {
        System.out.println(result);
 
     }
+    /**
+     * 双指针
+     */
     public int removeElement(int[] nums, int val) {
-
         int slowIndex = 0;
 
         for(int fastIndex = 0; fastIndex < nums.length; fastIndex++){
@@ -20,7 +22,6 @@ public class Q27_Remove_Element {
                 slowIndex++;
             }
         }
-
         return slowIndex;
     }
     //相向双指针法
@@ -59,5 +60,26 @@ public class Q27_Remove_Element {
         }
 
         return left;
+    }
+    /**
+     * 另一种形式
+     */
+    public int removeElement3(int[] nums, int val) {
+        if(nums.length == 0) return 0;
+
+        int left = 0;
+        int right = nums.length - 1;
+        while(left < right) {
+            while(left < right && nums[left] != val) {
+                left++;
+            }
+            while(right > left && nums[right] == val) {
+                right--;
+            }
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        }
+        return nums[left] == val ? left : left + 1; // nums = {2} val = 3
     }
 }

@@ -43,7 +43,7 @@ public class Q35_Search_Insert_Position {
         // 目标值等于数组中某一个元素  return middle;
         // 目标值插入数组中的位置 [left, right]，return  right + 1
         // 目标值在数组所有元素之后的情况 [left, right]， 因为是右闭区间，所以 return right + 1
-        return right + 1;
+        return right + 1; //必须要有+1. nums = [1,3,5,6] target = 2
         // return left 也可以工作
         // return left;
     }
@@ -68,5 +68,6 @@ public class Q35_Search_Insert_Position {
         // 目标值插入数组中的位置 [left, right) ，return right 即可
         // 目标值在数组所有元素之后的情况 [left, right)，因为是右开区间，所以 return right
         return right;
+        // return left; // 也可以工作
     }
 }
