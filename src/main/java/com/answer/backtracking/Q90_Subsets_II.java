@@ -37,7 +37,7 @@ public class Q90_Subsets_II {
             while (j > 0) {
                 if (nums[i] == nums[j - 1] && used[j-1] == 0) { //used[j-1] 没有使用过
                     isFoundSame = true;
-                    break;
+                    break; // 因为在while里面，所以需要break
                 }
                 j--;
             }
