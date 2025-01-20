@@ -27,6 +27,7 @@ public class Q46_Permutations {
             result.add(new ArrayList<Integer>(path)); // 避免引用传递
             return;
         }
+        // i 是从0开始的，这个和Combination不同
         for(int i = 0; i < nums.length; i++){ // 最大的不同就是for循环里不用startIndex了
             if( used[i] == 1){ // used数组，其实就是记录此时path里都有哪些元素使用了，一个排列里一个元素只能使用一次
                 continue; // path⾥已经收录的元素，直接跳过
