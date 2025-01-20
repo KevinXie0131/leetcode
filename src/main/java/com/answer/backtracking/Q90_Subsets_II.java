@@ -73,6 +73,8 @@ public class Q90_Subsets_II {
             }
         }
         return res;
+/*      HashSet<List<Integer>> set= new HashSet<>(res); // 这样也可以去重
+        return  new ArrayList<List<Integer>>(set);   */
     }
     /**
      * DFS 方法二：递归法实现子集枚举
