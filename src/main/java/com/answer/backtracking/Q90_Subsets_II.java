@@ -51,5 +51,26 @@ public class Q90_Subsets_II {
             path.removeLast();
         }
     }
+    /**
+     * 扩展法（暴力求解）
+     */
+    public List<List<Integer>> subsetsWithDup1(int[] nums) {
+        HashSet<List<Integer>> set= new HashSet<>();
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        res.add(new ArrayList<Integer>());
 
+        Arrays.sort(nums); //排序. 如果不排序，如果输入为[2,1,2]，会产生[2,1]和[1,2]
+
+        for (Integer n : nums) {
+            int size = res.size();
+            for (int i = 0; i < size; i++) {
+                List<Integer> newSub = new ArrayList<Integer>(res.get(i));
+                newSub.add(n);
+                if(set.add(newSub)){ //HashSet去重
+                    res.add(newSub);
+                }
+            }
+        }
+        return res;
+    }
 }
