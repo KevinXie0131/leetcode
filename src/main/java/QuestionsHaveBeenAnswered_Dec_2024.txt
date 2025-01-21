@@ -125,6 +125,15 @@ Backtracking
 Greedy
 455. Assign Cookies
 
+Dynamic Programming
+
+Monotonic Stack
+739. Daily Temperatures
+496. Next Greater Element I
+503. Next Greater Element II
+42. Trapping Rain Water
+84. Largest Rectangle in Histogram
+
 Graph
 
 Extra
