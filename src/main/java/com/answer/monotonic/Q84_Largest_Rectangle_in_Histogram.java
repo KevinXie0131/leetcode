@@ -8,6 +8,26 @@ public class Q84_Largest_Rectangle_in_Histogram {
         System.out.println(largestRectangleArea_1(heights));
     }
     /**
+     * 暴力解法 (超时，因为时间复杂度是$O(n^2))
+     */
+    public int largestRectangleArea1(int[] heights) {
+        int sum = 0;
+        for (int i = 0; i < heights.length; i++) {
+            int left = i;
+            int right = i;
+            for (; left >= 0; left--) {
+                if (heights[left] < heights[i]) break;
+            }
+            for (; right < heights.length; right++) {
+                if (heights[right] < heights[i]) break;
+            }
+            int w = right - left - 1;
+            int h = heights[i];
+            sum = Math.max(sum, w * h);
+        }
+        return sum;
+    }
+    /**
      * Approach 1: Brute Force
      */
     public static int largestRectangleArea(int[] heights) {
