@@ -72,10 +72,10 @@ public class Q42_Trapping_Rain_Water {
     public int trap3(int[] height) {
         int sum = 0;
         Deque<Integer> stack = new LinkedList<>(); // 存着下标，计算的时候用下标对应的柱子高度
-        stack.push(0); // if there is no this line of code, !stack.isEmpty() should be added in the following code.
+        stack.push(0); // 如果没有这行 !stack.isEmpty()要加在情况一和情况二中
 
         for(int i = 1; i < height.length; i++){
-            if(height[i] < height[stack.peek()]){   // 情况一 (保持从小到大的顺序（从栈头到栈底）)
+            if(height[i] < height[stack.peek()]){   // 情况一 (保持从小到大的顺序（从栈顶到栈底）)
                 stack.push(i);
             }else if(height[i] == height[stack.peek()]){   // 情况二(例如 5 5 1 7)(遇到相同的元素，更新栈内下标，就是将栈里元素（旧下标）弹出，将新元素（新下标）加入栈中)
                 stack.pop(); // 其实这一句可以不加，效果是一样的，但处理相同的情况的思路却变了
