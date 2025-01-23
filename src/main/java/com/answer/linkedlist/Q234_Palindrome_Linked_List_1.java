@@ -25,7 +25,7 @@ public class Q234_Palindrome_Linked_List_1 {
             slow = slow.next;
             fast = fast.next.next;
         }
-        if(fast != null){
+        if(fast != null){ // 如果链表元素是奇数
             slow = slow.next;
         }
         slow = reverse(slow);
