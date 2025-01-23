@@ -64,11 +64,11 @@ public class Q208_Implement_Trie_Prefix_Tree {
         private Node root;
 
         public Trie1() {
-            root = new Node();
+            root = new Node(); // 根节点
         }
-
+        // 相当于生成了一条移动方向为「左-左-右」的路径。标记最后一个节点为终止节点
         public void insert(String word) {
-            Node cur = root;
+            Node cur = root; // 初始值为 root
             for (char ch : word.toCharArray()) {
                 int index = ch - 'a';
                 if (cur.children[index] == null) {
@@ -76,20 +76,20 @@ public class Q208_Implement_Trie_Prefix_Tree {
                 }
                 cur = cur.children[index];
             }
-            cur.isEnd = true;
+            cur.isEnd = true; // 遍历结束，把 cur 的 end 标记为 true。
         }
-
+        // 相当于查找二叉树中是否存在一条移动方向为「左-左-右」的路径，且最后一个节点是终止节点
         public boolean search(String word) {
             Node node = find(word);
             return node != null && node.isEnd;
         }
-
+        // 相当于查找二叉树中是否存在一条移动方向为「左-左」的路径，无其他要求
         public boolean startsWith(String prefix) {
             return find(prefix) != null;
         }
 
         private Node find(String word) {
-            Node cur = root;
+            Node cur = root; // 初始值为 root
             for (char ch : word.toCharArray()) {
                 int index = ch - 'a';
                 if (cur.children[index] == null) {
@@ -101,7 +101,7 @@ public class Q208_Implement_Trie_Prefix_Tree {
         }
     }
     class Node {
-        Node[] children = new Node[26];
+        Node[] children = new Node[26]; // 26 叉树 / 对于 26 叉树的每个节点，可以用哈希表，或者长为 26 的数组来存储子节点
         boolean isEnd;
     }
 }
