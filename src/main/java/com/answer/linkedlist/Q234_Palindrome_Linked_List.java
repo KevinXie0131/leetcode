@@ -12,7 +12,7 @@ public class Q234_Palindrome_Linked_List {
         System.out.println(isPalindrome(node1));
     }
     /**
-     * 递归（另一种形式）
+     * 递归（另一种形式）+ 双指针
      */
     ListNode root2 = null;
 
@@ -55,7 +55,6 @@ public class Q234_Palindrome_Linked_List {
         }else {
             res = false;;
         }
-
     }
     /**
      * Recursion
@@ -80,6 +79,7 @@ public class Q234_Palindrome_Linked_List {
     }
     /**
      * 最直接的想法，就是把链表装成数组，然后再判断是否回文。
+     * 数组 + 双指针
      */
     public boolean isPalindrome2(ListNode head) {
         List<ListNode> list = new ArrayList<>();
@@ -98,7 +98,6 @@ public class Q234_Palindrome_Linked_List {
         }
         return true;
     }
-
     /**
      * 方法二，快慢指针
      * 用快慢指针，快指针有两步，慢指针走一步，快指针遇到终止位置时，慢指针就在链表中间位置
