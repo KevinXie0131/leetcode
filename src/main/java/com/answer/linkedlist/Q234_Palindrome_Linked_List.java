@@ -34,6 +34,28 @@ public class Q234_Palindrome_Linked_List {
         return isFound;
     }
     /**
+     * 递归+ 双指针 （另一种形式）
+     */
+    ListNode root3 = null;
+    public boolean isPalindrome5(ListNode head) {
+        if(head == null || head.next == null) return true;
+        root3 = head;
+        return dfs_3(head);
+    }
+    public boolean dfs_3(ListNode node){
+        if(node == null) {
+            return true;
+        }
+        if(!dfs_3(node.next)){
+            return false;
+        }
+        if(root3.val != node.val){
+            return false;
+        }
+        root3 = root3.next;
+        return true;
+    }
+    /**
      * Recursion
      */
     static ListNode root = null;
