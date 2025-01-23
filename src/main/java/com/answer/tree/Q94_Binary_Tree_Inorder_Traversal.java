@@ -5,6 +5,16 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q94_Binary_Tree_Inorder_Traversal {
+    public static void main(String[] args) {
+        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(2);
+        root1.right = new TreeNode(3);
+        root1.left.left = new TreeNode(4);
+        root1.left.right = new TreeNode(5);
+        root1.right.right = new TreeNode(7);
+        List<Integer> list = inorderTraversal_1(root1);
+        System.out.println(list);
+    }
     /**
      * 中序遍历（迭代法）
      * 中序遍历是左中右，先访问的是二叉树顶部的节点，然后一层一层向下访问，直到到达树左面的最底部，再开始处理节点（也就是在把节点的数值放进result数组中），
@@ -40,7 +50,7 @@ public class Q94_Binary_Tree_Inorder_Traversal {
      * 遍历 (迭代法) 模板
      * 记录节点值的位置不同
      */
-    public List<Integer> inorderTraversal_1(TreeNode node) {
+    static public List<Integer> inorderTraversal_1(TreeNode node) {
         List<Integer> list = new ArrayList<>();
         Deque<TreeNode> stack = new ArrayDeque<>();
 
@@ -55,6 +65,31 @@ public class Q94_Binary_Tree_Inorder_Traversal {
             node = cur.right; // 右
         }
         return list;
+    }
+    /**
+     *   如下代码也可以替代line 63-65
+     *   node = stack.pop();
+     *   list.add(node.val);
+     *   node = node.right;
+     */
+    /**
+     * 1->
+     * 2->1->
+     * 4->2->1->
+     * 2->1->
+     * 1->
+     * 5->1->
+     * 1->
+     * 3->
+     * 7->
+     */
+    static public void printAll( Deque<TreeNode> stack){
+        Iterator it = stack.iterator();
+        while(it.hasNext()) {
+            TreeNode cur =  (TreeNode)it.next();
+            System.out.print(cur.value + "->");
+        }
+        System.out.println();
     }
     /**
      * 统一迭代法 中序遍历
