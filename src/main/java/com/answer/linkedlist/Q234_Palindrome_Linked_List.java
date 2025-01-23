@@ -37,7 +37,7 @@ public class Q234_Palindrome_Linked_List {
      * Recursion
      */
     static ListNode root = null;
-    static boolean res = true;
+    static boolean res = true; //怎加一个全局变量
 
     static public boolean isPalindrome(ListNode head) {
         if(head == null || head.next == null) return true;
