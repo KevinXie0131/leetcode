@@ -12,9 +12,8 @@ public class Q234_Palindrome_Linked_List_1 {
         ListNode node1= new ListNode(1,node2);
         System.out.println(isPalindrome_3(node1));
     }
-
     /**
-     * Approach 3: Reverse Second Half In-place
+     * Approach 3: Reverse Second Half In-place 快慢指针
      * Find mid node + reverse + compare
      */
     public static boolean isPalindrome(ListNode head) {
@@ -53,7 +52,7 @@ public class Q234_Palindrome_Linked_List_1 {
         return pre;
     }
     /**
-     * Use stack
+     * Use stack 使用栈
      */
     static public boolean isPalindrome_1(ListNode head) {
         Deque<ListNode> stack = new ArrayDeque<>();
@@ -69,12 +68,11 @@ public class Q234_Palindrome_Linked_List_1 {
             }
             temp = temp.next;
         }
-
         return true;
     }
     /**
      * Approach 1: Copy into Array List and then Use Two Pointer Technique
-     * use list and two pointers.
+     * use list and two pointers. 使用队列和双指针
      */
     public static boolean isPalindrome_3(ListNode head) {
         List<ListNode> list = new ArrayList<>();
@@ -92,5 +90,4 @@ public class Q234_Palindrome_Linked_List_1 {
         }
         return true;
     }
-
 }
