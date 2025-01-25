@@ -11,23 +11,26 @@ public class Q56_Merge_Intervals {
         }
     }
     /**
-     * Approach 2: Sorting
+     * Approach 2: Sorting 排序法(按照开始时间)
+     * Time complexity: O(logn) Space complexity: O(n)
      */
     public static int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, (v1, v2)->v1[0] - v2[0]);
         int[][] res = new int[intervals.length][2];
         int index = -1;
         for(int[] interval : intervals){
-            if(index == -1 || res[index][1] < interval[0]){
+            if(index == -1 || res[index][1] < interval[0]){ // 开始时间比结束时间大
                 index++;
-                res[index] = interval;
-            }else{
-                res[index][1] = Math.max(res[index][1], interval[1]);
+                res[index] = interval; // 没有overlapping, 直接放入
+            }else{ // 开始时间比结束时间小
+                res[index][1] = Math.max(res[index][1], interval[1]); // 有overlapping，应该merge
             }
         }
-        return Arrays.copyOf(res, index + 1);
+        return Arrays.copyOf(res, index + 1); // 去除空余array
     }
-
+    /**
+     * 排序法
+     */
     public static int[][] merge_1(int[][] intervals) {
         List<int[]> res = new ArrayList<>();
         if (intervals.length == 0 || intervals == null) {
@@ -52,7 +55,7 @@ public class Q56_Merge_Intervals {
         return res.toArray(new int[0][]); //toArray方法中的参数只是为了说明返回数组的元素类型，并不需要开辟空间
     }
     /**
-     *
+     * 排序法, 使用LinkedList
      */
     public static int[][] merge_2(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
@@ -71,5 +74,22 @@ public class Q56_Merge_Intervals {
         }
      //   return merged.toArray(new int[merged.size()][]);
         return merged.toArray(new int[0][]);
+    }
+    /**
+     * 排序法, 使用ArrayList
+     */
+    public int[][] merge5(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        ArrayList<int[]> merged = new ArrayList<>();
+        for (int[] interval : intervals) {
+            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < interval[0]) {
+                merged.add(interval);
+            }
+            else {
+                merged.get(merged.size() - 1)[1]  = Math.max(merged.get(merged.size() - 1)[1], interval[1]);
+            }
+        }
+        //  return merged.toArray(new int[0][2]);
+        return merged.toArray(new int[merged.size()][2]);
     }
 }
