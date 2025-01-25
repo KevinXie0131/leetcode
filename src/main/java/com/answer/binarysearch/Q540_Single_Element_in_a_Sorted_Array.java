@@ -66,4 +66,24 @@ public class Q540_Single_Element_in_a_Sorted_Array {
         }
         return result;
     }
+    /**
+     * 方法一：全数组的二分查找
+     * 如果 mid 是偶数，则比较 nums[mid] 和 nums[mid+1] 是否相等；
+     * 如果 mid 是奇数，则比较 nums[mid−1] 和 nums[mid] 是否相等。
+     * 利用按位异或的性质，可以得到 mid 和相邻的数之间的如下关系，其中 ⊕ 是按位异或运算符：
+     *     当 mid 是偶数时，mid+1=mid⊕1；
+     *     当 mid 是奇数时，mid−1=mid⊕1。
+     */
+    public int singleNonDuplicate4(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        while (low < high) {
+            int mid = (high - low) / 2 + low;
+            if (nums[mid] == nums[mid ^ 1]) { //不需要判断 mid 的奇偶性，mid 和 mid⊕1 即为每次需要比较元素的两个下标。
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return nums[low];
+    }
 }
