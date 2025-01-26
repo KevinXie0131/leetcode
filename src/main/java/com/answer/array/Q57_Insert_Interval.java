@@ -22,7 +22,7 @@ public class Q57_Insert_Interval {
             index++;
         }
         // 当前遍历是有重叠的区间
-        //  步骤二： 接着判断当前区间是否与新区间重叠，重叠的话就进行合并，直到遍历到当前区间在新区间的右边且相离，
+        // 步骤二： 接着判断当前区间是否与新区间重叠，重叠的话就进行合并，直到遍历到当前区间在新区间的右边且相离，
         while(index < len && intervals[index][0] <= newInterval[1]){ // 将所有相交区间连带上区间newInterval合并成一个大区间；
             newInterval[0] = Math.min(newInterval[0], intervals[index][0]); //左端取较小者
             newInterval[1] = Math.max(newInterval[1], intervals[index][1]); //右端取较大者
@@ -61,5 +61,29 @@ public class Q57_Insert_Interval {
             }
         }
         return Arrays.copyOf(res, index + 1);
+    }
+    /**
+     *  同上 但使用ArrayList
+     */
+    public int[][] insert2(int[][] intervals, int[] newInterval) {
+        ArrayList<int[]> result = new ArrayList<>();
+        ArrayList<int[]> temp = new ArrayList<>();
+
+        for(int[] i : intervals){
+            temp.add(i);
+        }
+        temp.add(newInterval);
+        // Q56的解法
+        temp.sort((v1, v2)->v1[0] - v2[0]);
+        int index = -1;
+        for(int[] interval : temp){
+            int[] last = result.size() == 0 ? new int[]{-1, -1} : result.get(result.size() - 1);
+            if (result.isEmpty() || last[1] < interval[0]) {
+                result.add(interval);
+            }else{ // 开始时间比结束时间小
+                last[1] = Math.max(last[1], interval[1]);
+            }
+        }
+        return result.toArray(new int[result.size()][2]);
     }
 }
