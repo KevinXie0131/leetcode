@@ -36,7 +36,15 @@ public class Q162_Find_Peak_Element {
         }
     }
     /**
-     * Approach 3: Iterative Binary Search
+     * Approach 3: Iterative Binary Search 二分查找
+     * 如果 nums[i]<nums[i+1]，那么我们往右走；
+     * 如果 nums[i]>nums[i+1]，那么我们往左走。
+     *
+     * 如果nums[mid] > nums[mid + 1]，那么在[l, mid]这个区间内一定存在一个峰值。因为[l,mid]这一段如果是单调递减的话，
+     * 那么nums[l]就是峰值，否则第一个出现上升的点就是峰值。
+     *
+     * 如果nums[mid] < nums[mid + 1]，那么在[mid+1, r]这个区间内一定存在一个峰值。
+     * 因为[mid+1,r]这一段如果是单调递增的话，那么nums[r]就是峰值，否则第一个出现下降的点就是峰值。
      */
     public int findPeakElement_2(int[] nums) {
         int left = 0;
@@ -45,13 +53,17 @@ public class Q162_Find_Peak_Element {
         while(left < right){
             int mid = (left + right) >>> 1;
             if(nums[mid] < nums[mid + 1]){
-                left = mid + 1;
+                left = mid + 1; // 因为峰值至少为mid + 1
             } else {
-                right = mid;
+                // 假设当前分割点 mid 满足关系 num[mid]>nums[mid+1] 的话，一个很简单的想法是 num[mid] 可能为峰值，
+                // 而 nums[mid+1] 必然不为峰值，于是让 r=mid，从左半部分继续找峰值。
+                right = mid; // 因为right没有-1， 所以left < right
             }
         }
-
         return left;
+        // return right; // works too
+        // return nums[right] > nums[left] ? right : left; //  works too. and safer
+
     }
     /**
      * Template II
