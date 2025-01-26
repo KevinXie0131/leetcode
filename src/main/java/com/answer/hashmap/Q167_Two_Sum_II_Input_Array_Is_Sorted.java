@@ -1,5 +1,7 @@
 package com.answer.hashmap;
 
+import java.util.*;
+
 public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
     /**
      * Similar problem:
@@ -47,5 +49,22 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
 
         return null;
     }
+    /**
+     * Q1 TWo Sum的Hashmap方法也可以
+     */
+    public int[] twoSum3(int[] numbers, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int[] result = new int[2];
 
+        for(int i = 0; i < numbers.length; i++){
+            int temp = target - numbers[i]; // 遍历当前元素，并在map中寻找是否有匹配的key
+            if(map.containsKey(numbers[i])){
+                result[0] = map.get(numbers[i]) + 1; // 1-indexed array of integers 所以加1
+                result[1] = i + 1;
+            }
+
+            map.put(temp, i);    // 如果没找到匹配对，就把访问过的元素和下标加入到map中
+        }
+        return result;
+    }
 }
