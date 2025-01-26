@@ -32,7 +32,7 @@ public class Q42_Trapping_Rain_Water {
         return sum;
     }
     /**
-     * 双指针优化 (时间复杂度为O(n))
+     * 双指针优化 (时间复杂度为O(n)， 空间复杂度为O(n))
      * 为了得到两边的最高高度，使用了双指针来遍历，每到一个柱子都向两边遍历一遍，这其实是有重复计算的。
      * 我们把每一个位置的左边最高高度记录在一个数组上（maxLeft），右边最高高度记录在一个数组上（maxRight），
      * 这样就避免了重复计算。
@@ -66,6 +66,7 @@ public class Q42_Trapping_Rain_Water {
     }
     /**
      * 双指针优化（不需要数组记录最大值）
+     * 时间复杂度为O(n)， 空间复杂度为O(1)
      */
     static public int trap2a(int[] height) {
         int maxLeft = 0;
