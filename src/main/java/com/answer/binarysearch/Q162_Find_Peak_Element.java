@@ -1,9 +1,10 @@
 package com.answer.binarysearch;
 
 public class Q162_Find_Peak_Element {
-
     /**
      * Approach 1: Linear Scan
+     * 由于题目保证了 nums[i]!=nums[i+1]，那么数组 nums 中最大值两侧的元素一定严格小于最大值本身。因此，最大值所在的位置就是一个可行的峰值位置。
+     * 我们对数组 nums 进行一次遍历，找到最大值对应的位置即可。
      */
     public int findPeakElement(int[] nums) {
         int index = 0;
@@ -13,7 +14,6 @@ public class Q162_Find_Peak_Element {
                 index = i;
             }
         }
-
         return index;
     }
     /**
