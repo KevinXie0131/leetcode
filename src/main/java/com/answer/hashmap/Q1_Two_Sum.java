@@ -101,7 +101,7 @@ public class Q1_Two_Sum {
         return null;
     }
     /**
-     * 使用双指针 It can work
+     * 使用排序 + 双指针 It can work
      */
     public int[] twoSum_3(int[] nums, int target) {
         int m=0, n=0, k, board=0;

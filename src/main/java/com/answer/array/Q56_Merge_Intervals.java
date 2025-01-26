@@ -6,9 +6,7 @@ public class Q56_Merge_Intervals {
     public static void main(String[] args) {
         int[][] intervals = {{1,3},{2,6},{8,10},{15,18}};
         int[][] res = merge(intervals);
-        for(int[] r : res){
-            System.out.println(Arrays.toString(r));
-        }
+        System.out.println(Arrays.deepToString(res));
     }
     /**
      * Approach 2: Sorting 排序法(按照开始时间)
@@ -89,7 +87,9 @@ public class Q56_Merge_Intervals {
                 merged.get(merged.size() - 1)[1]  = Math.max(merged.get(merged.size() - 1)[1], interval[1]);
             }
         }
-        //  return merged.toArray(new int[0][2]);
+        // All the following can work
+        // return merged.toArray(new int[0][2]);
+        // return merged.toArray(new int[0][]);
         return merged.toArray(new int[merged.size()][2]);
     }
 }
