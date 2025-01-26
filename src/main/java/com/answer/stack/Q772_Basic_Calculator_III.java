@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Q772_Basic_Calculator_III {
     public static void main(String[] args) {
-        System.out.println(calculate1("(2+6* 3+5- (3*14/7+2)*5)+3"));
-        System.out.println(calculate1("2*(5+5*2)/3+(6/2+8)"));
-        System.out.println(calculate1("6-4/2"));
-        System.out.println(calculate1("1+1"));
+        System.out.println(calculate("(2+6* 3+5- (3*14/7+2)*5)+3"));
+        System.out.println(calculate("2*(5+5*2)/3+(6/2+8)"));
+        System.out.println(calculate("6-4/2"));
+        System.out.println(calculate("1+1"));
     }
     /**
      * https://algo.monster/liteproblems/772
