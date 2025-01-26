@@ -64,7 +64,7 @@ public class Q23_Merge_k_Sorted_Lists {
     public ListNode mergeKLists_2(ListNode[] lists) {
         ListNode head = null;
         for(ListNode node : lists){
-            head =   merge2Lists(head, node);
+            head =  merge2Lists(head, node); // 顺序合并
         }
         return head;
     }
@@ -114,7 +114,7 @@ public class Q23_Merge_k_Sorted_Lists {
         if (lists.length == 0) {
             return null;
         }
-        return merge(lists, 0, lists.length - 1); // 两两合并 - 递归
+        return merge(lists, 0, lists.length - 1); // 分治合并 两两合并 - 递归
     }
 
     private ListNode merge(ListNode[] lists, int lo, int hi) {
