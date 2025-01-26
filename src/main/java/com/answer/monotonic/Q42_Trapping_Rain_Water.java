@@ -5,7 +5,7 @@ import java.util.*;
 public class Q42_Trapping_Rain_Water {
     public static void main(String[] args) {
         int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
-        System.out.println(trap(height));
+        System.out.println(trap2a(height));
     }
     /**
      * 暴力解法(使用双指针) 时间复杂度为O(n^2)，空间复杂度为O(1), 超时
@@ -32,7 +32,7 @@ public class Q42_Trapping_Rain_Water {
         return sum;
     }
     /**
-     * 双指针优化
+     * 双指针优化 (时间复杂度为O(n))
      * 为了得到两边的最高高度，使用了双指针来遍历，每到一个柱子都向两边遍历一遍，这其实是有重复计算的。
      * 我们把每一个位置的左边最高高度记录在一个数组上（maxLeft），右边最高高度记录在一个数组上（maxRight），
      * 这样就避免了重复计算。
@@ -61,6 +61,30 @@ public class Q42_Trapping_Rain_Water {
             int count = Math.min(maxLeft[i], maxRight[i]) - height[i];
             // count: 0 0 1 0 1 2 1 0 0 1 0 0
             if (count > 0) sum += count;
+        }
+        return sum;
+    }
+    /**
+     * 双指针优化（不需要数组记录最大值）
+     */
+    static public int trap2a(int[] height) {
+        int maxLeft = 0;
+        int maxRight = 0;
+        int size = height.length;
+        int sum = 0;
+        int left = 0;
+        int right = size - 1;
+
+        while(left < right){
+            if(height[left] < height[right]){ //积水是由低点决定的
+                maxLeft = Math.max(maxLeft, height[left]);
+                sum += maxLeft - height[left];
+                left++;
+            }else{
+                maxRight = Math.max(maxRight, height[right]);
+                sum += maxRight - height[right];
+                right--;
+            }
         }
         return sum;
     }
