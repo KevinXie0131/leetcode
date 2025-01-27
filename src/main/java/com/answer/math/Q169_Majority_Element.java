@@ -32,6 +32,18 @@ public class Q169_Majority_Element {
         // otherwise, count each element and return the "winner".
         int leftCount = findMajorElentCount(nums, left, low, mid);              // 返回[low, mid]中left的数量
         int rightCount = findMajorElentCount(nums, right, mid + 1, high);  // 返回[mid + 1, high]中right的数量
+        // The following can word
+        // int leftCount = findMajorElentCount(nums, left, low, high);
+        // int rightCount = findMajorElentCount(nums, right, low, high);
+/*      int leftCount=0;  // 另一种形式
+        int rightCount=0;
+        for(int i = low; i <= high; i++){
+            if(left == nums[i]){
+                ++leftCountount;
+            }else if(right == nums[i]){
+                ++rightCount;
+            }
+        }*/
         return (leftCount > rightCount) ? left : right;
     }
 
