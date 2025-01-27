@@ -42,6 +42,7 @@ public class Q200_Number_of_Islands {
         }
         return res;
     }
+    // 使用stack做DFS
     public static void dfs(char[][] grid, int i, int j){
         Deque<int[]> stack = new ArrayDeque<>();
         stack.push(new int[]{i, j});
@@ -60,7 +61,7 @@ public class Q200_Number_of_Islands {
         }
     }
     /**
-     * Recursive
+     * Recursive 递归
      */
     public static void dfs_recursive(char[][] grid, int i, int j){
         if(!isWithin(grid, i, j)){
@@ -82,7 +83,7 @@ public class Q200_Number_of_Islands {
         return false;
     }
     /**
-     * Approach #2: BFS
+     * Approach #2: BFS 使用Queue
      */
     public static int numIslands_1(char[][] grid) {
         int res = 0;
@@ -117,17 +118,20 @@ public class Q200_Number_of_Islands {
         }
     }
     /**
-     * Approach #3: Union Find (aka Disjoint Set)
+     * Approach #3: Union Find (aka Disjoint Set) 并查集
+     * 并查集：找到共同的祖先
+     *          Union(x, y)：合并x, y成为公同的祖先
+     *          find(x)：找到x的祖先
+     *          x索引 = root[x]
      */
     public static int numIslands_2(char[][] grid) {
         if (grid == null || grid.length == 0) {
             return 0;
         }
-
         int nr = grid.length;
         int nc = grid[0].length;
-        int num_islands = 0;
         UnionFind uf = new UnionFind(grid);
+
         for (int r = 0; r < nr; ++r) {
             for (int c = 0; c < nc; ++c) {
                 if (grid[r][c] == '1') {
@@ -154,12 +158,14 @@ class UnionFind {
     int count;
     int[] parent;
     int[] rank;
-    public UnionFind(char[][] grid) {
+
+    public UnionFind(char[][] grid) { // 二维数组 -> 一维数组
         count = 0;
         int m = grid.length;
         int n = grid[0].length;
         parent = new int[m * n];
         rank = new int[m * n];
+
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 if (grid[i][j] == '1') {
@@ -171,7 +177,9 @@ class UnionFind {
         }
     }
     public int find(int i) {
-        if (parent[i] != i) parent[i] = find(parent[i]);
+        if (parent[i] != i) {
+            parent[i] = find(parent[i]);
+        }
         return parent[i];
     }
 
