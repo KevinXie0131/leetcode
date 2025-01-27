@@ -12,6 +12,7 @@ public class Q169_Majority_Element {
      * 其实这个题目考的就是分治
      * 分治的数学基础：把数据裁成两部分，那一定至少会在一部分里是存在这个众数的，递归下去拆解，直至只有一个元素，不可分割，那他就是它那部分的众数，
      * 递归回来，合并两部分，由于每一部分都得出了各自的众数，那就比较两部分中众数的数量，数量多的才算这两部分构成的元素里面的众数。
+     * 时间复杂度: O(nlogn) 空间复杂度: O(n)
      */
     static public int majorityElement_0(int[] nums) {
         return findMajorElment(nums,0,nums.length-1);
@@ -25,7 +26,7 @@ public class Q169_Majority_Element {
         int left =  findMajorElment(nums, low, mid);
         int right = findMajorElment(nums, mid + 1, high);
 
-        if(left == right){ // if the two halves agree on the majority element, return it.
+        if(left == right){ // if the two halves agree on the majority element, return it. 可以省略
             return left;
         }
         // otherwise, count each element and return the "winner".
