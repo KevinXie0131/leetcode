@@ -40,5 +40,21 @@ public class Q209_Minimum_Size_Subarray_Sum {
         }
         return result == Integer.MAX_VALUE? 0 : result;
     }
-
+    /**
+     * 使用队列相加（实际上我们也可以把它称作是滑动窗口，这里的队列其实就相当于一个窗口）
+     * 在代码中我们不直接使用队列，我们使用两个指针，一个指向队头一个指向队尾
+     */
+    public int minSubArrayLen3(int target, int[] nums) {  // 同上
+        int lo = 0, hi = 0, sum = 0, min = Integer.MAX_VALUE;
+        while (hi < nums.length) {
+            sum += nums[hi];
+            hi++;
+            while (sum >= target) {
+                min = Math.min(min, hi - lo);
+                sum -= nums[lo];
+                lo++;
+            }
+        }
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
 }
