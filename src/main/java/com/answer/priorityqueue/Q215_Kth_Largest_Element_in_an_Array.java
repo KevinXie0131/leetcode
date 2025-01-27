@@ -96,6 +96,31 @@ public class Q215_Kth_Largest_Element_in_an_Array {
                 heap.poll();
         }
         // output
-        return heap.poll();
+        return heap.peek();
     }
+    /**
+     * 基于快速排序的选择方法
+     * 时间复杂度：O(n) 空间复杂度：O(logn)，递归使用栈空间的空间代价的期望为 O(logn)
+     */
+    public int findKthLargest6(int[] _nums, int k) {
+        int n = _nums.length;
+        return quickselect(_nums, 0, n - 1, n - k);
+    }
+
+    int quickselect(int[] nums, int l, int r, int k) {
+        if (l == r) return nums[k];
+        int x = nums[l], i = l - 1, j = r + 1;
+        while (i < j) {
+            do i++; while (nums[i] < x);
+            do j--; while (nums[j] > x);
+            if (i < j){ // 调整子数组的元素使得左边的元素都小于等于它，右边的元素都大于等于它
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+            }
+        }
+        if (k <= j) return quickselect(nums, l, j, k); // 只要某次划分的 q 为倒数第 k 个下标的时候，我们就已经找到了答案
+        else return quickselect(nums, j + 1, r, k);
+    }
+
 }
