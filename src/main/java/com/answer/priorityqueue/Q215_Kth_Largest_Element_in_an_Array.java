@@ -12,14 +12,14 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         System.out.println(findKthLargest1(nums, k));
     }
     /**
-     * 排序法
+     * 排序法  时间复杂度是 O(nlogn)
      */
     public int findKthLargest_0(int[] nums, int k) {
         Arrays.sort(nums);
         return nums[ nums.length - k];
     }
     /**
-     * 最大堆
+     * 最大堆  时间复杂度是O(NlogN)
      */
     static public int findKthLargest1(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue(Collections.reverseOrder());
@@ -47,7 +47,7 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         return queue.poll();
     }
     /**
-     * 最小堆 优化
+     * 最小堆 优化 时间复杂度是O(NlogK)
      */
     public static int findKthLargest_1(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue();
