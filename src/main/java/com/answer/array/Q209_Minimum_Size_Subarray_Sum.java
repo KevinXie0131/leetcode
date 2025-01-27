@@ -20,7 +20,7 @@ public class Q209_Minimum_Size_Subarray_Sum {
         return result == Integer.MAX_VALUE? 0 : result;
     }
     /**
-     * 滑动窗口 时间复杂度：O(n)
+     * 滑动窗口Sliding Window/Two Pointers  时间复杂度：O(n)
      * 每一轮迭代，将 nums[end] 加到 sum，如果 sum≥s，则更新子数组的最小长度（此时子数组的长度是 end−start+1），
      * 然后将 nums[start] 从 sum 中减去并将 start 右移，直到 sum<s，在此过程中同样更新子数组的最小长度。
      * 在每一轮迭代的最后，将 end 右移。

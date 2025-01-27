@@ -1,17 +1,39 @@
 package com.answer.priorityqueue;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Q215_Kth_Largest_Element_in_an_Array {
 
     public static void main(String[] args) {
-    //    int[] nums = {3,2,1,5,6,4};
-        int[] nums = {-1,2,0};
+        int[] nums = {3,2,1,5,6,4};
+   //     int[] nums = {-1,2,0};
         int k = 2;
 
-        System.out.println(findKthLargest_2(nums, k));
+        System.out.println(findKthLargest1(nums, k));
     }
-
+    /**
+     * 排序法
+     */
+    public int findKthLargest_0(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[ nums.length - k];
+    }
+    /**
+     * 最大堆
+     */
+    static public int findKthLargest1(int[] nums, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue(Collections.reverseOrder());
+        for(int i = 0; i < nums.length; i++){
+            queue.offer(nums[i]);
+        }
+        for(int i = 0; i < k - 1; i++){
+            queue.poll();
+        }
+        return queue.poll();
+    }
+    /**
+     * 最小堆
+     */
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue();
 
@@ -25,7 +47,7 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         return queue.poll();
     }
     /**
-     *
+     * 最小堆 优化
      */
     public static int findKthLargest_1(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue();
@@ -43,7 +65,7 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         return queue.peek();
     }
     /**
-     *
+     * 最小堆 优化 一次遍历
      */
     public static int findKthLargest_2(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue();
@@ -58,11 +80,10 @@ public class Q215_Kth_Largest_Element_in_an_Array {
                 }
             }
         }
-
         return queue.peek();
     }
     /**
-     *
+     * 最小堆
      */
     public int findKthLargest_4(int[] nums, int k) {
         // init heap 'the smallest element first'
@@ -70,11 +91,10 @@ public class Q215_Kth_Largest_Element_in_an_Array {
 
         // keep k largest elements in the heap
         for (int n: nums) {
-            heap.add(n);
+            heap.offer(n);
             if (heap.size() > k)
                 heap.poll();
         }
-
         // output
         return heap.poll();
     }
