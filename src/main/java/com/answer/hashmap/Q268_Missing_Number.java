@@ -46,7 +46,7 @@ public class Q268_Missing_Number {
                 return i;
             }
         }
-        return n;
+        return n; // 输出最后一个值
     }
     /**
      * Approach #3 Bit Manipulation: XOR 位运算
@@ -68,7 +68,7 @@ public class Q268_Missing_Number {
      */
     public int missingNumber_4(int[] nums) {
         int n = nums.length;
-        int total = n * (n + 1) / 2;
+        int total = n * (n + 1) / 2; // 求和公式
         int arrSum = 0;
         for (int i = 0; i < n; i++) {
             arrSum += nums[i];
