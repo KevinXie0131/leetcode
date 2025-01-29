@@ -8,7 +8,7 @@ public class Q485_Max_Consecutive_Ones {
         System.out.println(res);
     }
     /**
-     * Brute force
+     * Brute force 一次遍历
      */
     public int findMaxConsecutiveOnes(int[] nums) {
         int maxCount = 0, count = 0;
@@ -25,7 +25,7 @@ public class Q485_Max_Consecutive_Ones {
         return maxCount;
     }
     /**
-     * Sliding window
+     * Sliding window 滑动窗口
      */
     public static int findMaxConsecutiveOnes_1(int[] nums) {
         int maxCount = 0, left = 0, right = 0;
@@ -42,5 +42,29 @@ public class Q485_Max_Consecutive_Ones {
         }
         maxCount = Math.max(maxCount, right - left);
         return maxCount;
+    }
+    /**
+     * 动态规划
+     * P[i] = P[i - 1] + 1 if nums[i] == 1
+     * P[i] = 0 if nums[i] == 0
+     */
+    public static int findMaxConsecutiveOnes_3(int[] nums) {
+        if(nums.length == 1){
+            return nums[0];
+        }
+        int maxOnes = 0;
+        int length = nums.length;
+
+        if(nums[0] == 1) maxOnes = 1; // 初始值 例如[1, 0]
+
+        for(int i = 1; i < length; i++){
+            if(nums[i] == 1){
+                nums[i] = nums[i - 1] + 1;
+            }else{
+                nums[i] = 0;
+            }
+            maxOnes = Math.max(maxOnes, nums[i]);
+        }
+        return maxOnes;
     }
 }

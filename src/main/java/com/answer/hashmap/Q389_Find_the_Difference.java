@@ -103,7 +103,7 @@ public class Q389_Find_the_Difference {
         return 'a';
     }
     /**
-     * Find sum 求和
+     * Find sum 加法求和运算
      */
     public char findTheDifference_2(String s, String t) {
         int sum = 0;
