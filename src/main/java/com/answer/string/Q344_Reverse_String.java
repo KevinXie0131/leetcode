@@ -1,9 +1,8 @@
 package com.answer.string;
 
 public class Q344_Reverse_String {
-
     /**
-     * Approach 1: Recursion, In-Place, O(N) Space
+     * Approach 1: Recursion, In-Place, O(N) Space 递归
      */
     public void reverseString(char[] s) {
         int right = s.length - 1;
@@ -25,9 +24,8 @@ public class Q344_Reverse_String {
 
         recursion(s, left+1, right-1);
     }
-
     /**
-     * Approach 2: Two Pointers, Iteration, O(1) Space
+     * Approach 2: Two Pointers, Iteration, O(1) Space 双指针
      * 第二种方法用temp来交换数值更多人容易理解些
      */
     public void reverseString_1(char[] s) {
