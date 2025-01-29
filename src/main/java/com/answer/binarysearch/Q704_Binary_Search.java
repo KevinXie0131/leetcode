@@ -9,32 +9,32 @@ public class Q704_Binary_Search {
       int result =  search0(nums, target);
       System.out.println(result);
     }
+
     public static int search0(int[] nums, int target) {
         if (target < nums[0] || target > nums[nums.length - 1]) {
             return -1;
         }
         int left = 0;
-        int right = nums.length - 1;
-        while(left <= right){
+        int right = nums.length - 1;// 左闭右闭
+        while(left <= right){ // 左闭右闭
             int mid = left + ((right- left) >> 1);
 
             if(target < nums[mid]){
-                right = mid - 1;
+                right = mid - 1; // 左闭右闭
             }else if(target > nums[mid]){
                 left = mid +1;
             }else{
                 return mid;
             }
-
         }
         return -1;
     }
 
     public int search(int[] nums, int target) {
         int left = 0;
-        int right = nums.length - 1;
+        int right = nums.length - 1; // 左闭右闭
 
-        while(left <= right){
+        while(left <= right){  // 左闭右闭
             int mid = (left + right) >>> 1;
 
             if(nums[mid] == target){
@@ -42,21 +42,19 @@ public class Q704_Binary_Search {
             } else if(nums[mid] < target){
                 left = mid + 1;
             } else {
-                right = mid - 1;
+                right = mid - 1; // 左闭右闭
             }
         }
         return -1;
-
     }
-
     /**
      *
      */
     public int search_1(int[] nums, int target) {
         int left = 0;
-        int right = nums.length;
+        int right = nums.length; // 左闭右开
 
-        while(left < right){
+        while(left < right){  // 左闭右开
             int mid = (left + right) >>> 1;
 
             if(nums[mid] == target){
@@ -64,35 +62,34 @@ public class Q704_Binary_Search {
             } else if(nums[mid] < target){
                 left = mid + 1;
             } else {
-                right = mid;
+                right = mid; // 左闭右开
             }
         }
         return -1;
-
     }
     /**
-     *
+     * 递归
      */
     public int search_2(int[] nums, int target) {
         int left = 0;
-        int right = nums.length - 1;
+        int right = nums.length - 1;  // 左闭右闭
 
         int result = recursion(nums, target, left, right);
         return result;
-
     }
 
     public int recursion(int[] nums, int target, int left, int right) {
-        if (left > right) {
+        if (left > right) {  // 左闭右闭
             return -1;
         }
         int mid = (left + right) >>> 1;
+
         if (nums[mid] == target) {
             return mid;
         } else if (nums[mid] < target) {
             return recursion(nums, target, mid + 1, right);
         } else {
-            return recursion(nums, target, left, mid - 1);
+            return recursion(nums, target, left, mid - 1);  // 左闭右闭
         }
     }
 
@@ -100,7 +97,6 @@ public class Q704_Binary_Search {
         if(left > right){
             return -1;
         }
-
         int mid = left + ((right- left) >> 1);
 
         if(target < nums[mid]){
