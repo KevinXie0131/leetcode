@@ -11,6 +11,7 @@ public class Q389_Find_the_Difference {
     }
     /**
      * HashSet - doesn't work for "a"& "aa"
+     * 提交后有java.util.NoSuchElementException
      */
     public char findTheDifference(String s, String t) {
         Set<Character> set = new HashSet<>();
@@ -26,7 +27,7 @@ public class Q389_Find_the_Difference {
         return set.iterator().next();
     }
     /**
-     * HashSet - this method works
+     * HashSet - this method works 这个方法可以运行
      */
     public char findTheDifference_0(String s, String t) {
         Set<Character> set = new HashSet<>();
@@ -62,7 +63,9 @@ public class Q389_Find_the_Difference {
                 break;
             } else {
                 int countOfChar = counterS.get(ch);
-                if(countOfChar == 0) return ch;
+                if(countOfChar == 0) {
+                    return ch;
+                }
                 // Once a match is found we reduce frequency left.
                 // This eliminates the possibility of a false match later.
                 counterS.put(ch, countOfChar - 1);
@@ -71,19 +74,26 @@ public class Q389_Find_the_Difference {
         return extraChar;
     }
     /**
-     * Use counter
+     * Use counter 用数组对hash
      */
     public static char findTheDifference_1(String s, String t) {
         int[] count = new int[26];
         char[] c1 = t.toCharArray();
         char[] c2 = s.toCharArray();
-
+        // s和t长度可能不一样，所以要遍历两边
         for(char c : c1){
             count[c -'a']++;
         }
         for(char c : c2){
             count[c -'a']--;
         }
+        // 题目有要求t.length == s.length + 1，所以可以遍历一边
+/*        for(int i = 0 ; i < c1.length; i++){
+            count[c1[i] -'a']++;
+            if(i < c2.length){
+                count[c2[i] -'a']--;
+            }
+        }*/
         for(int i = 0; i < count.length; i++){
             if(count[i] > 0){
                 return (char)('a' + i);
@@ -92,7 +102,7 @@ public class Q389_Find_the_Difference {
         return 'a';
     }
     /**
-     * Find sum
+     * Find sum 求和
      */
     public char findTheDifference_2(String s, String t) {
         int sum = 0;
@@ -109,7 +119,7 @@ public class Q389_Find_the_Difference {
         return (char)('a' + sum);
     }
     /**
-     * XOR
+     * XOR 异或
      */
     public char findTheDifference_3(String s, String t) {
         int xor = 0;
