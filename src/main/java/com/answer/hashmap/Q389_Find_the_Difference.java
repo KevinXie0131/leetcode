@@ -75,6 +75,7 @@ public class Q389_Find_the_Difference {
     }
     /**
      * Use counter 用数组对hash
+     * int[26]是常数，所以空间复杂度O(1)
      */
     public static char findTheDifference_1(String s, String t) {
         int[] count = new int[26];
@@ -94,7 +95,7 @@ public class Q389_Find_the_Difference {
                 count[c2[i] -'a']--;
             }
         }*/
-        for(int i = 0; i < count.length; i++){
+        for(int i = 0; i < count.length; i++){ // int[26]是常数，所以时间复杂度O(1)
             if(count[i] > 0){
                 return (char)('a' + i);
             }
@@ -115,8 +116,14 @@ public class Q389_Find_the_Difference {
         for(char c : c2){
             sum -= c -'a';
         }
-
         return (char)('a' + sum);
+  /*      for(char c : c1){
+            sum += c;
+        }
+        for(char c : c2){
+            sum -= c;
+        }
+        return (char)sum;*/
     }
     /**
      * XOR 异或
