@@ -28,9 +28,8 @@ public class Q938_Range_Sum_of_BST {
 
         System.out.println(rangeSumBST_0a( root, 6, 10));
     }
-
     /**
-     * Recursive
+     * Recursive 递归
      */
     public static int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null){
@@ -46,18 +45,18 @@ public class Q938_Range_Sum_of_BST {
         }
     }
     /**
-     * Inorder Recursive / Improved - fastest
+     * Postorder Recursive / Improved - fastest 递归
      */
     public static int rangeSumBST_0(TreeNode root, int low, int high) {
         if(root == null){
             return 0;
         }
         int left = 0;
-        if(root.value >= low){
+        if(root.value >= low){ // 考虑BST
             left = rangeSumBST_0(root.left, low, high);
         }
         int right = 0;
-        if(root.value <= high) {
+        if(root.value <= high) { // 考虑BST
             right = rangeSumBST_0(root.right, low, high);
         }
         if(root.value >= low && root.value <= high){
@@ -67,7 +66,7 @@ public class Q938_Range_Sum_of_BST {
         }
     }
     /**
-     * Inorder Recursive / Improved
+     * Inorder Recursive / Improved 中序递归
      */
     static int result = 0;
     public static int rangeSumBST_0a(TreeNode root, int low, int high) {
@@ -85,7 +84,7 @@ public class Q938_Range_Sum_of_BST {
         dfs(node.right, low, high);
     }
     /**
-     * Inorder Iterative
+     * Inorder Iterative 中序迭代
      */
     public static int rangeSumBST_1(TreeNode root, int low, int high) {
         int sum = 0;
@@ -108,7 +107,7 @@ public class Q938_Range_Sum_of_BST {
         return sum;
     }
     /**
-     * Level Order Iterative
+     * Level Order Iterative 层序迭代
      */
     public static int rangeSumBST_2(TreeNode root, int low, int high) {
         int sum = 0;
@@ -129,7 +128,7 @@ public class Q938_Range_Sum_of_BST {
         return sum;
     }
     /**
-     * Level Order Iterative / Improved
+     * Level Order Iterative / Improved 层序迭代
      */
     public static int rangeSumBST_3(TreeNode root, int low, int high) {
         int sum = 0;
