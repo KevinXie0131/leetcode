@@ -92,7 +92,7 @@ public class Q704_Binary_Search {
             return recursion(nums, target, left, mid - 1);  // 左闭右闭
         }
     }
-
+    // 递归
     public int recursion1 (int[] nums, int target, int left, int right){
         if(left > right){
             return -1;
