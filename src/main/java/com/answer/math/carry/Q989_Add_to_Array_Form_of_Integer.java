@@ -13,7 +13,6 @@ public class Q989_Add_to_Array_Form_of_Integer {
         System.out.println(Integer.MAX_VALUE);
         System.out.println(res);
     }
-
     /**
      * Cannot handle [1,2,6,3,0,7,1,7,1,9,7,5,6,6,4,4,0,0,6,3] + 516
      */
@@ -42,9 +41,8 @@ public class Q989_Add_to_Array_Form_of_Integer {
 
         return result;
     }
-
     /**
-     *
+     * 逐位相加
      */
     public List<Integer> addToArrayForm_1(int[] num, int k) {
         int n = num.length;
@@ -68,6 +66,29 @@ public class Q989_Add_to_Array_Form_of_Integer {
             result.add(carry);
         }
         Collections.reverse(result);
+        return result;
+    }
+    /**
+     * 逐位相加 + 链表
+     */
+    public List<Integer> addToArrayForm_3(int[] num, int k) {
+        int size = num.length;
+        LinkedList<Integer> result = new LinkedList<>();
+        int carry = 0;
+        for(int i = size - 1; i >= 0; i--){
+            int remainder = k % 10;
+            k = k / 10;
+            int total = num[i] + carry + remainder;
+            result.addFirst(total % 10);
+            carry = total / 10;
+        }
+
+        k = k + carry;
+        while(k > 0){
+            result.addFirst(k % 10);
+            k = k / 10;
+        }
+
         return result;
     }
     /**
