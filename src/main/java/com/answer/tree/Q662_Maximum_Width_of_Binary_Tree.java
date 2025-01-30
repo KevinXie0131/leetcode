@@ -23,11 +23,16 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         node3.left = node5;
         node4.left = node6;
 
-        System.out.println(widthOfBinaryTree_4( root));
+        System.out.println(widthOfBinaryTree_0( root));
     }
-
     /**
-     * doesn't work for [1,3,2,5,null,null,9,6,null,7]
+     * doesn't work for [1,3,2,5,null,null,9,6,null,7] 提交无法通过
+     *     1
+     *   3   2
+     *  5      9
+     * 6     7
+     * Output: 4
+     * Expected: 7
      */
     public static int widthOfBinaryTree(TreeNode root) {
         int res = 0;
@@ -81,7 +86,7 @@ public class Q662_Maximum_Width_of_Binary_Tree {
 
             for(int i = 0; i < size; i++){
                 TreeNode cur = queue.poll();
-                if(cur.value != Integer.MAX_VALUE && start == -1) start = i;
+                if(cur.value != Integer.MAX_VALUE && start == -1) start = i; // start只赋值一次
                 if(cur.value != Integer.MAX_VALUE) end = i;
 
                 queue.offer(cur.left == null ? new TreeNode(Integer.MAX_VALUE, null, null) : cur.left);
@@ -93,7 +98,13 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         return res;
     }
     /**
-     * Improved and works
+     * Improved and works 广度优先搜索
+     * 此题求二叉树所有层的最大宽度，比较直观的方法是求出每一层的宽度，然后求出最大值。求每一层的宽度时，
+     * 因为两端点间的 null 节点也需要计入宽度，因此可以对节点进行编号。一个编号为 index 的左子节点的编号记为 2×index，
+     * 右子节点的编号记为 2×index+1，计算每层宽度时，用每层节点的最大编号减去最小编号再加 1 即为宽度。
+     *
+     * 遍历节点时，可以用广度优先搜索来遍历每一层的节点，并求出最大值。
+     *
      */
     public static int widthOfBinaryTree_0a(TreeNode root) {
         int res = 0;
@@ -108,9 +119,52 @@ public class Q662_Maximum_Width_of_Binary_Tree {
             for(int i = 0; i < size; i++){
                 TreeNode cur = queue.poll();
                 end = cur.value;
-                if(start == -1) start = cur.value;
-                if(cur.left != null) queue.offer(new TreeNode(cur.value * 2, cur.left.left, cur.left.right));
-                if(cur.right != null) queue.offer(new TreeNode(cur.value * 2 + 1, cur.right.left, cur.right.right));
+                if(start == -1) {
+                    start = cur.value;
+                }
+                if(cur.left != null) {
+                    queue.offer(new TreeNode(cur.value * 2, cur.left.left, cur.left.right));//左节点index i*2
+                }
+                if(cur.right != null) {
+                    queue.offer(new TreeNode(cur.value * 2 + 1, cur.right.left, cur.right.right));//右节点index i*2 + 1
+                }
+            }
+            res = Math.max(res, end - start + 1);
+        }
+        return res;
+    }
+    /**
+     * 使用两个queue
+     */
+    public static int widthOfBinaryTree_0c(TreeNode root) {
+        int res = 0;
+        if (root == null) {
+            return 0;
+        }
+        Deque<TreeNode> queue = new LinkedList<>();
+        Deque<Integer> indexQueue = new LinkedList<>();
+        queue.offer(root);
+        indexQueue.offer(1);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            int start = -1;
+            int end = -1;
+
+            for(int i = 0; i < size; i++){
+                TreeNode cur = queue.poll();
+                Integer index = indexQueue.poll();
+                end = index;
+                if(start == -1) {
+                    start = index;
+                }
+                if(cur.left != null) {
+                    queue.offer(cur.left);//左节点index i*2
+                    indexQueue.offer(index * 2);
+                }
+                if(cur.right != null) {
+                    queue.offer(cur.right);//右节点index i*2 + 1
+                    indexQueue.offer((index * 2) + 1) ;
+                }
             }
             res = Math.max(res, end - start + 1);
         }
@@ -146,7 +200,11 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         return res;
     }
     /**
-     * Recursion
+     * Recursion 深度优先搜索
+     *
+     * 历时如果是先访问左子节点，再访问右子节点，每一层最先访问到的节点会是最左边的节点，即每一层编号的最小值，
+     * 需要记录下来进行后续的比较。一次深度优先搜索中，需要当前节点到当前行最左边节点的宽度
+     * ，以及对子节点进行深度优先搜索，求出最大宽度，并返回最大宽度。
      */
     public static int widthOfBinaryTree_4(TreeNode root) {
         // 给每个节点一个编号（索引）
@@ -159,7 +217,7 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         dfs(list, root, 1, 0);
 
         for (int[] arr : list) {
-            ans = Math.max(ans, arr[1] - arr[0] + 1);
+            ans = Math.max(ans, arr[1] - arr[0] + 1); // 右节点index - 左节点index + 1
         }
 
         return ans;
@@ -176,8 +234,8 @@ public class Q662_Maximum_Width_of_Binary_Tree {
             list.get(level)[1] = index;
         }
 
-        dfs(list, node.left, 2 * index, level + 1);
-        dfs(list, node.right, 2 * index + 1, level + 1);
+        dfs(list, node.left, 2 * index, level + 1);//左节点index i*2
+        dfs(list, node.right, 2 * index + 1, level + 1); //右节点index i*2 + 1
     }
 }
 
