@@ -11,7 +11,9 @@ public class Q933_Number_of_Recent_Calls {
         System.out.println(call.ping(3001));
         System.out.println(call.ping(3002));
     }
-
+    /**
+     * 使用Queue
+     */
     Deque<Integer> queue;
 
     public Q933_Number_of_Recent_Calls() {
@@ -20,7 +22,7 @@ public class Q933_Number_of_Recent_Calls {
 
     public int ping(int t) {
         queue.offer(t);
-        while(queue.peek() < t - 3000){
+        while(queue.size() > 0 && t - queue.peek() > 3000){
             queue.poll();
         }
         return queue.size();
@@ -34,7 +36,7 @@ public class Q933_Number_of_Recent_Calls {
     public void RecentCounter_1() {
         left = 0;
         right = 0;
-        times = new int[10005];
+        times = new int[10005]; // At most 10^4 calls will be made to ping.
     }
 
     public int ping_1(int t) {
