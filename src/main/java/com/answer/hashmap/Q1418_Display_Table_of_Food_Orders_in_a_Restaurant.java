@@ -3,7 +3,9 @@ package com.answer.hashmap;
 import java.util.*;
 
 public class Q1418_Display_Table_of_Food_Orders_in_a_Restaurant {
-
+    /**
+     * HashMap + HashSet
+     */
     public List<List<String>> displayTable(List<List<String>> orders) {
         Set<String> nameSet = new HashSet<String>();
         Map<Integer, Map<String, Integer>> foodsCnt =
