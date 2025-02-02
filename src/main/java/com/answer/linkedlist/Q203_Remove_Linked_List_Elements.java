@@ -25,16 +25,16 @@ public class Q203_Remove_Linked_List_Elements {
      */
     public static ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1 , head);
-        ListNode pre = dummy;
+        ListNode pre = dummy; // 使用dummy节点
         ListNode cur = head;
 
         while(cur != null){
             if(cur.val == val){
-                pre.next = cur.next;
+                pre.next = cur.next; // cur指针指向的节点被跳过
             }else{
                 pre = cur;
             }
-            cur = cur.next;
+            cur = cur.next; // cur指针一直往前走
         }
         return dummy.next;
     }
@@ -45,7 +45,7 @@ public class Q203_Remove_Linked_List_Elements {
         ListNode dummy =  new ListNode(-1 , head);
         ListNode cur = dummy;
 
-        while(cur.next != null){
+        while(cur.next != null){ // 只用一个指针
             if(cur.next.val == val){
                 cur.next = cur.next.next;
             } else{

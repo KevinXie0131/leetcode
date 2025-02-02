@@ -14,6 +14,22 @@ public class Q206_Reverse_Linked_List {
         node.print();
     }
     /**
+     * 使用dummy节点
+     */
+    public static ListNode reverseList_dummy(ListNode head) {
+        ListNode dummy =  new ListNode(-1 , head);
+
+        while(head != null && head.next != null){
+            ListNode dnext = dummy.next;
+            ListNode hnext = head.next;
+
+            dummy.next = hnext; // 一直整体反转，效率有些低
+            head.next = hnext.next;
+            hnext.next = dummy;
+        }
+        return dummy.next;
+    }
+    /**
      * Iterative
      */
     public static ListNode reverseList_Iterative(ListNode head) {
