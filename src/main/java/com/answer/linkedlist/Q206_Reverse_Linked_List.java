@@ -25,7 +25,7 @@ public class Q206_Reverse_Linked_List {
 
             dummy.next = hnext; // 一直整体反转，效率有些低
             head.next = hnext.next;
-            hnext.next = dummy;
+            hnext.next = dnext;
         }
         return dummy.next;
     }
