@@ -3,6 +3,43 @@ package com.answer.monotonic;
 import java.util.*;
 
 public class Q496_Next_Greater_Element_I {
+    public static void main(String[] args) {
+        int[] nums1 = {4,1,2};
+        int[]nums2 = {1,3,4,2};
+        int[] output = nextGreaterElement_0(nums1, nums2);
+        System.out.println(Arrays.toString(output));
+    }
+    /**
+     * 使用stack做brute force
+     */
+   static public int[] nextGreaterElement_0(int[] nums1, int[] nums2) {
+        Deque<Integer> stack = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
+
+        for(int num : nums2){
+            stack.push(num);
+        }
+
+        Deque<Integer> temp = new LinkedList<>(); ;
+        for(int num : nums1) {
+            int max = -1;
+            boolean isFound = false;
+            while(!stack.isEmpty() && !isFound){
+                int top = stack.pop();
+                if(top > num){
+                    max = top;
+                } else if(top == num){
+                    isFound = true;
+                }
+                temp.push(top);
+            }
+            result.add(max);
+            while(!temp.isEmpty()){
+                stack.push(temp.pop());
+            }
+        }
+        return result.stream().mapToInt(i -> i).toArray();
+    }
     /**
      * 使用单调栈: 栈顶到栈底的顺序，要从小到大，也就是保持栈里的元素为递增顺序。只要保持递增，才能找到右边第一个比自己大的元素。
      *
