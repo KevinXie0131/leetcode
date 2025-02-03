@@ -44,7 +44,7 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         for(int i = 0; i < nums.length - k; i++){
             queue.poll();
         }
-        return queue.poll();
+        return queue.poll(); // 第k个最大的数值
     }
     /**
      * 最小堆 优化 时间复杂度是O(NlogK)
