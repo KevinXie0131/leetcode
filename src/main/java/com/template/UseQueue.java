@@ -152,6 +152,7 @@ public class UseQueue {
         minHeap.add(1);
         minHeap.add(7);
         minHeap.add(3);
+        System.out.println(minHeap); // [1, 3, 4, 10, 7]
         while(minHeap.size() > 0){
             System.out.print(minHeap.poll() + " -> ");
         }
@@ -179,6 +180,7 @@ public class UseQueue {
         maxHeap2.add(11);
         maxHeap2.add(17);
         maxHeap2.add(13);
+        System.out.println(maxHeap2); // [110, 17, 11, 14, 13]
         while(maxHeap2.size() > 0){
             System.out.print(maxHeap2.poll() + " -> ");
         }
