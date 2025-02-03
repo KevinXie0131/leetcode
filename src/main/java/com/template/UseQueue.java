@@ -170,7 +170,19 @@ public class UseQueue {
             System.out.print(maxHeap.poll() + " -> ");
         }
         System.out.println();
-
+        /**
+         * 用Collections.reverseOrder()实现大顶堆
+         */
+        PriorityQueue<Integer> maxHeap2 = new PriorityQueue<>(5, Collections.reverseOrder());
+        maxHeap2.add(14);
+        maxHeap2.add(110);
+        maxHeap2.add(11);
+        maxHeap2.add(17);
+        maxHeap2.add(13);
+        while(maxHeap2.size() > 0){
+            System.out.print(maxHeap2.poll() + " -> ");
+        }
+        System.out.println();
     }
 
 }
