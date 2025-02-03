@@ -26,19 +26,45 @@ public class Q496_Next_Greater_Element_I {
             boolean isFound = false;
             while(!stack.isEmpty() && !isFound){
                 int top = stack.pop();
-                if(top > num){
+                if(top > num){ // 找到了比该数值大的值
                     max = top;
-                } else if(top == num){
+                } else if(top == num){ // 找到了该数值
                     isFound = true;
                 }
                 temp.push(top);
             }
             result.add(max);
-            while(!temp.isEmpty()){
+            while(!temp.isEmpty()){ // 从temp中的数值将stack复原
                 stack.push(temp.pop());
             }
         }
         return result.stream().mapToInt(i -> i).toArray();
+    }
+    /**
+     * 使用Stack和HashMap（简化一些）
+     */
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int[] result = new int[nums1.length];
+        Stack<Integer> stack = new Stack<>();
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums2.length; i++) { // 把nums2中每个元素的下一个最大值存入hashmap
+            while (!stack.isEmpty() && nums2[i] > nums2[stack.peek()]) { //如果比栈顶元素大，则存入hashmap
+                int prevIndex = stack.pop();
+                map.put(nums2[prevIndex], nums2[i]);
+            }
+            stack.push(i);
+        /*    while (!stack.isEmpty() && nums2[i] > stack.peek()) { //把数值存入stack
+                int top = stack.pop();
+                map.put(top, nums2[i]);
+            }
+            stack.push(nums2[i]);*/
+        }
+
+        for (int i = 0 ; i < nums1.length; i++) {
+            result[i] = map.getOrDefault(nums1[i], -1); // 在hashmap中寻找nums1中每个元素
+        }
+        return result;
     }
     /**
      * 使用单调栈: 栈顶到栈底的顺序，要从小到大，也就是保持栈里的元素为递增顺序。只要保持递增，才能找到右边第一个比自己大的元素。
@@ -107,26 +133,5 @@ public class Q496_Next_Greater_Element_I {
             }
         }
         return res;
-    }
-    /**
-     *
-     */
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        int[] result = new int[nums1.length];
-        Stack<Integer> stack = new Stack<>();
-        Map<Integer,Integer> map = new HashMap<>();
-
-        for (int i = 0; i < nums2.length; i++) {
-            while (!stack.isEmpty() && nums2[i] > nums2[stack.peek()]) {
-                int prevIndex = stack.pop();
-                map.put(nums2[prevIndex], nums2[i]);
-            }
-            stack.push(i);
-        }
-
-        for (int i = 0 ; i < nums1.length; i++) {
-            result[i] = map.getOrDefault(nums1[i], -1);
-        }
-        return result;
     }
 }
