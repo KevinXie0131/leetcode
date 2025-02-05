@@ -26,6 +26,7 @@ public class Q78_Subsets {
     }
     // Backtracking 回溯
     static public void backtracking(int[] nums, int startIndex) {
+        // 防止引用传递
         result.add(new ArrayList(path)); // 收集⼦集，要放在终⽌添加的上⾯，否则会漏掉⾃⼰ (遍历这个树的时候，把所有节点都记录下来，就是要求的子集集合)
         /**
          * if(startIndex > nums.length - 1){
@@ -59,7 +60,7 @@ public class Q78_Subsets {
         return res;
     }
     /**
-     * 思路三：DFS
+     * 思路三：DFS (一条路走到底)
      * 集合中每个元素的选和不选，构成了一个满二叉状态树，比如，左子树是不选，右子树是选，从根节点、到叶子节点的所有路径，构成了所有子集。
      * 可以有前序、中序、后序的不同写法，结果的顺序不一样。本质上，其实是比较完整的中序遍历。
      */
