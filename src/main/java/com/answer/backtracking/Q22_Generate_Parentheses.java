@@ -14,6 +14,7 @@ public class Q22_Generate_Parentheses {
         return result;
     }
     /**
+     * Backtracking 回溯
      * l >= r Valid
      * l < r Invalid
      * l == r == n Add in result
@@ -22,7 +23,7 @@ public class Q22_Generate_Parentheses {
         if(left == 0 && right == 0){
             result.add(sb.toString());
         }
-        if(right < left){
+        if(right < left){ // 只有left>= right才有效，在这里剪枝
             return;
         }
         if(left > 0){
@@ -58,6 +59,7 @@ public class Q22_Generate_Parentheses {
             backtracking1(sb, left + 1, right, n, result);
             sb.deleteCharAt(sb.length() - 1);
         }
+        // 只有left>= right才有效，在这里剪枝
         if(right < n && left > right){ // if(right < left){ // 相同作用
             sb.append(")");
             backtracking1(sb, left, right + 1,n, result);
