@@ -17,34 +17,34 @@ public class Q169_Majority_Element {
     static public int majorityElement_0(int[] nums) {
         return findMajorElment(nums,0,nums.length-1);
     }
-
+    // 分治法是递归
     static public int findMajorElment(int[] nums,int low,int high){
         if(low == high){ // base case; the only element in an array of size 1 is the majority element.
             return nums[low];
         }
         int mid = (high - low) / 2 + low; // recurse on left and right halves of this slice.
-        int left =  findMajorElment(nums, low, mid);
-        int right = findMajorElment(nums, mid + 1, high);
+        int leftMajority =  findMajorElment(nums, low, mid);
+        int rightMajority = findMajorElment(nums, mid + 1, high);
 
-        if(left == right){ // if the two halves agree on the majority element, return it. 可以省略
-            return left;
+        if(leftMajority == rightMajority){ // if the two halves agree on the majority element, return it. 可以省略
+            return leftMajority;
         }
         // otherwise, count each element and return the "winner".
-        int leftCount = findMajorElentCount(nums, left, low, mid);              // 返回[low, mid]中left的数量
-        int rightCount = findMajorElentCount(nums, right, mid + 1, high);  // 返回[mid + 1, high]中right的数量
-        // The following can word
-        // int leftCount = findMajorElentCount(nums, left, low, high);
-        // int rightCount = findMajorElentCount(nums, right, low, high);
+        int leftCount = findMajorElentCount(nums, leftMajority, low, mid);              // 返回[low, mid]中left的数量
+        int rightCount = findMajorElentCount(nums, rightMajority, mid + 1, high);  // 返回[mid + 1, high]中right的数量
+        // The following can work
+        // int leftCount = findMajorElentCount(nums, leftMajority, low, high);
+        // int rightCount = findMajorElentCount(nums, rightMajority, low, high);
 /*      int leftCount=0;  // 另一种形式
         int rightCount=0;
         for(int i = low; i <= high; i++){
-            if(left == nums[i]){
-                ++leftCountount;
-            }else if(right == nums[i]){
+            if(leftMajority == nums[i]){
+                ++leftCount;
+            }else if(rightMajority == nums[i]){
                 ++rightCount;
             }
         }*/
-        return (leftCount > rightCount) ? left : right;
+        return (leftCount > rightCount) ? leftMajority : rightMajority; // 在当前区间比较leftMajority和rightMajority那个多
     }
 
     static  public int findMajorElentCount(int[] nums, int target, int low, int high){
