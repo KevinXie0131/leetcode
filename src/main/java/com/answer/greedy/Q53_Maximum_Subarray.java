@@ -6,7 +6,8 @@ public class Q53_Maximum_Subarray {
         System.out.println(maxSubArray0(nums));
     }
     /**
-     * Divide and conquer 分治法 提交后右Time Limit Exceeded
+     * Approach 3: Divide and Conquer (Advanced) 分治法 提交后右Time Limit Exceeded
+     *
      */
     public static int maxSubArray0(int[] nums) {
         return getMax(nums, 0, nums.length - 1);
