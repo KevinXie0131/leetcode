@@ -2,10 +2,42 @@ package com.answer.greedy;
 
 public class Q53_Maximum_Subarray {
     public static void main(String[] args) {
-        int[] nums = {-2, -1};
-        System.out.println(maxSubArray(nums));
+        int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+        System.out.println(maxSubArray0(nums));
     }
+    /**
+     * Divide and conquer 分治法 提交后右Time Limit Exceeded
+     */
+    public static int maxSubArray0(int[] nums) {
+        return getMax(nums, 0, nums.length - 1);
+    }
+    public static int getMax(int[] nums, int left, int right){
+        if(left == right){
+            return nums[left];
+        }
+        int mid = (right + left) >>> 1;
+        int leftMax =  getMax(nums, left, mid);
+        int rightMax = getMax(nums, mid + 1, right);
+        int crossMax = getCrossMax(nums, left, right); // 求中间开始最大值
 
+        return Math.max(crossMax, Math.max(leftMax, rightMax)); // 从左边最大的，右边最大的 和 中间最大的 取最大值
+    }
+    public static int getCrossMax(int[] nums, int left, int right){
+        int mid = (right + left) >>> 1;
+        int leftSum = nums[mid];
+        int leftMax = leftSum;
+        for(int i = mid - 1; i >=0; i--){
+            leftSum += nums[i];
+            leftMax = Math.max(leftMax, leftSum);
+        }
+        int rightSum = nums[mid + 1];
+        int rightMax = rightSum;
+        for(int i = mid + 2; i <= nums.length - 1; i++){
+            rightSum += nums[i];
+            rightMax = Math.max(rightMax, rightSum);
+        }
+        return leftMax + rightMax; // 从中间节点向两边找最大的总和
+    }
     /**
      * Greedy
      * 局部最优：当前“连续和”为负数的时候立刻放弃，从下一个元素重新计算“连续和”，因为负数加上下一个元素 “连续和”只会越来越小。
@@ -21,7 +53,6 @@ public class Q53_Maximum_Subarray {
                 sum = 0;
             }
         }
-
         return max;
     }
     /**
@@ -55,7 +86,6 @@ public class Q53_Maximum_Subarray {
                 result = dp[i];
             }
         }
-
         return result;
     }
 }
