@@ -5,7 +5,7 @@ import java.util.*;
 public class Q78_Subsets {
     public static void main(String[] args) {
         int[] nums = {1,2,3};
-        System.out.println(subsets_3(nums));
+        System.out.println(subsets_2(nums));
     }
     /**
      * 求子集问题和77.组合  和131.分割回文串 又不一样了。
@@ -24,7 +24,7 @@ public class Q78_Subsets {
         backtracking(nums,0);
         return result;
     }
-
+    // Backtracking 回溯
     static public void backtracking(int[] nums, int startIndex) {
         result.add(new ArrayList(path)); // 收集⼦集，要放在终⽌添加的上⾯，否则会漏掉⾃⼰ (遍历这个树的时候，把所有节点都记录下来，就是要求的子集集合)
         /**
@@ -41,7 +41,7 @@ public class Q78_Subsets {
         }
     }
     /**
-     * 思路二：循环枚举
+     * 思路二：循环枚举 / 扩展法
      * 逐个枚举，空集的幂集只有空集，每增加一个元素，让之前幂集中的每个集合，追加这个元素，就是新增的子集。
      */
     public static List<List<Integer>> subsets_2(int[] nums) {
@@ -50,7 +50,7 @@ public class Q78_Subsets {
         for (Integer n : nums) {
             int size = res.size();
             for (int i = 0; i < size; i++) {
-                List<Integer> newSub = new ArrayList<Integer>(res.get(i));
+                List<Integer> newSub = new ArrayList<Integer>(res.get(i)); // 防止引用传递
                 newSub.add(n);
                 res.add(newSub);
                 System.out.println(newSub);
