@@ -10,7 +10,7 @@ public class Q206_Reverse_Linked_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseList_Recursive_3(node1);
+        ListNode node = reverseList(node1);
         node.print();
     }
     /**
@@ -73,7 +73,7 @@ public class Q206_Reverse_Linked_List {
         // 此时的 head 节点为尾节点，next 需要指向 NULL
         head.next = null;
 
-        return last ;
+        return last; // last 始终为最末的那个节点（5），节点5不停被返回，最后作为返回值返回
     }
     /**
      * Recursive - from head to tail
