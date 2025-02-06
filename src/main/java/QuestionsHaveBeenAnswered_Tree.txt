@@ -78,6 +78,7 @@ Similar problems of Level Order Traversal:
 606. Construct String from Binary Tree (additional)
 449. Serialize and Deserialize BST (additional)
 331. Verify Preorder Serialization of a Binary Tree (additional)
+114. Flatten Binary Tree to Linked List
 
 ---- the following questions don't have empty java class for answer
 979. Distribute Coins in Binary Tree (additional)
