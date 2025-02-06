@@ -189,7 +189,7 @@ class UnionFind_Simple {
         if (parent[index] == index) { //找到祖先
             return index;
         } else {
-            parent[index] = find(parent[index]);
+            parent[index] = find(parent[index]); // Quick find
         }
         return parent[index];
     }
@@ -221,7 +221,7 @@ class UnionFind_Simple {
 class UnionFind {
     int count;
     int[] parent;
-    int[] rank;
+    int[] rank; // like weight
 
     public UnionFind(char[][] grid) { // 二维数组 -> 一维数组
         count = 0;
@@ -247,17 +247,17 @@ class UnionFind {
         return parent[i];
     }
 
-    public void union(int x, int y) {
+    public void union(int x, int y) { // Quick Union: Avoid too high tree
         int rootx = find(x);
         int rooty = find(y);
         if (rootx != rooty) {
-            if (rank[rootx] > rank[rooty]) {
-                parent[rooty] = rootx;
+            if (rank[rootx] > rank[rooty]) { // link lower tree to higher tree
+                parent[rooty] = rootx; // link y yo x, since x is higher
             } else if (rank[rootx] < rank[rooty]) {
-                parent[rootx] = rooty;
+                parent[rootx] = rooty; // link x yo y, since y is higher
             } else {
-                parent[rooty] = rootx;
-                rank[rootx] += 1;
+                parent[rooty] = rootx; // y is the same high as x, link y yo x
+                rank[rootx] += 1; // x is higher by 1
             }
             --count;
         }
