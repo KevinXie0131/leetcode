@@ -35,19 +35,19 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
     /**
      * 递归 （另一种形式）
      */
-    public void dfs_1(TreeNode root, int deep) {
+    public void dfs_1(TreeNode root, int level) {
         if (root == null){
             return;
         }
 
-        if (resListRec.size() == deep) {
+        if (resListRec.size() == level) {
             List<Integer> sublist = new ArrayList<Integer>();
             resListRec.add(sublist);
         }
 
-        resListRec.get(deep).add(root.value);
+        resListRec.get(level).add(root.value);
 
-        dfs(root.left,  deep + 1);
-        dfs(root.right, deep + 1);
+        dfs(root.left,  level + 1);
+        dfs(root.right, level + 1);
     }
 }
