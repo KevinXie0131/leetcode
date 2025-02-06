@@ -4,9 +4,9 @@ import java.util.*;
 
 public class Q692_Top_K_Frequent_Words {
     public static void main(String[] args) {
-        String[] words = {"the","day","is","sunny","the","the","the","sunny","is","is"};
+        String[] words = {"the","day","is","sunny","the","the","the","sunny","is","is", "a", "b"};
         int k = 4;
-        List<String> list = topKFrequent_2(words, k);
+        List<String> list = topKFrequent_4(words, k);
         System.out.println(list);
     }
     /**
@@ -84,7 +84,6 @@ public class Q692_Top_K_Frequent_Words {
         for(String s : words){
             map.put(s, map.getOrDefault(s, 0) + 1);
         }
-
         /**
          * Max Heap
          */
@@ -103,6 +102,90 @@ public class Q692_Top_K_Frequent_Words {
         return list;
     }
     /**
-     * Trie 字典树/前缀树
+     * Trie 字典树/前缀树 + PriorityQueue
      */
+    public static List<String> topKFrequent_4(String[] words, int k) {
+        List<String> result = new ArrayList<>();
+
+        Trie root = new Trie();
+        for(String word : words){
+            root.insert(word, k);
+        }
+        Queue<WrodTuple>  queue = new PriorityQueue<>(new Comparator<WrodTuple>() {
+            @Override
+            public int compare(WrodTuple o1, WrodTuple o2) {
+                return o1.getFrequency() == o2.getFrequency() ? o1.getVal().compareTo(o2.getVal()) : o2.getFrequency() - o1.getFrequency();
+            }
+        });
+        dfs(root, queue);
+        while(k-- > 0){
+            result.add(queue.poll().val);
+        }
+        return result;
+    }
+
+    static void dfs(Trie node, Queue<WrodTuple>  queue) {
+        if( node.isEnd ) {
+            queue.offer(new WrodTuple(node.val, node.frequency));
+        }
+        // Recursion exit
+        if( node.children.length == 0) {
+            return ;
+        }
+        // Recursion
+        Trie[] children = node.children;
+        for( int i = 0; i < children.length; i++ ) {
+            if( children[i] != null ) {
+                dfs(node.children[i], queue);
+            }
+        }
+    }
+
+    static class Trie {
+        private Trie[] children;
+        private boolean isEnd;
+        private String val;
+        private int frequency;
+
+        public Trie() {
+            children = new Trie[26];
+            isEnd = false;
+            val = "";
+            frequency = 0;
+        }
+
+        public void insert(String word, int k) { // 插入字符串
+            Trie node = this;
+            for (int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+                int index = ch - 'a';
+                if (node.children[index] == null) {
+                    node.children[index] = new Trie();
+                }
+                node = node.children[index];
+            }
+            node.isEnd = true;
+            node.val = word;
+            node.frequency++;
+        }
+    }
+
+    static class WrodTuple{
+        private String val;
+        private int frequency;
+
+        public WrodTuple(String val,  int frequency){
+            this.val = val;
+            this.frequency = frequency;
+        }
+
+        public String getVal() {
+            return val;
+        }
+
+        public int getFrequency() {
+            return frequency;
+        }
+    }
 }
+
