@@ -194,6 +194,14 @@ class UnionFind_Simple {
         return parent[index];
     }
 
+    public int find_2(int index) { // 另一种形式
+        if (parent[index] == index) { //找到祖先
+            return index;
+        } else {
+            return find(parent[index]);
+        }
+    }
+
     public void union(int x, int y) { // 合并x, y成为公同的祖先
         int rootx = find(x);
         int rooty = find(y);
