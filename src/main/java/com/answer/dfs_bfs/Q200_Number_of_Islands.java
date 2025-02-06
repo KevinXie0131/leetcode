@@ -28,8 +28,8 @@ public class Q200_Number_of_Islands {
 
     public static int numIslands(char[][] grid) {
         int res = 0;
-        int m = grid.length;
-        int n = grid[0].length;
+        int m = grid.length;    // row
+        int n = grid[0].length; // column
 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
@@ -76,6 +76,7 @@ public class Q200_Number_of_Islands {
         dfs_recursive(grid, i, j - 1);
         dfs_recursive(grid, i, j + 1);
     }
+
     public static boolean isWithin(char[][] grid, int x, int y){
         if(x >= 0 && x <= grid.length - 1 && y >= 0 && y <= grid[0].length - 1){
             return true;
@@ -87,8 +88,8 @@ public class Q200_Number_of_Islands {
      */
     public static int numIslands_1(char[][] grid) {
         int res = 0;
-        int m = grid.length;
-        int n = grid[0].length;
+        int m = grid.length;    // row
+        int n = grid[0].length; // column
 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
@@ -100,6 +101,7 @@ public class Q200_Number_of_Islands {
         }
         return res;
     }
+
     public static void bfs(char[][] grid, int i, int j){
         Deque<int[]> queue = new ArrayDeque<>();
         queue.offer(new int[]{i, j});
