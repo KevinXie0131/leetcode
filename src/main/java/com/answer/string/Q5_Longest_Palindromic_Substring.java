@@ -1,6 +1,11 @@
 package com.answer.string;
 
 public class Q5_Longest_Palindromic_Substring {
+    public static void main(String[] args) {
+        String s = "cccc";
+        String r = longestPalindrome_2(s);
+        System.out.println(r);
+    }
     /**
      * 暴力解法 - Time Limit Exceeded
      */
@@ -28,7 +33,36 @@ public class Q5_Longest_Palindromic_Substring {
         }
         return true;
     }
+    /**
+     * 中心扩展算法
+     */
+   static  public String longestPalindrome_2(String s) {
+        if (s == null || s.length() < 1) {
+            return "";
+        }
+        String result = "";
+        for (int i = 0; i < s.length(); i++) {
+            int left = i - 1, right = i + 1;
+            while(left <= right && left >= 0 && right <= s.length() -1 && s.charAt(left) == s.charAt(right)){
+                if(right - left> result.length()) {
+                    result = s.substring(left, right + 1);
+                }
 
+                left++; right--;
+            }
+
+            left = i; right = i + 1;
+            while(left <= right && left >= 0 && right <= s.length() -1 && s.charAt(left) == s.charAt(right)){
+                if(right - left + 1> result.length()) {
+                    result = s.substring(left, right + 1);
+                }
+                left++; right--;
+            }
+
+        }
+
+        return result;
+    }
     /**
      * 方法二：中心扩展算法
      */
@@ -38,8 +72,8 @@ public class Q5_Longest_Palindromic_Substring {
         }
         int start = 0, end = 0;
         for (int i = 0; i < s.length(); i++) {
-            int len1 = expandAroundCenter(s, i, i);
-            int len2 = expandAroundCenter(s, i, i + 1);
+            int len1 = expandAroundCenter(s, i, i); // 回文子串为奇数，如abcba
+            int len2 = expandAroundCenter(s, i, i + 1); // 回文子串为偶数，如abba
             int len = Math.max(len1, len2);
             if (len > end - start) {
                 start = i - (len - 1) / 2;

@@ -20,7 +20,7 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
         int left = 0;
         for(int i = 0; i < arr.length; i++){
             if(map.containsKey(arr[i])){
-                left = Math.max(left, map.get(arr[i]) + 1);
+                left = Math.max(left, map.get(arr[i]) + 1); // 需要比较max，比如"abba"或者"dvdf"
             }
             map.put(arr[i], i);
             max = Math.max(max, i - left + 1);
