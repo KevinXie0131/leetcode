@@ -2,7 +2,7 @@ package com.answer.string;
 
 public class Q5_Longest_Palindromic_Substring {
     public static void main(String[] args) {
-        String s = "cccc";
+        String s = "bb";
         String r = longestPalindrome_2(s);
         System.out.println(r);
     }
@@ -40,27 +40,28 @@ public class Q5_Longest_Palindromic_Substring {
         if (s == null || s.length() < 1) {
             return "";
         }
+        if (s.length() == 1) return s;
         String result = "";
-        for (int i = 0; i < s.length(); i++) {
-            int left = i - 1, right = i + 1;
-            while(left <= right && left >= 0 && right <= s.length() -1 && s.charAt(left) == s.charAt(right)){
-                if(right - left> result.length()) {
-                    result = s.substring(left, right + 1);
-                }
-
-                left++; right--;
-            }
-
-            left = i; right = i + 1;
+        for (int i = 0; i <= s.length() - 2; i++) {
+            int left = i - 1, right = i + 1; // 奇数
             while(left <= right && left >= 0 && right <= s.length() -1 && s.charAt(left) == s.charAt(right)){
                 if(right - left + 1> result.length()) {
                     result = s.substring(left, right + 1);
                 }
-                left++; right--;
+
+                left--; right++;
+            }
+
+            left = i; right = i + 1;        // 偶数
+            while(left <= right && left >= 0 && right <= s.length() - 1 && s.charAt(left) == s.charAt(right)){
+                if(right - left + 1 > result.length()) {
+                    result = s.substring(left, right + 1);
+                }
+                left--; right++;
             }
 
         }
-
+        if(result.length() == 0) return s.substring(0, 1);
         return result;
     }
     /**
