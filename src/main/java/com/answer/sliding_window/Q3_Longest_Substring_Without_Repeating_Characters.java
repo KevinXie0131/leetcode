@@ -9,9 +9,8 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
         String s = "pwwkew";
         System.out.println(lengthOfLongestSubstring_1(s));
     }
-
     /**
-     * Approach 3: Sliding Window Optimized
+     * Approach 3: Sliding Window Optimized 滑动窗口
      */
     public static int lengthOfLongestSubstring(String s) {
         int max = 0;
@@ -23,7 +22,6 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
             if(map.containsKey(arr[i])){
                 left = Math.max(left, map.get(arr[i]) + 1);
             }
-
             map.put(arr[i], i);
             max = Math.max(max, i - left + 1);
         }
@@ -46,7 +44,6 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
             if(map[(int)arr[i]] != -1){
                 left = Math.max(left, map[(int)arr[i]] + 1);
             }
-
             map[(int)arr[i]] = i;
             max = Math.max(max, i - left + 1);
         }
@@ -71,9 +68,7 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
                 chars.put(l, chars.get(l) - 1);
                 left++;
             }
-
             res = Math.max(res, right - left + 1);
-
             right++;
         }
         return res;
@@ -92,7 +87,6 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
                 }
             }
         }
-
         return res;
     }
     private boolean checkRepetition(String s, int start, int end) {
@@ -105,7 +99,6 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
             }
             chars.add(c);
         }
-
         return true;
     }
 }
