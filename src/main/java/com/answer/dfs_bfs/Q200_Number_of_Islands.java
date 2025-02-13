@@ -22,9 +22,58 @@ public class Q200_Number_of_Islands {
         System.out.println(numIslands_2(grid1));
     }
     /**
-     * Approach #1 DFS
+     * 深度优先搜索
      */
-    static int[][] dir = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+    public int numIslands1(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][]visited = new boolean[m][n];
+        int result = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(!visited[i][j] && grid[i][j] == '1') { // 没有访问过的 同时 是陆地的
+                    result++;
+                 //   visited[i][j] = true;  // uncomment for 版本二
+                    dfs_visited(visited, i, j, grid);
+                }
+            }
+        }
+        return result;
+    }
+    // 版本一的写法是 ：下一个节点是否能合法已经判断完了，传进dfs函数的就是合法节点。
+    void dfs_visited0(boolean[][] visited, int x, int y, char [][]grid) {
+        if (visited[x][y] || grid[x][y] == 0) {
+            return; // 终止条件：访问过的节点 或者 遇到海水
+        }
+        visited[x][y] = true; // 标记访问过
+        for (int i = 0; i < 4; i++) {
+            int nextx = x + dir[i][0];
+            int nexty = y + dir[i][1];
+            if (nextx < 0 || nextx >= grid.length || nexty < 0 || nexty >= grid[0].length) {
+                continue;  // 越界了，直接跳过
+            }
+            dfs_visited0(visited, nextx, nexty, grid);
+        }
+    }
+    // 版本二的写法是：不管节点是否合法，上来就dfs，然后在终止条件的地方进行判断，不合法再return。
+    // 理论上来讲，版本一的效率更高一些，因为避免了 没有意义的递归调用，在调用dfs之前，就做合法性判断。 但从写法来说，可能版本二 更利于理解一些。（不过其实都差不太多）
+    public void dfs_visited(boolean[][] visited, int x, int y, char [][]grid) {
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dir[i][0];
+            int nextY = y + dir[i][1];
+            if(nextY < 0 || nextX < 0 || nextX >= grid.length || nextY >= grid[0].length){  // 越界了，直接跳过
+                continue;
+            }
+            if(!visited[nextX][nextY] && grid[nextX][nextY] == '1') {
+                visited[nextX][nextY] = true; // 遇到没访问过的陆地，+1
+                dfs_visited(visited, nextX, nextY, grid);  // 将与其链接的陆地都标记上 true
+            }
+        }
+    }
+    /**
+     * Approach #1 DFS 深度优先搜索
+     */
+    static int[][] dir = new int[][]{{1,0},{-1,0},{0,1},{0,-1}}; // 四个方向
 
     public static int numIslands(char[][] grid) {
         int res = 0;
