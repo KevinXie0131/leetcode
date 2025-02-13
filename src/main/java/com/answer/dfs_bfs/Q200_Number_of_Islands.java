@@ -133,6 +133,47 @@ public class Q200_Number_of_Islands {
         return false;
     }
     /**
+     * 广度优先搜索
+     */
+    public int numIslands0(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][]visited = new boolean[m][n];
+        int result = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(!visited[i][j] && grid[i][j] == '1') { // 没有访问过的 同时 是陆地的
+                    result++;
+                    bfs_visited(grid, visited, i, j);
+                }
+            }
+        }
+        return result;
+    }
+    // visited[x][y] = true; 放在的地方，这取决于我们对 代码中队列的定义，队列中的节点就表示已经走过的节点。 所以只要加入队列，立即标记该节点走过。
+    public void bfs_visited(char[][] grid, boolean[][] visited, int x, int y) {
+        Queue<int[]> queue = new LinkedList<int[]>(); // 定义坐标队列，没有现成的pair类，在下面自定义了
+        queue.add(new int[]{x, y});
+        visited[x][y] = true;   // 只要加入队列，立刻标记
+        // 否则出队时才标记的话会导致重复访问，比如下方节点会在右下顺序的时候被第二次访问入队
+        while (!queue.isEmpty()) {
+            int [] cur = queue.poll(); // 当前横纵坐标
+            int curX = cur[0];
+            int curY = cur[1];
+            for (int i = 0; i < 4; i++) { // 顺时针遍历新节点next，下面记录坐标
+                int nextX = curX + dir[i][0];
+                int nextY = curY + dir[i][1];
+                if (nextX < 0 || nextX >= grid.length || nextY < 0 || nextY >= grid[0].length) { // 去除越界部分
+                    continue;
+                }
+                if (!visited[nextX][nextY] && grid[nextX][nextY] == '1') {
+                    queue.add(new int[]{nextX, nextY});
+                    visited[nextX][nextY] = true;// 只要加入队列立刻标记
+                }
+            }
+        }
+    }
+    /**
      * Approach #2: BFS 使用Queue
      */
     public static int numIslands_1(char[][] grid) {
