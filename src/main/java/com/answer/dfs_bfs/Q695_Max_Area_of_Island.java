@@ -3,7 +3,80 @@ package com.answer.dfs_bfs;
 import java.util.*;
 
 public class Q695_Max_Area_of_Island {
+    /**
+     * 深度优先搜索
+     */
+    final int[][] dir={{0,1},{1,0},{0,-1},{-1,0}}; // 四个方向
 
+    public int maxAreaOfIsland_0(int[][] grid) {
+        int result = 0;
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] visited = new boolean[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if(!visited[i][j] && grid[i][j] == 1){  // 没有访问过的 同时 是陆地的
+                    int max = dfs_visited(grid, visited, i, j);
+                    result = Math.max(max, result);
+                }
+            }
+        }
+        return result;
+    }
+    int dfs_visited(int[][] grid, boolean[][] visited, int x, int y){
+        int count = 0;
+        visited[x][y] = true;  // 将与其链接的陆地都标记上 true
+        for (int i = 0; i < 4; i++) {
+            int nextX = x + dir[i][0];
+            int nextY = y + dir[i][1];
+            //水或者已经访问过的跳过
+            if(nextX < 0 || nextY < 0 || nextX >= grid.length || nextY >= grid[0].length // 越界了，直接跳过
+                    || visited[nextX][nextY] || grid[nextX][nextY] == 0){                // 水或者已经访问过的跳过
+                continue;
+            }
+            count += dfs_visited(grid, visited, nextX, nextY);
+        }
+        return count + 1;
+    }
+    /**
+     * 广度优先搜索
+     */
+    public int maxAreaOfIsland_2(int[][] grid) {
+        int result = 0;
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] visited = new boolean[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!visited[i][j] && grid[i][j] == 1) {  // 节点没有被访问过且是陆地
+                    int max = bfs_visited(grid, visited, i, j);
+                    result = Math.max(max, result);
+
+                }
+            }
+        }
+        return result;
+    }
+    int bfs_visited(int[][] grid, boolean[][] visited, int x, int y) {
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{x, y});  // 加入队列就意味节点是陆地可到达的点
+        visited[x][y] = true;
+        int count = 1;
+        while (!queue.isEmpty()) {
+            int[] node = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int nextX = node[0] + dir[i][0];
+                int nextY = node[1] + dir[i][1];
+                if (nextX < 0 || nextY < 0 || nextX >= grid.length || nextY >= grid[0].length || visited[nextX][nextY] || grid[nextX][nextY] == 0){
+                    continue;  // 越界
+                }
+                queue.offer(new int[]{nextX, nextY});
+                visited[nextX][nextY] = true; // 将与其链接的陆地都标记上 true
+                count++;
+            }
+        }
+        return count;
+    }
     /**
      * Approach #1: Depth-First Search (Recursive)
      */
