@@ -7,7 +7,6 @@ public class Q127_Word_Ladder {
         String beginWord = "hit", endWord = "cog";
         String[] wordList = {"hot","dot","dog","lot","log","cog"};
         System.out.println(ladderLength(beginWord, endWord, Arrays.asList(wordList)));
-
     }
     /**
      * 序列中第一个字符串是 beginStr。
@@ -31,6 +30,47 @@ public class Q127_Word_Ladder {
      * 广度优先搜索-寻找最短路径
      */
     public static int bfs(String beginStr, String endStr, List<String> wordList) {
+        int len = 0;
+        Set<String> set = new HashSet<>(wordList); // 使用set来检查字符串是否出现在字符串集合里更快一些
+
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        visited.add(beginStr);
+        queue.offer(beginStr);
+
+        while (!queue.isEmpty()) {
+            len++;
+            int currentLength = queue.size();
+            for (int index = 0; index < currentLength; index++) {
+                String node = queue.poll();
+
+                char[] charArray = node.toCharArray();
+                //寻找邻接节点
+                for (int i = 0; i < charArray.length; i++) {
+                    //记录旧值，用于回滚修改
+                    char old = charArray[i];
+                    for (char ch = 'a'; ch <= 'z'; ch++) { // 遍历26的字母
+                        charArray[i] = ch;
+                        String newWord = new String(charArray); // 用一个新字符串替换str，因为每次要置换一个字符
+                        if (set.contains(newWord) && !visited.contains(newWord)) {  // 字符串集合里出现了newWord，并且newWord没有被访问过
+                            queue.offer(newWord);
+                            visited.add(newWord); // 添加访问信息，并将新字符串放到队列中
+                            //找到结尾
+                            if (newWord.equals(endStr)) { // 发现替换字母后，字符串与终点字符串相同
+                                return len + 1; // 找到了路径
+                            }
+                        }
+                    }
+                    charArray[i] = old;
+                }
+            }
+        }
+        return 0;
+    }
+    /**
+     * 另一种形式 有些不好理解
+     */
+    public static int bfs1(String beginStr, String endStr, List<String> wordList) {
         int len = 1;
         Set<String> set = new HashSet<>(wordList); // 使用set来检查字符串是否出现在字符串集合里更快一些
 
