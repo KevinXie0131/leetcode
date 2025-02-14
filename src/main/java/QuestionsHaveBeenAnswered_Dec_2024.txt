@@ -135,6 +135,21 @@ Monotonic Stack
 84. Largest Rectangle in Histogram
 
 Graph
+797. All Paths From Source to Target
+200. Number of Islands
+695. Max Area of Island
+101. 孤岛的总面积 (https://programmercarl.com/kamacoder/0101.%E5%AD%A4%E5%B2%9B%E7%9A%84%E6%80%BB%E9%9D%A2%E7%A7%AF.html#%E6%80%9D%E8%B7%AF)
+102. 沉没孤岛 (https://programmercarl.com/kamacoder/0102.%E6%B2%89%E6%B2%A1%E5%AD%A4%E5%B2%9B.html#%E6%80%9D%E8%B7%AF)
+417. Pacific Atlantic Water Flow
+827. Making A Large Island
+127. Word Ladder
+105.有向图的完全可达性 (https://programmercarl.com/kamacoder/0105.%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E5%AE%8C%E5%85%A8%E5%8F%AF%E8%BE%BE%E6%80%A7.html#%E6%80%9D%E8%B7%AF)
+463. Island Perimeter
+
+Union-Find Algorithm
+1971. Find if Path Exists in Graph
+684. Redundant Connection
+685. Redundant Connection II
 
 Extra
     Array: 1365. How Many Numbers Are Smaller Than the Current Number
