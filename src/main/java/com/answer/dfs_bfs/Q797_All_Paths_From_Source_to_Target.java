@@ -3,6 +3,31 @@ package com.answer.dfs_bfs;
 import java.util.*;
 
 public class Q797_All_Paths_From_Source_to_Target {
+    /**
+     * 深搜三部曲
+     * dfs写法一：处理当前访问的节点
+     *     void dfs1(ArrayList<ArrayList<Integer>> graph, int key, boolean[] visited) {
+     *         if (visited[key]) {
+     *             return;
+     *         }
+     *         visited[key] = true;
+     *         ArrayList<Integer> keys = graph.get(key);
+     *         for (int nextKey : keys) {
+     *             // 深度优先搜索遍历
+     *             dfs1(graph, nextKey, visited);
+     *         }
+     *     }
+     * dfs写法二：处理下一个要访问的节点 (不需要终止条件，而是在 搜索下一个节点的时候，直接判断 下一个节点是否是我们要搜的节点。)
+     *     void dfs2(ArrayList<ArrayList<Integer>> graph, int key, boolean[] visited) {
+     *         ArrayList<Integer> keys = graph.get(key);
+     *         for (int nextKey : keys) {
+     *             if (visited[nextKey] == false) { // 确认下一个是没访问过的节点
+     *                 visited[nextKey] = true;
+     *                 dfs2(graph, nextKey, visited);
+     *             }
+     *         }
+     *     }
+     */
     public static void main(String[] args) {
         /**
          * 邻接表
