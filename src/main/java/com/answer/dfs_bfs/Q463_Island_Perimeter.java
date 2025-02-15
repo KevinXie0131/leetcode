@@ -18,7 +18,7 @@ public class Q463_Island_Perimeter {
                         int y = j + dirY[k];
                         // 当前位置是陆地，并且从当前位置4个方向扩展的'新位置'是'水域'或'新位置'越界，则会为周长贡献一条边
                         if(x < 0 || x >= grid.length || y < 0 || y >=grid[0].length || grid[x][y] == 0){ // x, y 在边界上或者是水域
-                            sum++;
+                            sum++; // 遇到边界或者水，周长加一
                             continue;
                         }
                     }
