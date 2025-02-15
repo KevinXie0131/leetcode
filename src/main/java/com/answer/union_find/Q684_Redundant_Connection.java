@@ -9,7 +9,22 @@ public class Q684_Redundant_Connection {
      //   int[][] edges = {{1,2},{2,3},{3,4},{1,4},{1,5}};
         System.out.println(Arrays.toString(findRedundantConnection(edges)));
     }
-
+    /**
+     * 并查集基础题目。并查集可以解决什么问题：两个节点是否在一个集合，也可以将两个节点添加到一个集合中。
+     * 已经判断 节点A 和 节点B 在在同一个集合（同一个根），如果将 节点A 和 节点B 连在一起就一定会出现环。
+     * 判断一下边的两个节点在不在同一个集合就可以了
+     */
+    public int[] findRedundantConnection0(int[][] edges) {
+        DisJoint disJoint = new DisJoint(edges.length + 1);
+        for (int i = 0; i < edges.length; ++i) {
+            if(disJoint.isSame(edges[i][0], edges[i][1])){
+                return new int[]{edges[i][0], edges[i][1]};
+            }else{
+                disJoint.join(edges[i][0], edges[i][1]);
+            }
+        }
+        return new int[]{0, 0};
+    }
     /**
      * Approach #2: Union-Find
      */
