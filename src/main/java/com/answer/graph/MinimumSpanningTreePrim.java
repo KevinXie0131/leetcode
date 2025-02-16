@@ -79,6 +79,7 @@ public class MinimumSpanningTreePrim {
                     cur = j;
                 }
             }
+            System.out.println("最近节点cur加入生成树:" + cur + " 最小距离:" + minVal);
             // 2、prim三部曲，第二步：最近节点（cur）加入生成树
             isInTree[cur] = true; // 将最近的节点加入生成树
             // 3、prim三部曲，第三步：更新非生成树节点到生成树的距离（即更新minDist数组）
@@ -94,6 +95,7 @@ public class MinimumSpanningTreePrim {
                     parent[j] = cur; // 记录最小生成树的边 （注意数组指向的顺序很重要）
                 }
             }
+            System.out.println("所有最小距离:" + Arrays.toString(minDist));
         }
         // 统计结果
         int result = 0;
@@ -102,6 +104,7 @@ public class MinimumSpanningTreePrim {
         }
         System.out.println(result);
         // 输出 最小生成树边的链接情况
+        System.out.println("最小生成树边的链接");
         for (int i = 1; i <= v; i++) {
             System.out.println(i + " -> " + parent[i]);
         }
