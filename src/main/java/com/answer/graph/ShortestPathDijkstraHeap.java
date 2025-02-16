@@ -34,14 +34,14 @@ public class ShortestPathDijkstraHeap {
      */
     public static void main(String[] args) {
         int[][] input = {{1, 2, 1},
-                {1, 3, 4},
-                {2, 3, 2},
-                {2, 4, 5},
-                {3, 4, 2},
-                {4, 5, 3},
-                {2, 6, 4},
-                {5, 7, 4},
-                {6, 7, 9}};
+                        {1, 3, 4},
+                        {2, 3, 2},
+                        {2, 4, 5},
+                        {3, 4, 2},
+                        {4, 5, 3},
+                        {2, 6, 4},
+                        {5, 7, 4},
+                        {6, 7, 9}};
         dijkstraHeap(7, 9, input );
     }
 
@@ -53,27 +53,22 @@ public class ShortestPathDijkstraHeap {
         for (int i = 0; i <= n; i++) {
             grid.add(new ArrayList<>());
         }
-
         for (int i = 0; i < m; i++) {
             int p1 = input[i][0];
             int p2 = input[i][1];
             int val = input[i][2];
             grid.get(p1).add(new Edge1(p2, val)); // // p1 指向 p2，权值为 val
         }
-
         int start = 1;  // 起点
         int end = n;    // 终点
-
         // 存储从源点到每个节点的最短距离
         int[] minDist = new int[n + 1];
         Arrays.fill(minDist, Integer.MAX_VALUE);
-
         // 记录顶点是否被访问过
         boolean[] visited = new boolean[n + 1];
 
         // 优先队列中存放 Pair<节点，源点到该节点的权值>
         PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(new MyComparison());
-
         // 初始化队列，源点到源点的距离为0，所以初始为0
         pq.add(new Pair<>(start, 0));
 
@@ -84,8 +79,9 @@ public class ShortestPathDijkstraHeap {
             // <节点， 源点到该节点的距离>
             Pair<Integer, Integer> cur = pq.poll();
 
-            if (visited[cur.first]) continue; // cur.first 是指取 pair<int, int> 里的第一个int，即节点编号
-
+            if (visited[cur.first]) {
+                continue; // cur.first 是指取 pair<int, int> 里的第一个int，即节点编号
+            }
             // 2. 第二步，该最近节点被标记访问过
             visited[cur.first] = true;
 
@@ -100,7 +96,6 @@ public class ShortestPathDijkstraHeap {
                 }
             }
         }
-
         if (minDist[end] == Integer.MAX_VALUE) {
             System.out.println(-1); // 不能到达终点
         } else {
