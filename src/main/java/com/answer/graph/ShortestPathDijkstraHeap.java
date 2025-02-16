@@ -95,6 +95,13 @@ public class ShortestPathDijkstraHeap {
                     pq.add(new Pair<>(edge.to, minDist[edge.to]));// 由于cur节点的加入，而新链接的边，加入到优先级队里中
                 }
             }
+            // 打印日志：
+            System.out.println("选择节点: " + cur.first +  " 最小距离:" + cur.second);
+            System.out.print("minDist数组: ");
+            for (int v = 1; v <= n; v++) {
+                System.out.print(v + ":" + minDist[v] + " ");
+            }
+            System.out.println();
         }
         if (minDist[end] == Integer.MAX_VALUE) {
             System.out.println(-1); // 不能到达终点
