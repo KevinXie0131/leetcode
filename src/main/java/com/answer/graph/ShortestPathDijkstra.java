@@ -55,7 +55,7 @@ public class ShortestPathDijkstra {
         boolean[] visited = new boolean[n + 1];
         minDist[start] = 0;  // 起始点到自身的距离为0
 
-        int[] parent = new int[n + 1];
+        int[] parent = new int[n + 1]; // 使用一维数组就可以记录。parent[节点编号] = 节点编号，这样就把一条边记录下来了。
         Arrays.fill(parent, -1);
 
         for (int i = 1; i <= n; i++) { // 遍历所有节点
