@@ -4,7 +4,11 @@ import java.util.*;
 
 public class MinimumSpanningTreeKruskal {
     /**
-     * prim 算法是维护节点的集合，而 Kruskal 是维护边的集合。
+     * prim 算法是维护节点的集合，而 Kruskal 是维护边的集合。节点多，但边相对较少，那么使用Kruskal 更优.
+     *                          而 prim 算法是对节点进行操作的，节点数量越少，prim算法效率就越优。
+     * 所以在 稀疏图中，用Kruskal更优。 在稠密图中，用prim算法更优。 (边数量较少为稀疏图，接近或等于完全图（所有节点皆相连）为稠密图)
+     * Prim 算法 时间复杂度为 O(n^2)，其中 n 为节点数量，它的运行效率和图中边树无关，适用稠密图。
+     * Kruskal算法 时间复杂度 为 nlogn，其中n 为边的数量，适用稀疏图。
      *
      * kruscal的思路：
      *      边的权值排序，因为要优先选最小的边加入到生成树里
@@ -41,6 +45,7 @@ public class MinimumSpanningTreeKruskal {
         int v = vertex;
         int e = edgeNo;
         List<Edge> edges = new ArrayList<>();
+        List<Edge> resultEdge = new ArrayList<>();
         int resultVal = 0;
 
         for (int i = 0; i < e; i++) {
@@ -62,10 +67,16 @@ public class MinimumSpanningTreeKruskal {
             // 如果祖先不同，则不在同一个集合
             if (x != y) {
                 resultVal += edge.val;  // 这条边可以作为生成树的边
+                resultEdge.add(edge); // 记录最小生成树的边
                 join(x, y); // 两个节点加入到同一个集合
             }
         }
         System.out.println(resultVal);
+        // 打印最小生成树的边
+        for (Edge edge : resultEdge) {
+            System.out.println(edge.l + " - " + edge.r + " : " + edge.val);
+        }
+
     }
     // 并查集初始化
     public static void init() {
