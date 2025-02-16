@@ -6,6 +6,10 @@ public class ShortestPathDijkstra {
     /**
      * Dijkstra求最短路，最短路是图论中的经典问题即：给出一个有向图，一个起点，一个终点，问起点到终点的最短路径。
      * Dijkstra算法：在有权图（权值非负数）中求从起点到其他节点的最短路径算法。
+     *
+     * 迪杰斯特拉(Dijkstra)算法是典型最短路径算法，用于计算一个节点到其他节点的最短路径。
+     * 它的主要特点是以起始点为中心向外层层扩展(广度优先搜索思想)，直到扩展到终点为止。
+     *
      * 需要注意两点：
      *      Dijkstra 算法可以同时求 起点到所有节点的最短路径
      *      权值不能为负数
@@ -79,7 +83,8 @@ public class ShortestPathDijkstra {
                 }
             }
             // 打印日志：
-            System.out.println("select:" + cur );
+            System.out.println("选择节点: " + cur +  " 最小距离:" + minVal);
+            System.out.print("minDist数组: ");
             for (int v = 1; v <= n; v++) {
                 System.out.print(v + ":" + minDist[v] + " ");
             }
