@@ -23,11 +23,10 @@ public class TopologicalSorting {
      * 结果集的顺序，就是我们想要的拓扑排序顺序 （结果集里顺序可能不唯一）
      */
     public static void main(String[] args) {
-        int[][] input = {
-                {0, 1},
-                {0, 2},
-                {1, 3},
-                {2, 4}};
+        int[][] input = {{0, 1},
+                         {0, 2},
+                         {1, 3},
+                         {2, 4}};
         topologicalSorting(5, 4, input );
     }
     public static void topologicalSorting(int numFile , int row,  int[][] input) {
@@ -73,7 +72,7 @@ public class TopologicalSorting {
             for (int i = 0; i < result.size(); i++) {
                 System.out.print(result.get(i));
                 if (i < result.size() - 1) {
-                    System.out.print(" ");
+                    System.out.print(" -> ");
                 }
             }
         } else {
