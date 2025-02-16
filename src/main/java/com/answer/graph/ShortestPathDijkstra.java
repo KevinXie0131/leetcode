@@ -61,7 +61,7 @@ public class ShortestPathDijkstra {
         for (int i = 1; i <= n; i++) { // 遍历所有节点
             int minVal = Integer.MAX_VALUE;
             int cur = 1;
-            // 1、选距离源点最近且未访问过的节点
+            // 1、选距离源点最近且未访问过的节点 第二层for循环
             for (int v = 1; v <= n; ++v) {
                 if (!visited[v] && minDist[v] < minVal) {
                     minVal = minDist[v];
