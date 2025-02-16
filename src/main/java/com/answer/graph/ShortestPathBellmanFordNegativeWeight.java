@@ -2,7 +2,7 @@ package com.answer.graph;
 
 import java.util.*;
 
-public class ShortestPathBellmanFordRelaxation {
+public class ShortestPathBellmanFordNegativeWeight {
     /**
      *
      */
@@ -11,10 +11,10 @@ public class ShortestPathBellmanFordRelaxation {
                         {2, 3, 1},
                         {3, 1, -1},
                         {3, 4, 1}};
-        bellmanFordRelaxation(4, 4, input );
+        bellmanFordNegativeWeight(4, 4, input );
     }
 
-    public static void bellmanFordRelaxation(int vertex , int edgeNum,  int[][] input) {
+    public static void bellmanFordNegativeWeight(int vertex , int edgeNum,  int[][] input) {
         // Input processing
         // Input processing
         int n = vertex;
