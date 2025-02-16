@@ -2,7 +2,7 @@ package com.answer.graph;
 
 import java.util.Arrays;
 
-public class MinimumSpanningTree {
+public class MinimumSpanningTreePrim {
     /**
      * 最小生成树
      *    prim算法
@@ -58,6 +58,7 @@ public class MinimumSpanningTree {
         Arrays.fill(minDist, 10001);
         // 记录节点是否在树里
         boolean[] isInTree = new boolean[v + 1];
+        // 使用一维数组就可以记录。parent[节点编号] = 节点编号，这样就把一条边记录下来了。
         int[] parent = new int[v + 1];
         Arrays.fill(parent, -1);
 
