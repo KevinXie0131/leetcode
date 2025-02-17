@@ -4,16 +4,20 @@ import java.util.*;
 
 public class ShortestPathBellmanFordFaster {
     /**
+     * Bellman_ford 队列优化算法，也叫SPFA算法 (Shortest Path Faster Algorithm) 也称为Bellman-Ford队列优化算法（Queue improved Bellman-Ford）
+     *  Bellman_ford 算法每次松弛 都是对所有边进行松弛. 但真正有效的松弛，是基于已经计算过的节点在做的松弛。所以 Bellman_ford 算法 每次都是对所有边进行松弛，其实是多做了一些无用功。
      *
+     * 只需要对 上一次松弛的时候更新过的节点作为出发节点所连接的边 进行松弛就够了。
+     * 用队列来记录上次松弛的时候更新过的节点。（其实用栈也行，对元素顺序没有要求）
      */
     public static void main(String[] args) {
         int[][] input = {{5, 6, -2},
-                {1, 2, 1},
-                {5, 3, 1},
-                {2, 5, 2},
-                {2, 4, -3},
-                {4, 6, 4},
-                {1, 3, 5}};
+                        {1, 2, 1},
+                        {5, 3, 1},
+                        {2, 5, 2},
+                        {2, 4, -3},
+                        {4, 6, 4},
+                        {1, 3, 5}};
         bellmanFordFaster(6, 7, input );
     }
 
@@ -32,7 +36,9 @@ public class ShortestPathBellmanFordFaster {
             int val = input[i][2];
             graph.get(from).add(new Edge3(from, to, val));
         }
+
         // Declare the minDist array to record the minimum distance form current node to the original node
+        // minDist数组来表达 起点到各个节点的最短距离，例如minDist[3] = 5 表示起点到达节点3 的最小距离为5
         int[] minDist = new int[n + 1];
         Arrays.fill(minDist, Integer.MAX_VALUE);
         minDist[1] = 0;
@@ -64,7 +70,6 @@ public class ShortestPathBellmanFordFaster {
         }
     }
 }
-
 // Define an inner class Edge
 class Edge3 {
     int from;
