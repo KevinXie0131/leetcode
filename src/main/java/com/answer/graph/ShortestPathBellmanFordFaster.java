@@ -26,14 +26,12 @@ public class ShortestPathBellmanFordFaster {
         for (int i = 0; i <= n; i++) {
             graph.add(new ArrayList<>());
         }
-
         for (int i = 0; i < m; i++) {
             int from = input[i][0];
             int to = input[i][1];
             int val = input[i][2];
             graph.get(from).add(new Edge3(from, to, val));
         }
-
         // Declare the minDist array to record the minimum distance form current node to the original node
         int[] minDist = new int[n + 1];
         Arrays.fill(minDist, Integer.MAX_VALUE);
@@ -42,7 +40,6 @@ public class ShortestPathBellmanFordFaster {
         // Declare a queue to store the updated nodes instead of traversing all nodes each loop for more efficiency
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(1);
-
         // Declare a boolean array to record if the current node is in the queue to optimise the processing
         boolean[] isInQueue = new boolean[n + 1];
 
@@ -59,7 +56,6 @@ public class ShortestPathBellmanFordFaster {
                 }
             }
         }
-
         // Outcome printing
         if (minDist[n] == Integer.MAX_VALUE) {
             System.out.println("unconnected");

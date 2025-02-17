@@ -40,14 +40,12 @@ public class ShortestPathBellmanFordNegativeWeight {
         // Declare a queue to store the updated nodes instead of traversing all nodes each loop for more efficiency
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(1);
-
         // Declare an array to record the times each node has been offered in the queue
         int[] count = new int[n + 1];
         count[1]++;
 
         // Declare a boolean array to record if the current node is in the queue to optimise the processing
         boolean[] isInQueue = new boolean[n + 1];
-
         // Declare a boolean value to check if there is a negative weight loop inside the graph
         boolean flag = false;
 
@@ -71,7 +69,6 @@ public class ShortestPathBellmanFordNegativeWeight {
                 }
             }
         }
-
         if (flag) {
             System.out.println("circle");
         } else if (minDist[n] == Integer.MAX_VALUE) {

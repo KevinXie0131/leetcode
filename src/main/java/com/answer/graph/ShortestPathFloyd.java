@@ -31,7 +31,6 @@ public class ShortestPathFloyd {
                 }
             }
         }
-
         // ② dp 推导：grid[i][j][k] = min{grid[i][k][k-1] + grid[k][j][k-1], grid[i][j][k-1]}
         while (m-- > 0) {
             int u = input[m][0];
@@ -39,7 +38,6 @@ public class ShortestPathFloyd {
             int weight = input[m][2];
             grid[u][v][0] = grid[v][u][0] = weight; // 初始化（处理k=0的情况） ③ dp初始化
         }
-
         // ④ dp推导：floyd 推导
         for (int k = 1; k <= n; k++) {
             for (int i = 1; i <= n; i++) {
@@ -48,7 +46,6 @@ public class ShortestPathFloyd {
                 }
             }
         }
-
         System.out.println("3.输入[起点-终点]计划个数");
         int x = 1;
 

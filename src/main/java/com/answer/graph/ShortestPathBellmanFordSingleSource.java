@@ -30,7 +30,6 @@ public class ShortestPathBellmanFordSingleSource {
             int val = input[i][2];
             graph.add(new Edge5(from, to, val));
         }
-
         int src = 2;
         int dst = 6;
         int k =  1;
@@ -53,7 +52,6 @@ public class ShortestPathBellmanFordSingleSource {
                 }
             }
         }
-
         // Output printing
         if (minDist[dst] == Integer.MAX_VALUE) {
             System.out.println("unreachable");
