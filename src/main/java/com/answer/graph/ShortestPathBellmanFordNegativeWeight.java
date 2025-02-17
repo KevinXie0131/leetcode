@@ -4,7 +4,15 @@ import java.util.*;
 
 public class ShortestPathBellmanFordNegativeWeight {
     /**
+     * 本题是要我们判断 负权回路，也就是图中出现环且环上的边总权值为负数。
+     * 如果在这样的图中求最短路的话， 就会在这个环里无限循环 （也是负数+负数 只会越来越小），无法求出最短路径。
+     * 所以对于 在有负权值的图中求最短路，都需要先看看这个图里有没有负权回路。
      *
+     * 那么解决本题的 核心思路，就是在 kama94.城市间货物运输I 的基础上，再多松弛一次，看minDist数组 是否发生变化。
+     * 时间复杂度： O(N * E) , N为节点数量，E为图中边的数量
+     * 空间复杂度： O(N) ，即 minDist 数组所开辟的空间
+     *
+     * 本题也是可以使用队列优化版的bellman_ford（SPFA）来做的, 如果节点加入队列的次数 超过了 n-1次 ，那么该图就一定有负权回路。
      */
     public static void main(String[] args) {
         int[][] input = {{1, 2, -1},
@@ -41,7 +49,7 @@ public class ShortestPathBellmanFordNegativeWeight {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(1);
         // Declare an array to record the times each node has been offered in the queue
-        int[] count = new int[n + 1];
+        int[] count = new int[n + 1]; // 记录节点加入队列几次
         count[1]++;
 
         // Declare a boolean array to record if the current node is in the queue to optimise the processing
@@ -49,7 +57,7 @@ public class ShortestPathBellmanFordNegativeWeight {
         // Declare a boolean value to check if there is a negative weight loop inside the graph
         boolean flag = false;
 
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) { // 开始松弛
             int curNode = queue.poll();
             isInQueue[curNode] = false; // Represents the current node is not in the queue after being polled
             for (Edge4 edge : graph.get(curNode)) {
@@ -60,7 +68,7 @@ public class ShortestPathBellmanFordNegativeWeight {
                         count[edge.to]++;
                         isInQueue[edge.to] = true;
                     }
-
+                    // 如果加入队列次数超过 n-1次 就说明该图与负权回路
                     if (count[edge.to] == n) { // If some node has been offered in the queue more than n-1 times
                         flag = true;
                         while (!queue.isEmpty()) queue.poll();
