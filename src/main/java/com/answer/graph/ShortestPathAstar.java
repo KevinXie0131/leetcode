@@ -68,15 +68,30 @@ public class ShortestPathAstar {
      * BFS版本的A * (BFS 是没有目的性的 一圈一圈去搜索， 而 A * 是有方向性的去搜索, A * 可以节省很多没有必要的遍历步骤)
      * 启发式函数 要影响的就是队列里元素的排序, 这是影响BFS搜索方向的关键
      * 采用欧拉距离才能最大程度体现 点与点之间的距离。使用欧拉距离计算 和 广搜搜出来的最短路的节点数是一样的
+     *
+     * A * 算法的时间复杂度 其实是不好去量化的，因为他取决于 启发式函数怎么写。
+     * 最坏情况下，A * 退化成广搜，算法的时间复杂度 是 O(n * 2)，n 为节点数量。
+     * 最佳情况，是从起点直接到终点，时间复杂度为 O(dlogd)，d 为起点到终点的深度。
+     * 因为在搜索的过程中也需要堆排序，所以是 O(dlogd)。
+     * 可以 非常粗略的认为 A * 算法的时间复杂度是 O(nlogn) ，n 为节点数量。
+     * A * 算法的空间复杂度 O(b ^ d) ,d 为起点到终点的深度，b 是 图中节点间的连接数量
      */
     static double Heuristic(Knight knight, int b1, int b2) { // 欧拉距离
       //  return (knight.x - b1) * (knight.x - b1) + (knight.y - b2) * (knight.y - b2); // 统一不开根号，这样可以提高精度
         return Math.sqrt(Math.pow(b1 - knight.x, 2) + Math.pow(b2 - knight.y, 2));
     }
-
+    /**
+     * A * 算法 并不是一个明确的最短路算法，A * 算法搜的路径如何，完全取决于 启发式函数怎么写。
+     * A * 算法并不能保证一定是最短路，因为在设计 启发式函数的时候，要考虑 时间效率与准确度之间的一个权衡。
+     *
+     * 如果题目中，给出 多个可能的目标，然后在这多个目标中 选择最近的目标，这种 A * 就不擅长了，
+     * A * 只擅长给出明确的目标 然后找到最短路径。
+     * 如果是多个目标找最近目标（特别是潜在目标数量很多的时候），可以考虑 Dijkstra ，BFS 或者 Floyd。
+     */
     public static int aStar(int a1, int a2, int b1, int b2) {
         int[][] moves = new int[1001][1001];
         int[][] dir = {{-2,-1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}};
+        // 相对了 普通BFS，A * 算法只从 队列里取出 距离终点最近的节点。
         PriorityQueue<Knight> myQueue = new PriorityQueue<>(Comparator.comparingDouble(k -> k.f)); // 比较f的最小堆
 
         Knight start = new Knight(a1, a2);
