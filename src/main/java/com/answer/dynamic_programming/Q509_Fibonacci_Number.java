@@ -18,19 +18,22 @@ public class Q509_Fibonacci_Number {
         return fib(n - 1) + fib(n - 2);
     }
     /**
-     * Approach 2: Bottom-Up Approach using Tabulation
+     * Approach 2: Bottom-Up Approach using Tabulation 动态规划
+     * dp 数组的迭代解法
      */
     public int fib_1(int n) {
-        if(n <= 1) return n;
+        if(n <= 1) {
+            return n; // If n = 0, return 0. If n = 1, return 1.
+        }
 
-        int[] cache = new int[n + 1];
-        cache[0] = 0;
+        int[] cache = new int[n + 1]; // 0 - n
+        cache[0] = 0; // 初始状态
         cache[1] = 1;
 
         for(int i = 2; i <= n; i++){
-            cache[i] = cache[i-1] + cache[i-2];
+            cache[i] = cache[i-1] + cache[i-2]; // 状态转移方程
         }
-        return cache[n];
+        return cache[n]; // 终止状态
     }
     /**
      * Approach 3: Top-Down Approach using Memoization 记忆化搜索
@@ -52,6 +55,7 @@ public class Q509_Fibonacci_Number {
     }
     /**
      * Approach 4: Iterative Bottom-Up Approach
+     * 动态规划
      */
     public int fib_3(int n) {
         if(n <= 1) return n;
