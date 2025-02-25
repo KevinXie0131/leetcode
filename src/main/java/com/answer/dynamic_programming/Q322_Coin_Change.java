@@ -10,6 +10,7 @@ public class Q322_Coin_Change {
     }
     /**
      * Approach 3 (Dynamic programming - Bottom up) [Accepted]
+     * dp[i] is the least steps to reach the i floor
      */
     public static int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
@@ -28,6 +29,7 @@ public class Q322_Coin_Change {
 
         System.out.println(Arrays.toString(dp));
         return dp[amount];
+        //  return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
     }
     /**
      * Backtracking - Time Limit Exceeded
