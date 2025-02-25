@@ -25,7 +25,7 @@ public class Q72_Edit_Distance {
             for (int j = 1; j <= n; j++) {
                 // 因为dp数组有效位从1开始
                 // 所以当前遍历到的字符串的位置为i-1 | j-1
-                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) { // 如果 word1[i] 与 word2[j] 相等。第 i 个字符对应下标是 i-1
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
                     dp[i][j] = Math.min(Math.min(dp[i - 1][j - 1], dp[i][j - 1]), dp[i - 1][j]) + 1;

@@ -4,28 +4,45 @@ import java.util.HashMap;
 
 public class Q70_Climbing_Stairs {
     /**
-     * Approach 1: Brute Force
+     * Approach 1: Brute Force 暴力递归 Time Limit Exceeded
      */
-    /**
-     * Approach 2: Recursion with Memoization
-     */
-    HashMap<Integer, Integer> map = new  HashMap<>();
-
-    int climb(int i){
-        if (i <= 2) return i;
-
-        if (!map.containsKey(i)) {
-            map.put(i, climb(i - 1) + climb(i - 2));
+    public int climbStairs_0(int n) {
+        if(n == 1){
+            return 1;
         }
-
-        return map.get(i);
+        if(n == 2){
+            return 2;
+        }
+        return climbStairs_0(n-1) + climbStairs_0(n-2);
     }
+    /**
+     * Approach 2: Recursion with Memoization // 带备忘录的递归解法（自顶向下）
+     */
+    HashMap<Integer, Integer> map = new  HashMap<>(); // 备忘录
 
     public int climbStairs_1(int n) {
         return climb(n);
     }
+
+    int climb(int i){
+        if (i <= 2) return i;
+
+        if (!map.containsKey(i)) {   //先判断有没计算过，即看看备忘录有没有
+            map.put(i, climb(i - 1) + climb(i - 2));
+        }
+
+        return map.get(i);  //备忘录有，即计算过，直接返回
+    }
     /**
-     * Approach 3: Dynamic Programming
+     * Approach 3: Dynamic Programming 自底向上的动态规划
+     *
+     * 动态规划有几个典型特征，最优子结构、状态转移方程、边界、重叠子问题。在青蛙跳阶问题中：
+     *  f(n-1)和f(n-2) 称为 f(n) 的最优子结构
+     *  f(n)= f（n-1）+f（n-2）就称为状态转移方程
+     *  f(1) = 1, f(2) = 2 就是边界啦
+     *  比如f(10)= f(9)+f(8),f(9) = f(8) + f(7) ,f(8)就是重叠子问题。
+     *
+     *  空间复杂度是O(n) 空间复杂度是O(n)
      */
     public static int climbStairs(int n) {
         if(n <= 2){
@@ -42,6 +59,26 @@ public class Q70_Climbing_Stairs {
         }
 
         return stairs[n];
+    }
+    /**
+     * 只需要两个变量a和b来存储，就可以满足需求了，因此空间复杂度是O(1)
+     */
+    public int climbStairs3(int n) {
+        if (n<= 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        int a = 1;
+        int b = 2;
+        int temp = 0;
+        for (int i = 3; i <= n; i++) {
+            temp = a + b;
+            a = b;
+            b = temp;
+        }
+        return temp;
     }
     /**
      * Knapsack 完全背包

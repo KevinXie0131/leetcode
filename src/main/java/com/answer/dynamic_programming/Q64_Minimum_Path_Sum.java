@@ -20,16 +20,16 @@ public class Q64_Minimum_Path_Sum {
         int r = grid.length;
         int c = grid[0].length;
         int[][] dp = new int[r][c];
-        dp[0][0] = grid[0][0];
+        dp[0][0] = grid[0][0]; // 初始化
 
-        for(int i = 1; i < r; i++){
+        for(int i = 1; i < r; i++){ // 初始化最左边的列
             dp[i][0] = dp[i - 1][0] + grid[i][0];
         }
-        for(int j = 1; j < c; j++){
+        for(int j = 1; j < c; j++){ // 初始化最上边的行
             dp[0][j] = dp[0][j - 1] + grid[0][j];
         }
 
-        for(int i = 1; i < r; i++){
+        for(int i = 1; i < r; i++){ // 推导出 dp[m-1][n-1]
             for(int j = 1; j < c; j++){
                 dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
             }
