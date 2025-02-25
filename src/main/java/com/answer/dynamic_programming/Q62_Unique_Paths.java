@@ -51,4 +51,25 @@ public class Q62_Unique_Paths {
         System.out.println(Arrays.deepToString(dp));
         return dp[m-1][n-1]; // 终止状态
     }
+    /**
+     * 动态规划 另一种形式
+     * 时间复杂度：O(m * n)
+     * 空间复杂度：O(m * n)
+     */
+    public int uniquePaths3(int m, int n) {
+        int[][] dp = new int[m][n];
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                // 这种其实是不符合条件的，不过我们设定初始值 dp[0][0] = 1
+                if(i == 0 || j == 0) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                }
+            }
+        }
+        // 返回所有可能的结果
+        return dp[m-1][n-1];
+    }
+
 }

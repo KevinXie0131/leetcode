@@ -61,6 +61,7 @@ public class Q70_Climbing_Stairs {
         return stairs[n];
     }
     /**
+     * 滚动数组优化
      * 只需要两个变量a和b来存储，就可以满足需求了，因此空间复杂度是O(1)
      */
     public int climbStairs3(int n) {

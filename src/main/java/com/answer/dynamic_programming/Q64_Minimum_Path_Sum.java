@@ -31,11 +31,38 @@ public class Q64_Minimum_Path_Sum {
 
         for(int i = 1; i < r; i++){ // 推导出 dp[m-1][n-1]
             for(int j = 1; j < c; j++){
-                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];  // 通过状态转移方程
             }
         }
         return dp[r - 1][c - 1];
     }
+    /**
+     * 以直接使用原来的数组，节省一点空间
+     */
+    public int minPathSum2(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(i ==0 && j == 0) {
+                    continue;
+                }
+                // 累加距离
+                if(i == 0) {
+                    // 第一行，只能从左边过来。
+                    grid[i][j] = grid[i][j] + grid[i][j-1];
+                } else if(j == 0) {
+                    // 第一列，只能从上面过来
+                    grid[i][j] = grid[i][j] + grid[i-1][j];
+                } else {
+                    // 通过状态转移方程
+                    grid[i][j] = grid[i][j] + Math.min(grid[i-1][j], grid[i][j-1]);
+                }
+            }
+        }
+        return grid[m-1][n-1];
+    }
+
     /**
      * Approach 3: Dynamic Programming 1D
      * dp(j)=grid(i,j)+min(dp(j),dp(j+1))
