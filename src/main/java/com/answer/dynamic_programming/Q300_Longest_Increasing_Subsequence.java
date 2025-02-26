@@ -1,6 +1,8 @@
 package com.answer.dynamic_programming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Q300_Longest_Increasing_Subsequence {
     /**
@@ -60,4 +62,67 @@ public class Q300_Longest_Increasing_Subsequence {
         }
         return maxans;
     }
+    /**
+     * Binary search
+     * Time complexity: O(NlogN)
+     */
+    public static void main(String[] args) {
+    //    int[] nums = {10,9,2,5,3,7,101,18};
+        int[] nums = {0,1,0,3,2,3};
+    //    int[] nums = {18,55,66,2,3,54};
+     //   int[] nums = {7,7,7,7,7,7,7};
+        int res = lengthOfLIS2(nums);
+        System.out.println(res);
+    }
+    static public int lengthOfLIS2(int[] nums) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int max = 1;
+        for (int i = 0; i < nums.length; i++) {
+            int position = binarySearch(result, nums[i]);
+
+            if(position == result.size()){
+                result.add(nums[i]);
+            } else {
+                result.set(position, nums[i]);
+            }
+            max = Math.max(max, result.size());
+        }
+        return max;
+    }
+
+    static public int binarySearch(ArrayList<Integer> result, int value){
+        if(result.size() == 0){
+            return 0;
+        }
+       if(value > result.get(result.size() - 1)){
+           return result.size();
+       }
+        if(value <= result.get(0)){
+            return 0;
+        }
+
+        int left = 0;
+        int right = result.size() - 1;
+        while(left <= right){
+            int mid = left + ((right- left) >> 1);
+
+            if(value < result.get(mid)){
+                right = mid - 1;
+            }else if(value > result.get(mid)){
+                left = mid + 1;
+            }else{
+                return mid;
+            }
+        }
+        return left; // 二分查找，找到第一个比value小的数, 并更新
+    }
+
+/*    public int directSearch(ArrayList<Integer> result, int value){
+        for(int i = 0; i < result.size(); i++){
+            if(result.get(i) > value){
+                return i;
+            }
+        }
+        return result.size();
+    }*/
 }
