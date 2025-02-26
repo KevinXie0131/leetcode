@@ -91,7 +91,7 @@ public class Q300_Longest_Increasing_Subsequence {
     }
 
     static public int binarySearch(ArrayList<Integer> result, int value){
-        if(result.size() == 0){
+        if(result.size() == 0){ // result用于保存最长上升子序列
             return 0;
         }
        if(value > result.get(result.size() - 1)){
@@ -114,7 +114,7 @@ public class Q300_Longest_Increasing_Subsequence {
                 return mid;
             }
         }
-        return left; // 二分查找，找到第一个比value小的数, 并更新
+        return left; // 二分查找，找到第一个比value大的数, 并覆盖掉比value大的元素中最小的那个
     }
 
 /*    public int directSearch(ArrayList<Integer> result, int value){
