@@ -1,5 +1,7 @@
 package com.answer.dynamic_programming;
 
+import java.util.Arrays;
+
 public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
     /**
      * 每天买卖2次
@@ -49,6 +51,39 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
             result = Math.max(result, dp[i][3]);
             result = Math.max(result, dp[i][4]);
         }
+
+        return result;
+    }
+    /**
+     * A more general template for multiple transactions per day
+     */
+    public static void main(String[] args) {
+    //    int[] prices = {1, 2, 3, 4, 5};
+        int[]  prices = {3,3,5,0,0,3,1,4};
+        int res = maxProfit_5(prices);
+        System.out.println(res);
+
+    }
+    static public int maxProfit_5(int[] prices) {
+        int result = 0;
+
+        int[][][] dp = new int[prices.length][3][2]; // j is transaction number. k=0: not hold / k=1: hold
+        dp[0][0][0] = 0;
+        dp[0][0][1] = -prices[0];
+        dp[0][1][0] = dp[0][1][1] = dp[0][2][0] = dp[0][2][1] = -10000; // 0 <= prices[i] <= 105
+
+        for(int i = 1; i < prices.length; i++){
+            dp[i][0][0] = dp[i - 1][0][0];
+            dp[i][0][1] = Math.max(dp[i - 1][0][1], dp[i - 1][0][0] - prices[i]);
+
+            dp[i][1][0] = Math.max(dp[i - 1][1][0], dp[i - 1][0][1] + prices[i]);
+            dp[i][1][1] = Math.max(dp[i - 1][1][1], dp[i - 1][1][0] - prices[i]);
+
+            dp[i][2][0] = Math.max(dp[i - 1][2][0], dp[i - 1][1][1] + prices[i]);
+        }
+        System.out.println(Arrays.deepToString(dp));
+
+        result = Math.max(Math.max(dp[prices.length - 1][0][0], dp[prices.length - 1][1][0]), dp[prices.length - 1][2][0]);
 
         return result;
     }
