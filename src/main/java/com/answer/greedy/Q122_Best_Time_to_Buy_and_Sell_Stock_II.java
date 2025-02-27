@@ -2,6 +2,9 @@ package com.answer.greedy;
 
 public class Q122_Best_Time_to_Buy_and_Sell_Stock_II {
     /**
+     * 每天买卖不限
+     */
+    /**
      * Greedy
      * Approach 3: Simple One Pass
      */
@@ -9,7 +12,7 @@ public class Q122_Best_Time_to_Buy_and_Sell_Stock_II {
         int profit = 0;
 
             for(int i = 1; i < prices.length; i++){
-            if(prices[i] - prices[i - 1] > 0){
+            if(prices[i] - prices[i - 1] > 0){ // 将前后两天的利润相加
                 profit += prices[i] - prices[i - 1]; // Math.max(prices[i + 1] - prices[i], 0);
             }
         }
