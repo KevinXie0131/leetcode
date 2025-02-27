@@ -1,7 +1,9 @@
 package com.answer.greedy;
 
 public class Q121_Best_Time_to_Buy_and_Sell_Stock {
-
+    /**
+     * 买或卖仅一次
+     */
     public static void main(String[] args) {
         int[] prices = {2,4,1};
         System.out.println(maxProfit(prices));
@@ -33,7 +35,7 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
 
         for(int price : prices){
             cost = Math.min(cost, price);
-            profit = Math.max(profit, price - cost);
+            profit = Math.max(profit, price - cost); // 减去前面的最小值
         }
 
         return profit;
@@ -48,10 +50,10 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
         int len = prices.length;
         if (len == 0) return 0;
 
-        int[][] dp = new int[prices.length][2];
+        int[][] dp = new int[prices.length][2]; // dp[i]是到第i天的Max Profit  要增加一维表示有没有股票(0表示没有股票，可以买。1表示有1股，可以卖)
 
-        dp[0][0] -= prices[0];
-        dp[0][1] = 0;
+        dp[0][0] -= prices[0]; // 买股票
+        dp[0][1] = 0;          // 卖股票前要买入股票
 
         for (int i = 1; i < len; i++) {
             dp[i][0] = Math.max(dp[i - 1][0], -prices[i]);
