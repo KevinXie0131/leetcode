@@ -70,6 +70,8 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
         int[][][] dp = new int[prices.length][3][2]; // j is transaction number. k=0: not hold / k=1: hold
         dp[0][0][0] = 0;
         dp[0][0][1] = -prices[0];
+        //因为最小值再减去1就是最大值Integer.MIN_VALUE-1=Integer.MAX_VALUE
+        //不可能
         dp[0][1][0] = dp[0][1][1] = dp[0][2][0] = dp[0][2][1] = -10000; // 0 <= prices[i] <= 105
 
         for(int i = 1; i < prices.length; i++){
