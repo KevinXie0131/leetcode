@@ -4,10 +4,26 @@ public class Q50_Pow_x_n {
     public static void main(String[] args) {
         double x = 2.00000;
         int n = 8;
-        double res = myPow_2(x, n);
+        double res = myPow(x, n);
         System.out.println(res);
     }
+    static public double myPow_0(double x, int n) {
+        double result = 1;
+        double tmp = x;
 
+        if(n < 0){
+            return 1 / myPow(x, -n); // 考虑负数
+        }
+        while(n > 0){
+            if((n & 1) == 1){ // 相当于n % 2 == 1  位运算&要加括号
+                result *= tmp;
+            }
+            n = n >> 1;
+            tmp *= tmp;
+
+        }
+        return result;
+    }
     /**
      * Approach 1: Brute Force - Time Limit Exceeded for 1.00000 & 2147483647
      */
