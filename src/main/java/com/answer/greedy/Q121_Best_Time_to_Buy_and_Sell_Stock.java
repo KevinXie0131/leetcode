@@ -60,4 +60,29 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
 
         return dp[len - 1][1];
     }
+    /**
+     *  dp[i][0]: have not bought
+     *  dp[i][1]: buy today
+     *  dp[i][2]: have bought and sell today
+     *
+     */
+    public int maxProfit_4(int[] prices) {
+        int result = 0;
+
+        int[][] dp = new int[prices.length][3];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        dp[0][2] = 0;
+
+        for(int i = 1; i < prices.length; i++){
+            dp[i][0] = dp[i - 1][0];
+            dp[i][1] =  Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
+            dp[i][2] = dp[i - 1][1] + prices[i];
+            result = Math.max(result, dp[i][0]);
+            result = Math.max(result, dp[i][1]);
+            result = Math.max(result, dp[i][2]);
+        }
+
+        return result;
+    }
 }
