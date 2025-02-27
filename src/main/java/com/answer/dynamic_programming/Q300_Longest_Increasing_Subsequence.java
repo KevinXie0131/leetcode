@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Q300_Longest_Increasing_Subsequence {
     /**
+     * Subsequence是不连续的，Subarray或者Continued Sequence是连续的
+     *
      * Approach 1: Dynamic Programming
      *
      * First, the question is asking for the maximum or minimum of something.
@@ -94,13 +96,14 @@ public class Q300_Longest_Increasing_Subsequence {
         if(result.size() == 0){ // result用于保存最长上升子序列
             return 0;
         }
-       if(value > result.get(result.size() - 1)){
+/*
+       if(value > result.get(result.size() - 1)){ // 可省略
            return result.size();
        }
         if(value <= result.get(0)){
             return 0;
         }
-
+*/
         int left = 0;
         int right = result.size() - 1;
         while(left <= right){
@@ -116,7 +119,7 @@ public class Q300_Longest_Increasing_Subsequence {
         }
         return left; // 二分查找，找到第一个比value大的数, 并覆盖掉比value大的元素中最小的那个
     }
-
+    // 没有使用二分查找 时间复杂度没有提高
 /*    public int directSearch(ArrayList<Integer> result, int value){
         for(int i = 0; i < result.size(); i++){
             if(result.get(i) > value){
