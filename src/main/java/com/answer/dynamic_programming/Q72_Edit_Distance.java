@@ -25,10 +25,10 @@ public class Q72_Edit_Distance {
         int[][] dp = new int[m + 1][n + 1]; // i是word1的字符位 j是word2的字符位 dp状态是word1前i个字符替换到word2前j个字符所需最小步骤
         // 初始化
         for (int i = 1; i <= m; i++) {
-            dp[i][0] =  i;
+            dp[i][0] =  i; // 相当于word2为空，word1要做多少次操作
         }
         for (int j = 1; j <= n; j++) {
-            dp[0][j] = j;
+            dp[0][j] = j;  // 相当于word1为空，word2要做多少次操作
         }
         System.out.println(Arrays.deepToString(dp));
 /*      [[0, 1, 2, 3],
