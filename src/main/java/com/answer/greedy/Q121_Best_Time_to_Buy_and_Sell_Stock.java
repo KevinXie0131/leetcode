@@ -3,9 +3,6 @@ package com.answer.greedy;
 import java.util.Arrays;
 
 public class Q121_Best_Time_to_Buy_and_Sell_Stock {
-    /**
-     * 买或卖仅一次
-     */
     public static void main(String[] args) {
    //     int[] prices = {2,4,1};
         int[] prices = {7,1,5,3,6,4};
@@ -45,6 +42,7 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
     }
     /**
      * Dynamic Programming
+     * 买或卖仅一次: 只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票
      *
      * dp[i][0] 表⽰第i天持有股票所得现⾦。
      * dp[i][1] 表⽰第i天不持有股票所得最多现⾦
@@ -53,19 +51,20 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
         int len = prices.length;
         if (len == 0) return 0;
 
-        int[][] dp = new int[prices.length][2]; // dp[i]是到第i天的Max Profit  要增加一维表示有没有股票(0表示没有股票，可以买。1表示有1股，可以卖)
+        int[][] dp = new int[prices.length][2]; // dp[i]是到第i天的Max Profit
 
         dp[0][0] -= prices[0]; // 买股票
         dp[0][1] = 0;          // 卖股票前要买入股票
 
         for (int i = 1; i < len; i++) {
-            dp[i][0] = Math.max(dp[i - 1][0], -prices[i]);
+            dp[i][0] = Math.max(dp[i - 1][0], 0 - prices[i]); // 初始资金是0
             dp[i][1] = Math.max(dp[i - 1][1], prices[i] + dp[i - 1][0]);
         }
 
         return dp[len - 1][1];
     }
     /**
+     *  要增加一维表示有没有股票(For example: 0表示没有股票，可以买。1表示有1股，可以卖)
      *  dp[i][0]: have not bought
      *  dp[i][1]: buy today
      *  dp[i][2]: have bought and sell today

@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class Q188_Best_Time_to_Buy_and_Sell_Stock_IV {
     /**
-     * 每天买卖k次 (k = 0: Q121 / k不限: Q122 / k = 2: Q123)
-     */
-    /**
      * Dynamic Programming - Hard
+     *
+     * 每天买卖k次 (k = 0: Q121 / k不限: Q122 / k = 2: Q123)
+     * 最多可以完成 k 笔交易。也就是说，你最多可以买 k 次，卖 k 次（你必须在再次购买前出售掉之前的股票）。
      */
     public int maxProfit(int k, int[] prices) {
         if (prices.length == 0) return 0;

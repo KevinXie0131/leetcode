@@ -4,10 +4,8 @@ import java.util.Arrays;
 
 public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
     /**
-     * 每天买卖2次
-     */
-    /**
      * Dynamic Programming - Hard
+     * 买卖2次: 最多可以完成两笔交易 (在再次购买前出售掉之前的股票）
      */
     public int maxProfit(int[] prices) {
         if (prices.length == 0) return 0;
@@ -23,7 +21,7 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
             dp[i][3] = Math.max(dp[i - 1][3], dp[i - 1][2] - prices[i]);
             dp[i][4] = Math.max(dp[i - 1][4], dp[i - 1][3] + prices[i]);
         }
-        return dp[prices.length - 1][4];
+        return dp[prices.length - 1][4]; // dp[prices.length - 1][4] 已经包含了 dp[prices.length - 1][2]
     }
     /**
      * refer to Q121 template
