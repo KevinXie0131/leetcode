@@ -12,7 +12,7 @@ public class Q746_Min_Cost_Climbing_Stairs {
      * Approach 1: Bottom-Up Dynamic Programming (Tabulation)
      */
     public static int minCostClimbingStairs(int[] cost) {
-        int[] dp = new int[cost.length + 1];
+        int[] dp = new int[cost.length + 1]; // dp[0] = dp[1] = 0
 
         for(int i = 2; i < cost.length + 1; i++){ // 从第一级或者第二级开始跳
             int takeOne = dp[i - 1] + cost[i - 1];
