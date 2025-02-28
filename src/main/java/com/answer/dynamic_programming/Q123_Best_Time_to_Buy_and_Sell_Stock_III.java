@@ -11,8 +11,11 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
         if (prices.length == 0) return 0;
         int[][] dp = new int[prices.length][5];
 
+        dp[0][0] = 0;
         dp[0][1] = -prices[0];
-        dp[0][3] = -prices[0];
+        dp[0][2] = 0;
+        dp[0][3] = -prices[0]; // 第一次买卖at the same day, 第二次资金是0
+        dp[0][4] = 0;
 
         for (int i = 1; i < prices.length; i++) {
             dp[i][0] = dp[i - 1][0];                                     // 不操作
@@ -22,6 +25,7 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
             dp[i][4] = Math.max(dp[i - 1][4], dp[i - 1][3] + prices[i]); // 第二次不持有
         }
         return dp[prices.length - 1][4]; // dp[prices.length - 1][4] 已经包含了 dp[prices.length - 1][2]
+      //  return Math.max(dp[prices.length - 1][2], dp[prices.length - 1][4]); // It is the same
     }
     /**
      * Another form / Ignore dp[i][0] 不操作
