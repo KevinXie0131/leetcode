@@ -15,13 +15,29 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
         dp[0][3] = -prices[0];
 
         for (int i = 1; i < prices.length; i++) {
-            dp[i][0] = dp[i - 1][0];
-            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
-            dp[i][2] = Math.max(dp[i - 1][2], dp[i - 1][1] + prices[i]);
-            dp[i][3] = Math.max(dp[i - 1][3], dp[i - 1][2] - prices[i]);
-            dp[i][4] = Math.max(dp[i - 1][4], dp[i - 1][3] + prices[i]);
+            dp[i][0] = dp[i - 1][0];                                     // 不操作
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]); // 第一次持有
+            dp[i][2] = Math.max(dp[i - 1][2], dp[i - 1][1] + prices[i]); // 第一次不持有
+            dp[i][3] = Math.max(dp[i - 1][3], dp[i - 1][2] - prices[i]); // 第二次持有
+            dp[i][4] = Math.max(dp[i - 1][4], dp[i - 1][3] + prices[i]); // 第二次不持有
         }
         return dp[prices.length - 1][4]; // dp[prices.length - 1][4] 已经包含了 dp[prices.length - 1][2]
+    }
+    /**
+     * Another form / Ignore dp[i][0] 不操作
+     */
+    public int maxProfit1(int[] prices) {
+        int[][] dp = new int[prices.length][4];
+        dp[0][0] = dp[0][2] = -prices[0];
+
+        for (int i = 1; i < prices.length; i++) {
+            //  dp[i][0] = dp[i - 1][0];                                 // 不操作 (can be ignored)
+            dp[i][0] = Math.max(dp[i - 1][0], 0 - prices[i]);            // 第一次持有
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] + prices[i]); // 第一次不持有
+            dp[i][2] = Math.max(dp[i - 1][2], dp[i - 1][1] - prices[i]); // 第二次持有
+            dp[i][3] = Math.max(dp[i - 1][3], dp[i - 1][2] + prices[i]); // 第二次不持有
+        }
+        return dp[prices.length - 1][3];
     }
     /**
      * refer to Q121 template
