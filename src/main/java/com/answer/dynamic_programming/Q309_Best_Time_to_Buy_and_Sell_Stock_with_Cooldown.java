@@ -2,10 +2,8 @@ package com.answer.dynamic_programming;
 
 public class Q309_Best_Time_to_Buy_and_Sell_Stock_with_Cooldown {
     /**
-     * 有cool down时间
-     */
-    /**
      * Approach 1: Dynamic Programming
+     * 有cool down时间: 多次买卖一支股票 (必须在再次购买前出售掉之前的股票 / 卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
      */
     public int maxProfit(int[] prices) {
         int n = prices.length;
