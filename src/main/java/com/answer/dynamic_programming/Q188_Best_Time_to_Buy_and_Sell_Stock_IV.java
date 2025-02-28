@@ -3,37 +3,39 @@ package com.answer.dynamic_programming;
 import java.util.Arrays;
 
 public class Q188_Best_Time_to_Buy_and_Sell_Stock_IV {
+    public static void main(String[] args) {
+        int k = 3;
+        int[] prices = {3,2,6,5,0,3};
+        int res = maxProfit(k, prices);
+        System.out.println(res);
+    }
     /**
      * Dynamic Programming - Hard
      *
      * 每天买卖k次 (k = 0: Q121 / k不限: Q122 / k = 2: Q123)
      * 最多可以完成 k 笔交易。也就是说，你最多可以买 k 次，卖 k 次（你必须在再次购买前出售掉之前的股票）。
      */
-    public int maxProfit(int k, int[] prices) {
+    static public int maxProfit(int k, int[] prices) {
         if (prices.length == 0) return 0;
         int[][] dp = new int[prices.length][2 * k + 1];
 
         for (int j = 1; j < 2 * k; j += 2) {
             dp[0][j] = -prices[0];
         }
+        System.out.println(Arrays.deepToString(dp));
 
         for (int i = 1; i < prices.length; i++) {
             for (int j = 0; j < 2 * k - 1; j += 2) {
-                dp[i][j + 1] = Math.max(dp[i - 1][j + 1], dp[i - 1][j] - prices[i]);
-                dp[i][j + 2] = Math.max(dp[i - 1][j + 2], dp[i - 1][j + 1] + prices[i]);
+                dp[i][j + 1] = Math.max(dp[i - 1][j + 1], dp[i - 1][j] - prices[i]);     //持有
+                dp[i][j + 2] = Math.max(dp[i - 1][j + 2], dp[i - 1][j + 1] + prices[i]); //不持有
             }
         }
+        System.out.println(Arrays.deepToString(dp));
         return dp[prices.length - 1][2 * k];
     }
     /**
      * A more general template for multiple transactions per day
      */
-    public static void main(String[] args) {
-        int k = 2;
-        int[] prices = {3,2,6,5,0,3};
-        int res = maxProfit_5(k, prices);
-        System.out.println(res);
-    }
     static public int maxProfit_5(int k, int[] prices) {
         int result = 0;
 
