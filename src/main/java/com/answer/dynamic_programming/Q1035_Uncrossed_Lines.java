@@ -11,7 +11,7 @@ public class Q1035_Uncrossed_Lines {
     /**
      * Approach 3: Dynamic Programming with Space Optimization
      * Note that the above recursive relation is exactly the same as in the classical problem, Longest Common Subsequence (LCS)
-     * 和Q1143.最长公共子序列相同，代码一致
+     * 寻找相同元素，并保持相同顺序。和Q1143.最长公共子序列相同，代码一致
      */
     public static int maxUncrossedLines(int[] nums1, int[] nums2) {
         int M = nums1.length;
