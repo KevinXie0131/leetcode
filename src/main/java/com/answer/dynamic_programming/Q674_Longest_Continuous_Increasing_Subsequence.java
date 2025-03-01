@@ -3,9 +3,10 @@ package com.answer.dynamic_programming;
 import java.util.Arrays;
 
 public class Q674_Longest_Continuous_Increasing_Subsequence {
-
     /**
      * Dynamic Programming
+     * Continuous Increasing Subsequence 连续递增子序列
+     * dp[i]表示以num[i]这个数结尾的最长递增子序列的长度
      */
     public int findLengthOfLCIS(int[] nums) {
         int[] dp = new int[nums.length];

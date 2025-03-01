@@ -4,11 +4,12 @@ public class Q1143_Longest_Common_Subsequence {
     /**
      * Approach 3: Dynamic Programming
      * 2-D Dynamic Programming
+     * 公共子序列 Subsequence：不要求元素连续
      */
     public int longestCommonSubsequence(String text1, String text2) {
         int M = text1.length();
         int N = text2.length();
-        int[][] dp = new int[M + 1][N + 1];
+        int[][] dp = new int[M + 1][N + 1]; // dp: 以[0, i-1]的num1 和 以[0, j-1]的num2 的最长公共子序列长度
 
         for(int i = 1; i <= M; i++){
             for(int j = 1; j <= N; j++){
