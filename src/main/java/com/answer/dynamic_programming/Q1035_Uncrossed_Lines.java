@@ -8,10 +8,10 @@ public class Q1035_Uncrossed_Lines {
        int[] nums2 = {1,2,4};
         System.out.println(maxUncrossedLines(nums1, nums2));
     }
-
     /**
      * Approach 3: Dynamic Programming with Space Optimization
      * Note that the above recursive relation is exactly the same as in the classical problem, Longest Common Subsequence (LCS)
+     * 和Q1143.最长公共子序列相同，代码一致
      */
     public static int maxUncrossedLines(int[] nums1, int[] nums2) {
         int M = nums1.length;
