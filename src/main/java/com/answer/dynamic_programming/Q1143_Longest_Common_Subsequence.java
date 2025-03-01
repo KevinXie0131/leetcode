@@ -4,19 +4,20 @@ public class Q1143_Longest_Common_Subsequence {
     /**
      * Approach 3: Dynamic Programming
      * 2-D Dynamic Programming
-     * 公共子序列 Subsequence：不要求元素连续
+     * 最长公共子序列 Subsequence：不要求元素连续
      */
     public int longestCommonSubsequence(String text1, String text2) {
         int M = text1.length();
         int N = text2.length();
         int[][] dp = new int[M + 1][N + 1]; // dp: 以[0, i-1]的num1 和 以[0, j-1]的num2 的最长公共子序列长度
+        //dp[i][0]和dp[0][j]都被初始化为0
 
         for(int i = 1; i <= M; i++){
             for(int j = 1; j <= N; j++){
                 if(text1.charAt(i - 1) == text2.charAt(j - 1)){
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 }else{
-                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]); // 不要求元素连续 / dp[i - 1][j - 1], dp[i][j - 1]和dp[i - 1][j]都可以推出dp[i][j]
                 }
             }
         }

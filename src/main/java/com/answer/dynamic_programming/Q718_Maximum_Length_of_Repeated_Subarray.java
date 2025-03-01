@@ -10,6 +10,7 @@ public class Q718_Maximum_Length_of_Repeated_Subarray {
     public int findLength(int[] nums1, int[] nums2) {
         int[][] dp = new int[nums1.length + 1][nums2.length + 1]; // dp: 以i-1为尾的num1 和 以j-1为尾的num2 的最长重复子数组长度
         int result = 0;
+        //dp[i][0]和dp[0][j]都被初始化为0
 
         for(int i = 1; i <= nums1.length; i++){
             for(int j = 1; j <= nums2.length; j++){
