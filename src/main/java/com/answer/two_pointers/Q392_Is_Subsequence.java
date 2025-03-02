@@ -45,7 +45,7 @@ public class Q392_Is_Subsequence {
                 if(s.charAt(i - 1) == t.charAt(j - 1)){
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 }else{
-                    dp[i][j] = dp[i][j - 1]; // dp[i - 1][j - 1]和dp[i][j - 1]都可以推出dp[i][j]
+                    dp[i][j] = dp[i][j - 1]; // 只能在t中删除字符 / dp[i - 1][j - 1]和dp[i][j - 1]都可以推出dp[i][j]
                 }
             }
         }
