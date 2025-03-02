@@ -7,7 +7,6 @@ public class Q53_Maximum_Subarray {
     }
     /**
      * Approach 3: Divide and Conquer (Advanced) 分治法 提交后右Time Limit Exceeded
-     *
      */
     public static int maxSubArray0(int[] nums) {
         return getMax(nums, 0, nums.length - 1);
@@ -59,6 +58,7 @@ public class Q53_Maximum_Subarray {
     /**
      * Brute force
      * Time Limit Exceeded
+     * 时间复杂度: O(N2)
      */
     public int maxSubArray_1(int[] nums) {
         int result = Integer.MIN_VALUE;
@@ -74,14 +74,15 @@ public class Q53_Maximum_Subarray {
     }
     /**
      * Dynamic Programming
+     * 最大的连续子序列的和
      */
     public int maxSubArray_3(int[] nums) {
         int result = nums[0];
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
+        int[] dp = new int[nums.length]; // 以i为尾的 最大的连续子序列的和
+        dp[0] = nums[0]; // 用第一个数值来初始化
 
         for(int i = 1; i < nums.length; i++){
-            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
+            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]); // nums[i]是从头开始计数
 
             if(dp[i] > result){
                 result = dp[i];
