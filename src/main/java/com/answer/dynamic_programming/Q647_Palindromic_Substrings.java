@@ -1,24 +1,26 @@
 package com.answer.dynamic_programming;
 
 public class Q647_Palindromic_Substrings {
-
     /**
      * Approach #2: Dynamic Programming
      * 1. Optimal substructure: Remember that larger palindromes are made of smaller palindromes
      * 2.  Overlapping sub-problems: While checking all substrings of a large string for palindromicity, we might need to check some smaller substrings for the same, repeatedly.
+     * 统计并返回这个字符串中 回文子串 的数目
+     * 回文字符串 是正着读和倒过来读一样的字符串。
+     * 子字符串 是字符串中的由连续字符(contiguous sequence)组成的一个序列。
      */
     public int countSubstrings(String s) {
-        boolean[][] dp = new boolean[s.length()][s.length()];
+        boolean[][] dp = new boolean[s.length()][s.length()]; // dp: [i, j]子串是否回文
         int result = 0;
 
         for (int i = s.length() - 1; i >= 0; i--) { // 注意遍历顺序
             for (int j = i; j < s.length(); j++) {
                 //The base cases that we have identified already define states for single and double letter strings.
                 if (s.charAt(i) == s.charAt(j)) {
-                    if (j - i <= 1) { // 情况⼀ 和 情况⼆
+                    if (j - i <= 1) { // 情况⼀(i==j: a) 和 情况⼆(i相差j等于1: aa)
                         result++;
                         dp[i][j] = true;
-                    } else if (dp[i + 1][j - 1]) { // 情况三
+                    } else if (dp[i + 1][j - 1]) { // 情况三(i相差j大于1: aaa 判断内测子串是否回文)
                         result++;
                         dp[i][j] = true;
                     }
