@@ -10,7 +10,7 @@ public class Q647_Palindromic_Substrings {
      * 子字符串 是字符串中的由连续字符(contiguous sequence)组成的一个序列。
      */
     public int countSubstrings(String s) {
-        boolean[][] dp = new boolean[s.length()][s.length()]; // dp: [i, j]子串是否回文
+        boolean[][] dp = new boolean[s.length()][s.length()]; // dp: [i, j]子串是否回文  初始化为false
         int result = 0;
 
         for (int i = s.length() - 1; i >= 0; i--) { // 注意遍历顺序
@@ -47,6 +47,7 @@ public class Q647_Palindromic_Substrings {
         }
         return result;
     }
+
     int extend(String s, int i, int j, int n) {
         int res = 0;
         while (i >= 0 && j <= n - 1 && s.charAt(i) == s.charAt(j)) {
