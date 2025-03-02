@@ -18,10 +18,23 @@ public class Q746_Min_Cost_Climbing_Stairs {
             int takeOne = dp[i - 1] + cost[i - 1];
             int takeTwo = dp[i - 2] + cost[i - 2];
 
-            dp[i] = Math.min(takeOne, takeTwo);
+            dp[i] = Math.min(takeOne, takeTwo); // 状态转移：从较小子问题逐步求解较大子问题
         }
         System.out.println(Arrays.toString(dp)); // [0, 0, 10, 15]
         return dp[cost.length]; // 跳到楼顶，即最高级的上面
+    }
+    /**
+     * 空间优化
+     */
+    public static int minCostClimbingStairs_2(int[] cost) {
+        int cur = 0, pre = 0;
+
+        for(int i = 2; i <= cost.length; i++){ // 从第一级或者第二级开始跳
+            int next = Math.min(cur + cost[i - 1], pre + cost[i - 2]);
+            pre = cur;
+            cur = next;
+        }
+        return cur;
     }
     /**
      * Approach 2: Top-Down Dynamic Programming (Recursion + Memoization)

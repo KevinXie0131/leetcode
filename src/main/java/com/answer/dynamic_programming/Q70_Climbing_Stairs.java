@@ -55,7 +55,7 @@ public class Q70_Climbing_Stairs {
         stairs[2] = 2;
 
         for(int i = 3; i <= n; i++){
-            stairs[i] = stairs[i - 1] + stairs[i - 2];
+            stairs[i] = stairs[i - 1] + stairs[i - 2]; // 第n阶最大方案数量等于第n-1阶和第n-2阶最大方案数量之和
         }
 
         return stairs[n];
