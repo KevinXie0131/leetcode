@@ -80,7 +80,7 @@ public class Q474_Ones_and_Zeroes {
         int[][][] dp = new int[length + 1][m + 1][n + 1];
 
         for (int i = 1; i <= length; i++) {
-            int[] zerosOnes = getZerosOnes(strs[i - 1]);
+            int[] zerosOnes = getZerosOnes(strs[i - 1]); //相当于物品的重量
             int zeros = zerosOnes[0];
             int ones = zerosOnes[1];
 
