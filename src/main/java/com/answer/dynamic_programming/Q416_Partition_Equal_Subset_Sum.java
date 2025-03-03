@@ -14,7 +14,7 @@ public class Q416_Partition_Equal_Subset_Sum {
         if(sum % 2 == 1) return false;
         int target = sum / 2;
 
-        int[][] dp = new int[nums.length + 1][target + 1];
+        int[][] dp = new int[nums.length + 1][target + 1]; // 初始化为0
 
         for(int i = 1; i <= nums.length; i++){
             for(int j = 1; j <= target; j++){
@@ -25,7 +25,7 @@ public class Q416_Partition_Equal_Subset_Sum {
                 }
             }
         }
-        return dp[nums.length][target] == target;  // 每个元素即使重量，也是重量
+        return dp[nums.length][target] == target;  // 每个元素即是重量，也是价值
     }
     /**
      * Approach 4: Optimised Dynamic Programming - Using 1D Array

@@ -2,16 +2,17 @@ package com.answer.dynamic_programming;
 
 public class Q1049_Last_Stone_Weight_II {
     /**
-     * Dynamic Programming
+     * Dynamic Programming  0-1背包（每个元素只可以使用一次）
+     * 参考Q416 Partition Equal Subset Sum
      */
-    public int lastStoneWeightII_1(int[] stones) {
+    public int lastStoneWeightII_1(int[] stones) { // 将两堆石头尽可能分成相同重量
         int sum = 0;
         for(int i = 0; i < stones.length; i++){
             sum += stones[i];
         }
         int target = sum / 2;
 
-        int[][] dp = new int[stones.length + 1][target + 1];
+        int[][] dp = new int[stones.length + 1][target + 1]; // 初始化为0
 
         for(int i = 1; i <= stones.length; i++){
             for(int j = 1; j <= target; j++){
@@ -22,8 +23,7 @@ public class Q1049_Last_Stone_Weight_II {
                 }
             }
         }
-
-        return sum - dp[stones.length][target] - dp[stones.length][target];
+        return (sum - dp[stones.length][target]) - dp[stones.length][target]; // 每个石头即是重量，也是价值
     }
     /**
      * 2D Dynamic Programming -Accepted
