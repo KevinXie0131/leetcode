@@ -3,8 +3,27 @@ package com.answer.dynamic_programming;
 import java.util.Arrays;
 
 public class Dynamic_Programming_Knapsack1 {
+    /* 完全背包：动态规划 */
+    int unboundedKnapsackDP(int[] wgt, int[] val, int cap) {
+        int n = wgt.length;
+        // 初始化 dp 表
+        int[][] dp = new int[n + 1][cap + 1];
+        // 状态转移
+        for (int i = 1; i <= n; i++) {
+            for (int c = 1; c <= cap; c++) {
+                if (wgt[i - 1] > c) {
+                    // 若超过背包容量，则不选物品 i
+                    dp[i][c] = dp[i - 1][c];
+                } else {
+                    // 不选和选物品 i 这两种方案的较大值
+                    dp[i][c] = Math.max(dp[i - 1][c], dp[i][c - wgt[i - 1]] + val[i - 1]);
+                }
+            }
+        }
+        return dp[n][cap];
+    }
     /**
-     * Unbounded Knapsack Problem
+     * Unbounded Knapsack Problem 完全背包
      */
     public static void main(String[] args) {
 

@@ -1,10 +1,10 @@
 package com.answer.dynamic_programming;
 
 public class Q416_Partition_Equal_Subset_Sum {
-
     /**
-     * classic Knapsack problem
+     * classic Knapsack problem 0-1背包（每个元素只可以使用一次）
      * Approach 3: Bottom Up Dynamic Programming
+     * 判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等
      */
     public boolean canPartition_1(int[] nums) {
         int sum = 0;
@@ -21,12 +21,11 @@ public class Q416_Partition_Equal_Subset_Sum {
                 if (j < nums[i - 1]) {
                     dp[i][j] = dp[i - 1][j];
                 } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - nums[i - 1]] + nums[i - 1]);
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - nums[i - 1]] + nums[i - 1]); //  0-1背包
                 }
             }
         }
-
-        return dp[nums.length][target] == target;
+        return dp[nums.length][target] == target;  // 每个元素即使重量，也是重量
     }
     /**
      * Approach 4: Optimised Dynamic Programming - Using 1D Array

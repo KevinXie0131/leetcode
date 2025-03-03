@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Dynamic_Programming_Knapsack2 {
     /**
-     * Multiple Knapsacks Problem
+     * Multiple Knapsacks Problem 多重背包
      */
     public static void main(String[] args) {
 
