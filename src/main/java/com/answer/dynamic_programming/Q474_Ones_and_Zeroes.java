@@ -46,11 +46,11 @@ public class Q474_Ones_and_Zeroes {
         return memo[i][zeroes][ones];
     }
     /**
-     * Approach #5 2-D Dynamic Programming [Accepted]
+     * Approach #5 2-D Dynamic Programming [Accepted]  0-1背包（每个元素只可以使用一次）
      * dp[m][n] denotes the maximum number of strings that can be included in the subset given only i 0's and j 1's are available.
      */
-    public int findMaxForm(String[] strs, int m, int n) {
-        int[][] dp = new int[m + 1][n + 1];
+    public int findMaxForm(String[] strs, int m, int n) { // m个0 n个1
+        int[][] dp = new int[m + 1][n + 1]; // 装满这个容器有多少物品
 
         for(String s : strs){
             int one = 0, zero = 0;
@@ -62,7 +62,7 @@ public class Q474_Ones_and_Zeroes {
                 }
             }
 
-            for(int i = m; i >= zero; i--){
+            for(int i = m; i >= zero; i--){ //反序遍历
                 for(int j = n; j >= one; j--){
                     dp[i][j] = Math.max(dp[i][j], dp[i - zero][j - one] + 1);
                 }
@@ -72,7 +72,7 @@ public class Q474_Ones_and_Zeroes {
         return dp[m][n];
     }
     /**
-     * 3-D Dynamic Programming
+     * 3-D Dynamic Programming  0-1背包
      */
     public int findMaxForm_3(String[] strs, int m, int n) {
         int length = strs.length;
