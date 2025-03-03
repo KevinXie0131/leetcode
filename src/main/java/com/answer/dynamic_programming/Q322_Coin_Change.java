@@ -9,6 +9,59 @@ public class Q322_Coin_Change {
         System.out.println(coinChange(coins, amount));
     }
     /**
+     * 完全背包的一种特例：零钱兑换
+     * 在 0-1 背包问题中，每种物品只有一个，因此将物品i放入背包后，只能从前i-1个物品中选择。
+     * 在完全背包问题中，每种物品的数量是无限的，因此将物品放入背包后，仍可以从前i个物品中选择。
+     *
+     * 1.两道题可以相互转换，“物品”对应“硬币”、“物品重量”对应“硬币面值”、“背包容量”对应“目标金额”。
+     * 2.优化目标相反，完全背包问题是要最大化物品价值，零钱兑换问题是要最小化硬币数量。
+     * 3.完全背包问题是求“不超过”背包容量下的解，零钱兑换是求“恰好”凑到目标金额的解。
+     *
+     * 本题要求最小值，因此需将运算符max()更改为min()
+     * 优化主体是硬币数量而非商品价值，因此在选中硬币时执行+1即可。
+     */
+    int coinChange5(int[] coins, int amt) {
+        int n = coins.length;
+        int MAX = amt + 1;
+
+        int[][] dp = new int[n + 1][amt + 1];// 初始化 / dp表: 前n种硬币能够凑出金额amt的最少硬币数量
+        for (int a = 1; a <= amt; a++) { // 状态转移：首行首列
+            dp[0][a] = MAX; // 当无硬币时，无法凑出任意>0的目标金额，即是无效解 我们采用数字amt + 1来表示无效解
+        }
+        for (int i = 1; i <= n; i++) { // 状态转移：其余行和列
+            for (int a = 1; a <= amt; a++) {
+                if (coins[i - 1] > a) {
+                    dp[i][a] = dp[i - 1][a];  // 若超过目标金额，则不选硬币 i
+                } else {
+                    dp[i][a] = Math.min(dp[i - 1][a], dp[i][a - coins[i - 1]] + 1);  // 不选和选硬币 i 这两种方案的较小值
+                }
+            }
+        }
+        return dp[n][amt] != MAX ? dp[n][amt] : -1;
+    }
+    /**
+     * 零钱兑换：空间优化后的动态规划
+     */
+    int coinChange6(int[] coins, int amt) {
+        int n = coins.length;
+        int MAX = amt + 1;
+
+        int[] dp = new int[amt + 1]; // 初始化 dp 表
+        Arrays.fill(dp, MAX);
+        dp[0] = 0;
+
+        for (int i = 1; i <= n; i++) {// 状态转移
+            for (int a = 1; a <= amt; a++) {
+                if (coins[i - 1] > a) {
+                    dp[a] = dp[a]; // 若超过目标金额，则不选硬币 i
+                } else {
+                    dp[a] = Math.min(dp[a], dp[a - coins[i - 1]] + 1);    // 不选和选硬币 i 这两种方案的较小值
+                }
+            }
+        }
+        return dp[amt] != MAX ? dp[amt] : -1;
+    }
+    /**
      * Approach 3 (Dynamic programming - Bottom up) [Accepted]
      * dp[i] is the least steps to reach the i floor
      */
