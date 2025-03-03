@@ -61,6 +61,7 @@ public class Q494_Target_Sum {
     }
     /**
      * 2D Dynamic Programming
+     *  0-1背包（每个元素只可以使用一次）
      */
     public int findTargetSumWays_4(int[] nums, int target) {
         int sum = 0;
@@ -71,7 +72,7 @@ public class Q494_Target_Sum {
         if (diff < 0 || diff % 2 != 0) {
             return 0;
         }
-        int n = nums.length, neg = diff / 2;
+        int n = nums.length, neg = diff / 2; // neg类似背包的容量
         // dp[i][j] 表示在数组 nums 的前 i 个数中选取元素，使得这些元素之和等于 j 的方案数
         int[][] dp = new int[n + 1][neg + 1];
         dp[0][0] = 1;
@@ -81,7 +82,7 @@ public class Q494_Target_Sum {
             for (int j = 0; j <= neg; j++) {
                 dp[i][j] = dp[i - 1][j];
                 if (j >= num) {
-                    dp[i][j] += dp[i - 1][j - num];
+                    dp[i][j] += dp[i - 1][j - num]; // 类似装满背包的容量有多少种方法
                 }
             }
         }
