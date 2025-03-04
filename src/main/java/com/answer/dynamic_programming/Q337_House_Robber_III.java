@@ -57,6 +57,9 @@ public class Q337_House_Robber_III {
     // Math.max(rob(root.right)[0], rob(root.right)[1])
     // 偷：左孩子不偷+ 右孩子不偷 + 当前节点偷
     // root[1] = rob(root.left)[0] + rob(root.right)[0] + root.val;
+    /**
+     * 所有房屋的排列类似于一棵二叉树, 两个直接相连的房子不能偷，求能够偷到的最高金额。
+     */
     public int rob3(TreeNode root) {
         int[] res = robAction1(root);
         return Math.max(res[0], res[1]);

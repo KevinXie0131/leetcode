@@ -27,11 +27,13 @@ public class Q198_House_Robber {
     }
     /**
      * Approach 2: Dynamic Programming
+     * 两间相邻的房屋不能偷，求能够偷到的最高金额。
+     * 类似爬楼梯
      */
     public int rob_1(int[] nums) {
         if(nums.length == 1) return nums[0];
 
-        int[] dp = new int[nums.length];
+        int[] dp = new int[nums.length]; //
         // Base cases
         dp[0]= nums[0];
         dp[1]= Math.max(nums[0],nums[1]);

@@ -6,6 +6,7 @@ public class Q213_House_Robber_II {
      *
      * The problem becomes to rob either House[1]-House[n-1] or House[2]-House[n],
      * depending on which choice offers more money. Now the problem has degenerated to the House Robber.
+     * 所有的房屋都 围成一圈，两间相邻的房屋不能偷，求能够偷到的最高金额。
      */
     public int rob(int[] nums) {
         int length = nums.length;

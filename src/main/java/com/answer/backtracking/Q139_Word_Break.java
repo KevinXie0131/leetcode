@@ -126,10 +126,10 @@ public class Q139_Word_Break {
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
 
-        for(int i = 1; i <= s.length(); i++){
-            for(int j = 0; j < i; j++){
+        for(int i = 1; i <= s.length(); i++){ // 背包
+            for(int j = 0; j < i; j++){       // 物品
                 String word = s.substring(j, i);
-                if(wordDict.contains(word) && dp[j]){
+                if(wordDict.contains(word) && dp[j]){ // dp[j]为true，而且j到i是有效字符，则dp[i]为true
                     dp[i] = true;
                     break;
                 }
