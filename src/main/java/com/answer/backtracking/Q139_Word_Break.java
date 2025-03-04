@@ -111,13 +111,16 @@ public class Q139_Word_Break {
         }
         return false;
     }
-
     /**
      * Approach 4: Using Dynamic Programming
      * Time complexity : O(n3)
      *
      * dp(i) = true if s.substring(i - word.length + 1, i + 1) == word and dp[i - word.length] == true
      * for any word in wordDict, otherwise false
+     *
+     * 如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+     * 注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+     * 完全背包：相当于物品能否装满背包（每个物品可以使用多次）
      */
     public static boolean wordBreak_5(String s, List<String> wordDict) {
         boolean[] dp = new boolean[s.length() + 1];
@@ -151,7 +154,6 @@ public class Q139_Word_Break {
                 }
             }
         }
-
         return dp[s.length() - 1];
     }
 }
