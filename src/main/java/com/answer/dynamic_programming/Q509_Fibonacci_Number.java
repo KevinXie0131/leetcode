@@ -71,4 +71,23 @@ public class Q509_Fibonacci_Number {
         }
         return res;
     }
+    /**
+     * 滚动数组
+     * 循环d[i]只依赖于前两个数据d[i - 1]和d[i - 2]; 为了节约空间用滚动数组的做法
+     */
+    public int fib_4(int n) {
+        if(n <= 1) return n;
+
+        int[] dp = new int[3];
+        dp[1]=1;
+        //  dp[2]=1;
+
+        for(int i = 2; i <= n; i++){
+            dp[2] = dp[0] + dp[1];
+            dp[0] = dp[1];
+            dp[1] = dp[2];
+        }
+        System.out.println(Arrays.toString(dp));
+        return  dp[2];
+    }
 }
