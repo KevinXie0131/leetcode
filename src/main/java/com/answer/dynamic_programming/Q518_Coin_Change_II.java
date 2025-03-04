@@ -10,18 +10,18 @@ public class Q518_Coin_Change_II {
         System.out.println(change_1(amount, coins));
     }
     /**
+     * 完全背包 (同一种硬币可以使用多次)
      * 凑出目标金额的硬币组合数量:动态规划
      * 子问题变为：前i种硬币能够凑出金额a的组合数量
      */
     public int change1(int amt, int[] coins) {
         int n = coins.length;
-        int[][] dp = new int[n + 1][amt + 1];     // 初始化 dp 表
+        int[][] dp = new int[n + 1][amt + 1];     // 初始化 dp 表：i种硬币能够凑出金额a的组合数
 
         for (int i = 0; i <= n; i++) {// 初始化首列
             dp[i][0] = 1; // 当目标金额为0时，无须选择任何硬币即可凑出目标金额，因此应将首列所有dp[i][0]都初始化为1
         }
         // 当无硬币时，无法凑出任何>0的目标金额，因此首行所有dp[0][a]都等于0
-
         for (int i = 1; i <= n; i++) {  // 状态转移
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
