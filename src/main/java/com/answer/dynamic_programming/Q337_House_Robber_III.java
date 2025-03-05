@@ -62,19 +62,20 @@ public class Q337_House_Robber_III {
      */
     public int rob3(TreeNode root) {
         int[] res = robAction1(root);
-        return Math.max(res[0], res[1]);
+        return Math.max(res[0], res[1]); // 在 不偷root 和 偷root 取最大值
     }
 
     int[] robAction1(TreeNode root) { // dp[0]: 不偷 / dp[1]: 偷
         int res[] = new int[2];
-        if (root == null)
+        if (root == null) {
             return res;
-
+        }
+        // 后序遍历
         int[] left = robAction1(root.left);
         int[] right = robAction1(root.right);
 
         res[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
-        res[1] = root.value + left[0] + right[0];
+        res[1] = root.value + left[0] + right[0]; // 偷当前节点，则不偷左右子节点
         return res;
     }
 }
