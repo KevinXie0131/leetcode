@@ -65,7 +65,7 @@ public class Q337_House_Robber_III {
         return Math.max(res[0], res[1]);
     }
 
-    int[] robAction1(TreeNode root) {
+    int[] robAction1(TreeNode root) { // dp[0]: 不偷 / dp[1]: 偷
         int res[] = new int[2];
         if (root == null)
             return res;
