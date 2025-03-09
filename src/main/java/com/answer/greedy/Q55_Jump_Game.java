@@ -11,12 +11,16 @@ public class Q55_Jump_Game {
         int[] nums1 = {3,2,1,0,4};
         System.out.println(canJump2(nums1));
     }
-
     /**
      * Greedy algorithm
+     * 不一定非要明确一次究竟跳几步，每次取最大的跳跃步数，这个就是可以跳跃的覆盖范围
+     * 这个问题就转化为跳跃覆盖范围究竟可不可以覆盖到终点！
+     * 每次移动取最大跳跃步数（得到最大的覆盖范围），每移动一个单位，就更新最大覆盖范围
+     *
+     * 贪心算法局部最优解：每次取最大跳跃步数（取最大覆盖范围），整体最优解：最后得到整体最大覆盖范围，看是否能到终点。
      */
     public static boolean canJump(int[] nums) {
-        if(nums.length == 1) return true;
+        if(nums.length == 1) return true;  // 只有一个元素，就是能达到
 
         int cover = 0;
 
@@ -26,8 +30,25 @@ public class Q55_Jump_Game {
             }
             cover = Math.max(cover, nums[i] + i);
         }
-
         return true;
+    }
+    /**
+     * 另一种形式
+     * i 每次移动只能在 cover 的范围内移动，每移动一个元素，cover 得到该元素数值（新的覆盖范围）的补充，让 i 继续移动下去。
+     * 而 cover 每次只取 max(该元素数值补充后的范围, cover 本身范围)。
+     * 如果 cover 大于等于了终点下标，直接 return true 就可以了。
+     */
+    public boolean canJump_3(int[] nums) {
+        if (nums.length == 1) return true; // 只有一个元素，就是能达到
+        int cover = 0; //覆盖范围, 初始覆盖范围应该是0，因为下面的迭代是从下标0开始的
+
+        for (int i = 0; i <= cover; i++) { // 注意这里是小于等于cover
+            cover = Math.max(i + nums[i], cover);   //在覆盖范围内更新最大的覆盖范围
+            if (cover >= nums.length - 1) {
+                return true; // 说明可以覆盖到终点了
+            }
+        }
+        return false;
     }
     /**
      * Approach 4: Greedy
