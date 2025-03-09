@@ -39,24 +39,26 @@ public class Q53_Maximum_Subarray {
         return leftMax + rightMax; // 从中间节点向两边找最大的总和
     }
     /**
-     * Greedy
+     * Greedy 贪心解法
      * 局部最优：当前“连续和”为负数的时候立刻放弃，从下一个元素重新计算“连续和”，因为负数加上下一个元素 “连续和”只会越来越小。
      * 全局最优：选取最大“连续和”
+     * 局部最优的情况下，并记录最大的“连续和”，可以推出全局最优。
+     * 其关键在于：不能让“连续和”为负数的时候加上下一个元素，而不是 不让“连续和”加上一个负数
      */
     public static int maxSubArray(int[] nums) {
         int sum = 0;
-        int max = Integer.MIN_VALUE;
+        int max = Integer.MIN_VALUE; // 要初始化为最小负数
         for(int i = 0; i < nums.length; i++){
             sum += nums[i];
-            max = Math.max(max, sum);
+            max = Math.max(max, sum);  // 取区间累计的最大值（相当于不断确定最大子序终止位置）
             if(sum < 0){
-                sum = 0;
+                sum = 0; // 这相当于是暴力解法中的不断调整最大子序和区间的起始位置。相当于重置最大子序起始位置，因为遇到负数一定是拉低总和
             }
         }
         return max;
     }
     /**
-     * Brute force
+     * Brute force 暴力解法
      * Time Limit Exceeded
      * 时间复杂度: O(N2)
      */
@@ -67,24 +69,24 @@ public class Q53_Maximum_Subarray {
             count = 0;
             for (int j = i; j < nums.length; j++) { // 每次从起始位置i开始遍历寻找最大值
                 count += nums[j];
-                result = count > result ? count : result;
+                result = count > result ? count : result; // if (count > result) result = count; 如果 count 取到最大值了，及时记录下来了
             }
         }
         return result;
     }
     /**
-     * Dynamic Programming
+     * Dynamic Programming 动态规划
      * 最大的连续子序列的和
      */
     public int maxSubArray_3(int[] nums) {
         int result = nums[0];
-        int[] dp = new int[nums.length]; // 以i为尾的 最大的连续子序列的和
+        int[] dp = new int[nums.length]; // dp[i]表示包括i之前的最大连续子序列和
         dp[0] = nums[0]; // 用第一个数值来初始化
 
         for(int i = 1; i < nums.length; i++){
-            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]); // nums[i]是从头开始计数
+            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]); // 状态转移公式, nums[i]是从头开始计数
 
-            if(dp[i] > result){
+            if(dp[i] > result){ // result 保存dp[i]的最大值
                 result = dp[i];
             }
         }
