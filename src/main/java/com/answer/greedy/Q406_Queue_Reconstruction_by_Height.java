@@ -31,7 +31,7 @@ public class Q406_Queue_Reconstruction_by_Height {
             }
             return b[0] - a[0]; //b - a 是降序排列，在a[0] != b[0]，的狀況會根據h值降序排列
         });
-        List<int[]> list = new LinkedList<>();
+        List<int[]> list = new LinkedList<>(); // 用LinkedList比ArrayList效率会高
         for(int[] p : people){
             list.add(p[1], p);  //Linkedlist.add(index, value)，會將value插入到指定index裡。
         }
