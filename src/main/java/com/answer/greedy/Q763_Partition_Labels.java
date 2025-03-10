@@ -7,7 +7,6 @@ public class Q763_Partition_Labels {
         String s = "ababcbacadefegdehijhklij";
         System.out.println((partitionLabels(s)));
     }
-
     /**
      * Approach 1: Greedy
      * For each letter encountered, process the last occurrence of that letter, extending the current partition [anchor, j] appropriately.

@@ -11,6 +11,61 @@ public class Q435_Non_overlapping_Intervals {
         System.out.println(eraseOverlapIntervals_4(intervals));
     }
     /**
+     * 贪心算法：按照右边界排序，从左向右记录非交叉区间的个数。最后用区间总数减去非交叉区间的个数就是需要移除的区间个数了。、
+     * 本题其实和Q452.用最少数量的箭引爆气球 非常像
+     */
+    public int eraseOverlapIntervals_8(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)-> {
+            return Integer.compare(a[1],b[1]); // 右边界排序
+        });
+        int count = 1; // 记录非交叉区间的个数
+        int end = intervals[0][1]; // 记录区间分割点
+        for (int i = 1; i < intervals.length; i++) {
+            if (end <= intervals[i][0]) {
+                end = intervals[i][1];
+                count++;
+            }
+        }
+        return intervals.length - count;
+    }
+    /**
+     * 另一种形式: 左边界排序, 可以精简一下， 用 intervals[i][1] 替代 pre变量，只判断 重叠情况就好
+     */
+    public int eraseOverlapIntervals_6(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)-> {
+            return Integer.compare(a[0],b[0]);
+        });
+        int count = 1;  // 记录非交叉区间的个数
+        for(int i = 1; i < intervals.length; i++){
+            if(intervals[i][0] < intervals[i-1][1]){  //重叠情况
+                intervals[i][1] = Math.min(intervals[i - 1][1], intervals[i][1]); // 记录区间分割点
+                continue;
+            }else{
+                count++;
+            }
+        }
+        return intervals.length - count;
+    }
+    /**
+     * 另一种形式: 按左边排序，不管右边顺序。相交的时候取最小的右边。
+     */
+    public int eraseOverlapIntervals_7(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)-> {
+            return Integer.compare(a[0],b[0]); // 改为左边界排序
+        });
+        int count  = 0; // 注意这里从0开始，因为是记录重叠区间
+        int pre = intervals[0][1]; // 记录区间分割点
+        for(int i = 1; i < intervals.length; i++) {
+            if(pre > intervals[i][0]) { // 重叠情况
+                count++;
+                pre = Math.min(pre, intervals[i][1]);
+            } else {  // 无重叠的情况
+                pre = intervals[i][1];
+            }
+        }
+        return count;
+    }
+    /**
      * Greedy
      */
     public static int eraseOverlapIntervals(int[][] intervals) {

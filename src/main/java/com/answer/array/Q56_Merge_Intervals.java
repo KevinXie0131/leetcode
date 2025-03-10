@@ -9,6 +9,51 @@ public class Q56_Merge_Intervals {
         System.out.println(Arrays.deepToString(res));
     }
     /**
+     * 贪心：和452. 用最少数量的箭引爆气球，435. 无重叠区间 类似
+     * 先排序，让所有的相邻区间尽可能的重叠在一起，按左边界，或者右边界排序都可以, 本题是判断区间重贴后要进行区间合并
+     * 按照左边界从小到大排序之后，如果 intervals[i][0] <= intervals[i - 1][1] 即intervals[i]的左边界 <= intervals[i - 1]的右边界，则一定有重叠。（本题相邻区间也算重贴，所以是<=）
+     * 合并区间后左边界和右边界，作为一个新的区间，加入到result数组里就可以了。如果没有合并就把原区间加入到result数组。
+     */
+    public int[][] merge_5(int[][] intervals) {
+        List<int[]> res = new LinkedList<>();
+        Arrays.sort(intervals, (x, y) -> Integer.compare(x[0], y[0]));  //按照左边界排序
+
+        int start = intervals[0][0]; //initial start 是最小左边界
+        int rightmostRightBound = intervals[0][1];
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] > rightmostRightBound) { //如果左边界大于最大右边界
+                res.add(new int[]{start, rightmostRightBound});   //加入区间 并且更新start
+                start = intervals[i][0];
+                rightmostRightBound = intervals[i][1];
+            } else {
+                rightmostRightBound = Math.max(rightmostRightBound, intervals[i][1]); //更新最大右边界
+            }
+        }
+        res.add(new int[]{start, rightmostRightBound});
+        return res.toArray(new int[res.size()][]);
+    }
+    /**
+     * 另一种形式
+     */
+    public int[][] merge_6(int[][] intervals) {
+        LinkedList<int[]> res = new LinkedList<>();
+        Arrays.sort(intervals, (o1, o2) -> Integer.compare(o1[0], o2[0]));
+        res.add(intervals[0]);     // 第一个区间就可以放进结果集里，后面如果重叠，在result上直接合并
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] <= res.getLast()[1]) {  // 发现重叠区间
+                int start = res.getLast()[0];  // 合并区间，只更新右边界就好，因为result.back()的左边界一定是最小值，因为我们按照左边界排序的
+                int end = Math.max(intervals[i][1], res.getLast()[1]);
+                res.removeLast();
+                res.add(new int[]{start, end});
+            } else {
+                res.add(intervals[i]);  // 区间不重叠
+            }
+        }
+        return res.toArray(new int[res.size()][]);
+    }
+    /**
      * Approach 2: Sorting 排序法(按照开始时间)
      * Time complexity: O(logn) Space complexity: O(n)
      */
