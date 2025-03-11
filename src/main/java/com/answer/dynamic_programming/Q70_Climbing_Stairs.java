@@ -43,18 +43,19 @@ public class Q70_Climbing_Stairs {
      *  比如f(10)= f(9)+f(8),f(9) = f(8) + f(7) ,f(8)就是重叠子问题。
      *
      *  空间复杂度是O(n) 空间复杂度是O(n)
+     *  到第三层楼梯的状态可以由第二层楼梯 和 到第一层楼梯状态推导出来，那么就可以想到动态规划了
      */
     public static int climbStairs(int n) {
         if(n <= 2){
             return n;
         }
 
-        int[] stairs = new int[n + 1];
+        int[] stairs = new int[n + 1];  // dp[i]： 爬到第i层楼梯，有dp[i]种方法
 
-        stairs[1] = 1;
+        stairs[1] = 1; // 不考虑dp[0]如何初始化，只初始化dp[1] = 1，dp[2] = 2，然后从i = 3开始递推，这样才符合dp[i]的定义
         stairs[2] = 2;
 
-        for(int i = 3; i <= n; i++){
+        for(int i = 3; i <= n; i++){ // 注意i是从3开始的
             stairs[i] = stairs[i - 1] + stairs[i - 2]; // 第n阶最大方案数量等于第n-1阶和第n-2阶最大方案数量之和
         }
 
@@ -71,18 +72,36 @@ public class Q70_Climbing_Stairs {
         if (n == 2) {
             return 2;
         }
-        int a = 1;
+        int a = 1; // 用变量记录代替数组
         int b = 2;
         int temp = 0;
         for (int i = 3; i <= n; i++) {
-            temp = a + b;
-            a = b;
-            b = temp;
+            temp = a + b;  // f(i - 1) + f(i - 2)
+            a = b;         // 记录f(i - 1)，即下一轮的f(i - 2)
+            b = temp;      // 记录f(i)，即下一轮的f(i - 1)
         }
         return temp;
     }
     /**
+     * 另一种形式 优化一下空间复杂度
+     * 时间复杂度：O(n) 空间复杂度：O(1)
+     */
+    public int climbStairs_5(int n) {
+        if (n <= 1) return n;
+        int[] dp = new int[3];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            int sum = dp[1] + dp[2];
+            dp[1] = dp[2];
+            dp[2] = sum;
+        }
+        return dp[2];
+    }
+    /**
      * Knapsack 完全背包
+     * 一步一个台阶，两个台阶，三个台阶，直到 m个台阶，有多少种方法爬到n阶楼顶
+     * 代码中m表示最多可以爬m个台阶。
      */
     public static void main(String[] args) {
         System.out.println( climbStairs(10));
