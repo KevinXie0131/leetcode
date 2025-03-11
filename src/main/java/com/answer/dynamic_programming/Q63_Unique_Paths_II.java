@@ -3,6 +3,9 @@ package com.answer.dynamic_programming;
 public class Q63_Unique_Paths_II {
     /**
      * Approach 1: Dynamic Programming
+     * 有障碍的话，其实就是标记对应的dp table（dp数组）保持初始值(0)就可以了。
+     * 时间复杂度：O(n × m)，n、m 分别为obstacleGrid 长度和宽度
+     * 空间复杂度：O(n × m)
      */
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int m = obstacleGrid.length;
@@ -11,7 +14,7 @@ public class Q63_Unique_Paths_II {
         int[][] dp = new int[m][n];
         // 如果加上障碍物的话，对应的位置，路径数为0
         // 而且要注意，障碍物后面的位置也是无法到达的，路径数也应该为 0。
-        for(int i = 0; i < m && obstacleGrid[i][0] == 0; i++){
+        for(int i = 0; i < m && obstacleGrid[i][0] == 0; i++){ // 一旦遇到obstacleGrid[i][0] == 1的情况就停止dp[i][0]的赋值1的操作
             dp[i][0] = 1;
         }
         for(int j = 0; j < n && obstacleGrid[0][j] == 0; j++){
@@ -28,7 +31,6 @@ public class Q63_Unique_Paths_II {
                 dp[i][j] = dp[i-1][j] + dp[i][j-1];  // 当(i, j)没有障碍的时候，再推导dp[i][j]
             }
         }
-
         return dp[m-1][n-1];
     }
     /**
@@ -90,6 +92,27 @@ public class Q63_Unique_Paths_II {
 
         return f[m - 1];
     }
+    /**
+     * 空间优化版本
+     */
+    public int uniquePathsWithObstacles_6(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+        int[] dp = new int[n];
 
+        for (int j = 0; j < n && obstacleGrid[0][j] == 0; j++) {
+            dp[j] = 1;
+        }
 
+        for (int i = 1; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (obstacleGrid[i][j] == 1) {
+                    dp[j] = 0;
+                } else if (j != 0) {
+                    dp[j] += dp[j - 1];
+                }
+            }
+        }
+        return dp[n - 1];
+    }
 }
