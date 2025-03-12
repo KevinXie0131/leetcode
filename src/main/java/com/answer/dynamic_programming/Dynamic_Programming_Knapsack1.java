@@ -6,10 +6,18 @@ public class Dynamic_Programming_Knapsack1 {
     /* 完全背包：动态规划 */
     int unboundedKnapsackDP(int[] weight, int[] value, int capacity) {
         int n = weight.length;
+        // dp[i][j] 表示从下标为[0-i]的物品，每个物品可以取无限次，放进容量为j的背包，价值总和最大是多少。
+        // 在 01背包理论基础（二维数组）中，背包先空留出物品1的容量，此时容量为1，只考虑放物品0的最大价值是dp[0][1]，因为01背包每个物品只有一个，既然空出物品1，那背包中也不会再有物品1
+        // 而在完全背包中，物品是可以放无限个，所以即使空出物品1空间重量，那背包中也可能还有物品1，所以此时我们依然考虑放物品0和物品1的最大价值即：dp[1][1]， 而不是dp[0][1]
+        // 所以放物品1的情况 = dp[1][1] + 物品1的价值
+
+        // 两种情况，分别是放物品1 和 不放物品1，我们要取最大值（毕竟求的是最大价值）
+        // dp[1][4] = max(dp[0][4], dp[1][1] + 物品1 的价值)
+        // 递推公式： dp[i][j] = max(dp[i - 1][j], dp[i][j - weight[i]] + value[i]);
         int[][] dp = new int[n + 1][capacity + 1]; // 初始化 dp 表
         // 状态转移
-        for (int i = 1; i <= n; i++) {
-            for (int c = 1; c <= capacity; c++) {
+        for (int i = 1; i <= n; i++) { // 遍历物品
+            for (int c = 1; c <= capacity; c++) {  // 遍历背包容量
                 if (weight[i - 1] > c) {
                     dp[i][c] = dp[i - 1][c]; // 若超过背包容量，则不选物品 i
                 } else {
