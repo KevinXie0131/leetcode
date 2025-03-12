@@ -4,20 +4,20 @@ import java.util.Arrays;
 
 public class Dynamic_Programming_Knapsack1 {
     /* 完全背包：动态规划 */
-    int unboundedKnapsackDP(int[] wgt, int[] val, int cap) {
-        int n = wgt.length;
-        int[][] dp = new int[n + 1][cap + 1]; // 初始化 dp 表
+    int unboundedKnapsackDP(int[] weight, int[] value, int capacity) {
+        int n = weight.length;
+        int[][] dp = new int[n + 1][capacity + 1]; // 初始化 dp 表
         // 状态转移
         for (int i = 1; i <= n; i++) {
-            for (int c = 1; c <= cap; c++) {
-                if (wgt[i - 1] > c) {
+            for (int c = 1; c <= capacity; c++) {
+                if (weight[i - 1] > c) {
                     dp[i][c] = dp[i - 1][c]; // 若超过背包容量，则不选物品 i
                 } else {
-                    dp[i][c] = Math.max(dp[i - 1][c], dp[i][c - wgt[i - 1]] + val[i - 1]); // 不选和选物品 i 这两种方案的较大值
+                    dp[i][c] = Math.max(dp[i - 1][c], dp[i][c - weight[i - 1]] + value[i - 1]); // 不选和选物品 i 这两种方案的较大值
                 }
             }
         }
-        return dp[n][cap];
+        return dp[n][capacity];
     }
     /* 完全背包：空间优化后的动态规划 */
     int unboundedKnapsackDPComp(int[] wgt, int[] val, int cap) {
