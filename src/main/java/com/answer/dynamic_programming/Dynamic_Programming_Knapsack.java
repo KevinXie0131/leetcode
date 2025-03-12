@@ -25,18 +25,22 @@ public class Dynamic_Programming_Knapsack {
         return dp[n][capacity];
     }
     /* 0-1 背包：空间优化后的动态规划 */
-    int knapsackDPComp(int[] wgt, int[] val, int cap) {
-        int n = wgt.length;
-        int[] dp = new int[cap + 1]; // 初始化 dp 表
+    int knapsackDPComp(int[] weight, int[] value, int capacity) {
+        int n = weight.length;
+        // 在一维dp数组中，dp[j]表示：容量为j的背包，所背的物品价值可以最大为dp[j]。
+        // 递推公式为：dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        // 倒序遍历是为了保证物品i只被放入一次！。但如果一旦正序遍历了，那么物品0就会被重复加入多次！
+        // 从后往前循环，每次取得状态不会和之前取得状态重合，这样每种物品就只取一次了。
+        int[] dp = new int[capacity + 1]; // 初始化 dp 表
         // 状态转移
-        for (int i = 1; i <= n; i++) {
-            for (int c = cap; c >= 1; c--) {   // 倒序遍历
-                if (wgt[i - 1] <= c) {
-                    dp[c] = Math.max(dp[c], dp[c - wgt[i - 1]] + val[i - 1]);// 不选和选物品 i 这两种方案的较大值
+        for (int i = 1; i <= n; i++) { // 遍历物品
+            for (int c = capacity; c >= 1; c--) { // 遍历背包容量 (倒序遍历)
+                if (weight[i - 1] <= c) {
+                    dp[c] = Math.max(dp[c], dp[c - weight[i - 1]] + value[i - 1]);// 不选和选物品 i 这两种方案的较大值
                 }
             }
         }
-        return dp[cap];
+        return dp[capacity];
     }
     /**
      * 0/1 Knapsack Problem 0-1背包

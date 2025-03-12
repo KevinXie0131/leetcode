@@ -20,20 +20,20 @@ public class Dynamic_Programming_Knapsack1 {
         return dp[n][capacity];
     }
     /* 完全背包：空间优化后的动态规划 */
-    int unboundedKnapsackDPComp(int[] wgt, int[] val, int cap) {
-        int n = wgt.length;
-        int[] dp = new int[cap + 1];// 初始化 dp 表
+    int unboundedKnapsackDPComp(int[] weight, int[] value, int capacity) {
+        int n = weight.length;
+        int[] dp = new int[capacity + 1];// 初始化 dp 表
         // 状态转移
         for (int i = 1; i <= n; i++) {
-            for (int c = 1; c <= cap; c++) {
-                if (wgt[i - 1] > c) {
+            for (int c = 1; c <= capacity; c++) {
+                if (weight[i - 1] > c) {
                     dp[c] = dp[c]; // 若超过背包容量，则不选物品 i
                 } else {
-                    dp[c] = Math.max(dp[c], dp[c - wgt[i - 1]] + val[i - 1]);  // 不选和选物品 i 这两种方案的较大值
+                    dp[c] = Math.max(dp[c], dp[c - weight[i - 1]] + value[i - 1]);  // 不选和选物品 i 这两种方案的较大值
                 }
             }
         }
-        return dp[cap];
+        return dp[capacity];
     }
     /**
      * Unbounded Knapsack Problem 完全背包: 完全背包又是也是01背包稍作变化而来，即：完全背包的物品数量是无限的
