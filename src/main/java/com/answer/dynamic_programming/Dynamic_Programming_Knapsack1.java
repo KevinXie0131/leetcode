@@ -36,7 +36,7 @@ public class Dynamic_Programming_Knapsack1 {
         return dp[cap];
     }
     /**
-     * Unbounded Knapsack Problem 完全背包
+     * Unbounded Knapsack Problem 完全背包: 完全背包又是也是01背包稍作变化而来，即：完全背包的物品数量是无限的
      */
     public static void main(String[] args) {
 

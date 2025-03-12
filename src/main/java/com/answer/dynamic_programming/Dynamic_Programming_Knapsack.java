@@ -4,21 +4,25 @@ import java.util.Arrays;
 
 public class Dynamic_Programming_Knapsack {
     /* 0-1 背包：动态规划 */
-    int knapsackDP(int[] wgt, int[] val, int cap) {
-        int n = wgt.length;
-
-        int[][] dp = new int[n + 1][cap + 1]; // 初始化 dp 表
+    int knapsackDP(int[] weight, int[] value, int capacity) {
+        int n = weight.length;
+        // dp[i][j] 表示从下标为[0-i]的物品里任意取，放进容量为j的背包，价值总和最大是多少
+        // 例如 任取 物品0，物品1 放进容量为4的背包里，最大价值是 dp[1][4]。
+        //      两种情况，分别是放物品1 和 不放物品1，我们要取最大值（毕竟求的是最大价值）
+        //      dp[1][4] = max(dp[0][4], dp[0][1] + 物品1 的价值)
+        // 递归公式： dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+        int[][] dp = new int[n + 1][capacity + 1]; // 初始化 dp 表
         // 状态转移
-        for (int i = 1; i <= n; i++) {
-            for (int c = 1; c <= cap; c++) {
-                if (wgt[i - 1] > c) {
+        for (int i = 1; i <= n; i++) { // 遍历物品
+            for (int c = 1; c <= capacity; c++) { // 遍历背包容量
+                if (weight[i - 1] > c) {
                     dp[i][c] = dp[i - 1][c]; // 若超过背包容量，则不选物品 i
                 } else {
-                    dp[i][c] = Math.max(dp[i - 1][c], dp[i - 1][c - wgt[i - 1]] + val[i - 1]); // 不选和选物品 i 这两种方案的较大值
+                    dp[i][c] = Math.max(dp[i - 1][c], dp[i - 1][c - weight[i - 1]] + value[i - 1]); // 不选和选物品 i 这两种方案的较大值
                 }
             }
         }
-        return dp[n][cap];
+        return dp[n][capacity];
     }
     /* 0-1 背包：空间优化后的动态规划 */
     int knapsackDPComp(int[] wgt, int[] val, int cap) {
@@ -36,6 +40,8 @@ public class Dynamic_Programming_Knapsack {
     }
     /**
      * 0/1 Knapsack Problem 0-1背包
+     * 有n件物品和一个最多能背重量为w 的背包。第i件物品的重量是weight[i]，得到的价值是value[i] 。
+     * 每件物品只能用一次，求解将哪些物品装入背包里物品价值总和最大。
      */
     public static void main(String[] args) {
 /*        int[] val = {1, 2, 4, 2, 3};
