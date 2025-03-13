@@ -52,7 +52,7 @@ public class Q322_Coin_Change {
         dp[0] = 0; // 凑足总金额为0所需钱币的个数一定是0
         // 状态转移
         // 本题的两个for循环的关系是：外层for循环遍历物品，内层for遍历背包或者外层for遍历背包，内层for循环遍历物品都是可以的
-        // 本题是要求最少硬币数量，硬币是组合数还是排列数都无所谓！所以两个for循环先后顺序怎样都可以
+        // 本题是要求最少硬币数量，硬币是组合数还是排列数都无所谓！所以两个for循环先后顺序怎样都可以, 都不影响钱币的最小个数
         // 遍历顺序为：coins（物品）放在外循环，target（背包）在内循环。且内循环正序。(内外循环交换也可以通过提交)
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) { // 完全背包。所以遍历的内循环是正序
@@ -76,6 +76,7 @@ public class Q322_Coin_Change {
 
         for(int i = 1; i <= amount; i++){
             for(int coin : coins){
+                // 如果dp[j - coins[i]]是初始值则跳过
                 if(i - coin >= 0 &&  dp[i - coin] != Integer.MAX_VALUE){ //只有dp[j-coins[i]]不是初始最大值时，该位才有选择的必要
                     dp[i] = Math.min(dp[i], dp[i - coin] + 1);  //选择硬币数目最小的情况
                 }
