@@ -13,17 +13,23 @@ public class Q518_Coin_Change_II {
      * 完全背包 (同一种硬币可以使用多次)
      * 凑出目标金额的硬币组合数量:动态规划
      * 子问题变为：前i种硬币能够凑出金额a的组合数量
+     *
+     * 但本题和纯完全背包不一样，纯完全背包是凑成背包最大价值是多少，而本题是要求凑成总金额的物品组合个数 (组合不强调元素之间的顺序，排列强调元素之间的顺序)
+     * 如果求组合数就是外层for循环遍历物品，内层for遍历背包。
+     * 如果求排列数就是外层for遍历背包，内层for循环遍历物品。
      */
     public int change1(int amt, int[] coins) {
         int n = coins.length;
+        // dp[i][j]：使用 下标为[0, i]的coins[i]能够凑满j（包括j）这么大容量的包，有dp[i][j]种组合方法。
         int[][] dp = new int[n + 1][amt + 1];     // 初始化 dp 表：i种硬币能够凑出金额a的组合数
 
         for (int i = 0; i <= n; i++) {// 初始化首列
             dp[i][0] = 1; // 当目标金额为0时，无须选择任何硬币即可凑出目标金额，因此应将首列所有dp[i][0]都初始化为1
         }
         // 当无硬币时，无法凑出任何>0的目标金额，因此首行所有dp[0][a]都等于0
-        for (int i = 1; i <= n; i++) {  // 状态转移
-            for (int a = 1; a <= amt; a++) {
+        for (int i = 1; i <= n; i++) {    // 行，遍历物品
+            for (int a = 1; a <= amt; a++) {  // 列，遍历背包
+                // 状态转移
                 if (coins[i - 1] > a) {
                     dp[i][a] = dp[i - 1][a];  // 若超过目标金额，则不选硬币 i
                 } else {
@@ -40,8 +46,10 @@ public class Q518_Coin_Change_II {
     int coinChangeIIDPComp(int[] coins, int amt) {
         int n = coins.length;
         int[] dp = new int[amt + 1]; // 初始化 dp 表
-        dp[0] = 1;
+        dp[0] = 1; // 装满背包容量为0 的方法是1，即不放任何物品
 
+        // 外层for循环遍历物品（钱币），内层for遍历背包（金钱总额）得到 组合数
+        // 如果把两个for交换顺序， 此时dp[j]里算出来的就是排列数
         for (int i = 1; i <= n; i++) {  // 状态转移
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
@@ -51,7 +59,7 @@ public class Q518_Coin_Change_II {
                 }
             }
         }
-        return dp[amt];
+        return dp[amt]; // 返回组合数
     }
     /**
      * Approach 1: Dynamic Programming
