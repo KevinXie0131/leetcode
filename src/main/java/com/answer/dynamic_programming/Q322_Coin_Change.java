@@ -41,17 +41,21 @@ public class Q322_Coin_Change {
     }
     /**
      * 零钱兑换：空间优化后的动态规划
+     * 题目中说每种硬币的数量是无限的，可以看出是典型的完全背包问题。
      */
     int coinChange6(int[] coins, int amt) {
         int n = coins.length;
-        int MAX = amt + 1;
+        int MAX = amt + 1; //初始化dp数组为最大值
 
-        int[] dp = new int[amt + 1]; // 初始化 dp 表
-        Arrays.fill(dp, MAX);
-        dp[0] = 0;
-
-        for (int i = 1; i <= n; i++) {// 状态转移
-            for (int a = 1; a <= amt; a++) {
+        int[] dp = new int[amt + 1]; // dp[j]：凑足总额为j所需钱币的最少个数为dp[j]
+        Arrays.fill(dp, MAX); // dp[j]必须初始化为一个最大的数，否则就会在min(dp[j - coins[i]] + 1, dp[j])比较的过程中被初始值覆盖。
+        dp[0] = 0; // 凑足总金额为0所需钱币的个数一定是0
+        // 状态转移
+        // 本题的两个for循环的关系是：外层for循环遍历物品，内层for遍历背包或者外层for遍历背包，内层for循环遍历物品都是可以的
+        // 本题是要求最少硬币数量，硬币是组合数还是排列数都无所谓！所以两个for循环先后顺序怎样都可以
+        // 遍历顺序为：coins（物品）放在外循环，target（背包）在内循环。且内循环正序。(内外循环交换也可以通过提交)
+        for (int i = 1; i <= n; i++) {
+            for (int a = 1; a <= amt; a++) { // 完全背包。所以遍历的内循环是正序
                 if (coins[i - 1] > a) {
                     dp[a] = dp[a]; // 若超过目标金额，则不选硬币 i
                 } else {
@@ -67,13 +71,13 @@ public class Q322_Coin_Change {
      */
     public static int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
-        dp[0] = 0;
+        Arrays.fill(dp, Integer.MAX_VALUE);   //初始化dp数组为最大值
+        dp[0] = 0; //当金额为0时需要的硬币数目为0
 
         for(int i = 1; i <= amount; i++){
             for(int coin : coins){
-                if(i - coin >= 0 &&  dp[i - coin] != Integer.MAX_VALUE){
-                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                if(i - coin >= 0 &&  dp[i - coin] != Integer.MAX_VALUE){ //只有dp[j-coins[i]]不是初始最大值时，该位才有选择的必要
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);  //选择硬币数目最小的情况
                 }
             }
         }
