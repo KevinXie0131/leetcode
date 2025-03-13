@@ -100,22 +100,26 @@ public class Q70_Climbing_Stairs {
     }
     /**
      * Knapsack 完全背包
-     * 一步一个台阶，两个台阶，三个台阶，直到 m个台阶，有多少种方法爬到n阶楼顶
-     * 代码中m表示最多可以爬m个台阶。
+     * 一步一个台阶，两个台阶，三个台阶，直到 m个台阶，有多少种方法爬到n阶楼顶 (代码中m表示最多可以爬m个台阶)
+     *
+     * 1阶，2阶，.... m阶就是物品，楼顶就是背包
+     * 每一阶可以重复使用，例如跳了1阶，还可以继续跳1阶。
+     * 问跳到楼顶有几种方法其实就是问装满背包有几种方法
      */
     public static void main(String[] args) {
         System.out.println( climbStairs(10));
         System.out.println( climbStairs_2(10));
     }
     public static int climbStairs_2(int n) {
-        int[] dp = new int[n + 1];
+        int[] dp = new int[n + 1]; // dp[i]：爬到有i个台阶的楼顶，有dp[i]种方法
         dp[0] = 1;
         int m = 2;
 
+        // 这是背包里求排列问题，即：1、2 步 和 2、1 步都是上三个台阶，但是这两种方法不一样！所以需将target放在外循环，将nums放在内循环。
         for (int i = 1; i <= n; i++) { // 遍历背包
             for (int j = 1; j <= m; j++) { // 遍历物品
                 if (i - j >= 0) {
-                    dp[i] += dp[i - j];
+                    dp[i] += dp[i - j]; // dp[i]有几种来源，dp[i - 1]，dp[i - 2]，dp[i - 3] 等等，即：dp[i - j]
                 }
             }
         }
