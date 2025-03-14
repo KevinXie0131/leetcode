@@ -6,6 +6,21 @@ import java.util.HashMap;
 
 public class Dynamic_Programming {
     /**
+     * 问能否能装满背包（或者最多装多少）：dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]); ，对应题目如下：
+     *      Q416.分割等和子集
+     *      Q1049.最后一块石头的重量 II
+     * 问装满背包有几种方法：dp[j] += dp[j - nums[i]] ，对应题目如下：
+     *      Q494.目标和
+     *      Q518. 零钱兑换 II
+     *      Q377.组合总和Ⅳ
+     *     Q70. 爬楼梯进阶版（完全背包）
+     * 问背包装满最大价值：dp[j] = max(dp[j], dp[j - weight[i]] + value[i]); ，对应题目如下：
+     *      Q474.一和零
+     * 问装满背包所有物品的最小个数：dp[j] = min(dp[j - coins[i]] + 1, dp[j]); ，对应题目如下：
+     *      Q322.零钱兑换
+     *      Q279.完全平方数
+     */
+    /**
      * 1. overlapping subproblems
      * 2. optimal substructure
      * 3. state transition equation

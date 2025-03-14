@@ -12,7 +12,7 @@ public class Dynamic_Programming_Knapsack {
         //      dp[1][4] = max(dp[0][4], dp[0][1] + 物品1 的价值)
         // 递归公式： dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
         int[][] dp = new int[n + 1][capacity + 1]; // 初始化 dp 表
-        // 状态转移
+        // 状态转移: 二维dp数组01背包先遍历物品还是先遍历背包都是可以的，且第二层for循环是从小到大遍历
         for (int i = 1; i <= n; i++) { // 遍历物品
             for (int c = 1; c <= capacity; c++) { // 遍历背包容量
                 if (weight[i - 1] > c) {
@@ -32,7 +32,7 @@ public class Dynamic_Programming_Knapsack {
         // 倒序遍历是为了保证物品i只被放入一次！。但如果一旦正序遍历了，那么物品0就会被重复加入多次！
         // 从后往前循环，每次取得状态不会和之前取得状态重合，这样每种物品就只取一次了。
         int[] dp = new int[capacity + 1]; // 初始化 dp 表
-        // 状态转移
+        // 状态转移: 一维dp数组01背包只能先遍历物品再遍历背包容量，且第二层for循环是从大到小遍历
         for (int i = 1; i <= n; i++) { // 遍历物品
             for (int c = capacity; c >= 1; c--) { // 遍历背包容量 (倒序遍历)
                 if (weight[i - 1] <= c) {

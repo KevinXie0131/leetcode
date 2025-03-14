@@ -27,11 +27,24 @@ public class Dynamic_Programming_Knapsack1 {
         }
         return dp[n][capacity];
     }
-    /* 完全背包：空间优化后的动态规划 */
+    /**
+     *  完全背包：空间优化后的动态规划
+     *
+     *  一维dp数组实现，先遍历物品还是先遍历背包都是可以的，且第二层for循环是从小到大遍历
+     *  如果求组合数就是外层for循环遍历物品，内层for遍历背包。
+     *  如果求排列数就是外层for遍历背包，内层for循环遍历物品。
+     *
+     *  求组合数：
+     *      Q518.零钱兑换II
+     *  求排列数:
+     *      Q377. 组合总和 Ⅳ 、Q70. 爬楼梯进阶版（完全背包）
+     *  如果求最小数，那么两层for循环的先后顺序就无所谓了，相关题目如下：
+     *  求最小数：Q322. 零钱兑换、Q279.完全平方数
+     */
     int unboundedKnapsackDPComp(int[] weight, int[] value, int capacity) {
         int n = weight.length;
         int[] dp = new int[capacity + 1];// 初始化 dp 表
-        // 状态转移
+        // 状态转移:
         for (int i = 1; i <= n; i++) {
             for (int c = 1; c <= capacity; c++) {
                 if (weight[i - 1] > c) {
