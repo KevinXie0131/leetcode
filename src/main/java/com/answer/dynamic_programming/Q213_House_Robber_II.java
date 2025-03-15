@@ -16,15 +16,17 @@ public class Q213_House_Robber_II {
         } else if (length == 2) {
             return Math.max(nums[0], nums[1]);
         }
-        return Math.max(robRange(nums, 0, length - 2), robRange(nums, 1, length - 1));
+        int result1 = robRange(nums, 0, nums.length - 2); // 考虑包含首元素，不包含尾元素
+        int result2 = robRange(nums, 1, nums.length - 1); // 考虑包含尾元素，不包含首元素
+        return Math.max(result1, result2);
     }
-
+    // 198.打家劫舍的逻辑
     public int robRange(int[] nums, int start, int end) {
         if(start == end) return nums[start];
 
         int[] dp = new int[nums.length];
         dp[start]= nums[start];
-        dp[start + 1]= Math.max(nums[start],nums[start + 1]);
+        dp[start + 1]= Math.max(nums[start], nums[start + 1]);
 
         for(int i = start + 2; i <= end; i++){
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
