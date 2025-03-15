@@ -81,6 +81,7 @@ public class Q337_House_Robber_III {
         int[] res = robAction1(root);
         return Math.max(res[0], res[1]); // 在 不偷root 和 偷root 取最大值
     }
+    // 本题dp数组就是一个长度为2的数组
     // 长度为2的数组怎么标记树中每个节点的状态呢？别忘了在递归的过程中，系统栈会保存每一层递归的参数。
     int[] robAction1(TreeNode root) { // dp[0]: 不偷 / dp[1]: 偷
         int res[] = new int[2]; // 下标为0记录不偷该节点所得到的的最大金钱，下标为1记录偷该节点所得到的的最大金钱。
