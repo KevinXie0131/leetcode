@@ -15,6 +15,8 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
      *  第一次不持有股票
      *  第二次持有股票
      *  第二次不持有股票
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n × 5)
      */
     public int maxProfit(int[] prices) {
         if (prices.length == 0) return 0;
