@@ -76,20 +76,38 @@ public class Q53_Maximum_Subarray {
     }
     /**
      * Dynamic Programming 动态规划
-     * 最大的连续子序列的和
+     * 最大的连续子序列的和 (连续子数组（子数组最少包含一个元素)
      */
     public int maxSubArray_3(int[] nums) {
         int result = nums[0];
-        int[] dp = new int[nums.length]; // dp[i]表示包括i之前的最大连续子序列和
+        int[] dp = new int[nums.length]; // dp[i]：包括下标i（以nums[i]为结尾）的最大连续子序列和
         dp[0] = nums[0]; // 用第一个数值来初始化
 
         for(int i = 1; i < nums.length; i++){
+            // dp[i]只有两个方向可以推出来：
+            //    dp[i - 1] + nums[i]，即：nums[i]加入当前连续子序列和
+            //    nums[i]，即：从头开始计算当前连续子序列和
+            // 一定是取最大的，所以dp[i] = max(dp[i - 1] + nums[i], nums[i]);
             dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]); // 状态转移公式, nums[i]是从头开始计数
 
             if(dp[i] > result){ // result 保存dp[i]的最大值
                 result = dp[i];
             }
+        //    result = result > dp[i] ? result : dp[i];  // 也可以
         }
         return result;
+    }
+    /**
+     * 一维dp数组
+     * 因为dp[i]的递推公式只与前一个值有关，所以可以用一个变量代替dp数组，空间复杂度为O(1)
+     */
+    public int maxSubArray_4(int[] nums) {
+        int res = nums[0];
+        int pre = nums[0];
+        for(int i = 1; i < nums.length; i++) {
+            pre = Math.max(pre + nums[i], nums[i]);
+            res = Math.max(res, pre);
+        }
+        return res;
     }
 }
