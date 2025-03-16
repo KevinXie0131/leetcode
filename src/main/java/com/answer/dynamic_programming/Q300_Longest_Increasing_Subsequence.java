@@ -8,27 +8,27 @@ public class Q300_Longest_Increasing_Subsequence {
     /**
      * Subsequence是不连续的，Subarray或者Continued Sequence是连续的
      *
-     * Approach 1: Dynamic Programming
+     * Approach 1: Dynamic Programming 子序列问题是动态规划解决的经典问题
      *
      * First, the question is asking for the maximum or minimum of something.
      * Second, we have to make decisions that may depend on previously made decisions,
      * which is very typical of a problem involving subsequences.
      */
     public int lengthOfLIS(int[] nums) {
-        int[] dp= new int[nums.length];
-        Arrays.fill(dp, 1);
+        int[] dp= new int[nums.length]; // dp[i]表示i之前包括i的以nums[i]结尾的最长递增子序列的长度
+        Arrays.fill(dp, 1); // 每一个i，对应的dp[i]（即最长递增子序列）起始大小至少都是1
 
         for(int i = 1; i < nums.length; i++){
             for(int j = 0; j < i; j++){
-                if(nums[i] > nums[j]){
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                if(nums[i] > nums[j]){ // 位置i的最长升序子序列等于j从0到i-1各个位置的最长升序子序列 + 1 的最大值
+                    dp[i] = Math.max(dp[i], dp[j] + 1); // 注意这里不是要dp[i] 与 dp[j] + 1进行比较，而是我们要取dp[j] + 1的最大值
                 }
             }
         }
 
         int max = 1;
         for(int i = 0; i < nums.length; i++){
-            max = Math.max(max, dp[i]);
+            max = Math.max(max, dp[i]); // 取长的子序列
         }
         return max;
     }
@@ -45,22 +45,18 @@ public class Q300_Longest_Increasing_Subsequence {
             return 0;
         }
         int[] dp = new int[nums.length];
-        //初始化就是边界情况
-        dp[0] = 1;
+        dp[0] = 1; //初始化就是边界情况
         int maxans = 1;
-        //自底向上遍历
-        for (int i = 1; i < nums.length; i++) {
+
+        for (int i = 1; i < nums.length; i++) { //自底向上遍历
             dp[i] = 1;
-            //从下标0到i遍历
-            for (int j = 0; j < i; j++) {
-                //找到前面比nums[i]小的数nums[j],即有dp[i]= dp[j]+1
-                if (nums[j] < nums[i]) {
-                    //因为会有多个小于nums[i]的数，也就是会存在多种组合了嘛，我们就取最大放到dp[i]
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
+            for (int j = 0; j < i; j++) { //从下标0到i遍历
+                if (nums[j] < nums[i]) {//找到前面比nums[i]小的数nums[j],即有dp[i]= dp[j]+1
+                    dp[i] = Math.max(dp[i], dp[j] + 1);//因为会有多个小于nums[i]的数，也就是会存在多种组合了嘛，我们就取最大放到dp[i]
                 }
             }
-            //求出dp[i]后，dp最大那个就是nums的最长递增子序列啦
-            maxans = Math.max(maxans, dp[i]);
+
+            maxans = Math.max(maxans, dp[i]); //求出dp[i]后，dp最大那个就是nums的最长递增子序列啦
         }
         return maxans;
     }
