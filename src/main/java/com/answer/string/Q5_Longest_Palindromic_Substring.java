@@ -91,5 +91,35 @@ public class Q5_Longest_Palindromic_Substring {
         }
         return right - left - 1;
     }
+    /**
+     * 动态规划
+     * LeetCode 647. 同一题的思路改一下、加一点，就能通过LeetCode 5
+     */
+    public String longestPalindrome_4(String s) {
+        // 题目要求要return 最长的回文连续子串，故需要记录当前最长的连续回文子串长度、最终起点、最终终点。
+        int finalStart = 0;
+        int finalEnd = 0;
+        int finalLen = 0;
 
+        char[] chars = s.toCharArray();
+        int len = chars.length;
+
+        boolean[][] dp = new boolean[len][len];
+        for (int i = len - 1; i >= 0; i--) {
+            for (int j = i; j < len; j++) {
+                if (chars[i] == chars[j] && (j - i <= 1 || dp[i + 1][j - 1])) // 简洁版
+                    dp[i][j] = true;
+                // 和LeetCode 647，差别就在这个if statement。
+                // 如果当前[i, j]范围内的substring是回文子串(dp[i][j]) 且(&&) 长度大于当前要记录的最终长度(j - i + 1 > finalLen)
+                // 我们就更新 当前最长的连续回文子串长度、最终起点、最终终点
+                if (dp[i][j] && j - i + 1 > finalLen) {
+                    finalLen = j - i + 1;
+                    finalStart = i;
+                    finalEnd = j;
+                }
+            }
+        }
+        // String.substring这个method的用法是[起点, 终点)，包含起点，不包含终点（左闭右开区间），故终点 + 1。
+        return s.substring(finalStart, finalEnd + 1);
+    }
 }

@@ -9,7 +9,7 @@ public class Q392_Is_Subsequence {
         System.out.println(isSubsequence(s, t));
     }
     /**
-     * Approach 2: Two-Pointers
+     * Approach 2: Two-Pointers 双指针
      */
     public static boolean isSubsequence(String s, String t) {
         char[] source = s.toCharArray();
