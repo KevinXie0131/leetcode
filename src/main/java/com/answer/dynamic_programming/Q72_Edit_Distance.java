@@ -23,13 +23,14 @@ public class Q72_Edit_Distance {
     static public int minDistance(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();
+        // dp[i][j] 表示以下标i-1为结尾的字符串word1，和以下标j-1为结尾的字符串word2，最近编辑距离为dp[i][j]。
         int[][] dp = new int[m + 1][n + 1]; // i是word1的字符位 j是word2的字符位 dp状态是word1前i个字符替换到word2前j个字符所需最小步骤
         // 初始化
         for (int i = 1; i <= m; i++) {
-            dp[i][0] =  i; // 相当于word2为空，word1要做多少次操作/最少编辑步数等于word1的长度
+            dp[i][0] =  i; // 相当于word2为空，word1要做多少次操作 / 最少编辑步数等于word1的长度 / dp[i][0]就应该是i，对word1里的元素全部做删除操作，即：dp[i][0] = i;
         }
         for (int j = 1; j <= n; j++) {
-            dp[0][j] = j;  // 相当于word1为空，word2要做多少次操作/最少编辑步数等于word2的长度
+            dp[0][j] = j;  // 相当于word1为空，word2要做多少次操作 / 最少编辑步数等于word2的长度 / 同理dp[0][j] = j;
         }
         System.out.println(Arrays.deepToString(dp));
 /*      [[0, 1, 2, 3],
@@ -50,11 +51,11 @@ public class Q72_Edit_Distance {
                 }
                 /**
                  * if (word1[i - 1] == word2[j - 1])
-                 *     不操作
+                 *   不操作, 不用任何编辑
                  * if (word1[i - 1] != word2[j - 1])
-                 *     增   dp[i][j] = dp[i][j - 1] + 1
-                 *     删   dp[i][j] = dp[i - 1][j] + 1
-                 *     换   dp[i][j] = dp[i - 1][j - 1] + 1
+                 *   增: dp[i][j] = dp[i][j - 1] + 1 // word2删除一个元素，那么就是以下标i - 1为结尾的word1 与 j-2为结尾的word2的最近编辑距离 再加上一个操作
+                 *   删: dp[i][j] = dp[i - 1][j] + 1 // word1删除一个元素，那么就是以下标i - 2为结尾的word1 与 j-1为结尾的word2的最近编辑距离 再加上一个操作。
+                 *   换: dp[i][j] = dp[i - 1][j - 1] + 1 // word1替换word1[i - 1]，使其与word2[j - 1]相同，此时不用增删加元素。那么只需要一次替换的操作，就可以让 word1[i - 1] 和 word2[j - 1] 相同。
                  */
             }
         }
