@@ -93,7 +93,7 @@ public class Q5_Longest_Palindromic_Substring {
     }
     /**
      * 动态规划
-     * LeetCode 647. 同一题的思路改一下、加一点，就能通过LeetCode 5
+     * 参考LeetCode 647. Palindromic Substrings。该题的思路改一下、加一点，就能通过Q5 Longest Palindromic Substring
      */
     public String longestPalindrome_4(String s) {
         // 题目要求要return 最长的回文连续子串，故需要记录当前最长的连续回文子串长度、最终起点、最终终点。
