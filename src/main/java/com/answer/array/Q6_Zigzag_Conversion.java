@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Q6_Zigzag_Conversion {
     public static void main(String[] args) {
-        String s =  "AB";
-        int numRows = 1;
+        String s =  "ABCDEFG";
+        int numRows = 3;
         String res = convert(s, numRows);
         System.out.println(res);
     }

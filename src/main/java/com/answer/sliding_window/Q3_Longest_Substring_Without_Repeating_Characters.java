@@ -6,11 +6,12 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
     public static void main(String[] args) {
      //   String s = "abcabcbb";
      //   String s = "abba";
-        String s = "pwwkew";
-        System.out.println(lengthOfLongestSubstring_1(s));
+        String s = "dvdf";
+        System.out.println(lengthOfLongestSubstring(s));
     }
     /**
      * Approach 3: Sliding Window Optimized 滑动窗口
+     * 窗口内不含重复元素
      */
     public static int lengthOfLongestSubstring(String s) {
         int max = 0;
@@ -20,6 +21,7 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
         int left = 0;
         for(int i = 0; i < arr.length; i++){
             if(map.containsKey(arr[i])){
+                // 更新窗口左边界
                 left = Math.max(left, map.get(arr[i]) + 1); // 需要比较max，比如"abba"或者"dvdf"
             }
             map.put(arr[i], i);

@@ -35,6 +35,7 @@ public class Q5_Longest_Palindromic_Substring {
     }
     /**
      * 中心扩展算法
+     * 例如 abcda 和 abba
      */
    static  public String longestPalindrome_2(String s) {
         if (s == null || s.length() < 1) {
