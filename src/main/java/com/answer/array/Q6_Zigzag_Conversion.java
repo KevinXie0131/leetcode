@@ -24,7 +24,7 @@ public class Q6_Zigzag_Conversion {
             if(i == 0 || i == numRows-1){ // 首行和最后行 需要改变方向
                 flag = -flag;
             }
-            i += flag;
+            i += flag; // i为当前行数
         }
         StringBuffer sb= new StringBuffer();
         for(StringBuffer sb1 : list){

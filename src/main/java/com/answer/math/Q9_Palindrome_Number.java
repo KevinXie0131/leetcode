@@ -7,14 +7,16 @@ public class Q9_Palindrome_Number {
         System.out.println(isPalindrome_3(x));
     }
     /**
-     *
+     * 回文数
+     * 反转原数后 判断是否相同
      */
     public boolean isPalindrome(int x) {
         String reverse = new StringBuffer(x + "").reverse().toString();
         return (x + "").equals(reverse);
     }
     /**
-     *
+     * 反转原数后 判断是否相同
+     * 不会溢出
      */
     public boolean isPalindrome_1(int x) {
         if(x < 0){
@@ -26,11 +28,10 @@ public class Q9_Palindrome_Number {
             cur = cur * 10 + num % 10;
             num = num / 10;
         }
-
         return cur == x;
     }
     /**
-     *
+     * 双指针
      */
     public boolean isPalindrome_2(int x) {
         if(x < 0){
@@ -42,7 +43,6 @@ public class Q9_Palindrome_Number {
                 return false;
             }
         }
-
         return true;
     }
     /**
