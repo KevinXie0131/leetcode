@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Q146_LRU_Cache {
     /**
+     * Least Recently Used (LRU) cache 最近最少使用
      * HashMap + 双向链表
      *
      * 问：需要几个哨兵节点？
