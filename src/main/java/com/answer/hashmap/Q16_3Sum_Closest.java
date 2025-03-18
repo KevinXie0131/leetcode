@@ -12,7 +12,8 @@ public class Q16_3Sum_Closest {
     }
 
     public static int threeSumClosest(int[] nums, int target) {
-        Arrays.sort(nums);
+        Arrays.sort(nums); // 首先将数组排序
+
         int result = nums[0] + nums[1] + nums[2];
         for(int i = 0; i < nums.length - 2; i++){
             int left = i + 1;
