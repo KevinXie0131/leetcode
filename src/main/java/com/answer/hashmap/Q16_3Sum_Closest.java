@@ -10,7 +10,9 @@ public class Q16_3Sum_Closest {
         int result = threeSumClosest(nums, target);
         System.out.println(result);
     }
-
+    /**
+     * 双指针法  无需去重
+     */
     public static int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums); // 首先将数组排序
 
