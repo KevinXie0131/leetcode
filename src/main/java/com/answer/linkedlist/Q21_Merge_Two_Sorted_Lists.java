@@ -1,7 +1,6 @@
 package com.answer.linkedlist;
 
 public class Q21_Merge_Two_Sorted_Lists {
-
     public static void main(String[] args) {
         // list1 = [1,2,4], list2 = [1,3,4]
         ListNode node3 = new ListNode(4, null);
@@ -63,7 +62,7 @@ public class Q21_Merge_Two_Sorted_Lists {
      * Iterative
      */
     public ListNode mergeTwoLists_1(ListNode list1, ListNode list2) {
-        ListNode dummy = new ListNode(-1, null);
+        ListNode dummy = new ListNode(-1, null); // 增加虚拟节点
         ListNode cur = dummy;
 
         while(list1 != null && list2 != null){

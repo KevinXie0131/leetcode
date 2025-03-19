@@ -39,9 +39,8 @@ public class Q20_Valid_Parentheses {
         }
         return true;
     }
-
     /**
-     *
+     * 使用HashMap
      */
     public static boolean isValid_1(String s) {
         int n = s.length();
@@ -64,7 +63,6 @@ public class Q20_Valid_Parentheses {
                 stack.push(c);
             }
         }
-
         return stack.isEmpty();
     }
     /**
@@ -91,7 +89,6 @@ public class Q20_Valid_Parentheses {
                 }
             }
         }
-
         return sb.length() == 0;
     }
 }

@@ -1,7 +1,6 @@
 package com.answer.linkedlist;
 
 public class Q24_Swap_Nodes_in_Pairs {
-
     public static void main(String[] args) {
         ListNode node5 = new ListNode(5, null);
         ListNode node4 = new ListNode(4, node5);
@@ -12,7 +11,6 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode node = swapPairs_Recursive_1(node1);
         node.print();
     }
-
     /**
      * dummy node
      */
@@ -50,7 +48,6 @@ public class Q24_Swap_Nodes_in_Pairs {
             pre = start;
             cur = start.next;
         }
-
         return dummy.next;
     }
     /**
@@ -70,7 +67,6 @@ public class Q24_Swap_Nodes_in_Pairs {
             pre = cur;
             cur = cur.next;
         }
-
         return dummy.next;
     }
     /**
@@ -84,7 +80,7 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode first; // 临时节点，保存两个节点之中的第一个节点
         ListNode second; // 临时节点，保存两个节点之中的第二个节点
 
-        while(cur.next != null &&  cur.next.next != null){
+        while(cur.next != null &&  cur.next.next != null){ //剩下的链表长度大于等于2
             first = cur.next;
             second = cur.next.next;
             temp = second.next;

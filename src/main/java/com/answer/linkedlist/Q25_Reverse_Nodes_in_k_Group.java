@@ -3,7 +3,6 @@ package com.answer.linkedlist;
 import java.util.*;
 
 public class Q25_Reverse_Nodes_in_k_Group {
-
     public static void main(String[] args) {
         ListNode node7 = new ListNode(7, null);
         ListNode node6 = new ListNode(6, node7);
@@ -16,7 +15,6 @@ public class Q25_Reverse_Nodes_in_k_Group {
         ListNode node = reverseKGroup_1(node1, 3);
         node.print();
     }
-
     /**
      * Iterative
      */
@@ -25,16 +23,16 @@ public class Q25_Reverse_Nodes_in_k_Group {
         ListNode pre =dummy;
         ListNode cur = dummy;
         while(cur.next != null){
-            for(int i = 0; i < k && cur != null; i++){
+            for(int i = 0; i < k && cur != null; i++){ // 先走k步 cur不为空
                 cur = cur.next;
             }
             if(cur == null) break;
 
-            ListNode start = pre.next;
+            ListNode start = pre.next; // 确定边界
             ListNode end = cur.next;
-            cur.next = null;
-            pre.next = reverseList(start);
-            start.next = end;
+            cur.next = null; // 断开链表
+            pre.next = reverseList(start); // 反转链表
+            start.next = end; // 拼接链表
 
             pre = start;
             cur = pre;
@@ -42,7 +40,7 @@ public class Q25_Reverse_Nodes_in_k_Group {
         return dummy.next;
     }
 
-    public static ListNode reverseList(ListNode head) {
+    public static ListNode reverseList(ListNode head) { // 反转链表
         ListNode pre = null;
         ListNode cur = head;
         while(cur != null){

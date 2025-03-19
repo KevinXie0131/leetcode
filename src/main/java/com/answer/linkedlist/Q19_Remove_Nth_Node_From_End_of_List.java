@@ -1,22 +1,21 @@
 package com.answer.linkedlist;
 
 public class Q19_Remove_Nth_Node_From_End_of_List {
-
     /**
-     * fast-slow pointers
+     * fast-slow pointers 快慢指针
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode (-1, head);
+        ListNode dummy = new ListNode (-1, head); // 增加虚拟节点
         ListNode slow = dummy;
         ListNode fast = head;
         for(int i = 0; i < n; i++){
-            fast = fast.next;
+            fast = fast.next; // 快指针找到需要删除的节点
         }
-        while(fast != null){
+        while(fast != null){ // 快慢指针同时移动
             fast = fast.next;
             slow = slow.next;
         }
-        slow.next = slow.next.next;
+        slow.next = slow.next.next; // slow.next指向要删除的节点
 
         return dummy.next;
     }

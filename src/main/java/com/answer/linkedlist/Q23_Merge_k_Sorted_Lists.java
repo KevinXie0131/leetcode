@@ -39,7 +39,7 @@ public class Q23_Merge_k_Sorted_Lists {
      */
     public ListNode mergeKLists_1(ListNode[] lists) {
         Queue<ListNode> pq = new PriorityQueue<>((v1, v2) -> v1.val - v2.val); // (e1, e2)->e1.val-e2.val 需要加上
-        for (ListNode node: lists) {
+        for (ListNode node: lists) { // 将每个链表的头节点加入堆中
             if (node != null) {
                 pq.offer(node);
             }

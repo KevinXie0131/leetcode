@@ -3,7 +3,6 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q22_Generate_Parentheses {
-
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<String>();
 
