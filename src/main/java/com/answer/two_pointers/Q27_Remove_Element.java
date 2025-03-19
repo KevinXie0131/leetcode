@@ -1,14 +1,25 @@
 package com.answer.two_pointers;
 
 public class Q27_Remove_Element {
-
     public static void main(String[] args) {
        int[]  nums = {0,1,2,2,3,0,4,2};
        int val = 2;
 
        int result =  removeElement_0(nums, val);
        System.out.println(result);
-
+    }
+    /**
+     * 辅助下标
+     */
+    public int removeElement0(int[] nums, int val) {
+        int index = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] != val){
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        return index;
     }
     /**
      * 双指针
@@ -40,7 +51,6 @@ public class Q27_Remove_Element {
         }
         return left;
     }
-
     /**
      * 相向双指针法（版本二）
      */

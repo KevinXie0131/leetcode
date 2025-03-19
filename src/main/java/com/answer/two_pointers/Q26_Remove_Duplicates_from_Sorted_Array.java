@@ -32,7 +32,7 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
         return slow + 1;
     }
     /**
-     * 单个指针
+     * 辅助下标
      */
     public int removeDuplicates_0(int[] nums) {
         int index = 0;
