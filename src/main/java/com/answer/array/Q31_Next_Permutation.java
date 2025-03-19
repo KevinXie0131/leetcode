@@ -4,12 +4,15 @@ import java.util.Arrays;
 
 public class Q31_Next_Permutation {
     public static void main(String[] args) {
-        int[]nums = {3,2,1};
-        nextPermutation_1(nums);
+        int[]nums = {2, 3, 5, 4, 1};
+        nextPermutation_5(nums);
         System.out.println(Arrays.toString(nums));
     }
     /**
      * 从后向前遍历
+     * For example 2 3 5 4 1
+     *          -> 2 4 5 3 1
+     *          -> 2 4 1 3 5
      */
     static public void nextPermutation_1(int[] nums) {
         for(int i = nums.length - 1; i >= 0 ; i-- ){
@@ -25,6 +28,28 @@ public class Q31_Next_Permutation {
             }
         }
         Arrays.sort(nums);  // 到这里了说明整个数组都是倒序了，反转一下便可
+    }
+    /**
+     * 另一种形式
+     */
+    static public void nextPermutation_5(int[] nums) {
+        int k = nums.length - 1;
+        while(k > 0 && nums[k - 1] >= nums[k]){ // find the first number in 逆序
+            k--;
+        }
+        if(k <= 0) {
+            Arrays.sort(nums);
+        } else {
+            int t = nums.length - 1;
+            while(nums[t] <= nums[k - 1]){ // find the first number larger than nums[k - 1]
+                t--;
+            }
+            int temp = nums[k - 1];  // 交换
+            nums[k - 1] = nums[t];
+            nums[t] = temp;
+
+            Arrays.sort(nums, k, nums.length);
+        }
     }
     /**
      * 优化时间复杂度为O(N)，空间复杂度为O(1)
