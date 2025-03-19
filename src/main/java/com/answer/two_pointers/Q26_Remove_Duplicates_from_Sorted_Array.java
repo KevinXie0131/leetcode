@@ -32,6 +32,19 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
         return slow + 1;
     }
     /**
+     * 单个指针
+     */
+    public int removeDuplicates_0(int[] nums) {
+        int index = 0;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[index] != nums[i]){
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+        return index + 1;
+    }
+    /**
      * General solution 通用解法
      * 为了让解法更具有一般性，我们将原问题的「最多保留 1 位」修改为「最多保留 k 位」。
      * 对于此类问题，我们应该进行如下考虑：
