@@ -25,7 +25,7 @@ public class Q47_Permutations_II {
         backtracking(nums, used, result, path);
         return result;
     }
-
+    // 与Q46 Permutations相比，有重复元素，所以需要去重
     public void backtracking(int[] nums, int[] used, List<List<Integer>> result, Deque<Integer> path) {
         if (path.size() == nums.length) { // 此时说明找到了⼀组
             result.add(new ArrayList<Integer>(path));
@@ -38,7 +38,7 @@ public class Q47_Permutations_II {
             // used[i - 1] == true，说明同⼀树⽀nums[i - 1]使⽤过
             // used[i - 1] == false，说明同⼀树层nums[i - 1]使⽤过
             // 如果同⼀树层nums[i - 1]使⽤过则直接跳过
-            if(i> 0 && nums[i] == nums[i-1] && used[i-1] == 0) {
+            if(i> 0 && nums[i] == nums[i-1] && used[i-1] == 0) { //如果与上一个数值相同，但是上一个数值没有使用过，则跳过
                 continue;
             }
             path.addLast(nums[i]);
