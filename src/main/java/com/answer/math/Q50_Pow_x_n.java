@@ -7,6 +7,11 @@ public class Q50_Pow_x_n {
         double res = myPow(x, n);
         System.out.println(res);
     }
+    /**
+     * 快速幂
+     * 例如 3^13 = 3^8 + 3^4 + 3^1
+     * 时间复杂度O(logN) 空间复杂度O(1)
+     */
     static public double myPow_0(double x, int n) {
         double result = 1;
         double tmp = x;
