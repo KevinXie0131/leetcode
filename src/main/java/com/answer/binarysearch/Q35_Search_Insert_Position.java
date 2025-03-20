@@ -71,4 +71,20 @@ public class Q35_Search_Insert_Position {
         return right;
         // return left; // 也可以工作
     }
+    /**
+     * 另一种形式
+     */
+    public int searchInsert4(int[] nums, int target) {
+        // 找到第一个 >= target 的元素下标
+        // 左侧：nums[i] < target
+        // 右侧：nums[i] >= target
+        int l = 0, r = nums.length;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] >= target) r = mid;
+            else l = mid + 1;
+        }
+        return l;
+        //  return r;  // 也可以
+    }
 }

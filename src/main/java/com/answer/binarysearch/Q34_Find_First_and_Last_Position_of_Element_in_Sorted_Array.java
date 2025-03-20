@@ -8,7 +8,37 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         int target = 2;*/
         int[] nums = {5,7,7,8,8,10};
         int target = 8;
-        System.out.println(Arrays.toString(searchRange(nums, target)));
+        System.out.println(Arrays.toString(searchRange_7(nums, target)));
+    }
+    /**
+     * 求左右边界的二分查找。
+     * 为什么计算 mid 时需要 + 1？
+     * 当 l = r - 1 时，mid = l + r >> 1 = l，若更新语句为 l = mid，则区间未变化，会导致死循环，因此需要 + 1 操作。
+     */
+    static public int[] searchRange_7(int[] nums, int target) {
+        int[] ans = new int[2];
+        // 找到左端点（第一个 >= target 的元素下标）
+        // 左侧：nums[i] < target
+        // 右侧：nums[i] >= target
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (nums[mid] >= target) r = mid;
+            else l = mid + 1;
+        }
+        if (nums[l] != target) return new int[]{-1, -1};
+        ans[0] = l;
+        // 找到右端点（最后一个 >= target 的元素下标）
+        // 左侧：nums[i] <= target
+        // 右侧：nums[i] > target
+        l = 0; r = nums.length - 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2 + 1;
+            if (nums[mid] <= target) l = mid;
+            else r = mid - 1;
+        }
+        ans[1] = r;
+        return ans;
     }
     /**
      * 解法2
