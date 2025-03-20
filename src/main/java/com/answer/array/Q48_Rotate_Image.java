@@ -2,6 +2,30 @@ package com.answer.array;
 
 public class Q48_Rotate_Image {
     /**
+     * 通过两次翻转，完成顺时针旋转，分别是按主对角线翻转，然后再左右翻转即可。
+     */
+    public void rotate_0(int[][] matrix) {
+        int n = matrix.length;
+
+        for (int i = 0; i < n; i++) { // 主对角线翻转
+            for (int j = 0; j < i; j++) {
+                //    swap(matrix[i][j], matrix[j][i]);
+                int temp = matrix[i][j];
+                matrix[i][j] =  matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for (int i = 0; i < n; i++) { // 左右翻转
+            for (int j = 0; j < n / 2; j++) {
+                //     swap(matrix[i][j], matrix[i][n - j - 1]);
+                int temp = matrix[i][j];
+                matrix[i][j] =  matrix[i][n - j - 1];
+                matrix[i][n - j - 1] = temp;
+            }
+        }
+    }
+
+    /**
      * Approach 1: Rotate Groups of Four Cells
      */
     public void rotate(int[][] matrix) {
