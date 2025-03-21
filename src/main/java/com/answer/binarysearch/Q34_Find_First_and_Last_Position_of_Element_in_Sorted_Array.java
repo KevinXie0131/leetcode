@@ -11,6 +11,7 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         System.out.println(Arrays.toString(searchRange_7(nums, target)));
     }
     /**
+     * From 睡不醒的鲤鱼
      * 求左右边界的二分查找。
      * 为什么计算 mid 时需要 + 1？
      * 当 l = r - 1 时，mid = l + r >> 1 = l，若更新语句为 l = mid，则区间未变化，会导致死循环，因此需要 + 1 操作。

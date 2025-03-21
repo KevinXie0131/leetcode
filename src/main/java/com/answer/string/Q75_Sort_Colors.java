@@ -3,12 +3,14 @@ package com.answer.string;
 import java.util.Arrays;
 
 public class Q75_Sort_Colors {
+    /**
+     * one-pass algorithm using only constant extra space 原地in place
+     */
     public static void main(String[] args) {
        int[] nums = {1,0,2,0,2,1,1,0};
        sortColors_3(nums);
 
-        System.out.println(Arrays.toString(nums));
-
+       System.out.println(Arrays.toString(nums));
     }
 
     public void sortColors(int[] nums) {
