@@ -1,7 +1,40 @@
 package com.answer.linkedlist;
 
 public class Q83_Remove_Duplicates_from_Sorted_List {
-
+    /**
+     * 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次
+     * delete elements within two pointers
+     */
+    public ListNode deleteDuplicates_0(ListNode head) {
+        ListNode dummy = new ListNode(-1, head);
+        ListNode p = dummy;
+        while(p.next != null){
+            ListNode q = p.next;
+            while(q.next != null && q.next.val == q.val){
+                q = q.next;
+            }
+            if(q != p.next){
+                p.next = q; // delete elements within two pointers
+            }
+            p = p.next;
+        }
+        return dummy.next;
+    }
+    /**
+     * 另一种形式
+     */
+    public ListNode deleteDuplicates0(ListNode head) {
+        ListNode p = head;
+        while(p != null && p.next != null) {
+            ListNode q = p.next;
+            while(q!= null && q.val == p.val){
+                q = q.next;
+            }
+            p.next = q;
+            p = p.next;
+        }
+        return head;
+    }
     /**
      * Iterative
      * Approach 1: Straight-Forward Approach

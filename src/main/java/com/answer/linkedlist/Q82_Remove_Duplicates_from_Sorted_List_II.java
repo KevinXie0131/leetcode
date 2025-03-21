@@ -66,6 +66,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         return dummy.next;
     }
     /**
+     * 删除原始链表中所有重复数字的节点，只留下不同的数字
      * delete elements within two pointers
      */
     public ListNode deleteDuplicates_3(ListNode head) {
