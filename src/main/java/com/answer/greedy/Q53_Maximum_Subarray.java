@@ -105,7 +105,7 @@ public class Q53_Maximum_Subarray {
         int res = nums[0];
         int pre = nums[0];
         for(int i = 1; i < nums.length; i++) {
-            pre = Math.max(pre + nums[i], nums[i]);
+            pre = Math.max(pre + nums[i], nums[i]); // pre = pre > 0 ? pre + nums[i] : nums[i]; // 也可以
             res = Math.max(res, pre);
         }
         return res;
