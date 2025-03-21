@@ -124,7 +124,7 @@ public class Q84_Largest_Rectangle_in_Histogram {
     }
     /**
      * 单调栈
-     * 本题与 0042. 接雨水 解法相似，但由于计算面积需要找到当前柱子左右第一个比它小的柱子，
+     * 本题与 Q42. 接雨水 解法相似，但由于计算面积需要找到当前柱子左右第一个比它小的柱子，
      * 因此栈内顺序与「接雨水」相反，即：从栈顶到栈底的高度右大到小，这样就可以得到当前高度的左右边界，遍历所有高度即可求出最大值。
      */
     public static int largestRectangleArea2(int[] heights) {

@@ -139,28 +139,31 @@ public class Q42_Trapping_Rain_Water {
     }
     /**
      * Approach 3: Using stacks
+     * 使用单调栈存储高度下标，按照行方向来计算雨水容量。
+     *
+     * 具体维护的顺序为从栈顶到栈底的高度有小到大，因为一旦发现添加的柱子高度大于栈头元素了，此时就出现凹槽了，
+     * 栈顶元素就是凹槽底部的柱子，栈顶第二个元素就是凹槽左边的柱子，而添加的元素就是凹槽右边的柱子。
+     * 这样通过左右柱子就可以计算长和宽得到雨水的容量了。
      */
-    public static int trap_1(int[] height) {
+    public static int trap_1(int[] heights) {
         int ans = 0;
         Deque<Integer> stack = new ArrayDeque<>();
-        int n = height.length;
+        int n = heights.length;
 
         for(int i = 0; i < n; i++){
-            while(!stack.isEmpty() && height[i] > height[stack.peek()]){
-                int top = stack.pop();
+            while(!stack.isEmpty() && heights[i] > heights[stack.peek()]){
+                int idx = stack.pop();
                 if(stack.isEmpty()){
                     break;
                 }
 
                 int left = stack.peek();
-                int curWidth = i - left - 1;
-                int curHeight = Math.min(height[left], height[i]) - height[top];
-                ans += curWidth * curHeight;
+                int width = i - left - 1;
+                int height = Math.min(heights[left], heights[i]) - heights[idx];
+                ans += width * height;
             }
-
             stack.push(i);
         }
-
         return ans;
     }
     /**
