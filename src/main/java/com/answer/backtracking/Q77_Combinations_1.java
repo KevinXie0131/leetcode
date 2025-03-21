@@ -38,4 +38,18 @@ public class Q77_Combinations_1 {
         }
      //   return;
     }
+    /**
+     * 另一种形式
+     */
+    public void backtracking1(int n, int k, int startIndex, List<List<Integer>> result, Deque<Integer> path ){
+        if (k == 0) {
+            result.add(new ArrayList<Integer>(path));
+            return;
+        }
+        for(int i = startIndex; i <= n; i++){
+            path.addLast(i);
+            backtracking1(n, k - 1, i + 1, result, path);
+            path.removeLast();
+        }
+    }
 }
