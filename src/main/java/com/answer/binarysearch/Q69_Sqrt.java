@@ -25,7 +25,7 @@ public class Q69_Sqrt {
             if (value > x) {
                 right = (int)mid - 1;
             } else if (value <= x) {
-                result = (int)mid; // result被赋值为mid
+                result = (int)mid; // result被赋值为mid, 因为mid有可能是结果
                 left = (int)mid + 1;
             }
         }
