@@ -44,6 +44,7 @@ public class Q74_Search_a_2D_Matrix {
     }
     /**
      * Binary Search
+     * 看成升序一维数组
      */
     public static boolean searchMatrix_1(int[][] matrix, int target) {
         int m = matrix.length;    // row
@@ -53,6 +54,9 @@ public class Q74_Search_a_2D_Matrix {
 
         while(left <= right){
             int mid = (left + right) >>> 1;
+            // n is column length
+            // i = index / n
+            // j = index % n
             int value = matrix[mid / n][mid % n]; // 二维索引 => 一维索引 (x, y) -> x * col + y
 
             if(value == target){

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Q73_Set_Matrix_Zeroes {
     /**
-     * in place:  operates directly on the input data structure without requiring extra space proportional to the input size.
+     * 原地in place:  operates directly on the input data structure without requiring extra space proportional to the input size.
      */
     public static void main(String[] args) {
         int[][] matrix = {{1,1,1},{1,0,1},{1,1,1}};
