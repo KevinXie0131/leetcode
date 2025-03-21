@@ -5,7 +5,7 @@ import java.util.*;
 public class Q78_Subsets {
     public static void main(String[] args) {
         int[] nums = {1,2,3};
-        System.out.println(subsets_2(nums));
+        System.out.println(subsets_4(nums));
     }
     /**
      * 求子集问题和77.组合  和131.分割回文串 又不一样了。
@@ -84,5 +84,33 @@ public class Q78_Subsets {
         inOrder(nums, i + 1, subset, res);
         subset.add(nums[i]);
         inOrder(nums, i + 1, subset, res);
+    }
+    /**
+     * 二进制迭代法实现子集枚举
+     * 求子集，对于集合中的元素，要么出现在子集中，要么不出现在子集中。因此子集的个数正好是2^n个，
+     * 而且对于这n个元素，出现用1表示，不出现用0表示，子集正好对应0~2^n-1的二进制。
+     * 比如[1,2]，子集有四个，分别是[]（空集）,[1],[2],[1,2]。
+     * 用二进制表
+     * []（空集）   就是00
+     * [1]         就是01
+     * [2]         就是10
+     * [1,2]       就是11
+     * 这样就可以把所有子集求出来了。
+     */
+    public static List<List<Integer>> subsets_4(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        int n = nums.length;
+
+        for(int mask = 0; mask < (1 << n); mask++){
+            ArrayList<Integer> subset = new ArrayList<Integer>();
+            for(int i = 0; i < n; i++){
+                if((mask & (1 << i)) > 0){
+                    subset.add(nums[i]);
+                }
+            }
+            res.add(subset);
+        }
+
+        return res;
     }
 }
