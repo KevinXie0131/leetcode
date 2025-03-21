@@ -25,13 +25,22 @@ public class Q69_Sqrt {
             if (value > x) {
                 right = (int)mid - 1;
             } else if (value <= x) {
-                result = (int)mid;
+                result = (int)mid; // result被赋值为mid
                 left = (int)mid + 1;
-
             }
         }
         return result;
     }
+    /**
+     * 这样写也可以
+     * if (value > x) {
+     *   right = (int)mid - 1;
+     * } else if (value < x) {
+     *   left = (int)mid + 1;
+     *  } else {
+     *   return (int)mid;
+     *  }
+     */
     /**
      * 同上
      */
@@ -45,7 +54,6 @@ public class Q69_Sqrt {
                 right = mid - 1;
             }
         }
-
         return left - 1;
     }
     /**
@@ -63,7 +71,6 @@ public class Q69_Sqrt {
             else if (num < x) left = pivot + 1;
             else return pivot;
         }
-
         return right;
     }
     /**
@@ -73,7 +80,6 @@ public class Q69_Sqrt {
         if (x == 0) {
             return 0;
         }
-
         double C = x, x0 = x;
         while (true) {
             double xi = 0.5 * (x0 + C / x0);

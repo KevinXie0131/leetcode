@@ -1,7 +1,9 @@
 package com.answer.math.carry;
 
 public class Q67_Add_Binary {
-
+    /**
+     * 二进制字符串相加
+     */
     public String addBinary(String a, String b) {
         StringBuffer sb = new StringBuffer();
         int n = a.length();
@@ -13,7 +15,7 @@ public class Q67_Add_Binary {
             int y = j >= 0 ? b.charAt(j) - '0' : 0;
             int sum = x + y + carry;
             sb.insert(0, sum % 2); // Change to 2 since is it binary
-            carry = sum / 2;
+            carry = sum / 2; // 二进制
 
             i--;
             j--;
