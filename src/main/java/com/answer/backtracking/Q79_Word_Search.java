@@ -9,7 +9,9 @@ public class Q79_Word_Search {
     private boolean[][] visited;
     private char[] charArray;
     private char[][] board;
-
+    /**
+     * DFS
+     */
     public boolean exist(char[][] board, String word) {
         rows = board.length;
         if (rows == 0) {
