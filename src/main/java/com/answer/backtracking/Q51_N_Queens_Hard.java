@@ -98,7 +98,7 @@ public class Q51_N_Queens_Hard {
         }
 
         for (int col = 0; col < n; col++) {
-            if (usedCol[col] | usedDiag45[row + col] | usedDiag135[row - col + n - 1]) {
+            if (usedCol[col] || usedDiag45[row + col] || usedDiag135[row - col + n - 1]) {
                 continue;
             }
             board[row] = col;
