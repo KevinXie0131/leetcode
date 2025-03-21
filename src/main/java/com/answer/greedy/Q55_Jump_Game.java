@@ -22,7 +22,7 @@ public class Q55_Jump_Game {
     public static boolean canJump(int[] nums) {
         if(nums.length == 1) return true;  // 只有一个元素，就是能达到
 
-        int cover = 0;
+        int cover = 0; // 当前能够到达的最远下标
 
         for(int i = 0; i < nums.length; i++){
             if(cover < i){

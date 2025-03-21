@@ -14,13 +14,13 @@ public class Q58_Length_of_Last_Word {
             if(ch[right] == ' '){
                 right--;
             }else{
-                break;
+                break; // 遇到第一个非空格字符
             }
         }
 
         int left = right - 1;
         while(left >= 0){
-            if(ch[left] == ' '){
+            if(ch[left] == ' '){ // 遇到空格
                 break;
             }else{
                 left--;

@@ -10,7 +10,7 @@ public class Q59_Spiral_Matrix_II {
     //    System.out.println(Arrays.deepToString(result));
         Print2dArray.print2D(result);
     }
-
+    // 这个方法类似 Q54 Spiral Matrix
     //左闭右闭
     public static int[][] generateMatrix(int n) {
         int[][] result = new int[n][n];
