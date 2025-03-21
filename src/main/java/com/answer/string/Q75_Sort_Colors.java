@@ -61,7 +61,6 @@ public class Q75_Sort_Colors {
         }
         return;
     }
-
     /**
      * Two Pointers
      */
@@ -84,7 +83,11 @@ public class Q75_Sort_Colors {
         }
     }
     /**
-     *
+     * Three Pointers
+     * i, j, k
+     * 0: start -> i - 1
+     * 1: i - > j
+     * 2: k + 1 -> end
      */
     public static void sortColors_3(int[] nums) {
         int n = nums.length;
@@ -99,7 +102,7 @@ public class Q75_Sort_Colors {
                 one++;
             } else if (nums[one] == 1) {
                 one++;
-            } else {
+            } else { // =2
                 swap(nums, one, two);
                 two--;
             }
