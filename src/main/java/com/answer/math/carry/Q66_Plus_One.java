@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.*;
 
 public class Q66_Plus_One {
-
     public static void main(String[] args) {
-        int[] digits = {9,9,9};
-        int[] res = plusOne_1(digits);
+        int[] digits = {9};
+        int[] res = plusOne_2(digits);
         System.out.println(Arrays.toString(res));
     }
-
+    /**
+     * 模拟加法
+     */
     public static int[] plusOne(int[] digits) {
         List<Integer> res = new ArrayList<>();
         int carry = 0;
@@ -40,7 +41,30 @@ public class Q66_Plus_One {
         }
         return result;
     }
-
+    /**
+     * < 9 则直接加1
+     * = 9 则加1 变成0
+     * 如果是999 + 1，则在最前面加1
+     */
+    public static int[] plusOne_2(int[] digits) {
+        int len = digits.length;
+        for(int i = len - 1; i >= 0; i--) {
+          if(digits[i] < 9){
+              digits[i]++;
+              break;
+          } else {
+              digits[i] = 0;
+              if(i == 0){
+                  int[] newDigits = new int[len + 1];
+                  newDigits = Arrays.copyOf(digits, len + 1);
+                  newDigits[0] = 1;
+                  System.out.println(Arrays.toString(newDigits));
+                  return newDigits;
+              }
+          }
+        }
+        return digits;
+    }
     /**
      *
      */
@@ -55,6 +79,5 @@ public class Q66_Plus_One {
         digits = new int[len + 1];
         digits[0] = 1;
         return digits;
-
     }
 }
