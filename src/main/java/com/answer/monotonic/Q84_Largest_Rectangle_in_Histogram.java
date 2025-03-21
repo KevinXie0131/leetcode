@@ -1,11 +1,14 @@
 package com.answer.monotonic;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.Stack;
 
 public class Q84_Largest_Rectangle_in_Histogram {
     public static void main(String[] args) {
         int[] heights = {2,1,5,6,2,3};
-        System.out.println(largestRectangleArea_1(heights));
+        System.out.println(largestRectangleArea2(heights));
     }
     /**
      * 暴力解法 (超时，因为时间复杂度是 O(n^2))
@@ -118,5 +121,28 @@ public class Q84_Largest_Rectangle_in_Histogram {
             }
         }
         return result;
+    }
+    /**
+     * 单调栈
+     * 本题与 0042. 接雨水 解法相似，但由于计算面积需要找到当前柱子左右第一个比它小的柱子，
+     * 因此栈内顺序与「接雨水」相反，即：从栈顶到栈底的高度右大到小，这样就可以得到当前高度的左右边界，遍历所有高度即可求出最大值。
+     */
+    public static int largestRectangleArea2(int[] heights) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        int ans = 0;
+
+        int[] newHeights = new int[heights.length + 1];
+        newHeights = Arrays.copyOf(heights, heights.length + 1);
+        newHeights[newHeights.length - 1] = -1; // clear the stack
+
+        for (int i = 0; i < newHeights.length; i++) {
+            while (!stack.isEmpty() && newHeights[i] < newHeights[stack.peek()]) {
+                int idx = stack.pop();
+                int left = stack.isEmpty() ? -1 : stack.peek();
+                ans = Math.max(ans, (i - left - 1) * newHeights[idx]);
+            }
+            stack.push(i);
+        }
+        return ans;
     }
 }
