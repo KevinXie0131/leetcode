@@ -63,10 +63,27 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
                 cur = cur.next;
             }
         }
-
         return dummy.next;
     }
-
+    /**
+     * delete elements within two pointers
+     */
+    public ListNode deleteDuplicates_3(ListNode head) {
+        ListNode dummy = new ListNode(-1, head);
+        ListNode p = dummy;
+        while(p.next != null){
+            ListNode q = p.next;
+            while(q.next != null && q.next.val == q.val){
+                q = q.next;
+            }
+            if(q == p.next){
+                p = p.next;
+            }else{
+                p.next = q.next; // delete elements within two pointers
+            }
+        }
+        return dummy.next;
+    }
     /**
      * Recursive - from head to tail
      * 1 -> 2 -> 3 -> 3 -> 3 -> 4 -> 4 -> 5
