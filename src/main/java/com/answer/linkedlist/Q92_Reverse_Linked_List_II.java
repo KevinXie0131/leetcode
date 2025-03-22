@@ -11,7 +11,6 @@ public class Q92_Reverse_Linked_List_II {
         ListNode node = reverseBetween_1(node1, 2, 4);
         node.print();
     }
-
     /**
      * Approach 2: Iterative Link Reversal.
      */
@@ -19,15 +18,15 @@ public class Q92_Reverse_Linked_List_II {
         ListNode dummy = new ListNode();
         dummy.next = head;
         ListNode pre = dummy;
-        ListNode post = dummy.next;
+        ListNode cur = dummy.next;
 
-        for(int i = 0; i< m - 1; i++){
+        for(int i = 0; i < m - 1; i++){ //找到第一个节点
             pre = pre.next;
-            post = post.next;
+            cur = cur.next;
         }
-        for(int i = 0; i< n - m; i++){
-            ListNode temp = post.next;
-            post.next = post.next.next;
+        for(int i = 0; i < n - m; i++){// 反转
+            ListNode temp = cur.next;
+            cur.next = temp.next;
             temp.next = pre.next;
             pre.next = temp;
 
