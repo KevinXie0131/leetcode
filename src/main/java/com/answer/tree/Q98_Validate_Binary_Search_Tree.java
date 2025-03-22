@@ -53,7 +53,7 @@ public class Q98_Validate_Binary_Search_Tree {
         if(root == null) return true;
 
         boolean left = isValidBST5( root.left); // 左
-/*        if (!left) {
+/*        if (!left) {  // 可以加上
             return false;
         }*/
 
