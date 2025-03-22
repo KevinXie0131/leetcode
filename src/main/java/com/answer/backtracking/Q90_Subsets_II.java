@@ -5,7 +5,7 @@ import java.util.*;
 public class Q90_Subsets_II {
     public static void main(String[] args) {
         int[] nums = {1,2,2};
-        subsetsWithDup(nums);
+        System.out.println(subsetsWithDup_1(nums));
     }
     /**
      * 这道题目和78.子集  区别就是集合里有重复元素了，而且求取的子集要去重。
@@ -49,6 +49,37 @@ public class Q90_Subsets_II {
             backtracking(nums, i + 1, used);
             used[i] = 0;
             path.removeLast();
+        }
+    }
+    /**
+     * From 睡不醒的鲤鱼
+     * 另一种形式 不太容易理解
+     * 统计每个数字出现的次数 k，尝试枚举每个不同的数字，尝试把 0 到 k 个数字加入子集即可。
+     * 排序计数
+     */
+    public static List<List<Integer>> subsetsWithDup_1(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        Deque<Integer> subset = new LinkedList<>();
+        Arrays.sort(nums); // 排序
+        dfs(nums, 0, res, subset);
+        return res;
+    }
+    static void  dfs(int[] nums, int idx, List<List<Integer>> res, Deque<Integer> subset) {
+        if (idx == nums.length) {
+            res.add(new ArrayList(subset));
+            return;
+        }
+        int k = idx + 1; // idx: 当前下标
+        while (k < nums.length && nums[k] == nums[idx]) {
+            k++; // 当前数值出现次数
+        }
+        for (int i = 0; i <= k - idx; i++) { // k - idx: 当前数值可选次数
+            dfs(nums, k, res, subset);
+            subset.add(nums[idx]);
+            System.out.println(subset);
+        }
+        for (int i = 0; i <= k - idx; i++) {
+            subset.removeLast();
         }
     }
     /**
