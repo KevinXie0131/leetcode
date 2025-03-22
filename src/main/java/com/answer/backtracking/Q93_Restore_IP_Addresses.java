@@ -46,7 +46,6 @@ public class Q93_Restore_IP_Addresses {
             }
         }
     }
-
     // 判断字符串s在左闭⼜闭区间[start, end]所组成的数字是否合法
      private static boolean isValid(String s, int start, int end) {
         if (start > end) {
@@ -66,6 +65,35 @@ public class Q93_Restore_IP_Addresses {
             }
         }
         return true;
+    }
+    /**
+     * From 睡不醒的鲤鱼 不太容易理解
+     * 将 IP 地址拆分成四个数字，枚举每个数字能截取的字符串的位置，当四个数字都确定，并且枚举到了字符串的最后一位，说明是一个合法方案，将其加入结果。
+     */
+    static List<String> ans = new ArrayList<String>();
+    static LinkedList<Integer> cur = new LinkedList<>();
+
+    static public List<String> restoreIpAddresses_3(String s) {
+        dfs(s, 0, 0);
+        return ans;
+    }
+    static void dfs(String s, int idx, int start) {
+        if (idx == 4 && start == s.length()) {
+            String ip = String.valueOf(cur.get(0));
+            for (int i = 1; i < cur.size(); i++) {
+                ip += "." + String.valueOf(cur.get(i));
+            }
+            ans.add(ip);
+            return;
+        }
+        for (int i = start, num = 0; i < s.length(); i++) {
+            num = num * 10 + s.charAt(i) - '0';
+            if (num > 255) break;
+            cur.add(num);
+            dfs(s, idx + 1, i + 1);
+            cur.removeLast();
+            if (num == 0) break; // "0000" -> ["0.0.0.0"]
+        }
     }
     /**
      * 方法一：但使用stringBuilder，故优化时间、空间复杂度，因为向字符串插入字符时无需复制整个字符串，从而减少了操作的时间复杂度，也不用开新空间存subString，从而减少了空间复杂度。

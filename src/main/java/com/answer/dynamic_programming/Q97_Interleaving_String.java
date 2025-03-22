@@ -56,6 +56,30 @@ public class Q97_Interleaving_String {
         return dp[m][n];
     }
     /**
+     * 另一种形式
+     */
+    public boolean isInterleave3(String s1, String s2, String s3) {
+        int m  = s1.length();
+        int n  = s2.length();
+        if(m+n != s3.length()) return false;
+
+        boolean[][] dp = new boolean[m+1][n+1]; // 表示 s1 的前 i 个字符和 s2 的前 j 个字符能否交错组成 s3的前 i+j 个字符
+        dp[0][0] = true;
+
+        for(int i = 0; i  <= m; i++) {
+            for(int j = 0; j <= n; j++) {
+                int p = i + j - 1;
+                if(i > 0 && s1.charAt(i - 1) == s3.charAt(p)) {
+                    dp[i][j] = dp[i - 1][j];
+                }
+                if(j > 0 && s2.charAt(j - 1) == s3.charAt(p)) {
+                    dp[i][j] = dp[i][j] || dp[i][j - 1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+    /**
      * 优化-滚动数组
      * 通过状态转移方程来看，只用到了dp[i-1][j]和dp[i][j-1],即上一层的数据，再之前的数据就没有用了。可以将二维空间压缩成一维。
      */
