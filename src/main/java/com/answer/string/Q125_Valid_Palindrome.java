@@ -1,7 +1,9 @@
 package com.answer.string;
 
 public class Q125_Valid_Palindrome {
-
+    /**
+     * Palindrome 回文串
+     */
     public boolean isPalindrome(String s) {
         StringBuffer sb = new StringBuffer();
         for(int i = 0; i< s.length(); i++){
@@ -11,11 +13,11 @@ public class Q125_Valid_Palindrome {
             }
         }
 
-        StringBuffer sbReverse = new StringBuffer(sb).reverse();
+        StringBuffer sbReverse = new StringBuffer(sb).reverse(); // 对原字符串取反
         return sb.toString().equals(sbReverse.toString());
     }
     /**
-     *
+     * 头尾双指针
      */
     public boolean isPalindrome_1(String s) {
         StringBuffer sb = new StringBuffer();
@@ -39,7 +41,7 @@ public class Q125_Valid_Palindrome {
         return true;
     }
     /**
-     *
+     * 头尾双指针
      */
     public boolean isPalindrome_2(String s) {
         int n = s.length();
