@@ -22,6 +22,7 @@ public class Q130_Surrounded_Regions {
     }
     /**
      * Approach 1: DFS (Depth-First Search) Recursive
+     * 从四周向中间 DFS，将所有与最外层 O 相连通的区域标记，最后将剩余的 O 更改为 X。
      */
     public static void solve_1(char[][] board) {
         int m = board.length;
@@ -55,6 +56,18 @@ public class Q130_Surrounded_Regions {
         dfs_1(board, i+1, j);
         dfs_1(board, i, j-1);
         dfs_1(board, i, j+1);
+    }
+    // dfs_1()的另一种形式
+    final int[][] dir={{0,1},{1,0},{0,-1},{-1,0}}; // 四个方向
+    void dfs_1a(char[][] board, int x, int y) {
+        board[x][y] = '#';
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dir[i][0];
+            int ny = y + dir[i][1];
+            if (nx >= 0 && nx < (board.length - 1) && ny >= 0 && ny < (board[0].length - 1)  && board[nx][ny] == 'O') {
+                dfs_1a(board, nx, ny);
+            }
+        }
     }
     /**
      * Approach 1a: DFS (Depth-First Search) Iterative

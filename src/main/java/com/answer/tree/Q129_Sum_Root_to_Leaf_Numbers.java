@@ -22,7 +22,7 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
 
         sb.append(root.value); // 中
 
-        if(root.left == null && root.right == null) sum +=  Integer.valueOf(sb.toString());  // 遇到了叶子节点
+        if(root.left == null && root.right == null) sum +=  Integer.valueOf(sb.toString());  // 遇到了叶子节点 累加结果
 
         if(root.left != null) { // 左 （空节点不遍历）
             dfs(root.left); // 递归
@@ -63,6 +63,28 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
         if(root.right != null) {
             dfs1(root.right);
             path.remove(path.size() -1 );// 注意有回溯
+        }
+    }
+    /**
+     * DFS，维护从根节点到当前节点所构成的数字，当遍历到叶子节点时，累加到结果。
+     */
+    int sum2 = 0;
+    public int sumNumbers2(TreeNode root) {
+        dfs2(root, 0);
+        return sum2;
+    }
+
+    void dfs2(TreeNode node, int num){
+        num = num * 10 + node.value;
+
+        if(node.left == null && node.right == null) {
+            sum2 += num;
+        }
+        if(node.left != null) {
+            dfs2(node.left, num);
+        }
+        if(node.right != null) {
+            dfs2(node.right, num);
         }
     }
 }

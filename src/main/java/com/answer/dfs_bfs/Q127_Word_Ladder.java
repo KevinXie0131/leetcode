@@ -86,7 +86,7 @@ public class Q127_Word_Ladder {
         int step = 1;
         while (!s1.isEmpty() && !s2.isEmpty()) {
             step++;
-            // 为了提高效率 对比较小的set进行转换
+            // 为了提高效率(从81ms提高到17ms) 对比较小的set进行转换
             if (s1.size() > s2.size()) { // 可以不写
                 Set<String> temp = s1;
                 s1 = s2;
