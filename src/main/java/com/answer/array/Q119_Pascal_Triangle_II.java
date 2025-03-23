@@ -3,6 +3,38 @@ package com.answer.array;
 import java.util.*;
 
 public class Q119_Pascal_Triangle_II {
+    public static void main(String[] args) {
+        System.out.println(getRow1(0));
+        System.out.println(getRow1(1));
+        System.out.println(getRow1(2));
+        System.out.println(getRow1(3));
+        System.out.println(getRow1(4));
+        System.out.println(getRow1(5));
+    }
+    /**
+     * 由 0118. 杨辉三角 可知，每个数字只和前一行的数字有关，所以可以通过滚动数组来对结果迭代更新，这样可以把空间复杂度优化到O(n)
+     */
+    static public List<Integer> getRow1(int rowIndex) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        List<Integer> list1 = new ArrayList<Integer>();
+        List<Integer> list2 = new ArrayList<Integer>();
+        for(int k = 0; k <= rowIndex; k++){
+            list1.add(1);
+        }
+        for(int k = 0; k <= rowIndex; k++){
+            list2.add(1);
+        }
+        ans.add(list1);
+        ans.add(list2);
+
+        for (int i = 0; i <= rowIndex; i++) {
+            for (int j = 1; j < i; j++) {
+                int newValue = ans.get((i - 1) % 2).get(j - 1) + ans.get((i - 1) % 2).get(j);
+                ans.get(i % 2).set(j, newValue);
+            }
+        }
+        return ans.get(rowIndex % 2);
+    }
     /**
      * Approach 1: Brute Force Recursion
      */

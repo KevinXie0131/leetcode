@@ -3,10 +3,14 @@ package com.answer.array;
 import java.util.*;
 
 public class Q118_Pascal_Triangle {
+    /**
+     * 杨辉三角
+     */
     public static void main(String[] args) {
-        System.out.println(generate_2(4));
+        System.out.println(generate(4));
     }
-    public List<List<Integer>> generate(int numRows) {
+
+    static public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> ret = new ArrayList<List<Integer>>();
         for (int i = 0; i < numRows; i++) {
             List<Integer> row = new ArrayList<Integer>();
