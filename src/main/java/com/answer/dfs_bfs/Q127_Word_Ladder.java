@@ -6,7 +6,7 @@ public class Q127_Word_Ladder {
     public static void main(String[] args) {
         String beginWord = "hit", endWord = "cog";
         String[] wordList = {"hot","dot","dog","lot","log","cog"};
-        System.out.println(ladderLength(beginWord, endWord, Arrays.asList(wordList)));
+        System.out.println(ladderLength_2(beginWord, endWord, Arrays.asList(wordList)));
     }
     /**
      * 序列中第一个字符串是 beginStr。
@@ -64,6 +64,59 @@ public class Q127_Word_Ladder {
                     charArray[i] = old;
                 }
             }
+        }
+        return 0;
+    }
+    /**
+     * 从 beginWord 和 endWord 进行双向 BFS，相遇时返回扩展步数即可。
+     */
+    static public int ladderLength_2(String beginWord, String endWord, List<String> wordList) {
+        Set<String> dict = new HashSet<>();
+        for(String word : wordList){
+            dict.add(word);
+        }
+
+        if (!dict.contains(endWord)) return 0; // 无法转换
+
+        Set<String> s1 = new HashSet<>();
+        s1.add(beginWord);
+        Set<String> s2 = new HashSet<>();
+        s2.add(endWord);
+
+        int step = 1;
+        while (!s1.isEmpty() && !s2.isEmpty()) {
+            step++;
+            // 为了提高效率 对比较小的set进行转换
+            if (s1.size() > s2.size()) { // 可以不写
+                Set<String> temp = s1;
+                s1 = s2;
+                s2 = temp;
+            }
+            // 已经转换的单词可以去除
+            for (String w: s1) dict.remove(w);
+            for (String w: s2) dict.remove(w);
+            // 存放转换后的单词
+            Set<String> s = new HashSet<>();
+
+            for (String word: s1) {
+                for (int i = 0; i < word.length(); i++) {
+                    char[] wordArray = word.toCharArray();
+                //    char ch = wordArray[i];  // 可以不写
+                    for (char j = 'a'; j <= 'z'; j++) {
+                        wordArray[i] = j;
+                        String newWord = new String(wordArray);
+                        if (s2.contains(newWord)) { // 说明相遇
+                            return step;
+                        }
+                        if (!dict.contains(newWord)){ // 不在字典中 则跳过
+                            continue;
+                        }
+                        s.add(newWord); // 加入此单词
+                    }
+                //    wordArray[i] = ch; // 可以不写
+                }
+            }
+            s1 = s; //当前层转换结束，s赋值给s1
         }
         return 0;
     }
