@@ -64,6 +64,7 @@ public class Q120_Triangle {
     }
     /**
      * 另一种形式
+     * 从下到上遍历，可以避免最后在最下一层遍历找最小值
      */
     public int minimumTotal_4(List<List<Integer>> triangle) {
         int n = triangle.size();

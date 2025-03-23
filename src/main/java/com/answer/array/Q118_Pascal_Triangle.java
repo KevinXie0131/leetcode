@@ -11,7 +11,7 @@ public class Q118_Pascal_Triangle {
         for (int i = 0; i < numRows; i++) {
             List<Integer> row = new ArrayList<Integer>();
             for (int j = 0; j <= i; j++) {
-                if (j == 0 || j == i) {
+                if (j == 0 || j == i) { // 首位默认为1
                     row.add(1);
                 } else {
                     row.add(ret.get(i - 1).get(j - 1) + ret.get(i - 1).get(j));
