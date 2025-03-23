@@ -60,13 +60,12 @@ public class Q112_Path_Sum {
     public boolean dfs(TreeNode node, int sum, int targetSum){ // 注意函数的返回类型
         if (node == null)  return false;
 
-        sum += node.value;
         if (node.left == null && node.right== null){
-            return sum == targetSum;
+            return node.value == targetSum;
         }
 
-        boolean left = dfs(node.left, sum, targetSum); // 隐藏回溯
-        boolean right = dfs(node.right, sum, targetSum);
+        boolean left = dfs(node.left, sum, targetSum - node.value); // 隐藏回溯
+        boolean right = dfs(node.right, sum, targetSum - node.value);
         return left || right;
         /**
          * 为了把回溯的过程体现出来

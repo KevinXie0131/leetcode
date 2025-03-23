@@ -105,7 +105,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         }
         // 中，处理逻辑：判断是不是叶子结点
         if(node.left == null && node.right == null){
-            result1 = Math.min(depth ,result1); // 中
+            result1 = Math.min(depth ,result1); // 中  第一次碰到叶子结点就是最小深度
         }
 
         getdepth2(node.left, depth + 1); // 左

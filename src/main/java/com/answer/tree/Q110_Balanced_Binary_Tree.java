@@ -25,7 +25,7 @@ public class Q110_Balanced_Binary_Tree {
      * 如果当前传⼊节点为根节点的⼆叉树已经不是⼆叉平衡树了，还返回⾼度的话就没有意义了。
      * 所以如果已经不是⼆叉平衡树了，可以返回-1 来标记已经不符合平衡树的规则了
      */
-    int getHeight(TreeNode node) {
+    int getHeight(TreeNode node) { // 后序遍历
         if(node == null) { // 明确终止条件
             return 0;      // 递归的过程中依然是遇到空节点了为终止，返回0，表示当前节点为根节点的树高度为0
         }
