@@ -68,7 +68,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         return root;
     }
     /**
-     * 使用map方便根据数值查找位置
+     * 使用map方便根据数值查找位置 + 递归
      */
     Map<Integer, Integer> map;  // 方便根据数值查找位置
     public TreeNode buildTree_3(int[] inorder, int[] postorder) {

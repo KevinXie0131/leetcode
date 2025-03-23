@@ -21,11 +21,20 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
         TreeNode root = traversal(nums, 0, nums.length - 1); // 定义的区间为左闭右闭区间[left, right]
         return root;
     }
+
+    /**
+     * 1-> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+     *           4
+     *        /    \
+     *       2      6
+     *      / \    / \
+     *     1   3  5   7
+     */
     public TreeNode traversal(int[] nums, int left , int right){ // ⽤递归函数的返回值来构造中节点的左右孩⼦
         if(left> right){
             return null;
         }
-        int mid = (left + right) >>> 1;
+        int mid = (left + right) >>> 1; // 获取中间节点的下标mid，以中间节点作为root，这样可以让左右两边的节点数量接近
         TreeNode root = new TreeNode(nums[mid]); // 在构造⼆叉树的时候尽量不要重新定义左右区间数组，⽽是⽤下表来操作原数组
         root.left = traversal(nums, left, mid -1);   // root的左孩⼦接住下⼀层左区间的构造节点
         root.right = traversal(nums, mid + 1, right); // 右孩⼦接住下⼀层右区间构造的节点
