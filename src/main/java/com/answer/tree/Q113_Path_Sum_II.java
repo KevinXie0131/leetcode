@@ -21,6 +21,7 @@ public class Q113_Path_Sum_II {
         System.out.println(r);
     }
     /**
+     * 类似Q112 Path Sum，但是需要找到所有路径
      * 说明: 叶⼦节点是指没有⼦节点的节点
      */
     List<List<Integer>> result = new ArrayList<List<Integer>>();

@@ -12,6 +12,15 @@ public class Q116_Populating_Next_Right_Pointers_in_Each_Node {
         trasverse(root);
         return root;
     }
+    /**
+     *         1
+     *     /       \
+     *    p   ->    3
+     *   /  \      /  \
+     *  4 -> 5 -> 6 -> 7
+     *  p.left.next = p.right
+     *  p.right.next = p.next.left
+     */
     public void trasverse(Node root) {
         if(root == null) return; // 中
         if(root.left != null){
@@ -26,6 +35,28 @@ public class Q116_Populating_Next_Right_Pointers_in_Each_Node {
         }
         trasverse(root.left);  // 左
         trasverse(root.right); //右
+    }
+    /**
+     * 通过从根节点不断向左孩子遍历，来遍历每一层的头结点；而对单层内的节点 p 可以通过 next 指针遍历，然后进行以下操作
+     * p->left->next = p->right;
+     * p->right->next = p->next->left;
+     */
+    public Node connect3(Node root) {
+        Node cur = root;
+        while (cur != null) {
+            Node p = cur;
+            while (p != null) {
+                if (p.left != null) {
+                    p.left.next = p.right;
+                }
+                if (p.right != null && p.next != null) {
+                    p.right.next = p.next.left;
+                }
+                p = p.next;
+            }
+            cur = cur.left;
+        }
+        return root;
     }
     /**
      * 本题依然是层序遍历，只不过在单层遍历的时候记录一下本层的头部节点，然后在遍历的时候让前一个节点指向本节点就可以了

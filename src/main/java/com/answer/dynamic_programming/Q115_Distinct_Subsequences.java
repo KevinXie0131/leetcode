@@ -44,7 +44,7 @@ public class Q115_Distinct_Subsequences {
                 if (s.charAt(i - 1) == t.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]; // For example,  bagg & bag, the last g can be used for two times
                 }else{
-                    dp[i][j] = dp[i - 1][j];
+                    dp[i][j] = dp[i - 1][j]; // s[i]没有贡献
                 }
                 /**
                  *  // 包含两种决策：

@@ -72,7 +72,7 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
                 pre.right = root.right;
                 // 将左子树插入到右子树的地方
                 root.right = root.left;
-                root.left = null;
+                root.left = null; //设为null
                 // 考虑下一个节点
                 root = root.right;
             }
