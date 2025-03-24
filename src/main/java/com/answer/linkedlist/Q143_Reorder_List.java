@@ -93,8 +93,8 @@ public class Q143_Reorder_List {
     public void reorderList_1(ListNode head) {
         ListNode fast = head, slow = head;
         //求出中点
-        while (fast.next != null && fast.next.next != null) {
-            slow = slow.next;
+        while (fast.next != null && fast.next.next != null) { // if the count of elements is odd, slow is in the middle.
+            slow = slow.next;                                 // if the count of elements is even, slow is the left to the middle.
             fast = fast.next.next;
         }
         //right就是右半部分 12345 就是45  1234 就是34
@@ -103,6 +103,8 @@ public class Q143_Reorder_List {
         slow.next = null;
         //反转右部分 right就是反转后右部分的起点
         right = reverseList(right);
+        // ListNode right = reverseList_1(slow.next); // the above 3 lines of code can be replaced with these 2 lines
+        // slow.next = null;
         //左部分的起点
         ListNode left = head;
         //进行左右部分来回连接
@@ -129,5 +131,19 @@ public class Q143_Reorder_List {
             cur = next;
         }
         return headNode.next;
+    }
+    /**
+     * Reverse linkedlist
+     */
+    public ListNode reverseList_1(ListNode head) {
+        ListNode cur = head;
+        ListNode pre = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
     }
 }
