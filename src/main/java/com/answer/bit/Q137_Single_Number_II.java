@@ -1,21 +1,21 @@
 package com.answer.bit;
 
 public class Q137_Single_Number_II {
+    /**
+     * 二进制
+     */
     public int singleNumber(int[] nums) {
         int ans = 0;
-        //考虑每一位
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < 32; i++) { //考虑每一位
             int count = 0;
-            //考虑每一个数
-            for (int j = 0; j < nums.length; j++) {
-                //当前位是否是 1
-                if ((nums[j] >>> i & 1) == 1) {
-                    count++;
+            for (int j = 0; j < nums.length; j++) {//考虑每一个数
+                if (((nums[j] >>> i) & 1) == 1) { //当前位是否是 1
+                    count++; // 得到每个二进制位总和
                 }
             }
-            //1 的个数是否是 3 的倍数
-            if (count % 3 != 0) {
-                ans = ans | 1 << i;
+
+            if (count % 3 != 0) { //1 的个数是否是 3 的倍数
+                ans = ans | (1 << i);
             }
         }
         return ans;

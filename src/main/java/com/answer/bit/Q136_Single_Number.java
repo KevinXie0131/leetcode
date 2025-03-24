@@ -8,14 +8,15 @@ public class Q136_Single_Number {
 
         System.out.println(2 ^ 2 ^ 1);
     }
-
+    /**
+     * 位运算 异或
+     */
     public int singleNumber(int[] nums) {
         int single = 0;
         for(int n : nums){
         //    single ^= n;
             single = single ^ n;
         }
-
         return single;
     }
 }
