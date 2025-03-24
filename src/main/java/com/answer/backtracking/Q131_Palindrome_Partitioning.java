@@ -97,7 +97,7 @@ public class Q131_Palindrome_Partitioning {
         for (int i = 1; i < str.length; ++i) {
             for (int j = i; j >= 0; --j) { // 从下到上
                 if (str[j] == str[i]) {
-                    if (i - j <= 1) {
+                    if (i - j <= 1) { // 如果i-j不构成字符串
                         dp[j][i] = true;
                     } else if (dp[j + 1][i - 1]) {
                         dp[j][i] = true;
