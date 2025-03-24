@@ -66,12 +66,32 @@ public class Q147_Insertion_Sort_List {
     }
     /**
      * Official answer
+     *
+     * 4 -> 2 -> 1 -> 3 ->
+     * --------------------
+     * #1
+     * 2 -> 1 -> 3 ->
+     * 0 -> 4 ->
+     * --------------------
+     * #2
+     * 1 -> 3 ->
+     * 0 -> 2 -> 4 ->
+     * --------------------
+     * #3
+     * 3 ->
+     * 0 -> 1 -> 2 -> 4 ->
+     * --------------------
+     * #4
+     * null
+     * null
+     * --------------------
+     * 1 -> 2 -> 3 -> 4 ->
      */
     public static ListNode insertionSortList_2(ListNode head) {
         head.print();
         int step = 1;
 
-        ListNode dummy = new ListNode();
+        ListNode dummy = new ListNode(); // 虚拟头结点
         ListNode curr = head;
 
         while (curr != null) {
