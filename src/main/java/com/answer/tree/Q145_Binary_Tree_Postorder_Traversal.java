@@ -51,11 +51,11 @@ public class Q145_Binary_Tree_Postorder_Traversal {
             while (node != null) {
                 list.add(node.value); // 记录节点值
                 stack.push(node);
-                node = node.right; //右节点
+                node = node.right; //右节点（比前序遍历不同的地方）
             }
 
             TreeNode cur = stack.pop();
-            node = cur.left; // 左节点
+            node = cur.left; // 左节点（比前序遍历不同的地方）
         }
 
         Collections.reverse(list); //  结果反转 中-右-左 变成 左-右-中
