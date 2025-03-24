@@ -3,7 +3,6 @@ package com.answer.linkedlist;
 import java.util.*;
 
 public class Q148_Sort_List {
-
     /**
      * Merge sorting - from top to bottom
      */
@@ -35,6 +34,7 @@ public class Q148_Sort_List {
     }
     /**
      * Merge sorting - from bottom to top
+     * 要求时间复杂度为 O(nlogn)，空间复杂度为 O(1)，所以需要采用自底向上的归并排序。
      */
     public ListNode sortList_1(ListNode head) {
         ListNode h, h1, h2, pre, res;
