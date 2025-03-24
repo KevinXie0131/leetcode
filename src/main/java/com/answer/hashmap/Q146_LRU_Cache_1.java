@@ -4,92 +4,78 @@ import java.util.*;
 
 public class Q146_LRU_Cache_1 {
     /**
-     * 方法一：哈希表 + 双向链表
-     *  双向链表按照被使用的顺序存储了这些键值对，靠近头部的键值对是最近使用的，而靠近尾部的键值对是最久未使用的。
-     *  哈希表即为普通的哈希映射（HashMap），通过缓存数据的键映射到其在双向链表中的位置。
+     * Least Recently Used (LRU) cache 最近最少使用
+     * HashMap + 双向链表
      *
-     * 首先使用哈希表进行定位，找出缓存项在双向链表中的位置，随后将其移动到双向链表的头部，即可在 O(1) 的时间内完成 get 或者 put 操作
-     * 在双向链表的实现中，使用一个伪头部（dummy head）和伪尾部（dummy tail）标记界限，这样在添加节点和删除节点的时候就不需要检查相邻的节点是否存在。
+     * 问：需要几个哨兵节点？
+     * 答：一个就够了。一开始哨兵节点 dummy 的 prev 和 next 都指向 dummy。随着节点的插入，dummy 的 next 指向链表的第一个节点（最上面的书），prev 指向链表的最后一个节点（最下面的书）。
+     * 问：为什么节点要把 key 也存下来？
+     * 答：在删除链表末尾节点时，也要删除哈希表中的记录，这需要知道末尾节点的 key。
      */
-    private class DLinkedNode {
-        int key;
-        int value;
-        DLinkedNode prev;
-        DLinkedNode next;
-        public DLinkedNode() {}
-        public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
-    }
-
-    private Map<Integer, DLinkedNode> cache = new HashMap<Integer, DLinkedNode>();
-    private int size;
-    private int capacity;
-    private DLinkedNode head, tail;
+    private final int capacity;
+    private final Node dummy = new Node(0, 0); // 哨兵节点
+    private final Map<Integer, Node> keyToNode = new HashMap<>();
 
     public Q146_LRU_Cache_1(int capacity) {
-        this.size = 0;
         this.capacity = capacity;
-        // 使用伪头部和伪尾部节点
-        head = new DLinkedNode();
-        tail = new DLinkedNode();
-        head.next = tail;
-        tail.prev = head;
+        dummy.prev = dummy; // 双向链表
+        dummy.next = dummy;
     }
 
     public int get(int key) {
-        DLinkedNode node = cache.get(key);
-        if (node == null) {
-            return -1;
-        }
-        // 如果 key 存在，先通过哈希表定位，再移到头部
-        moveToHead(node);
-        return node.value;
+        Node node = getNode(key); // getNode 会把对应节点移到链表头部
+        return node != null ? node.value : -1;
     }
 
     public void put(int key, int value) {
-        DLinkedNode node = cache.get(key);
-        if (node == null) {
-            // 如果 key 不存在，创建一个新的节点
-            DLinkedNode newNode = new DLinkedNode(key, value);
-            // 添加进哈希表
-            cache.put(key, newNode);
-            // 添加至双向链表的头部
-            addToHead(newNode);
-            ++size;
-            if (size > capacity) {
-                // 如果超出容量，删除双向链表的尾部节点
-                DLinkedNode tail = removeTail();
-                // 删除哈希表中对应的项
-                cache.remove(tail.key);
-                --size;
-            }
+        Node node = getNode(key);
+        if (node != null) { // 有这本书
+            node.value = value; // 更新 value
+            return;
         }
-        else {
-            // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
-            node.value = value;
-            moveToHead(node);
+        node = new Node(key, value); // 新书
+        keyToNode.put(key, node);
+        pushFront(node); // 放在最上面
+        if (keyToNode.size() > capacity) { // 书太多了
+            Node backNode = dummy.prev;
+            keyToNode.remove(backNode.key);
+            remove(backNode); // 去掉最后一本书
         }
     }
-
-    private void addToHead(DLinkedNode node) {
-        node.prev = head;
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
+    // 获取 key 对应的节点，同时把该节点移到链表头部
+    private Node getNode(int key) {
+        if (!keyToNode.containsKey(key)) { // 没有这本书
+            return null;
+        }
+        Node node = keyToNode.get(key); // 有这本书
+        remove(node); // 把这本书抽出来
+        pushFront(node); // 放在最上面
+        return node;
+    }
+    // 删除一个节点（抽出一本书）
+    private void remove(Node x) {
+        x.prev.next = x.next;
+        x.next.prev = x.prev;
+    }
+    // 在链表头添加一个节点（把一本书放在最上面）
+    private void pushFront(Node x) {
+        x.prev = dummy;
+        x.next = dummy.next;
+        x.prev.next = x;
+        x.next.prev = x;
     }
 
-    private void removeNode(DLinkedNode node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
+    private class Node {
+        int key, value;
+        Node prev, next;
+
+        Node(int k, int v) {
+            key = k;
+            value = v;
+        }
     }
 
-    private void moveToHead(DLinkedNode node) {
-        removeNode(node);
-        addToHead(node);
-    }
 
-    private DLinkedNode removeTail() {
-        DLinkedNode res = tail.prev;
-        removeNode(res);
-        return res;
-    }
 }
+
+
