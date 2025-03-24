@@ -3,6 +3,9 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q140_Word_Break_II {
+    /**
+     * 类似Q131 Palindrome Partitioning
+     */
     public static void main(String[] args) {
         String s = "catsanddog";
         List<String> wordDict = new ArrayList<>();
@@ -17,7 +20,7 @@ public class Q140_Word_Break_II {
     /**
      * DFS + Backtracking
      */
-    private static  Set<String> wordSet = new HashSet<>();
+    private static Set<String> wordSet = new HashSet<>();
     private static List<String> res = new ArrayList<>();
 
     public static List<String> wordBreak(String s, List<String> wordDict) {
