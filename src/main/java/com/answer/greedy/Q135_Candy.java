@@ -3,6 +3,10 @@ package com.answer.greedy;
 import java.util.Arrays;
 
 public class Q135_Candy {
+    public static void main(String[] args) {
+       int[] ratings = {1,0,2};
+       System.out.println(candy1(ratings));
+    }
     /**
      * Greedy
      * Approach 3: Using one array
@@ -38,6 +42,29 @@ public class Q135_Candy {
         int sum = 0;
         for(int n : candy){  // 统计结果
             sum += n;
+        }
+        return sum;
+    }
+    /**
+     * 另一种形式
+     */
+   static public int candy1(int[] ratings) {
+        int[] left  = new int[ratings.length];
+        int[] right  = new int[ratings.length];
+
+        for(int i = 1; i < ratings.length; i++){ // 从前向后
+            if(ratings[i] > ratings[i - 1]){
+                left[i] = left[i - 1] + 1;
+            }
+        }
+        for(int i = ratings.length - 2; i >= 0; i--) { // 从后向前
+            if(ratings[i] > ratings[i + 1]) {
+                right[i] = right[i + 1] + 1;
+            }
+        }
+        int sum = 0;
+        for(int i = 0; i < ratings.length; i++){  // 统计结果
+            sum += Math.max(left[i], right[i]) + 1; // 每个人至少分一个糖果
         }
         return sum;
     }
