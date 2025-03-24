@@ -75,20 +75,16 @@ public class Q131_Palindrome_Partitioning {
     }
     public void backtracking1(String str, int startIndex) {
         if (startIndex >= str.length()) {
-            //如果起始位置大于s的大小，说明找到了一组分割方案
-            result1.add(new ArrayList<>(path));
+            result1.add(new ArrayList<>(path)); //如果起始位置大于s的大小，说明找到了一组分割方案
         } else {
             for (int i = startIndex; i < str.length(); ++i) {
-                if (dp[startIndex][i]) {
-                    //是回文子串，进入下一步递归
-                    //先将当前子串保存入path
-                    path1.addLast(str.substring(startIndex, i + 1));
-                    //起始位置后移，保证不重复
-                    backtracking1(str, i + 1);
+                if (dp[startIndex][i]) { //是回文子串，进入下一步递归
+                    path1.addLast(str.substring(startIndex, i + 1)); //先将当前子串保存入path
+                    backtracking1(str, i + 1);    //起始位置后移，保证不重复
                     path1.pollLast();
                 } else {
-                    //不是回文子串，跳过
-                    continue;
+
+                    continue;//不是回文子串，跳过
                 }
             }
         }
@@ -99,7 +95,7 @@ public class Q131_Palindrome_Partitioning {
             dp[i][i] = true;
         }
         for (int i = 1; i < str.length; ++i) {
-            for (int j = i; j >= 0; --j) {
+            for (int j = i; j >= 0; --j) { // 从下到上
                 if (str[j] == str[i]) {
                     if (i - j <= 1) {
                         dp[j][i] = true;
