@@ -41,6 +41,7 @@ public class Q145_Binary_Tree_Postorder_Traversal {
     }
     /**
      * 遍历 (迭代法) 模板
+     * 参考Q144 Binary Tree Preorder Traversal
      */
     public List<Integer> postorderTraversal_1(TreeNode node) {
         List<Integer> list =  new ArrayList<>();

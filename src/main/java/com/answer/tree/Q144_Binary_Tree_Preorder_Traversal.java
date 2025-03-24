@@ -36,6 +36,7 @@ public class Q144_Binary_Tree_Preorder_Traversal {
     }
     /**
      * 遍历 (迭代法) 模板
+     * 参考Q94 Binary Tree Inorder Traversal
      */
     public List<Integer> preorderTraversal_1(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
