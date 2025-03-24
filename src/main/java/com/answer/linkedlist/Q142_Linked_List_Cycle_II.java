@@ -4,16 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Q142_Linked_List_Cycle_II {
-
     public static void main(String[] args) {
 
         ListNode head = new ListNode(1, null);
         ListNode result =  detectCycle(head);
         System.out.println(result);
     }
-
     /**
-     * fast-slow pointers
+     * fast-slow pointers 快慢指针
      */
     public static ListNode detectCycle(ListNode head) {
         ListNode fast = head, slow = head;
