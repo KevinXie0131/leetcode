@@ -4,7 +4,31 @@ import com.template.Node;
 import java.util.*;
 
 public class Q133_Clone_Graph {
+    /**
+     * 先通过 DFS 对每个点进行拷贝，接下来遍历每个点，将邻居节点转换为拷贝节点。
+     */
+    Map<Node, Node> map1 = new HashMap<>();
 
+    public Node cloneGraph_5(Node node) {
+        if(node == null) return null;
+        dfs1(node);
+        for(Map.Entry<Node, Node> entry : map1.entrySet()){
+            Node from = entry.getKey();
+            Node to = entry.getValue();
+            for(Node neighbor : from.neighbors){
+                to.neighbors.add(map1.get(neighbor));
+            }
+        }
+        return map1.get(node);
+    }
+    void dfs1(Node node) {
+        map1.put(node, new Node(node.getValue()));
+        for(Node neighbor : node.neighbors){
+            if (!map1.containsKey(neighbor)) {
+                dfs1(neighbor);
+            }
+       }
+    }
     /**
      * Approach 1: Depth First Search - Recursion
      */
