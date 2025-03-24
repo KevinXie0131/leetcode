@@ -12,7 +12,7 @@ public class Q147_Insertion_Sort_List {
     }
 
     public static ListNode insertionSortList(ListNode head) {
-        ListNode dummy = new ListNode(-1, head);
+        ListNode dummy = new ListNode(-1, head); // 虚拟头结点
         ListNode cur = head.next;
         ListNode lastSort = head;
 
@@ -68,13 +68,15 @@ public class Q147_Insertion_Sort_List {
      * Official answer
      */
     public static ListNode insertionSortList_2(ListNode head) {
+        head.print();
+        int step = 1;
+
         ListNode dummy = new ListNode();
         ListNode curr = head;
 
         while (curr != null) {
             // At each iteration, we insert an element into the resulting list.
             ListNode prev = dummy;
-
             // find the position to insert the current node
             while (prev.next != null && prev.next.val <= curr.val) {
                 prev = prev.next;
@@ -84,9 +86,15 @@ public class Q147_Insertion_Sort_List {
             // insert the current node to the new list
             curr.next = prev.next;
             prev.next = curr;
-
             // moving on to the next iteration
             curr = next;
+            // log
+            System.out.println("#" + step++);
+            if(curr != null) curr.print();
+            else System.out.println("null");
+            if(curr != null) prev.print();
+            else System.out.println("null");
+            System.out.println("----------");
         }
 
         return dummy.next;
