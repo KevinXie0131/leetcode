@@ -12,6 +12,7 @@ public class Q59_Spiral_Matrix_II {
     }
     // 这个方法类似 Q54 Spiral Matrix
     //左闭右闭
+    // 本题与 Q54. 螺旋矩阵 解法相同，只需将读取操作变为赋值操作即可。
     public static int[][] generateMatrix(int n) {
         int[][] result = new int[n][n];
         int row = n;

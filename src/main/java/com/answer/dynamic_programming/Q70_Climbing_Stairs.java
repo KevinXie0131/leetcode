@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Q70_Climbing_Stairs {
     /**
      * Approach 1: Brute Force 暴力递归 Time Limit Exceeded
+     * 斐波那契数列
      */
     public int climbStairs_0(int n) {
         if(n == 1){

@@ -26,6 +26,7 @@ public class Q67_Add_Binary {
         return sb.toString();
     }
     /**
+     * 二进制下列竖式计算，从后向前遍历两个字符串，使用 carry 保存进位情况，按位相加即可。
      * move carry into while
      */
     public String addBinary_1(String a, String b) {
