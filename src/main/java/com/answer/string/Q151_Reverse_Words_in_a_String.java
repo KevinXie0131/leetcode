@@ -6,8 +6,8 @@ public class Q151_Reverse_Words_in_a_String {
 
     public static void main(String[] args) {
        String s = "the sky is blue";
-     //  String s = "a good   example";
-     //   String s= "  hello world  ";
+     // String s = "a good   example";
+    //    String s= "  hello world  ";
        System.out.println(reverseWords_5(s));
     }
     // 用Java内置方法实现
@@ -23,7 +23,7 @@ public class Q151_Reverse_Words_in_a_String {
     }
     /**
      * From 睡不醒的鲤鱼
-     * "the sky is blue" 可以通过 "a good   example"不行
+     * 提交可通过
      */
     public static String reverseWords_5(String s) {
         StringBuffer sb = new StringBuffer(s);
@@ -49,7 +49,9 @@ public class Q151_Reverse_Words_in_a_String {
             i = j;
             start = end;
         }
-        sb.deleteCharAt(sb.length() - 1); // 删除最后一个空格
+        int count = sb.length() - start;
+        while(count-- > 0) sb.deleteCharAt(sb.length() - 1); // 删除最后一个空格
+        while(sb.charAt(sb.length() - 1) == ' ') sb.deleteCharAt(sb.length() - 1); // 删除最后一个空格
         reverseString(sb, 0, sb.length() - 1); // 整体反转
         return sb.toString();
     }
