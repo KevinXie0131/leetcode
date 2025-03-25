@@ -67,6 +67,7 @@ public class Q37_Sudoku_Solver_Hard {
     }
     /**
      * 解法二(bitmap标记)
+     * 使用数组记录行、列、3x3 宫格内的数字是否存在，每次尝试对应位置所有可能的数字，遍历到最后一个位置即可得到正确答案。
      */
     int[] rowBit = new int[9];
     int[] colBit = new int[9];

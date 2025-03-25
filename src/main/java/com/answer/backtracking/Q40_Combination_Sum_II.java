@@ -3,6 +3,10 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q40_Combination_Sum_II {
+    /**
+     * 本题与 Q39. 组合总和 的区别在于需要对结果去重，同时每个元素只能选取一次。
+     * 可以先将原数组排序，在搜索时通过判断重复元素的个数，那么对元素 c[i] 最多可以选个 k[i] 次，从而转换成上题的解法。
+     */
     public static void main(String[] args) {
         int[]  candidates = {10,1,2,7,6,1,5}; int target = 8;
         combinationSum2_1(candidates, target);

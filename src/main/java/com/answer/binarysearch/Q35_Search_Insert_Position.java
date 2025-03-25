@@ -73,6 +73,7 @@ public class Q35_Search_Insert_Position {
     }
     /**
      * From 睡不醒的鲤鱼
+     * 基础二分查找
      * 另一种形式
      */
     public int searchInsert4(int[] nums, int target) {

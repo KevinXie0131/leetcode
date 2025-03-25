@@ -7,6 +7,7 @@ public class Q39_Combination_Sum {
      * 回溯 版本一
      * 组合没有数量要求
      * 元素可无限重复选取
+     * 依据每个位置的元素可选取的次数进行搜索
      */
     public List<List<Integer>> combinationSum(int[] candidates, int target)    {
         List<List<Integer>> result = new ArrayList<List<Integer>>();

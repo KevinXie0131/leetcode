@@ -139,6 +139,7 @@ public class Q42_Trapping_Rain_Water {
     }
     /**
      * Approach 3: Using stacks
+     * From 睡不醒的鲤鱼
      * 使用单调栈存储高度下标，按照行方向来计算雨水容量。
      *
      * 具体维护的顺序为从栈顶到栈底的高度有小到大，因为一旦发现添加的柱子高度大于栈头元素了，此时就出现凹槽了，
@@ -167,7 +168,10 @@ public class Q42_Trapping_Rain_Water {
         return ans;
     }
     /**
+     * From 睡不醒的鲤鱼
      * Approach 4: Using 2 pointers 双指针优化
+     * 木桶原理，从当前节点往左找最高的高度，往右找最高的高度，这两个高度我们可以看做是木桶的两个木板，
+     * 能接的雨水由最短的那块决定，累加每个位置能存的雨水量即可。
      */
     public static int trap(int[] height) {
         int ans = 0;

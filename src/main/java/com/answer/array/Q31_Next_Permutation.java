@@ -31,6 +31,9 @@ public class Q31_Next_Permutation {
     }
     /**
      * 另一种形式
+     * 1.从后向前找到第一个正序数 k；
+     * 2.从后向前找到第一个比 k 大的数 t；
+     * 3.交换 k 和 t，并将原 k 位置后面的数字逆序。
      */
     static public void nextPermutation_5(int[] nums) {
         int k = nums.length - 1;
