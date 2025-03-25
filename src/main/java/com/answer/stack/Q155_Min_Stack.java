@@ -17,8 +17,7 @@ public class Q155_Min_Stack {
         stack.push(val);
 
         int top = minStack.peek();
-        minStack.push(Math.min(top, val));
-
+        minStack.push(Math.min(top, val)); // 保存最小值在minStack
     }
 
     public void pop() {
