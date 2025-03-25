@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Q160_Intersection_of_Two_Linked_Lists {
-
     /**
-     * two pointers
+     * two pointers 双指针
+     * 相交节点
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // curA 指向 A 链表头结点，curB 指向 B 链表头结点
@@ -26,8 +26,7 @@ public class Q160_Intersection_of_Two_Linked_Lists {
                 curB = headA;
             }
         }
-
-        return curA;
+        return curA; // 不相交，返回null
     }
     /**
      * Use set
