@@ -14,6 +14,8 @@ public class Q15_3Sum {
      * 双指针法，这道题目使用双指针法 要比哈希法高效一些 (其实这道题目使用哈希法并不十分合适，因为在去重的操作中有很多细节需要注意)
      * 时间复杂度: O(n^2)
      * 空间复杂度: O(1)
+     * 由于需要求三个数字的和，遍历复杂度不会小于O(n^2)，因此可以先对数组排序，这样方便之后处理。
+     * 整体思路为，通过遍历数组选取第一个数字，在遍历的同时用前后双指针寻找满足条件的数字即可
      */
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();

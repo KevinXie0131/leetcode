@@ -33,6 +33,8 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
     }
     /**
      * 辅助下标
+     * 在遍历数组的同时，通过用一个辅助下标记录最后一个不重复元素的位置，遍历结束时，
+     * 辅助下标的值就代表不重复数组的长度，直接返回即可。
      */
     public int removeDuplicates_0(int[] nums) {
         int index = 0;

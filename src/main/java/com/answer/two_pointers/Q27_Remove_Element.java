@@ -10,6 +10,8 @@ public class Q27_Remove_Element {
     }
     /**
      * 辅助下标
+     * 本题与 Q26. 删除有序数组中的重复项 解法相似，只是循环中的赋值条件发生了改变。
+     * 本题不需要和去重元素相比，只要和给定的 val 相比即可。
      */
     public int removeElement0(int[] nums, int val) {
         int index = 0;

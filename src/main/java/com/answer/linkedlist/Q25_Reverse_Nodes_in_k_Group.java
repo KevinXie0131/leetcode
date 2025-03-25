@@ -17,6 +17,7 @@ public class Q25_Reverse_Nodes_in_k_Group {
     }
     /**
      * Iterative
+     * 把整个链表按照 k 个一组截断，然后把每组链表翻转后再拼接。
      */
     public static ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(-1, head);

@@ -12,6 +12,7 @@ public class Q16_3Sum_Closest {
     }
     /**
      * 双指针法  无需去重
+     * 本题思路与 Q15. 三数之和 类似，只是更新结果的条件变为比较差值的大小，保留差值更小的结果
      */
     public static int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums); // 首先将数组排序

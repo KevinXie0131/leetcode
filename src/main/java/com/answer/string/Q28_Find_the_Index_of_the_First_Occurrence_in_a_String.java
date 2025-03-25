@@ -90,7 +90,7 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
         return -1;
     }
     /**
-     * Knuth-Morris-Pratt 算法 / KMP算法
+     * Knuth-Morris-Pratt 算法 / KMP 字符串匹配 算法
      * 前缀表（prefix table）: 前缀表是用来回退的，它记录了模式串与主串(文本串)不匹配的时候，模式串应该从哪里开始重新匹配。
      * 前缀表：记录下标i之前（包括i）的字符串中，有多大长度的相同前缀后缀
      * KMP算法的时间复杂度是O(n+m)的。暴力的解法显而易见是O(n × m)，所以KMP在字符串匹配中极大地提高了搜索的效率。

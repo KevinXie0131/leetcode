@@ -7,7 +7,6 @@ public class Q20_Valid_Parentheses {
        String s = "]";
         System.out.println(isValid(s));
     }
-
     /**
      * 第一种情况：已经遍历完了字符串，但是栈不为空，说明有相应的左括号没有右括号来匹配，所以return false
      * 第二种情况：遍历字符串匹配的过程中，发现栈里没有要匹配的字符。所以return false
@@ -41,6 +40,7 @@ public class Q20_Valid_Parentheses {
     }
     /**
      * 使用HashMap
+     * 遍历字符串，每遇到一个左括号时，将与其匹配的右括号入栈；当遇到右括号时，与栈顶元素比较配对，不一致则匹配失败
      */
     public static boolean isValid_1(String s) {
         int n = s.length();

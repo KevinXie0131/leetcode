@@ -18,6 +18,8 @@ public class Q18_4Sum {
      *
      * 对于15.三数之和 双指针法就是将原本暴力O(n^3)的解法，降为O(n^2)的解法，
      * 四数之和的双指针解法就是将原本暴力O(n^4)的解法，降为O(n^3)的解法。
+     *
+     * 本题思路与 Q15. 三数之和 相同，只需增加一层循环，枚举前两个数字的值，双指针确定后两个数字的值即可。
      */
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<List<Integer>>(); // 结果集

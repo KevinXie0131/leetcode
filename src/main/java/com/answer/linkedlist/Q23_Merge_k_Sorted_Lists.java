@@ -36,6 +36,9 @@ public class Q23_Merge_k_Sorted_Lists {
      * 方法2. 使用小根堆对 1 进行优化，每次 O(logK) 比较 K个指针求 min
      * 时间复杂度：O(NlogK)， 其中 k 为 lists 的长度，n 为所有链表的节点数之和。
      * 空间复杂度：O(k)。堆中至多有 k 个元素。
+     *
+     * 本题与 Q21. 合并两个有序链表 思路类似，都是找到剩余链表中最小的数字插入结果，不同的是，
+     * 本题使用一个小根堆加速这个查找的过程。
      */
     public ListNode mergeKLists_1(ListNode[] lists) {
         Queue<ListNode> pq = new PriorityQueue<>((v1, v2) -> v1.val - v2.val); // (e1, e2)->e1.val-e2.val 需要加上

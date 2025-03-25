@@ -60,6 +60,7 @@ public class Q21_Merge_Two_Sorted_Lists {
     }
     /**
      * Iterative
+     * 同时遍历两个链表，从中选取较小的元素添加到结果链表，直至两个链表都遍历完成。
      */
     public ListNode mergeTwoLists_1(ListNode list1, ListNode list2) {
         ListNode dummy = new ListNode(-1, null); // 增加虚拟节点

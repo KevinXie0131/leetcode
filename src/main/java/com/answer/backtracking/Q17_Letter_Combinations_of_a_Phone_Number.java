@@ -6,7 +6,10 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
     public static void main(String[] args) {
         System.out.println(letterCombinations("23"));
     }
-
+    /**
+     * 首先存储每个数字对应的所有可能的字母，然后进行回溯操作。回溯过程中维护一个字符串，表示已有的字母排列，
+     * 并记录当前回溯位置。每次尝试对应位置数字的所有字母，即可得到完整排列。
+     */
     public static List<String> letterCombinations(String digits) {
         Map<Character, String> map = new HashMap<>();
         map.put('2', "abc");

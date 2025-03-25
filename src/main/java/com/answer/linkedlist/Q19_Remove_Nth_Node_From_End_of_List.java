@@ -3,6 +3,10 @@ package com.answer.linkedlist;
 public class Q19_Remove_Nth_Node_From_End_of_List {
     /**
      * fast-slow pointers 快慢指针
+     * 快慢双指针，令快指针先走 n 步，之后两指针再同步移动，直到快指针移动到链表结尾，此时慢指针指向的下一个位置即为要删除元素。
+     * 注意
+     *   在头部插入一个虚拟结点，可以避免对头结点的特殊处理。
+     *   边界情况可以测试几个 case 确定。
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode (-1, head); // 增加虚拟节点

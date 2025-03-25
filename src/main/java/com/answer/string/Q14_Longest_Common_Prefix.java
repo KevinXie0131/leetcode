@@ -35,6 +35,8 @@ public class Q14_Longest_Common_Prefix {
     /**
      * Approach 2: Vertical scanning
      * 纵向扫描
+     * 纵向扫描，以字符串数组中的第一个字符串为基准，从前往后遍历所有字符串的每一列，比较相同列上的字符是否相同，
+     * 如果相同则继续对下一列进行比较，如果不相同则当前列不再属于公共前缀，当前列之前的部分为最长公共前缀。
      */
     public String longestCommonPrefix_1(String[] strs) {
         if(strs == null || strs.length == 0){

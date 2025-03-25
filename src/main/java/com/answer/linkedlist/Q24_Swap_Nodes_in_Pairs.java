@@ -32,6 +32,7 @@ public class Q24_Swap_Nodes_in_Pairs {
     }
     /**
      * dummy node + pre node + extra node
+     * 使用两个辅助指针 pre 和 cur，每次交换 cur 和 cur->next 两个结点，交换终止条件为 pre 后面不存在两个未交换结点。
      */
     public static ListNode swapPairs_1(ListNode head) {
         ListNode dummy = new ListNode(-1, head);

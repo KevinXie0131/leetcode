@@ -38,6 +38,10 @@ public class Q22_Generate_Parentheses {
     }
     /**
      * 另一种形式
+     * 一个合法的括号序列需要满足以下两个条件：
+     *   任意前缀中左括号的数量 ≥ 右括号的数量；
+     *   左右括号数量相等。
+     * 因此只要在回溯的同时，记录当前状态已使用的左右括号数，根据使用情况决定下一步状态即可。
      */
     public List<String> generateParenthesis1(int n) {
         List<String> result = new ArrayList<String>();
