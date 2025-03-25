@@ -34,7 +34,7 @@ public class Q5_Longest_Palindromic_Substring {
         return true;
     }
     /**
-     * 中心扩展算法
+     * 中心扩展算法，枚举回文子串的中心位置，每次循环需要分奇数和偶数两种情况。
      * 例如 abcda 和 abba
      */
    static  public String longestPalindrome_2(String s) {
@@ -44,7 +44,7 @@ public class Q5_Longest_Palindromic_Substring {
         if (s.length() == 1) return s;
         String result = "";
         for (int i = 0; i <= s.length() - 2; i++) {
-            int left = i - 1, right = i + 1; // 奇数
+            int left = i - 1, right = i + 1; // 奇数长度的回文串
             while(left <= right && left >= 0 && right <= s.length() -1 && s.charAt(left) == s.charAt(right)){
                 if(right - left + 1> result.length()) {
                     result = s.substring(left, right + 1);
@@ -53,7 +53,7 @@ public class Q5_Longest_Palindromic_Substring {
                 left--; right++;
             }
 
-            left = i; right = i + 1;        // 偶数
+            left = i; right = i + 1;       // 偶数长度的回文串
             while(left <= right && left >= 0 && right <= s.length() - 1 && s.charAt(left) == s.charAt(right)){
                 if(right - left + 1 > result.length()) {
                     result = s.substring(left, right + 1);

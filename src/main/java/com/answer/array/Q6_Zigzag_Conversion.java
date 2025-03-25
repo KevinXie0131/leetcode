@@ -9,7 +9,9 @@ public class Q6_Zigzag_Conversion {
         String res = convert(s, numRows);
         System.out.println(res);
     }
-
+    /**
+     * 使用一个数组存储每一行的字符串，在遍历过程中将每个字符拼接到数组对应行的字符串中
+     */
     public static String convert(String s, int numRows) {
         if(numRows < 2) return s;
 

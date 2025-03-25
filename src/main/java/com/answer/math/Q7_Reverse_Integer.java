@@ -8,7 +8,9 @@ public class Q7_Reverse_Integer {
 
         System.out.println(reverse(-123));
     }
-
+    /**
+     * 构建反转整数的一位数字，同时需要预先检查向原整数附加另一位数字是否会导致溢出。
+     */
     public static int reverse(int x) {
         int result = 0;
 

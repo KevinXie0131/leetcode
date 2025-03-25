@@ -33,6 +33,8 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
      * int[26] for Letters 'a' - 'z' or 'A' - 'Z'
      * int[128] for ASCII
      * int[256] for Extended ASCII
+     *
+     * 使用一个数组记录每个字符上次出现的位置，在遍历的同时移动窗口左边界，最后返回窗口长度的最大值即可。
      */
     public static int lengthOfLongestSubstring_1(String s) {
         int max = 0;

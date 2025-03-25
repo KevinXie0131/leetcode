@@ -17,6 +17,7 @@ public class Q9_Palindrome_Number {
     /**
      * 反转原数后 判断是否相同
      * 不会溢出
+     * 本题可以借鉴 Q7. 整数反转 的做法，将数字反转后判断是否与原数字相等
      */
     public boolean isPalindrome_1(int x) {
         if(x < 0){

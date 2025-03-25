@@ -18,6 +18,7 @@ public class Q2_Add_Two_Numbers {
     }
     /**
      * 比较简洁的迭代法
+     * 按位模拟加法，注意循环条件不要忘记 || sum
      */
     public ListNode addTwoNumbers_0(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1, null);

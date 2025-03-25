@@ -1,7 +1,11 @@
 package com.answer.math;
 
 public class Q8_String_to_Integer {
-
+    /**
+     * 按照规则实现即可，为了实现方便，有以下几个注意点：
+     *     使用 long 存储结果，方便进行越界判断；
+     *     使用额外变量标记正负号，在最后返回时与结果相乘。
+     */
     public int myAtoi(String s) {
         int len = s.length();
         char[] arr = s.toCharArray();
