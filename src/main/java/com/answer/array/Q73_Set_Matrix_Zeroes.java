@@ -84,10 +84,12 @@ public class Q73_Set_Matrix_Zeroes {
     }
     /**
      * 另一种形式
+     * 使用矩阵的第一行和第一列标记对应行列是否置零。
      */
     public void setZeroes_2(int[][] matrix) {
         int m = matrix.length, n = matrix[0].length;
         boolean colZero = false, rowZero = false;
+        // 需要置零的位置记录在首行、首列
         // 预处理出两个标记变量
         // 使用其他行与列去处理第一行与第一列，
         for (int i = 0; i < m; i++) {
@@ -99,6 +101,7 @@ public class Q73_Set_Matrix_Zeroes {
                 }
             }
         }
+        // 对非首行、首列元素置零
         // 然后反过来使用第一行与第一列去更新其他行与列
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
@@ -107,6 +110,7 @@ public class Q73_Set_Matrix_Zeroes {
                 }
             }
         }
+        // 处理首行、首列
         // 使用两个标记变量更新第一行与第一列
         for (int i = 0; colZero && i < m; i++) {
             matrix[i][0] = 0;

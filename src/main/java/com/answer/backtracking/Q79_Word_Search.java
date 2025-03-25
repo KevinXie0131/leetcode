@@ -11,6 +11,8 @@ public class Q79_Word_Search {
     private char[][] board;
     /**
      * DFS
+     * 枚举矩阵的每个位置作为单词的起点，只要能找到对应单词就直接返回 true。
+     * 具体在每次搜索中，可以依次尝试相邻未访问格子的字母，只要能和单词对应位置匹配，就继续向下搜索。
      */
     public boolean exist(char[][] board, String word) {
         rows = board.length;

@@ -45,6 +45,7 @@ public class Q100_Same_Tree {
     }
     /**
      * 精简之后代码
+     * 同时对两颗二叉树进行 dfs，同时比较对应节点的值。
      */
     public boolean isSameTree_1(TreeNode p, TreeNode q) {
         return compare(p, q);

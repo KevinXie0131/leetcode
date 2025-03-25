@@ -84,6 +84,9 @@ public class Q75_Sort_Colors {
     }
     /**
      * Three Pointers
+     * 使用三指针 i、j、k，要保证 [0, i - 1] 部分全部是 0；[i, j - 1] 部分全部是 1；[k + 1，n - 1] 部分全部是 2；
+     * 我们使用 j 这个指针对数组遍历，那么当 j > k 时就完成了对数组的排序。
+     *
      * i, j, k
      * 0: start -> i - 1
      * 1: i - > j

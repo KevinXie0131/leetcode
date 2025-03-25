@@ -96,6 +96,8 @@ public class Q78_Subsets {
      * [2]         就是10
      * [1,2]       就是11
      * 这样就可以把所有子集求出来了。
+     *
+     * 由于一个长度为 n 的 nums 数组，其子集个数为2^n，可以用一个二进制串表示每个元素是否出现，依此构建子集。
      */
     public static List<List<Integer>> subsets_4(int[] nums) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();

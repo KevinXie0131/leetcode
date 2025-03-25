@@ -68,6 +68,9 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
     /**
      * 删除原始链表中所有重复数字的节点，只留下不同的数字
      * delete elements within two pointers
+     *
+     * 由于头结点可能被删除，因此需要一个增加一个虚拟结点。
+     * 遍历链表，当遇到重复结点时，循环向后移动，直到下一个不重复结点，将中间结点删除即可。
      */
     public ListNode deleteDuplicates_3(ListNode head) {
         ListNode dummy = new ListNode(-1, head);

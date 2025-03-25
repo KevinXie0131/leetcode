@@ -25,6 +25,8 @@ public class Q80_Remove_Duplicates_from_Sorted_Array_II {
     /**
      * 辅助下标
      * refer to Q26 Remove Duplicates from Sorted Array
+     * 本题与 Q26. 删除有序数组中的重复项 解法相似，只是循环中的赋值条件发生了改变。
+     * 由于允许每个元素最多出现两次，因此在循环中需要判断：只要当前元素和结果数组的倒数第二个元素不同就可以加入。
      */
     public static int removeDuplicates_2(int[] nums) {
         if(nums.length < 2) return nums.length;

@@ -155,6 +155,7 @@ public class Q98_Validate_Binary_Search_Tree {
     }
     /**
      *  简洁实现·中序遍历
+     *  对二叉树进行中序遍历，每遍历到一个节点都和当前已遍历的最后一个节点值比较，只要能满足递增关系就继续遍历，直到遍历所有节点。
      */
     private long prev = Long.MIN_VALUE;
     public boolean isValidBST_5(TreeNode root) {

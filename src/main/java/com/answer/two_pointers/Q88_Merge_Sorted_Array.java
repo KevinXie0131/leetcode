@@ -26,6 +26,7 @@ public class Q88_Merge_Sorted_Array {
     }
     /**
      * 另一种形式
+     * 逆序双指针，从后向前遍历两个数组，选取大的元素从后向前赋值
      */
     public void merge1(int[] nums1, int m, int[] nums2, int n) {
         int i= m - 1, j = n - 1;

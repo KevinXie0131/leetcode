@@ -57,6 +57,10 @@ public class Q97_Interleaving_String {
     }
     /**
      * 另一种形式
+     * 定义 f(i,j) 表示 s1 的前 i 个字符和 s2 的前 j 个字符可以交错组成 s3 的前 i+j 个字符。
+     *   当 s3[i + j] = s1[i] 时，此时 f(i, j) = f(i - 1, j)；
+     *   当 s3[i + j] = s2[j] 时，此时 f(i, j) = f(i, j - 1)。
+     * 综上 f(i, j) = f(i - 1, j) || f(i, j - 1)。
      */
     public boolean isInterleave3(String s1, String s2, String s3) {
         int m  = s1.length();

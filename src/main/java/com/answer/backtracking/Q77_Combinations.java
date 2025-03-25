@@ -31,7 +31,7 @@ public class Q77_Combinations {
 
         return result;
     }
-
+    // 枚举每个位置可能出现的数字，由于要求的是组合数，不考虑元素顺序，因此还需要记录一个 start 参数，表示当前数字从几开始选择。
     public static void backtracking(int n, int k, int startIndex){ // 未剪枝优化
         if (path.size() == k) {
             result.add(new ArrayList<Integer>(path));

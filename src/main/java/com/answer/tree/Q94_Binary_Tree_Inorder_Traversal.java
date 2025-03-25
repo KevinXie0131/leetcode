@@ -49,6 +49,7 @@ public class Q94_Binary_Tree_Inorder_Traversal {
     /**
      * 遍历 (迭代法) 模板
      * 记录节点值的位置不同
+     * 不断向左孩子移动，同时把当前节点入栈，直到空节点，把栈顶节点出栈并加入结果，然后移动到出栈节点的右孩子，重复这个过程。
      */
     static public List<Integer> inorderTraversal_1(TreeNode node) {
         List<Integer> list = new ArrayList<>();

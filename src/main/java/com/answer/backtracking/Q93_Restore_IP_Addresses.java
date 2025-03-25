@@ -68,7 +68,8 @@ public class Q93_Restore_IP_Addresses {
     }
     /**
      * From 睡不醒的鲤鱼 不太容易理解
-     * 将 IP 地址拆分成四个数字，枚举每个数字能截取的字符串的位置，当四个数字都确定，并且枚举到了字符串的最后一位，说明是一个合法方案，将其加入结果。
+     * 将 IP 地址拆分成四个数字，枚举每个数字能截取的字符串的位置，当四个数字都确定，并且枚举到了字符串的最后一位，
+     * 说明是一个合法方案，将其加入结果。
      */
     static List<String> ans = new ArrayList<String>();
     static LinkedList<Integer> cur = new LinkedList<>();

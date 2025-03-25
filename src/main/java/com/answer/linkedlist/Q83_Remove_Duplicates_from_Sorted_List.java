@@ -22,6 +22,8 @@ public class Q83_Remove_Duplicates_from_Sorted_List {
     }
     /**
      * 另一种形式
+     * 用一个指针来遍历链表，每遍历到一个节点，就用另一个指针来找到后面第一个和当前节点值不同的节点，
+     * 然后把中间的重复节点全部删去，重复这个过程，直至链表结尾。
      */
     public ListNode deleteDuplicates0(ListNode head) {
         ListNode p = head;

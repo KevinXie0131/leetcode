@@ -43,8 +43,10 @@ public class Q74_Search_a_2D_Matrix {
         return false;
     }
     /**
-     * Binary Search
+     * Binary Search 二分算法
      * 看成升序一维数组
+     * 我们可以想象把整个矩阵，按行展开成一个一维数组，那么这个一维数组单调递增，然后直接二分即可。
+     * 二分时可以通过整除和取模运算得到二维数组的坐标。
      */
     public static boolean searchMatrix_1(int[][] matrix, int target) {
         int m = matrix.length;    // row
