@@ -5,9 +5,10 @@ import java.util.*;
 public class Q151_Reverse_Words_in_a_String {
 
     public static void main(String[] args) {
-     //   String s = "the sky is blue";
-        String s = "a good   example";
-        System.out.println(reverseWords_1(s));
+       String s = "the sky is blue";
+     //  String s = "a good   example";
+     //   String s= "  hello world  ";
+       System.out.println(reverseWords_5(s));
     }
     // 用Java内置方法实现
     public String reverseWords(String s) {
@@ -19,6 +20,38 @@ public class Q151_Reverse_Words_in_a_String {
         Collections.reverse(list);
         String result = String.join(" ", list);
         return result;
+    }
+    /**
+     * From 睡不醒的鲤鱼
+     * "the sky is blue" 可以通过 "a good   example"不行
+     */
+    public static String reverseWords_5(String s) {
+        StringBuffer sb = new StringBuffer(s);
+        int start = 0;
+
+        for(int i = 0; i < sb.length(); i++){
+            if(sb.charAt(i) == ' ') {
+                continue;
+            }
+            int j = i;
+            int end = start;
+            while(j < sb.length() && sb.charAt(j) != ' '){
+                sb.setCharAt(end, sb.charAt(j));
+                end++;
+                j++;
+            }
+            reverseString(sb, start, end - 1);
+            if(end <= sb.length() - 1){
+                sb.setCharAt(end++, ' ');
+            }else{
+                sb.append(' ');
+            }
+            i = j;
+            start = end;
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        reverseString(sb, 0, sb.length() - 1);
+        return sb.toString();
     }
     /**
      * 解法1: 不使用Java内置方法实现. 先整体反转再局部反转
