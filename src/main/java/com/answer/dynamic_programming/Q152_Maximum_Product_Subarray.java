@@ -37,7 +37,7 @@ public class Q152_Maximum_Product_Subarray {
         int[] fMax = new int[n]; // 右端点下标为 i 的子数组的最大乘积
         int[] fMin = new int[n]; // 右端点下标为 i 的子数组的最小乘积
         fMax[0] = fMin[0] = nums[0];
-
+        // 负负为正
         for (int i = 1; i < n; i++) {
             int x = nums[i];
             // 把 x 加到右端点为 i-1 的（乘积最大/最小）子数组后面，

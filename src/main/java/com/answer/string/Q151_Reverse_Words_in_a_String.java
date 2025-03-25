@@ -30,27 +30,27 @@ public class Q151_Reverse_Words_in_a_String {
         int start = 0;
 
         for(int i = 0; i < sb.length(); i++){
-            if(sb.charAt(i) == ' ') {
+            if(sb.charAt(i) == ' ') { // 跳过空格
                 continue;
             }
             int j = i;
             int end = start;
             while(j < sb.length() && sb.charAt(j) != ' '){
-                sb.setCharAt(end, sb.charAt(j));
+                sb.setCharAt(end, sb.charAt(j)); // 非空格字符向前移动
                 end++;
                 j++;
             }
-            reverseString(sb, start, end - 1);
+            reverseString(sb, start, end - 1); // 反转字符串
             if(end <= sb.length() - 1){
-                sb.setCharAt(end++, ' ');
+                sb.setCharAt(end++, ' '); // 加空格
             }else{
                 sb.append(' ');
             }
             i = j;
             start = end;
         }
-        sb.deleteCharAt(sb.length() - 1);
-        reverseString(sb, 0, sb.length() - 1);
+        sb.deleteCharAt(sb.length() - 1); // 删除最后一个空格
+        reverseString(sb, 0, sb.length() - 1); // 整体反转
         return sb.toString();
     }
     /**
