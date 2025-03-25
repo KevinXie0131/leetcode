@@ -6,6 +6,7 @@ public class Q49_Group_Anagrams {
     /**
      * Approach 1: Categorize by Sorted String
      * 排序法 (时间复杂度：NKlogK 空间复杂度：NK)
+     * 将每个字符串排序后的结果作为 key，对原字符串数组进行分组，最后提取分组结果即可。
      */
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();

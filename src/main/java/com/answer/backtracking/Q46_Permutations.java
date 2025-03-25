@@ -17,7 +17,7 @@ public class Q46_Permutations {
         Deque<Integer> path = new ArrayDeque<>();
         int[] used = new int[nums.length]; // 排列问题需要一个used数组，标记已经选择的元素
 
-        backtracking(nums, used, result, path);
+        backtracking(nums, used, result, path);// 回溯法，维护两个数组，分别记录当前排列和每个数字的使用情况，之后枚举每个位置可能出现的数字即可
         return result;
     }
 

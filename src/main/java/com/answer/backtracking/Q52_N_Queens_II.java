@@ -54,6 +54,7 @@ public class Q52_N_Queens_II {
     /**
      * 参考Q51. N-Queens
      * 方法2：使用boolean数组表示已经占用的直(斜)线
+     * 本题与 Q51. N 皇后 解法完全一致，只需把统计组合方案改为统计数量即可。
      */
     int number = 0;
     boolean[] usedCol, usedDiag45, usedDiag135;    // boolean数组中的每个元素代表一条直(斜)线

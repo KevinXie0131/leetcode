@@ -9,7 +9,10 @@ public class Q54_Spiral_Matrix {
         List<Integer> r = spiralOrder(matrix);
         System.out.println(r);
     }
-    // 模拟题
+    /**
+     * 模拟题
+     * 维护未遍历数据的上下左右的边界，每次循环获取最外侧一圈边界上的数据，遍历结束后将边界向中心移动，直至边界相交结束循环。
+     */
    static public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> result = new ArrayList<Integer>();
 

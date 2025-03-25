@@ -21,7 +21,7 @@ public class Q55_Jump_Game {
      */
     public static boolean canJump(int[] nums) {
         if(nums.length == 1) return true;  // 只有一个元素，就是能达到
-
+        // 遍历数组的同时维护一个当时能走到的最远位置，若不能到达此时下标，则说明不能到达最后一个下标，直接返回即可。
         int cover = 0; // 当前能够到达的最远下标
 
         for(int i = 0; i < nums.length; i++){

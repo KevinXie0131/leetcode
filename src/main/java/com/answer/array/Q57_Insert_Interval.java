@@ -11,6 +11,7 @@ public class Q57_Insert_Interval {
     }
     /**
      * Approach 1: Linear Search 模拟
+     * 由于原区间列表是无重叠的，因此只要找到与插入区间重叠的区间进行合并即可。
      */
     public int[][] insert(int[][] intervals, int[] newInterval) {
         LinkedList<int[]> merged = new LinkedList<>();

@@ -14,6 +14,9 @@ public class Q47_Permutations_II {
      * ⼀般来说：组合问题和排列问题是在树形结构的叶⼦节点上收集结果，⽽⼦集问题就是取树上所有节点的结果
      * 时间复杂度:  O(n! * n) 最差情况所有元素都是唯一的。复杂度和全排列1都是 O(n! * n) 对于 n 个元素一共有 n! 中排列方案。而对于每一个答案，我们需要 O(n) 去复制最终放到 result 数组
      * 空间复杂度: O(n) 回溯树的深度取决于我们有多少个元素
+     *
+     * 本题与 Q46. 全排列 类似，要去除不重复排列，只需要保证重复元素的相对顺序不变，即按序使用重复元素。
+     * 因此，在循环时增加判断前一个相等元素是否被使用，如果未被使用说明是乱序，跳过即可。
      */
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();

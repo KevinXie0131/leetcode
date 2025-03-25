@@ -71,6 +71,7 @@ public class Q51_N_Queens_Hard {
     }
     /**
      * 方法2：使用boolean数组表示已经占用的直(斜)线
+     * 使用 3 个布尔数组记录列、对角线、反对角线是否存在皇后，在回溯时选择三者不存在的格子放置皇后
      */
     List<List<String>> res1 = new ArrayList<>();
     boolean[] usedCol, usedDiag45, usedDiag135;    // boolean数组中的每个元素代表一条直(斜)线

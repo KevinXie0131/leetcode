@@ -1,7 +1,20 @@
 package com.answer.string;
 
 public class Q58_Length_of_Last_Word {
-
+    /**
+     * 双指针
+     * 从后向前遍历字符串，找到第一个非空字符的位置，之后继续向前遍历，直到遇到空格位置，
+     * 记录两个位置的间隔，即为最后一个单词的长度。
+     */
+    public int lengthOfLastWord_2(String s) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == ' ') continue;
+            int j = i - 1;
+            while (j >= 0 && s.charAt(j) != ' ') j--;
+            return i - j;
+        }
+        return 0;
+    }
     /**
      * Approach 1: String Index Manipulation
      */
