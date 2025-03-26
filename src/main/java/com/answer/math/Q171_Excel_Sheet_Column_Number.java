@@ -1,9 +1,19 @@
 package com.answer.math;
 
 public class Q171_Excel_Sheet_Column_Number {
-
+    /**
+     * Refer to Q168 Excel Sheet Column Title
+     * For example:
+     * A -> 1
+     * B -> 2
+     * C -> 3
+     * ...
+     * Z -> 26
+     * AA -> 27
+     * AB -> 28
+     */
     public static void main(String[] args) {
-        String s = "AB";
+        String s = "AB"; // 26^1 * 1 + 26^0 * 2 = 28
         System.out.println(titleToNumber(s));
     }
 
