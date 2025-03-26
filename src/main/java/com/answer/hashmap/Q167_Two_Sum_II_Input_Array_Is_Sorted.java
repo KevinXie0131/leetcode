@@ -10,11 +10,18 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
      */
     /**
      * Two points
+     *
+     * already sorted in non-decreasing order
+     * Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+     * Your solution must use only constant extra space.
+     *
+     * Time Complexity O(n)
+     * Space Complexity O(1)
      */
     public int[] twoSum(int[] numbers, int target) {
         int i = 0;
         int j = numbers.length - 1;
-        while(i<j){
+        while(i < j){
             int sum = numbers[i] + numbers[j];
 
             if(sum == target){
@@ -30,9 +37,11 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
     }
     /**
      * Binary Search
+     * Time Complexity O(nlogn)
+     * Space Complexity O(1)
      */
     public int[] twoSum_1(int[] numbers, int target) {
-        for(int i = 0;i< numbers.length; i++){
+        for(int i = 0; i< numbers.length; i++){
             int left = i + 1;
             int right = numbers.length - 1;
             while(left <= right){
@@ -51,6 +60,8 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
     }
     /**
      * Q1 TWo Sum的Hashmap方法也可以
+     * Time Complexity O(n)
+     * Space Complexity O(n)
      */
     public int[] twoSum3(int[] numbers, int target) {
         Map<Integer, Integer> map = new HashMap<>();

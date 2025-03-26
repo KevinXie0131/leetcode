@@ -1,12 +1,10 @@
 package com.answer.array;
 
 public class Q165_Compare_Version_Numbers {
-
     public static void main(String[] args) {
         System.out.println(Integer.parseInt("001"));
         System.out.println(Double.parseDouble("11.2"));
     }
-
     /**
      * Approach 1: Split + Parse, Two Pass
      */
@@ -33,7 +31,6 @@ public class Q165_Compare_Version_Numbers {
 
         return 0;
     }
-
     /**
      * Approach 2: Two Pointers, One Pass
      */
@@ -47,17 +44,15 @@ public class Q165_Compare_Version_Numbers {
                 num1 = num1 * 10 + (version1.charAt(i) - '0');
                 i++;
             }
+            i++;
             while(j < m && version2.charAt(j) != '.'){
                 num2 = num2 * 10 + (version2.charAt(j) - '0');
                 j++;
             }
-
+            j++;
             if(num1 != num2){
                 return num1 > num2 ? 1 : -1;
             }
-
-            i++;
-            j++;
         }
 
         return 0;
