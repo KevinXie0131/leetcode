@@ -12,7 +12,7 @@ public class Q119_Pascal_Triangle_II {
         System.out.println(getRow1(5));
     }
     /**
-     * 由 0118. 杨辉三角 可知，每个数字只和前一行的数字有关，所以可以通过滚动数组来对结果迭代更新，这样可以把空间复杂度优化到O(n)
+     * 由 Q118. 杨辉三角 可知，每个数字只和前一行的数字有关，所以可以通过滚动数组来对结果迭代更新，这样可以把空间复杂度优化到O(n)
      */
     static public List<Integer> getRow1(int rowIndex) {
         List<List<Integer>> ans = new ArrayList<List<Integer>>();

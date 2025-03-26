@@ -5,6 +5,7 @@ import java.util.*;
 public class Q118_Pascal_Triangle {
     /**
      * 杨辉三角
+     * 每个数字由上一行的当前列数字和上一行的左侧数字相加得到，模拟这个过程就可以得到每一行的结果了。
      */
     public static void main(String[] args) {
         System.out.println(generate(4));

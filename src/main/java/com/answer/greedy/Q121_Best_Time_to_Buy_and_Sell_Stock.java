@@ -48,7 +48,7 @@ public class Q121_Best_Time_to_Buy_and_Sell_Stock {
     public int maxProfit_1(int[] prices) {
         int cost = Integer.MAX_VALUE;
         int profit = 0;
-
+        // 枚举每个位置，在与历史最低价差值最大的价格卖出。
         for(int price : prices){
             cost = Math.min(cost, price);  // 取最左最小价格
             profit = Math.max(profit, price - cost); // 减去前面的最小值  直接取最大区间利润

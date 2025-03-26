@@ -59,6 +59,9 @@ public class Q131_Palindrome_Partitioning {
     }
     /**
      * 回溯+动态规划优化回文串判断
+     *
+     * DFS 枚举每个子串的分割位置，而分割的依据就是保证当前子串是一个回文串，所以这就需要频繁的对任意截取的一个子串进行检查。
+     * 为了提高运行效率，可以在 DFS 之前预处理一个状态数组 f[i][j]，用来表示字符串 s[i] 到 s[j] 这部分子串是不是一个回文串。
      */
     List<List<String>> result1;
     LinkedList<String> path1;

@@ -18,8 +18,8 @@ public class Q122_Best_Time_to_Buy_and_Sell_Stock_II {
      */
     public int maxProfit(int[] prices) { // 局部最优：收集每天的正利润，全局最优：求得最大利润。
         int profit = 0;
-
-            for(int i = 1; i < prices.length; i++){
+        // 将每个价格上升的子区间相加即可。
+        for(int i = 1; i < prices.length; i++){
             if(prices[i] - prices[i - 1] > 0){ // 将前后两天的利润相加
                 profit += prices[i] - prices[i - 1]; // Math.max(prices[i + 1] - prices[i], 0); // 也可以
             }

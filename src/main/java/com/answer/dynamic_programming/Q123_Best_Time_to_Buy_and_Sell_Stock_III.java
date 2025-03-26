@@ -164,4 +164,28 @@ public class Q123_Best_Time_to_Buy_and_Sell_Stock_III {
 
         return result;
     }
+    /**
+     * 前后缀分解，预处理左右两侧数组进行一笔交易的最大利润，预处理方法同 Q121. 买卖股票的最佳时机，找到两笔交易利润和的最大值即可。
+     */
+    public int maxProfit_6(int[] prices) {
+        int n = prices.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+
+        for (int i = 1, minPrice = prices[0]; i < n; i++) {
+            left[i] = Math.max(left[i - 1], prices[i] - minPrice);
+            minPrice = Math.min(minPrice, prices[i]);
+        }
+
+        for (int i = n - 2, maxPrice = prices[n - 1]; i >= 0; i--) {
+            right[i] = Math.max(right[i + 1], maxPrice - prices[i]);
+            maxPrice = Math.max(maxPrice, prices[i]);
+        }
+
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans = Math.max(ans, left[i] + right[i]);
+        }
+        return ans;
+    }
 }

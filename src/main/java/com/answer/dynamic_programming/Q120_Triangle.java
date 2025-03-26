@@ -65,6 +65,8 @@ public class Q120_Triangle {
     /**
      * 另一种形式
      * 从下到上遍历，可以避免最后在最下一层遍历找最小值
+     *
+     * 从下到上递推，可以避免边界处理，同时可以看到每个位置只和下一行的状态有关，所以可以将状态数组压缩至一维。
      */
     public int minimumTotal_4(List<List<Integer>> triangle) {
         int n = triangle.size();
