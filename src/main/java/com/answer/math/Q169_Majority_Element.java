@@ -3,6 +3,7 @@ package com.answer.math;
 import java.util.*;
 
 public class Q169_Majority_Element {
+    // Follow-up: Could you solve the problem in linear time and in O(1) space?
     public static void main(String[] args) {
         int[] nums = {2,2,1,1,1,2,2};
         int res = majorityElement_0(nums);
@@ -83,19 +84,18 @@ public class Q169_Majority_Element {
         Arrays.sort(nums); // 需要排序
         return nums[nums.length / 2];
     }
-
     /**
-     * Boyer-Moore Voting Algorithm
+     * Boyer-Moore Voting Algorithm 摩尔投票算法: 通过消除不同元素之间的对抗来找到可能的多数元素
      */
     public int majorityElement_2(int[] nums) {
-        int a=nums[0],b=1;
-        for(int i=1;i<nums.length;i++){
-            if(a==nums[i])b++;
+        int a = nums[0], b = 1;
+        for(int i=1; i < nums.length; i++){
+            if(a == nums[i]) b++;
             else{
                 b--;
-                if(b==0){
-                    a=nums[i];
-                    b=1;
+                if(b == 0){
+                    a = nums[i];
+                    b = 1;
                 }
             }
         }
