@@ -56,6 +56,7 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
      *             5
      *              \
      *               6
+     * 从每个节点的左孩子向右找到最后一个节点，然后通过这部分子链将左子树合并到右子树上，直到每个节点都完成合并。
      */
     public void flatten0(TreeNode root) {
         while (root != null) {

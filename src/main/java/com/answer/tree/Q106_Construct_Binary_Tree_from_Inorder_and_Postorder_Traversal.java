@@ -96,6 +96,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
     }
     /**
      * 同上
+     * 后序序列的最后一个节点就是根节点，依此可以对两序列进行划分，得到左右子树的后序序列和中序序列，进而递归构建左右子树。
      */
     int post_idx;
     int[] postorder;

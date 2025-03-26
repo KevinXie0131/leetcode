@@ -31,7 +31,7 @@ public class Q113_Path_Sum_II {
         dfs(root, targetSum); // 把根节点放进路径
         return result;
     }
-
+    // 使用 dfs 来搜索二叉树的每个分支，当搜索到叶子结点时，如果路径和等于目标值，把它加入结果就可以了。
     public void dfs(TreeNode root, int targetSum){ // 递归函数不需要返回值，因为我们要遍历整个树
         if (root == null) return;
 

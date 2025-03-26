@@ -15,7 +15,9 @@ public class Q102_Binary_Tree_Level_Order_Traversal {
         if (root == null) {
             return list;
         }
-        //BFS--迭代方式--借助队列
+        // BFS--迭代方式--借助队列
+        // 通过一个队列来辅助操作，队列中存储的是当前层的所有节点，每次循环把队列中的当前全部节点弹出，并把弹出节点的左右孩子再加入队列，
+        // 这样当一次循环结束，就完成了当前层节点的遍历以及下层节点的入队。
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
         while (!queue.isEmpty()) {

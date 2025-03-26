@@ -10,7 +10,7 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II {
      * 相对于102.二叉树的层序遍历，就是最后把result数组反转一下就可以了
      *
      * 解法：队列，迭代。
-     * 层序遍历，再翻转数组即可。
+     * 在层序遍历的基础上, 将遍历结果翻转即可。
      */
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();

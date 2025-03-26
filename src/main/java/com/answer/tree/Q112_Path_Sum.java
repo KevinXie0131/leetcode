@@ -13,6 +13,7 @@ public class Q112_Path_Sum {
      * 说明: 叶⼦节点是指没有⼦节点的节点
      *
      * 递归
+     * 可将问题转化为判断左子树或者右子树是否存在一个节点和为 target - val 的路径。
      */
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null) return false;

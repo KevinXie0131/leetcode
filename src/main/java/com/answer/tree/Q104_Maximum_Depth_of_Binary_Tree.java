@@ -25,7 +25,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         //                    深度最⼤的数值 再+1 （加1是因为算上当前中间节点）就是⽬前节点为根节点的树的深度
         int left = maxDepth(root.left);    // 左
         int right = maxDepth(root.right);  // 右
-        return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度
+        return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度 / 二叉树的最大深度为左右子树的最大深度加一得到。
     }
     /**
      * 代码精简

@@ -16,6 +16,7 @@ public class Q101_Symmetric_Tree {
     }
     /**
      * 使用的遍历方式，左子树左右中，右子树右左中，所以我把这个遍历顺序也称之为“后序遍历”（尽管不是严格的后序遍历）
+     * 判断轴对称，可以看作是判断根节点的左右子树是否镜像，dfs 判断即可。
      */
     public boolean dfs(TreeNode left, TreeNode right) {
         // 确定终止条件

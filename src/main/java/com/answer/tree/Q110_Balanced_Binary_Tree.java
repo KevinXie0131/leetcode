@@ -47,6 +47,7 @@ public class Q110_Balanced_Binary_Tree {
     }
     /**
      * 代码精简 递归法
+     * 使用后序遍历，先检查左右子树是否是平衡的，然后判断高度差。
      */
     public boolean isBalanced1(TreeNode root) {
         return getHeight1(root) != -1 ? true: false;

@@ -21,9 +21,9 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
         TreeNode root = traversal(nums, 0, nums.length - 1); // 定义的区间为左闭右闭区间[left, right]
         return root;
     }
-
     /**
-     * 1-> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+     * 每次选择中间节点作为根节点，然后递归对左右子树构造即可。
+     *  1-> 2 -> 3 -> 4 -> 5 -> 6 -> 7
      *           4
      *        /    \
      *       2      6

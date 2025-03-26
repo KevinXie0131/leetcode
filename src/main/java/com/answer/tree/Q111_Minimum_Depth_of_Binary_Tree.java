@@ -40,7 +40,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
     /**
      * 递归 优化
      * 递归法，相比求MaxDepth要复杂点
-     *  因为最小深度是从根节点到最近**叶子节点**的最短路径上的节点数量
+     * 因为最小深度是从根节点到最近**叶子节点**的最短路径上的节点数量
      */
     public int minDepth(TreeNode root) {
         if (root == null) {
@@ -154,6 +154,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
             while (size > 0) {
                 TreeNode cur = queue.poll();
                 // 需要注意的是，只有当左右孩子都为空的时候，才说明遍历到最低点了。如果其中一个孩子不为空则不是最低点
+                // 层序遍历，当遇到第一个叶子结点时，返回对应深度。
                 if (cur.left == null && cur.right == null) {
                     result = Math.min(result, depth); // 当左右孩⼦都为空的时候，说明是最低点的⼀层了，退出
                 }

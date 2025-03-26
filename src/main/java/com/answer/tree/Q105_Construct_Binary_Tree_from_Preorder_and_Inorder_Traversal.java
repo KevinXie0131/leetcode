@@ -92,7 +92,8 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
         return root;
     }
     /**
-     *
+     * 二叉树的根节点就是前序序列的第一个节点，这样就可以把中序序列拆分成两部分，根节点前面就是左子树，后面就是右子树，
+     * 那么就知道了左右子树的节点数量，依此就可以对前序序列也进行拆分，这样左右子树的前序、中序序列都知道了，递归构建左右子树就可以了。
      */
     int pre_idx;
     int[] preorder;
