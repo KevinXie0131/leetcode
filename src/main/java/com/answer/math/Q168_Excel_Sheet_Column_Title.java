@@ -6,7 +6,6 @@ public class Q168_Excel_Sheet_Column_Title {
         String s = convertToTitle_1(columnNumber);
         System.out.println(s);
     }
-
     /**
      * For example:
      * A -> 1
@@ -27,8 +26,8 @@ public class Q168_Excel_Sheet_Column_Title {
 
         return sb.reverse().toString();
     }
-
     /**
+     * From 睡不醒的鲤鱼
      * A -> 1 (0)
      * ...
      * Z -> 26 (25)
