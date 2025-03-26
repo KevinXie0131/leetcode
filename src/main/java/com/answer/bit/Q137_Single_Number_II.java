@@ -3,6 +3,7 @@ package com.answer.bit;
 public class Q137_Single_Number_II {
     /**
      * 二进制
+     * 统计所有数字每一位中 1 的数量，如果可以整除 3，说明结果这一位为 0，否则为 1。
      */
     public int singleNumber(int[] nums) {
         int ans = 0;

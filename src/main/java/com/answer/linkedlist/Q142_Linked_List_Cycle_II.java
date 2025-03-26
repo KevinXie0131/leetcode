@@ -12,6 +12,8 @@ public class Q142_Linked_List_Cycle_II {
     }
     /**
      * fast-slow pointers 快慢指针
+     * 两个指针，fast 与 slow。它们起始都位于链表的头部。随后，slow 指针每次向后移动一个位置，而 fast 指针向后移动两个位置。如果链表中存在环，则 fast 指针最终将再次与 slow 指针在环中相遇。
+     * 只需要再定义两个指针，分别从相遇节点和头节点出发，那么一定会在环入口处相遇
      */
     public static ListNode detectCycle(ListNode head) {
         ListNode fast = head, slow = head;

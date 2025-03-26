@@ -89,6 +89,7 @@ public class Q143_Reorder_List {
      * Reverse the Second Part of the List.
      * Merge Two Sorted Lists.
      * 方法三: 将链表分割成两个链表，然后把第二个链表反转，之后在通过两个链表拼接成新的链表。
+     * 将链表从中间分成两部分，将后部分链表反转，然后同时遍历两链表进行拼接。
      */
     public void reorderList_1(ListNode head) {
         ListNode fast = head, slow = head;

@@ -42,6 +42,7 @@ public class Q145_Binary_Tree_Postorder_Traversal {
     /**
      * 遍历 (迭代法) 模板
      * 参考Q144 Binary Tree Preorder Traversal
+     * 按照 “中右左” 的顺序进行前序遍历，最后再将结果翻转即可。
      */
     public List<Integer> postorderTraversal_1(TreeNode node) {
         List<Integer> list =  new ArrayList<>();

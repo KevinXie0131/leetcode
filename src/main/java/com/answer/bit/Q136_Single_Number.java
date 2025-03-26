@@ -15,7 +15,7 @@ public class Q136_Single_Number {
         int single = 0;
         for(int n : nums){
         //    single ^= n;
-            single = single ^ n;
+            single = single ^ n; // 将数组中所有数字做异或，两两消除，最终剩下的就是只出现一次的元素。
         }
         return single;
     }

@@ -37,6 +37,7 @@ public class Q144_Binary_Tree_Preorder_Traversal {
     /**
      * 遍历 (迭代法) 模板
      * 参考Q94 Binary Tree Inorder Traversal
+     * 不断向左孩子移动，每遇到一个节点就把它加入结果，同时把当前节点入栈，直到空节点，把栈顶节点出栈并移动到出栈节点的右孩子，重复这个过程。
      */
     public List<Integer> preorderTraversal_1(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();

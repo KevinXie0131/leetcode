@@ -47,6 +47,7 @@ public class Q135_Candy {
     }
     /**
      * 另一种形式
+     * 根据每个孩子左（右）侧比当前孩子得分低的相邻单调递增（减）区间内的孩子数量，确定能分配的最少糖果数量，最后累加即可。
      */
    static public int candy1(int[] ratings) {
         int[] left  = new int[ratings.length];

@@ -92,7 +92,7 @@ public class Q131_Palindrome_Partitioning {
             }
         }
     }
-    //通过动态规划判断是否是回文串,参考动态规划篇 52 回文子串
+    //通过动态规划判断是否是回文串,参考动态规划 Q125 Valid Palindrome 回文子串
     public void isPalindrome1(char[] str) {
         for (int i = 0; i <= str.length; ++i) {
             dp[i][i] = true;

@@ -30,7 +30,7 @@ public class Q140_Word_Break_II {
         backtrack(s, 0, new LinkedList<>());
         return res;
     }
-
+    // DFS 枚举字典中出现的单词
     private static void backtrack(String s, int start, LinkedList<String> track) {
         if(start == s.length()){
             res.add(String.join(" ", track));

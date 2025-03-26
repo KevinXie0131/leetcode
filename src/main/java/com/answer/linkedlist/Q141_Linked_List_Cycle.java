@@ -5,6 +5,7 @@ import java.util.Set;
 
 public class Q141_Linked_List_Cycle {
     /**
+     * 本题是 Q142. 环形链表 II 的简化版，只需判断快慢指针能否相遇即可。
      * fast-slow pointers
      * 快慢指针法， 分别定义 fast 和 slow指针，从头结点出发，fast指针每次移动两个节点，slow指针每次移动一个节点，如果 fast 和 slow指针在途中相遇 ，说明这个链表有环。
      */
