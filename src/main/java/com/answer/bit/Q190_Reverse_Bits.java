@@ -7,7 +7,6 @@ public class Q190_Reverse_Bits {
         System.out.println(decimal);
         System.out.println(reverseBits_0(decimal));
     }
-
     /**
      * Approach 1: Bit by Bit - Time Limit Exceeded for 11111111111111111111111111111101
      */
@@ -23,14 +22,13 @@ public class Q190_Reverse_Bits {
         }
         return (int)ret;
     }
-
     /**
      * 一个简单的做法是对输入的n做诸位检查。
      * 如果某一位是1的话，则将答案相应的对称位置修改为1
      */
     public static int reverseBits_0(int n) {
         int ans = 0;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < 32; i++) { // 32 bits unsigned integer
             int t = (n >> i) & 1;
             if (t == 1) {
                 ans |= (1 << (31 - i));
