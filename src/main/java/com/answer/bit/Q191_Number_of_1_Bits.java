@@ -50,4 +50,14 @@ public class Q191_Number_of_1_Bits {
         }
         return count;
     }
+    /**
+     * 向右诸位移动32次，再判断是否为1
+     */
+    public int hammingWeight_3(int n) {
+        int ans = 0;
+        for (int i = 0; i < 32; i++) {
+            ans += (n >> i) & 1;
+        }
+        return ans;
+    }
 }
