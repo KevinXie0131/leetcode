@@ -9,6 +9,9 @@ import java.util.Deque;
 public class Q173_Binary_Search_Tree_Iterator_1 {
     /**
      * Approach 2: Controlled Recursion
+     * 本质是中序遍历
+     * 参考Q94 Binary Tree Inorder Traversal
+     * 将中序遍历 (迭代法) 模板分解到各函数中
      */
     private TreeNode cur;
     private Deque<TreeNode> stack;
