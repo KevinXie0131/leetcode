@@ -23,6 +23,7 @@ public class Q200_Number_of_Islands {
     }
     /**
      * 深度优先搜索
+     * Flood fill
      */
     public int numIslands1(char[][] grid) {
         int m = grid.length;

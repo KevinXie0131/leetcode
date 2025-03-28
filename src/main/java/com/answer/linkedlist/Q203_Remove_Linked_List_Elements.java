@@ -25,7 +25,7 @@ public class Q203_Remove_Linked_List_Elements {
      */
     public static ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1 , head);
-        ListNode pre = dummy; // 使用dummy节点
+        ListNode pre = dummy; // 使用dummy节点 (因为头节点也有可能被删)
         ListNode cur = head;
 
         while(cur != null){

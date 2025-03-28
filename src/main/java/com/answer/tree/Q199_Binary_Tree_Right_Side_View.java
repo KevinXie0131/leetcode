@@ -36,11 +36,8 @@ public class Q199_Binary_Tree_Right_Side_View {
                 if (cur.right != null) {queue.offer(cur.right);}
 
                 size--;
-
             }
-
         }
-
         return list;
     }
 }
