@@ -79,7 +79,7 @@ public class Q56_Merge_Intervals {
         if (intervals.length == 0 || intervals == null) {
             return res.toArray(new int[0][]);
         }
-        // 对起点终点进行排序
+        // 按照左端点从小到大排序
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         int i = 0;
         while (i < intervals.length) {

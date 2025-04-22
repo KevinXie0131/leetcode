@@ -18,20 +18,20 @@ public class Q57_Insert_Interval {
         int index = 0;
         int len = intervals.length;
         // 步骤一：找到需要合并的区间
-        while(index < len && intervals[index][1] < newInterval[0]){ //  左边的，不重叠的区间
+        while (index < len && intervals[index][1] < newInterval[0]) { //  左边的，不重叠的区间
             merged.add(intervals[index]);
             index++;
         }
         // 当前遍历是有重叠的区间
         // 步骤二： 接着判断当前区间是否与新区间重叠，重叠的话就进行合并，直到遍历到当前区间在新区间的右边且相离，
-        while(index < len && intervals[index][0] <= newInterval[1]){ // 将所有相交区间连带上区间newInterval合并成一个大区间；
+        while (index < len && intervals[index][0] <= newInterval[1]) { // 将所有相交区间连带上区间newInterval合并成一个大区间；
             newInterval[0] = Math.min(newInterval[0], intervals[index][0]); //左端取较小者
             newInterval[1] = Math.max(newInterval[1], intervals[index][1]); //右端取较大者
             index++;
         }
         merged.add(newInterval);
         // 步骤三：处理合并区间之后的区间
-        while(index < len){  // 右边，没重叠的区间
+        while (index < len) {  // 右边，没重叠的区间
             merged.add(intervals[index]);
             index++;
         }
@@ -57,7 +57,7 @@ public class Q57_Insert_Interval {
             if(index == -1 || res[index][1] < interval[0]){ // 开始时间比结束时间大
                 index++;
                 res[index] = interval; // 没有overlapping, 直接放入
-            }else{ // 开始时间比结束时间小
+            } else { // 开始时间比结束时间小
                 res[index][1] = Math.max(res[index][1], interval[1]); // 有overlapping，应该merge
             }
         }
@@ -81,7 +81,7 @@ public class Q57_Insert_Interval {
             int[] last = result.size() == 0 ? new int[]{-1, -1} : result.get(result.size() - 1);
             if (result.isEmpty() || last[1] < interval[0]) {
                 result.add(interval);
-            }else{ // 开始时间比结束时间小
+            } else { // 开始时间比结束时间小
                 last[1] = Math.max(last[1], interval[1]);
             }
         }

@@ -56,6 +56,7 @@ public class Q31_Next_Permutation {
     }
     /**
      * 优化时间复杂度为O(N)，空间复杂度为O(1)
+     * 必须 原地 修改，只允许使用额外常数空间。The replacement must be in place and use only constant extra memory.
      */
     public void nextPermutation_2(int[] nums) {
         // 1.从后向前获取逆序区域的前一位
@@ -70,25 +71,25 @@ public class Q31_Next_Permutation {
     }
 
     public static int findIndex(int [] nums){
-        for(int i = nums.length-1;i>0;i--){
-            if(nums[i]>nums[i-1]){
+        for(int i = nums.length - 1; i > 0; i--){
+            if(nums[i] > nums[i - 1]){
                 return i;
             }
         }
         return 0;
     }
     public static void exchange(int [] nums, int index){
-        int head = nums[index-1];
-        for(int i = nums.length-1;i>0;i--){
+        int head = nums[index - 1];
+        for(int i = nums.length - 1; i > 0; i--){
             if(head < nums[i]){
-                nums[index-1] = nums[i];
+                nums[index - 1] = nums[i];
                 nums[i] = head;
                 break;
             }
         }
     }
     public static void reverse1(int [] nums, int index){
-        for(int i = index,j = nums.length-1;i<j;i++,j--){
+        for(int i = index, j = nums.length - 1; i < j; i++, j--){
             int temp = nums[i];
             nums[i] = nums[j];
             nums[j] = temp;
@@ -96,23 +97,27 @@ public class Q31_Next_Permutation {
     }
     /**
      * Approach 2: Single Pass Approach
+     * 将后面的「大数」与前面的「小数」交换，就能得到一个更大的数, 还希望下一个数 增加的幅度尽可能的小，这样才满足“下一个排列与当前排列紧邻“的要求
+     *      在 尽可能靠右的低位 进行交换，需要 从后向前 查找
+     *      将一个 尽可能小的「大数」 与前面的「小数」交换。
+     *      将「大数」换到前面后，需要将「大数」后面的所有数 重置为升序，升序排列就是最小的排列
      */
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
-        while(i >= 0 && nums[i] >= nums[i + 1]){
+        while(i >= 0 && nums[i] >= nums[i + 1]){ // 从后向前 查找第一个 相邻升序 的元素对 (i,j)，满足 A[i] < A[j]。此时 [j,end) 必然是降序
             i--;
         }
 
         if(i >= 0){
             int j = nums.length - 1;
-            while(j >= 0 && nums[i] >= nums[j]){
+            while(j >= 0 && nums[i] >= nums[j]){ // 在 [j,end) 从后向前 查找第一个满足 A[i] < A[k] 的 k。A[i]、A[k] 分别就是上文所说的「小数」、「大数」
                 j--;
             }
 
-            swap(nums, i, j);
+            swap(nums, i, j); // 将 A[i] 与 A[k] 交换
         }
 
-        reverse(nums, i + 1);
+        reverse(nums, i + 1); // 可以断定这时 [j,end) 必然是降序，逆置 [j,end)，使其升序
     }
 
     public void swap(int[] nums, int i, int j) {

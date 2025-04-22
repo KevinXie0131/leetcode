@@ -23,7 +23,7 @@ public class Q6_Zigzag_Conversion {
         int flag = -1;
         for(char c : s.toCharArray()){
             list.get(i).append(c);
-            if(i == 0 || i == numRows-1){ // 首行和最后行 需要改变方向
+            if(i == 0 || i == numRows - 1){ // 首行和最后行 需要改变方向
                 flag = -flag;
             }
             i += flag; // i为当前行数

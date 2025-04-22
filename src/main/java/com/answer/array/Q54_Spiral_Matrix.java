@@ -44,7 +44,8 @@ public class Q54_Spiral_Matrix {
         return result;
     }
     /**
-     *
+     * Anther form
+     * 顺时针打印矩阵的顺序是 “从左向右、从上向下、从右向左、从下向上” 循环
      */
     public List<Integer> spiralOrder_1(int[][] matrix) {
         List<Integer> result = new ArrayList<Integer>();
