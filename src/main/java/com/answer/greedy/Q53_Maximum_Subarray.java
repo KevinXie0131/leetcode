@@ -2,8 +2,10 @@ package com.answer.greedy;
 
 public class Q53_Maximum_Subarray {
     public static void main(String[] args) {
-        int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
-        System.out.println(maxSubArray0(nums));
+       // int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+       // int[] nums = {5,4,-1,7,8};
+       int[] nums = {-2,-1};
+        System.out.println(maxSubArray_5(nums));
     }
     /**
      * Approach 3: Divide and Conquer (Advanced) 分治法 提交后右Time Limit Exceeded
@@ -109,5 +111,36 @@ public class Q53_Maximum_Subarray {
             res = Math.max(res, pre);
         }
         return res;
+    }
+    /**
+     * 前缀和
+     * 由于子数组的元素和等于两个前缀和的差，所以求出 nums 的前缀和，问题就变成 121. 买卖股票的最佳时机 了。
+     * 本题子数组不能为空，相当于一定要交易一次。
+     *
+     * 我们可以一边遍历数组计算前缀和，一边维护前缀和的最小值（相当于股票最低价格），
+     * 用当前的前缀和（卖出价格）减去前缀和的最小值（买入价格），就得到了以当前元素结尾的子数组和的最大值（利润），
+     * 用它来更新答案的最大值（最大利润）。
+     *
+     * 请注意，由于题目要求子数组不能为空，应当先计算前缀和-最小前缀和，再更新最小前缀和。相当于不能在同一天买入股票又卖出股票。
+     */
+    public static int maxSubArray_5(int[] nums) {
+        int len = nums.length;
+        if(len == 1) return nums[0];
+
+        int[] prefixSum = new int[len + 1];
+        prefixSum[0] = 0;
+        for (int i = 0; i < len; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+
+        int min = 0;
+        int result = Integer.MIN_VALUE;
+
+        for (int i = 1; i < len + 1; i++) {
+            result = Math.max(result, prefixSum[i] - min);
+            min = Math.min(min, prefixSum[i]);
+        }
+
+        return result;
     }
 }
