@@ -1,11 +1,34 @@
 package com.answer.array;
 
 public class Q1055_Shortest_Way_to_Form_String {
+    /**
+     * From any string, we can form a subsequence of that string by deleting some number of characters (possibly no deletions).
+     * Given two strings source and target, return the minimum number of subsequences of source such that their concatenation equals target. If the task is impossible, return -1.
+     * Example 1:
+     *  Input: source = "abc", target = "abcbc"
+     *  Output: 2
+     *  Explanation: The target "abcbc" can be formed by "abc" and "bc", which are subsequences of source "abc".
+     * Example 2:
+     *  Input: source = "abc", target = "acdbc"
+     *  Output: -1
+     *  Explanation: The target string cannot be constructed from the subsequences of source string due to the character "d" in target string.
+     * Example 3:
+     *  Input: source = "xyz", target = "xzyxz"
+     *  Output: 3
+     *  Explanation: The target string can be constructed as follows "xz" + "y" + "xz".
+     *
+     * Constraints:
+     *  Both the source and target strings consist of only lowercase English letters from "a"-"z".
+     *  The lengths of source and target string are between 1 and 1000.
+     */
     public static void main(String[] args) {
-        String source = "xyz", target = "xzyxz";
-        System.out.println(shortestWay(source, target));
+        String source = "abc", target = "abcbc";
+        System.out.println(shortestWay_1(source, target));
+        String source1 = "abc", target1 = "acdbc";
+        System.out.println(shortestWay_1(source1, target1));
+        String source2 = "xyz", target2 = "xzyxz";
+        System.out.println(shortestWay_1(source2, target2));
     }
-
     /**
      * Approach 3: Two Pointers + Greedy
      *
@@ -21,7 +44,7 @@ public class Q1055_Shortest_Way_to_Form_String {
         int count = 0 ;
         while( j < str2.length){
             int prev = j ;
-            for(int i = 0 ; i < str1.length ; i++){
+            for(int i = 0 ; i < str1.length ; i++){ //
                 if( j < str2.length && str1[i] == str2[j]) {
                     j++;
                 }
@@ -33,5 +56,28 @@ public class Q1055_Shortest_Way_to_Form_String {
         }
 
         return count;
+    }
+    /**
+     * Two Pointers
+     */
+    public static int shortestWay_1(String source, String target) {
+        int m = source.length(), n = target.length();
+        int ans = 0, j = 0;
+        while (j < n) {
+            int i = 0;
+            boolean ok = false;
+            while (i < m && j < n) {
+                if (source.charAt(i) == target.charAt(j)) {
+                    ok = true;
+                    ++j;
+                }
+                ++i;
+            }
+            if (!ok) {
+                return -1;
+            }
+            ++ans;
+        }
+        return ans;
     }
 }
