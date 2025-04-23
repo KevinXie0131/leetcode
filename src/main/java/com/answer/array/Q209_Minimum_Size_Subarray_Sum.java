@@ -1,8 +1,19 @@
 package com.answer.array;
 
+import java.util.Arrays;
+
 public class Q209_Minimum_Size_Subarray_Sum {
+    public static void main(String[] args) {
+       int target = 7;
+       int[] nums = {2,3,1,2,4,3};
+        minSubArrayLen4(target,nums);
+    }
     /**
-     * 方法一：暴力法 Time Limit Exceeded 时间复杂度：O(n2) 效率很差
+     * subarray: A subarray is a contiguous non-empty sequence of elements within an array.
+     * 子数组 是数组中连续的 非空 元素序列。
+     *
+     * return the minimal length of a subarray whose sum is greater than or equal to target
+     * 方法一：暴力法 Time Limit Exceeded 时间复杂度：O(n^2) 效率很差
      */
     public int minSubArrayLen(int target, int[] nums) {
         int result = Integer.MAX_VALUE;
@@ -56,5 +67,82 @@ public class Q209_Minimum_Size_Subarray_Sum {
             }
         }
         return min == Integer.MAX_VALUE ? 0 : min;
+    }
+    /**
+     * 使用队列相减
+     * 第一种是使用相加的方式，这里我们改为相减的方式，基本原理都差不多，
+     */
+    public int minSubArrayLen6(int target, int[] nums) {
+        int lo = 0, hi = 0, min = Integer.MAX_VALUE;
+        while (hi < nums.length) {
+            target -= nums[hi++];
+            while (target <= 0) {
+                min = Math.min(min, hi - lo);
+                target += nums[lo++];
+            }
+        }
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
+    /**
+     * 前缀和 + 二分查找
+     * 因为这道题保证了数组中每个元素都为正，所以前缀和一定是递增的，这一点保证了二分的正确性。
+     * 如果题目没有说明数组中每个元素都为正，这里就不能使用二分来查找这个位置了。
+     *
+     * prefixSum数组中的元素是递增的。我们只需要找到 prefixSum[k]-prefixSum[j]>=s，那么 k-j 就是满足的连续子数组，
+     * 但不一定是最小的，所以我们要继续找，直到找到最小的为止
+     * 求 prefixSum[k]-prefixSum[j]>=target 我们可以求 prefixSum[j]+target<=prefixSum[k].
+     * 只需要求出 prefixSum[j]+target 的值，然后使用二分法查找即可找到这个 k。
+     *
+     *  Arrays.binarySearch
+     *    可以找到：返回一个 >=0 的索引
+     *    找不到：【从 1 开始计数】
+     *      在数组范围内，返回 -（key 将要插入的位置）
+ *          不在范围内：返回 -1 或者 -(len + 1)
+     */
+    static public int minSubArrayLen4(int target, int[] nums) {
+        int n = nums.length;
+        int[] prefixSum = new int[n + 1];
+        prefixSum[0] = 0;
+        for (int i = 0; i < n; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+        // 得到前缀和之后，对于每个开始下标 i，可通过二分查找得到大于或等于 i 的最小下标 bound，
+        // 使得 prefixSum[bound]−prefixSum[i−1] ≥ target，并更新子数组的最小长度（此时子数组的长度是 bound−(i−1)）。
+        int min  = Integer.MAX_VALUE;
+        for (int i = 1; i <= n; i++) {
+            int targetSum = target + prefixSum[i - 1];
+            int index  = Arrays.binarySearch(prefixSum, targetSum);
+            if (index  < 0) {
+               // index  = - index  - 1;
+                index = ~index;
+                // 注意这里的函数 int index = Arrays.binarySearch(sums, target);
+                // 如果找到就会返回值的下标，如果没找到就会返回一个负数，这个负数取反之后就是查找的值应该在数组中的位置
+                // 也可以这么理解，只要取反之后不是数组的长度，那么他就是原数组中第一个比他大的值的下标
+            }
+            if (index <= n ) {
+                min  = Math.min(min, index  - (i - 1));
+            }
+        }
+        return min  == Integer.MAX_VALUE ? 0 : min;
+    }
+    // 前缀和 Time Limit Exceeded
+    public int minSubArrayLen5(int target, int[] nums) {
+        int n = nums.length;
+        int[] prefixSum = new int[n + 1];
+        prefixSum[0] = 0;
+        for (int i = 0; i < n; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+
+        int ans = Integer.MAX_VALUE;
+        for (int i = 1; i <= n; i++) {
+            int targetSum = target + prefixSum[i - 1];
+            for(int j = i; j <= n; j++){
+                if(prefixSum[j] >= targetSum){
+                   ans = Math.min(ans, j - (i - 1));
+                }
+            }
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
     }
 }

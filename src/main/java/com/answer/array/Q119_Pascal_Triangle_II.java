@@ -7,9 +7,62 @@ public class Q119_Pascal_Triangle_II {
         System.out.println(getRow1(0));
         System.out.println(getRow1(1));
         System.out.println(getRow1(2));
-        System.out.println(getRow1(3));
+        System.out.println(getRow_5(3));
         System.out.println(getRow1(4));
         System.out.println(getRow1(5));
+    }
+    /**
+     * Approach 1: Brute Force Recursion
+     */
+    private int getNum(int row, int col) {
+        if (row == 0 || col == 0 || row == col) {
+            return 1;
+        }
+        return getNum(row - 1, col - 1) + getNum(row - 1, col);
+    }
+    public List<Integer> getRow_0(int rowIndex) {
+        List<Integer> ans = new ArrayList<>();
+
+        for (int i = 0; i <= rowIndex; i++) {
+            ans.add(getNum(rowIndex, i));
+        }
+        return ans;
+    }
+    /**
+     * Based on Q118
+     */
+    public List<Integer> getRow_4(int rowIndex) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        for (int i = 0; i <= rowIndex; ++i) {
+            List<Integer> row = new ArrayList<Integer>();
+            for (int j = 0; j <= i; ++j) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    row.add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
+                }
+            }
+            res.add(row);
+        }
+        return res.get(rowIndex);
+    }
+    /**
+     * 优化: 注意到对第 i+1 行的计算仅用到了第 i 行的数据，因此可以使用滚动数组的思想优化空间复杂度。
+     */
+    static public List<Integer> getRow_5(int rowIndex) {
+        List<Integer> res = new ArrayList<Integer>();
+        for (int i = 0; i <= rowIndex; ++i) {
+            List<Integer> cur = new ArrayList<Integer>();
+            for (int j = 0; j <= i; ++j) {
+                if (j == 0 || j == i) {
+                    cur.add(1);
+                } else {
+                    cur.add(res.get(j - 1) + res.get(j));
+                }
+            }
+            res = cur;
+        }
+        return res;
     }
     /**
      * 由 Q118. 杨辉三角 可知，每个数字只和前一行的数字有关，所以可以通过滚动数组来对结果迭代更新，这样可以把空间复杂度优化到O(n)
@@ -34,23 +87,6 @@ public class Q119_Pascal_Triangle_II {
             }
         }
         return ans.get(rowIndex % 2);
-    }
-    /**
-     * Approach 1: Brute Force Recursion
-     */
-    private int getNum(int row, int col) {
-        if (row == 0 || col == 0 || row == col) {
-            return 1;
-        }
-        return getNum(row - 1, col - 1) + getNum(row - 1, col);
-    }
-    public List<Integer> getRow_0(int rowIndex) {
-        List<Integer> ans = new ArrayList<>();
-
-        for (int i = 0; i <= rowIndex; i++) {
-            ans.add(getNum(rowIndex, i));
-        }
-        return ans;
     }
     /**
      * Dynamic Programming
