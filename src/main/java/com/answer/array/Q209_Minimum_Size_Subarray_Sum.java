@@ -106,8 +106,8 @@ public class Q209_Minimum_Size_Subarray_Sum {
         for (int i = 0; i < n; i++) {
             prefixSum[i + 1] = prefixSum[i] + nums[i];
         }
-        // 得到前缀和之后，对于每个开始下标 i，可通过二分查找得到大于或等于 i 的最小下标 bound，
-        // 使得 prefixSum[bound]−prefixSum[i−1] ≥ target，并更新子数组的最小长度（此时子数组的长度是 bound−(i−1)）。
+        // 得到前缀和之后，对于每个开始下标 i，可通过二分查找得到大于或等于 i 的最小下标 index，
+        // 使得 prefixSum[bound]−prefixSum[i−1] ≥ target，并更新子数组的最小长度（此时子数组的长度是 index−(i−1)）。
         int min  = Integer.MAX_VALUE;
         for (int i = 1; i <= n; i++) {
             int targetSum = target + prefixSum[i - 1];
@@ -125,7 +125,48 @@ public class Q209_Minimum_Size_Subarray_Sum {
         }
         return min  == Integer.MAX_VALUE ? 0 : min;
     }
-    // 前缀和 Time Limit Exceeded
+    /**
+     * Anther form
+     */
+    public int minSubArrayLen7(int target, int[] nums) {
+        int n = nums.length;
+        int[] prefixSum = new int[n + 1];
+        prefixSum[0] = 0;
+        for (int i = 0; i < n; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+
+        int min  = Integer.MAX_VALUE;
+        for (int i = 1; i <= n; i++) {
+            int targetSum = target + prefixSum[i - 1];
+            int index  = binarySearch(prefixSum, targetSum);
+            if (index <= n ) { //  If there is no such subarray, return 0 instead.
+                min = Math.min(min, index - (i - 1));
+            }
+        }
+        return min  == Integer.MAX_VALUE ? 0 : min;
+    }
+    // 二分查找
+    private int binarySearch(int[] nums, int target){
+        int low = 0;
+        int high = nums.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) >>> 1;
+            int midVal = nums[mid];
+
+            if (midVal < target)
+                low = mid + 1;
+            else if (midVal > target)
+                high = mid - 1;
+            else
+                return mid; // key found
+        }
+        return low < 0 ? 0: low;
+    }
+    /**
+     *  前缀和 Time Limit Exceeded
+     */
     public int minSubArrayLen5(int target, int[] nums) {
         int n = nums.length;
         int[] prefixSum = new int[n + 1];
