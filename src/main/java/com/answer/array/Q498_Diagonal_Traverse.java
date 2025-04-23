@@ -2,6 +2,7 @@ package com.answer.array;
 
 public class Q498_Diagonal_Traverse {
     /**
+     * 以对角线遍历的顺序，用一个数组返回这个矩阵中的所有元素
      * Approach 2: Simulation
      * 假设矩阵的行数为n，列数为m，那么对角线的总数为: n + m - 1
      */
@@ -25,5 +26,52 @@ public class Q498_Diagonal_Traverse {
         }
         return res;
     }
+    /**
+     * 根据题目有两种遍历方向开始为右上，然后方向改为左下，依次循环
+     */
+    public static int[] findDiagonalOrder_1(int[][] matrix) {
+        if (matrix.length == 0) {
+            return new int[0];
+        }
+        int rowLength = matrix.length;
+        int columnLength = matrix[0].length;
 
+        int[] answer = new int[rowLength * columnLength];
+        int count = rowLength + columnLength - 1;  // 对于m*n矩阵，所有方向应该有m+n-1次
+        int m = 0;
+        int n = 0;
+        int answerIndex = 0;
+
+        for (int i = 0; i < count; i++) {
+            if (i % 2 == 0) { // 右上方向
+                while (m >= 0 && n < columnLength) {
+                    answer[answerIndex] = matrix[m][n];
+                    answerIndex++;
+                    m--; // m，n代表横纵坐标，右上方向的移动为 m--，n++
+                    n++; // 根据这两个条件的话，在正常范围内的条件为m >= 0 && n < columnLength，
+                }
+                if (n < columnLength) { // 越界处理 / 在右上方向的尽头有这么两种情况
+                    m++;
+                } else {
+                    m = m + 2;
+                    n--;
+                }
+            } else { // 左下方向
+                while (m < rowLength && n >= 0) {
+                    answer[answerIndex] = matrix[m][n];
+                    answerIndex++;
+                    m++;
+                    n--;
+                }
+                if (m < rowLength) {
+                    n++;
+                }else{
+                    m--;
+                    n=n+2;
+                }
+
+            }
+        }
+        return answer;
+    }
 }
