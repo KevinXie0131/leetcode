@@ -3,11 +3,18 @@ package com.answer.array;
 import java.util.Arrays;
 
 public class Q922_Sort_Array_By_Parity_II {
+    /**
+     * nums[i] is odd, i is odd, and whenever nums[i] is even, i is even.
+     * Follow Up: Could you solve it in-place?
+     * 当 nums[i] 为奇数时，i 也是 奇数 ；当 nums[i] 为偶数时， i 也是 偶数
+     * 进阶：可以不使用额外空间解决问题吗？
+     *
+     * 注：题目保证数组中恰有一半是偶数，恰有一半是奇数。
+     */
     public static void main(String[] args) {
        int[] nums = {4,2,5,7};
         int[]  result =  sortArrayByParityII_1(nums);
         System.out.println(Arrays.toString(result));
-
     }
     /**
      * 采用额外的数组空间 (优化一下就是不用这两个辅助数组)
@@ -20,7 +27,7 @@ public class Q922_Sort_Array_By_Parity_II {
         int evenIndex = 0; // 偶数下标
 
         for(int i = 0; i < nums.length; i++){
-            if(nums[i] %2 == 0){   //如果为偶数
+            if(nums[i] % 2 == 0){   //如果为偶数
                 result[evenIndex] = nums[i];
                 evenIndex += 2;
             } else {
@@ -41,7 +48,7 @@ public class Q922_Sort_Array_By_Parity_II {
         int oddIndex = 1;
 
         for(int i = 0; i < nums.length; i += 2){
-            if(nums[i] %2 == 1){  // 在偶数位遇到了奇数
+            if(nums[i] % 2 == 1){  // 在偶数位遇到了奇数
                 while(nums[oddIndex] % 2 == 1) {  // 在奇数位找一个偶数
                     oddIndex += 2;
                 }
@@ -54,7 +61,7 @@ public class Q922_Sort_Array_By_Parity_II {
         return nums;
     }
     /**
-     * 朴实的方法
+     * 朴实的方法 两次遍历
      * 时间复杂度：O(n)
      * 空间复杂度：O(n)
      */
@@ -81,7 +88,7 @@ public class Q922_Sort_Array_By_Parity_II {
         return nums;
     }
     /**
-     *  双指针
+     * 双指针
      */
     public int[] sortArrayByParityII_3(int[] nums) {
         //定义双指针
@@ -103,6 +110,30 @@ public class Q922_Sort_Array_By_Parity_II {
             }else{
                 oddPoint += 2;
                 evenPoint += 2;
+            }
+        }
+        return nums;
+    }
+    /**
+     * 使用两个指针分别指向奇数下标和偶数下标。
+     * 找到最左边的奇数 nums[i] 和最左边的偶数 nums[j]，交换这两个数。
+     */
+    public int[] sortArrayByParityII_4(int[] nums) {
+        int i = 0;
+        int j = 1;
+        // 为什么“当偶数下标指针不越界”这一个条件就够了？因为偶数下标越界时，
+        // 说明偶数下标的元素全部符合，也说明奇数下标的元素全部合规了。
+        while (i < nums.length) {
+            if (nums[i] % 2 == 0) { // 寻找偶数下标中最左边的奇数
+                i += 2;
+            } else if (nums[j] % 2 == 1) { // 寻找奇数下标中最左边的偶数
+                j += 2;
+            } else {
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+                i += 2;
+                j += 2;
             }
         }
         return nums;
