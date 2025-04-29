@@ -45,11 +45,11 @@ public class Q1365_How_Many_Numbers_Are_Smaller_Than_the_Current_Number {
             data[i][0] = nums[i];
             data[i][1] = i;
         }
-/*      Arrays.sort(data, new Comparator<int[]>() {
+      Arrays.sort(data, new Comparator<int[]>() {
             public int compare(int[] data1, int[] data2) {
                 return data1[0] - data2[0];
             }
-        });  */
+        });
 
         int[] ret = new int[n];
         int prev = -1;
