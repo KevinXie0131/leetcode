@@ -6,7 +6,9 @@ public class Q209_Minimum_Size_Subarray_Sum {
     public static void main(String[] args) {
        int target = 7;
        int[] nums = {2,3,1,2,4,3};
-        minSubArrayLen4(target,nums);
+       System.out.println(minSubArrayLen7(target,nums));
+        int[] nums1 = {1,1,1,1,1,1,1,1};
+        System.out.println(minSubArrayLen7(11,nums1));
     }
     /**
      * subarray: A subarray is a contiguous non-empty sequence of elements within an array.
@@ -128,7 +130,7 @@ public class Q209_Minimum_Size_Subarray_Sum {
     /**
      * Anther form
      */
-    public int minSubArrayLen7(int target, int[] nums) {
+    static int minSubArrayLen7(int target, int[] nums) {
         int n = nums.length;
         int[] prefixSum = new int[n + 1];
         prefixSum[0] = 0;
@@ -147,7 +149,7 @@ public class Q209_Minimum_Size_Subarray_Sum {
         return min  == Integer.MAX_VALUE ? 0 : min;
     }
     // 二分查找
-    private int binarySearch(int[] nums, int target){
+    static private int binarySearch(int[] nums, int target){
         int low = 0;
         int high = nums.length - 1;
 
@@ -163,6 +165,7 @@ public class Q209_Minimum_Size_Subarray_Sum {
                 return mid; // key found
         }
         return low < 0 ? 0: low;
+        //  high > nums.length - 1 ? nums.length - 1: high; // not work
     }
     /**
      *  前缀和 Time Limit Exceeded
