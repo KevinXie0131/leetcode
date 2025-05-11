@@ -21,8 +21,9 @@ public class Q22_Generate_Parentheses {
     public void backtracking(StringBuffer sb, int left, int right, List<String> result){
         if(left == 0 && right == 0){
             result.add(sb.toString());
+            return;
         }
-        if(right < left){ // 只有left>= right才有效，在这里剪枝
+        if(right < left){ // 只有left >= right才有效，在这里剪枝
             return;
         }
         if(left > 0){
