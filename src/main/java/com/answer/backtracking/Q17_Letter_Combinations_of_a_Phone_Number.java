@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Q17_Letter_Combinations_of_a_Phone_Number {
     public static void main(String[] args) {
-        System.out.println(letterCombinations("23"));
+        System.out.println(letterCombinations2("23"));
     }
     /**
      * 首先存储每个数字对应的所有可能的字母，然后进行回溯操作。回溯过程中维护一个字符串，表示已有的字母排列，
@@ -64,5 +64,35 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
             backtracking1(digits, result, startIndex + 1,path,map);
             path.deleteCharAt(startIndex);
         }
+    }
+    /**
+     * 利用队列求解
+     * 可以利用队列的先进先出特点，再配合循环完成
+     * 先将2对应的字符"a","b","c"依次放入队列中, 之后再从队列中拿出第一个元素"a"，跟3对应的字符"d","e","f"挨个拼接
+     * 按照同样的方式，再将"b"从队列中拿出，再跟3对应的字符"d","e","f"挨个拼接
+     */
+    static public List<String> letterCombinations2(String digits) {
+        if(digits==null || digits.length()==0) {
+            return new ArrayList<String>();
+        }
+        //一个映射表，第二个位置是"abc“,第三个位置是"def"。。。
+        //这里也可以用map，用数组可以更节省点内存
+        String[] letter_map = {" ","*","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        List<String> res = new ArrayList<>();
+
+        res.add("");  //先往队列中加入一个空字符
+        for(int i = 0; i < digits.length(); i++) {
+            String letters = letter_map[digits.charAt(i) - '0'];   //由当前遍历到的字符，取字典表中查找对应的字符串
+            int size = res.size();
+
+            for(int j = 0; j < size; j++) {  //计算出队列长度后，将队列中的每个元素挨个拿出来
+                String tmp = res.remove(0);//每次都从队列中拿出第一个元素
+
+                for(int k= 0; k < letters.length(); k++) { //然后跟"def"这样的字符串拼接，并再次放到队列中
+                    res.add(tmp + letters.charAt(k));
+                }
+            }
+        }
+        return res;
     }
 }
