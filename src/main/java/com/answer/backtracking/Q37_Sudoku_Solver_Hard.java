@@ -18,7 +18,7 @@ public class Q37_Sudoku_Solver_Hard {
                 for (char k = '1'; k <= '9'; k++){ // (i, j) 这个位置放k是否合适
                     if (isValidSudoku(i, j, k, board)){
                         board[i][j] = k;   // 放置k
-                        if (solveSudokuHelper(board)){ // 如果找到合适一组立刻返回
+                        if (solveSudokuHelper(board)){ // backtracking 如果找到合适一组立刻返回
                             return true;
                         }
                         board[i][j] = '.'; // 回溯，撤销k
@@ -54,7 +54,7 @@ public class Q37_Sudoku_Solver_Hard {
         }
         // 9宫格里是否重复
         // 判断一个九宫内是否有重复的值
-        int startRow = (row / 3) * 3;
+        int startRow = (row / 3) * 3;  // 1/3 = 0
         int startCol = (col / 3) * 3;
         for (int i = startRow; i < startRow + 3; i++){
             for (int j = startCol; j < startCol + 3; j++){

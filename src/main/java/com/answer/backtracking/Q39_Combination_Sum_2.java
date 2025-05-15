@@ -17,6 +17,8 @@ public class Q39_Combination_Sum_2 {
         return result;
     }
     // 应该是Q40的答案
+    // Have int[] used, but it works for Q39
+    // 一个 无重复元素 的整数数组 candidates
     public void backtracking(int[] candidates, int[] used, int target, int startIndex, List<List<Integer>> result, Deque<Integer> path ){
         if (0 == target) {
             result.add(new ArrayList<Integer>(path));
