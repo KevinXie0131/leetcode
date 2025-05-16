@@ -3,6 +3,10 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q77_Combinations {
+    /**
+     * Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
+     * 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
+     */
     public static void main(String[] args) {
         System.out.println(combine(4, 2));
     }
@@ -40,7 +44,7 @@ public class Q77_Combinations {
         // i 是从startIndex开始的，这个和Permutation不同
         for(int i = startIndex; i <= n - (k-path.size()) + 1; i++){
             path.add(i);  // 处理节点
-            backtracking(n, k, i + 1);  // 递归
+            backtracking(n, k, i + 1);  // 递归 / i + 1
             path.remove(path.size() - 1);  // 回溯，撤销处理的节点
         }
     }

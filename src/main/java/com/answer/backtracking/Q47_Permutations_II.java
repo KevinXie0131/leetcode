@@ -7,7 +7,12 @@ import java.util.List;
 
 public class Q47_Permutations_II {
     /**
-     * 这道题⽬和回溯算法：排列问题！的区别在与给定⼀个可包含重复数字的序列，要返回所有不重复的全排列。
+     * Given a collection of numbers, nums, that might contain duplicates,
+     * return all possible unique permutations in any order.
+     * 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+     */
+    /**
+     * 这道题⽬和回溯算法：排列问题 的区别在与给定⼀个可包含重复数字的序列，要返回所有不重复的全排列。
      * 这⾥又涉及到去重了
      * 是去重⼀定要对元素经⾏排序，这样我们才⽅便通过相邻的节点来判断是否重复使⽤了。
      *
