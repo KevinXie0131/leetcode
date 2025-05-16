@@ -3,9 +3,15 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q90_Subsets_II {
+    /**
+     * Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+     * The solution set must not contain duplicate subsets.
+     * 一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的 子集（幂集）。
+     * 解集 不能 包含重复的子集。
+     */
     public static void main(String[] args) {
         int[] nums = {1,2,2};
-        System.out.println(subsetsWithDup_1(nums));
+        System.out.println(subsetsWithDup1(nums));
     }
     /**
      * 这道题目和78.子集  区别就是集合里有重复元素了，而且求取的子集要去重。
@@ -86,7 +92,7 @@ public class Q90_Subsets_II {
      * 扩展法（暴力求解）
      * 需要排序和去重
      */
-    public List<List<Integer>> subsetsWithDup1(int[] nums) {
+    static public List<List<Integer>> subsetsWithDup1(int[] nums) {
         HashSet<List<Integer>> set= new HashSet<>();
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         res.add(new ArrayList<Integer>());

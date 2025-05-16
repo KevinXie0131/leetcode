@@ -26,7 +26,7 @@ public class Q90_Subsets_II_1 {
     public void backtracking(int[] nums, int startIndex, boolean[] used){
         result.add(new ArrayList(path));
 
-        if(startIndex == nums.length){
+        if(startIndex == nums.length){ // if(nums.length == path.size()) return; // works too
             return;
         }
         for(int i = startIndex; i < nums.length; i++){
