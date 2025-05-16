@@ -4,6 +4,10 @@ import java.util.*;
 
 public class Q46_Permutations {
     /**
+     * Given an array nums of distinct integers, return all the possible permutations.
+     * 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。
+     */
+    /**
      * 首先排列是有序的，也就是说 [1,2] 和 [2,1] 是两个集合，这和之前分析的子集以及组合所不同的地方
      *
      * 排列问题的不同:

@@ -23,7 +23,7 @@ public class Q40_Combination_Sum_II_2 {
         HashSet<Integer> uset = new HashSet<>(); // 参考Q491使用HashSet本层去重
         for ( int i = start; i < candidates.length && sum + candidates[i] <= target; i++ ) {
             // start
-            if(uset.contains(candidates[i])){
+            if(uset.contains(candidates[i])){ // 同⼀树层只能使用一次
                 continue;
             }
             uset.add(candidates[i]);

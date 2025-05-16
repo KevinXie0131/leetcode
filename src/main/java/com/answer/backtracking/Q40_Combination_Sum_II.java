@@ -4,14 +4,24 @@ import java.util.*;
 
 public class Q40_Combination_Sum_II {
     /**
+     * Each number in candidates may only be used once in the combination.
+     * Note: The solution set must not contain duplicate combinations.
+     * candidates 中的每个数字在每个组合中只能使用 一次 。
+     * 注意：解集不能包含重复的组合。
+     *
+     * 区别在于：
+     * 第 39 题：candidates 中的数字可以无限制重复被选取；
+     * 第 40 题：candidates 中的每个数字在每个组合中只能使用一次。
+     */
+    /**
      * 本题与 Q39. 组合总和 的区别在于需要对结果去重，同时每个元素只能选取一次。
      * 可以先将原数组排序，在搜索时通过判断重复元素的个数，那么对元素 c[i] 最多可以选个 k[i] 次，从而转换成上题的解法。
      */
     public static void main(String[] args) {
-        int[]  candidates = {10,1,2,7,6,1,5}; int target = 8;
+        int[] candidates = {10,1,2,7,6,1,5};
+        int target = 8;
         combinationSum2_1(candidates, target);
         System.out.println(res);
-
     }
     /**
      * 时间复杂度: O(n * 2^n)
@@ -68,7 +78,7 @@ public class Q40_Combination_Sum_II {
             /**
              * 和39.组合总和的区别1：这⾥是i+1，每个数字在每个组合中只能使⽤⼀次
              */
-            backtracking(candidates, used, target, i + 1, result, path);
+            backtracking(candidates, used, target, i + 1, result, path); // 每个数组元素只能被选择一次, 设定下一轮从索引 i+1 开始向后遍历
             path.removeLast();
             target += candidates[i];
             used[i] = 0;
@@ -95,10 +105,15 @@ public class Q40_Combination_Sum_II {
             return;
         }
         for ( int i = start; i < candidates.length && sum + candidates[i] <= target; i++ ) {
+            /**
+             * 相等元素剪枝
+             * 需要限制相等元素在每一轮中只被选择一次。实现方式比较巧妙：由于数组是已排序的，因此相等元素都是相邻的。
+             * 这意味着在某轮选择中，若当前元素与其左边元素相等，则说明它已经被选择过，因此直接跳过当前元素。
+             */
             //正确剔除重复解的办法
             //跳过同一树层使用过的元素
             if ( i > start && candidates[i] == candidates[i - 1] ) { // 与used数组相似，当前数值已经在过去的遍历中被考虑进去了，所以这次可以跳过
-                continue;
+                continue; // 剪枝：如果该元素与左边元素相等，说明该搜索分支重复，直接跳过
             }
 
             sum += candidates[i];

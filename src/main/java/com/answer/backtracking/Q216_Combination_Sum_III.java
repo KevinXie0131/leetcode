@@ -4,6 +4,14 @@ import java.util.*;
 
 public class Q216_Combination_Sum_III {
     /**
+     * Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+     *  - Only numbers 1 through 9 are used.
+     *  - Each number is used at most once.
+     * 找出所有相加之和为 n 的 k 个数的组合，且满足下列条件：
+     *  - 只使用数字1到9
+     *  - 每个数字 最多使用一次
+     */
+    /**
      * 本题就是在[1,2,3,4,5,6,7,8,9]这个集合中找到和为n的k个数的组合。
      * 本题k相当于树的深度，9（因为整个集合就是9个数）就是树的宽度。
      */
