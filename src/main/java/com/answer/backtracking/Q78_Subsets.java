@@ -3,6 +3,12 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q78_Subsets {
+    /**
+     * Given an integer array nums of unique elements, return all possible subsets (the power set).
+     * The solution set must not contain duplicate subsets.
+     * 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+     * 解集 不能 包含重复的子集
+     */
     public static void main(String[] args) {
         int[] nums = {1,2,3};
         System.out.println(subsets_4(nums));
