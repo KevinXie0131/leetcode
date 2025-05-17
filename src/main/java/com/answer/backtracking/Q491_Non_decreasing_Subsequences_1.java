@@ -11,6 +11,7 @@ public class Q491_Non_decreasing_Subsequences_1 {
      * 这份代码在leetcode上提交，要⽐版本⼀耗时要好的多。
      * 其实用数组来做哈希，效率就高了很多。
      * 注意题目中说了，数值范围[-100,100]，所以完全可以用数组来做哈希
+     * -100 <= nums[i] <= 100
      */
     List<List<Integer>> result = new ArrayList<List<Integer>>();
     Deque<Integer> path = new LinkedList<>();
@@ -38,7 +39,7 @@ public class Q491_Non_decreasing_Subsequences_1 {
 
         for (int i = startIndex; i < nums.length; i++) {
             if ((!path.isEmpty() && nums[i] < path.getLast())
-                    || used[nums[i] + 100] == 1) {
+                    || used[nums[i] + 100] == 1) {  // it is ||
                 continue;
             }
             used[nums[i] + 100] = 1; // 记录这个元素在本层⽤过了，本层后⾯不能再⽤了
