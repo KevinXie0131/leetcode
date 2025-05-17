@@ -37,7 +37,7 @@ public class Q79_Word_Search_1 {
                 }
             }
         }
-        visited[i][j] = false;
+        visited[i][j] = false; // backtracking
         return result;
     }
 }

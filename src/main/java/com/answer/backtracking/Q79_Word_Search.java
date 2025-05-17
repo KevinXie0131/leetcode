@@ -10,7 +10,7 @@ public class Q79_Word_Search {
     private char[] charArray;
     private char[][] board;
     /**
-     * DFS
+     * DFS + 回溯
      * 枚举矩阵的每个位置作为单词的起点，只要能找到对应单词就直接返回 true。
      * 具体在每次搜索中，可以依次尝试相邻未访问格子的字母，只要能和单词对应位置匹配，就继续向下搜索。
      */
@@ -37,7 +37,7 @@ public class Q79_Word_Search {
 
     private boolean dfs(int x, int y, int begin) {
         if (begin == len - 1) {
-            return board[x][y] == charArray[begin];
+            return board[x][y] == charArray[begin]; //如果当前已经访问到字符串的末尾，且对应字符依然匹配，此时直接返回 true。
         }
         if (board[x][y] == charArray[begin]) {
             visited[x][y] = true;
@@ -50,7 +50,7 @@ public class Q79_Word_Search {
                     }
                 }
             }
-            visited[x][y] = false;
+            visited[x][y] = false;  // backtracking
         }
         return false;
     }
