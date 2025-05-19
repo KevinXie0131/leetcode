@@ -3,12 +3,28 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q139_Word_Break {
+    /**
+     * Given a string s and a dictionary of strings wordDict, return true if s can be segmented into
+     * a space-separated sequence of one or more dictionary words.
+     * Note that the same word in the dictionary may be reused multiple times in the segmentation.
+     * 一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+     * 注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+     */
     public static void main(String[] args) {
        String s = "leetcode";
        List<String> wordDict = new ArrayList<>();
        wordDict.add("leet");
        wordDict.add("code");
-       boolean result =  wordBreak_5(s, wordDict);
+       boolean result =  wordBreak_4(s, wordDict);
+        System.out.println(result);
+        s = "catsandog";
+        wordDict.clear();
+        wordDict.add("cats");
+        wordDict.add("dog");
+        wordDict.add("sand");
+        wordDict.add("and");
+        wordDict.add("cat");
+        result =  wordBreak_4(s, wordDict);
         System.out.println(result);
     }
     /**
@@ -22,7 +38,7 @@ public class Q139_Word_Break {
     public static boolean wordBreak(String s, List<String> wordDict) {
         return dfs(s, wordDict, 0);
     }
-
+    // Time Limit Exceeded
     public static boolean dfs(String s, List<String> wordDict, int start){
         if(start == s.length()){
             return true;
@@ -35,7 +51,6 @@ public class Q139_Word_Break {
                 return true;
             }
         }
-
         return false;
     }
     /**
@@ -67,10 +82,39 @@ public class Q139_Word_Break {
         return false;
     }
     /**
+     * another form
+     */
+    public static boolean wordBreak_1a(String s, List<String> wordDict) {
+        Set<String> memory = new HashSet<>();
+        Set<String> words = new HashSet<>(wordDict);
+        return dfs_1a(s,  words, memory);
+    }
+   // 对未成功拆分的情况进行记忆，那么后续递归如果遇到相同情况即可提前结束递归
+    public static boolean dfs_1a(String s, Set<String> words, Set<String> memory){
+        if(s.length() == 0) return true;
+
+        if(memory.contains(s)) return false;//如果记忆中存在此字符串，返回false，结束递归。
+
+        StringBuilder strb = new StringBuilder();
+        for(int i = 0; i < s.length(); i++){
+            strb.append(s.charAt(i));
+            if(words.contains(strb.toString()) && !memory.contains(s.substring(i + 1))){
+                if(dfs_1a(s.substring(i + 1), words, memory)){
+                    return true;
+                }else{
+                    // can be commented
+                    memory.add(s.substring(i + 1));//对子串失败的情况进行记忆
+                }
+            }
+        }
+        memory.add(s); //对s失败的情况进行记忆
+        return false;
+    }
+    /**
      * 回溯法+记忆化
      */
     private Set<String> set;
-    private int[] memo;
+    private int[] memo; // 可以看到，做了大量重复计算, 加入记忆化. 用一个数组，存储计算的结果，数组索引为指针位置，值为计算的结果。下次遇到相同的子问题，直接返回命中的缓存值，就不用调重复的递归。
     public boolean wordBreak_8(String s, List<String> wordDict) {
         memo = new int[s.length()];
         set = new HashSet<>(wordDict);
@@ -100,6 +144,7 @@ public class Q139_Word_Break {
     }
     /**
      * BFS
+     * Time Limit Exceeded
      */
     public static boolean wordBreak_2(String s, List<String> wordDict) {
         //这里为了提高效率，把list转化为set，因为set的查找效率要比list高
@@ -123,8 +168,10 @@ public class Q139_Word_Break {
     }
     /**
      * BFS + Memorization
+     * 未剪枝的DFS会搜索重复的子树，BFS也一样。思考一下这个用例，BFS是如何重复访问节点的？
+     * 用一个 visited 数组记录访问过的节点，出列考察一个指针时，存在重复则跳过。
      */
-    public boolean wordBreak_4(String s, List<String> wordDict) {
+    public static boolean wordBreak_4(String s, List<String> wordDict) {
         //这里为了提高效率，把list转化为set，因为set的查找效率要比list高
         Set<String> setDict = new HashSet<>(wordDict);
         //记录当前层开始遍历字符串s的位置
