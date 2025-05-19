@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Q784_Letter_Case_Permutation {
+    /**
+     * Given a string s, you can transform every letter individually to be lowercase or uppercase
+     * to create another string.
+     * Return a list of all possible strings we could create.
+     * 给定一个字符串 s ，通过将字符串 s 中的每个字母转变大小写，我们可以获得一个新的字符串。
+     * 返回 所有可能得到的字符串集合 。
+     */
     public static void main(String[] args) {
-        System.out.println(letterCasePermutation("a1b2"));
+        System.out.println(letterCasePermutation_1("a1b2"));
     }
     /**
      * Backtracking
@@ -39,8 +46,9 @@ public class Q784_Letter_Case_Permutation {
     }
     /**
      * Approach #1: Recursion [Accepted]
+     * 利用List进行模拟
      */
-    public List<String> letterCasePermutation_1(String S) {
+    public static List<String> letterCasePermutation_1(String S) {
         List<StringBuilder> ans = new ArrayList();
         ans.add(new StringBuilder());
 
@@ -50,7 +58,7 @@ public class Q784_Letter_Case_Permutation {
                 for (int i = 0; i < n; ++i) {
                     ans.add(new StringBuilder(ans.get(i)));
                     ans.get(i).append(Character.toLowerCase(c));
-                    ans.get(n+i).append(Character.toUpperCase(c));
+                    ans.get(n + i).append(Character.toUpperCase(c));
                 }
             } else {
                 for (int i = 0; i < n; ++i)
@@ -58,10 +66,10 @@ public class Q784_Letter_Case_Permutation {
             }
         }
 
-        List<String> finalans = new ArrayList();
+        List<String> result = new ArrayList();
         for (StringBuilder sb: ans) {
-            finalans.add(sb.toString());
+            result.add(sb.toString());
         }
-        return finalans;
+        return result;
     }
 }
