@@ -23,10 +23,14 @@ public class Q131_Palindrome_Partitioning {
         backtracking(s, 0);
         return result;
     }
-
+    // 切割问题类似组合问题
+    //    例如对于字符串abcdef：
+    //    组合问题：选取一个a之后，在bcdef中再去选取第二个，选取b之后在cdef中再选取第三个.....。
+    //    切割问题：切割一个a之后，在bcdef中再去切割第二段，切割b之后在cdef中再切割第三段.....。
     static public void backtracking(String s, int startIndex){
         // 如果起始位置已经⼤于s的⼤⼩，说明已经找到了⼀组分割⽅案了
-        if(startIndex >= s.length()){
+        // 切割线切到了字符串最后面，说明找到了一种切割方法，此时就是本层递归的终止条件。
+        if(startIndex >= s.length()){ // 分割完毕
             result.add(new ArrayList(path)); //注意创建一个新的copy
             return;
         }
