@@ -2,7 +2,6 @@ package com.answer.backtracking;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class Q473_Matchsticks_to_Square {
     public static void main(String[] args) {
