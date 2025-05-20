@@ -13,6 +13,10 @@ public class Q137_Single_Number_II {
     /**
      * 二进制
      * 统计所有数字每一位中 1 的数量，如果可以整除 3，说明结果这一位为 0，否则为 1。
+     *
+     * 使用一个长度为 32 的数组 cnt[] 记录下所有数值的每一位共出现了多少次 1，再对 cnt[] 数组的每一位进行 mod 3 操作，
+     * 重新拼凑出只出现一次的数值。
+
      */
     public int singleNumber(int[] nums) {
         int ans = 0;
@@ -27,11 +31,14 @@ public class Q137_Single_Number_II {
             if (count % 3 != 0) { //1 的个数是否是 3 的倍数
                 ans = ans | (1 << i);
             }
+         /*   if ((count % 3 & 1) == 1) {
+                ans += (1 << i);
+            }*/
         }
         return ans;
     }
     /**
-     *
+     * 有限状态自动机
      */
     public int singleNumber_1(int[] nums) {
         int seenOnce = 0, seenTwice = 0;
