@@ -20,7 +20,7 @@ public class Q137_Single_Number_II {
      */
     public int singleNumber(int[] nums) {
         int ans = 0;
-        for (int i = 0; i < 32; i++) { //考虑每一位
+        for (int i = 0; i < 32; i++) { //考虑每一位 int的32个位
             int count = 0;
             for (int j = 0; j < nums.length; j++) {//考虑每一个数
                 if (((nums[j] >>> i) & 1) == 1) { //当前位是否是 1

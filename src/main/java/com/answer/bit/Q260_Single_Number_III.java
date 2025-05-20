@@ -72,13 +72,17 @@ public class Q260_Single_Number_III {
     public int[] singleNumber_1(int[] nums) {
         // difference between two numbers (x and y) which were seen only once
         int bitmask = 0;
-        for (int num : nums) bitmask ^= num;
+        for (int num : nums) { // 把所有的元素进行异或操作，最终得到一个异或值。因为是不同的两个数字，所以这个值必定不为 0；
+            bitmask ^= num;
+        }
 
         // rightmost 1-bit diff between x and y
-        int diff = bitmask & (-bitmask);
+        int diff = bitmask & (-bitmask); // 取异或值最后一个二进制位为 1 的数字作为 mask，如果是 1 则表示两个数字在这一位上不同。
 
         int x = 0;
         // bitmask which will contain only x
+        // 通过与这个 mask 进行与操作，如果为 0 的分为一个数组，为 1 的分为另一个数组。
+        // 这样就把问题降低成了：“有一个数组每个数字都出现两次，有一个数字只出现了一次，求出该数字”。
         for (int num : nums) {
             if ((num & diff) != 0) {
                 x ^= num;
