@@ -3,6 +3,12 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q93_Restore_IP_Addresses {
+    /**
+     * A valid IP address consists of exactly four integers separated by single dots. Each integer is between 0 and 255
+     * (inclusive) and cannot have leading zeros.
+     * 复原 IP 地址
+     * 有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 '.' 分隔。
+     */
     public static void main(String[] args) {
        String s = "25525511135";
        System.out.println(restoreIpAddresses(s));
@@ -36,11 +42,11 @@ public class Q93_Restore_IP_Addresses {
         }
         for(int i = startIndex; i < s.length(); i++){
             if(isValid(s, startIndex, i)){ // 判断 [startIndex,i] 这个区间的⼦串是否合法
-                s= s.substring(0, i+1)+"."+s.substring(i+1); // 在i的后⾯插⼊⼀个逗点
+                s= s.substring(0, i + 1) + "." + s.substring(i + 1); // 在i的后⾯插⼊⼀个逗点
                 pointNum++;
-                backtracking(s,i+2,pointNum); // 插⼊逗点之后下⼀个⼦串的起始位置为i+2
+                backtracking(s,i + 2, pointNum); // 插⼊逗点之后下⼀个⼦串的起始位置为i+2
                 pointNum--; // 回溯
-                s = s.substring(0, i+1)+s.substring(i+2); // 回溯删掉逗点
+                s = s.substring(0, i + 1) + s.substring(i + 2); // 回溯删掉逗点
             } else {
                 break; // 不合法，直接结束本层循环
             }
@@ -52,7 +58,7 @@ public class Q93_Restore_IP_Addresses {
             return false;
         }
         if (s.charAt(start) == '0' && start != end) { // 0开头的数字不合法
-            return false;
+            return false;  // 大于 1 位的时候，不能以 0 开头
         }
         int num = 0;
         for (int i = start; i <= end; i++) {
