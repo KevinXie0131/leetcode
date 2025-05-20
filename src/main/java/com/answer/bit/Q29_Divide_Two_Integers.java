@@ -3,6 +3,14 @@ package com.answer.bit;
 import java.util.*;
 
 public class Q29_Divide_Two_Integers {
+    /**
+     * Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.
+     * The integer division should truncate toward zero, which means losing its fractional part. For example, 8.345 would be truncated to 8, and -2.7335 would be truncated to -2.
+     * Return the quotient after dividing dividend by divisor.
+     * 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。
+     * 整数除法应该向零截断，也就是截去（truncate）其小数部分。例如，8.345 将被截断为 8 ，-2.7335 将被截断至 -2 。
+     * 返回被除数 dividend 除以除数 divisor 得到的 商 。
+     */
     public static void main(String[] args) {
         System.out.println(Integer.MAX_VALUE);
         System.out.println(Integer.MIN_VALUE);
@@ -34,7 +42,43 @@ public class Q29_Divide_Two_Integers {
             res++;
         }
 
-        return dividendFlag ^ divisorFlag ? (int)-res : (int)res;
+        return dividendFlag ^ divisorFlag ? (int)-res : (int)res; // ^ 异或
+    }
+    /**
+     * 理解一（不限制 long）
+     * 现在两者都满足 x>=0，然后利用 dividend 和 divisor 均为 int，可以确定答案的绝对值落在 [0,dividend] 范围内（当且仅当 divisor 是范围在 [0,1] 的浮点数时，答案会大于 dividend）；
+     * 假设答案为 x，那么在以 x 为分割点的整数数轴上，具有「二段性」，因此我们可以二分找到该分割点：
+     *      大于 x 的数 y 满足 y∗b>a；
+     *      小于等于 x 的数 y 不满足 y∗b>a；
+     */
+    int INF = Integer.MAX_VALUE;
+    public int divide_1a(int _a, int _b) {
+        long a = _a, b = _b;
+        boolean flag = false;
+        if ((a < 0 && b > 0) || (a > 0 && b < 0)) flag = true;
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        long l = 0, r = a;
+        while (l < r) {
+            // 考虑 l = 0, r = 1 的简单情况，如果不 +1 的话，l + r >> 1 等于 0 + 1 / 2，l 仍然是 0，陷入死循环。
+            long mid = l + r + 1 >> 1; // +1 操作主要是为了避免发生「死循环」，因为 >> 和 直接使用 / 一样，都属于「下取整」操作。
+            if (mul(mid, b) <= a) l = mid;
+            else r = mid - 1;
+        }
+        r = flag ? -r : r;
+        if (r > INF || r < -INF - 1) return INF;
+        return (int)r;
+    }
+    // 根据「二段性」分析，我们发现二分的 check 实现需要用到乘法，
+    // 因此我们需要实现一个「不用乘法符号」的乘法实现（这可以使用倍增思想来实现 mul 操作）
+    long mul(long a, long k) {
+        long ans = 0;
+        while (k > 0) {
+            if ((k & 1) == 1) ans += a; // 「快速乘法」模板，采用了倍增的思想
+            k >>= 1;
+            a += a;
+        }
+        return ans;
     }
     /**
      * Approach 2: Repeated Exponential Searches (like binary search) - Time Limit Exceeded
