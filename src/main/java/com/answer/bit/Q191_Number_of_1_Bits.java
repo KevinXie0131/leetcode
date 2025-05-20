@@ -2,6 +2,11 @@ package com.answer.bit;
 
 public class Q191_Number_of_1_Bits {
     /**
+     * Given a positive integer n, write a function that returns the number of set bits in its binary representation
+     * (also known as the Hamming weight).
+     * 给定一个正整数 n，编写一个函数，获取一个正整数的二进制形式并返回其二进制表达式中 设置位 的个数（也被称为汉明重量）。
+     */
+    /**
      * Approach 1: Loop and Flip 位移法
      */
     // you need to treat n as an unsigned value
