@@ -27,10 +27,10 @@ public class Q504_Base_7 {
         while(num > 0){
             int r = num % 7;
             num /= 7;
-            digits .append(r);
+            digits.append(r);
         }
-        if(isNeg) digits .append("-");
+        if(isNeg) digits.append("-");
 
-        return  digits .reverse().toString();
+        return  digits.reverse().toString();
     }
 }
