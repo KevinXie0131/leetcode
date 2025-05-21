@@ -2,6 +2,10 @@ package com.answer.math;
 
 public class Q8_String_to_Integer {
     /**
+     * Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.
+     * 你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数。
+     */
+    /**
      * 按照规则实现即可，为了实现方便，有以下几个注意点：
      *     使用 long 存储结果，方便进行越界判断；
      *     使用额外变量标记正负号，在最后返回时与结果相乘。
