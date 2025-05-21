@@ -10,7 +10,7 @@ public class Q201_Bitwise_AND_of_Numbers_Range {
      * return the bitwise AND of all numbers in this range, inclusive.
      * 给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。
      */
-    static public int rangeBitwiseAnd(int left, int right) { // Time Limit Exceeded for [1, 2147483647]
+    static public int rangeBitwiseAnd(int left, int right) { //暴力 Time Limit Exceeded for [1, 2147483647]
         int res = left;
         for (int num = left + 1; num <= right; num++) {
             res &= num;
@@ -31,5 +31,17 @@ public class Q201_Bitwise_AND_of_Numbers_Range {
             shift++;  // 记录移动的次数
         }
         return left << shift;  // 再向左移动刚刚向右移动的次数
+    }
+    /**
+     * 方法二：Brian Kernighan 算法
+     * Brian Kernighan 算法的关键在于我们每次对 number 和 number−1 之间进行按位与运算后，number 中最右边的 1 会被抹去变成 0。
+     * 可以对数字 n 迭代地应用上述技巧，清除最右边的 1，直到它小于或等于 m，此时非公共前缀部分的 1 均被消去。因此最后我们返回 n 即可
+     */
+    public int rangeBitwiseAnd_2(int left, int right) {
+        while (left < right) {
+            // 抹去最右边的 1
+            right = right & (right - 1);
+        }
+        return right;
     }
 }
