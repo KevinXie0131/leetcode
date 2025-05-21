@@ -8,8 +8,10 @@ public class Q191_Number_of_1_Bits {
      */
     /**
      * Approach 1: Loop and Flip 位移法
+     * 算术右移 >>：舍弃最低位，高位用符号位填补；
+     * 逻辑右移 >>>：舍弃最低位，高位用 0 填补。
+     * 那么对于负数而言，其二进制最高位是 1，如果使用算术右移，那么高位填补的仍然是 1。也就是 n 永远不会为 0。
      */
-    // you need to treat n as an unsigned value
     public int hammingWeight(int n) { // 每次取n的最低位，判断是不是1，再位移
         int count = 0;
         while(n != 0){
@@ -17,7 +19,8 @@ public class Q191_Number_of_1_Bits {
             if((n & 1) == 1){
                 count++;
             }
-            n = n >>> 1;
+            //  count += n & 1;
+            n = n >>> 1; // you need to treat n as an unsigned value
         }
         return count;
     }
@@ -46,6 +49,8 @@ public class Q191_Number_of_1_Bits {
      *  x = 1011 0000
      *  x-1= 1010 1111
      *  x & (x-1) = 1010 0000
+     *  n & (n−1)，其运算结果恰为把 n 的二进制位中的最低位的 1 变为 0 之后的结果。
+     *  时间复杂度：O(logn)
      */
     public int hammingWeight_1(int n) {
         int count = 0;
@@ -60,7 +65,7 @@ public class Q191_Number_of_1_Bits {
      */
     public int hammingWeight_3(int n) {
         int ans = 0;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < 32; i++) { // 右移 32 次 循环检查二进制位
             ans += (n >> i) & 1;
         }
         return ans;
