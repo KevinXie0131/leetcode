@@ -1,11 +1,20 @@
 package com.answer.bit;
 
 public class Q190_Reverse_Bits {
+    /**
+     * Reverse bits of a given 32 bits unsigned integer.
+     * 颠倒给定的 32 位无符号整数的二进制位。
+     * 在某些语言（如 Java）中，没有无符号整数类型。在这种情况下，输入和输出都将被指定为有符号整数类型，并且不应影响您的实现，
+     * 因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。
+     * 在 Java 中，编译器使用二进制补码记法来表示有符号整数。因此，在 示例 2 中，输入表示有符号整数 -3，
+     * 输出表示有符号整数 -1073741825。
+     *
+     */
     public static void main(String[] args) {
         String binaryString="00000010100101000001111010011100";
         int decimal = Integer.parseInt(binaryString,2);
         System.out.println(decimal);
-        System.out.println(reverseBits_0(decimal));
+        System.out.println(reverseBits_4(decimal));
     }
     /**
      * Approach 1: Bit by Bit - Time Limit Exceeded for 11111111111111111111111111111101
@@ -37,8 +46,36 @@ public class Q190_Reverse_Bits {
         return ans;
     }
     /**
+     * another form
+     */
+    public int reverseBits_5(int n) {
+        int res = 0;   // 反转结果，初始为0表示所有位都为0
+        // 循环处理32位，idx为位索引
+        for(int idx = 0; idx < 32; idx++){
+            int digit = n & 1;  // 获取当前最低位
+            n >>= 1;            // 将最低位右移掉
+            res |= (digit << (31 - idx)); // 将这个最低位反转到它实际位置上去
+        }
+        return res;
+    }
+    /**
+     * 方法一：逐位颠倒
+     * 将 n 视作一个长为 32 的二进制串，从低位往高位枚举 n 的每一位，将其倒序添加到翻转结果 rev 中。
+     * 需要注意的是，在某些语言（如 Java）中，没有无符号整数类型，因此对 n 的右移操作应使用逻辑右移。
+     * 时间复杂度：O(logn)。
+     * 空间复杂度：O(1)。
+     */
+    static public int reverseBits_4(int n) {
+        int rev = 0;
+        for (int i = 0; i < 32 && n != 0; ++i) {
+            rev |= (n & 1) << (31 - i);
+            n >>>= 1;
+        }
+        return rev;
+    }
+    /**
      * Approach 3: Mask and Shift
-     * Divide & Conquer
+     * Divide & Conquer 分而治之: 有另外一种不使用循环的做法，类似于归并排序。
      */
     private static final int M1 = 0x55555555; // 01010101010101010101010101010101
     private static final int M2 = 0x33333333; // 00110011001100110011001100110011
