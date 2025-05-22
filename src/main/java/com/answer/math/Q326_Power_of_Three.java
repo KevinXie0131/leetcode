@@ -11,6 +11,7 @@ public class Q326_Power_of_Three {
      * 3的幂
      * 给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 true ；否则，返回 false 。
      * 整数 n 是 3 的幂次方需满足：存在整数 x 使得 n == 3^x
+     * Follow up: Could you solve it without loops/recursion?
      */
     public static void main(String[] args) {
         System.out.println(isPowerOfThree_5(243));
@@ -36,6 +37,7 @@ public class Q326_Power_of_Three {
     }
     /**
      * Brute force
+     * 不断地将 n 除以 3，直到 n=1。如果此过程中 n 无法被 3 整除，就说明 n 不是 3 的幂。
      */
     public static boolean isPowerOfThree_1(int n) {
         if (n < 1) return false;
@@ -44,6 +46,17 @@ public class Q326_Power_of_Three {
         }
         return n == 1;
     }
+    /**
+     * 递归法
+     */
+    public boolean isPowerOfThree_1c(int n) {
+        if(n <= 0) return false;
+        if (n == 1) return true;
+        if (n % 3 != 0) return false;
+
+        return isPowerOfThree_1c(n / 3);
+    }
+
     public boolean isPowerOfThree_1a(int n) {
         for(int x = 0; x <= 31; x++){
             if((long)Math.pow(3, x) == n){
@@ -51,6 +64,12 @@ public class Q326_Power_of_Three {
             }
         }
         return false;
+    }
+    /**
+     * 在题目给定的 32 位有符号整数的范围内，最大的 3 的幂为 3^19=1162261467。我们只需要判断 n 是否是 3^19的约数即可。
+     */
+    public boolean isPowerOfThree_1b(int n) {
+        return n > 0 && 1162261467 % n == 0;  // return n > 0 && Math.pow(3,19) % n == 0;
     }
     /**
      * Math - has division precision issue
@@ -72,7 +91,6 @@ public class Q326_Power_of_Three {
     public boolean isPowerOfThree_3(int n) {
         return n > 0 && Math.pow(3, 19) % n == 0;
     }
-
     /**
      * This solution is problematic because we start using doubles, which means we are subject to precision errors.
      * This means, we should never use == when comparing doubles. That is because the result of Math.log10(n) / Math.log10(3) could be 5.0000001 or 4.9999999.
