@@ -1,9 +1,16 @@
 package com.answer.math;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class Q1356_Sort_Integers_by_The_Number_of_1_Bits {
+    /**
+     * You are given an integer array arr. Sort the integers in the array in ascending order by the number of 1's
+     * in their binary representation and in case of two or more integers have the same number of 1's you have to
+     * sort them in ascending order.
+     * 根据数字二进制下 1 的数目排序
+     * 给你一个整数数组 arr 。请你将数组中的元素按照其二进制表示中数字 1 的数目升序排序。
+     * 如果存在多个数字二进制中 1 的数目相同，则必须将它们按照数值大小升序排列。
+     */
     public static void main(String[] args) {
         // The symbol & denotes the bitwise AND operator.
         // It evaluates the binary value of given numbers.
@@ -53,5 +60,70 @@ public class Q1356_Sort_Integers_by_The_Number_of_1_Bits {
         }
         return count;
     }
-
+    /**
+     * 方法一：暴力
+     */
+    public int[] sortByBits_2(int[] arr) {
+        int[] bit = new int[10001];
+        List<Integer> list = new ArrayList<Integer>();
+        for (int x : arr) {
+            list.add(x);
+            bit[x] = bitCount2(x);
+        }
+        Collections.sort(list, new Comparator<Integer>() {
+            public int compare(Integer x, Integer y) {
+                if (bit[x] != bit[y]) {
+                    return bit[x] - bit[y];
+                } else {
+                    return x - y;
+                }
+            }
+        });
+        for (int i = 0; i < arr.length; ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+    /**
+     * 方法二：递推预处理
+     * 线性预处理 bit 数组然后去排序即可。
+     */
+    public int[] sortByBits_3(int[] arr) {
+        List<Integer> list = new ArrayList<Integer>();
+        for (int x : arr) {
+            list.add(x);
+        }
+        int[] bit = new int[10001];
+        for (int i = 1; i <= 10000; ++i) {
+            bit[i] = bit[i >> 1] + (i & 1); // 二进制表示下数字 1 的个数
+        }
+        Collections.sort(list, new Comparator<Integer>() {
+            public int compare(Integer x, Integer y) {
+                if (bit[x] != bit[y]) {
+                    return bit[x] - bit[y];
+                } else {
+                    return x - y;
+                }
+            }
+        });
+        for (int i = 0; i < arr.length; ++i) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+    /**
+     * 循环并使用 Integer.bitCount 计算数字中1的个数，乘以20000（题目中不会大于 10^4）然后加上原数字，
+     * 放入数组 map 中，并对 map 进行排序，最后 % 20000 获取原来的数组，填充到原数组返回即可。
+     */
+    public int[] sortByBits_4(int[] arr) {
+        int[] map = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            map[i] = Integer.bitCount(arr[i]) * 20000 + arr[i];
+        }
+        Arrays.sort(map);
+        for (int i = 0; i < map.length; i++) {
+            map[i] = map[i] % 20000;
+        }
+        return map;
+    }
 }
