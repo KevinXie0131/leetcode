@@ -5,10 +5,57 @@ import java.util.Collections;
 import java.util.*;
 
 public class Q66_Plus_One {
+    /**
+     * given a large integer represented as an integer array digits, where each digits[i] is the ith digit
+     * of the integer. The digits are ordered from most significant to least significant in left-to-right order.
+     * The large integer does not contain any leading 0's.
+     * Increment the large integer by one and return the resulting array of digits.
+     * 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
+     * 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+     * 你可以假设除了整数 0 之外，这个整数不会以零开头。
+     */
     public static void main(String[] args) {
-        int[] digits = {9};
-        int[] res = plusOne_2(digits);
+        int[] digits = {9,1};
+        int[] res = plusOne_3(digits);
         System.out.println(Arrays.toString(res));
+        System.out.println(Integer.MAX_VALUE); // 2147483647
+    }
+    /**
+     *  cannot pass [7,2,8,5,0,9,1,2,9,5,3,6,6,7,3,2,8,4,3,7,9,5,7,7,4,7,4,9,4,7,0,1,1,1,7,4,0,0,6]
+     */
+    static public int[] plusOne_0(int[] digits) {
+        long value = 0;
+        for(int i = 0; i <= digits.length - 1; i++){
+            value = value * 10 + digits[i];
+        }
+
+        value++;
+        String str = String.valueOf(value);
+        int[] res = new int[str.length()];
+        for(int i = 0; i < res.length; i++){
+            res[i] = str.charAt(i) - '0';
+        }
+        return res;
+    }
+    /**
+     * 模拟加法
+     */
+    static public int[] plusOne_1(int[] digits) {
+        int carry = 1;
+        StringBuffer str = new StringBuffer();
+
+        for(int i = digits.length - 1; i >= 0; i--){
+            int num = digits[i] + carry;
+            if(num >= 10) {str.append(num % 10); carry = 1;}
+            else {str.append(num); carry = 0;}
+        }
+        if(carry == 1) str.append(1);
+
+        int[] res = new int[str.length()];
+        for(int i = 0; i < res.length; i++){
+            res[i] = str.charAt(res.length - 1 - i) - '0';
+        }
+        return res;
     }
     /**
      * 模拟加法
@@ -53,7 +100,7 @@ public class Q66_Plus_One {
           if(digits[i] < 9){
               digits[i]++;
               break;
-          } else {
+          } else { // == 9
               digits[i] = 0;
               if(i == 0){
                   int[] newDigits = new int[len + 1];
@@ -67,16 +114,35 @@ public class Q66_Plus_One {
         return digits;
     }
     /**
-     *
+     * 有可能的情况就只有两种：
+     *  除 9 之外的数字加一；
+     *  数字 9。
      */
-    public static int[] plusOne_1(int[] digits) {
+    public static int[] plusOne_3(int[] digits) {
         int len = digits.length;
         for(int i = len - 1; i >= 0; i--) {
-            digits[i]++;
+            digits[i]++; // 循环直到判断没有再进位就退出循环返回结果
             digits[i] %= 10;
-            if(digits[i]!=0)
-                return digits;
+            if(digits[i] != 0)
+                return digits; // 加法运算如不出现进位就运算结束
         }
+        digits = new int[len + 1];
+        digits[0] = 1; // 当出现 99、999 之类的数字时，循环到最后也需要进位，出现这种情况时需要手动将它进一位。
+        return digits;
+    }
+    /**
+     * 不用纠结某一位是不是9，而应该去判断加1之后是不是0：
+     */
+    public int[] plusOne_4(int[] digits) {
+        int len = digits.length;
+        for (int i = len - 1; i >= 0; i--) {
+            digits[i] = (digits[i] + 1) % 10;
+            if (digits[i] != 0) {
+                return digits;
+            }
+        }
+        // 如果 digits 的所有元素都是 9，例如 [9,9,9,9,9]，那么答案为 [1,0,0,0,0,0]。我们只需要构造一个长度比 digits
+        // 多 1 的新数组，将首元素置为 1，其余元素置为 0 即可。
         digits = new int[len + 1];
         digits[0] = 1;
         return digits;
