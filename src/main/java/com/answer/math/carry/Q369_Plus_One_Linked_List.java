@@ -119,7 +119,9 @@ public class Q369_Plus_One_Linked_List {
     }
     // Helper function to recursively add one from the tail
     private int addOne(ListNode node) {
-        if (node == null) return 1; // Initial carry for +1
+        if (node == null) {
+            return 1; // Initial carry for +1
+        }
         int carry = addOne(node.next);
         int sum = node.val + carry;
         node.val = sum % 10;

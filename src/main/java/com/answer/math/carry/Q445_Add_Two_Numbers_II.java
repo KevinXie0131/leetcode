@@ -44,7 +44,7 @@ public class Q445_Add_Two_Numbers_II {
 
         return dummy.next;
     }
-
+    // without dummy node
 /*      ListNode ans = null;
         while (!stack1.isEmpty() || !stack2.isEmpty() || carry != 0) {
             ListNode curnode = new ListNode(cur);
