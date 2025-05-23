@@ -3,7 +3,14 @@ package com.answer.math.carry;
 import  com.answer.linkedlist.ListNode;
 
 public class Q369_Plus_One_Linked_List {
-
+    /**
+     * Given a non-negative integer represented as non-empty a singly linked list of digits, plus one to the integer.
+     * You may assume the integer do not contain any leading zero, except the number 0 itself.
+     * The digits are stored such that the most significant digit is at the head of the list.
+     * Example :
+     * Input: [1,2,3]
+     * Output: [1,2,4]
+     */
     public static void main(String[] args) {
         //head = [1,2,3]
 /*        ListNode node3 = new ListNode(9, null);
@@ -20,7 +27,6 @@ public class Q369_Plus_One_Linked_List {
         ListNode res = plusOne_1(node1);
         res.print();
     }
-
     /**
      * it doesn't work for [9]
      */
@@ -47,12 +53,14 @@ public class Q369_Plus_One_Linked_List {
     static int carryOver = 0;
     public static ListNode plusOne_1(ListNode head) {
         helper(head);
+
         if(carryOver > 0){
             ListNode newNode = new ListNode(1, head);
             return newNode;
         }
         return head;
     }
+
     public static ListNode helper(ListNode head) {
         if(head == null){
             return head;
@@ -75,6 +83,7 @@ public class Q369_Plus_One_Linked_List {
     int carry = 0;
     public ListNode plusOne_2(ListNode head) {
         help(head);
+
         if(carry > 0){
             ListNode newNode = new ListNode(1, head);
             return newNode;
@@ -88,11 +97,72 @@ public class Q369_Plus_One_Linked_List {
             return;
         }
         help(head.next);
+
         if(carry == 1){
             carry = (head.val + 1 ) / 10;
             head.val = (head.val + 1 ) % 10;
         }
-
         return;
+    }
+    /**
+     * The addOne method recursively traverses to the end of the list, adds 1, and handles the carry as the recursion unwinds.
+     * If after processing all nodes there is still a carry (the most significant digit had a carryover), a new node is created at the head.
+     */
+    public ListNode plusOne3(ListNode head) {
+        int carry = addOne(head);
+        if (carry > 0) {
+            ListNode newHead = new ListNode(carry);
+            newHead.next = head;
+            return newHead;
+        }
+        return head;
+    }
+    // Helper function to recursively add one from the tail
+    private int addOne(ListNode node) {
+        if (node == null) return 1; // Initial carry for +1
+        int carry = addOne(node.next);
+        int sum = node.val + carry;
+        node.val = sum % 10;
+        return sum / 10;
+    }
+    /**
+     * Reverse the linked list to make it easy to add one starting from the least significant digit.
+     * Traverse the list, add one, and manage carry.
+     * If a carry remains, add a new node at the end.
+     * Reverse the list back to restore the original order.
+     */
+    public ListNode plusOne4(ListNode head) {
+        // Step 1: Reverse the list
+        head = reverse(head);
+
+        // Step 2: Add one to the reversed list
+        ListNode curr = head;
+        int carry = 1;
+        ListNode prev = null;
+        while (curr != null) {
+            int sum = curr.val + carry;
+            curr.val = sum % 10;
+            carry = sum / 10;
+            prev = curr;
+            curr = curr.next;
+        }
+        // Step 3: If there's still a carry, add a new node
+        if (carry > 0) {
+            prev.next = new ListNode(carry);
+        }
+
+        // Step 4: Reverse the list again to restore original order
+        return reverse(head);
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null, curr = head;
+        while (curr != null) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return prev;
     }
 }
