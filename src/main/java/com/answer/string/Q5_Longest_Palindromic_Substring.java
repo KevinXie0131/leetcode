@@ -218,7 +218,9 @@ public class Q5_Longest_Palindromic_Substring {
         int maxLen = 1;  //最长回文串的长度
 
         boolean[][] dp = new boolean[strLen][strLen];
-
+/*        for (int r = 0; r < strLen; r++) {  // works too
+            for (int l = 0; l <= r; l++) {
+        */
         for (int r = 1; r < strLen; r++) {
             for (int l = 0; l < r; l++) {
                 if (s.charAt(l) == s.charAt(r) && (r - l <= 2 || dp[l + 1][r - 1])) {
