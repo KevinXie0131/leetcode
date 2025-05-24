@@ -2,6 +2,12 @@ package com.answer.string;
 
 public class Q14_Longest_Common_Prefix {
     /**
+     * Write a function to find the longest common prefix string amongst an array of strings.
+     * If there is no common prefix, return an empty string "".
+     * 编写一个函数来查找字符串数组中的最长公共前缀。
+     * 如果不存在公共前缀，返回空字符串 ""。
+     */
+    /**
      * Approach 1: Horizontal scanning
      * 横向扫描
      */
@@ -13,7 +19,7 @@ public class Q14_Longest_Common_Prefix {
         int length = strs.length;
         String prefix = strs[0];
         for(int i = 1; i < length; i++){
-            prefix = calPrefix(prefix, strs[i]);
+            prefix = findPrefix(prefix, strs[i]);
             if(prefix.length() == 0){
                 return prefix;
             }
@@ -21,7 +27,7 @@ public class Q14_Longest_Common_Prefix {
         return prefix;
     }
 
-    public String calPrefix(String str1, String str2){
+    public String findPrefix(String str1, String str2){
         int length = Math.min(str1.length(), str2.length());
         int index = 0;
         for(int i = 0; i < length; i++){
@@ -43,15 +49,16 @@ public class Q14_Longest_Common_Prefix {
             return "";
         }
         // 纵向扫描：遍历第一个字符串的字符，并与其余字符串相应位置的字符比较
-        for(int i = 0; i < strs[0].length(); i++){
-            char c = strs[0].charAt(i);
+        String s0 = strs[0];
+        for(int i = 0; i < s0.length(); i++){
+            char c = s0.charAt(i);
             for(int j = 0; j < strs.length; j++){
                 if(i == strs[j].length() || strs[j].charAt(i) != c){
-                    return strs[0].substring(0, i);
+                    return s0.substring(0, i);
                 }
             }
         }
-        return strs[0];
+        return s0;
     }
     /**
      * Approach 3: Divide and conquer
