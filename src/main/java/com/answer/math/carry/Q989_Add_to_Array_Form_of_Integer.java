@@ -94,6 +94,7 @@ public class Q989_Add_to_Array_Form_of_Integer {
     }
     /**
      * 逐位相加
+     * 逐位将数字加在一起, 从低位到高位依次计算, 若加法的结果大于等于 10，把进位的 1 加入到下一位的计算中
      */
     public List<Integer> addToArrayForm_1(int[] num, int k) {
         int n = num.length;
@@ -144,6 +145,20 @@ public class Q989_Add_to_Array_Form_of_Integer {
     }
     /**
      * Can be used as model
+     * <公式>
+     * 当前位 = (A 的当前位 + B 的当前位 + 进位carry) % 10
+     * 注意，AB两数都加完后，最后判断一下进位 carry, 进位不为 0 的话加在前面。
+     *
+     * <加法模板>
+     * while ( A 没完 || B 没完)
+     *     A 的当前位
+     *     B 的当前位
+     *
+     *     和 = A 的当前位 + B 的当前位 + 进位carry
+     *
+     *     当前位 = 和 % 10;
+     *     进位 = 和 / 10;
+     * 判断还有进位吗
      */
     public List<Integer> addToArrayForm_2(int[] num, int k) {
         List<Integer> res = new ArrayList<>(); // 返回结果
