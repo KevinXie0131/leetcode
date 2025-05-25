@@ -8,21 +8,38 @@ public class Q557_Reverse_Words_in_a_String_III {
      */
     public static void main(String[] args) {
         String s = "Let's take LeetCode contest";
-        System.out.println(reverseWords_0(s)); // "s'teL ekat edoCteeL tsetnoc"
+        System.out.println(reverseWords_3(s)); // "s'teL ekat edoCteeL tsetnoc"
     }
-
     /**
-     * Approach 2: Using Two Pointers - In-place
-     *
-     * Here's the code snippet for reversing the string stored in character array chArray using two pointer approach.
-     *
-     * while (startIndex < endIndex) {
-     *    char temp = chArray[startIndex];
-     *    chArray[startIndex] = chArray[endIndex];
-     *    chArray[endIndex] = temp;
-     *    startIndex++;
-     *    endIndex--;
-     * }
+     * Using Two Pointers - In-place 原地解法
+     */
+    static public String reverseWords_3(String s) {
+        char[] array = s.toCharArray();
+        int start = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == ' ') {
+                reverse(array, start, i - 1);
+                start = i + 1; // 更新start为下一个单词的左索引
+                continue;
+            }
+            if (i == array.length - 1) { // for the last word
+                reverse(array, start, i);
+            }
+        }
+        return new String(array);
+    }
+    // reversing the string stored in character array chArray using two pointer approach.
+    static private void reverse(char[] array, int l, int r) {
+        while (l < r) {
+            char temp = array[l];
+            array[l] = array[r];
+            array[r] = temp;
+            l++;
+            r--;
+        }
+    }
+    /**
+     * 原地解法
      */
     public static String reverseWords(String s) {
         char[] ch = s.toCharArray();
@@ -49,6 +66,7 @@ public class Q557_Reverse_Words_in_a_String_III {
     }
     /**
      * Approach 1: Traverse and Reverse each character one by one
+     * 使用额外空间
      */
     public static String reverseWords_0(String s) {
         StringBuilder sb = new StringBuilder();
@@ -69,7 +87,6 @@ public class Q557_Reverse_Words_in_a_String_III {
                 sb.append(' ');
             }
         }
-
         return sb.toString();
     }
     /**
