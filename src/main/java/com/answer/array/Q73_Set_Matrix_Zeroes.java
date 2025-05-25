@@ -5,6 +5,12 @@ import java.util.List;
 
 public class Q73_Set_Matrix_Zeroes {
     /**
+     * 矩阵置零
+     * 给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
+     * 输入：matrix = [[1,1,1],[1,0,1],[1,1,1]]
+     * 输出：[[1,0,1],[0,0,0],[1,0,1]]
+     */
+    /**
      * 原地in place:  operates directly on the input data structure without requiring extra space proportional to the input size.
      * 使用 原地 算法 / must do it in place.
      */

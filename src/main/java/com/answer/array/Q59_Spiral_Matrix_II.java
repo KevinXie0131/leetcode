@@ -5,6 +5,11 @@ import com.template.Print2dArray;
 import java.util.Arrays;
 
 public class Q59_Spiral_Matrix_II {
+    /**
+     * 螺旋矩阵 II: 给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+     * 输入：n = 3
+     * 输出：[[1,2,3],[8,9,4],[7,6,5]]
+     */
     public static void main(String[] args) {
         int[][] result = generateMatrix_0(5);
     //    System.out.println(Arrays.deepToString(result));
