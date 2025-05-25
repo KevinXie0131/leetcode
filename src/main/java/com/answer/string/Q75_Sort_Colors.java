@@ -4,15 +4,26 @@ import java.util.Arrays;
 
 public class Q75_Sort_Colors {
     /**
-     * one-pass algorithm using only constant extra space 原地in place
+     * Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects
+     * of the same color are adjacent, with the colors in the order red, white, and blue.
+     * We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+     * You must solve this problem without using the library's sort function.
+     * Follow up: Could you come up with a one-pass algorithm using only constant extra space?
+     * 给定一个包含红色、白色和蓝色、共 n 个元素的数组 nums ，原地(in place)对它们进行排序，使得相同颜色的元素相邻，
+     * 并按照红色、白色、蓝色顺序排列。
+     * 我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+     * 必须在不使用库内置的 sort 函数的情况下解决这个问题。
+     * 进阶：你能想出一个仅使用常数空间的一趟扫描算法吗？
      */
     public static void main(String[] args) {
        int[] nums = {1,0,2,0,2,1,1,0};
-       sortColors_3(nums);
+        sortColors_5(nums);
 
        System.out.println(Arrays.toString(nums));
     }
-
+    /**
+     * 单指针 两次遍历
+     */
     public void sortColors(int[] nums) {
         int n = nums.length;
         int index = 0;
@@ -36,6 +47,7 @@ public class Q75_Sort_Colors {
     }
     /**
      * Two Pointers
+     * one-pass algorithm using only constant extra space 原地in place
      */
     public static void sortColors_1(int[] nums) {
         int n = nums.length;
@@ -62,7 +74,7 @@ public class Q75_Sort_Colors {
         return;
     }
     /**
-     * Two Pointers
+     * Two Pointers 双指针
      */
     public static void sortColors_2(int[] nums) {
         int n = nums.length;
@@ -115,5 +127,25 @@ public class Q75_Sort_Colors {
         int c = nums[i];
         nums[i] = nums[j];
         nums[j] = c;
+    }
+    /**
+     * O(1) 插入元素, 不是插入元素，而是修改元素
+     * 先把 a[1] 改成 2，再把 a[1] 改成 1（覆盖），最后 a[0] 改成 0，得到 [0,1]。这种「覆盖」等价于「没有 2 的时候不改成 2」。
+     * 如果插入的是 1 呢？跳过「把 a[p0] 改成 0」这一步。
+     * 如果插入的是 2 呢？只需要把 a[i] 改成 2。
+     */
+    static public void sortColors_5(int[] nums) {
+        int p0 = 0;
+        int p1 = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int x = nums[i];
+            nums[i] = 2;
+            if (x == 1 || x == 0) {
+                nums[p1++] = 1;
+            }
+            if (x == 0) {
+                nums[p0++] = 0;
+            }
+        }
     }
 }
