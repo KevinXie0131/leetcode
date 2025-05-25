@@ -3,8 +3,14 @@ package com.answer.backtracking;
 import java.util.*;
 
 public class Q1079_Letter_Tile_Possibilities {
+    /**
+     * You have n  tiles, where each tile has one letter tiles[i] printed on it.
+     * Return the number of possible non-empty sequences of letters you can make using the letters printed on those tiles.
+     * 活字印刷: 有一套活字字模 tiles，其中每个字模上都刻有一个字母 tiles[i]。返回你可以印出的非空字母序列的数目。
+     * 注意：本题中，每个活字字模只能使用一次。
+     */
     public static void main(String[] args) {
-        String tiles = "AAB";
+        String tiles = "AAB"; // 解释：可能的序列为 "A", "B", "AA", "AB", "BA", "AAB", "ABA", "BAA"。
         System.out.println(numTilePossibilities(tiles)); // 8
         String tiles1 = "AAABBC";
         System.out.println(numTilePossibilities(tiles1)); // 188
@@ -13,12 +19,7 @@ public class Q1079_Letter_Tile_Possibilities {
         String tiles3 = "CDC";
         System.out.println(numTilePossibilities(tiles3)); // 1
     }
-    /**
-     * You have n  tiles, where each tile has one letter tiles[i] printed on it.
-     * Return the number of possible non-empty sequences of letters you can make using the letters printed on those tiles.
-     * 活字印刷: 有一套活字字模 tiles，其中每个字模上都刻有一个字母 tiles[i]。返回你可以印出的非空字母序列的数目。
-     * 注意：本题中，每个活字字模只能使用一次。
-     */
+
     static public int numTilePossibilities(String tiles) {
         List<String> result = new ArrayList<String>();
         StringBuffer path = new StringBuffer();

@@ -7,15 +7,24 @@ public class Q216_Combination_Sum_III {
      * Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
      *  - Only numbers 1 through 9 are used.
      *  - Each number is used at most once.
-     * 找出所有相加之和为 n 的 k 个数的组合，且满足下列条件：
+     * 组合总和 III: 找出所有相加之和为 n 的 k 个数的组合，且满足下列条件：
      *  - 只使用数字1到9
      *  - 每个数字 最多使用一次
+     * 返回 所有可能的有效组合的列表 。该列表不能包含相同的组合两次，组合可以以任何顺序返回。
      */
     /**
      * 本题就是在[1,2,3,4,5,6,7,8,9]这个集合中找到和为n的k个数的组合。
      * 本题k相当于树的深度，9（因为整个集合就是9个数）就是树的宽度。
      */
     public static void main(String[] args) {
+        /**
+         * 输出: [[1,2,6], [1,3,5], [2,3,4]]
+         * 解释:
+         *  1 + 2 + 6 = 9
+         *  1 + 3 + 5 = 9
+         *  2 + 3 + 4 = 9
+         *  没有其他符合的组合了。
+         */
         System.out.println(combinationSum3(3, 9));
     }
 

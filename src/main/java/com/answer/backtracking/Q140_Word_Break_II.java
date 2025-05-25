@@ -7,7 +7,7 @@ public class Q140_Word_Break_II {
      * Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence
      * where each word is a valid dictionary word. Return all such possible sentences in any order.
      * Note that the same word in the dictionary may be reused multiple times in the segmentation.
-     * 给定一个字符串 s 和一个字符串字典 wordDict ，在字符串 s 中增加空格来构建一个句子，使得句子中所有的单词都在词典中。
+     * 单词拆分 II: 给定一个字符串 s 和一个字符串字典 wordDict ，在字符串 s 中增加空格来构建一个句子，使得句子中所有的单词都在词典中。
      * 以任意顺序 返回所有这些可能的句子。
      * 注意：词典中的同一个单词可能在分段中被重复使用多次。
      */
@@ -24,7 +24,7 @@ public class Q140_Word_Break_II {
         wordDict.add("sand");
         wordDict.add("dog");
         List<String> res = wordBreak_1(s, wordDict);
-        System.out.println(res);
+        System.out.println(res); // 输出:["cats and dog","cat sand dog"]
 
         String s1 = "aaaaaaa";
         List<String> wordDict1 = new ArrayList<>();

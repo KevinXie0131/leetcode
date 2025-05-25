@@ -4,10 +4,15 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Q473_Matchsticks_to_Square {
+    /**
+     * 火柴拼正方形: 你将得到一个整数数组 matchsticks ，其中 matchsticks[i] 是第 i 个火柴棒的长度。你要用 所有的火柴棍
+     * 拼成一个正方形。你 不能折断 任何一根火柴棒，但你可以把它们连在一起，而且每根火柴棒必须 使用一次 。
+     * 如果你能使这个正方形，则返回 true ，否则返回 false 。
+     */
     public static void main(String[] args) {
-        int[] matchsticks = {1,1,2,2,2};
+        int[] matchsticks = {1,1,2,2,2}; // 输出: true 解释: 能拼成一个边长为2的正方形，每边两根火柴。
         System.out.println(makesquare(matchsticks));
-        int[] matchsticks1 = {3,3,3,3,4};
+        int[] matchsticks1 = {3,3,3,3,4}; // 输出: false 解释: 不能用所有火柴拼成一个正方形。
         System.out.println(makesquare(matchsticks1));
     }
     /**

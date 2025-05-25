@@ -3,14 +3,6 @@ package com.answer.backtracking;
 import java.util.HashSet;
 
 public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
-    public static void main(String[] args) {
-        String s = "ababccc";
-        System.out.println(maxUniqueSplit(s)); // 5
-        String s1 = "aba";
-      //  System.out.println(maxUniqueSplit(s1)); // 2
-        String s2 = "aa";
-      //  System.out.println(maxUniqueSplit(s2)); // 1
-    }
     /**
      * Given a string s, return the maximum number of unique substrings that the given string can be split into.
      * You can split string s into any list of non-empty substrings, where the concatenation of the substrings forms
@@ -21,6 +13,17 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
      * 字符串 s 拆分后可以得到若干 非空子字符串 ，这些子字符串连接后应当能够还原为原字符串。但是拆分出来的每个子字符串都必须是 唯一的 。
      * 注意：子字符串 是字符串中的一个连续字符序列。
      */
+    public static void main(String[] args) {
+        // 解释：一种最大拆分方法为 ['a', 'b', 'ab', 'c', 'cc'] 。像 ['a', 'b', 'a', 'b', 'c', 'cc'] 这样拆分不满足题目要求，
+        // 因为其中的 'a' 和 'b' 都出现了不止一次。
+        String s = "ababccc";
+        System.out.println(maxUniqueSplit(s)); // 5
+        String s1 = "aba"; // 解释：一种最大拆分方法为 ['a', 'ba'] 。
+      //  System.out.println(maxUniqueSplit(s1)); // 2
+        String s2 = "aa"; // 解释：无法进一步拆分字符串。
+      //  System.out.println(maxUniqueSplit(s2)); // 1
+    }
+
     static int maxSplit = 0;
     static public int maxUniqueSplit(String s) {
         HashSet<String> set = new HashSet<>();

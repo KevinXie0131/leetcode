@@ -9,7 +9,13 @@ public class Q47_Permutations_II {
     /**
      * Given a collection of numbers, nums, that might contain duplicates,
      * return all possible unique permutations in any order.
-     * 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+     * 全排列 II: 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+     * 示例 1：
+     *  输入：nums = [1,1,2]
+     *  输出：
+     *      [[1,1,2],
+     *      [1,2,1],
+     *      [2,1,1]]
      */
     /**
      * 这道题⽬和回溯算法：排列问题 的区别在与给定⼀个可包含重复数字的序列，要返回所有不重复的全排列。

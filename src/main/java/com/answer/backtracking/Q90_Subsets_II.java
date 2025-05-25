@@ -6,11 +6,11 @@ public class Q90_Subsets_II {
     /**
      * Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
      * The solution set must not contain duplicate subsets.
-     * 一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的 子集（幂集）。
+     * 子集 II: 一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的 子集（幂集）。
      * 解集 不能 包含重复的子集。
      */
     public static void main(String[] args) {
-        int[] nums = {1,2,2};
+        int[] nums = {1,2,2}; // 输出：[[],[1],[1,2],[1,2,2],[2],[2,2]]
         System.out.println(subsetsWithDup1(nums));
     }
     /**

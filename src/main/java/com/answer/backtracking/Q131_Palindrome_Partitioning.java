@@ -6,12 +6,11 @@ public class Q131_Palindrome_Partitioning {
     /**
      * Given a string s, partition s such that every substring of the partition is a palindrome.
      * Return all possible palindrome partitioning of s.
-     * 分割回文串
-     * 一个字符串 s，请你将 s 分割成一些 子串，使每个子串都是 回文串。返回 s 所有可能的分割方案。
+     * 分割回文串: 一个字符串 s，请你将 s 分割成一些 子串，使每个子串都是 回文串。返回 s 所有可能的分割方案。
      */
     public static void main(String[] args) {
        // System.out.println(partition("abcd"));
-        System.out.println(partition("aab"));
+        System.out.println(partition("aab")); // 输出：[["a","a","b"],["aa","b"]]
     }
     static List<List<String>> result = new ArrayList<List<String>>();
     /**

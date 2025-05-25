@@ -7,11 +7,11 @@ public class Q139_Word_Break {
      * Given a string s and a dictionary of strings wordDict, return true if s can be segmented into
      * a space-separated sequence of one or more dictionary words.
      * Note that the same word in the dictionary may be reused multiple times in the segmentation.
-     * 一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+     * 单词拆分: 一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
      * 注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
      */
     public static void main(String[] args) {
-       String s = "leetcode";
+       String s = "leetcode"; // 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。注意，你可以重复使用字典中的单词。
        List<String> wordDict = new ArrayList<>();
        wordDict.add("leet");
        wordDict.add("code");

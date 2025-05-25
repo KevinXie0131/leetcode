@@ -6,11 +6,12 @@ public class Q78_Subsets {
     /**
      * Given an integer array nums of unique elements, return all possible subsets (the power set).
      * The solution set must not contain duplicate subsets.
-     * 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+     * 子集: 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
      * 解集 不能 包含重复的子集
+     * 数组的 子集(Subset) 是从数组中选择一些元素（可能为空）。
      */
     public static void main(String[] args) {
-        int[] nums = {1,2,3};
+        int[] nums = {1,2,3}; // 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
         System.out.println(subsets_4(nums));
     }
     /**
