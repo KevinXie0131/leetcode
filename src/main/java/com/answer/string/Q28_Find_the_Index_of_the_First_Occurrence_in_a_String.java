@@ -2,31 +2,55 @@ package com.answer.string;
 
 public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
     /**
+     * Given two strings needle and haystack, return the index of the first occurrence of needle in haystack,
+     * or -1 if needle is not part of haystack
+     * 找出字符串中第一个匹配项的下标
+     * 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串的第一个匹配项的下标（下标从 0 开始）。
+     * 如果 needle 不是 haystack 的一部分，则返回  -1 。
+     */
+    /**
+     * use library
+     */
+    public int strStr_6(String haystack, String needle) {
+        return haystack.indexOf(needle);
+    }
+    /**
      牺牲空间，换取最直白的暴力法
      时间复杂度 O(n * m)
      空间 O(n + m)
      */
     public int strStr_0(String haystack, String needle) {
-        // 获取 haystack 和 needle 的长度
-        int n = haystack.length(), m = needle.length();
-        // 将字符串转换为字符数组，方便索引操作
-        char[] s = haystack.toCharArray(), p = needle.toCharArray();
-
+        int n = haystack.length(), m = needle.length(); // 获取 haystack 和 needle 的长度
+        char[] s = haystack.toCharArray(), p = needle.toCharArray(); // 将字符串转换为字符数组，方便索引操作
         // 遍历 haystack 字符串
         for (int i = 0; i < n - m + 1; i++) {
-            // 初始化匹配的指针
-            int a = i, b = 0;
-            // 循环检查 needle 是否在当前位置开始匹配
-            while (b < m && s[a] == p[b]) {
-                // 如果当前字符匹配，则移动指针
-                a++;
+            int a = i, b = 0; // 初始化匹配的指针
+            while (b < m && s[a] == p[b]) {  // 循环检查 needle 是否在当前位置开始匹配
+                a++; // 如果当前字符匹配，则移动指针
                 b++;
             }
-            // 如果 b 等于 m，说明 needle 已经完全匹配，返回当前位置 i
-            if (b == m) return i;
+            if (b == m) return i;   // 如果 b 等于 m，说明 needle 已经完全匹配，返回当前位置 i
         }
 
-        // 如果遍历完毕仍未找到匹配的子串，则返回 -1
+        return -1;   // 如果遍历完毕仍未找到匹配的子串，则返回 -1
+    }
+    /**
+     * another form
+     */
+    public int strStr_3(String haystack, String needle) {
+        int n = haystack.length(), m = needle.length();
+        for (int i = 0; i <= n - m; i++) {
+            boolean flag = true;
+            for (int j = 0; j < m; j++) {
+                if (haystack.charAt(i + j) != needle.charAt(j)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return i;
+            }
+        }
         return -1;
     }
     /**
@@ -55,8 +79,7 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
      */
     public int strStr0(String haystack, String needle) {
         int m = needle.length();
-        // 当 needle 是空字符串时我们应当返回 0
-        if (m == 0) {
+        if (m == 0) { // 当 needle 是空字符串时我们应当返回 0
             return 0;
         }
         int n = haystack.length();
@@ -66,15 +89,13 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
         int i = 0;
         int j = 0;
         while (i < n - m + 1) {
-            // 找到首字母相等
-            while (i < n && haystack.charAt(i) != needle.charAt(j)) {
+            while (i < n && haystack.charAt(i) != needle.charAt(j)) {  // 找到首字母相等
                 i++;
             }
             if (i == n) {// 没有首字母相等的
                 return -1;
             }
-            // 遍历后续字符，判断是否相等
-            i++;
+            i++; // 遍历后续字符，判断是否相等
             j++;
             while (i < n && j < m && haystack.charAt(i) == needle.charAt(j)) {
                 i++;
