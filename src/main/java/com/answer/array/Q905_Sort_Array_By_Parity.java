@@ -2,6 +2,13 @@ package com.answer.array;
 
 public class Q905_Sort_Array_By_Parity {
     /**
+     * 按奇偶排序数组: 给你一个整数数组 nums，将 nums 中的的所有偶数元素移动到数组的前面，后跟所有奇数元素。
+     * 返回满足此条件的 任一数组 作为答案。
+     * 示例 1：
+     *  输入：nums = [3,1,2,4]
+     *  输出：[2,4,3,1]
+     */
+    /**
      * Sort Array By Parity 按奇偶排序数组
      *  move all the even integers at the beginning of the array followed by all the odd integers.
      * 将 nums 中的的所有偶数元素移动到数组的前面，后跟所有奇数元素。

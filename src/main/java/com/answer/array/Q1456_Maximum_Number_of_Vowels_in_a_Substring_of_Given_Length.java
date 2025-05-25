@@ -7,8 +7,12 @@ public class Q1456_Maximum_Number_of_Vowels_in_a_Substring_of_Given_Length {
      * 定长子串中元音的最大数目
      * return the maximum number of vowel letters in any substring of s with length k.
      * Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
-     * 返回字符串 s 中长度为 k 的单个子字符串中可能包含的最大元音字母数。
+     * 给你字符串 s 和整数 k 。返回字符串 s 中长度为 k 的单个子字符串中可能包含的最大元音字母数。
      * 英文中的 元音字母 为（a, e, i, o, u）。
+     * 示例 1：
+     *  输入：s = "abciiidef", k = 3
+     *  输出：3
+     *  解释：子字符串 "iii" 包含 3 个元音字母。
      */
     public static void main(String[] args) {
         String s = "abciiidef";
