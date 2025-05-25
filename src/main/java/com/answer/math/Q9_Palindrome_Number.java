@@ -110,4 +110,25 @@ public class Q9_Palindrome_Number {
         // 由于处于中位的数字不影响回文（它总是与自己相等），所以我们可以简单地将其去除。
         return x == revertedNumber || x == revertedNumber / 10;
     }
+    /**
+     * 动态规划
+     * refer to Q125_Valid_Palindrome
+     */
+    public boolean isPalindromez_5(int x) {
+        String num = x + "";
+        char[] array = num.toString().toCharArray();
+        int len = array.length;
+        boolean[][] dp = new boolean[len][len];
+        int maxLen = 0;
+        for(int j = 0; j < len; j++){
+            for(int i = 0; i <= j; i++){
+                if(array[i] == array[j] && ((j - i <= 2) || dp[i + 1][j- 1] == true)){
+                   dp[i][j] = true;
+                   maxLen = Math.max(maxLen, j - i + 1);
+                }
+            }
+        }
+
+        return maxLen == len;
+    }
 }
