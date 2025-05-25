@@ -11,6 +11,21 @@ public class Q557_Reverse_Words_in_a_String_III {
         System.out.println(reverseWords_3(s)); // "s'teL ekat edoCteeL tsetnoc"
     }
     /**
+     * Reverse each word
+     * Refer to Q186_Reverse_Words_in_a_String_II
+     */
+    public String reverseWords_6(String s) {
+        char[] array = s.toCharArray();
+        int start = 0;
+        for(int end = 0; end <= array.length; end++){
+            if(end == array.length || array[end] == ' '){
+                reverse(array, start , end - 1);
+                start = end + 1;
+            }
+        }
+        return new String(array);
+    }
+    /**
      * Using Two Pointers - In-place 原地解法
      */
     static public String reverseWords_3(String s) {
