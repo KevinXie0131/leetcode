@@ -88,7 +88,7 @@ public class Q131_Palindrome_Partitioning {
     }
     public void backtracking1(String str, int startIndex) {
         if (startIndex >= str.length()) {
-            result1.add(new ArrayList<>(path)); //如果起始位置大于s的大小，说明找到了一组分割方案
+            result1.add(new ArrayList<>(path1)); //如果起始位置大于s的大小，说明找到了一组分割方案
         } else {
             for (int i = startIndex; i < str.length(); ++i) {
                 if (dp[startIndex][i]) { //是回文子串，进入下一步递归
@@ -103,14 +103,14 @@ public class Q131_Palindrome_Partitioning {
         }
     }
     //通过动态规划判断是否是回文串,参考动态规划 Q125 Valid Palindrome 回文子串
-    public void isPalindrome1(char[] str) {
-        for (int i = 0; i <= str.length; ++i) {
+    public void isPalindrome1(char[] array) {
+        for (int i = 0; i <= array.length; ++i) {
             dp[i][i] = true;
         }
-        for (int i = 1; i < str.length; ++i) {
+        for (int i = 1; i < array.length; ++i) { // for (int i = 0; i < array.length; ++i) { // works too
             for (int j = i; j >= 0; --j) { // 从下到上
-                if (str[j] == str[i]) {
-                    if (i - j <= 1) { // 如果i-j不构成字符串
+                if (array[j] == array[i]) {
+                    if (i - j <= 1) { // 如果i-j不构成字符串  // if (i - j <= 2) { // works too
                         dp[j][i] = true;
                     } else if (dp[j + 1][i - 1]) {
                         dp[j][i] = true;
