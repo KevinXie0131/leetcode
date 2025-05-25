@@ -1,14 +1,14 @@
 package com.answer.bit;
 
 public class Q371_Sum_of_Two_Integers {
-    public static void main(String[] args) {
-        int a = 2, b = 3;
-        System.out.println(getSum_1(a, b));
-    }
     /**
      * Given two integers a and b, return the sum of the two integers without using the operators + and -.
      * 给你两个整数 a 和 b ，不使用 运算符 + 和 -，计算并返回两整数之和。
      */
+    public static void main(String[] args) {
+        int a = 2, b = 3;
+        System.out.println(getSum_1(a, b));
+    }
     /**
      * 使用「位运算」，利用二进制的「逢二进一」和「int 二进制表示长度为 32」，我们可以从低位往高位进行处理，处理过程中使用变量 t 记录进位信息。
      */

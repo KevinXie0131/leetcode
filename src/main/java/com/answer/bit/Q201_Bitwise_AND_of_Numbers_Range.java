@@ -1,16 +1,20 @@
 package com.answer.bit;
 
 public class Q201_Bitwise_AND_of_Numbers_Range {
+    /**
+     * Given two integers left and right that represent the range [left, right],
+     * return the bitwise AND of all numbers in this range, inclusive.
+     * 数字范围按位与
+     * 给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。
+     */
     public static void main(String[] args) {
         int left = 5, right = 7;
         System.out.println(rangeBitwiseAnd(left, right)); // 4
     }
     /**
-     * Given two integers left and right that represent the range [left, right],
-     * return the bitwise AND of all numbers in this range, inclusive.
-     * 给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。
+     * 暴力 Time Limit Exceeded for [1, 2147483647]
      */
-    static public int rangeBitwiseAnd(int left, int right) { //暴力 Time Limit Exceeded for [1, 2147483647]
+    static public int rangeBitwiseAnd(int left, int right) {
         int res = left;
         for (int num = left + 1; num <= right; num++) {
             res &= num;

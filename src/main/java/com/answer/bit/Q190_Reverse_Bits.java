@@ -8,7 +8,6 @@ public class Q190_Reverse_Bits {
      * 因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。
      * 在 Java 中，编译器使用二进制补码记法来表示有符号整数。因此，在 示例 2 中，输入表示有符号整数 -3，
      * 输出表示有符号整数 -1073741825。
-     *
      */
     public static void main(String[] args) {
         String binaryString="00000010100101000001111010011100";

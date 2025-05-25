@@ -3,6 +3,14 @@ package com.answer.bit;
 import java.util.*;
 
 public class Q260_Single_Number_III {
+    /**
+     * Given an integer array nums, in which exactly two elements appear only once and all the other elements
+     * appear exactly twice. Find the two elements that appear only once. You can return the answer in any order.
+     * You must write an algorithm that runs in linear runtime complexity and uses only constant extra space.
+     * 给你一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。
+     * 你可以按 任意顺序 返回答案。
+     * 你必须设计并实现线性时间复杂度的算法且仅使用常量额外空间来解决此问题。
+     */
     public static void main(String[] args) {
         /**
          * The expression n & -n isolates the lowest set bit. It works because -n is the two's complement of n,
@@ -13,14 +21,6 @@ public class Q260_Single_Number_III {
         System.out.println(-a); // -6
         System.out.println(a & -a); // 2
     }
-    /**
-     * Given an integer array nums, in which exactly two elements appear only once and all the other elements
-     * appear exactly twice. Find the two elements that appear only once. You can return the answer in any order.
-     * You must write an algorithm that runs in linear runtime complexity and uses only constant extra space.
-     * 给你一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。
-     * 你可以按 任意顺序 返回答案。
-     * 你必须设计并实现线性时间复杂度的算法且仅使用常量额外空间来解决此问题。
-     */
     /**
      * 方法一：哈希表
      * 时间复杂度：O(n)，其中 n 是数组 nums 的长度。
