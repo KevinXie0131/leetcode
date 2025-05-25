@@ -1,9 +1,14 @@
 package com.answer.string;
 
 public class Q557_Reverse_Words_in_a_String_III {
+    /**
+     * Given a string s, reverse the order of characters in each word within a sentence while still
+     * preserving whitespace and initial word order.
+     * 给定一个字符串 s ，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+     */
     public static void main(String[] args) {
         String s = "Let's take LeetCode contest";
-        System.out.println(reverseWords_0(s));
+        System.out.println(reverseWords_0(s)); // "s'teL ekat edoCteeL tsetnoc"
     }
 
     /**

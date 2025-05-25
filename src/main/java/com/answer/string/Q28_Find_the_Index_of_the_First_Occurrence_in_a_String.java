@@ -9,7 +9,7 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
      * 如果 needle 不是 haystack 的一部分，则返回  -1 。
      */
     /**
-     * use library
+     * 用Java内置方法实现
      */
     public int strStr_6(String haystack, String needle) {
         return haystack.indexOf(needle);
