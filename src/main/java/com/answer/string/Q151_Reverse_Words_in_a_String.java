@@ -17,7 +17,9 @@ public class Q151_Reverse_Words_in_a_String {
     //    String s= "  hello world  "; // "world hello"
        System.out.println(reverseWords_5(s));
     }
-    // 用Java内置方法实现
+    /**
+     * 用Java内置方法实现
+     */
     public String reverseWords(String s) {
         s = s.trim();
 
@@ -215,12 +217,9 @@ public class Q151_Reverse_Words_in_a_String {
     //用 char[] 来实现 String 的 removeExtraSpaces，reverse 操作
     public String reverseWords_4(String s) {
         char[] chars = s.toCharArray();
-        //1.去除首尾以及中间多余空格
-        chars = removeExtraSpaces(chars);
-        //2.整个字符串反转
-        reverse_4(chars, 0, chars.length - 1);
-        //3.单词反转
-        reverseEachWord(chars);
+        chars = removeExtraSpaces(chars); //1.去除首尾以及中间多余空格
+        reverse_4(chars, 0, chars.length - 1);  //2.整个字符串反转
+        reverseEachWord(chars); //3.单词反转
         return new String(chars);
     }
 
@@ -228,20 +227,16 @@ public class Q151_Reverse_Words_in_a_String {
     public char[] removeExtraSpaces(char[] chars) {
         int slow = 0;
         for (int fast = 0; fast < chars.length; fast++) {
-            //先用 fast 移除所有空格
-            if (chars[fast] != ' ') {
-                //在用 slow 加空格。 除第一个单词外，单词末尾要加空格
-                if (slow != 0) {
+            if (chars[fast] != ' ') {//先用 fast 移除所有空格
+                if (slow != 0) {  //在用 slow 加空格。 除第一个单词外，单词末尾要加空格
                     chars[slow++] = ' ';
                 }
-                //fast 遇到空格或遍历到字符串末尾，就证明遍历完一个单词了
-                while (fast < chars.length && chars[fast] != ' ') {
+                while (fast < chars.length && chars[fast] != ' ') {  //fast 遇到空格或遍历到字符串末尾，就证明遍历完一个单词了
                     chars[slow++] = chars[fast++];
                 }
             }
         }
-        //相当于 c++ 里的 resize()
-        char[] newChars = new char[slow];
+        char[] newChars = new char[slow];  //相当于 c++ 里的 resize()
         System.arraycopy(chars, 0, newChars, 0, slow);
         return newChars;
     }
@@ -266,8 +261,7 @@ public class Q151_Reverse_Words_in_a_String {
         int start = 0;
         //end <= s.length() 这里的 = ，是为了让 end 永远指向单词末尾后一个位置，这样 reverse 的实参更好设置
         for (int end = 0; end <= chars.length; end++) {
-            // end 每次到单词末尾后的空格或串尾,开始反转单词
-            if (end == chars.length || chars[end] == ' ') {
+            if (end == chars.length || chars[end] == ' ') { // end 每次到单词末尾后的空格或串尾,开始反转单词
                 reverse_4(chars, start, end - 1);
                 start = end + 1;
             }
