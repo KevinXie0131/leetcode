@@ -3,7 +3,12 @@ package com.answer.math;
 import java.util.*;
 
 public class Q229_Majority_Element_II {
-
+    /**
+     * 多数元素 II: 给定一个大小为 n 的整数数组，找出其中所有出现超过 ⌊ n/3 ⌋ 次的元素。
+     * 示例 1：
+     *  输入：nums = [3,2,3]
+     *  输出：[3]
+     */
     public List<Integer> majorityElement(int[] nums) {
         Map<Integer, Long> map = new HashMap<>();
 

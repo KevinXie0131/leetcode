@@ -1,6 +1,5 @@
 package com.answer.math.carry;
 
-
 import com.answer.linkedlist.ListNode;
 
 import java.util.*;
