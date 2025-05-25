@@ -4,11 +4,22 @@ import java.util.*;
 
 public class Q49_Group_Anagrams {
     /**
+     * Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+     * An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, using all the original letters exactly once.
+     * 字母异位词分组
+     * 给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
+     * 字母异位词 是由重新排列源单词的所有字母得到的一个新单词。
+     */
+    public static void main(String[] args) {
+        String[] strs =  {"eat","tea","tan","ate","nat","bat"};
+        groupAnagrams(strs);
+    }
+    /**
      * Approach 1: Categorize by Sorted String
      * 排序法 (时间复杂度：NKlogK 空间复杂度：NK)
      * 将每个字符串排序后的结果作为 key，对原字符串数组进行分组，最后提取分组结果即可。
      */
-    public List<List<String>> groupAnagrams(String[] strs) {
+   static public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
         for(String s : strs) {
             char[] arr = s.toCharArray();
@@ -29,6 +40,20 @@ public class Q49_Group_Anagrams {
             map.get(key).add(s);*/
         }
         return new ArrayList<List<String>>(map.values());
+    }
+    /**
+     * another form
+     */
+    public List<List<String>> groupAnagrams_1a(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for(String s : strs) {
+            char[] arr = s.toCharArray();  // 把 s 排序，作为哈希表的 key
+            Arrays.sort(arr); // KlogK
+            String key = new String(arr);
+            // 排序后相同的字符串分到同一组
+            map.computeIfAbsent(new String(arr), k -> new ArrayList<String>()).add(s);
+        }
+        return new ArrayList<List<String>>(map.values()); // 哈希表的 value 保存分组后的结果
     }
     /**
      * Approach 2: Categorize by Count
