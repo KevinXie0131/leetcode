@@ -215,6 +215,12 @@ public class Q139_Word_Break {
      * 空间复杂度：O(n)
      */
     public static boolean wordBreak_5(String s, List<String> wordDict) {
+        /**
+         * 定义 dp[i] 表示字符串 s 前 i 个字符组成的字符串 s[0..i−1] 是否能被空格拆分成若干个字典中出现的单词
+         * 需要枚举 s[0..i−1] 中的分割点 j ，看 s[0..j−1] 组成的字符串 （默认 j=0 时 为空串）和 s[j..i−1] 组成的字符串 是否都合法，
+         * 如果两个字符串均合法，那么按照定义 拼接成的字符串也同样合法
+         * 对于边界条件，我们定义 dp[0]=true 表示空串且合法。
+         */
         boolean[] dp = new boolean[s.length() + 1]; // dp[i] : 字符串长度为i的话，dp[i]为true，表示可以拆分为一个或多个在字典中出现的单
         dp[0] = true; // dp[i] 的状态依靠 dp[j]是否为true，那么dp[0]就是递推的根基，dp[0]一定要为true，否则递推下去后面都都是false
         // 如果求组合数就是外层for循环遍历物品，内层for遍历背包
