@@ -20,7 +20,7 @@ public class Q118_Pascal_Triangle {
      * 每个数字由上一行的当前列数字和上一行的左侧数字相加得到，模拟这个过程就可以得到每一行的结果了。
      */
     public static void main(String[] args) {
-        System.out.println(generate(4));
+        System.out.println(generate_2(4));
     }
 
     static public List<List<Integer>> generate(int numRows) {
@@ -57,7 +57,9 @@ public class Q118_Pascal_Triangle {
         return c;
     }
     /**
-     * Approach 1: Dynamic Programming
+     * Approach 1: Dynamic Programming 动态规划
+     * 第 i 行共有 i + 1 个格子，并且第 0 和第 i 个格子都是 1。从第 2 行开始，第 1 到第 i - 1 个格子的值都可由上一行求出
+     * 确定递归函数：dp[i][j] = dp[i-1][j-1] + dp[i-1][j]；
      */
     public static List<List<Integer>> generate_2(int numRows) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
@@ -86,6 +88,35 @@ public class Q118_Pascal_Triangle {
             List<Integer> tmp = new ArrayList<>();
             for (int j = 0; j < dp.length; j++) {
                 if(dp[i][j] == 0) break;
+                tmp.add(dp[i][j]);
+            }
+            result.add(new ArrayList<>(tmp));
+        }
+
+        return result;
+    }
+    /**
+     * another form
+     */
+    public static List<List<Integer>> generate_3(int numRows) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+        int[][] dp = new int[numRows][numRows];
+        dp[0][0] = 1;
+
+        for(int i = 1; i < numRows; i++){
+            for(int j = 0; j <= i; j++){
+                if(j == 0 || i == j) { // 第 i 行共有 i + 1 个格子，并且第 0 和第 i 个格子都是 1。
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                }
+            }
+        }
+
+        for (int i = 0; i < dp.length; i++) {
+            List<Integer> tmp = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
                 tmp.add(dp[i][j]);
             }
             result.add(new ArrayList<>(tmp));
