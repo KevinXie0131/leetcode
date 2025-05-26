@@ -12,10 +12,10 @@ public class Q151_Reverse_Words_in_a_String {
      * 注意：输入字符串 s中可能会存在前导空格、尾随空格或者单词间的多个空格。返回的结果字符串中，单词间应当仅用单个空格分隔，且不包含任何额外的空格。
      */
     public static void main(String[] args) {
-       String s = "the sky is blue"; // "blue is sky the"
+     //  String s = "the sky is blue"; // "blue is sky the"
      // String s = "a good   example"; // "example good a"
-    //    String s= "  hello world  "; // "world hello"
-       System.out.println(reverseWords_5(s));
+       String s= "  hello world  "; // "world hello"
+       System.out.println(reverseWords_1(s));
     }
     /**
      * 用Java内置方法实现
@@ -29,6 +29,18 @@ public class Q151_Reverse_Words_in_a_String {
         Collections.reverse(list);
         String result = String.join(" ", list);
         return result;
+    }
+    /**
+     * 解决方法：倒序遍历单词列表，并将单词逐个添加至 StringBuilder ，遇到空单词时跳过。
+     */
+    public String reverseWords1(String s) {
+        String[] strs = s.trim().split(" ");        // 删除首尾空格，分割字符串
+        StringBuilder res = new StringBuilder();
+        for (int i = strs.length - 1; i >= 0; i--) { // 倒序遍历单词列表
+            if (strs[i].equals("")) continue;        // 遇到空单词则跳过
+            res.append(strs[i] + " ");              // 将单词拼接至 StringBuilder
+        }
+        return res.toString().trim();               // 转化为字符串，删除尾部空格，并返回
     }
     /**
      * From 睡不醒的鲤鱼
@@ -69,6 +81,7 @@ public class Q151_Reverse_Words_in_a_String {
      * 1.去除首尾以及中间多余空格
      * 2.反转整个字符串
      * 3.反转各个单词
+     * 对于字符串可变的语言，就不需要再额外开辟空间了，直接在字符串上原地实现。在这种情况下，反转字符和去除空格可以一起完成。
      */
     public static String reverseWords_1(String s) {
         StringBuffer sb = trimString(s);  // 1.去除首尾以及中间多余空格
@@ -80,13 +93,13 @@ public class Q151_Reverse_Words_in_a_String {
     private static StringBuffer trimString(String s){
         int left = 0;
         int right = s.length() - 1;
-        while(s.charAt(left) == ' '){
+        while(left <= right && s.charAt(left) == ' '){ // 去掉字符串开头的空白字符
             left++;
         }
-        while(s.charAt(right) == ' '){
+        while(left <= right && s.charAt(right) == ' '){  // 去掉字符串末尾的空白字符
             right--;
         }
-       /* StringBuffer sb = new StringBuffer();
+       /* StringBuffer sb = new StringBuffer();   // 将字符串间多余的空白字符去除
         while (left <= right) {
             char c = s.charAt(left);
             if (c != ' ' || sb.charAt(sb.length() - 1) != ' ') {
@@ -98,7 +111,7 @@ public class Q151_Reverse_Words_in_a_String {
         StringBuffer sb = new StringBuffer();
         while(left <= right){
             char c = s.charAt(left);
-            if(!(c == ' ' && sb.charAt(sb.length() - 1) == ' ')){
+            if(!(c == ' ' && sb.charAt(sb.length() - 1) == ' ')){ // not add space twice
                 sb.append(c);
             }
             left++;
@@ -121,13 +134,69 @@ public class Q151_Reverse_Words_in_a_String {
         int right = 1;
         int n = sb.length();
         while(left < n){
-            while(right < n && sb.charAt(right) != ' '){
+            while(right < n && sb.charAt(right) != ' '){  // 循环至单词的末尾
                 right++;
             }
-            reverseString(sb, left, right - 1);
-            left = right + 1;
+            reverseString(sb, left, right - 1);  // 翻转单词
+            left = right + 1;  // 更新start，去找下一个单词
             right++;
         }
+    }
+    /**
+     * 双端队列
+     * 由于双端队列支持从队列头部插入的方法，因此我们可以沿着字符串一个一个单词处理，然后将单词压入队列的头部，再将队列转成字符串即可。
+     */
+    public String reverseWords8(String s) {
+        int left = 0, right = s.length() - 1;
+        // 去掉字符串开头的空白字符
+        while (left <= right && s.charAt(left) == ' ') {
+            ++left;
+        }
+        // 去掉字符串末尾的空白字符
+        while (left <= right && s.charAt(right) == ' ') {
+            --right;
+        }
+
+        Deque<String> d = new ArrayDeque<String>();
+        StringBuilder word = new StringBuilder();
+
+        while (left <= right) {
+            char c = s.charAt(left);
+            if ((word.length() != 0) && (c == ' ')) {
+                // 将单词 push 到队列的头部
+                d.offerFirst(word.toString());
+                word.setLength(0); // word = new StringBuilder(); // works too
+            } else if (c != ' ') {
+                word.append(c);
+            }
+            ++left;
+        }
+        d.offerFirst(word.toString());
+
+        return String.join(" ", d);
+    }
+    /**
+     * 双指针
+     *  倒序遍历字符串 s ，记录单词左右索引边界 i , j 。
+     *  每确定一个单词的边界，则将其添加至单词列表 res 。
+     *  最终，将单词列表拼接为字符串，并返回即可。
+     */
+    public String reverseWords7(String s) {
+        s = s.trim();                                    // 删除首尾空格
+        int j = s.length() - 1, i = j;
+        StringBuilder res = new StringBuilder();
+        while (i >= 0) {
+            while (i >= 0 && s.charAt(i) != ' '){
+                i--;     // 搜索首个空格
+            }
+            res.append(s.substring(i + 1, j + 1) + " "); // 添加单词
+
+            while (i >= 0 && s.charAt(i) == ' ') {
+                i--;     // 跳过单词间空格
+            }
+            j = i;                                       // j 指向下个单词的尾字符
+        }
+        return res.toString().trim();                    // 转化为字符串并返回
     }
     /**
      * 解法二：创建新字符数组填充。时间复杂度O(n)
