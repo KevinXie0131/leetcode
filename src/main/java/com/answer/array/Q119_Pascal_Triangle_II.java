@@ -13,7 +13,7 @@ public class Q119_Pascal_Triangle_II {
         System.out.println(getRow1(0));
         System.out.println(getRow1(1));
         System.out.println(getRow1(2));
-        System.out.println(getRow_5(3));
+        System.out.println(getRow(3));
         System.out.println(getRow1(4));
         System.out.println(getRow1(5));
     }
@@ -95,9 +95,9 @@ public class Q119_Pascal_Triangle_II {
         return ans.get(rowIndex % 2);
     }
     /**
-     * Dynamic Programming
+     * Dynamic Programming 动态规划
      */
-    public List<Integer> getRow(int rowIndex) {
+    static public List<Integer> getRow(int rowIndex) {
         List<Integer> result = new ArrayList<Integer>();
 
         int[][] dp = new int[rowIndex + 1][rowIndex + 1];
@@ -105,10 +105,9 @@ public class Q119_Pascal_Triangle_II {
 
         for(int i = 1; i < rowIndex + 1; i++){
             for(int j = 0; j <= i; j++){
-                if(j == 0) {
+                if(j == 0) { // if(j == 0 || i == j) { // works too
                     dp[i][j] = 1;
                 } else {
-
                     dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
                 }
             }
@@ -118,7 +117,11 @@ public class Q119_Pascal_Triangle_II {
             if(dp[rowIndex][j] == 0) break;
             result.add(dp[rowIndex][j]);
         }
-
+/*
+        for (int j = 0; j < rowIndex+ 1; j++) { // works too
+            result.add(dp[rowIndex][j]);
+        }
+*/
         return result;
     }
     /**
