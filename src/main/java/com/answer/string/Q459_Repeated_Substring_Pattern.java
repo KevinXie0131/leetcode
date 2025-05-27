@@ -13,6 +13,10 @@ public class Q459_Repeated_Substring_Pattern {
      *  输入: s = "aba"
      *  输出: false
      */
+    public static void main(String[] args) {
+       String s = "abab";
+        repeatedSubstringPattern_1(s);
+    }
     /**
      * 当然，我们在判断 s + s 拼接的字符串里是否出现一个s的的时候，要刨除 s + s 的首字符和尾字符，这样避免在s+s中搜索出原来的s，
      * 我们要搜索的是中间拼接出来的s。
@@ -20,7 +24,7 @@ public class Q459_Repeated_Substring_Pattern {
      * 时间复杂度: O(n)
      * 空间复杂度: O(1)
      */
-    public boolean repeatedSubstringPattern_1(String s) {
+    static public boolean repeatedSubstringPattern_1(String s) {
         String str = s + s;
         return str.substring(1, str.length() - 1).contains(s); // 掐头去尾
         //  return (s + s).indexOf(s, 1) != s.length(); // works too
