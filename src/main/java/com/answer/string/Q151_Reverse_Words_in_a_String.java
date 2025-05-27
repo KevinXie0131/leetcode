@@ -102,7 +102,7 @@ public class Q151_Reverse_Words_in_a_String {
        /* StringBuffer sb = new StringBuffer();   // 将字符串间多余的空白字符去除
         while (left <= right) {
             char c = s.charAt(left);
-            if (c != ' ' || sb.charAt(sb.length() - 1) != ' ') {
+            if (c != ' ' || sb.charAt(sb.length() - 1) != ' ') { // not add space twice
                 sb.append(c);
             }
             left++;
