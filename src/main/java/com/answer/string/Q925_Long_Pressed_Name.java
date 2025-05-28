@@ -17,6 +17,61 @@ public class Q925_Long_Pressed_Name {
         String name = "kikcxmvzi";
         String typed = "kiikcxxmmvvzz";
         isLongPressedName(name, typed);
+        String name1 = "alex", typed1 = "aaleelx";//aaleexa
+        System.out.println(isLongPressedName5(name1, typed1));
+    }
+    /**
+     * 双指针
+     * 字符串 typed 的每个字符，有且只有两种「用途」：
+     *  作为 name 的一部分。此时会「匹配」name 中的一个字符
+     *  作为长按键入的一部分。此时它应当与前一个字符相同。
+     * 如果 typed 中存在一个字符，它两个条件均不满足，则应当直接返回 false；否则，当 typed 扫描完毕后，我们再检查 name 的每个字符是否都被「匹配」了。
+     */
+    public boolean isLongPressedName3(String name, String typed) {
+        int i = 0, j = 0;
+        while (j < typed.length()) {
+            if (i < name.length() && name.charAt(i) == typed.charAt(j)) { // 当 name[i]=typed[j] 时，说明两个字符串存在一对匹配的字符，此时将 i,j 都加 1。
+                i++;
+                j++;
+            } else if (j > 0 && typed.charAt(j) == typed.charAt(j - 1)) { // 否则，如果 typed[j]=typed[j−1]，说明存在一次长按键入，此时只将 j 加 1。
+                j++;
+            } else {
+                return false;
+            }
+        }
+        return i == name.length(); // 最后，如果 i=name.length，说明 name 的每个字符都被「匹配」了。
+    }
+    /**
+     * 1.核心while循环,如果字符一样则两个指针都加一,如果不一样,则长按键字符指针加1;
+     * 2.最后判断p1是否等于name的长度即可;
+     * not pass for name = "alex", typed = "aaleexa"
+     */
+    static public boolean isLongPressedName5(String name, String typed) {
+        char[] c1 = name.toCharArray();
+        char[] c2 = typed.toCharArray();
+
+        int p1 = 0, p2 = 0;
+        while (p1 < c1.length && p2 < c2.length) {
+            if (c1[p1] == c2[p2]) {
+                p1++;
+                p2++;
+            }
+            else{
+                if(p1 >= 1 && c2[p2] == c1[p1-1]) {
+                    p2++;
+                } else {
+                    return false;
+                }
+            }
+        }
+        while(p2 < c2.length) {
+            if (c2[p2] == c1[p1 - 1]) {
+                p2++;
+            } else {
+                return false;
+            }
+        }
+        return p1 == c1.length;
     }
     /**
      * 这道题目一看以为是哈希，仔细一看不行，要有顺序。所以模拟同时遍历两个数组，进行对比就可以了。
