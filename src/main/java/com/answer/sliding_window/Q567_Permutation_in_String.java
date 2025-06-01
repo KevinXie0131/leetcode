@@ -3,8 +3,19 @@ package com.answer.sliding_window;
 import java.util.*;
 
 public class Q567_Permutation_in_String {
+    /**
+     * Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+     * In other words, return true if one of s1's permutations is the substring of s2.
+     * 字符串的排列: 给你两个字符串 s1 和 s2 ，写一个函数来判断 s2 是否包含 s1 的 排列。如果是，返回 true ；否则，返回 false 。
+     * 换句话说，s1 的排列之一是 s2 的 子串 。
+     * s1 and s2 consist of lowercase English letters.
+     */
     public static void main(String[] args) {
         String s1 = "ab", s2 = "eidbfaooab";
+        /**
+         * 输出：true
+         * 解释：s2 包含 s1 的排列之一 ("ba").
+         */
         System.out.println(checkInclusion_3(s1, s2));
     }
 
