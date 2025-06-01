@@ -1,7 +1,22 @@
 package com.answer.sliding_window;
 
 public class Q487_Max_Consecutive_Ones_II {
-
+    /**
+     * Given a binary array, find the maximum number of consecutive 1s in this array if you can flip at most one 0.
+     * Example 1:
+     *  Input: [1,0,1,1,0]
+     *  Output: 4
+     *  Explanation: Flip the first zero will get the the maximum number of consecutive 1s.
+     *                  After flipping, the maximum number of consecutive 1s is 4.
+     * 给定一个二进制数组，你可以最多将 1 个 0 翻转为 1，找出其中最大连续 1 的个数。
+     * Note:  The input array will only contain 0 and 1.
+     *        The length of input array is a positive integer and will not exceed 10,000
+     * Follow up: What if the input numbers come in one by one as an infinite stream? In other words,
+     *      you can't store all numbers coming from the stream as it's too large to hold in memory. Could you solve it efficiently?
+     * 注：输入数组只包含 0 和 1.
+     *     输入数组的长度为正整数，且不超过 10,000
+     * 进阶：如果输入的数字是作为 无限流 逐个输入如何处理？换句话说，内存不能存储下所有从流中输入的数字。您可以有效地解决吗？
+     */
     public static void main(String[] args) {
         int[] nums = {1,0,1,1,0,1};
         System.out.println(findMaxConsecutiveOnes(nums));

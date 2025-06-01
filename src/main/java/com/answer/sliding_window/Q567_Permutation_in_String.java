@@ -1,8 +1,6 @@
 package com.answer.sliding_window;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Q567_Permutation_in_String {
     public static void main(String[] args) {

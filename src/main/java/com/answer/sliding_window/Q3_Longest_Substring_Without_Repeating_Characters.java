@@ -86,7 +86,7 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
             char r = s.charAt(right);
             chars.put(r, chars.getOrDefault(r,0) + 1);
 
-            while (chars.get(r) > 1) {
+            while (chars.get(r) > 1) { // 不含有重复字符
                 char l = s.charAt(left);
                 chars.put(l, chars.get(l) - 1);
                 left++;
@@ -110,7 +110,7 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
             char r = s.charAt(right);
             cnt[r]++;
 
-            while (cnt[r] > 1) {
+            while (cnt[r] > 1) { // 不含有重复字符
                 char l = array[left];
                 cnt[l]--;
                 left++;

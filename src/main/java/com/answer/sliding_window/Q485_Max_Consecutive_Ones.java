@@ -1,7 +1,11 @@
 package com.answer.sliding_window;
 
 public class Q485_Max_Consecutive_Ones {
-
+    /**
+     * Given a binary array nums, return the maximum number of consecutive 1's in the array.
+     * 最大连续 1 的个数: 给定一个二进制数组 nums ， 计算其中最大连续 1 的个数。
+     * nums[i] is either 0 or 1.
+     */
     public static void main(String[] args) {
         int[] nums = {1,1,0,1,1,1};
         int res = findMaxConsecutiveOnes_1(nums);

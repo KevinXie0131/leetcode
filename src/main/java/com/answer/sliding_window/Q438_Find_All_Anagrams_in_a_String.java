@@ -3,9 +3,21 @@ package com.answer.sliding_window;
 import java.util.*;
 
 public class Q438_Find_All_Anagrams_in_a_String {
+    /**
+     * Given two strings s and p, return an array of all the start indices of p's anagrams in s.
+     * You may return the answer in any order.
+     * 找到字符串中所有字母异位词
+     * 给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+     * An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, using all the original letters exactly once.
+     * 字母异位词是通过重新排列不同单词或短语的字母而形成的单词或短语，并使用所有原字母一次。
+     */
     public static void main(String[] args) {
         String s1 = "cbaebabacd";
         String s2 = "abc";
+        /**
+         * 输出: [0,6]
+         * 解释: 起始索引等于 0 的子串是 "cba", 它是 "abc" 的异位词。起始索引等于 6 的子串是 "bac", 它是 "abc" 的异位词。
+         */
 /*        String s1 = "acdcaeccde";
         String s2 ="c";*/
       /*  String s1 = "aa";
