@@ -109,12 +109,13 @@ public class Q159_Longest_Substring_with_At_Most_Two_Distinct_Characters {
             counter.put(ch, counter.getOrDefault(ch, 0) + 1);
 
             while (counter.size() > 2) {
-                char t = s.charAt(left++);
+                char t = s.charAt(left);
                 counter.put(t, counter.get(t) - 1);
 
                 if (counter.get(t) == 0) {
                     counter.remove(t);
                 }
+                left++;
             }
             ans = Math.max(ans, right - left + 1);
         }
