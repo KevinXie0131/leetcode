@@ -21,7 +21,6 @@ public class Q487_Max_Consecutive_Ones_II {
         int[] nums = {1,0,1,1,0,1};
         System.out.println(findMaxConsecutiveOnes(nums));
     }
-
     /**
      * Approach 2: Sliding Window
      */
@@ -54,21 +53,20 @@ public class Q487_Max_Consecutive_Ones_II {
      * Another form of slding window
      */
     public int findMaxConsecutiveOnes_1(int[] nums) {
-        int l = 0;
+        int left = 0;
         int maxLen = 0;
         int count = 1;
-        for (int r = 0; r < nums.length; r++) {
-            int num = nums[r];
-            if (num == 0) {
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) {
                 count--;
             }
             while (count < 0) {
-                if (nums[l] == 0) {
+                if (nums[left] == 0) {
                     count++;
                 }
-                l++;
+                left++;
             }
-            maxLen = Math.max(maxLen, r - l + 1);
+            maxLen = Math.max(maxLen, right - left + 1);
         }
         return maxLen;
     }
