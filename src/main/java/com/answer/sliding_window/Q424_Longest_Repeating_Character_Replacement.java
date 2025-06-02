@@ -26,10 +26,8 @@ public class Q424_Longest_Repeating_Character_Replacement {
          */
         System.out.println(characterReplacement(s, k));
     }
-
     /**
      * Similar with Q487 Max Consecutive Ones II
-     *
      * Approach 3: Sliding Window (Fast)
      *
      * 首先需要区分两个概念：子串（子数组） 和 子序列。这两个名词经常在题目中出现，非常有必要加以区分。
@@ -46,15 +44,13 @@ public class Q424_Longest_Repeating_Character_Replacement {
         int[] counter = new int[26];
 
         while(right < len){
-            // if 'A' is 0, then what is the relative order
-            // or offset of the current character entering the window
+            // if 'A' is 0, then what is the relative order or offset of the current character entering the window
             // 0 is 'A', 1 is 'B' and so on
             char c = ch[right];
             counter[c - 'A']++;
             maxCount = Math.max(maxCount, counter[c - 'A']);  // the maximum frequency we have seen in any window yet
 
-            // move the start pointer towards right if the current
-            // window is invalid
+            // move the start pointer towards right if the current window is invalid
             while(right - left >= maxCount + k){
                 counter[ch[left] - 'A']--;  // decrease its frequency
                 left++; // move the start pointer forward
