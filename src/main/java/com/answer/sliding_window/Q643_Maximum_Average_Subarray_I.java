@@ -19,7 +19,7 @@ public class Q643_Maximum_Average_Subarray_I {
         System.out.println(findMaxAverage_2(nums, k));
     }
     /**
-     * Approach #2 Sliding Window
+     * Approach #2 Sliding Window 滑动窗口
      */
     public double findMaxAverage(int[] nums, int k) {
         int i = 0;
@@ -62,7 +62,33 @@ public class Q643_Maximum_Average_Subarray_I {
         return max * 1.0 / k;
     }
     /**
+     * 定长滑窗套路
+     *  我总结成三步：入-更新-出。
+     *      入：下标为 i 的元素进入窗口，窗口元素和 s 增加 nums[i]。如果 i<k−1 则重复第一步。
+     *      更新：更新答案。本题由于窗口长度固定为 k，可以统计窗口元素和的最大值 maxS，最后返回的时候再除以 k。
+     *      出：下标为 i−k+1 的元素离开窗口，窗口元素和 s 减少 nums[i−k+1]。
+     * 以上三步适用于所有定长滑窗题目。
+     */
+    public double findMaxAverage3(int[] nums, int k) {
+        int maxS = Integer.MIN_VALUE; // 窗口元素和的最大值
+        int s = 0; // 维护窗口元素和
+
+        for (int i = 0; i < nums.length; i++) {
+            // 1. 进入窗口
+            s += nums[i];
+            if (i < k - 1) { // 窗口大小不足 k
+                continue;
+            }
+            // 2. 更新答案
+            maxS = Math.max(maxS, s);
+            // 3. 离开窗口
+            s -= nums[i - k + 1];
+        }
+        return (double) maxS / k;
+    }
+    /**
      * Approach #1 Cumulative Sum
+     * 前缀和，由于是求解连续的K个数平均值最大值，因此可以采用前缀和求解
      */
     public static double findMaxAverage_2(int[] nums, int k) {
         int[] sum = new int[nums.length];
