@@ -25,10 +25,8 @@ public class Q487_Max_Consecutive_Ones_II {
      * Approach 2: Sliding Window 滑动窗口
      */
     public static int findMaxConsecutiveOnes(int[] nums) {
-        int max = 0;
-        int count = 0;
-        int left = 0;
-        int right = 0;
+        int max = 0, count = 0;
+        int left = 0, right = 0;
         // while our window is in bounds
         while(right < nums.length){
             if(nums[right] == 0){
