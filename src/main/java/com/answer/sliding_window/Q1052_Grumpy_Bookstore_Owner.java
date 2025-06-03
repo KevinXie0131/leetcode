@@ -25,26 +25,60 @@ public class Q1052_Grumpy_Bookstore_Owner {
     }
     /**
      * Sliding window
+     * 寻找一个时间长度为 X 的窗口，能留住更多的原本因为老板生气而被赶走顾客。
+     * 能得到的最终的顾客数 = 所有不生气时间内的顾客总数 + 在窗口 X 内 挽留住的原本因为生气而被赶走顾客数。
      */
     public static int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
+        int len = customers.length;
+        int total = 0, increase = 0, max = 0;
+
+        for(int i = 0; i < len; i++){
+            if(grumpy[i] == 0){
+                total += customers[i]; // 所有不生气时间内的顾客总数
+            }
+        }
+        // 生气的 X 分钟内，会让多少顾客不满意
+        for(int i = 0; i < minutes; i++){
+            if(grumpy[i] == 1){
+                increase += customers[i];
+            }
+        }
+        max = increase; // this step is needed
+
+       // 然后利用滑动窗口，每次向右移动一步
+        for(int i = minutes; i < len; i++){
+            if(grumpy[i] == 1){ // 如果新进入窗口的元素是生气的，累加不满意的顾客到滑动窗口中
+                increase += customers[i];
+            }
+            if(grumpy[i - minutes] == 1){ // 如果离开窗口的元素是生气的，则从滑动窗口中减去该不满意的顾客数
+                increase -= customers[i - minutes];
+            }
+            max = Math.max(max, increase); // 求所有窗口内不满意顾客的最大值
+        }
+        return total + max;
+    }
+    /**
+     * 直接把顾客人数和老板的生气情况想乘，可以简化代码。
+     */
+    public static int maxSatisfied1(int[] customers, int[] grumpy, int minutes) {
         int total = 0;
         int len = customers.length;
         int increase = 0, max = 0;
 
         for(int i = 0; i < len; i++){
             if(grumpy[i] == 0){
-                total += customers[i];
+                total += customers[i]; // 所有不生气时间内的顾客总数
             }
         }
-
+        // 在窗口 X 内因为生气而被赶走的顾客数
         for(int i = 0; i < len; i++){
             if(i < minutes){
-                increase += customers[i] * grumpy[i];
+                increase += customers[i] * grumpy[i]; // 生气的 X 分钟内，会让多少顾客不满意
             }else{
-                increase += customers[i] * grumpy[i];
-                increase -= customers[i - minutes] * grumpy[i - minutes];
+                increase += customers[i] * grumpy[i]; // 如果新进入窗口的元素是生气的，累加不满意的顾客到滑动窗口中
+                increase -= customers[i - minutes] * grumpy[i - minutes]; // 如果离开窗口的元素是生气的，则从滑动窗口中减去该不满意的顾客数
             }
-            max = Math.max(max, increase);
+            max = Math.max(max, increase); // 求所有窗口内不满意顾客的最大值
         }
         return total + max;
     }
