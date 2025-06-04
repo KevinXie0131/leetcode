@@ -21,7 +21,7 @@ public class Q1695_Maximum_Erasure_Value {
      *  Explanation: The optimal subarray here is [5,2,1] or [1,2,5].
      */
     /**
-     * Sliding window
+     * Sliding window 哈希表+滑动窗口
      * Approach 2: Two Pointer Approach Using Set
      */
     public int maximumUniqueSubarray(int[] nums) {
@@ -31,16 +31,16 @@ public class Q1695_Maximum_Erasure_Value {
 
         while(right < nums.length){
             int num = nums[right];
-            sum += num;
+            sum += num; // 更新当前和
             // increment start until subarray has unique elements
-            while(set.contains(num)){
-                sum -= nums[left];
-                set.remove(nums[left]);
-                left++;
+            while(set.contains(num)){   // 如果当前数字已经在集合中
+                sum -= nums[left];      // 从当前和中减去该数字
+                set.remove(nums[left]); // 移除左指针指向的数字
+                left++;                 // 移动左指针
             }
-            set.add(num);
+            set.add(num); // 添加当前数字到集合
             // update result with maximum sum found so far
-            max = Math.max(sum, max);
+            max = Math.max(sum, max); //  更新最大得分
             right++;
         }
 
@@ -48,6 +48,7 @@ public class Q1695_Maximum_Erasure_Value {
     }
     /**
      * Approach 3: Two Pointer Approach Using Boolean Array
+     * 1 <= nums[i] <= 10^4
      */
     public int maximumUniqueSubarray_1(int[] nums) {
         int result = 0;
@@ -55,6 +56,7 @@ public class Q1695_Maximum_Erasure_Value {
         int k = 10001;
         boolean[] isPresent = new boolean[k];
         int start = 0;
+
         for (int end = 0; end < nums.length; end++) {
             // increment start until subarray has unique elements
             while (isPresent[nums[end]]) {
@@ -78,10 +80,12 @@ public class Q1695_Maximum_Erasure_Value {
         int currentSum = 0;
         int k = 10001;
         int[] countMap = new int[k];
+
         for (int end = 0; end < nums.length; end++) {
             int currentElement = nums[end];
             countMap[currentElement]++;
             currentSum += currentElement;
+
             while (start < end && countMap[currentElement] > 1) {
                 countMap[nums[start]]--;
                 currentSum -= nums[start];
