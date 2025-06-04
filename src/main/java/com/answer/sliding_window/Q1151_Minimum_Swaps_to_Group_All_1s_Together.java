@@ -26,11 +26,11 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
      */
     public static void main(String[] args) {
         int[] data1 = {1,0,1,0,1};
-        System.out.println(minSwaps5(data1));
+        System.out.println(minSwaps_a(data1));
         int[] data2 = {0,0,0,1,0};
-        System.out.println(minSwaps5(data2));
+        System.out.println(minSwaps_a(data2));
         int[] data = {1,0,1,0,1,0,0,1,1,0,1};
-        System.out.println(minSwaps5(data));
+        System.out.println(minSwaps_a(data));
     }
     /**
      * 滑动窗口
@@ -53,6 +53,24 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
                 count++;
             }
             if(data[index - size] == 1){
+                count--;
+            }
+            min = Math.min(min,  size - count);
+        }
+        return min;
+    }
+    /**
+     * another form
+     */
+    public static int minSwaps_a(int[] data) {
+        int size = Arrays.stream(data).sum(); // 滑动窗口的 size 是固定的
+
+        int min = size, count = 0;
+        for(int index = 0; index < data.length; index++){
+            if(data[index] == 1){
+                count++;
+            }
+            if(index >= size && data[index - size] == 1){
                 count--;
             }
             min = Math.min(min,  size - count);
