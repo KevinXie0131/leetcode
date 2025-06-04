@@ -18,25 +18,32 @@ public class Q1493_Longest_Subarray_of_1s_After_Deleting_One_Element {
      */
     /**
      * Similar with Q487 Max Consecutive Ones II
+     * Sliding window 滑动窗口
+     * 直接把所求子数组看成只含一个0的子数组，然后再减掉1就行了
      *
-     * Sliding window
+     * 滑动窗口枚举右端点，当发现窗口中0的个数大于1个时缩小窗口。这一题不一样的点在于必须要移除一个元素，
+     * 所以最后判断的是`max(res, right-left)`，而不是right-left+1.
+     *
+     * 注意：题目要求必须删除一个元素。
+     *  只包含一个0，将这个0删掉；
+     *  不包含0，随便删一个元素；
      */
     public int longestSubarray(int[] nums) {
         int left = 0, right = 0;
         int max = 0, count = 0;
 
         while (right < nums.length) {
-            if (nums[right] == 0) {
+            if (nums[right] == 0) { //记录0的个数
                 count++;
             }
-            while (count > 1) {
+            while (count > 1) { //如果又遇到一个0，就把前一个0给扔掉
                 if (nums[left] == 0) {
                     count--;
                 }
                 left++;
             }
-
-            max = Math.max(max, right - left);
+            // 当前窗口长度为 (right - left + 1)，删掉一个 0
+            max = Math.max(max, right - left); //本来是i - left + 1,但是0不计入，所以再减1
             right++;
         }
 
