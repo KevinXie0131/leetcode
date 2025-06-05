@@ -19,10 +19,12 @@ public class Q345_Reverse_Vowels_of_a_String {
          *  解释：s 中的元音是 ['I', 'e', 'e', 'A']。反转这些元音，s 变为 "AceCreIm".
          */
         String s = "IceCreAm";
-        System.out.println(reverseVowels(s));
+        System.out.println(reverseVowels_1(s));
+        String s1 = "leetcode";
+        System.out.println(reverseVowels_1(s1));
     }
     /**
-     * Approach 1: Two Pointers
+     * Approach 1: Two Pointers 双指针
      */
     public static String reverseVowels(String s) {
         char[] ch = s.toCharArray();
@@ -35,11 +37,11 @@ public class Q345_Reverse_Vowels_of_a_String {
         set.add('o');
         set.add('u');
 
-        while(left < right){
-            while(!set.contains(Character.toLowerCase(ch[left])) && left < right){
+        while(left < right){ // 双指针相向而行找元音字符
+            while(!set.contains(Character.toLowerCase(ch[left])) && left < right){  // 从左向右找元音字母
                 left++;
             }
-            while(!set.contains(Character.toLowerCase(ch[right])) && left < right){
+            while(!set.contains(Character.toLowerCase(ch[right])) && left < right){  // 从右向左找元音字母
                 right--;
             }
             char temp = ch[left];
@@ -50,46 +52,109 @@ public class Q345_Reverse_Vowels_of_a_String {
         }
 
         return new String(ch);
+    }
+    /**
+     * 可以在一个循环中直接实现
+     * 这种简化循环的技巧在实际开发中也能用到，只是稍慢于传统的嵌套 while 循环。
+     */
+    public String reverseVowels2(String s) {
+        int l = 0;
+        int r = s.length() - 1;
+        char[] chars = s.toCharArray();
+        Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
 
+        while (l < r) {
+            if (!vowels.contains(chars[l])) {
+                l++;
+            } else if (!vowels.contains(chars[r])) {
+                r--;
+            } else {
+                char temp = chars[l];
+                chars[l] = chars[r];
+                chars[r] = temp;
+                l++;
+                r--;
+            }
+        }
+        return new String(chars);
+    }
+    /**
+     * 一些细节：由于题目没有说字符串中只包含字母，因此在使用数组模拟哈希表时，
+     * 我们需要用当前字符减去 ASCII 码的最小值（空字符），而不是 'A'
+     */
+    static boolean[] hash = new boolean[128];
+    static char[] vowels = new char[]{'a','e','i','o','u'};
+    static {
+        for (char c : vowels) {
+            hash[c - ' '] = hash[Character.toUpperCase(c) - ' '] = true;
+        }
+    }
+
+    public String reverseVowels3(String s) {
+        char[] cs = s.toCharArray();
+        int n = s.length();
+        int l = 0, r = n - 1;
+        while (l < r) {
+            if (hash[cs[l] - ' '] && hash[cs[r] - ' ']) {
+                swap1(cs, l++, r--);
+            } else {
+                if (!hash[cs[l] - ' ']) l++;
+                if (!hash[cs[r] - ' ']) r--;
+            }
+        }
+        return String.valueOf(cs);
+    }
+
+    void swap1(char[] cs, int l, int r) {
+        char c = cs[l];
+        cs[l] = cs[r];
+        cs[r] = c;
     }
     /**
      * Official answer
+     * 使用两个指针 i 和 j 对字符串相向地进行遍历
      */
-    public String reverseVowels_1(String s) {
+   static public String reverseVowels_1(String s) {
         int start = 0;
         int end = s.length() - 1;
-        // Convert String to char array as String is immutable in Java
-        char[] sChar = s.toCharArray();
+        char[] sChar = s.toCharArray(); // Convert String to char array as String is immutable in Java
 
         // While we still have characters to traverse
         while (start < end) {
-            // Find the leftmost vowel
-            while (start < s.length () && !isVowel(sChar[start])) {
+            while (start < s.length () && !isVowel(sChar[start])) {  // Find the leftmost vowel
                 start++;
             }
-            // Find the rightmost vowel
-            while (end >= 0 && !isVowel(sChar[end])) {
+
+            while (end >= 0 && !isVowel(sChar[end])) {     // Find the rightmost vowel
                 end--;
             }
-            // Swap them if start is left of end
-            if (start < end) {
+            if (start > end)  break;     // 双指针相遇，退出
+
+            //此时，如果 start<end，那么我们交换 start 和 end 指向的元音字母，否则说明所有的元音字母均已遍历过，就可以退出遍历的过程。
+            if (start < end) {    // Swap them if start is left of end
                 swap(sChar, start++, end--);
             }
         }
-
-        // Converting char array back to String
-        return new String(sChar);
+        return new String(sChar); // Converting char array back to String
     }
+
     // Return true if the character is a vowel (case-insensitive)
-    boolean isVowel(char c) {
+    static boolean isVowel(char c) {
         return c == 'a' || c == 'i' || c == 'e' || c == 'o' || c == 'u'
                 || c == 'A' || c == 'I' || c == 'E' || c == 'O' || c == 'U';
     }
 
     // Function to swap characters at index x and y
-    void swap(char[] chars, int x, int y) {
+    static void swap(char[] chars, int x, int y) {
         char temp = chars[x];
         chars[x] = chars[y];
         chars[y] = temp;
+    }
+    /**
+     * 判断给定字符ch是否为元音字母
+     */
+    private boolean isVowel2(char ch){
+        String vowels = "aeiouAEIOU";// 元音字母序列
+        return vowels.indexOf(ch) != -1;
     }
 }
