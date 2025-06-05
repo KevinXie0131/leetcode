@@ -1,5 +1,7 @@
 package com.answer.two_pointers;
 
+import java.util.*;
+
 public class Q26_Remove_Duplicates_from_Sorted_Array {
     /**
      * Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that
@@ -23,7 +25,8 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
          *  解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。
          */
         int[] nums = {0,0,1,1,1,2,2,3,3,4};
-        int r = removeDuplicates(nums);
+        int r = removeDuplicates_1(nums);
+        System.out.println(r);
     }
     /**
      * Approach 1: Two indexes approach
@@ -59,9 +62,9 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
     public int removeDuplicates_0(int[] nums) {
         int index = 0;
         for(int i = 1; i < nums.length; i++){
-            if(nums[index] != nums[i]){
+            if(nums[index] != nums[i]){ // nums[i] 不是重复项
                 index++;
-                nums[index] = nums[i];
+                nums[index] = nums[i]; // 保留 nums[i]
             }
         }
         return index + 1;
@@ -73,6 +76,14 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
      *     由于是保留 k 个相同数字，对于前 k 个数字，我们可以直接保留。
      *     对于后面的任意数字，能够保留的前提是：与当前写入的位置前面的第 k 个元素进行比较，不相同则保留。
      */
+    /**
+     * 令 k=1，假设有样例：[3,3,3,3,4,4,4,5,5,5]
+     * 设定变量 index，指向待插入位置。index 初始值为 0，目标数组为 []
+     * 首先我们先让第 1 位直接保留（性质 1）。index 变为 1，目标数组为 [3]
+     * 继续往后遍历，能够保留的前提是与 idx 的前面 1 位元素不同（性质 2），因此我们会跳过剩余的 3，将第一个 4 追加进去。index 变为 2，目标数组为 [3,4]
+     * 继续这个过程，跳过剩余的 4，将第一个 5 追加进去。index 变为 3，目标数组为 [3,4,5]
+     * 当整个数组被扫描完，最终我们得到了目标数组 [3,4,5] 和 答案 idx 为 3。
+     */
     static public int removeDuplicates_1(int[] nums) {
         int index = 0;
         int k = 1;
@@ -81,6 +92,21 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
                 nums[index] = nums[i];
                 index++;
             }
+        }
+        return index;
+    }
+    /**
+     * 直接往set里面丢
+     */
+    public int removeDuplicates6(int[] nums) {
+        Set<Integer> set = new TreeSet();
+        for(int i = 0; i < nums.length; i++){
+            set.add(nums[i]);
+        }
+        int index = 0;
+        for(Integer res : set){
+            nums[index] = res;
+            index++;
         }
         return index;
     }
