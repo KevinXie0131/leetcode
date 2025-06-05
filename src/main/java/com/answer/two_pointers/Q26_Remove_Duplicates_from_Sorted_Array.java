@@ -1,7 +1,27 @@
 package com.answer.two_pointers;
 
 public class Q26_Remove_Duplicates_from_Sorted_Array {
+    /**
+     * Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that
+     * each unique element appears only once. The relative order of the elements should be kept the same.
+     * Then return the number of unique elements in nums.
+     * Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+     *  Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
+     *  Return k.
+     * 删除有序数组中的重复项
+     * 给你一个 非严格递增排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。然后返回 nums 中唯一元素的个数。
+     * 考虑 nums 的唯一元素的数量为 k ，你需要做以下事情确保你的题解可以被通过：
+     *  更改数组 nums ，使 nums 的前 k 个元素包含唯一元素，并按照它们最初在 nums 中出现的顺序排列。nums 的其余元素与 nums 的大小不重要。
+     *  返回 k
+     * nums is sorted in non-decreasing order. / nums 已按 非严格递增 排列
+     */
     public static void main(String[] args) {
+        /**
+         * 示例 2：
+         *  输入：nums = [0,0,1,1,1,2,2,3,3,4]
+         *  输出：5, nums = [0,1,2,3,4]
+         *  解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。不需要考虑数组中超出新长度后面的元素。
+         */
         int[] nums = {0,0,1,1,1,2,2,3,3,4};
         int r = removeDuplicates(nums);
     }

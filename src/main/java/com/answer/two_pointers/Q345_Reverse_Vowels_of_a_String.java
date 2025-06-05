@@ -3,11 +3,24 @@ package com.answer.two_pointers;
 import java.util.*;
 
 public class Q345_Reverse_Vowels_of_a_String {
+    /**
+     * Given a string s, reverse only all the vowels in the string and return it.
+     * The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+     * 反转字符串中的元音字母
+     * 一个字符串 s ，仅反转字符串中的所有元音字母，并返回结果字符串。
+     * 元音字母包括 'a'、'e'、'i'、'o'、'u'，且可能以大小写两种形式出现不止一次。
+     * s consist of printable ASCII characters. / s 由 可打印的 ASCII 字符组成
+     */
     public static void main(String[] args) {
-        String s = "hello";
+        /**
+         * 示例 1：
+         *  输入：s = "IceCreAm"
+         *  输出："AceCreIm"
+         *  解释：s 中的元音是 ['I', 'e', 'e', 'A']。反转这些元音，s 变为 "AceCreIm".
+         */
+        String s = "IceCreAm";
         System.out.println(reverseVowels(s));
     }
-
     /**
      * Approach 1: Two Pointers
      */
@@ -39,7 +52,6 @@ public class Q345_Reverse_Vowels_of_a_String {
         return new String(ch);
 
     }
-
     /**
      * Official answer
      */

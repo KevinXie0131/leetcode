@@ -1,7 +1,24 @@
 package com.answer.two_pointers;
 
 public class Q844_Backspace_String_Compare {
+    /**
+     * Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+     * Note that after backspacing an empty text, the text will continue empty.
+     * 比较含退格的字符串
+     * 给定 s 和 t 两个字符串，当它们分别被输入到空白的文本编辑器后，如果两者相等，返回 true 。# 代表退格字符。
+     * 注意：如果对空文本输入退格字符，文本继续为空。
+     * s and t only contain lowercase letters and '#' characters.
+     * Follow up: Can you solve it in O(n) time and O(1) space?
+     * s 和 t 只含有小写字母以及字符 '#'
+     * 进阶：你可以用 O(n) 的时间复杂度和 O(1) 的空间复杂度解决该问题吗？
+     */
     public static void main(String[] args) {
+        /**
+         * 示例 1：
+         *  输入：s = "ab#c", t = "ad#c"
+         *  输出：true
+         *  解释：s 和 t 都会变成 "ac"。
+         */
         String s = "ab#c";
         String t = "ad#c";
         backspaceCompare_4(s, t);
