@@ -98,8 +98,12 @@ public class Q345_Reverse_Vowels_of_a_String {
             if (hash[cs[l] - ' '] && hash[cs[r] - ' ']) {
                 swap1(cs, l++, r--);
             } else {
-                if (!hash[cs[l] - ' ']) l++;
-                if (!hash[cs[r] - ' ']) r--;
+                if (!hash[cs[l] - ' ']) {
+                    l++;
+                }
+                if (!hash[cs[r] - ' ']) {
+                    r--;
+                }
             }
         }
         return String.valueOf(cs);
