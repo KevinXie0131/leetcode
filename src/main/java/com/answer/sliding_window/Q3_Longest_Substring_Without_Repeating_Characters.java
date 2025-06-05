@@ -135,6 +135,7 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
         }
         return res;
     }
+
     private boolean checkRepetition(String s, int start, int end) {
         Set<Character> chars = new HashSet<>();
 
