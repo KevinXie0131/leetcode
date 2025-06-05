@@ -33,6 +33,8 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
      * 双指针法（快慢指针法）- sorted in non-decreasing order,
      * 一个指针 i 进行数组遍历，另外一个指针 j 指向有效数组的最后一个位置。
      * 只有当 i 所指向的值和 j 不一致（不重复），才将 i 的值添加到 j 的下一位置。
+     *
+     * 首先注意数组是有序的，那么重复的元素一定会相邻。要求删除重复元素，实际上就是将不重复的元素移到数组的左侧。
      */
     static public int removeDuplicates(int[] nums) {
         int n = nums.length;
