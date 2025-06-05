@@ -63,7 +63,7 @@ public class Q26_Remove_Duplicates_from_Sorted_Array {
      */
     public int removeDuplicates_0(int[] nums) {
         int index = 0;
-        for(int i = 1; i < nums.length; i++){
+        for(int i = 1; i < nums.length; i++){ // for(int i = 0; i < nums.length; i++){ // works too
             if(nums[index] != nums[i]){ // nums[i] 不是重复项
                 index++;
                 nums[index] = nums[i]; // 保留 nums[i]

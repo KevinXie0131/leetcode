@@ -66,7 +66,8 @@ public class Q27_Remove_Element {
         int stackSize = 0;
         for (int x : nums) {
             if (x != val) {
-                nums[stackSize++] = x; // 把 x 入栈
+                nums[stackSize] = x; // 把 x 入栈
+                stackSize++;
             }
         }
         return stackSize;

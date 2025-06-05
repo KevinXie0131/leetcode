@@ -26,7 +26,7 @@ public class Q80_Remove_Duplicates_from_Sorted_Array_II {
          *  解释：函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3。 不需要考虑数组中超出新长度后面的元素。
          */
         int[] nums = {1,1,1,2,2,3};
-        System.out.println(removeDuplicates(nums));
+        System.out.println(removeDuplicates_1(nums));
     }
     /**
      * 快慢指针
@@ -67,14 +67,14 @@ public class Q80_Remove_Duplicates_from_Sorted_Array_II {
      * General solution
      */
     public static int removeDuplicates_1(int[] nums) {
-        int index = 0;
+        int left = 0;
         int k = 2;
-        for (int i = 0; i < nums.length; i++) {
-            if (index < k || nums[index - k] != nums[i]) {
-                nums[index] = nums[i];
-                index++;
+        for(int right = 0; right < nums.length; right++){
+            if(right < k || nums[right] != nums[left -k]){
+                nums[left] = nums[right];
+                left++;
             }
         }
-        return index;
+        return left;
     }
 }
