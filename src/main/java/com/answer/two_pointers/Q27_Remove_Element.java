@@ -110,7 +110,6 @@ public class Q27_Remove_Element {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
-
     /**
      * 相向双指针法
      */
