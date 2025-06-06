@@ -18,12 +18,14 @@ public class Q392_Is_Subsequence {
      * 在这种情况下，你会怎样改变代码？
      */
     public static void main(String[] args) {
-        String s = "axc";
+        String s = "acb";
         String t = "ahbgdc";
-        System.out.println(isSubsequence(s, t)); // 输出：false
+        System.out.println(isSubsequence3(s, t)); // 输出：false
     }
     /**
      * Approach 2: Two-Pointers 双指针
+     * 每次贪心地匹配，匹配成功则 i 和 j 同时右移，匹配 s 的下一个位置，匹配失败则 j 右移，i 不变，尝试用 t 的下一个字符匹配 s
+     * 最终如果 i 移动到 s 的末尾，就说明 s 是 t 的子序列。
      */
     public static boolean isSubsequence(String s, String t) {
         char[] source = s.toCharArray();
@@ -34,14 +36,28 @@ public class Q392_Is_Subsequence {
             if(source[i] == target[j]) {
                 i++;
 
-                if(i == source.length){
+                if(i == source.length){ // can be commented
                     return true;
                 }
             }
             j++;
         }
-
         return i == source.length;
+    }
+    /**
+     * anther form
+     */
+    static public boolean isSubsequence3(String s, String t) {
+        if (s.length() == 0) return true;
+        for (int i = 0, j = 0; j < t.length(); j++) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+                // 若已经遍历完 s ，则提前返回 true
+                if (i == s.length())
+                    return true;
+            }
+        }
+        return false;
     }
     /**
      * 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。
