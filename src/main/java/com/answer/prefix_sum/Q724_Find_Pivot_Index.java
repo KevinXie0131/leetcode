@@ -45,12 +45,12 @@ public class Q724_Find_Pivot_Index {
         }
 
         for(int i = 1; i < n + 1; i++){
-            if(prefixSum[i-1] == prefixSum[n] - prefixSum[i-1] - nums[i - 1]){
-                return i-1;
+            if(prefixSum[i - 1] == prefixSum[n] - prefixSum[i - 1] - nums[i - 1]){
+                return i - 1;
             }
-            // 判定一个下标是否为”中心索引“的时候，利用前缀和计算左侧值和右侧值。
-           /* if(prefixSum[i-1] == prefixSum[n] - prefixSum[i] ){ // works too
-                return i-1;
+            // 判定一个下标是否为'中心索引'的时候，利用前缀和计算左侧值和右侧值。
+           /* if(prefixSum[i - 1] == prefixSum[n] - prefixSum[i]){ // works too
+                return i - 1;
             }*/
         }
         return -1;
@@ -90,7 +90,7 @@ public class Q724_Find_Pivot_Index {
 
         for(int i = 0; i < nums.length; i++){
             left += nums[i];
-            right = sum -left + nums[i];  // leftSum 里面已经有 nums[i]，多减了一次，所以加上
+            right = sum - left + nums[i];  // leftSum 里面已经有 nums[i]，多减了一次，所以加上
             if(left == right){
                 return i;
             }
@@ -125,11 +125,11 @@ public class Q724_Find_Pivot_Index {
      */
     public int pivotIndex6(int[] nums) {
         int sum1 = 0;
-        for(int num: nums){
+        for(int num : nums){
             sum1 += num;
         }
         int sum2 = 0;
-        for(int i = 0; i<nums.length; i++){
+        for(int i = 0; i < nums.length; i++){
             sum2 += nums[i];
             if(sum1 == sum2){
                 return i;
