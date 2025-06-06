@@ -26,10 +26,11 @@ public class Q881_Boats_to_Save_People {
         System.out.println(res);
     }
     /**
-     * Approach 1: Greedy (Two Pointer)
+     * Approach 1: Greedy (Two Pointer) 贪心: 为了尽可能地利用船的承载重量，选择与体重最重的人同乘一艘船是最优的。
      * Time: nlogn
      * Space: logn
      * In Java, Arrays.sort() is implemented using a variant of the Quick Sort algorithm which has a space complexity of O(logn)
+     * 可以先对 people 排序，然后用两个指针分别指向体重最轻和体重最重的人，按照上述规则来移动指针，并统计答案。
      */
    static public int numRescueBoats(int[] people, int limit) {
         /**
@@ -43,7 +44,7 @@ public class Q881_Boats_to_Save_People {
         int count = 0;
 
         while(left <= right){
-            if((people[left] + people[right]) <= limit){
+            if((people[left] + people[right]) <= limit){ // 每艘船最多可同时载两人, 但条件是这些人的重量之和最多为 limit。
                 left++;
             }
             right--;
@@ -51,5 +52,28 @@ public class Q881_Boats_to_Save_People {
         }
 
         return count;
+    }
+    /**
+     * another from
+     * 从贪心思想出发，我们让 people[left] 与还未上船中最大体重的 people[right] 一起乘船是最优解。然后令 left 右移， right 左移。
+     * 「最重匹配最轻、次重匹配次轻」的做法能使双人船的数量最大化。
+     */
+    public int numRescueBoats2(int[] people, int limit) {
+        Arrays.sort(people);
+
+        int left = 0;
+        int right = people.length - 1;
+        int cnt = 0;
+        while (left <= right) {
+            if (people[left] + people[right] <= limit) {
+                cnt++;
+                left++;
+                right--;
+            } else {
+                cnt++;
+                right--;
+            }
+        }
+        return cnt;
     }
 }

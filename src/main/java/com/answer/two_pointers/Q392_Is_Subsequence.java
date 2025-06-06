@@ -76,6 +76,7 @@ public class Q392_Is_Subsequence {
         // 如果dp[s.size()][t.size()] 与 字符串s的长度相同说明：s与t的最长相同子序列就是s，那么s 就是 t 的子序列
         return dp[M][N] == M; // 判断是否为s的长度
     }
+
     // 修改遍历顺序后，可以利用滚动数组，对dp数组进行压缩
     public boolean isSubsequence_3(String s, String t) {
         int[][] dp = new int[t.length() + 1][s.length() + 1];
@@ -91,6 +92,7 @@ public class Q392_Is_Subsequence {
         }
         return dp[t.length()][s.length()] == s.length();
     }
+
     // 状态压缩
     public boolean isSubsequence_4(String s, String t) {
         int[] dp = new int[s.length() + 1];
@@ -105,6 +107,7 @@ public class Q392_Is_Subsequence {
         }
         return dp[s.length()] == s.length();
     }
+
     // 将dp定义为boolean类型，dp[i]直接表示s.substring(0, i)是否为t的子序列
     public boolean isSubsequence_5(String s, String t) {
         boolean[] dp = new boolean[s.length() + 1];
