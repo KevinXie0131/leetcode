@@ -40,7 +40,7 @@ public class Q844_Backspace_String_Compare {
                 ch[slow] = ch[fast];
                 slow++;
             } else {
-                if(slow> 0){
+                if(slow > 0){
                     slow--;
                 }
             }
@@ -58,16 +58,18 @@ public class Q844_Backspace_String_Compare {
                 builder.setCharAt(slow, s.charAt(fast));
                 slow++;
             } else {
-                if(slow> 0){
+                if(slow > 0){
                     slow--;
                 }
             }
         }
-        return builder.toString().substring(0, slow);  //截取有效字符串
+        return builder.substring(0, slow);  //截取有效字符串
     }
     /**
-     * Use StringBulder （使用栈的思路）
+     * Use StringBulder （使用栈的思路）重构字符串
      * 直接使用字符串string，来作为栈，末尾添加和弹出
+     * 时间复杂度：O(N+M)
+     * 空间复杂度：O(N+M)
      */
     String process1(String s){
         StringBuilder sb = new StringBuilder(); // 模拟栈
@@ -77,7 +79,7 @@ public class Q844_Backspace_String_Compare {
                 sb.append(s.charAt(fast));  // 模拟入栈
             } else {
                 if(sb.length() > 0){ // 栈非空才能弹栈
-                    sb.deleteCharAt(sb.length()-1);  // 模拟弹栈
+                    sb.deleteCharAt(sb.length() - 1);  // 模拟弹栈
                 }
             }
         }
@@ -95,7 +97,7 @@ public class Q844_Backspace_String_Compare {
                 sb1.append(s.charAt(i));  // 模拟入栈
             } else {
                 if(sb1.length() > 0){ // 栈非空才能弹栈
-                    sb1.deleteCharAt(sb1.length()-1);  // 模拟弹栈
+                    sb1.deleteCharAt(sb1.length() - 1);  // 模拟弹栈
                 }
             }
         }
@@ -104,7 +106,7 @@ public class Q844_Backspace_String_Compare {
                 sb2.append(t.charAt(i));  // 模拟入栈
             } else {
                 if(sb2.length() > 0){ // 栈非空才能弹栈
-                    sb2.deleteCharAt(sb2.length()-1);  // 模拟弹栈
+                    sb2.deleteCharAt(sb2.length() - 1);  // 模拟弹栈
                 }
             }
         }
@@ -163,5 +165,66 @@ public class Q844_Backspace_String_Compare {
         }
         return false;
     }
+    /**
+     * 双指针
+     * 一个字符是否会被删掉，只取决于该字符后面的退格符，而与该字符前面的退格符无关。因此当我们逆序地遍历字符串，
+     * 就可以立即确定当前字符是否会被删掉。
+     * 时间复杂度：O(N+M)
+     * 空间复杂度：O(1)
+     */
+    public boolean backspaceCompare5(String s, String t) {
+        int i = s.length() - 1, j = t.length() - 1;
+        int skip1 = 0, skip2 = 0;
+        // 虽然有两个while循环嵌套，但实际上只遍历了一遍字符串s和t!!!
+        while(i >= 0 || j >= 0){
+            while(i >= 0){ // 先找到 s 中第一个需要比较的字符（即去除 # 影响后的第一个待比较字符）
+                if(s.charAt(i) == '#'){
+                    skip1++;
+                    i--;
+                }else if(skip1 > 0){
+                    skip1--;
+                    i--;
+                }else {
+                    break;
+                }
+            }
+            // 再找到 t 中第一个需要比较的字符（即去除 # 影响后的第一个待比较字符）
+            while(j >= 0){
+                if(t.charAt(j) == '#'){
+                    skip2++;
+                    j--;
+                }else if(skip2 > 0){
+                    skip2--;
+                    j--;
+                }else {
+                    break;
+                }
+            }
+            // 然后开始比较,注意有下面这个 if 条件的原因是：如果 index = 0 位置上为 '#'，则 i, j 会为 -1
+            // 而 index = -1 的情况应当处理。
+            if(i >= 0 && j >= 0){
+                if(s.charAt(i) != t.charAt(j)){ // 如果待比较字符不同，return false
+                    return false;
+                }
+            }
+            // (i >= 0 && j >= 0) 为 false 情况为
+            // 1. i < 0 && j >= 0
+            // 2. j < 0 && i >= 0
+            // 3. i < 0 && j < 0
+            // 其中，第 3 种情况为符合题意情况，因为这种情况下 s 和 t 都是 index = 0 的位置为 '#' 而这种情况下
+            // 退格空字符即为空字符，也符合题意，应当返回 True。
+            // 但是，情况 1 和 2 不符合题意，因为 s 和 t 其中一个是在 index >= 0 处找到了待比较字符，另一个没有找到
+            // 这种情况显然不符合题意，应当返回 False，下式便处理这种情况。
+            else if(i >= 0 || j >= 0){
+                return false;
+            }
+          /*  else if (i >= 0 && j < 0) return false; // works too
+            else if (i < 0 && j >= 0) return false;*/
+            i--;
+            j--;
+        }
+        return true;
+    }
+
 }
 
