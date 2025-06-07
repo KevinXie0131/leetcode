@@ -9,7 +9,6 @@ public class Q1248_Count_Number_of_Nice_Subarrays {
      * 统计「优美子数组」
      * 给你一个整数数组 nums 和一个整数 k。如果某个连续子数组中恰好有 k 个奇数数字，我们就认为这个子数组是「优美子数组」。
      * 请返回这个数组中 「优美子数组」 的数目。
-     *
      */
     public static void main(String[] args) {
         int[] nums = {1,1,2,1,1};
