@@ -12,6 +12,7 @@ public class Q523_Continuous_Subarray_Sum {
      * Note that:
      *  A subarray is a contiguous part of the array.
      *  An integer x is a multiple of k if there exists an integer n such that x = n * k. 0 is always a multiple of k.
+     * 连续的子数组和
      * 给你一个整数数组 nums 和一个整数 k ，如果 nums 有一个 好的子数组 返回 true ，否则返回 false：
      * 一个 好的子数组 是：
      *  长度 至少为 2 ，且
