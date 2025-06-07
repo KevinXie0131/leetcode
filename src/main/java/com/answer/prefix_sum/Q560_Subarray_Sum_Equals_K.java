@@ -12,7 +12,7 @@ public class Q560_Subarray_Sum_Equals_K {
      */
     public static void main(String[] args) {
        int[] nums = {1,2,3}; int k = 3; // 输出：2
-        System.out.println(subarraySum(nums, k));
+        System.out.println(subarraySum4(nums, k));
     }
     /**
      * 枚举
@@ -47,9 +47,9 @@ public class Q560_Subarray_Sum_Equals_K {
         for (int i = 0; i < len; i++) {
             prefixSum[i + 1] = prefixSum[i] + nums[i];//计算前缀和数组
         }
-
+        // 两次遍历
         int result = 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer, Integer> map = new HashMap<>();  //转化为两数之和
         for (int sum : prefixSum) {
             int index = sum - k;
             if (map.containsKey(index)) { //已遍历元素中存在index
@@ -83,7 +83,7 @@ public class Q560_Subarray_Sum_Equals_K {
         return count;
     }
     /**
-     * 前缀和 + HashMap
+     * 前缀和 + HashMap 一次遍历
      */
     public int subarraySum2(int[] nums, int k) {
         if (nums.length == 0) {
@@ -94,7 +94,7 @@ public class Q560_Subarray_Sum_Equals_K {
         //例如输入[1,1,0]，k = 2 如果没有这行代码，则会返回0,漏掉了1+1=2，和1+1+0=2的情况
         //输入：[3,1,1,0] k = 2时则不会漏掉
         //因为presum[3] - presum[0]表示前面 3 位的和，所以需要map.put(0,1),垫下底
-        map.put(0, 1);
+        map.put(0, 1); //要预先将 preSum[0] = 0 这个前缀和加入哈希表，即前缀和 0 出现了 1次。
         int count = 0;
         int presum = 0;
         for (int x : nums) {
@@ -105,6 +105,26 @@ public class Q560_Subarray_Sum_Equals_K {
             }
             //更新
             map.put(presum,map.getOrDefault(presum,0) + 1);
+        }
+        return count;
+    }
+    /**
+     * 写法三：一次遍历 · 其二
+     * 在同一轮循环中，先把 s[i−1] 加入哈希表，再根据 s[i] 更新答案。
+     * 这样写无需初始化 map[0]=1。
+     */
+    static public int subarraySum4(int[] nums, int k) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int count = 0;
+        int presum = 0;
+        for (int x : nums) { // 改一下计算顺序就可以不用写map[0]=1
+            map.put(presum, map.getOrDefault(presum, 0) + 1);  // 先存入前一个位置的前缀和，恰好也预先计入了 freq[0] = 1
+            presum += x;
+
+            count += map.getOrDefault(presum - k,0) ;
         }
         return count;
     }
