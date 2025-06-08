@@ -85,8 +85,8 @@ public class Q207_Course_Schedule_2 {
         }
 
         Queue<Integer> que = new LinkedList<>(); //新建列表，把入度为0的课放进来
-        for(int i = 0 ; i <inDegree.length;i++){
-            if(inDegree[i]==0){
+        for(int i = 0 ; i < inDegree.length; i++){
+            if(inDegree[i] == 0){
                 que.offer(i);
             }
         }
@@ -94,8 +94,8 @@ public class Q207_Course_Schedule_2 {
         while(!que.isEmpty()){
             int course = que.poll(); //弹出已选课程，在map找到依赖它的课程，在入度数组--
             numCourses--;
-            for(int nextCourse : map.getOrDefault(course,new ArrayList<>())){
-                if(--inDegree[nextCourse]==0){
+            for(int nextCourse : map.getOrDefault(course, new ArrayList<>())){
+                if(--inDegree[nextCourse] == 0){
                     que.offer(nextCourse);
                 }
             }

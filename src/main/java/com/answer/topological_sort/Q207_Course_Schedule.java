@@ -92,7 +92,7 @@ public class Q207_Course_Schedule {
     private boolean dfs1(int x, List<Integer>[] g, int[] colors) {
         colors[x] = 1; // x 正在访问中
         for (int y : g[x]) {
-            if (colors[y] == 1 || colors[y] == 0 && dfs1(y, g, colors)) {
+            if (colors[y] == 1 || (colors[y] == 0 && dfs1(y, g, colors))) {
                 return true; // 找到了环
             }
         }
