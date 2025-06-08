@@ -5,7 +5,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Q212_Word_Search_II {
+public class Q212_Word_Search_II { // Hard 困难
+    /**
+     * Given an m x n board of characters and a list of strings words, return all words on the board.
+     * Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are
+     * horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+     * 单词搜索 II
+     * 给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words， 返回所有二维网格上的单词 。
+     * 单词必须按照字母顺序，通过 相邻的单元格 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
+     * 同一个单元格内的字母在一个单词中不允许被重复使用。
+     * board[i][j] is a lowercase English letter.
+     */
     Set<String> res = new HashSet<>();
 
     public List<String> findWords(char[][] board, String[] words) {
