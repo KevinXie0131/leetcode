@@ -1,14 +1,25 @@
 package com.answer.monotonic;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.Stack;
+import java.util.*;
 
 public class Q84_Largest_Rectangle_in_Histogram {
+    /**
+     * Given an array of integers heights representing the histogram's bar height where the width of each bar is 1,
+     * return the area of the largest rectangle in the histogram.
+     * 柱状图中最大的矩形
+     * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+     * 求在该柱状图中，能够勾勒出来的矩形的最大面积。
+     */
     public static void main(String[] args) {
+        /**
+         * 输入：heights = [2,1,5,6,2,3]
+         * 输出：10
+         * Explanation: The above is a histogram where width of each bar is 1.
+         * The largest rectangle is shown in the red area, which has an area = 10 units.
+         * 解释：最大的矩形为图中红色区域，面积为 10
+         */
         int[] heights = {2,1,5,6,2,3};
-        System.out.println(largestRectangleArea2(heights));
+        System.out.println(largestRectangleArea2(heights)); // 输出：10
     }
     /**
      * 暴力解法 (超时，因为时间复杂度是 O(n^2))

@@ -2,10 +2,21 @@ package com.answer.monotonic;
 
 import java.util.*;
 
-public class Q42_Trapping_Rain_Water {
+public class Q42_Trapping_Rain_Water { // Hard 困难
+    /**
+     * Given n non-negative integers representing an elevation map where the width of each bar is 1,
+     * compute how much water it can trap after raining.
+     * 接雨水
+     * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+     */
     public static void main(String[] args) {
+        /**
+         * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+         * 输出：6
+         * 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
+         */
         int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
-        System.out.println(trap2a(height));
+        System.out.println(trap2a(height)); // 输出：6
     }
     /**
      * 暴力解法(使用双指针) 时间复杂度为O(n^2)，空间复杂度为O(1), 超时

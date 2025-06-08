@@ -4,6 +4,20 @@ import java.util.*;
 
 public class Q739_Daily_Temperatures {
     /**
+     * Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i]
+     * is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for
+     * which this is possible, keep answer[i] == 0 instead.
+     * 每日温度
+     * 给定一个整数数组 temperatures ，表示每天的温度，返回一个数组 answer ，其中 answer[i] 是指对于第 i 天，下一个更高温度出现在几天后。
+     * 如果气温在这之后都不会升高，请在该位置用 0 来代替。
+     */
+    public static void main(String[] args) {
+        /**
+         * 输入: temperatures = [73,74,75,71,69,72,76,73]
+         * 输出: [1,1,4,2,1,1,0,0]
+         */
+    }
+    /**
      * 通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。时间复杂度为O(n)。
      * 单调栈的本质是空间换时间，因为在遍历的过程中需要用一个栈来记录右边第一个比当前元素高的元素，优点是整个数组只需要遍历一次。
      * 更直白来说，就是用一个栈来记录我们遍历过的元素. 所以我们需要用一个容器（这里用单调栈）来记录我们遍历过的元素(单调栈里只需要存放元素的下标i就可以)
