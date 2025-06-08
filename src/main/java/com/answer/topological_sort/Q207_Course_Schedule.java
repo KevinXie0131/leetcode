@@ -1,5 +1,7 @@
 package com.answer.topological_sort;
 
+import java.util.*;
+
 public class Q207_Course_Schedule {
     /**
      * 课程表
@@ -16,10 +18,123 @@ public class Q207_Course_Schedule {
      * 示例 2：
      *   输入：numCourses = 2, prerequisites = [[1,0],[0,1]]
      *   输出：false
-     *   解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
+     *   解释：总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
      */
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    /**
+     * 经典的「拓扑排序」问题
+     * 深度优先搜索
+     */
+    List<List<Integer>> edges;
+    int[] visited;
+    boolean valid = true;
 
-        return true;
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        edges = new ArrayList<List<Integer>>();
+        for (int i = 0; i < numCourses; ++i) {
+            edges.add(new ArrayList<Integer>());
+        }
+        visited = new int[numCourses];
+        for (int[] info : prerequisites) {
+            edges.get(info[1]).add(info[0]);
+        }
+        for (int i = 0; i < numCourses && valid; ++i) {
+            if (visited[i] == 0) {
+                dfs(i);
+            }
+        }
+        return valid;
+    }
+
+    public void dfs(int u) {
+        visited[u] = 1;  // x 正在访问中
+        for (int v: edges.get(u)) {
+            if (visited[v] == 0) {
+                dfs(v);
+                if (!valid) {
+                    return;
+                }
+            } else if (visited[v] == 1) {
+                valid = false;  // 找到了环
+                return;
+            }
+        }
+        visited[u] = 2;  // x 完全访问完毕
+    }
+    /**
+     * another form
+     * 一个有向图，判断图中是否有环。
+     * 节点 x「正在访问中」，是说我们正在递归处理节点 x 以及它的后续节点，dfs(x) 尚未结束。
+     * 对于每个节点 x，都定义三种颜色值（状态值）：
+     *  0：节点 x 尚未被访问到。
+     *  1：节点 x 正在访问中，dfs(x) 尚未结束。
+     *  2：节点 x 已经完全访问完毕，dfs(x) 已返回。
+     *
+     * 误区：不能只用两种状态表示节点「没有访问过」和「访问过」。例如上图，我们先 dfs(0)，再 dfs(1)，
+     * 此时 1 的邻居 0 已经访问过，但这并不能表示此时就找到了环。
+     */
+    public boolean canFinish2(int numCourses, int[][] prerequisites) {
+        List<Integer>[] g = new ArrayList[numCourses];
+        Arrays.setAll(g, i -> new ArrayList<>());
+        for (int[] p : prerequisites) {
+            g[p[1]].add(p[0]);
+        }
+
+        int[] colors = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (colors[i] == 0 && dfs1(i, g, colors)) {
+                return false; // 有环
+            }
+        }
+        return true; // 没有环
+    }
+
+    // 返回 true 表示找到了环
+    private boolean dfs1(int x, List<Integer>[] g, int[] colors) {
+        colors[x] = 1; // x 正在访问中
+        for (int y : g[x]) {
+            if (colors[y] == 1 || colors[y] == 0 && dfs1(y, g, colors)) {
+                return true; // 找到了环
+            }
+        }
+        colors[x] = 2; // x 完全访问完毕
+        return false; // 没有找到环
+    }
+    /**
+     * 广度优先搜索
+     */
+    List<List<Integer>> edges1;
+    int[] indeg1;
+
+    public boolean canFinish1(int numCourses, int[][] prerequisites) {
+        edges1 = new ArrayList<List<Integer>>(); //邻接表：通过结点的索引，我们能够得到这个结点的后继结点；
+        for (int i = 0; i < numCourses; ++i) {
+            edges1.add(new ArrayList<Integer>());
+        }
+        indeg1 = new int[numCourses]; //入度数组：通过结点的索引，我们能够得到指向这个结点的结点个数。
+        for (int[] info : prerequisites) {
+            edges1.get(info[1]).add(info[0]);
+            ++indeg1[info[0]];
+        }
+
+        Queue<Integer> queue = new LinkedList<Integer>();
+        for (int i = 0; i < numCourses; ++i) {
+            if (indeg1[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        int visited = 0;
+        while (!queue.isEmpty()) {
+            ++visited;
+            int u = queue.poll();
+            for (int v: edges1.get(u)) {
+                --indeg1[v];
+                if (indeg1[v] == 0) {
+                    queue.offer(v);
+                }
+            }
+        }
+
+        return visited == numCourses;
     }
 }
