@@ -4,9 +4,26 @@ import java.util.Arrays;
 import java.util.*;
 
 public class Q684_Redundant_Connection {
+    /**
+     * 冗余连接
+     * In this problem, a tree is an undirected graph that is connected and has no cycles.
+     * 树可以看成是一个连通且 无环 的 无向 图。
+     *
+     * 给定往一棵 n 个节点 (节点值 1～n) 的树中添加一条边后的图。添加的边的两个顶点 (two different vertices) 包含在 1 到 n 中间，
+     * 且这条附加的边不属于树中已存在的边。图的信息记录于长度为 n 的二维数组 edges ，edges[i] = [ai, bi]
+     * 表示图中在 ai 和 bi 之间存在一条边。
+     * Return an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers,
+     * return the answer that occurs last in the input.
+     * 请找出一条可以删去的边，删除后可使得剩余部分是一个有着 n 个节点的树。如果有多个答案，则返回数组 edges 中最后出现的那个。
+     *
+     * There are no repeated edges.
+     * The given graph is connected.
+     * edges 中无重复元素
+     * 给定的图是连通的
+     */
     public static void main(String[] args) {
-        int[][] edges = {{1,2},{1,3},{2,3}};
-     //   int[][] edges = {{1,2},{2,3},{3,4},{1,4},{1,5}};
+        int[][] edges = {{1,2},{1,3},{2,3}}; // 输出: [2,3]
+     //   int[][] edges = {{1,2},{2,3},{3,4},{1,4},{1,5}}; // 输出: [1,4]
         System.out.println(Arrays.toString(findRedundantConnection(edges)));
     }
     /**
