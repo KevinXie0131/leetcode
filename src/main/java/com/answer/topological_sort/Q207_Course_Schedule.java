@@ -24,9 +24,9 @@ public class Q207_Course_Schedule {
      * 经典的「拓扑排序」问题
      * 深度优先搜索
      */
-    List<List<Integer>> edges;
-    int[] visited;
-    boolean valid = true;
+    List<List<Integer>> edges; // 存储有向图
+    int[] visited;   // 标记每个节点的状态：0=未搜索，1=搜索中，2=已完成
+    boolean valid = true;   // 判断有向图中是否有环
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         edges = new ArrayList<List<Integer>>();
@@ -46,14 +46,15 @@ public class Q207_Course_Schedule {
     }
 
     public void dfs(int u) {
-        visited[u] = 1;  // x 正在访问中
+        visited[u] = 1;  // x 正在访问中   // 将节点标记为「搜索中」
+        // 搜索其相邻节点 只要发现有环，立刻停止搜索
         for (int v: edges.get(u)) {
-            if (visited[v] == 0) {
+            if (visited[v] == 0) {  // 如果「未搜索」那么搜索相邻节点
                 dfs(v);
                 if (!valid) {
                     return;
                 }
-            } else if (visited[v] == 1) {
+            } else if (visited[v] == 1) {  // 如果「搜索中」说明找到了环
                 valid = false;  // 找到了环
                 return;
             }
@@ -102,8 +103,8 @@ public class Q207_Course_Schedule {
     /**
      * 广度优先搜索
      */
-    List<List<Integer>> edges1;
-    int[] indeg1;
+    List<List<Integer>> edges1;   // 存储有向图
+    int[] indeg1; // 存储每个节点的入度
 
     public boolean canFinish1(int numCourses, int[][] prerequisites) {
         edges1 = new ArrayList<List<Integer>>(); //邻接表：通过结点的索引，我们能够得到这个结点的后继结点；
@@ -117,7 +118,7 @@ public class Q207_Course_Schedule {
         }
 
         Queue<Integer> queue = new LinkedList<Integer>();
-        for (int i = 0; i < numCourses; ++i) {
+        for (int i = 0; i < numCourses; ++i) {  // 将所有入度为 0 的节点放入队列中
             if (indeg1[i] == 0) {
                 queue.offer(i);
             }
@@ -126,10 +127,10 @@ public class Q207_Course_Schedule {
         int visited = 0;
         while (!queue.isEmpty()) {
             ++visited;
-            int u = queue.poll();
+            int u = queue.poll(); // 从队首取出一个节点
             for (int v: edges1.get(u)) {
                 --indeg1[v];
-                if (indeg1[v] == 0) {
+                if (indeg1[v] == 0) {    // 如果相邻节点 v 的入度为 0，就可以选 v 对应的课程了
                     queue.offer(v);
                 }
             }
