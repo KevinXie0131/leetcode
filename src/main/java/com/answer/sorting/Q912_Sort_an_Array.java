@@ -24,14 +24,13 @@ public class Q912_Sort_an_Array {
         int[] res = solution.sortArray_0(nums);
         System.out.println(Arrays.toString(res));
     }
-
     /**
      * Bubble sort
      * 冒泡排序
      */
     public int[] sortArray_0(int[] nums) {
         int len = nums.length;
-        for(int i = len - 1;  i >=0; i--) {
+        for(int i = len - 1;  i >= 0; i--) {
             // 先默认数组是有序的，只要发生一次交换，就必须进行下一轮比较，
             // 如果在内层循环中，都没有执行一次交换操作，说明此时数组已经是升序数组
             boolean sorted = true;
@@ -50,8 +49,6 @@ public class Q912_Sort_an_Array {
     /**
      * Selection sort
      * 选择排序：每一轮选择最小元素交换到未排定部分的开头
-     * 由于「插入排序」在「几乎有序」的数组上表现良好，特别地，在「短数组」上的表现也很好。因为「短数组」的特点是：
-     * 每个元素离它最终排定的位置都不会太远。为此，在小区间内执行排序任务的时候，可以转向使用「插入排序」
      */
     // 选择排序：每一轮选择最小元素交换到未排定部分的开头
     public  static int[] sortArray(int[] nums) {
@@ -67,13 +64,17 @@ public class Q912_Sort_an_Array {
             }
             swap(nums, i, min);
         }
-
         return nums;
     }
-
     /**
      * Insertion sort
      * 插入排序：稳定排序，在接近有序的情况下，表现优异
+     * 思路：每次将一个数字插入一个有序的数组里，成为一个长度更长的有序数组，有限次操作以后，数组整体有序。
+     *
+     * 优化：「将一个数字插入一个有序的数组」这一步，可以不使用逐步交换，使用先赋值给「临时变量」，然后「适当的元素」后移，
+     * 空出一个位置，最后把「临时变量」赋值给这个空位的策略
+     * 由于「插入排序」在「几乎有序」的数组上表现良好，特别地，在「短数组」上的表现也很好。因为「短数组」的特点是：
+     * 每个元素离它最终排定的位置都不会太远。为此，在小区间内执行排序任务的时候，可以转向使用「插入排序」
      */
     public static int[] sortArray_1(int[] nums) {
         int len = nums.length;
@@ -105,6 +106,7 @@ public class Q912_Sort_an_Array {
         mergeSort(nums, 0, len - 1, temp);
         return nums;
     }
+
     private static void mergeSort(int[] nums, int left, int right, int[] temp) {
         if (right <= left) {
             return;
@@ -120,6 +122,7 @@ public class Q912_Sort_an_Array {
         mergeOfTwoSortedArray(nums, left, mid, right, temp);
         System.out.println(Arrays.toString(nums) + " " + Arrays.toString(temp));
     }
+
     private static void mergeOfTwoSortedArray(int[] nums, int left, int mid, int right, int[] temp) {
         System.arraycopy(nums, left, temp, left, right - left  + 1 );
 
@@ -157,6 +160,7 @@ public class Q912_Sort_an_Array {
         quickSort(nums, 0, len - 1);
         return nums;
     }
+
     private static void quickSort(int[] nums, int left, int right) {
         // 小区间使用插入排序
         if (right <= left) {
@@ -175,7 +179,6 @@ public class Q912_Sort_an_Array {
         Random rand = new Random();
         int randomIndex = rand.nextInt(right - left + 1) + left;
         swap(nums, left, randomIndex);
-
         // 基准值
         int pivot = nums[left];
         int lt = left;
@@ -199,7 +202,6 @@ public class Q912_Sort_an_Array {
         int len = nums.length;
         // 将数组整理成堆
         heapify(nums);
-
         // 循环不变量：区间 [0, i] 堆有序
         for (int i = len - 1; i >= 1; ) {
             // 把堆顶元素（当前最大）交换到数组末尾
@@ -211,6 +213,7 @@ public class Q912_Sort_an_Array {
         }
         return nums;
     }
+
     private static void heapify(int[] nums) { // 将数组整理成堆（堆有序）
         int len = nums.length;
         // 只需要从 i = (len - 1) / 2 这个位置开始逐层下移
@@ -218,6 +221,7 @@ public class Q912_Sort_an_Array {
             siftDown(nums, i, len - 1);
         }
     }
+
     private static void siftDown(int[] nums, int k, int end) {
         while (2 * k + 1 <= end) {
             int j = 2 * k + 1;
@@ -232,10 +236,10 @@ public class Q912_Sort_an_Array {
             k = j;
         }
     }
+
     private static void swap(int[] nums, int index1, int index2) {
         int temp = nums[index1];
         nums[index1] = nums[index2];
         nums[index2] = temp;
     }
-
 }
