@@ -37,7 +37,7 @@ public class Q2343_Query_Kth_Smallest_Trimmed_Number {
     public static void main(String[] args) {
         String[] nums = {"24","37","96","04"};
        int[][] queries = {{2,1}, {2,2}};
-       System.out.println(Arrays.toString(smallestTrimmedNumbers(nums, queries)));
+       System.out.println(Arrays.toString(smallestTrimmedNumbers1(nums, queries)));
     }
     /**
      * 自定义类Arrays.sort排序
@@ -67,7 +67,7 @@ public class Q2343_Query_Kth_Smallest_Trimmed_Number {
      * Java自定义排序规则即可
      * 注意即使后trim位相同，也必须返回第k小的index
      */
-    public int[] smallestTrimmedNumbers1(String[] nums, int[][] queries) {
+    static public int[] smallestTrimmedNumbers1(String[] nums, int[][] queries) {
         int numLen = nums.length, qLen = queries.length, strLen = nums[0].length();
         int[] result = new int[qLen];
 

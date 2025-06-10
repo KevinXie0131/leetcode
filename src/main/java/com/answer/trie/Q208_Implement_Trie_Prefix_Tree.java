@@ -72,48 +72,50 @@ public class Q208_Implement_Trie_Prefix_Tree {
      * 另一种形式
      */
     class Trie1 {
-        private Node root;
+        private Node root;   // 根节点
 
         public Trie1() {
             root = new Node(); // 根节点
         }
         // 相当于生成了一条移动方向为「左-左-右」的路径。标记最后一个节点为终止节点
         public void insert(String word) {
-            Node cur = root; // 初始值为 root
+            Node cur = root; // 初始值为 root    // 从根节点开始构造这个word对应的路径节点
             for (char ch : word.toCharArray()) {
-                int index = ch - 'a';
+                int index = ch - 'a';      // 将当前字符添加到当前节点对应的子节点位置，然后递归更新
                 if (cur.children[index] == null) {
                     cur.children[index] = new Node();
                 }
                 cur = cur.children[index];
             }
-            cur.isEnd = true; // 遍历结束，把 cur 的 end 标记为 true。
+            cur.isEnd = true; // 遍历结束，把 cur 的 end 标记为 true。 // 最后一个节点的isEnd置为true，表示一个完整的字符串
         }
         // 相当于查找二叉树中是否存在一条移动方向为「左-左-右」的路径，且最后一个节点是终止节点
         public boolean search(String word) {
             Node node = find(word);
-            return node != null && node.isEnd;
+            return node != null && node.isEnd; // 返回不为空且节点标记为尾节点，则包含word这个完整的字符串
         }
         // 相当于查找二叉树中是否存在一条移动方向为「左-左」的路径，无其他要求
         public boolean startsWith(String prefix) {
-            return find(prefix) != null;
+            return find(prefix) != null; // 返回不为空，则包含了prefix前缀
         }
-
+        // 查找字典树是否包含word前缀
         private Node find(String word) {
-            Node cur = root; // 初始值为 root
+            Node cur = root; // 初始值为 root // 从根节点依次开始匹配每个字符
             for (char ch : word.toCharArray()) {
-                int index = ch - 'a';
+                int index = ch - 'a';  // 根据当前字符获取对应的子节点
                 if (cur.children[index] == null) {
-                    return null;
+                    return null;  // 只要当前节点为空，则不包含这个字符串，直接返回空指针
                 }
                 cur = cur.children[index];
             }
-            return cur;
+            return cur;    // 否则匹配成功返回node
         }
     }
+
     class Node {
-        Node[] children = new Node[26]; // 26 叉树 / 对于 26 叉树的每个节点，可以用哈希表，或者长为 26 的数组来存储子节点
-        boolean isEnd;
+        Node[] children = new Node[26]; // 26 叉树 / 对于 26 叉树的每个节点，可以用哈希表，或者长为 26 的数组来存储子节点 // 子节点列表
+        boolean isEnd;  // 标记是否尾节点
+
     }
 }
 
