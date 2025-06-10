@@ -22,15 +22,68 @@ public class Q211_Design_Add_and_Search_Words_Data_Structure {
      * word in search consist of '.' or lowercase English letters.
      * There will be at most 2 dots in word for search queries.
      */
-    public Q211_Design_Add_and_Search_Words_Data_Structure() {
+    public static void main(String[] args) {
+        Q211_Design_Add_and_Search_Words_Data_Structure wordDictionary = new Q211_Design_Add_and_Search_Words_Data_Structure();
+        wordDictionary.addWord("a");
+        wordDictionary.addWord("a");
+        wordDictionary.addWord("mad");
+        wordDictionary.search("a."); // return False
+        wordDictionary.search("bad"); // return True
+        wordDictionary.search(".ad"); // return True
+        wordDictionary.search("b.."); // return True
 
+    }
+    /**
+     * 字典树
+     * 由于待搜索的单词可能包含点号，因此在搜索过程中需要考虑点号的处理。对于当前字符是字母和点号的情况，分别按照如下方式处理：
+     * 如果当前字符是字母，则判断当前字符对应的子结点是否存在，如果子结点存在则移动到子结点，继续搜索下一个字符，如果子结点不存在则说明单词不存在，返回 false；
+     * 如果当前字符是点号，由于点号可以表示任何字母，因此需要对当前结点的所有非空子结点继续搜索下一个字符。
+     */
+    private Node root;
+
+    public Q211_Design_Add_and_Search_Words_Data_Structure() {
+        root = new Node();
     }
 
     public void addWord(String word) {
-
+        Node cur = root;
+        for (char ch : word.toCharArray()) {
+            int index = ch - 'a';
+            if (cur.children[index] == null) {
+                cur.children[index] = new Node();
+            }
+            cur = cur.children[index];
+        }
+        cur.isEnd = true;
     }
 
     public boolean search(String word) {
-        return true;
+        Node cur = root;
+        for (char ch : word.toCharArray()) {
+            if(ch == '.'){
+                if(cur.children.length == 0){
+                    return false;
+                }
+                for(int i = 0; i < 26; i++){
+                    int index = i;
+                    if (cur.children[index] != null) {
+                        cur = cur.children[index];
+                    }
+                }
+            } else {
+                int index = ch - 'a';
+                if (cur.children[index] == null) {
+                    return false;
+                }
+                cur = cur.children[index];
+            }
+        }
+        return cur != null && cur.isEnd;
     }
+
+}
+
+class Node {
+    Node[] children = new Node[26];
+    boolean isEnd;
 }
