@@ -1,5 +1,7 @@
 package com.answer.sorting;
 
+import java.util.*;
+
 public class Q2343_Query_Kth_Smallest_Trimmed_Number {
     /**
      * 裁剪数字后查询第 K 小的数字
@@ -32,4 +34,104 @@ public class Q2343_Query_Kth_Smallest_Trimmed_Number {
      *    有两个 4 ，下标为 0 的 4 视为小于下标为 3 的 4 。
      * 2. 裁剪到剩 2 个数位，nums 不变。第二小的数字是 24 ，下标为 0 。
      */
+    public static void main(String[] args) {
+        String[] nums = {"24","37","96","04"};
+       int[][] queries = {{2,1}, {2,2}};
+       System.out.println(Arrays.toString(smallestTrimmedNumbers(nums, queries)));
+    }
+    /**
+     * 自定义类Arrays.sort排序
+     * 自定义类(值,下标)实现Comparable接口用Arrays.sort对每个长度的对象数组按自定义compareTo方法离线排序。
+     */
+    static public int[] smallestTrimmedNumbers(String[] nums, int[][] queries) {
+        int n = nums.length, m = queries.length, len = nums[0].length();
+        int[] ans = new int[m];
+        Pair[][] rank = new Pair[len][n];
+
+        for(int i = 0; i < n; i++){
+            StringBuilder sb = new StringBuilder(nums[i]);
+            for(int j = len - 1; j >= 0; j--){
+                rank[j][i] = new Pair(i, sb.toString());
+                sb.deleteCharAt(0);
+            }
+        }
+        for(int i = 0; i < len; i++){
+            Arrays.sort(rank[i]);
+        }
+        for(int i = 0; i < m; i++){
+            ans[i] = rank[queries[i][1] - 1][queries[i][0] - 1].p;
+        }
+        return ans;
+    }
+    /**
+     * Java自定义排序规则即可
+     * 注意即使后trim位相同，也必须返回第k小的index
+     */
+    public int[] smallestTrimmedNumbers1(String[] nums, int[][] queries) {
+        int numLen = nums.length, qLen = queries.length, strLen = nums[0].length();
+        int[] result = new int[qLen];
+
+        List<Pair1<String, Integer>> list = new ArrayList<>(); //也可用二维数组代替,Integer表示该String在原nums数组中的index
+        for (int i = 0; i < numLen; i++) {
+            list.add(new Pair1<>(nums[i], i));
+        }
+        for (int i = 0; i < qLen; i++) {
+            int k = queries[i][0], trim = queries[i][1];
+            list.sort((o1, o2) -> { //自定义排序规则
+                for (int j = strLen - trim; j < strLen; j++) {
+                    if (o1.key.charAt(j) > o2.key.charAt(j)) return 1; //o1.key的后trim位大于o2.key的后trim位
+                    else if (o1.key.charAt(j) < o2.key.charAt(j)) return -1; //o1.key的后trim位小于o2.key的后trim位
+                }
+                return o1.value - o2.value; //o1.key的后trim位等于o2.key的后trim位，则再比较o1和o2的value值
+            });
+            result[i] = list.get(k - 1).value; //第k小的index
+        }
+        return result;
+    }
+}
+
+class Pair implements Comparable<Pair>{
+    int p;
+    String s;
+    public Pair(int p,String s){
+        this.p = p;
+        this.s = s;
+    }
+    @Override
+    public int compareTo(Pair b){
+        int d = s.compareTo(b.s);
+        if(d != 0) return d;
+        return p - b.p;
+    }
+}
+
+class Pair1<T1, T2> {
+    T1 key;
+    T2 value;
+
+    public Pair1(T1 key, T2 value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public Pair1(String s) {
+
+    }
+
+
+    public T1 getKey() {
+        return key;
+    }
+
+    public void setKey(T1 key) {
+        this.key = key;
+    }
+
+    public T2 getValue() {
+        return value;
+    }
+
+    public void setValue(T2 value) {
+        this.value = value;
+    }
 }
