@@ -25,6 +25,11 @@ public class Q336_Palindrome_Pairs { // Hard 困难
      *  输出：[[0,1],[1,0],[3,2],[2,4]]
      *  解释：可拼接成的回文串为 ["dcbaabcd","abcddcba","slls","llssssll"]
      */
+    public static void main(String[] args) {
+       // String[] words = {"abcd", "dcba", "lls", "s", "sssll"};
+        String[] words = {"a",""};
+        System.out.println(palindromePairs3(words));
+    }
     /**
      * 简单的暴力[超时]
      * 简单的暴力枚举出所有的字符串对，然后判断它们组成的字符串是否是回文对. 当数据量较大时，超时
@@ -45,13 +50,56 @@ public class Q336_Palindrome_Pairs { // Hard 困难
         return ans;
     }
     //  判断一个字符串是否是回文字符串
-    private boolean isPalindrome(String s) {
+    static private boolean isPalindrome(String s) {
         int i = 0, j = s.length()-1;
         while (i < j) {
             if (s.charAt(i) != s.charAt(j)) return false;
             i++; j--;
         }
         return true;
+    }
+    /**
+     * 两个子串想组成回文串，可能是：
+     *  一个子串是“翻转”+“回文串”，另一个子串是“翻转”
+     *  或，一个子串是“翻转”，另一个子串是“回文串”+“翻转”。
+     *
+     * 先看看左边部分是不是回文，如果是，则期望右边部分找到翻转词。
+     * 再看看右边部分是不是回文，如果是，则期望左边部分找到翻转词。
+     * 为了能快速找出翻转词，我们提前将单词都翻转一遍，存入哈希表，还有它对应的索引
+     */
+    static public List<List<Integer>> palindromePairs3(String[] words) {
+        int n = words.length, len = 0;
+        String temp = "", left = "", right = "";
+        HashMap<String, Integer> rev_words = new HashMap<>(); // 存储所有单词的翻转串
+        // 遍历words得出所有单词的翻转
+        for (int i = 0; i < n; ++i) {
+            temp = words[i];
+            rev_words.put(new StringBuilder(temp).reverse().toString(), i);
+        }
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        // 遍历words所有单词，找出能形成回文串的结果。分别查找左右子串，然后找出能形成回文的串
+        for (int i = 0; i < n; ++i) {
+            temp = words[i];
+            len = temp.length();
+            // 若单词自回文，则找空串左匹配
+            if(rev_words.containsKey(temp) && rev_words.containsKey("") && !"".equals(temp)) {
+                result.add(new ArrayList<>(Arrays.asList(rev_words.get(""), i)));
+            }
+            // 左子串长度为0 ~ n - 1，右子串长度为n ~ 1
+            for(int j = 0; j < len; ++j) {
+                left = temp.substring(0, j + 1);
+                right = temp.substring(j + 1, len);
+                // 若左子串left为回文，则从rev_words中找是否存在right，存在则两单词构成回文，即 该单词 + temp 构成回文
+                if(isPalindrome(left) && rev_words.containsKey(right) && rev_words.get(right) != i) {
+                    result.add(new ArrayList<>(Arrays.asList(rev_words.get(right), i)));
+                }
+                // 若右子串right为回文，则从rev_words中找是否存在left，存在则两单词构成回文，即 temp + 该单词 构成回文
+                if(isPalindrome(right) && rev_words.containsKey(left) && rev_words.get(left) != i) {
+                    result.add(new ArrayList<>(Arrays.asList(rev_words.get(left), i)));
+                }
+            }
+        }
+        return result;
     }
     /**
      * 字典树（Trie树）
