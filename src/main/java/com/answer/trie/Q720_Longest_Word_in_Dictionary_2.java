@@ -2,7 +2,7 @@ package com.answer.trie;
 
 public class Q720_Longest_Word_in_Dictionary_2 {
     /**
-     *
+     * 字典树
      */
     Trie7 root = new Trie7();
     private int maxLength = 0;
