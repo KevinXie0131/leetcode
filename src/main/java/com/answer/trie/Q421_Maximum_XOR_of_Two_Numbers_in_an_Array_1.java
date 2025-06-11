@@ -20,7 +20,6 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array_1 {
      *  直接从最后结果里添加这位的十进制值
      * 如果没有期望的数
      *  没有就只能走另一个分支,走另一个分支说明俩数相等, 相等异或为0,这一位一定是0,不需要加，直接下一层
-     *
      */
     public static int findMaximumXOR(int[] nums) {
         Trie trie = new Trie(); //构建前缀树
@@ -97,4 +96,44 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array_1 {
     当nums中所有元素都遍历完的时候,得到的就是最大的异或值
     时间复杂度O(n),空间复杂度O(n)
     */
+    /**
+     * 以下是 0-1 字典树相关模板类
+     * search：我们先在 trie 树中找到能与 x 异或取得最大值的另一个数组元素 y，我们采用尽量走相反的 01 字符指针的策略，
+     * 因为异或的运算的法则是相同得0，不同得1，所以我们尽可能走与 x 当前位相反的字符方向走，
+     * 才能得到能和 x 产生最大值的另一个数组元素 y，然后 res=x^y
+     */
+    Trie1 root;
+
+    class Trie1 {
+        private Trie1[] children = new Trie1[2];
+        public Trie1() {
+            root = new Trie1();
+        }
+    }
+
+    public void insert(int x) {
+        Trie1 node = root;
+        for (int i = 30; i >= 0; --i) {
+            int v = x >> i & 1;
+            if (node.children[v] == null) {
+                node.children[v] = new Trie1();
+            }
+            node = node.children[v];
+        }
+    }
+
+    public int search(int x) {
+        Trie1 node = root;
+        int ans = 0;
+        for (int i = 30; i >= 0; --i) {
+            int v = x >> i & 1;
+            if (node.children[v ^ 1] != null) {
+                ans |= 1 << i;
+                node = node.children[v ^ 1];
+            } else {
+                node = node.children[v];
+            }
+        }
+        return ans;
+    }
 }

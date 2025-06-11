@@ -15,6 +15,11 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array {
      *  输入：nums = [14,70,53,83,49,91,36,80,92,51,66,70]
      *  输出：127
      */
+    public static void main(String[] args) {
+        int[] nums = {7, 2};
+        int res = findMaximumXOR1(nums);
+        System.out.println(res);
+    }
     /**
      * 暴力 Time Limit Exceeded
      */
@@ -63,9 +68,8 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array {
     /**
      * 用 ⊕ 表示异或，如果 a⊕b=newAns，那么两边同时异或 b，由于 b⊕b=0，所以得到 a=newAns⊕b（相当于把两数之和代码中的减法改成异或）。
      * 这样就可以一边枚举 b，一边在哈希表中查找 newAns⊕b 了
-     *
      */
-    public int findMaximumXOR1(int[] nums) {
+    static public int findMaximumXOR1(int[] nums) {
         int max = 0;
         for (int x : nums) {
             max = Math.max(max, x);
@@ -93,10 +97,9 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array {
      * 求最大值，高位的值能是 1 就应当尽量是 1。
      * 任意两个数「异或」得到第三个数
      */
-    public int findMaximumXOR3(int[] nums) {
+    static public int findMaximumXOR3(int[] nums) {
         int res = 0;
         int mask = 0;
-
         // 每一位的确定都要使用新的「哈希表」，为此在循环外初始化，每一轮循环结束清空
         Set<Integer> hashSet = new HashSet<>();
         for (int i = 31; i >= 0; i--) {
