@@ -2,7 +2,7 @@ package com.answer.trie;
 
 import java.util.*;
 
-public class Q336_Palindrome_Pairs { // Hard
+public class Q336_Palindrome_Pairs { // Hard 困难
     /**
      * given a 0-indexed array of unique strings words.
      * A palindrome pair is a pair of integers (i, j) such that:
@@ -25,7 +25,109 @@ public class Q336_Palindrome_Pairs { // Hard
      *  输出：[[0,1],[1,0],[3,2],[2,4]]
      *  解释：可拼接成的回文串为 ["dcbaabcd","abcddcba","slls","llssssll"]
      */
+    /**
+     * 简单的暴力[超时]
+     * 简单的暴力枚举出所有的字符串对，然后判断它们组成的字符串是否是回文对. 当数据量较大时，超时
+     */
     public List<List<Integer>> palindromePairs(String[] words) {
-        return null;
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = words.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) continue;
+                if (!isPalindrome(words[i] + words[j])) continue;
+                List<Integer> temp = new ArrayList<>();
+                temp.add(i);
+                temp.add(j);
+                ans.add(temp);
+            }
+        }
+        return ans;
+    }
+    //  判断一个字符串是否是回文字符串
+    private boolean isPalindrome(String s) {
+        int i = 0, j = s.length()-1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++; j--;
+        }
+        return true;
+    }
+    /**
+     * 字典树（Trie树）
+     * 对于一个字符串对 (x,y), 若想要字符串 x+y 是一个回文字符串，则必须满足以下条件之一
+     *  当 x.length()≥y.length() 时, 字符串 x 的 y.length() 长度的前缀与 y 的 逆序 相等，且字符串 x 去除长度为 y.length() 的前缀后，余下的部分也是一个回文字符串。
+     *  当 x.length()<y.length() 时，与情况一正相反。
+     *
+     *  对于字符串 x 时，我们依次遍历其每一个字母，假设当前遍历到的位置为 i,若 [i,x.length()] 是一个回文对，且 [0,i] 的逆序存在于 word 列表中（设其下标为 y），则 (x,y) 可以构成回文对，加入结果数组中。
+     * 当我们遍历完字符串 x 的每一个字符，我们还 需要考虑分析中第2种情况，即 x.length()<y.length()
+     */
+    class TriNode {
+        TriNode []childNode = new TriNode[26];
+        Integer index;
+    }
+    TriNode root = new TriNode();
+
+    private void insert(String word, int index) {
+        TriNode curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            int pos = word.charAt(i) - 'a';
+            if (curr.childNode[pos] == null) {
+                curr.childNode[pos]=new TriNode();
+            }
+            curr = curr.childNode[pos];
+        }
+        curr.index = index;
+    }
+
+    private Integer search(String word, int start, int end) {
+        TriNode curr = root;
+        for (int i = end; i >= start; i--) { // 逆序
+            int pos = word.charAt(i) - 'a';
+            if (curr.childNode[pos] == null) {
+                return null;
+            }
+            curr = curr.childNode[pos];
+        }
+        return curr.index;
+    }
+    // 判断一个字符串是否是回文字符串
+    private boolean isPalindrome(String s,int start,int end) {
+        int i=start,j=end;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;j--;
+        }
+        return true;
+    }
+
+    public List<List<Integer>> palindromePairs2(String[] words) {
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i], i);
+        }
+
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            int len = word.length();
+
+            for (int j = 0; j <= len; j++) {
+                if (isPalindrome(word, j, len - 1)) {
+                    Integer index = search(word, 0, j - 1);
+                    if (index != null && index != i) {
+                        res.add(Arrays.asList(i, index));
+                    }
+                }
+                if (j != 0 && isPalindrome(word, 0, j - 1)) {
+                    Integer index = search(word, j, len - 1);
+                    if (index != null && index != i) {
+                        res.add(Arrays.asList(index,i));
+                    }
+                }
+            }
+        }
+        return res;
     }
 }
