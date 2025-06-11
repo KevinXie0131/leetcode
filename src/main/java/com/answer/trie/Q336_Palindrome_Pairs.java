@@ -67,7 +67,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
      * 再看看右边部分是不是回文，如果是，则期望左边部分找到翻转词。
      * 为了能快速找出翻转词，我们提前将单词都翻转一遍，存入哈希表，还有它对应的索引
      */
-    static public List<List<Integer>> palindromePairs3(String[] words) {
+    static public List<List<Integer>> palindromePairs3(String[] words) { // cannot pass all test cases
         int n = words.length, len = 0;
         String temp = "", left = "", right = "";
         HashMap<String, Integer> rev_words = new HashMap<>(); // 存储所有单词的翻转串
@@ -81,9 +81,12 @@ public class Q336_Palindrome_Pairs { // Hard 困难
         for (int i = 0; i < n; ++i) {
             temp = words[i];
             len = temp.length();
-            // 若单词自回文，则找空串左匹配
-            if(rev_words.containsKey(temp) && rev_words.containsKey("") && !"".equals(temp)) {
-                result.add(new ArrayList<>(Arrays.asList(rev_words.get(""), i)));
+            //还有一种特殊情况，我也是提交了没有通过才发现的，就是单词里有空字符串"",
+            //这意味他可以放在任何回文串的首尾
+            if(isPalindrome(temp)) {
+                Integer index = rev_words.get("");
+                if (index != null && index != i) result.add(new ArrayList<>(Arrays.asList(i, index)));
+
             }
             // 左子串长度为0 ~ n - 1，右子串长度为n ~ 1
             for(int j = 0; j < len; ++j) {
@@ -100,6 +103,44 @@ public class Q336_Palindrome_Pairs { // Hard 困难
             }
         }
         return result;
+    }
+    /**
+     * 哈希表实现
+     * 需要设计一个能够在一系列字符串中查询「某个字符串的子串的翻转」是否存在的数据结构，有两种实现方法：
+     *  可以用字典树存储所有的字符串。在进行查询时，将待查询串的子串逆序地在字典树上进行遍历，判断其是否存在。
+     *  也可以用哈希表存储所有字符串的翻转串。在进行查询时，判断待查询串的子串是否在哈希表中出现，就等价于判断了其翻转是否存在。
+     */
+    public List<List<Integer>> palindromePairs5(String[] words) {
+        List<List<Integer>> res = new ArrayList<>();
+        int n = words.length;
+        Map<String, Integer> indices = new HashMap<>();
+        for (int i = 0; i < n; ++i) {
+            String w = new StringBuilder(words[i]).reverse().toString();
+            indices.put(w, i);
+        }
+        for (int i = 0; i < n; ++i) {
+            int m = words[i].length();
+            if (m == 0) {
+                continue;
+            }
+            for (int j = 0; j <= m; ++j) {
+                if (isPalindrome(words[i], j, m - 1)) {
+                    String w = words[i].substring(0, j);
+                    int leftId = indices.getOrDefault(w, -1);
+                    if (leftId != -1 && leftId != i) {
+                        res.add(Arrays.asList(i, leftId));
+                    }
+                }
+                if (j != 0 && isPalindrome(words[i], 0, j - 1)) {
+                    String w = words[i].substring(j, m);
+                    int rightId = indices.getOrDefault(w, -1);
+                    if (rightId != -1 && rightId != i) {
+                        res.add(Arrays.asList(rightId, i));
+                    }
+                }
+            }
+        }
+        return res;
     }
     /**
      * 字典树（Trie树）
