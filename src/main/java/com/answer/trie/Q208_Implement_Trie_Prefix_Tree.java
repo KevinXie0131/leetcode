@@ -2,6 +2,9 @@ package com.answer.trie;
 
 public class Q208_Implement_Trie_Prefix_Tree {
     /**
+     * 详解前缀树「TrieTree 汇总级别整理
+     * https://leetcode.cn/problems/replace-words/solutions/1662440/by-lfool-pkdp/
+     *
      * 实现 Trie (前缀树)
      * Trie（发音类似 "try"）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。
      * 实现 Trie 类：
