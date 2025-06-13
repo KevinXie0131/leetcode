@@ -57,18 +57,23 @@ public class Q860_Lemonade_Change {
         return true;
     }
     /**
-     * Approach 1: Simulation
+     * Approach 1: Simulation 贪心 + 模拟
+     * 如果 b=5，无需找零，five 加一。
+     * 如果 b=10，返还 5 美元，five 减一，ten 加一。
+     * 如果 b=20 且 ten>0，返还 10+5 美元，five 和 ten 都减一。
+     * 如果 b=20 且 ten=0，返还 5+5+5 美元，five 减三。
+     * 如果发现 five<0，说明无法正确找零，返回 false。
+     * 如果中途没有返回 false，那么循环结束后返回 true。
      */
     public boolean lemonadeChange_1(int[] bills) {
         int five = 0, ten = 0;
         for (int bill: bills) {
-            if (bill == 5)
-                five++;
-            else if (bill == 10) {
+            if (bill == 5) five++; // 无需找零
+            else if (bill == 10) {  // 返还 5
                 if (five == 0) return false;
                 five--;
                 ten++;
-            } else {
+            } else { //此时 bill=20 ，返还 10+5
                 if (five > 0 && ten > 0) {
                     five--;
                     ten--;
