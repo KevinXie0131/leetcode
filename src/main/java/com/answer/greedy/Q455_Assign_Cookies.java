@@ -72,7 +72,6 @@ public class Q455_Assign_Cookies {
                 count++;
             }
         }
-
         return count;
     }
 }
