@@ -90,23 +90,34 @@ public class Q968_Binary_Tree_Cameras { // Hard 困难
         }
         return result;
     }
-
+    /*
+      dfs返回节点的状态
+         0=>这个结点待覆盖
+         1=>这个结点已经覆盖
+         2=>这个结点上安装了相机
+      */
     public int dfs(TreeNode root){
-        if(root == null) return 2; // 根据子节点的状态返回父节点的状态；
-
-        int left = dfs(root.left);
-        int right = dfs(root.right);
-
-        if(right == 2 && left == 2){ // 3.子节点有一个状态是2，则父节点返回 1 （因为子节点有一个是有摄像头的所以 父节点是被监控了的）
-            return 0;
-        }
-        if(right == 0 || left == 0){ // 1.子节点有一个状态为0，则父节点返回 2 父节点需要一个摄像头 res++（根据贪心思想 由上面的节点监控下面的节点比较省摄像头）；
-            result++;
+        /*为了保证摄像头数目最小，叶子节点不能放置摄像头。所以root是null时，设置其状态是已覆盖。*/
+        if(root == null){
             return 1;
         }
-        if(right == 1 || left == 1){ // 2.左右2个子节点状态都是1，则父节点返回0 （因为子节点都没有摄像头，所以父节点需要被他的父节点监控；所以他是未被监控0）；
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        // 左右孩子一共有 00,01,02,11,12,22 这些状态
+        // 包含了 00 01 02 状态，左右孩子只要有一个未被覆盖，root就需要放置摄像头
+        if(left == 0 || right == 0){
+            result++;
             return 2;
         }
-        return -1;
+        // 11状态  root需要被父节点的摄像头覆盖，设置root的状态是0
+        if(left == 1 && right == 1){
+            return 0;
+        }
+        //12 22状态，root被儿子覆盖 设置root的状态是1
+        if(left + right >= 3){
+            return 1;
+        }
+        // 所有的状态都已经被包含，这里随便返回一个值
+        return 0;
     }
 }
