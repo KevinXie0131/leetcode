@@ -2,7 +2,12 @@ package com.answer.greedy;
 
 import com.template.TreeNode;
 
-public class Q968_Binary_Tree_Cameras {
+public class Q968_Binary_Tree_Cameras { // Hard 困难
+    /**
+     * 监控二叉树
+     * 给定一个二叉树，我们在树的节点上安装摄像头。
+     * 节点上的每个摄影头都可以监视其父对象、自身及其直接子对象。计算监控树的所有节点所需的最小摄像头数量。
+     */
     /**
      * 贪心算法
      * 因为头结点放不放摄像头也就省下一个摄像头， 叶子节点放不放摄像头省下了的摄像头数量是指数阶别的。
