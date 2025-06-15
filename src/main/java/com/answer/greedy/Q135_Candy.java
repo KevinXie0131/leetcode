@@ -2,7 +2,7 @@ package com.answer.greedy;
 
 import java.util.Arrays;
 
-public class Q135_Candy {
+public class Q135_Candy { // Hard 困难
     /**
      * 分发糖果
      * n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。
@@ -86,4 +86,30 @@ public class Q135_Candy {
         }
         return sum;
     }
+    /**
+     * 贪心
+     * 时间复杂度 O(N) ： 遍历两遍数组即可得到结果；
+     * 空间复杂度 O(N) ： 需要借用 left，right 的线性额外空间。
+     */
+     public int candy3(int[] ratings) {
+        int[] left = new int[ratings.length];
+        int[] right = new int[ratings.length];
+        Arrays.fill(left, 1);
+        Arrays.fill(right, 1);
+
+        for(int i = 1; i < ratings.length; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                left[i] = left[i - 1] + 1;
+            }
+        }
+
+        int count = left[ratings.length - 1];
+        for(int i = ratings.length - 2; i >= 0; i--) {
+            if(ratings[i] > ratings[i + 1]) {
+                right[i] = right[i + 1] + 1;
+            }
+            count += Math.max(left[i], right[i]);
+        }
+        return count;
+     }
 }
