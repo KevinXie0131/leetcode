@@ -63,15 +63,81 @@ public class Q452_Minimum_Number_of_Arrows_to_Burst_Balloons {
         return count;
     }
     /**
+     * 把区间按照右端点从小到大排序。
+     * 初始化答案 ans=0，上一个放点的位置 pre=−∞。
+     * 遍历区间，如果 start≤pre，那么这个区间已经包含点，跳过。
+     * 如果 start>pre，那么必须放一个点，把 ans 加一。根据上面的讨论，当前区间的右端点就是放点的位置，更新 pre=end。
+     * 遍历结束后，返回 ans。
+     *
+     * 如果按右端升序排序，就杜绝了「前面包后面」的情况。
+     */
+    public int findMinArrowShots4(int[][] points) {
+        Arrays.sort(points, Comparator.comparingInt(p -> p[1])); // 按照右端点从小到大排序
+        int ans = 0;
+        long pre = Long.MIN_VALUE;
+        for (int[] p : points) {
+            if (p[0] > pre) { // 上一个放的点在区间左边
+                ans++;
+                pre = p[1]; // 在区间的最右边放一个点
+            }
+        }
+        return ans;
+    }
+    /**
+     * another form
+     * 首先将区间按照右端点升序排序，此时位序为1的区间就是我们要找的第一个区间（图1），我们需要记录下第一个区间的右端点right（射出第一支箭），然后继续遍历，此时就会存在两种情况：
+     *  对于左端点小于等于right的区间，说明该区间能被前面的箭（right）穿过。
+     *  对于接下来左端点大于right的区间，说明前面这支箭无法穿过该区间（即：该区间就是未被箭穿过的区间集合的第一个区间），我们又找到了第一个未被箭穿过的区间，此时我们用一把新的箭穿过该区间的右端点（即更新right：right = points[i][1]），并将使用的箭数+1。如此往复。
+     */
+    public int findMinArrowShots5(int[][] points) {
+        Arrays.sort(points, (a, b) ->  Integer.compare(a[1], b[1]));
+        int count = 1;
+        int right = points[0][1];  // 第一支箭直接射出
+
+        for(int i = 1; i < points.length; i++){
+            if(points[i][0] <= right){
+                continue;   // 该区间能被当前箭right穿过
+            }
+            right = points[i][1];  // 继续射出箭
+            count++;  // 箭数加1
+
+/*            if (right < points[i][0]) {  //如果箭射入的位置小于下标为i这个气球的左边位置，说明这支箭不能击爆下标为i的这个气球，需要再拿出一支箭，并且要更新这支箭射入的位置
+                right = points[i][1];
+                count++;
+            }*/
+        }
+        return count;
+    }
+    /**
+     * 动态规划 Time Limit Exceeded
+     * Refer to Q435_Non_overlapping_Intervals
+     * 把气球看成区间，几个箭可以全部射爆，意思就是有多少不重叠的区间。注意这里重叠的情况也可以射爆。
+     */
+    public static int findMinArrowShots_8(int[][] points) {
+       /* Arrays.sort(points, (a, b) ->  a[0] - b[0]);*/  // [[-2147483646,-2147483645],[2147483646,2147483647]]
+        Arrays.sort(points, (a, b) ->  Integer.compare(a[0], b[0]));
+        int n = points.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+
+        for (int i = 1; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (points[j][1] < points[i][0]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+        return Arrays.stream(dp).max().getAsInt();
+    }
+    /**
      * Official answer
+     * 排序 + 贪心
      */
     public static int findMinArrowShots_1(int[][] points) {
         if (points.length == 0) return 0;
-
         // sort by x_end
         Arrays.sort(points, (o1, o2) -> {
-            // We can't simply use the o1[1] - o2[1] trick, as this will cause an
-            // integer overflow for very large or small values.
+            // We can't simply use the o1[1] - o2[1] trick, as this will cause an integer overflow for very large or small values.
             if (o1[1] == o2[1]) return 0;
             if (o1[1] < o2[1]) return -1;
             return 1;
@@ -82,14 +148,12 @@ public class Q452_Minimum_Number_of_Arrows_to_Burst_Balloons {
         for (int[] p: points) {
             xStart = p[0];
             xEnd = p[1];
-            // if the current balloon starts after the end of another one,
-            // one needs one more arrow
+            // if the current balloon starts after the end of another one, one needs one more arrow
             if (firstEnd < xStart) {
                 arrows++;
                 firstEnd = xEnd;
             }
         }
-
         return arrows;
     }
     /**
@@ -97,7 +161,6 @@ public class Q452_Minimum_Number_of_Arrows_to_Burst_Balloons {
      */
     public static int findMinArrowShots_2(int[][] points) {
         if (points.length == 0) return 0;
-
         // sort by x_end
         Arrays.sort(points, new Comparator<int[]>() {
             @Override
@@ -117,8 +180,7 @@ public class Q452_Minimum_Number_of_Arrows_to_Burst_Balloons {
         for (int[] p: points) {
             xStart = p[0];
             xEnd = p[1];
-            // if the current balloon starts after the end of another one,
-            // one needs one more arrow
+            // if the current balloon starts after the end of another one, one needs one more arrow
             if (firstEnd < xStart) {
                 arrows++;
                 firstEnd = xEnd;
