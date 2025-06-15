@@ -47,7 +47,18 @@ public class Q406_Queue_Reconstruction_by_Height {
             }
             return b[0] - a[0]; //b - a 是降序排列，在a[0] != b[0]，的狀況會根據h值降序排列
         });
-        List<int[]> list = new LinkedList<>(); // 用LinkedList比ArrayList效率会高
+        // 将每个人按照身高从大到小进行排序，处理身高相同的人 按照 K个数升序排序
+/*        Arrays.sort(people, new Comparator<int[]>() {
+            public int compare(int[] p1, int[] p2) {
+                if (p1[0] != p2[0]) {
+                    return p2[0] - p1[0];
+                } else {
+                    return p1[1] - p2[1];
+                }
+            }
+        });*/
+
+        List<int[]> list = new ArrayList<>(); // 用ArrayList比LinkedList效率会高
         for(int[] p : people){
             list.add(p[1], p);  //Linkedlist.add(index, value)，會將value插入到指定index裡。
         }
@@ -55,4 +66,20 @@ public class Q406_Queue_Reconstruction_by_Height {
         //  return list.toArray(new int[people.length][]);
         return list.toArray(new int[0][]);
     }
+    /**
+     * 解题思路：先排序再插入
+     * 1.排序规则：按照先H高度降序，K个数升序排序
+     * 2.遍历排序后的数组，根据K插入到K的位置上
+     *
+     * 核心思想：高个子先站好位，矮个子插入到K位置上，前面肯定有K个高个子，矮个子再插到前面也满足K的要求
+     */
+    // [7,0], [7,1], [6,1], [5,0], [5,2], [4,4]
+    // 再一个一个插入。
+    // [7,0]
+    // [7,0], [7,1]
+    // [7,0], [6,1], [7,1]
+    // [5,0], [7,0], [6,1], [7,1]
+    // [5,0], [7,0], [5,2], [6,1], [7,1]
+    // [5,0], [7,0], [5,2], [6,1], [4,4], [7,1]
+
 }
