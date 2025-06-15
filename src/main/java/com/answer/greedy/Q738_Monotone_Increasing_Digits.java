@@ -88,10 +88,13 @@ public class Q738_Monotone_Increasing_Digits {
      */
     public int monotoneIncreasingDigits_2(int n) {
         for (int i = n; i > 0; i--) { // 从大到小遍历
-            if (checkNum(i)) return i;
+            if (checkNum(i)) {
+                return i;
+            }
         }
         return 0;
     }
+
     public boolean checkNum(int num) {
         int max = 10;
         while (num >= 0) {
