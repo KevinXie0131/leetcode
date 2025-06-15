@@ -18,6 +18,45 @@ public class Q134_Gas_Station {
      * 因此，3 可为起始索引。
      */
     /**
+     * 暴力解法 Time Limit Exceeded
+     * 时间复杂度是 O(N^2)
+     * 用一个 for 循环遍历所有站点，假设为起点，然后再套一层 for 循环，判断一下是否能够转一圈回到起点
+     */
+    public int canCompleteCircuit0_a(int[] gas, int[] cost) {
+        int n = gas.length;
+        for (int start = 0; start < n; start++) {
+            int tank = 0;
+            for (int step = 0; step < n; step++) {
+                int i = (start + step) % n;
+                tank += gas[i];
+                tank -= cost[i];
+                // 判断油箱中的油是否耗尽
+                if(tank < 0) break;
+            }
+            if(tank >= 0) return start;
+        }
+        return -1;
+    }
+    /**
+     * 允许油量为负，但是总剩余油量应该大于等于0，否则不存在解的。存在解的情况下，利用贪心法的思想，找到最低点，
+     * 它的下一个点出发的话，可以保证前期得到剩余油量最大，所以可以跑完全程。
+     */
+    public int canCompleteCircuit0(int[] gas, int[] cost) {
+        int len = gas.length;
+        int spare = 0; // 油量
+        int minSpare = Integer.MAX_VALUE; // 最小油量
+        int minIndex = 0;
+
+        for (int i = 0; i < len; i++) {
+            spare += gas[i] - cost[i];  // 在 i 处加油，然后从 i 到 i+1
+            if (spare < minSpare) {
+                minSpare = spare; // 更新最小油量
+                minIndex = i; /* 经过第 i 个站点后，使 sum 到达新低, 所以站点 i + 1 就是最低点（起点）*/
+            }
+        }
+        return spare < 0 ? -1 : (minIndex + 1) % len; // 注意汽车在 i+1 而不是 i
+    }
+    /**
      * 贪心算法（方法一）
      * 情况一：如果gas的总和小于cost总和，那么无论从哪里出发，一定是跑不了一圈的
      * 情况二：rest[i] = gas[i]-cost[i]为一天剩下的油，i从0开始计算累加到最后一站，如果累加没有出现负数，说明从0出发，油就没有断过，那么0就是起点。
