@@ -9,6 +9,8 @@ public class Q376_Wiggle_Subsequence {
      * 子序列 可以通过从原始序列中删除一些（也可以不删除）元素来获得，剩下的元素保持其原始顺序。
      * 给你一个整数数组 nums ，返回 nums 中作为 摆动序列 的 最长子序列的长度 。
      *
+     * 进阶：你能否用 O(n) 时间复杂度完成此题?
+     *
      * 输入：nums = [1,7,4,9,2,5]
      * 输出：6
      * 解释：整个序列均为摆动序列，各元素之间的差值为 (6, -3, 5, -7, 3) 。
@@ -16,6 +18,69 @@ public class Q376_Wiggle_Subsequence {
     public static void main(String[] args) {
         int[] nums = {1,7,4,9,2,5};
         System.out.println(wiggleMaxLength(nums));
+    }
+    /**
+     * 贪心
+     * 假设 up[i] 表示 nums[0:i] 中最后两个数字递增的最长摆动序列长度，down[i] 表示 nums[0:i] 中最后两个数字递减的最长摆动序列长度，只有一个数字时默认为 1。
+     * 注意到 down 和 up 只和前一个状态有关，所以我们可以优化存储，分别用一个变量即可。
+     */
+    public int wiggleMaxLength0(int[] nums) {
+        int down = 1, up = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1])
+                up = down + 1;
+            else if (nums[i] < nums[i - 1])
+                down = up + 1;
+        }
+        return nums.length == 0 ? 0 : Math.max(down, up);
+    }
+    /**
+     * 统计变化次数: 只需要统计上升和下降的次数即可！
+     * 上升->下降-> 上升 。。。。。
+     */
+    public int wiggleMaxLength0_a(int[] nums) {
+        int result = 1;
+
+        boolean up = true;
+        boolean down = true;
+        for(int i = 1; i < nums.length; i++){
+            if(up && nums[i] > nums[i-1]){  //上升
+                up = false;
+                down = true;
+                result++;
+            }else if(down && nums[i] < nums[i-1]){ //下降
+                down = false;
+                up = true;
+                result++;
+            }
+        }
+       return result;
+    }
+    /**
+     * 摆动序列看他定义，说白了就是不断变换的上升下降趋势。
+     * 不需要是真正连续的数组才是子序列，而是可以【跳着】找！
+     *
+     * 在局部可以通过“当前数值和前一个数值的差值以及前一个趋势的状态来判断”，那只有 2 种状态可以增加子序列最大值：
+     *  差值是正数，前一个趋势是下降。
+     *  差值是负数，前一个趋势是上升。
+     * 这样得到全局最优的最多摆动序列。
+     */
+    public int wiggleMaxLength6(int[] nums) {
+        // trend 判断上一轮的趋势，即是上升还是下降
+        // 0 是初始状态，1 是上升，-1 是下降
+        int trend = 0;
+        int res = 1;// 存储最后的结果
+
+        for(int i = 1; i < nums.length; i++){  // 遍历
+            if(trend >= 0 && nums[i] < nums[i-1]){     // 如果上一轮趋势是上升或者未知且当前数字比前一个数字小（即当前是下降趋势）
+                trend = -1;  // 更新趋势
+                res += 1;  // 结果 + 1
+            } else if(trend <= 0 && nums[i] > nums[i-1]){ // 如果上一轮趋势是下降或者未知且当前数字比前一个数字大（即当前是上升趋势）
+                trend = 1;// 更新趋势
+                res += 1;  // 结果 + 1
+            }
+        }
+        return res;
     }
     /**
      * Approach #5 Greedy Approach 贪心
@@ -45,19 +110,6 @@ public class Q376_Wiggle_Subsequence {
             }
         }
         return res;
-    }
-    /**
-     * Greedy 2
-     */
-    public int wiggleMaxLength_1(int[] nums) {
-        int down = 1, up = 1;
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] > nums[i - 1])
-                up = down + 1;
-            else if (nums[i] < nums[i - 1])
-                down = up + 1;
-        }
-        return nums.length == 0 ? 0 : Math.max(down, up);
     }
     /**
      * 思路 2（动态规划）
@@ -91,5 +143,45 @@ public class Q376_Wiggle_Subsequence {
             }
         }
         return Math.max(dp[nums.length - 1][0], dp[nums.length - 1][1]);
+    }
+    /**
+     * 输入：nums = [1,17,5,10,13,15,10,5,16,8]
+     *          1, 17,  5, 10, 13, 15, 10,  5, 16,  8
+     *             升   降  升  升  升   降   降  升  降
+     *  降序结尾 0  0   2   2   2   2   4    4   4   6
+     *  升序结尾 0  1   1   3   3   3   3    5   5   5
+     *  if 升 {
+     *     dp[i][降] = dp[i-1][降]
+     *     dp[i][升] = dp[i-1][降]+1
+     *  }
+     *  if 降{
+     *      dp[i][降] = dp[i-1][升]+1
+     *      dp[i][升] = dp[i-1][升]
+     *  }
+     */
+    public int wiggleMaxLength8(int[] nums) {
+        // dp[i][0]表示，到当前位置，以降序结尾的摆动数组的最长子序列的长度
+        // dp[i][1]表示，到当前位置，以升序结尾的摆动数组的最长子序列的长度
+        int[][] dp = new int[nums.length][2];
+        dp[0][0] = dp[0][1] = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            //dp[i][0]降序结尾
+            //dp[i][1]升序结尾
+            if (nums[i] > nums[i-1]){
+                dp[i][0] = dp[i-1][0];
+              //  dp[i][1] = dp[i-1][0]+1;
+                dp[i][1] = Math.max(dp[i][1], dp[i-1][0] + 1);
+            }else if (nums[i] < nums[i-1]){
+            //    dp[i][0] = dp[i-1][1]+1;
+                dp[i][0] = Math.max(dp[i][0], dp[i - 1][1] + 1);
+                dp[i][1] = dp[i-1][1];
+            }else{
+                //相等
+                dp[i][0] = dp[i-1][0];
+                dp[i][1] = dp[i-1][1];
+            }
+        }
+        return Math.max(dp[nums.length - 1][0],dp[nums.length - 1][1]);
     }
 }
