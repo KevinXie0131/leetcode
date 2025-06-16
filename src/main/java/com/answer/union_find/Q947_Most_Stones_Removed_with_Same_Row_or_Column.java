@@ -20,7 +20,52 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
      *  3. 移除石头 [0,2] ，因为它和 [0,0] 同行。
      *  石头 [0,0] 和 [1,1] 不能移除，因为它们没有与另一块石头同行/列。
      */
-    public int removeStones(int[][] stones) {
-        return 0;
+    public static void main(String[] args) {
+        int[][] stones = {{0,0},{0,2},{1,1},{2,0},{2,2}};
+        System.out.println(removeStones(stones));
+    }
+    /**
+     *
+     */
+    static int[] parent;
+
+    static public int removeStones(int[][] stones) {
+        int n = stones.length;
+        parent = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+
+        for(int i = 0; i < n - 1; i++){
+            for(int j = i + 1; j < n; j++){
+                if(stones[i][0] == stones[j][0]){
+                    union(i, j);
+                }
+            }
+        }
+        for(int i = 0; i < n - 1; i++){
+            for(int j = i + 1; j < n; j++){
+                if(stones[i][1] == stones[j][1]){
+                    union(i, j);
+                }
+            }
+        }
+
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            if(parent[i] == i) count++;
+        }
+        return n - count;
+    }
+
+    public static void union(int index1, int index2) {
+        parent[find(index2)] = find(index1);
+    }
+
+    public static int find(int index) {
+        if (parent[index] != index) {
+            parent[index] = find(parent[index]);
+        }
+        return parent[index];
     }
 }
