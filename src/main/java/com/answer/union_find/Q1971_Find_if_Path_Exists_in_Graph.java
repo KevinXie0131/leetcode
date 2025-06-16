@@ -1,5 +1,7 @@
 package com.answer.union_find;
 
+import java.util.*;
+
 public class Q1971_Find_if_Path_Exists_in_Graph {
     /**
      * There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive).
@@ -31,5 +33,114 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
         }
         return disJoint.isSame(source, destination);
     }
+    /**
+     * 简单实现并查集
+     */
+    int[] connected;
+    public boolean validPath6(int n, int[][] edges, int source, int destination) {
+        connected = new int[n];
+        for(int i = 0; i < n; i++) {
+            connected[i] = i;
+        }
+        for(int[] edge : edges) {
+            connected[find(edge[0])] = find(edge[1]);
+        }
+        return find(source) == find(destination);
+    }
 
+    int find(int x) {
+        if(connected[x] == x) return x;
+        return connected[x] = find(connected[x]);
+    }
+    /**
+     * DFS深度优先搜索
+     * 先将 edges 转换成图 graph，然后使用 DFS，判断是否存在从 source 到 destination 的路径。
+     * 过程中，用数组 vis 记录已经访问过的顶点，避免重复访问。
+     */
+    private boolean[] visited;
+    private ArrayList<Integer>[] graph;
+
+    public boolean validPath1(int n, int[][] edges, int source, int destination) {
+        visited = new boolean[n];
+        graph = new ArrayList[n];
+        Arrays.setAll(graph, k -> new ArrayList<>());
+        for (int[] edge : edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+        return dfs(source, destination);
+    }
+
+    private boolean dfs(int source, int destination) {
+        if (source == destination) {
+            return true;
+        }
+        visited[source] = true;
+        for (int next : graph[source]) {
+            if (!visited[next] && dfs(next, destination)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * DFS递归
+     */
+    public boolean validPath5(int n, int[][] edges, int source, int destination) {
+        ArrayList<Integer>[] adjacentArr = new ArrayList[n];
+        for (int i = 0; i < n; i++) {
+            adjacentArr[i] = new ArrayList<Integer>();
+        }
+        for (int[] edge : edges) {
+            adjacentArr[edge[0]].add(edge[1]);
+            adjacentArr[edge[1]].add(edge[0]);
+        }
+
+        boolean[] visited = new boolean[n];
+        visited[source] = true;
+        Deque<Integer> stack = new ArrayDeque<Integer>();
+        stack.push(source);
+
+        while (!stack.isEmpty() && !visited[destination]) { // 剪枝 !visited[destination]
+            int vertex = stack.pop();
+            List<Integer> adjacent = adjacentArr[vertex];
+            for (int next : adjacent) {
+                if (!visited[next]) {
+                    visited[next] = true;
+                    stack.push(next);
+                }
+            }
+        }
+        return visited[destination];
+    }
+    /**
+     * BFS 广度优先搜索
+     */
+    public boolean validPath3(int n, int[][] edges, int source, int destination) {
+        ArrayList<Integer>[] adjacentArr = new ArrayList[n];
+        for (int i = 0; i < n; i++) {
+            adjacentArr[i] = new ArrayList<Integer>();
+        }
+        for (int[] edge : edges) {
+            adjacentArr[edge[0]].add(edge[1]);
+            adjacentArr[edge[1]].add(edge[0]);
+        }
+
+        boolean[] visited = new boolean[n];
+        visited[source] = true;
+        Queue<Integer> queue = new ArrayDeque<Integer>();
+        queue.offer(source);
+
+        while (!queue.isEmpty() && !visited[destination]) { // 剪枝 !visited[destination]
+            int vertex = queue.poll();
+            List<Integer> adjacent = adjacentArr[vertex];
+            for (int next : adjacent) {
+                if (!visited[next]) {
+                    visited[next] = true;
+                    queue.offer(next);
+                }
+            }
+        }
+        return visited[destination];
+    }
  }
