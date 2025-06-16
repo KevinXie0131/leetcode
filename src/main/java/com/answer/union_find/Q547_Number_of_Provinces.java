@@ -12,35 +12,36 @@ public class Q547_Number_of_Provinces {
      */
     public static void main(String[] args) {
         int[][] isConnected = {{1, 1, 0}, {1, 1, 0}, {0, 0, 1}}; // 输出：2
-        System.out.println(findCircleNum_3(isConnected));
+    //    int[][] isConnected = {{1,0,0,1},{0,1,1,0},{0,1,1,1},{1,0,1,1}};
+      /* 1 0 0 1
+         0 1 1 0
+         0 1 1 0
+         1 0 1 1  */
+        System.out.println(findCircleNum(isConnected));
     }
     /**
-     * Wrong answer
+     * 递归
      */
-    static int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     public static int findCircleNum(int[][] isConnected) {
         int m = isConnected.length;
-        int n = isConnected[0].length;
         int count = 0;
+        boolean[] hasChecked = new boolean[m];
 
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (isConnected[i][j] == 1) {
-                    recrusion(isConnected, i, j, count);
-                    count++;
-                }
+            if (hasChecked[i] == false) {
+                hasChecked[i] = true;
+                recrusion(isConnected, i, hasChecked);
+                count++;
             }
         }
         return count;
     }
-    public static void recrusion(int[][] isConnected, int i, int j, int count) {
-        if (i < 0 || i > isConnected.length - 1 || j < 0 || j > isConnected[0].length - 1) {
-            return;
-        }
-        if (isConnected[i][j] == 1) {
-            isConnected[i][j] = 2;
-            for (int[] d : dir) {
-                recrusion(isConnected, i + d[0], j + d[1], count);
+
+    public static void recrusion(int[][] isConnected, int i, boolean[] hasChecked) {
+        for(int k = 0; k < isConnected[0].length; k++){
+            if(isConnected[i][k] == 1 && !hasChecked[k]){
+                hasChecked[k] = true;
+                recrusion(isConnected, k, hasChecked);
             }
         }
     }
@@ -92,6 +93,7 @@ public class Q547_Number_of_Provinces {
         }
         return count;
     }
+
     public static void dfsRecursion(int[][] isConnected, boolean[] hasChecked, int i){
         for(int j = 0; j < isConnected.length; j++){
             if(isConnected[i][j] == 1 && !hasChecked[j]){
@@ -161,6 +163,36 @@ public class Q547_Number_of_Provinces {
             parent[index] = find(parent, parent[index]);
         }
         return parent[index];
+    }
+    /**
+     * 简单实现并查集
+     */
+    int[] connected;
+    public int findCircleNum_6(int[][] isConnected) {
+        int n = isConnected.length;
+        connected = new int[n];
+        for(int i = 0; i < n; i++) {
+            connected[i] = i;
+        }
+        for(int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (isConnected[i][j] == 1) {
+                    connected[find(i)] = find(j);
+                }
+            }
+        }
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            if(connected[i] == i){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    int find(int x) {
+        if(connected[x] == x) return x;
+        return connected[x] = find(connected[x]);
     }
     /**
      * int find(int parent[], int i) {
