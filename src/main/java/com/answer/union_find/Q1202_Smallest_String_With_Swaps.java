@@ -52,7 +52,7 @@ public class Q1202_Smallest_String_With_Swaps {
         Map<Integer, PriorityQueue<Character>> map = new HashMap<>();
 
         for(int i = 0; i < length; i++){
-            int parent = find(connected, i);
+            int parent = find(connected, i);  //具有同一parent的，把他们放到同一队列中
             PriorityQueue queue = map.getOrDefault(parent, new PriorityQueue<>());
             queue.offer(s.charAt(i));
             map.put(parent, queue);
@@ -76,7 +76,7 @@ public class Q1202_Smallest_String_With_Swaps {
         for(int i = 0; i < length; i++){
             int parent = find(connected, i);
             PriorityQueue queue = map.get(parent);
-            sb.append(queue.poll());
+            sb.append(queue.poll());  //找到i所在的队列，然后元素出队（这里的队列使用的是PriorityQueue，其实就是个最小堆，每次出来的都是队列中最小的值）
         }
         return sb.toString();
     }
