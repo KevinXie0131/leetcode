@@ -33,6 +33,7 @@ public class Q684_Redundant_Connection {
      */
     public int[] findRedundantConnection0(int[][] edges) {
         DisJoint disJoint = new DisJoint(edges.length + 1);
+
         for (int i = 0; i < edges.length; ++i) {
             if(disJoint.isSame(edges[i][0], edges[i][1])){
                 return new int[]{edges[i][0], edges[i][1]};
@@ -87,21 +88,25 @@ public class Q684_Redundant_Connection {
 
         for (int[] edge: edges) {
             seen.clear();
-            if (!graph[edge[0]].isEmpty() && !graph[edge[1]].isEmpty() &&
-                    dfs(graph, edge[0], edge[1])) {
+            if (!graph[edge[0]].isEmpty() && !graph[edge[1]].isEmpty() && dfs(graph, edge[0], edge[1])) {
                 return edge;
             }
             graph[edge[0]].add(edge[1]);
             graph[edge[1]].add(edge[0]);
         }
-        throw new AssertionError();
+        return new int[]{0, 0};
     }
+
     public boolean dfs(ArrayList<Integer>[] graph, int source, int target) {
         if (!seen.contains(source)) {
             seen.add(source);
-            if (source == target) return true;
+            if (source == target){
+                return true;
+            }
             for (int nei: graph[source]) {
-                if (dfs(graph, nei, target)) return true;
+                if (dfs(graph, nei, target)) {
+                    return true;
+                }
             }
         }
         return false;
