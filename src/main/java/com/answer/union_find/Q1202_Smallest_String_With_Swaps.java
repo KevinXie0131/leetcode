@@ -54,6 +54,16 @@ public class Q1202_Smallest_String_With_Swaps {
             PriorityQueue queue = map.getOrDefault(parent, new PriorityQueue<>());
             queue.offer(s.charAt(i));
             map.put(parent, queue);
+//            if (map.containsKey(parent)) {
+//                map.get(parent).offer(s.charAt(i));
+//            } else {
+//                PriorityQueue<Character> minHeap = new PriorityQueue<>();
+//                minHeap.offer(s.charAt(i));
+//                map.put(parent, minHeap);
+//            }
+            // 上面六行代码等价于下面一行代码，JDK 1.8 以及以后支持下面的写法
+    //       map.computeIfAbsent(parent, key -> new PriorityQueue<>()).offer(s.charAt(i));
+
         }
 
         StringBuffer sb = new StringBuffer();
