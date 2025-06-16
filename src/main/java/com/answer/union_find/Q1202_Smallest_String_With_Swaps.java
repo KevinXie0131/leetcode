@@ -30,6 +30,8 @@ public class Q1202_Smallest_String_With_Swaps {
     }
     /**
      * 并查集
+     * 将每一个字符抽象为「点」，那么这些「索引对」即为「边」，我们只需要维护这个「图」的连通性即可。对于同属一个连通块（极大连通子图）内的字符，我们可以任意地交换它们。
+     * 利用并查集维护任意两点的连通性，将同属一个连通块内的点提取出来，直接排序后放置回其在字符串中的原位置即可。
      */
     static int[] connected;
 
@@ -63,7 +65,11 @@ public class Q1202_Smallest_String_With_Swaps {
 //            }
             // 上面六行代码等价于下面一行代码，JDK 1.8 以及以后支持下面的写法
     //       map.computeIfAbsent(parent, key -> new PriorityQueue<>()).offer(s.charAt(i));
-
+            // 下面的写法也可以
+           /* if (!map.containsKey(parent)) {
+                map.put(parent, new PriorityQueue<Character>());
+            }
+            map.get(parent).offer(s.charAt(i));*/
         }
 
         StringBuffer sb = new StringBuffer();
@@ -71,6 +77,49 @@ public class Q1202_Smallest_String_With_Swaps {
             int parent = find(connected, i);
             PriorityQueue queue = map.get(parent);
             sb.append(queue.poll());
+        }
+        return sb.toString();
+    }
+    /**
+     * another form
+     */
+    static public String smallestStringWithSwaps2(String s, List<List<Integer>> pairs) {
+        int length = s.length();
+        int n = pairs.size();
+        connected = new int[length];
+        for(int i = 0; i < length; i++) {
+            connected[i] = i;
+        }
+
+        for(List<Integer> pair : pairs) {
+            if (find(connected, pair.get(0)) != find(connected, pair.get(1))  ) {
+                union(connected, pair.get(0), pair.get(1) );    //合并两个连通分量
+            }
+        }
+
+        Map<Integer, ArrayList<Character>> map = new HashMap<>();
+
+        for(int i = 0; i < length; i++){
+            int parent = find(connected, i);
+            if (!map.containsKey(parent)) {
+                map.put(parent, new ArrayList<Character>());
+            }
+            map.get(parent).add(s.charAt(i));
+        }
+        for (Map.Entry<Integer, ArrayList<Character>> entry : map.entrySet()) {
+       /*     Collections.sort(entry.getValue(), new Comparator<Character>() {
+                public int compare(Character c1, Character c2) {
+                    return c2 - c1;
+                }
+            });*/
+            Collections.sort(entry.getValue(),  (c1, c2) -> Character.compare(c1, c2));
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < length; i++){
+            int parent = find(connected, i);
+            List<Character> list = map.get(parent);
+            sb.append(list.remove(list.size() - 1));
         }
         return sb.toString();
     }
