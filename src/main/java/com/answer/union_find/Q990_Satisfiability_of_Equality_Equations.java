@@ -29,34 +29,38 @@ public class Q990_Satisfiability_of_Equality_Equations {
         System.out.println(equationsPossible_1(equations2));
     }
     /**
-     * Approach 2: Union-find
+     * Approach 2: Union-find 并查集
+     * 题目的本质：判断多个集合之间是否有交叉矛盾。（注：重点在集合上。通过传递关系，我们可以划分出集合）
+     *
+     * 可以将每一个变量看作图中的一个节点，把相等的关系 == 看作是连接两个节点的边，那么由于表示相等关系的等式方程具有传递性，
+     * 即如果 a==b 和 b==c 成立，则 a==c 也成立。也就是说，所有相等的变量属于同一个连通分量。因此，我们可以使用并查集来维护这种连通分量的关系。
      */
     static int[] parent;
 
     public static boolean equationsPossible(String[] equations) {
         int n = equations.length;
-        parent = new int[26];
+        parent = new int[26]; // 因为只有 26 个小写字母，所以只定义简单的并查集就行
         for (int i = 0; i < 26; i++) {
             parent[i] = i;
         }
-
-        for(String equation : equations) {
+        // 首先遍历所有的等式，构造并查集。同一个等式中的两个变量属于同一个连通分量，因此将两个变量进行合并。
+        for(String equation : equations) { // 先处理“相等”（合并）
             if (equation.charAt(1) == '=') {
                 int index1 = equation.charAt(0) - 'a';
                 int index2 = equation.charAt(3) - 'a';
-                union(index1, index2);
+                union(index1, index2);  // 并查集的合并 unite
             }
         }
-        for(String equation : equations) {
+        for(String equation : equations) { // 再处理“不等”
             if(equation.charAt(1) == '!'){
                 int index1 = equation.charAt(0) - 'a';
                 int index2 = equation.charAt(3) - 'a';
-                if(find(index1) == find(index2)){
+                if(find(index1) == find(index2)){ // 如果两个变量在同一个连通分量中，则产生矛盾，返回 false
                     return false;
                 }
             }
         }
-        return true;
+        return true; // 如果检查了所有不等式，都没有发现矛盾，返回 true
     }
 
     public static void union(int index1, int index2) {
@@ -107,13 +111,13 @@ public class Q990_Satisfiability_of_Equality_Equations {
     }
 
     // mark the color of `node` as `c`
-    private static void dfs(int node, int value, int[] color, List<Integer>[] graph) {
-        if (color[node] == -1) {
-            color[node] = value;
+    private static void dfs(int node, int value, int[] unioned, List<Integer>[] graph) {
+        if (unioned[node] == -1) {
+            unioned[node] = value;
 
             List<Integer> list = graph[node];
             for (int child : list)
-                dfs(child, value, color, graph);
+                dfs(child, value, unioned, graph);
         }
     }
 
