@@ -17,8 +17,8 @@ public class Q763_Partition_Labels {
      *  像 "ababcbacadefegde", "hijhklij" 这样的划分是错误的，因为划分的片段数较少。
      */
     public static void main(String[] args) {
-        String s = "ababcbacadefegdehijhklij";
-        System.out.println((partitionLabels(s)));
+        String s = "caedbdedda";
+        System.out.println((partitionLabels_2(s)));
     }
     /**
      * 贪心
@@ -29,30 +29,55 @@ public class Q763_Partition_Labels {
      *
      *  没有感受到贪心，找不出局部最优推出全局最优的过程。就是用最远出现距离模拟了圈字符的行为。
      */
-    public List<Integer> partitionLabels_1(String s) {
+    static public List<Integer> partitionLabels_1(String s) {
         List<Integer> list = new LinkedList<>();
         int[] edge = new int[26]; // 为字符出现的最后位置
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length; i++) { // 统计每一个字符最后出现的位置
             edge[chars[i] - 'a'] = i;
         }
-        int idx = 0;
-        int last = -1;
+        int start  = 0;  // 待切割的起始位置
+        int maxPos = 0; // 已扫描的字符中最远的位置
         for (int i = 0; i < chars.length; i++) {
-            idx = Math.max(idx, edge[chars[i] - 'a']); // 找到字符出现的最远边界
-            if (i == idx) {
-                list.add(i - last);
-                last = i;
+            maxPos  = Math.max(maxPos , edge[chars[i] - 'a']); // 找到字符出现的最远边界  // 更新「已扫描的字符中最远的位置」
+            if (i == maxPos) {  // 正好扫描到「已扫描的字符的最远位置」，到达切割点
+                list.add(i - start + 1);
+                start = i + 1;     // 更新，下一个待切割的字符串的起始位置
             }
         }
         return list;
     }
     /**
+     * 用 Map
+     */
+    public List<Integer> partitionLabels5(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        char[] charArray = s.toCharArray();
+        int length = charArray.length;
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i<charArray.length; i++){
+            map.put(charArray[i], i);
+        }
+        int max = 0;
+        int start = 0;
+        for(int i = 0; i<length; i++){
+            max = Math.max(max, map.get(charArray[i]));
+            if(i == max ){
+                //开始下一个
+                result.add(max - start + 1);
+                start = max + 1;
+            }
+        }
+        return result;
+    }
+    /**
      * 这里提供一种与452.用最少数量的箭引爆气球、435.无重叠区间 相同的思路。
      * 统计字符串中所有字符的起始和结束位置，记录这些区间(实际上也就是435.无重叠区间 题目里的输入)，将区间按左边界从小到大排序，
      * 找到边界将区间划分成组，互不重叠。找到的边界就是答案。
+     *
+     * 如果区间重叠，就扩充区间，直到不重叠进入下一个区间
      */
-    public List<Integer> partitionLabels_2(String s) {
+    static public List<Integer> partitionLabels_2(String s) {
         int[][] partitions = findPartitions(s);
         List<Integer> res = new ArrayList<>();
         Arrays.sort(partitions, (o1, o2) -> Integer.compare(o1[0], o2[0]));// 按照左边界从小到大排序
@@ -70,8 +95,9 @@ public class Q763_Partition_Labels {
         res.add(right - left + 1);
         return res;
     }
-    public int[][] findPartitions(String s) { // 记录每个字母出现的区间
-        List<Integer> temp = new ArrayList<>();
+
+    static public int[][] findPartitions(String s) { // 记录每个字母出现的区间
+
         int[][] hash = new int[26][2]; // 26个字母2列 表示该字母对应的区间
 
         for (int i = 0; i < s.length(); i++) {
@@ -80,16 +106,28 @@ public class Q763_Partition_Labels {
                 hash[c - 'a'][0] = i;
             }
             hash[c - 'a'][1] = i;
-            hash[s.charAt(0) - 'a'][0] = 0;   // 第一个元素区别对待一下
         }
-        List<List<Integer>> h = new LinkedList<>();
+        hash[s.charAt(0) - 'a'][0] = 0;   // 第一个元素区别对待一下
+  //      return hash;
+
         //组装区间
+        List<List<Integer>> h = new LinkedList<>();
+        List<Integer> temp = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
+            if(hash[i][0] != 0 || hash[i][1] != 0){
+                temp.clear();
+                temp.add(hash[i][0]);
+                temp.add(hash[i][1]);
+                h.add(new ArrayList<>(temp));
+            }
+        }
+        if(hash[s.charAt(0) - 'a'][1] == 0){ // for caedbdedda
             temp.clear();
-            temp.add(hash[i][0]);
-            temp.add(hash[i][1]);
+            temp.add(hash[s.charAt(0) - 'a'][0]);
+            temp.add(hash[s.charAt(0) - 'a'][1]);
             h.add(new ArrayList<>(temp));
         }
+
         int[][] res = new int[h.size()][2];
         for (int i = 0; i < h.size(); i++) {
             List<Integer> list = h.get(i);
@@ -98,7 +136,6 @@ public class Q763_Partition_Labels {
         }
         return res;
     }
-
     /**
      * Approach 1: Greedy
      * For each letter encountered, process the last occurrence of that letter, extending the current partition [anchor, j] appropriately.
