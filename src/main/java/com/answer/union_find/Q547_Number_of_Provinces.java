@@ -17,40 +17,14 @@ public class Q547_Number_of_Provinces {
          0 1 1 0
          0 1 1 0
          1 0 1 1  */
-        System.out.println(findCircleNum(isConnected));
-    }
-    /**
-     * 递归
-     */
-    public static int findCircleNum(int[][] isConnected) {
-        int m = isConnected.length;
-        int count = 0;
-        boolean[] hasChecked = new boolean[m];
-
-        for (int i = 0; i < m; i++) {
-            if (hasChecked[i] == false) {
-                hasChecked[i] = true;
-                recrusion(isConnected, i, hasChecked);
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public static void recrusion(int[][] isConnected, int i, boolean[] hasChecked) {
-        for(int k = 0; k < isConnected[0].length; k++){
-            if(isConnected[i][k] == 1 && !hasChecked[k]){
-                hasChecked[k] = true;
-                recrusion(isConnected, k, hasChecked);
-            }
-        }
+        System.out.println(findCircleNum_0(isConnected));
     }
     /**
      * Approach #1 Using Depth First Search
      * The given matrix can be viewed as the Adjacency Matrix of a graph. By viewing the matrix in such a manner
      * The problem reduces to the problem of finding the number of connected components in an undirected graph
      */
-    public static int findCircleNum_0(int[][] isConnected) {
+    public static int findCircleNum_0(int[][] isConnected) { // isConnected是无向图的邻接矩阵，cityNum 为无向图的顶点数量
         int cityNum = isConnected.length;
         Integer count = 0;
 
@@ -88,7 +62,7 @@ public class Q547_Number_of_Provinces {
             if(!hasChecked[i]){
                 hasChecked[i] = true;
                 dfsRecursion(isConnected, hasChecked, i);
-                count++;
+                count++;  // 若当前顶点 i 未被访问，说明又是一个新的连通域，则遍历新的连通域且count+=1.
             }
         }
         return count;
