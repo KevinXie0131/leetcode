@@ -56,9 +56,9 @@ public class Q684_Redundant_Connection {
             int[] edge = edges[i];
             int node1 = edge[0], node2 = edge[1];
             if (find(parent, node1) != find(parent, node2)) {
-                union(parent, node1, node2);
+                union(parent, node1, node2);   // 如果两个节点不在一个树上，则合并
             } else {
-                return edge;
+                return edge;  // 如果两个节点已经在一个树上，则这条边就是那条多余的边
             }
         }
         return new int[0];
@@ -110,5 +110,93 @@ public class Q684_Redundant_Connection {
             }
         }
         return false;
+    }
+    /**
+     * DFS搜索邻接表，如果发现从n节点到m节点通过邻接表可以达到则这个edge（n,m）为多余的直接返回该边即可。
+     */
+    public int[] findRedundantConnection6(int[][] edges) {
+        // 邻接表 键为节点，值为相邻节点
+        Map<Integer, List<Integer>> map = new HashMap<>(); // 首先初始化一个邻接表，用来存放每个节点的邻接节点Map
+        for (int[] edge : edges) {
+            int n = edge[0]; // 依次获取需要判断的每一个边edge ，将第一个（起始点）即为n，第二个（目标点）即为m。
+            int m  = edge[1];
+            //防治重复搜索已经dfs过的节点出现死循环
+            Set<Integer> visited = new HashSet<>();
+            //dfs 判断 n m 是否可以连同
+            // 进入dfs搜索邻接表的数据判断在邻接表中是否已经存在一条路径使得n可以到达m，如果存在说明当前需要判断的这个edge（n，m）是一个多余的即为题目需要找到的，如果dfs这没找到，我们需要更新邻接表，将当前的n与m更新进去
+            if(dfs(n,m,map,visited)){
+                return edge;
+            }
+            if(!map.containsKey(n)){
+                map.put(n,new ArrayList<>());
+            }
+            map.get(n).add(m);
+            if(!map.containsKey(m)){
+                map.put(m,new ArrayList<>());
+            }
+            map.get(m).add(n);
+        }
+        return new int[0];
+    }
+    // visited也是必要的，因为我们不能反复查询同一节点这样会陷入死循环
+    private boolean dfs(int n, int m, Map<Integer, List<Integer>> map, Set<Integer> visited) {
+        //同节点之间输出
+        if (n==m) return true;
+
+        visited.add(n);
+        List<Integer> neighbors  = map.get(n);
+        if (neighbors == null) return false;
+        for (int i = 0; i < neighbors.size(); i++) {
+            int neighbor = neighbors.get(i);
+            if(!visited.contains(neighbor) && dfs(neighbor,m,map,visited)){
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * 拓扑排序
+     * 拓扑排序一般用于有向无环图（DAG）。对于本题（无向图），用拓扑排序不是标准做法，但我们可以模拟“不断删除度为1的节点”，最后剩下的那条边就是成环的冗余边。
+     */
+    public int[] findRedundantConnection8(int[][] edges) {
+        int n = edges.length;
+        List<Set<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++){
+            graph.add(new HashSet<>());
+        }
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        // 记录图中每个节点的度
+        int[] degree = new int[n + 1]; //节点值 1～n
+        for (int i = 1; i <= n; i++){
+            degree[i] = graph.get(i).size();
+        }
+        // 拓扑排序思想：不断删掉度为1的节点
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
+            if (degree[i] == 1) queue.offer(i);
+        }
+
+        boolean[] removed = new boolean[n + 1]; // 节点值 1～n
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            removed[node] = true;
+            for (int neighbor : graph.get(node)) {
+                if (!removed[neighbor]) {
+                    degree[neighbor]--;
+                    if (degree[neighbor] == 1) queue.offer(neighbor);
+                }
+            }
+        }
+        // 最后剩下的边就是环上的边，找最后出现的那个
+        for (int i = edges.length - 1; i >= 0; i--) { // 如果有多个答案，则返回数组 edges 中最后出现的那个。
+            int u = edges[i][0], v = edges[i][1];
+            if (!removed[u] && !removed[v]) {
+                return edges[i];
+            }
+        }
+        return new int[0];
     }
 }
