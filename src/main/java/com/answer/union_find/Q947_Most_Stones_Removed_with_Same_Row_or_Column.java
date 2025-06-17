@@ -1,5 +1,7 @@
 package com.answer.union_find;
 
+import java.util.*;
+
 public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
     /**
      * On a 2D plane, we place n stones at some integer coordinate points. Each coordinate point may have at most one stone.
@@ -21,11 +23,14 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
      *  石头 [0,0] 和 [1,1] 不能移除，因为它们没有与另一块石头同行/列。
      */
     public static void main(String[] args) {
-        int[][] stones = {{0,0},{0,2},{1,1},{2,0},{2,2}};
-        System.out.println(removeStones(stones));
+        int[][] stones = {{0,1},{1,1}};
+        System.out.println(removeStones_2(stones));
     }
     /**
-     *
+     * 并查集
+     * 如果一块石头的 同行或者同列 上有其他石头存在，那么就可以移除这块石头。可以发现：一定可以把一个连通图里的所有顶点根据这个规则删到只剩下一个顶点。
+     * 为什么这么说呢？既然这些顶点在一个连通图里，可以通过遍历的方式（深度优先遍历或者广度优先遍历）遍历到这个连通图的所有顶点。
+     * 那么就可以按照遍历的方式 逆向 移除石头，最后只剩下一块石头。所以：最多可以移除的石头的个数 = 所有石头的个数 - 连通分量的个数。
      */
     static int[] parent;
 
@@ -35,18 +40,18 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
         for (int i = 0; i < n; i++) {
             parent[i] = i;
         }
-
+        // 并查集里的元素是 描述「横坐标」和「纵坐标」的数值。因此我们需要遍历数组 stones，将每个 stone 的横坐标和纵坐标在并查集中进行合并
         for(int i = 0; i < n - 1; i++){
             for(int j = i + 1; j < n; j++){
                 if(stones[i][0] == stones[j][0]){
-                    union(i, j);
+                    union(i, j); // 「合并」的语义是：所有横坐标为 x 的石头和所有纵坐标为 y 的石头都属于同一个连通分量。
                 }
             }
         }
         for(int i = 0; i < n - 1; i++){
             for(int j = i + 1; j < n; j++){
                 if(stones[i][1] == stones[j][1]){
-                    union(i, j);
+                    union(i, j); // 两个 for 循环作用是将所有石子两两合并, 如果行或者列相同，将其联通成一个子图
                 }
             }
         }
@@ -56,6 +61,36 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
             if(parent[i] == i) count++;
         }
         return n - count;
+    }
+    /**
+     * 并查集里如何区分横纵坐标
+     * 在并查集里区分「横坐标」和「纵坐标」，它们在并查集里不能相等 可以把其中一个坐标 映射 到另一个与 [0, 10000] 不重合的区间，
+     * 可以的做法是把横坐标全部减去 10001 或者全部加上 10001，或者按位取反（[0, 10000] 里的 32 位整数，最高位变成 1 以后，一定不在 [0, 10000] 里）。
+     *
+     * 那如果以行和列作为基础，时间复杂度是可以降低的：
+     *  将行和列转化到同一个维度（也就是说将行和列仅仅当作一个数字就行）
+     *  当我们遍历到一个点(x, y)时，直接将x与y进行合并（说明该行和该列行的所有点都属于同一个并查集）
+     *  最后用stones的大小减去并查集的个数即可
+     *  但是，x和y的值可能冲突，所以这里我们将x加上10001（题目范围限定为10000）
+     */
+    static public int removeStones_2(int[][] stones) {
+        int n = stones.length;
+        parent = new int[20002];
+        for (int i = 0; i < 20002; i++) {
+            parent[i] = i;
+        }
+        // 思路：将石头行列的数值构建并查集，因此行或列需要加10001区分开
+        // 合并的意思所有横坐标为 x 的石头和所有纵坐标为 y 的石头都属于同一个并查集
+        for(int[] stone : stones){
+           union(stone[0] + 10001, stone[1]); // 在原先基础上+10001
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for(int[] stone: stones){
+            int x = stone[0]  + 10001;
+            set.add(find(x));
+        }
+        return n - set.size();
     }
 
     public static void union(int index1, int index2) {
