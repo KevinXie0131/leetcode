@@ -29,8 +29,17 @@ public class Q721_Accounts_Merge {
         System.out.println(accountsMerge_1(accounts));
     }
     /**
-     * 方法一：哈希表 + 并查集
-     * Union Find
+     * 方法一：哈希表 + 并查集Union Find
+     * 根据题意可知：
+     *  存在相同邮箱的账号一定属于同一个人
+     *  名称相同的账户不一定属于同一个人
+     * 由于名称相同无法判断为同1人，所以只能使用邮箱是否相同来判断是否为同一人。
+     * 这样建立并查集就比较简单了：
+     *  先初始化每个账户为1个连通分量
+     *  遍历每个账户下的邮箱，判断该邮箱是否在其他账户下出现
+     *  如果未出现，继续
+     *  如果账户A、B下出现了相同的邮箱email，那么将账户A和账户B两个连通分量进行合并
+     *   最后遍历并查集中每个连通分量，将所有连通分量内部账户的邮箱全部合并(相同的去重，不同的合并)
      */
     int[] parent;
 
@@ -80,6 +89,7 @@ public class Q721_Accounts_Merge {
         }
         return res;
     }
+
     public static void union(int[] parent, int index1, int index2) {
         parent[find(parent, index1)] = find(parent, index2);
     }
@@ -155,9 +165,6 @@ public class Q721_Accounts_Merge {
             }
         }
     }
-    /**
-     * Approach 2: Breadth First Search (BFS)
-     */
 }
 
 class UnionFind {
