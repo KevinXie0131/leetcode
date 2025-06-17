@@ -4,6 +4,37 @@ import java.util.*;
 
 public class Q417_Pacific_Atlanti_Water_Flow {
     /**
+     * 太平洋大西洋水流问题
+     * 有一个 m × n 的矩形岛屿，与 太平洋 和 大西洋 相邻。 “太平洋” 处于大陆的左边界和上边界，而 “大西洋” 处于大陆的右边界和下边界。
+     *  The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
+     * 这个岛被分割成一个由若干方形单元格组成的网格。给定一个 m x n 的整数矩阵 heights ， heights[r][c] 表示坐标 (r, c) 上单元格 高于海平面的高度(height above sea level) 。
+     * 岛上雨水较多，如果相邻单元格的高度 小于或等于(less than or equal to)当前单元格的高度，雨水可以直接向北、南、东、西流向相邻单元格。水可以从海洋附近的任何单元格流入海洋。
+     * 返回网格坐标 result 的 2D 列表 ，其中 result[i] = [ri, ci] 表示雨水从单元格 (ri, ci) 流动 既可流向太平洋也可流向大西洋 。
+     *
+     * 输入: heights = [ [1,2,2,3,5],
+     *                   [3,2,3,4,4],
+     *                   [2,4,5,3,1],
+     *                   [6,7,1,4,5],
+     *                   [5,1,1,2,4]]
+     * 输出: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+     * Explanation: The following cells can flow to the Pacific and Atlantic oceans, as shown below:
+     * [0,4]: [0,4] -> Pacific Ocean
+     *        [0,4] -> Atlantic Ocean
+     * [1,3]: [1,3] -> [0,3] -> Pacific Ocean
+     *        [1,3] -> [1,4] -> Atlantic Ocean
+     * [1,4]: [1,4] -> [1,3] -> [0,3] -> Pacific Ocean
+     *        [1,4] -> Atlantic Ocean
+     * [2,2]: [2,2] -> [1,2] -> [0,2] -> Pacific Ocean
+     *        [2,2] -> [2,3] -> [2,4] -> Atlantic Ocean
+     * [3,0]: [3,0] -> Pacific Ocean
+     *        [3,0] -> [4,0] -> Atlantic Ocean
+     * [3,1]: [3,1] -> [3,0] -> Pacific Ocean
+     *        [3,1] -> [4,1] -> Atlantic Ocean
+     * [4,0]: [4,0] -> Pacific Ocean
+     *        [4,0] -> Atlantic Ocean
+     * Note that there are other possible paths for these cells to flow to the Pacific and Atlantic oceans.
+     */
+    /**
      * DFS优化
      * 那么我们可以 反过来想，从第一组边界上的节点 逆流而上，将遍历过的节点都标记上。
      * 同样从第二组边界的边上节点 逆流而上，将遍历过的节点也标记上。
