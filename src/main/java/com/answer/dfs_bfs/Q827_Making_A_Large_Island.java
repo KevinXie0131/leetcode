@@ -2,7 +2,20 @@ package com.answer.dfs_bfs;
 
 import java.util.*;
 
-public class Q827_Making_A_Large_Island {
+public class Q827_Making_A_Large_Island { // Hard 困难
+    /**
+     * You are given an n x n binary matrix grid. You are allowed to change at most one 0 to be 1.
+     * Return the size of the largest island in grid after applying this operation.
+     * An island is a 4-directionally connected group of 1s.
+     * 最大人工岛
+     * 一个大小为 n x n 二进制矩阵 grid 。最多 只能将一格 0 变成 1 。返回执行此操作后，grid 中最大的岛屿面积是多少？
+     * 岛屿 由一组上、下、左、右四个方向相连的 1 形成。
+     *
+     * 输入: grid = [ [1, 0],
+     *               [0, 1]]
+     * 输出: 3
+     * 解释: 将一格0变成1，最终连通两个小岛得到面积为 3 的岛屿。
+     */
     /**
      * 深搜优化思路
      * 只要用一次深搜把每个岛屿的面积记录下来就好。
