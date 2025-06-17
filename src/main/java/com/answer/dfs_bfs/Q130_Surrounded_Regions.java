@@ -6,6 +6,28 @@ import java.util.Arrays;
 import java.util.*;
 
 public class Q130_Surrounded_Regions {
+    /**
+     * 被围绕的区域
+     * 一个 m x n 的矩阵 board ，由若干字符(letters) 'X' 和 'O' 组成，捕获 所有 被围绕的区域(capture regions that are surrounded)：
+     *  Connect: A cell is connected to adjacent cells horizontally or vertically.
+     *  Region: To form a region connect every 'O' cell.
+     *  Surround: The region is surrounded with 'X' cells if you can connect the region with 'X' cells and none of the region cells are on the edge of the board.
+     *  连接：一个单元格与水平或垂直方向上相邻的单元格连接。
+     *  区域：连接所有 'O' 的单元格来形成一个区域。
+     *  围绕：如果您可以用 'X' 单元格 连接这个区域，并且区域中没有任何单元格位于 board 边缘，则该区域被 'X' 单元格围绕。
+     * To capture a surrounded region, replace all 'O's with 'X's in-place within the original board. You do not need to return anything.
+     * 通过 原地 将输入矩阵中的所有 'O' 替换为 'X' 来 捕获被围绕的区域。你不需要返回任何值。
+     *
+     * 输入：board = [ ["X","X","X","X"],
+     *                ["X","O","O","X"],
+     *                ["X","X","O","X"],
+     *                ["X","O","X","X"]]
+     * 输出：[ ["X","X","X","X"],
+     *        ["X","X","X","X"],
+     *        ["X","X","X","X"],
+     *        ["X","O","X","X"]]
+     * 解释： 在上图中，底部的区域没有被捕获，因为它在 board 的边缘并且不能被围绕。
+     */
     public static void main(String[] args) {
         /**
          *  X X X X
