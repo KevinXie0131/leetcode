@@ -1,7 +1,6 @@
 package com.answer.graph;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
     /**
@@ -29,10 +28,10 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
     public static void main(String[] args) {
         int n = 5;
         int[][] edges = {{0, 1}, {1, 2}, {3, 4}};
-        System.out.println(countComponents1(n, edges));
+        System.out.println(countComponents_4(n, edges));
         int n1 = 5;
         int[][] edges1 = {{0, 1}, {1, 2}, {2, 3}, {3, 4}};
-     System.out.println(countComponents1(n1, edges1));
+     System.out.println(countComponents_4(n1, edges1));
     }
     /**
      * 并查集
@@ -54,6 +53,23 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
         for (int i = 0; i < n; ++i) {
             if (connected[i] == i) {
                 ++count;
+            }
+        }
+        return count;
+    }
+    /**
+     * Every time two different roots are connected, we decrease the component count.
+     */
+    static public int countComponents_0(int n, int[][] edges) {
+        connected = new int[n];
+        for(int i = 0; i < n; i++) {
+            connected[i] = i;
+        }
+        int count = n;
+        for(int[] edge : edges){
+            if(find(connected, edge[0]) != find(connected, edge[1])){
+                union(connected, edge[0], edge[1]);
+                count--;
             }
         }
         return count;
@@ -103,5 +119,40 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
             }
         }
     }
+    /**
+     * BFS
+     */
+    static public int countComponents_4(int n, int[][] edges) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
 
+        boolean[] visited = new boolean[n];
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                bfs(graph, visited, i);
+                count++;
+            }
+        }
+        return count;
+    }
+
+    static void bfs(List<List<Integer>> graph, boolean[] visited, int start) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(start);
+        visited[start] = true;
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            for (int neighbor : graph.get(node)) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.offer(neighbor);
+                }
+            }
+        }
+    }
 }
