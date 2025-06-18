@@ -1,5 +1,8 @@
 package com.answer.graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Q1136_Parallel_Courses {
     /**
      * There are N courses, labelled from 1 to N.
@@ -22,4 +25,17 @@ public class Q1136_Parallel_Courses {
      * Output: -1
      * Explanation: No course can be studied because they depend on each other. 没有课程可以学习，因为它们相互依赖。
      */
+    public static void main(String[] args) {
+        int n = 3;
+        int[][] relations = {{1,3},{2,3}};
+        System.out.println(minimumSemesters(n, relations));
+    }
+    /**
+     *
+     */
+
+    static public int minimumSemesters(int n, int[][] relations) {
+
+        return 1;
+    }
 }
