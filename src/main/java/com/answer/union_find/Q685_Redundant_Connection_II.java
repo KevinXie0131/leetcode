@@ -39,7 +39,7 @@ public class Q685_Redundant_Connection_II { // Hard 困难
             int t = inputEdges[i][1];
             //记录入度
             nodeMap[t].in++;
-            if (nodeMap[t].in >= 2) {
+            if (nodeMap[t].in == 2) {
                 doubleIn = t;
             }
             Edge edge = new Edge(s, t);
