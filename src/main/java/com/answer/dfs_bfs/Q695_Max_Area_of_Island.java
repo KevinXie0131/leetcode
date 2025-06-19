@@ -41,6 +41,7 @@ public class Q695_Max_Area_of_Island {
         }
         return result;
     }
+
     int dfs_visited(int[][] grid, boolean[][] visited, int x, int y){
         int count = 0;
         visited[x][y] = true;  // 将与其链接的陆地都标记上 true
@@ -75,6 +76,7 @@ public class Q695_Max_Area_of_Island {
         }
         return result;
     }
+
     int bfs_visited(int[][] grid, boolean[][] visited, int x, int y) {
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[]{x, y});  // 加入队列就意味节点是陆地可到达的点
@@ -114,6 +116,7 @@ public class Q695_Max_Area_of_Island {
         }
         return max;
     }
+
     public static int dfs(int[][] grid, int i, int j){
         if(!isWithin(grid, i, j)){
             return 0;
@@ -127,6 +130,7 @@ public class Q695_Max_Area_of_Island {
                 + dfs(grid, i, j - 1)
                 + dfs(grid, i, j + 1);
     }
+
     public static boolean isWithin(int[][] grid, int x, int y){
         if(x >= 0 && x <= grid.length - 1 && y >= 0 && y <= grid[0].length - 1){
             return true;
@@ -137,37 +141,34 @@ public class Q695_Max_Area_of_Island {
      * Approach #2: Depth-First Search (Iterative)
      */
     public int maxAreaOfIsland_1(int[][] grid) {
-        boolean[][] seen = new boolean[grid.length][grid[0].length];
-        int[] dr = new int[]{1, -1, 0, 0};
-        int[] dc = new int[]{0, 0, 1, -1};
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int max = 0;
 
-        int ans = 0;
-        for (int r0 = 0; r0 < grid.length; r0++) {
-            for (int c0 = 0; c0 < grid[0].length; c0++) {
-                if (grid[r0][c0] == 1 && !seen[r0][c0]) {
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == 1 && !visited[row][col]) {
                     int shape = 0;
                     Stack<int[]> stack = new Stack();
-                    stack.push(new int[]{r0, c0});
-                    seen[r0][c0] = true;
+                    stack.push(new int[]{row, col});
+                    visited[row][col] = true;
+
                     while (!stack.empty()) {
-                        int[] node = stack.pop();
-                        int r = node[0], c = node[1];
+                        int[] cur = stack.pop();
                         shape++;
                         for (int k = 0; k < 4; k++) {
-                            int nr = r + dr[k];
-                            int nc = c + dc[k];
-                            if (0 <= nr && nr < grid.length &&
-                                    0 <= nc && nc < grid[0].length &&
-                                    grid[nr][nc] == 1 && !seen[nr][nc]) {
-                                stack.push(new int[]{nr, nc});
-                                seen[nr][nc] = true;
+                            int newRow = cur[0] + dir[k][0];
+                            int newCol = cur[1] + dir[k][1];
+                            if (0 <= newRow && newRow < grid.length && 0 <= newCol && newCol < grid[0].length
+                                    && grid[newRow][newCol] == 1 && !visited[newRow][newCol]) {
+                                stack.push(new int[]{newRow, newCol});
+                                visited[newRow][newCol] = true;
                             }
                         }
                     }
-                    ans = Math.max(ans, shape);
+                    max = Math.max(max, shape);
                 }
             }
         }
-        return ans;
+        return max;
     }
 }
