@@ -32,6 +32,7 @@ public class Q200_Number_of_Islands {
     /**
      * 深度优先搜索
      * Flood fill
+     * 注意：DFS 的过程中，最重要的是不能重复访问之前访问过的格子。
      */
     public int numIslands1(char[][] grid) {
         int m = grid.length;
@@ -104,7 +105,7 @@ public class Q200_Number_of_Islands {
     public static void dfs(char[][] grid, int i, int j){
         Deque<int[]> stack = new ArrayDeque<>();
         stack.push(new int[]{i, j});
-        grid[i][j] = '2';
+        grid[i][j] = '2';  // 插旗！避免来回横跳无限递归
         while(!stack.isEmpty()){
             int[] cur = stack.pop();
             for(int index = 0; index < 4; index++){
@@ -122,19 +123,19 @@ public class Q200_Number_of_Islands {
      * Recursive 递归
      */
     public static void dfs_recursive(char[][] grid, int i, int j){
-        if(!isWithin(grid, i, j)){
+        if(!isWithin(grid, i, j)){ // 如果坐标 (r, c) 超出了网格范围，直接返回
             return;
         }
-        if(grid[i][j] == '0' || grid[i][j] == '2'){
+        if(grid[i][j] == '0' || grid[i][j] == '2'){  // 如果这个格子不是岛屿，直接返回
             return;
         }
-        grid[i][j] = '2';
-        dfs_recursive(grid, i - 1, j);
+        grid[i][j] = '2';  // 将格子标记为「已遍历过」
+        dfs_recursive(grid, i - 1, j);  // 访问上、下、左、右四个相邻结点
         dfs_recursive(grid, i + 1, j);
         dfs_recursive(grid, i, j - 1);
         dfs_recursive(grid, i, j + 1);
     }
-
+    // 判断坐标 (r, c) 是否在网格中
     public static boolean isWithin(char[][] grid, int x, int y){
         if(x >= 0 && x <= grid.length - 1 && y >= 0 && y <= grid[0].length - 1){
             return true;
