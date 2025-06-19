@@ -31,7 +31,7 @@ public class UnionFind {
         }
         return p;
     }
-
+    // 合并连通区域是通过find来操作的, 即看这两个节点是不是在一个连通区域内.
     public void union(int p, int q) {
 
         int pRoot = find(p);

@@ -35,9 +35,10 @@ public class Q130_Surrounded_Regions {
          *  X X O X
          *  X O O X
          */
-        char[][] board = {{'X','X','X','X'},{'X','O','X','X'},{'X','X','O','X'},{'X','O','O','X'}};
+    //    char[][] board = {{'X','X','X','X'},{'X','O','X','X'},{'X','X','O','X'},{'X','O','O','X'}};
+        char[][] board = {{'O','O','O'},{'O','O','O'},{'O','O','O'}};
    //     char[][] board = {{'O','O'},{'O','O'}};
-        solve_4(board);
+        solve_3(board);
         for(char[] c : board){
             System.out.println(Arrays.toString(c));
         }
@@ -51,8 +52,8 @@ public class Q130_Surrounded_Regions {
         int n = board[0].length;
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                if((i == 0 || i == m - 1 || j == 0 || j == n - 1)
-                        && board[i][j] == 'O'){
+                if((i == 0 || i == m - 1 || j == 0 || j == n - 1) // 第一列/最后一行/第一列最后一列
+                        && board[i][j] == 'O'){    // 从边缘o开始搜索
                     dfs_1(board, i, j);
                 }
             }
@@ -71,7 +72,7 @@ public class Q130_Surrounded_Regions {
 
     public static void dfs_1(char[][] board, int i, int j) {
         if(i < 0 || i > board.length - 1 || j < 0 || j > board[0].length - 1 || board[i][j] == 'X' || board[i][j] == '#'){
-            return;
+            return; // board[i][j] == '#' 说明已经搜索过了.
         }
         board[i][j] = '#';
         dfs_1(board, i-1, j);
@@ -79,15 +80,18 @@ public class Q130_Surrounded_Regions {
         dfs_1(board, i, j-1);
         dfs_1(board, i, j+1);
     }
-    // dfs_1()的另一种形式
+    /**
+     * dfs_1()的另一种形式
+     */
     final int[][] dir={{0,1},{1,0},{0,-1},{-1,0}}; // 四个方向
+
     void dfs_1a(char[][] board, int x, int y) {
         board[x][y] = '#';
         for (int i = 0; i < 4; i++) {
             int nx = x + dir[i][0];
             int ny = y + dir[i][1];
             if (nx >= 0 && nx < (board.length - 1) && ny >= 0 && ny < (board[0].length - 1)  && board[nx][ny] == 'O') {
-                dfs_1a(board, nx, ny);
+                dfs_1a(board, nx, ny);  // 从边缘第一个是o的开始搜索
             }
         }
     }
@@ -99,7 +103,7 @@ public class Q130_Surrounded_Regions {
         int n = board[0].length;
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                if((i == 0 || i == m - 1 || j == 0 || j == n - 1)
+                if((i == 0 || i == m - 1 || j == 0 || j == n - 1) // 第一列/最后一行/第一列最后一列
                         && board[i][j] == 'O'){
                     dfs_2(board, i, j);
                 }
@@ -116,7 +120,7 @@ public class Q130_Surrounded_Regions {
             }
         }
     }
-
+    // 深度优先搜索
     public static void dfs_2(char[][] board, int i, int j) {
         Deque<Pos> stack = new ArrayDeque<>();
         stack.push(new Pos(i,j));
@@ -127,7 +131,7 @@ public class Q130_Surrounded_Regions {
                     && board[current.i-1][current.j] == 'O'){
                 stack.push(new Pos(current.i-1,current.j));
                 board[current.i-1][current.j] = '#';
-                continue;
+                continue; // 有continue.
             }
             if (current.i + 1 <= board.length - 1
                     && board[current.i + 1][current.j] == 'O') {
@@ -150,6 +154,36 @@ public class Q130_Surrounded_Regions {
             stack.pop(); // 如果上下左右都搜索不到,本次搜索结束，弹出stack
         }
     }
+    // 深度优先搜索 another form
+    public static void dfs_2a(char[][] board, int i, int j) {
+        Deque<Pos> stack = new ArrayDeque<>();
+        stack.push(new Pos(i,j));
+        board[i][j] = '#';
+        while(!stack.isEmpty()){
+            Pos current = stack.pop(); // 取出当前stack 顶
+            if(current.i - 1 >= 0
+                    && board[current.i-1][current.j] == 'O'){
+                stack.push(new Pos(current.i-1,current.j));
+                board[current.i-1][current.j] = '#';
+                // 没有continue.
+            }
+            if (current.i + 1 <= board.length - 1
+                    && board[current.i + 1][current.j] == 'O') {
+                stack.push(new Pos(current.i + 1, current.j));
+                board[current.i + 1][current.j] = '#';
+            }
+            if (current.j - 1 >= 0
+                    && board[current.i][current.j - 1] == 'O') {
+                stack.push(new Pos(current.i, current.j - 1));
+                board[current.i][current.j - 1] = '#';
+            }
+            if (current.j + 1 <= board[0].length - 1
+                    && board[current.i][current.j + 1] == 'O') {
+                stack.push(new Pos(current.i, current.j + 1));
+                board[current.i][current.j + 1] = '#';
+            }
+        }
+    }
     /**
      * Approach 2: BFS (Breadth-First Search) Iterative
      */
@@ -158,9 +192,9 @@ public class Q130_Surrounded_Regions {
         int n = board[0].length;
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                if((i == 0 || i == m - 1 || j == 0 || j == n - 1)
+                if((i == 0 || i == m - 1 || j == 0 || j == n - 1) // 第一列/最后一行/第一列最后一列
                         && board[i][j] == 'O'){
-                    dfs_3(board, i, j);
+                    bfs_a(board, i, j);
                 }
             }
         }
@@ -175,8 +209,8 @@ public class Q130_Surrounded_Regions {
             }
         }
     }
-
-    public static void dfs_3(char[][] board, int i, int j) {
+    // 广度优先搜索
+    public static void bfs(char[][] board, int i, int j) {
         Deque<Pos> queue = new ArrayDeque<>();
         queue.offer(new Pos(i,j));
         board[i][j] = '#';
@@ -206,6 +240,28 @@ public class Q130_Surrounded_Regions {
         }
     }
     /**
+     * another form
+     */
+  static  int[][] dirs1 = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    public static void bfs_a(char[][] board, int i, int j) {
+        Deque<Pos> queue = new ArrayDeque<>();
+        queue.offer(new Pos(i,j));
+   //     board[i][j] = '#';
+        while(!queue.isEmpty()){
+            Pos current = queue.poll();
+            if(current.i >= 0 && current.i <= board.length - 1 && current.j >= 0 && current.j <= board[0].length - 1
+                    && board[current.i][current.j] == 'O'){
+                board[current.i][current.j] = '#';
+                for(int[] dir : dirs1){
+               //     if(current.i + dir[0] >=0 && current.i + dir[0]<board.length && current.j + dir[1] >=0&& current.j + dir[1]<board[0].length) {
+                        queue.offer(new Pos(current.i + dir[0], current.j + dir[1]));
+                //    }
+                }
+            }
+        }
+    }
+    /**
      * Approach 3: Union-Find
      */
     public static void solve_4(char[][] board) {
@@ -223,7 +279,7 @@ public class Q130_Surrounded_Regions {
             for (int j = 0; j < cols; j++) {
                 if (board[i][j] == 'O') {
                     // 遇到O进行并查集操作合并
-                    if (i == 0 || i == rows - 1 || j == 0 || j == cols - 1) {
+                    if (i == 0 || i == rows - 1 || j == 0 || j == cols - 1) { // 第一列/最后一行/第一列最后一列
                         // 边界上的O,把它和dummyNode 合并成一个连通区域.
                         uf.union(node(i, j, cols), dummyNode);
                     } else {
