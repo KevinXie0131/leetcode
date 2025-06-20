@@ -124,8 +124,8 @@ public class Q695_Max_Area_of_Island {
         if(grid[i][j] == 0 || grid[i][j] == 2){
             return 0;
         }
-        grid[i][j] = 2;
-        return 1 + dfs(grid, i - 1, j)
+        grid[i][j] = 2;  // 访问过的设置为2，下次不再访问
+        return 1 + dfs(grid, i - 1, j) // 向四个方向发散求和
                 + dfs(grid, i + 1, j)
                 + dfs(grid, i, j - 1)
                 + dfs(grid, i, j + 1);
@@ -139,6 +139,7 @@ public class Q695_Max_Area_of_Island {
     }
     /**
      * Approach #2: Depth-First Search (Iterative)
+     * 深度优先搜索 + 栈
      */
     public int maxAreaOfIsland_1(int[][] grid) {
         boolean[][] visited = new boolean[grid.length][grid[0].length];
