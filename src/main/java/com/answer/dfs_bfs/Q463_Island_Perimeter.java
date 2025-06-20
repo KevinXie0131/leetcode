@@ -27,7 +27,7 @@ public class Q463_Island_Perimeter {
                         int x = i + dirX[k];  // 计算周边坐标x,y
                         int y = j + dirY[k];
                         // 当前位置是陆地，并且从当前位置4个方向扩展的'新位置'是'水域'或'新位置'越界，则会为周长贡献一条边
-                        if(x < 0 || x >= grid.length || y < 0 || y >=grid[0].length || grid[x][y] == 0){ // x, y 在边界上或者是水域
+                        if(x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == 0){ // x, y 在边界上或者是水域
                             sum++; // 遇到边界或者水，周长加一
                             continue;
                         }
@@ -39,7 +39,7 @@ public class Q463_Island_Perimeter {
     }
     /**
      * 解法二: 计算出总的岛屿数量，因为有一对相邻两个陆地，边的总数就减2，那么在计算出相邻岛屿的数量就可以了。
-     *        result = 岛屿数量 * 4 - cover * 2;
+     *        result = 岛屿数量 * 4 - connect * 2; // 总周长 = 4 * 土地个数 - 2 * 接壤边的条数
      */
     public int islandPerimeter_4(int[][] grid) {
         // 计算岛屿的周长
@@ -65,7 +65,7 @@ public class Q463_Island_Perimeter {
         return sum * 4 - connect * 2;
     }
     /**
-     * 延伸 - 傳統DFS解法(使用visited數組)（遇到邊界 或是 海水 就edge ++）
+     * 延伸 - 传统DFS解法(使用visited数组)（遇到边界 或是 海水 就edge ++）
      */
     int result = 0;
     boolean visited[][];
@@ -85,53 +85,56 @@ public class Q463_Island_Perimeter {
         }
         return result;
     }
+
     public int dfs1(int[][] grid, int x, int y){
-        //如果遇到 邊界（x < 0 || y < 0 || x >= grid.length || y >= grid[0].length）或是 遇到海水(grid[x][y] == 0)就return 1（edge + 1）
+        // 如果遇到 边界（x < 0 || y < 0 || x >= grid.length || y >= grid[0].length）或是 遇到海水(grid[x][y] == 0)就return 1（edge + 1）
         if(x < 0 || x >= grid.length || y < 0 || y >=grid[0].length || grid[x][y] == 0){
             return 1;
         }
-        if(visited[x][y] == true){   //如果該地已經拜訪過，就return 0 避免重複計算
+        if(visited[x][y] == true){   // 如果该地已经拜访过，就return 0 避免重复计算
             return 0;
         }
         int temp = 0;
         visited[x][y] = true;
-        for(int k =0 ;k < 4; k++){
+        for(int k =0; k < 4; k++){
             temp += dfs1(grid,  x + dir[k][0],  y + dir[k][1]);  //用temp 把edge存起來
         }
         return temp;
     }
     /**
      * DFS
+     * 这道题用 DFS 来解并不是最优的方法。对于岛屿，直接用数学的方法求周长会更容易。不过这道题是一个很好的理解 DFS 遍历过程的例题
      */
     public int islandPerimeter(int[][] grid) {
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
-                if(grid[i][j] == 1){
+                if(grid[i][j] == 1){ // 题目限制只有一个岛屿，计算一个即可
                     return dfs(grid, i, j);
                 }
             }
         }
-
         return 0;
     }
+
     int dfs(int[][] grid, int r, int c) {
-        if(!inArea(grid, r, c)){
+        if(!inArea(grid, r, c)){ // 函数因为「坐标 (r, c) 超出网格范围」返回，对应一条黄色的边
             return 1;
         }
-        if(grid[r][c] == 0){
+        if(grid[r][c] == 0){      // 函数因为「当前格子是海洋格子」返回，对应一条蓝色的边
             return 1;
         }
-        if(grid[r][c] == 2){
+        if(grid[r][c] == 2){ // 函数因为「当前格子是已遍历的陆地格子」返回，和周长没关系
             return 0;
         }
-        grid[r][c] =2;
-        return dfs(grid, r-1, c) + dfs(grid, r+1, c)
-                + dfs(grid, r, c-1) + dfs(grid, r, c+1);
-
+        grid[r][c] = 2;// 将格子标记为「已遍历过」
+        return dfs(grid, r - 1, c)  // 访问上、下、左、右四个相邻结点
+             + dfs(grid, r + 1, c)
+             + dfs(grid, r, c - 1)
+             + dfs(grid, r, c + 1);
     }
+    // 判断坐标 (r, c) 是否在网格中
     boolean inArea(int[][] grid, int r, int c) {
-        return 0 <= r && r < grid.length
-                && 0 <= c && c < grid[0].length;
+        return 0 <= r && r < grid.length && 0 <= c && c < grid[0].length;
     }
     /**
      * Brute force 同上（解法一）
