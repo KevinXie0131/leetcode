@@ -32,7 +32,7 @@ public class Q994_Rotting_Oranges {
         System.out.println(orangesRotting(grid));
     }
     /**
-     * Approach 1: Breadth-First Search (BFS)
+     * Approach 1: Breadth-First Search (BFS) 模拟广度优先搜索的过程
      *
      * int ROWS = grid.length;
      * int COLS = grid[0].length;
@@ -40,8 +40,10 @@ public class Q994_Rotting_Oranges {
      *    for (int c = 0; c < COLS; ++c)
      *       if (grid[r][c] == 2)
      *
+     * 基于图中只有一个腐烂的橘子的情况，可实际题目中腐烂的橘子数不止一个，看似与广度优先搜索有所区别，不能直接套用
+     * 方法一：多源广度优先搜索
      */
-    static int[][] dir = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    static int[][] dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
     public static int orangesRotting(int[][] grid) {
         int num = 0;
@@ -77,8 +79,8 @@ public class Q994_Rotting_Oranges {
             for (int index = 0; index < len; index++) {
                 int[] cur = queue.poll();
                 for (int d = 0; d < 4; d++) {
-                    int x = cur[0] + dir[d][0];
-                    int y = cur[1] + dir[d][1];
+                    int x = cur[0] + dirs[d][0];
+                    int y = cur[1] + dirs[d][1];
                     if (x >= 0 && x <= n - 1 && y >= 0 && y <= m - 1) {
                         if (grid[x][y] == 1) {
                             hasFound = true;
@@ -100,5 +102,51 @@ public class Q994_Rotting_Oranges {
             }
         }
         return num;
+    }
+    /**
+     * 好理解BFS
+     * 这道题的题目要求：返回直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。翻译一下，实际上就是求腐烂橘子到所有新鲜橘子的最短路径
+     */
+    public int orangesRotting1(int[][] grid) {
+        Deque<int[]> queue = new ArrayDeque<>();
+        int m = grid.length, n = grid[0].length;
+        int total = 0; //新鲜橘子的数量
+
+        for(int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {//找到第一轮腐烂橘子 // 一开始就腐烂的橘子
+                    queue.push(new int[]{i, j});
+                } else if (grid[i][j] == 1) { // 统计新鲜橘子个数
+                    total++;
+                }
+            }
+        }
+        if(queue.isEmpty() && total > 0) {//如果没有腐烂橘子并且有新鲜橘子，则新鲜橘子不可能腐烂
+            return -1;
+        }
+
+        int result = 0;  // result 表示腐烂的轮数，或者分钟数
+        while(!queue.isEmpty()) {
+            int size = queue.size();//遍历同一时间感染的橘子
+            for(int k = 0; k < size; k++) {
+                int[] cur = queue.pop();
+                for(int[] dir : dirs) {
+                    int x = cur[0] + dir[0];
+                    int y = cur[1] + dir[1];
+                    if(x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 1) { //找到新感染的橘子
+                        grid[x][y] = 2;
+                        queue.offer(new int[]{x,y});
+                        total--;
+                    }
+                }
+            }
+            if(!queue.isEmpty()) {//如果当前轮有新感染的橘子，时间加一
+                result++; // 经过一分钟
+            }
+        }
+        if(total > 0) {//如果还有没被感染的新鲜橘子
+            return -1;
+        }
+        return result;
     }
 }
