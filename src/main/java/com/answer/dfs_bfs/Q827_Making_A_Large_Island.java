@@ -26,7 +26,7 @@ public class Q827_Making_A_Large_Island { // Hard 困难
      * 这道题实际上是对网格做了两遍 DFS：第一遍 DFS 遍历陆地格子，计算每个岛屿的面积并标记岛屿；
      * 第二遍 DFS 遍历海洋格子，观察每个海洋格子相邻的陆地格子。
      */
-    public int largestIsland(int[][] grid) { // 标记岛屿 + 合并
+    public int largestIsland(int[][] grid) { // 标记岛屿(对不同的岛屿进行编号) + 合并
         int m = grid.length;
         int n = grid[0].length;
         // 初始化mark变量，从2开始（区别于0水，1岛屿）
