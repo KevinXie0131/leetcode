@@ -69,4 +69,24 @@ public class Q1254_Number_of_Closed_Islands {
         }
         return true;
     }
+
+    static public boolean dfs1(int i, int j, int[][] grid, boolean[][] visited) {
+        if( i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
+            return false;
+        }
+
+        if(grid[i][j] == 1){
+            return true;
+        }
+        if(visited[i][j]){
+            return true;
+        }
+
+        visited[i][j] = true;
+        boolean ret1 = dfs1(i - 1, j, grid, visited);
+        boolean ret2 = dfs1(i + 1, i, grid, visited);
+        boolean ret3 = dfs1(i, j - 1, grid, visited);
+        boolean ret4 = dfs1(i, j + 1, grid, visited);
+        return ret1 && ret2 && ret3 && ret4;
+    }
 }
