@@ -28,7 +28,11 @@ public class Q126_Word_Ladder_II { // Hard 困难
         List<List<String>> result = findLadders(beginWord, endWord, wordList);
         System.out.println(result);
     }
-
+    // Refer to Q127 Word Ladder
+    // cannot pass all testcases
+    // Input beginWord = "red" endWord = "tax" wordList = ["ted","tex","red","tax","tad","den","rex","pee"]
+    // Output [["red","ted","tad","tax"],["red","ted","tex","tax"]]
+    // Expected [["red","ted","tad","tax"],["red","ted","tex","tax"],["red","rex","tex","tax"]]
     static public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         List<List<String>> result = new ArrayList<List<String>>();
         Set<String> wordSet = new HashSet<>(wordList); // 将 wordList 存储在一个「哈希表」 wordSet
