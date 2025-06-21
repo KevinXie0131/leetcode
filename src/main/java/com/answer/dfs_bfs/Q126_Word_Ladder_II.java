@@ -29,10 +29,7 @@ public class Q126_Word_Ladder_II { // Hard 困难
         System.out.println(result);
     }
     // Refer to Q127 Word Ladder
-    // cannot pass all testcases
-    // Input beginWord = "red" endWord = "tax" wordList = ["ted","tex","red","tax","tad","den","rex","pee"]
-    // Output [["red","ted","tad","tax"],["red","ted","tex","tax"]]
-    // Expected [["red","ted","tad","tax"],["red","ted","tex","tax"],["red","rex","tex","tax"]]
+    // Time Limit Exceeded
     static public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         List<List<String>> result = new ArrayList<List<String>>();
         Set<String> wordSet = new HashSet<>(wordList); // 将 wordList 存储在一个「哈希表」 wordSet
@@ -43,25 +40,36 @@ public class Q126_Word_Ladder_II { // Hard 困难
         Deque<List<String>> queue = new ArrayDeque<>();
         queue.offer(new ArrayList<>(Arrays.asList(beginWord)));
 
-        HashSet<String> visited = new HashSet<>(); // 由于「图」中存在环，因此访问过的单词需要标记，通常的做法是使用「哈希表」visited 记录已经访问的单词
-        visited.add(beginWord);
+       // HashSet<String> visited = new HashSet<>(); // 由于「图」中存在环，因此访问过的单词需要标记，通常的做法是使用「哈希表」visited 记录已经访问的单词
+       // visited.add(beginWord);
+        int minlength = Integer.MAX_VALUE;
 
         while (!queue.isEmpty()) {
             int size = queue.size();
 
             for (int i = 0; i < size; i++) {
                 List<String> currentWord = queue.poll();
+                //当前的长度到达了 min，还是没有到达结束单词就提前结束
+                if (currentWord.size() >= minlength) {
+                    continue;
+                }
                 String lastWord = currentWord.get(currentWord.size() - 1);
 
                 List<String> nextWords = getNextWords(lastWord, wordSet);
                 for (String nextWord : nextWords) {
                     if (nextWord.equals(endWord)) { // 当遇到 endWord 时
                         currentWord.add(endWord);
-                        result.add(currentWord);
+                        if(currentWord.size() < minlength){ //当前长度更小，清空之前的，加新的路径加入到结果中
+                            minlength = currentWord.size();
+                            result.clear();
+                            result.add(currentWord);
+                        } else if(currentWord.size() == minlength){  //相等的话就直接加路径加入到结果中
+                            result.add(currentWord);
+                        }
                     }
 
-                    if (!visited.contains(nextWord)) {
-                        visited.add(nextWord); // 注意：添加到队列以后，必须马上标记为「已经访问」
+                    if (!currentWord.contains(nextWord)) {
+                     //   visited.add(nextWord);
                         List<String> list = new ArrayList<>(currentWord);
                         list.add(nextWord);
                         queue.offer(list);
@@ -69,7 +77,7 @@ public class Q126_Word_Ladder_II { // Hard 困难
                 }
             }
         }
-        int min = Integer.MAX_VALUE;
+       /* int min = Integer.MAX_VALUE;
         for(List<String> list : result){
             if(list.size() < min) min = list.size();
         }
@@ -80,7 +88,7 @@ public class Q126_Word_Ladder_II { // Hard 困难
             if (list.size() > min) {
                 iterator.remove(); // Safely removes
             }
-        }
+        }*/
         return result;
     }
 
