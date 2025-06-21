@@ -89,7 +89,8 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
      * 深度优先搜索
      */
     static List<Integer>[] edgesList;
-    static boolean[] used;
+    static boolean[] visited;
+
     static public int countComponents1(int n, int[][] edges) {
         edgesList = new List[n];
         for (int i = 0; i < n; ++i) {
@@ -100,10 +101,10 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
             edgesList[edge[1]].add(edge[0]);
         }
 
-        used = new boolean[n];
+        visited = new boolean[n];
         int count = 0;
         for (int i = 0; i < n; ++i) {
-            if (!used[i]) {
+            if (!visited[i]) {
                 dfs(i);
                 ++count;
             }
@@ -112,9 +113,9 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
     }
 
     static public void dfs(int u) {
-        used[u] = true;
+        visited[u] = true;
         for (int v : edgesList[u]) {
-            if (!used[v]) {
+            if (!visited[v]) {
                 dfs(v);
             }
         }
@@ -124,7 +125,10 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
      */
     static public int countComponents_4(int n, int[][] edges) {
         List<List<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
+
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
         for (int[] edge : edges) {
             graph.get(edge[0]).add(edge[1]);
             graph.get(edge[1]).add(edge[0]);
@@ -145,6 +149,7 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(start);
         visited[start] = true;
+
         while (!queue.isEmpty()) {
             int node = queue.poll();
             for (int neighbor : graph.get(node)) {
