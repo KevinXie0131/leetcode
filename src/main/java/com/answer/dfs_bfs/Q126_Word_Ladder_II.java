@@ -54,6 +54,7 @@ public class Q126_Word_Ladder_II { // Hard 困难
                     continue;
                 }
                 String lastWord = currentWord.get(currentWord.size() - 1);
+                HashSet<String> set = new HashSet<>(currentWord);
 
                 List<String> nextWords = getNextWords(lastWord, wordSet);
                 for (String nextWord : nextWords) {
@@ -68,8 +69,10 @@ public class Q126_Word_Ladder_II { // Hard 困难
                         }
                     }
 
-                    if (!currentWord.contains(nextWord)) {
+                    if (!set.contains(nextWord)) {
                      //   visited.add(nextWord);
+                        set.add(nextWord);
+
                         List<String> list = new ArrayList<>(currentWord);
                         list.add(nextWord);
                         queue.offer(list);
