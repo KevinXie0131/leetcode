@@ -22,6 +22,8 @@ public class Q127_Word_Ladder { // Hard 困难
         System.out.println(ladderLength_2(beginWord, endWord, Arrays.asList(wordList)));
     }
     /**
+     * 本题要求的是最短转换序列的长度，看到最短首先想到的就是广度优先搜索
+     *
      * 序列中第一个字符串是 beginStr。
      * 序列中最后一个字符串是 endStr。
      * 每次转换只能改变一个字符。
@@ -46,8 +48,8 @@ public class Q127_Word_Ladder { // Hard 困难
         int len = 0;
         Set<String> set = new HashSet<>(wordList); // 使用set来检查字符串是否出现在字符串集合里更快一些
 
-        Set<String> visited = new HashSet<>();
-        Queue<String> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>(); // 记录搜索过的单词
+        Queue<String> queue = new LinkedList<>();// 广度优先搜索使用的队列，存储待搜索的单词和到达这个单词经历的单词数（包含这个单词）
         visited.add(beginStr);
         queue.offer(beginStr);
 
@@ -65,6 +67,7 @@ public class Q127_Word_Ladder { // Hard 困难
                     for (char ch = 'a'; ch <= 'z'; ch++) { // 遍历26的字母
                         charArray[i] = ch;
                         String newWord = new String(charArray); // 用一个新字符串替换str，因为每次要置换一个字符
+                        // 查看字典中有没有这个单词，如果有并且没有被访问过，就加入到队列中
                         if (set.contains(newWord) && !visited.contains(newWord)) {  // 字符串集合里出现了newWord，并且newWord没有被访问过
                             queue.offer(newWord);
                             visited.add(newWord); // 添加访问信息，并将新字符串放到队列中
