@@ -42,6 +42,13 @@ public class Q1254_Number_of_Closed_Islands {
                          {1,1,1,0,1,1,0,1,1,0}};
         int res = closedIsland2( grid);
         System.out.println(res);
+
+        boolean[] r = new boolean[]{true, false, true, false};
+        boolean f= true;
+        for(int i = 0; i < 4; i++){
+            f = f && r[i];
+        }
+        System.out.println(f);
     }
     /**
      * Similar with Q200 Number of Islands 本质是均为遍历图中的连通区域，唯一不同的是本题中的岛屿要求是「封闭」的
@@ -64,6 +71,10 @@ public class Q1254_Number_of_Closed_Islands {
     }
 
     static public boolean dfs(int i, int j, int[][] grid) {
+        // dfs返回结果为：是否为封闭岛屿，两个终止条件
+        //  如果能够触及边界外，说明不是封闭岛屿，return false
+        //  如果grid[i][j]为水域，说明被阻拦了，return true
+        // 而非封闭岛屿它一定可以触及到边界外。
         if(i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
             return false;
         }
@@ -80,7 +91,51 @@ public class Q1254_Number_of_Closed_Islands {
 
         return b1 && b2 && b3 && b4;
         // ,短路运算大坑，直接不计算后面的dfs了，导致相连的0没有设置为1，结果不对
-        // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) dfs(i, j + 1, grid);
+        // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid);
+    }
+    /**
+     * another form
+     * 对于每个dfs分支返回值，对f做一次 "f = f & dfs()" ，即 与 运算， 因此只要有一个分支结果判断为false，最终返回值就是false，代表这个岛屿不封闭。
+     * 不可以在找到不封闭条件时直接return出来，因为可能没有dfs完全，而图论的dfs一般是一边dfs一边标记，因此不完全的dfs是会影响后续结果的，
+     * 我们需要让它递归直到完全结束，而这个代码中我们一直要维护的其实就是f这个布尔变量，它从始至终都在做与运算，所以不必担心最后结果会出问题，
+     * 因为只要遇到不封闭的条件就注定了最终返回的是false（就像无数个1和一个零一起做相乘运算）
+     */
+    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public boolean dfs_a(int i, int j, int[][] grid) {
+        if(i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
+            return false;
+        }
+        if(grid[i][j] == 1){
+            return true;
+        }
+
+        grid[i][j] = 1;
+        boolean result = true;
+        //  因此只要有一个分支结果判断为false，最终返回值就是false，代表这个岛屿不封闭
+        for(int k = 0; k < 4; k++){
+            // must use &, not &&. If && is used, it is the same as "dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid)"
+            result = result & dfs_a(i + dirs[k][0], j + dirs[k][1], grid);  //关键步骤，与运算 &
+        }
+        return result;
+    }
+    /**
+     * anther form
+     */
+    public boolean dfs_b(int i, int j, int[][] grid) {
+        if(i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
+            return false;
+        }
+        if(grid[i][j] == 1){
+            return true;
+        }
+
+        grid[i][j] = 1;
+        boolean result = true;
+        for(int k = 0; k < 4; k++){
+            if(!dfs_b(i + dirs[k][0], j + dirs[k][1], grid)) result = false;  // 这里必须要将四个方向都跑完，不能遇到一个为false就返回
+        }
+        return result;
     }
     /**
      * cannot pass all test cases
