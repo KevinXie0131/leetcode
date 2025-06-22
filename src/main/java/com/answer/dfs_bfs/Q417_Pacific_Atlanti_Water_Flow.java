@@ -34,6 +34,10 @@ public class Q417_Pacific_Atlanti_Water_Flow {
      *        [4,0] -> Atlantic Ocean
      * Note that there are other possible paths for these cells to flow to the Pacific and Atlantic oceans.
      */
+    public static void main(String[] args) {
+        int[][] heights = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
+        System.out.println(pacificAtlantic1(heights));
+    }
     /**
      * DFS优化
      * 那么我们可以 反过来想，从第一组边界上的节点 逆流而上，将遍历过的节点都标记上。
@@ -92,5 +96,57 @@ public class Q417_Pacific_Atlanti_Water_Flow {
         dfs(heights, x - 1, y, visited, heights[x][y]);
         dfs(heights, x, y + 1, visited, heights[x][y]);
         dfs(heights, x, y - 1, visited, heights[x][y]);
+    }
+    /**
+     * Anther form, not using Integer.MIN_VALUE
+     * The folloing if condition can be commented, but it gets slower after if is commented.
+     * if(!pacific[i][0])
+     * if(!atlantic[i][n - 1])
+     * if(!pacific[0][j])
+     * if(!atlantic[m - 1][j])
+     */
+    static public List<List<Integer>> pacificAtlantic1(int[][] heights) {
+        int m = heights.length;
+        int n = heights[0].length;
+        boolean[][] pacific = new boolean[m][n]; // 初始化两个二位boolean数组，代表两个边界
+        boolean[][] atlantic = new boolean[m][n];
+        // 从左右边界出发进行DFS
+        for (int i = 0; i < m; i++) {
+           if(!pacific[i][0]) dfs1(heights, i, 0, pacific); // 从最左和最右列的节点出发，向高处遍历
+           if(!atlantic[i][n - 1])  dfs1(heights, i, n - 1, atlantic);
+        }
+        // 从上下边界出发进行DFS
+        for (int j = 0; j < n; j++) {
+            if(!pacific[0][j]) dfs1(heights, 0, j, pacific); // 从最上和最下行的节点出发，向高处遍历
+            if(!atlantic[m - 1][j]) dfs1(heights, m - 1, j, atlantic);
+        }
+        // 当两个边界二维数组在某个位置都为true时，符合题目要求
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (pacific[i][j] && atlantic[i][j]) {   // 如果这个节点，从第一组边界和第二组边界出发都遍历过，就是结果
+                    res.add(Arrays.asList(i, j));
+                }
+            }
+        }
+        return res;
+    }
+    // 采用 DFS 进行搜索
+    static int[][] dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+
+   static  public void dfs1(int[][] heights, int x, int y, boolean[][] visited) {
+        visited[x][y] = true;
+        // 向下一层继续搜索
+        for(int k = 0; k < 4; k++) {
+            int newX = x + dirs[k][0];
+            int newY = y + dirs[k][1];
+            if (newX < 0 || newX >= heights.length || newY < 0 || newY >= heights[0].length || visited[newX][newY] ) {
+                continue;
+            }
+            if(heights[newX][newY] < heights[x][y]){
+                continue;
+            }
+            dfs1(heights, newX, newY, visited);
+        }
     }
 }

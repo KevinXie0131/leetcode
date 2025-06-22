@@ -54,6 +54,7 @@ public class Q126_Word_Ladder_II { // Hard 困难
                     continue;
                 }
                 String lastWord = currentWord.get(currentWord.size() - 1);
+
                 HashSet<String> set = new HashSet<>(currentWord);
 
                 List<String> nextWords = getNextWords(lastWord, wordSet);
