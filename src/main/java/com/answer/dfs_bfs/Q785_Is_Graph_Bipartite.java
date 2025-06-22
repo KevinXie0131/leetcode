@@ -1,9 +1,6 @@
 package com.answer.dfs_bfs;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Q785_Is_Graph_Bipartite {
     /**
@@ -43,7 +40,9 @@ public class Q785_Is_Graph_Bipartite {
     private static final int GREEN = 2;
     private int[] color; //用于记录节点颜色
     private boolean valid;  //记录是否二分图
-
+    // 我们考察一个点，给它染蓝，然后寻找它相邻的顶点，染黄，用BFS遍历图进行染色，所有顶点都染色后，如果没有发生冲突，说明是二分图
+    // 从一个点开始BFS，能遍历完所有的点吗？如果所有点是连通的，那就能，但题目没有说。
+    // 所以，要遍历每个顶点，再遍历当前顶点的所有相邻顶点，才能保证不漏点。
     public boolean isBipartite(int[][] graph) {
         int n = graph.length; //图节点数量
         valid = true;
@@ -57,6 +56,7 @@ public class Q785_Is_Graph_Bipartite {
         }
         return valid;
     }
+
     public void dfs(int node, int col, int[][] graph) {
         color[node] = col;
         int cNei; //这次遍历中当前节点相邻节点应该涂的颜色
@@ -81,6 +81,7 @@ public class Q785_Is_Graph_Bipartite {
     }
     /**
      * Approach #1: Coloring by Depth-First Search - Use stack
+     * 发现相邻的顶点被染成了相同的颜色，说明它不是二分图；反之，如果所有的连通域都染色成功，说明它是二分图。
      */
     public boolean isBipartite_1(int[][] graph) {
         int n = graph.length;
@@ -106,7 +107,6 @@ public class Q785_Is_Graph_Bipartite {
                 }
             }
         }
-
         return true;
     }
     /**
@@ -138,7 +138,35 @@ public class Q785_Is_Graph_Bipartite {
                 }
             }
         }
+        return true;
+    }
+    /**
+     * 深度优先搜索
+     */
+    public boolean isBipartite4(int[][] graph) {
+        // 定义 visited 数组，初始值为 0 表示未被访问，赋值为 1 或者 -1 表示两种不同的颜色。
+        int[] visited = new int[graph.length];
+        // 因为图中可能含有多个连通域，所以我们需要判断是否存在顶点未被访问，若存在则从它开始再进行一轮 dfs 染色。
+        for (int i = 0; i < graph.length; i++) {
+            if (visited[i] == 0 && !dfs4(graph, i, 1, visited)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    private boolean dfs4(int[][] graph, int v, int color, int[] visited) {
+        // 如果要对某顶点染色时，发现它已经被染色了，则判断它的颜色是否与本次要染的颜色相同，如果矛盾，说明此无向图无法被正确染色，返回 false。
+        if (visited[v] != 0) {
+            return visited[v] == color;
+        }
+        // 对当前顶点进行染色，并将当前顶点的所有邻接点染成相反的颜色。
+        visited[v] = color;
+        for (int w: graph[v]) {
+            if (!dfs4(graph, w, -color, visited)) {
+                return false;
+            }
+        }
         return true;
     }
 }
