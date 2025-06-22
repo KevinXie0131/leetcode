@@ -1,5 +1,7 @@
 package com.answer.graph;
 
+import java.util.*;
+
 public class Q886_Possible_Bipartition {
     /**
      * 可能的二分法
@@ -46,6 +48,82 @@ public class Q886_Possible_Bipartition {
                 }
                 if(groups[i] == 0 && !dfs(dislikeStatus, i, groups, -group, n)){
                     return false;
+                }
+            }
+        }
+        return true;
+    }
+    /**
+     * 深度优先搜索 邻接表
+     */
+    public boolean possibleBipartition1(int n, int[][] dislikes) {
+        int[] groups = new int[n + 1]; //存储每个人的分组情况
+
+        ArrayList<Integer>[] dislikeStatus = new ArrayList[n + 1];
+        for(int i = 1; i <= n; i++){
+            dislikeStatus[i] = new ArrayList<>();
+        }
+        for(int[] dislike : dislikes){
+            dislikeStatus[dislike[0]].add(dislike[1]);
+            dislikeStatus[dislike[1]].add(dislike[0]);
+        }
+        //遍历每个人 尝试给他们分组
+        for (int i = 1; i <= n; i++) {
+            if (groups[i] == 0 && !dfs1(dislikeStatus, i, groups, 1, n)) { // 如果没分组 且分组失败
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean dfs1(ArrayList<Integer>[] dislikeStatus, int index, int[] groups, int group, int n) {
+        groups[index] = group;
+        ArrayList<Integer> list = dislikeStatus[index];
+
+        for (int next : list) {
+          //如果不喜欢
+            if(groups[next] != 0 && groups[next] == group){
+                return false;
+            }
+            if(groups[next] == 0 && !dfs1(dislikeStatus, next, groups, -group, n)){
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * 广度优先搜索
+     */
+    public boolean possibleBipartition2(int n, int[][] dislikes) {
+        int[] groups = new int[n + 1];
+
+        ArrayList<Integer>[] dislikeStatus = new ArrayList[n + 1];
+        for(int i = 1; i <= n; i++){
+            dislikeStatus[i] = new ArrayList<>();
+        }
+        for(int[] dislike : dislikes){
+            dislikeStatus[dislike[0]].add(dislike[1]);
+            dislikeStatus[dislike[1]].add(dislike[0]);
+        }
+
+        for (int i = 1; i <= n; ++i) {
+            if (groups[i] == 0) {
+                Queue<Integer> queue = new ArrayDeque<Integer>();
+                queue.offer(i);
+                groups[i] = 1;
+
+                while (!queue.isEmpty()) {
+                    int index = queue.poll();
+
+                    for (int next : dislikeStatus[index]) {
+                        if (groups[next] != 0 && groups[next] == groups[index]) {
+                            return false;
+                        }
+                        if (groups[next] == 0) {
+                            groups[next] = -groups[index];
+                            queue.offer(next);
+                        }
+                    }
                 }
             }
         }

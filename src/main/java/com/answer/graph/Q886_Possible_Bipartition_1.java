@@ -46,7 +46,7 @@ public class Q886_Possible_Bipartition_1 {
                 }
             }
         }
-        return num == 2;
+        return num == 2; // 最后只有两组
     }
 
     static public void union(int[] parent, int index1, int index2) {
