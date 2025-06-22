@@ -179,13 +179,7 @@ public class Q1020_Number_of_Enclaves {
                     union(connected, i * n + j, m * n);
                 } else if (grid[i][j] == 0) {
                     union(connected, i * n + j, m * n);
-                }
-            }
-        }
-
-        for (int i = 1; i < m - 1; ++i) {
-            for (int j = 1; j < n -1; ++j) {
-                if (grid[i][j] == 1) {
+                } else  if (grid[i][j] == 1) {
                     if (i - 1 >= 0 && grid[i - 1][j] == 1) {
                         union(connected, i * n + j, (i - 1) * n + j);
                     }

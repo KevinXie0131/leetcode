@@ -20,7 +20,7 @@ public class Q1254_Number_of_Closed_Islands_1 {
      */
     static int[] connected;
 
-    static public int closedIsland(int[][] grid) { // cannot pass all test cases
+    static public int closedIsland(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
 
@@ -33,18 +33,19 @@ public class Q1254_Number_of_Closed_Islands_1 {
             for (int j = 0; j < n; ++j) {
                 if (i == 0 || i == m - 1 || j == 0 || j == n - 1) {
                     union(connected, i * n + j, m * n);
-                }
-                if (grid[i][j] == 0) {
+                } else if (grid[i][j] == 1) {
+                    union(connected, i * n + j, m * n);
+                } else if (grid[i][j] == 0) {
                     if (i + 1 < m && grid[i + 1][j] == 0) {
                         union(connected, i * n + j, (i + 1) * n + j);
                     }
                     if (j + 1 < n && grid[i][j + 1] == 0) {
                         union(connected, i * n + j, i * n + j + 1);
                     }
-                    if (i - 1 > 0 && grid[i - 1][j] == 0) {
+                    if (i - 1 >= 0 && grid[i - 1][j] == 0) {
                         union(connected, i * n + j, (i - 1) * n + j);
                     }
-                    if (j - 1 > 0 && grid[i][j - 1] == 0) {
+                    if (j - 1 >= 0 && grid[i][j - 1] == 0) {
                         union(connected, i * n + j, i * n + j - 1);
                     }
                 }
