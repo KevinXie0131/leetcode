@@ -51,7 +51,6 @@ public class Q886_Possible_Bipartition_1 {
         }
         return num == 2; // 最后只有两组
     }
-
     /**
      * 对于本题，我们遍历每一个人，他与他不喜欢的人不应该在同一个集合中，如果在同一个集合中，就产生了冲突，直接返回 false。
      * 如果没有冲突，那么就将他所有不喜欢的人合并到同一个集合中。遍历结束，说明没有冲突，返回 true。
@@ -75,11 +74,11 @@ public class Q886_Possible_Bipartition_1 {
             for(int j = 1; j <= n; j++){
                 if(dislikeStatus[i][j] == true){
                     if(first == 0) first = j;
-                    if(find(connected, j) == current){
+                    if(find(connected, j) == current){ // 判断这个人是否与他不喜欢的人相连，如果相连则表示存在冲突
                         return false;
                     }
                     if(first > 0 && first != j && find(connected, j) != find(connected, first) ) {
-                        union(connected, first, j);
+                        union(connected, first, j); // 将每个人不喜欢的人连通起来
                     }
                 }
             }
