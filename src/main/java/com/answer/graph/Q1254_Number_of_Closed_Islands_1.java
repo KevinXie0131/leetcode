@@ -53,7 +53,6 @@ public class Q1254_Number_of_Closed_Islands_1 {
         int ans = 0;
         for (int i = 1; i < m - 1; ++i) {
             for (int j = 1; j < n - 1; ++j) {
-                find(connected, i * n + j);
                 if (grid[i][j] == 0 && connected[i * n + j] == i * n + j) {
                     ++ans;
                 }
