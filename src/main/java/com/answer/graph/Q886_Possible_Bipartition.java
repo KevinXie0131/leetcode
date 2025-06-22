@@ -63,29 +63,29 @@ public class Q886_Possible_Bipartition {
         for(int i = 1; i <= n; i++){
             dislikeStatus[i] = new ArrayList<>();
         }
-        for(int[] dislike : dislikes){
+        for(int[] dislike : dislikes){   // 用二维数组存储每个人不喜欢的人的列表
             dislikeStatus[dislike[0]].add(dislike[1]);
             dislikeStatus[dislike[1]].add(dislike[0]);
         }
         //遍历每个人 尝试给他们分组
         for (int i = 1; i <= n; i++) {
             if (groups[i] == 0 && !dfs1(dislikeStatus, i, groups, 1, n)) { // 如果没分组 且分组失败
-                return false;
+                return false;// 如果没分组且分组后有冲突
             }
         }
         return true;
     }
 
     private boolean dfs1(ArrayList<Integer>[] dislikeStatus, int index, int[] groups, int group, int n) {
-        groups[index] = group;
+        groups[index] = group;      // 分组
         ArrayList<Integer> list = dislikeStatus[index];
-
+        // 遍历不喜欢人列表
         for (int next : list) {
           //如果不喜欢
-            if(groups[next] != 0 && groups[next] == group){
+            if(groups[next] != 0 && groups[next] == group){ // 如果分组并且和当前不喜欢的人在一组，冲突
                 return false;
             }
-            if(groups[next] == 0 && !dfs1(dislikeStatus, next, groups, -group, n)){
+            if(groups[next] == 0 && !dfs1(dislikeStatus, next, groups, -group, n)){   // 如果未分组且分组后有冲突
                 return false;
             }
         }
