@@ -15,7 +15,40 @@ public class Q886_Possible_Bipartition {
      *  Output: false
      *  Explanation: We need at least 3 groups to divide them. We cannot put them in two groups.
      */
+    /**
+     * Refer to Q785 Is Graph Bipartite
+     */
     public boolean possibleBipartition(int n, int[][] dislikes) {
-        return false;
+        boolean[][] dislikeStatus = new boolean[n + 1][n + 1];
+        int[] groups = new int[n + 1]; //存储每个人的分组情况
+        // 为了操作方便（代码量），直接使用邻接矩阵。由于是互相不喜欢，不存在一个喜欢另一个，另一个不喜欢一个的情况，因此这是无向图。
+        // 而无向图邻接矩阵实际上是会浪费空间
+        for(int[] dislike : dislikes){
+            dislikeStatus[dislike[0]][dislike[1]] = true;
+            dislikeStatus[dislike[1]][dislike[0]] = true;
+        }
+        //遍历每个人 尝试给他们分组
+        for (int i = 1; i <= n; i++) {
+            if (groups[i] == 0 && !dfs(dislikeStatus, i, groups, 1, n)) { // 如果没分组 且分组失败
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean dfs(boolean[][] dislikeStatus, int index, int[] groups, int group, int n) {
+        groups[index] = group;
+
+        for (int i = 1; i <= n ; i++) {
+            if (dislikeStatus[index][i]) {  //如果不喜欢
+                if(groups[i] != 0 && groups[i] == group){
+                    return false;
+                }
+                if(groups[i] == 0 && !dfs(dislikeStatus, i, groups, -group, n)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

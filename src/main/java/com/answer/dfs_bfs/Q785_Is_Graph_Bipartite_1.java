@@ -19,6 +19,7 @@ public class Q785_Is_Graph_Bipartite_1 {
         }
         for(int i = 0; i < graph.length; i++){
             int current = find(connected, i);
+
             for(int j = 0; j < graph[i].length; j++){
                 if(find(connected, graph[i][j]) == current){
                     return false;
