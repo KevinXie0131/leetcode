@@ -8,7 +8,7 @@ public class Q417_Pacific_Atlanti_Water_Flow_1 {
        System.out.println(pacificAtlantic(heights));
     }
     /**
-     * BFS
+     * 多源 BFS
      */
    static public List<List<Integer>> pacificAtlantic(int[][] heights) {
         int m = heights.length;

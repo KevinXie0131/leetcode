@@ -56,7 +56,7 @@ public class Q417_Pacific_Atlanti_Water_Flow {
         // 初始化两个二位boolean数组，代表两个边界
         boolean[][] pacific = new boolean[m][n];
         boolean[][] atlantic = new boolean[m][n];
-
+        // 4条边界的每个位置都算作 DFS 的起点
         // 从左右边界出发进行DFS
         for (int i = 0; i < m; i++) {
             dfs(heights, i, 0, pacific, Integer.MIN_VALUE); // 从最左和最右列的节点出发，向高处遍历
