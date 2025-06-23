@@ -1,7 +1,6 @@
 package com.answer.graph;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Q1136_Parallel_Courses {
     /**
@@ -29,13 +28,51 @@ public class Q1136_Parallel_Courses {
         int n = 3;
         int[][] relations = {{1,3},{2,3}};
         System.out.println(minimumSemesters(n, relations));
+        int n1 = 3;
+        int[][] relations1 = {{1,2},{2,3},{3,1}};
+        System.out.println(minimumSemesters(n1, relations1));
     }
     /**
-     *
+     * 拓扑排序
+     * 这是典型的“有向无环图”拓扑排序问题。我们要求的是最长路径（因为只有没有先修课的可以并行学，最长依赖链决定最少学期数）。
+     * 如果有环则返回 -1。
      */
-
     static public int minimumSemesters(int n, int[][] relations) {
-
-        return 1;
+        List<List<Integer>> graph = new ArrayList<>();// 建立有向图和入度数组
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>()); // 将课程之间的先修关系建立图
+        }
+        int[] indegree = new int[n + 1]; // 每个课程的入度
+        // 构建图和计算入度
+        for (int[] rel : relations) {
+            graph.get(rel[0]).add(rel[1]);
+            indegree[rel[1]]++;
+        }
+        // 将所有入度为0的课程加入队列
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
+            if (indegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+        int semester = 0;
+        int studied = 0;
+        // 拓扑排序，每学期学所有可以学的课
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            semester++;
+            for (int i = 0; i < size; i++) {
+                int curr = queue.poll();
+                studied++;
+                for (int next : graph.get(curr)) {
+                    indegree[next]--; // 将其出度的课程的入度减 1
+                    if (indegree[next] == 0) { // 如果减1 后入度为 0，则将该课程入队
+                        queue.offer(next);
+                    }
+                }
+            }
+        }
+        // 当队列为空时，如果还有课程没有修完，则说明无法修完所有课程，返回−1。否则返回修完所有课程所需的学期数。
+        return studied == n ? semester : -1;
     }
 }
