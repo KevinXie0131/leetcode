@@ -22,7 +22,8 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
      *  Input: [1,0,1,0,1,0,0,1,1,0,1]
      *  Output: 3
      *  Explanation: One possible solution that uses 3 swaps is [0,0,0,0,0,1,1,1,1,1,1].
-     *  最少交换次数来组合所有的1: 出一个二进制数组 data，你需要通过交换位置，将数组中 任何位置 上的 1 组合到一起，并返回所有可能中所需 最少的交换次数。
+     *  最少交换次数来组合所有的1
+     *  给出一个二进制数组 data，你需要通过交换位置，将数组中 任何位置 上的 1 组合到一起，并返回所有可能中所需 最少的交换次数。
      */
     public static void main(String[] args) {
         int[] data1 = {1,0,1,0,1};
