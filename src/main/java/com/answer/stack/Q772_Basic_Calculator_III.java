@@ -3,6 +3,23 @@ package com.answer.stack;
 import java.util.*;
 
 public class Q772_Basic_Calculator_III {
+    /**
+     * 基本计算器 III
+     * 实现一个基本的计算器来计算简单的表达式字符串。
+     * 表达式字符串可能包含左括号 (、右括号 )、加号 +、减号 -、乘号 *、除号 /，非负整数和空格 ' '。表达式中不允许使用任何其他字符。
+     * 你可以假设给定的表达式总是有效的。
+     *
+     * Implement a basic calculator to evaluate a simple expression string.
+     * The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .
+     * The expression string contains only non-negative integers, +, -, *, / operators , open ( and closing parentheses ) and empty spaces . The integer division should truncate toward zero.
+     *
+     * You may assume that the given expression is always valid. All intermediate results will be in the range of [-2147483648, 2147483647].
+     * Some examples:
+     * "1 + 1" = 2
+     * " 6-4 / 2 " = 4
+     * "2*(5+5*2)/3+(6/2+8)" = 21
+     * "(2+6* 3+5- (3*14/7+2)*5)+3"=-12
+     */
     public static void main(String[] args) {
         System.out.println(calculate("(2+6* 3+5- (3*14/7+2)*5)+3"));
         System.out.println(calculate("2*(5+5*2)/3+(6/2+8)"));
