@@ -41,6 +41,8 @@ public class Q1020_Number_of_Enclaves {
     }
     /**
      * DFS
+     * 可以从网格边界上的每个陆地单元格开始深度优先搜索，遍历完边界之后，所有和网格边界相连的陆地单元格就都被访问过了。
+     * 然后遍历整个网格，如果网格中的一个陆地单元格没有被访问过，则该陆地单元格不和网格的边界相连，是飞地。
      */
     public int numEnclaves(int[][] grid) {
         int m = grid.length;
@@ -54,7 +56,7 @@ public class Q1020_Number_of_Enclaves {
             if (grid[m - 1][j] == 1) dfs(m - 1, j, grid);
         }
         int count = 0;
-        for (int i = 1; i < m - 1; i++) {
+        for (int i = 1; i < m - 1; i++) { // 遍历网格统计飞地的数量时只需要遍历不在网格边界上的单元格。
             for (int j = 1; j < n - 1; j++) {
                 if (grid[i][j] == 1) {
                     count++;
@@ -74,6 +76,46 @@ public class Q1020_Number_of_Enclaves {
         dfs(i + 1, j, grid);
         dfs(i, j - 1, grid);
         dfs(i, j + 1, grid);
+    }
+    /**
+     * 在dfs中碰到边界就直接返回-1，在主函数中控制正负，负数不做累加
+     */
+    public int numEnclaves_0(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int area = 0;
+        // 遍历整个 grid
+        for (int i = 0; i < m; i++) {
+           for (int j = 0; j < n; j++) {
+               if (grid[i][j] == 1 ) {
+                   int res = dfs1(i, j, grid);
+                   if(res != -1) {
+                       area += res;  // 如果区域是飞地，累加面积
+                   }
+               }
+           }
+        }
+        return area;
+    }
+
+    public int dfs1(int i, int j, int[][] grid) {
+        if( i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1 || grid[i][j] == 0){
+            return 0; // // 越界或非陆地，返回0
+        }
+        if (i == 0 || i == grid.length - 1 || j == 0 || j == grid[i].length - 1) {
+            return -1;// 当前单元格在边界，标记为非飞地
+        }
+        grid[i][j] = 0; // 标记为已访问
+        // 递归四个方向，并收集结果
+        int up = dfs1(i - 1, j, grid);
+        int down = dfs1(i + 1, j, grid);
+        int left = dfs1(i, j - 1, grid);
+        int right = dfs1(i, j + 1, grid);
+        // 若任意方向返回-1，当前区域非飞地
+        if (up == -1 || down == -1 || left == -1 || right == -1) {
+            return -1;
+        }
+        return 1 + up + down + left + right;// 否则，返回当前区域的总面积
     }
     /**
      * 深度优先搜索
@@ -120,6 +162,7 @@ public class Q1020_Number_of_Enclaves {
     }
     /**
      * 广度优先搜索
+     * 首先从网格边界上的每个陆地单元格开始广度优先搜索，访问所有和网格边界相连的陆地单元格，然后遍历整个网格，统计飞地的数量。
      */
     public int numEnclaves2(int[][] grid) {
         int m = grid.length;
@@ -158,6 +201,56 @@ public class Q1020_Number_of_Enclaves {
             }
         }
         return ans;
+    }
+    /**
+     * another form
+     * 多源 BFS: 起始将所有「边缘陆地」进行入队
+     */
+    int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public int numEnclaves4(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        Queue<int[]> queue = new ArrayDeque<int[]>();
+        for (int i = 0; i < m; i++) {
+            if (grid[i][0] == 1) {
+                grid[i][0] = 0;
+                queue.offer(new int[]{i, 0});
+            }
+            if (grid[i][n - 1] == 1) {
+                grid[i][n - 1] = 0;
+                queue.offer(new int[]{i, n - 1});
+            }
+        }
+        for (int j = 1; j < n - 1; j++) {
+            if (grid[0][j] == 1) {
+                grid[0][j] = 0;
+                queue.offer(new int[]{0, j});
+            }
+            if (grid[m - 1][j] == 1) {
+                grid[m - 1][j] = 0;
+                queue.offer(new int[]{m - 1, j});
+            }
+        }
+        while (!queue.isEmpty()) {
+            int[] cell = queue.poll();
+            int currRow = cell[0], currCol = cell[1];
+            for (int[] dir : dirs) {
+                int nextRow = currRow + dir[0], nextCol = currCol + dir[1];
+                if (nextRow >= 0 && nextRow < m && nextCol >= 0 && nextCol < n && grid[nextRow][nextCol] == 1) {
+                    grid[nextRow][nextCol] = 0;
+                    queue.offer(new int[]{nextRow, nextCol});
+                }
+            }
+        }
+        int enclaves = 0;
+        for (int i = 1; i < m - 1; i++) {
+            for (int j = 1; j < n - 1; j++) {
+                if (grid[i][j] == 1) {
+                    enclaves++;
+                }
+            }
+        }
+        return enclaves;
     }
     /**
      * 并查集
