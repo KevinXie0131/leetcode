@@ -5,11 +5,13 @@ import java.util.PriorityQueue;
 
 public class Q253_Meeting_Rooms_II {
     /**
+     * 给定一个会议时间安排的数组 intervals ，每个会议时间都会包括开始和结束时间 intervals[i] = [starti, endi] 。请你计算至少需要多少间会议室，才能满足这些会议安排。
      * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
      * find the minimum number of conference rooms required.
      *  Example 1:
      *      Input: [[0, 30],[5, 10],[15, 20]]
      *      Output: 2
+     *      解释: 需要两间会议室：[0,30] 和 [5,10],[15,20] 分别在另一间。
      *  Example 2:
      *      Input: [[7,10],[2,4]]
      *      Output: 1

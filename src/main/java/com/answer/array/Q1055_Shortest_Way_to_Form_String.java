@@ -2,20 +2,25 @@ package com.answer.array;
 
 public class Q1055_Shortest_Way_to_Form_String {
     /**
+     * 给你两个字符串 source 和 target，返回你需要按顺序（可以重复）从 source 中拷贝的最少子序列的数量，使得你可以组成 target。
+     * 如果无法通过这种方式组成 target，请返回 -1。
      * From any string, we can form a subsequence of that string by deleting some number of characters (possibly no deletions).
      * Given two strings source and target, return the minimum number of subsequences of source such that their concatenation equals target. If the task is impossible, return -1.
      * Example 1:
      *  Input: source = "abc", target = "abcbc"
      *  Output: 2
      *  Explanation: The target "abcbc" can be formed by "abc" and "bc", which are subsequences of source "abc".
+     *  解释：第一次从 source 拷贝 "abc"，第二次从 source 拷贝 "bc"。
      * Example 2:
      *  Input: source = "abc", target = "acdbc"
      *  Output: -1
      *  Explanation: The target string cannot be constructed from the subsequences of source string due to the character "d" in target string.
+     *  解释：由于 target 中的 'd' 在 source 中不存在，所以返回 -1。
      * Example 3:
      *  Input: source = "xyz", target = "xzyxz"
      *  Output: 3
      *  Explanation: The target string can be constructed as follows "xz" + "y" + "xz".
+     *  解释：第一次拷贝 "xz"，第二次拷贝 "y"，第三次拷贝 "xz"。
      *
      * Constraints:
      *  Both the source and target strings consist of only lowercase English letters from "a"-"z".
