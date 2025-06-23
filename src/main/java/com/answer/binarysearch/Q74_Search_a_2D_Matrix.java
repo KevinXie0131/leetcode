@@ -1,10 +1,24 @@
 package com.answer.binarysearch;
 
 public class Q74_Search_a_2D_Matrix {
+    /**
+     * 搜索二维矩阵
+     * given an m x n integer matrix matrix with the following two properties:
+     *  Each row is sorted in non-decreasing order.
+     *  The first integer of each row is greater than the last integer of the previous row.
+     * Given an integer target, return true if target is in matrix or false otherwise.
+     * 一个满足下述两条属性的 m x n 整数矩阵：
+     *  每行中的整数从左到右按非严格递增顺序排列。
+     *  每行的第一个整数大于前一行的最后一个整数。
+     * 给你一个整数 target ，如果 target 在矩阵中，返回 true ；否则，返回 false 。
+     * You must write a solution in O(log(m * n)) time complexity.
+     */
     public static void main(String[] args) {
         int[][] matrix = {{1,3,5,7},{10,11,16,20},{23,30,34,60}};
         int target = 13;
-        System.out.println(searchMatrix_2(matrix ,target));
+        System.out.println(searchMatrix_2(matrix ,target)); // 输出：false
+        target = 3;
+        System.out.println(searchMatrix_2(matrix ,target)); // 输出：true
     }
     /**
      * Brute force

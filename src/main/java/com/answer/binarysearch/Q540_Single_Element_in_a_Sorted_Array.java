@@ -1,8 +1,18 @@
 package com.answer.binarysearch;
 
 public class Q540_Single_Element_in_a_Sorted_Array {
+    /**
+     * 有序数组中的单一元素
+     * 一个仅由整数组成的有序数组，其中每个元素都会出现两次，唯有一个数只会出现一次。
+     * You are given a sorted array consisting of only integers where every element appears exactly twice,
+     * except for one element which appears exactly once.
+     * 请你找出并返回只出现一次的那个数。
+     * Return the single element that appears only once.
+     * 你设计的解决方案必须满足 O(log n) 时间复杂度和 O(1) 空间复杂度。
+     * Your solution must run in O(log n) time and O(1) space.
+     */
     public static void main(String[] args) {
-       int[] nums = {1,1,2,3,3,4,4,8,8};
+       int[] nums = {1,1,2,3,3,4,4,8,8}; // 输出: 2
        int result = singleNonDuplicate1(nums);
        System.out.println(result);
     }

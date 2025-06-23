@@ -2,6 +2,27 @@ package com.answer.binarysearch;
 
 public class Q162_Find_Peak_Element {
     /**
+     * 寻找峰值
+     * A peak element is an element that is strictly greater than its neighbors.
+     * 峰值元素是指其值严格大于左右相邻值的元素。
+     * Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
+     * 给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。
+     * You may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.
+     * 你可以假设 nums[-1] = nums[n] = -∞ 。
+     * You must write an algorithm that runs in O(log n) time.
+     * 你必须实现时间复杂度为 O(log n) 的算法来解决此问题。
+     *
+     * 示例 1：
+     *  输入：nums = [1,2,3,1]
+     *  输出：2
+     *  解释：3 是峰值元素，你的函数应该返回其索引 2。
+     * 示例 2：
+     *  输入：nums = [1,2,1,3,5,6,4]
+     *  输出：1 或 5
+     *  解释：你的函数可以返回索引 1，其峰值元素为 2；或者返回索引 5， 其峰值元素为 6。
+     * 对于所有有效的 i 都有 nums[i] != nums[i + 1] nums[i] != nums[i + 1] for all valid i.
+     */
+    /**
      * Approach 1: Linear Scan
      * 由于题目保证了 nums[i]!=nums[i+1]，那么数组 nums 中最大值两侧的元素一定严格小于最大值本身。因此，最大值所在的位置就是一个可行的峰值位置。
      * 我们对数组 nums 进行一次遍历，找到最大值对应的位置即可。

@@ -1,6 +1,23 @@
 package com.answer.binarysearch;
 
 public class Q367_Valid_Perfect_Square {
+    /**
+     * 有效的完全平方数
+     * 一个正整数 num 。如果 num 是一个完全平方数，则返回 true ，否则返回 false 。
+     * Given a positive integer num, return true if num is a perfect square or false otherwise.
+     * 完全平方数 是一个可以写成某个整数的平方的整数。换句话说，它可以写成某个整数和自身的乘积。
+     * A perfect square is an integer that is the square of an integer. In other words, it is the product of some integer with itself.
+     * 不能使用任何内置的库函数，如  sqrt 。You must not use any built-in library function, such as sqrt
+     *
+     * 示例 1：
+     *  输入：num = 16
+     *  输出：true
+     *  解释：返回 true ，因为 4 * 4 = 16 且 4 是一个整数。
+     * 示例 2：
+     *  输入：num = 14
+     *  输出：false
+     *  解释：返回 false ，因为 3.742 * 3.742 = 14 但 3.742 不是一个整数。
+     */
     public static void main(String[] args) {
         boolean isFound = isPerfectSquare(2147483647);
         System.out.println(isFound);
