@@ -2,6 +2,28 @@ package com.answer.greedy;
 
 public class Q714_Best_Time_to_Buy_and_Sell_Stock_with_Transaction_Fee {
     /**
+     * 买卖股票的最佳时机含手续费
+     * 给定一个整数数组 prices，其中 prices[i]表示第 i 天的股票价格 ；整数 fee 代表了交易股票的手续费用。
+     * You are given an array prices where prices[i] is the price of a given stock on the ith day, and an integer fee representing a transaction fee.
+     * 你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。
+     * You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction.
+     * 返回获得利润的最大值。
+     *  Find the maximum profit you can achieve.
+     *
+     * 注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续费。
+     * Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+     *       The transaction fee is only charged once for each stock purchase and sale.
+     * 示例 1：
+     *  输入：prices = [1, 3, 2, 8, 4, 9], fee = 2
+     *  输出：8
+     *  解释：能够达到的最大利润:
+     *      在此处买入 prices[0] = 1
+     *      在此处卖出 prices[3] = 8
+     *      在此处买入 prices[4] = 4
+     *      在此处卖出 prices[5] = 9
+     *      总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8
+     */
+    /**
      * 有交易手续费
      */
     /**
