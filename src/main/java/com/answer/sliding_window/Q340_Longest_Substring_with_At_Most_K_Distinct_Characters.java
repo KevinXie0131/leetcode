@@ -13,7 +13,8 @@ public class Q340_Longest_Substring_with_At_Most_K_Distinct_Characters {
      *  Input: s = "aa", k = 1
      *  Output: 2
      *  Explanation: T is "aa" which its length is 2.
-     * 至多包含 K 个不同字符的最长子串: 给定一个字符串 s ，找出 至多 包含 k 个不同字符的最长子串 T。
+     * 至多包含 K 个不同字符的最长子串
+     * 给定一个字符串 s ，找出 至多 包含 k 个不同字符的最长子串 T。
      */
     public static void main(String[] args) {
         String s1 = "eceba";

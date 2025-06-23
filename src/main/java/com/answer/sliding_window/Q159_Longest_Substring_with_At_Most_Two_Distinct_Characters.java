@@ -13,7 +13,8 @@ public class Q159_Longest_Substring_with_At_Most_Two_Distinct_Characters {
      *  Input: "ccaabbb"
      *  Output: 5
      *  Explanation: t is "aabbb" which its length is 5.
-     *  至多包含两个不同字符的最长子串: 给定一个字符串 s ，找出 至多 包含两个不同字符的最长子串 t ，并返回该子串的长度。
+     *  至多包含两个不同字符的最长子串
+     *  给定一个字符串 s ，找出 至多 包含两个不同字符的最长子串 t ，并返回该子串的长度。
      */
     public static void main(String[] args) {
         String s = "eceba";
