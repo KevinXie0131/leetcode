@@ -4,6 +4,15 @@ import java.util.*;
 
 public class Q217_Contains_Duplicate {
     /**
+     * 存在重复元素
+     * 给你一个整数数组 nums 。如果任一值在数组中出现 至少两次 ，返回 true ；如果数组中每个元素互不相同，返回 false 。
+     * Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+     * 示例 1：
+     *  输入：nums = [1,2,3,1]
+     *  输出：true
+     *  解释：元素 1 在下标 0 和 3 出现。
+     */
+    /**
      * 使用 set
      * 时间复杂度 : O(n)
      * 空间复杂度 : O(n)
