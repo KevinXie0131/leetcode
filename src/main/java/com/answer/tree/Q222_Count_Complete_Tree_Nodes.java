@@ -7,6 +7,14 @@ import java.util.Queue;
 
 public class Q222_Count_Complete_Tree_Nodes {
     /**
+     * 完全二叉树的节点个数
+     * 给你一棵 完全二叉树 的根节点 root ，求出该树的节点个数。
+     * 完全二叉树 的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层（从第 0 层开始），则该层包含 1~ 2^h 个节点。
+     * Given the root of a complete binary tree, return the number of the nodes in the tree.
+     * According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2^h nodes inclusive at the last level h.
+     * Design an algorithm that runs in less than O(n) time complexity.
+     */
+    /**
      * 精简的代码版本，其实不建议⼤家照着这个来写，代码确实精简，但隐藏了⼀些内容，连遍历的顺序都看不出来
      * 时间复杂度：O(n)
      * 空间复杂度：O(log n)，算上了递归系统栈占用的空间
