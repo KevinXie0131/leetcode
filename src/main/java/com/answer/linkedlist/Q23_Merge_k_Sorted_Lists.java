@@ -2,7 +2,25 @@ package com.answer.linkedlist;
 
 import java.util.*;
 
-public class Q23_Merge_k_Sorted_Lists {
+public class Q23_Merge_k_Sorted_Lists {// Hard 困难
+    /**
+     * 合并 K 个升序链表
+     * 给你一个链表数组，每个链表都已经按升序排列。
+     * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+     * You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+     * Merge all the linked-lists into one sorted linked-list and return it.
+     *
+     * 示例 1：
+     *  输入：lists = [[1,4,5],[1,3,4],[2,6]]
+     *  输出：[1,1,2,3,4,4,5,6]
+     *  解释：链表数组如下：
+     *  [
+     *      1->4->5,
+     *      1->3->4,
+     *      2->6
+     *  ]
+     *  将它们合并到一个有序链表中得到: 1->1->2->3->4->4->5->6
+     */
     /**
      * 方法1： K 指针：K 个指针分别指向 K 条链表
      * 每次 O(K) 比较 K个指针求 min, 时间复杂度：O(NK)

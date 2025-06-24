@@ -2,6 +2,18 @@ package com.answer.linkedlist;
 
 public class Q19_Remove_Nth_Node_From_End_of_List {
     /**
+     * 删除链表的倒数第 N 个结点
+     * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+     * Given the head of a linked list, remove the nth node from the end of the list and return its head.
+     *
+     * 示例 1：
+     *  输入：head = [1,2,3,4,5], n = 2
+     *  输出：[1,2,3,5]
+     *
+     * 进阶：你能尝试使用一趟扫描实现吗？
+     * Follow up: Could you do this in one pass?
+     */
+    /**
      * fast-slow pointers 快慢指针
      * 快慢双指针，令快指针先走 n 步，之后两指针再同步移动，直到快指针移动到链表结尾，此时慢指针指向的下一个位置即为要删除元素。
      * 注意

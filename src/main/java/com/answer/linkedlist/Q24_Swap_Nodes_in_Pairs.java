@@ -1,6 +1,15 @@
 package com.answer.linkedlist;
 
 public class Q24_Swap_Nodes_in_Pairs {
+    /**
+     * 两两交换链表中的节点
+     * 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
+     * Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+     *
+     * 示例 1：
+     *  输入：head = [1,2,3,4]
+     *  输出：[2,1,4,3]
+     */
     public static void main(String[] args) {
         ListNode node5 = new ListNode(5, null);
         ListNode node4 = new ListNode(4, node5);
