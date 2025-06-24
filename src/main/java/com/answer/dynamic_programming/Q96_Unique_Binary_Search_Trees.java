@@ -2,6 +2,10 @@ package com.answer.dynamic_programming;
 
 public class Q96_Unique_Binary_Search_Trees {
     /**
+     * 不同的二叉搜索树
+     * 给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜索树的种数。
+     */
+    /**
      * Approach 1: Dynamic Programming
      * 互不相同的 二叉搜索树 有多少种
      * For example: dp[3] = dp[0]*dp[2] + dp[1]*dp[1] + dp[2]*dp[0]

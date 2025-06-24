@@ -2,6 +2,14 @@ package com.answer.dynamic_programming;
 
 public class Q276_Paint_Fence {
     /**
+     * 栅栏涂色
+     * 有 k 种颜色的涂料和一个包含 n 个栅栏柱的栅栏，每个栅栏柱可以用其中一种颜色进行上色。
+     * 你需要给所有栅栏柱上色，并且保证其中相邻的栅栏柱最多连续两个颜色相同。然后，返回所有有效涂色的方案数。
+     * 示例： 输入: n = 3, k = 2
+     * 输出: 6
+     * 解释：用 2 种颜色涂 3 根栅栏，且不能有超过两根相邻同色，方案有 6 种。
+     */
+    /**
      * Approach 2: Bottom-Up Dynamic Programming (Tabulation)
      *
      * 1. Use a different color than the previous post:

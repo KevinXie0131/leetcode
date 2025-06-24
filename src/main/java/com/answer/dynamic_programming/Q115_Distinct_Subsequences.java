@@ -2,7 +2,20 @@ package com.answer.dynamic_programming;
 
 import java.util.Arrays;
 
-public class Q115_Distinct_Subsequences {
+public class Q115_Distinct_Subsequences { // Hard 困难
+    /**
+     * 不同的子序列
+     * 给你两个字符串 s 和 t ，统计并返回在 s 的 子序列 中 t 出现的个数。
+     * 测试用例保证结果在 32 位有符号整数范围内。
+     *
+     * 示例 1：
+     * 输入：s = "rabbbit", t = "rabbit"
+     * 输出：3
+     * 解释：如下所示, 有 3 种可以从 s 中得到 "rabbit" 的方案。
+     *      rabbbit
+     *      rabbbit
+     *      rabbbit
+     */
     public static void main(String[] args) {
         String s = "babgbag", t  = "bag";
         numDistinct(s, t);
