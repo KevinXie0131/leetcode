@@ -4,6 +4,13 @@ import com.template.TreeNode;
 
 public class Q669_Trim_a_Binary_Search_Tree {
     /**
+     * 修剪二叉搜索树
+     * 给你二叉搜索树的根节点 root ，同时给定最小边界low 和最大边界 high。通过修剪二叉搜索树，使得所有节点的值在[low, high]中。修剪树 不应该 改变保留在树中的元素的相对结构 (即，如果没有被移除，原有的父代子代关系都应当保留)。 可以证明，存在 唯一的答案 。
+     * 所以结果应当返回修剪好的二叉搜索树的新的根节点。注意，根节点可能会根据给定的边界发生改变。
+     * Given the root of a binary search tree and the lowest and highest boundaries as low and high, trim the tree so that all its elements lies in [low, high]. Trimming the tree should not change the relative structure of the elements that will remain in the tree (i.e., any node's descendant should remain a descendant). It can be proven that there is a unique answer.
+     * Return the root of the trimmed binary search tree. Note that the root may change depending on the given bounds.
+     */
+    /**
      * 修剪⼆叉搜索树 递归
      */
     public TreeNode trimBST_0(TreeNode root, int low, int high) {

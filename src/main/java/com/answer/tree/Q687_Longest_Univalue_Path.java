@@ -3,6 +3,13 @@ package com.answer.tree;
 import com.template.TreeNode;
 
 public class Q687_Longest_Univalue_Path {
+    /**
+     * 最长同值路径
+     * 给定一个二叉树的 root ，返回 最长的路径的长度 ，这个路径中的 每个节点具有相同值 。 这条路径可以经过也可以不经过根节点。
+     * 两个节点之间的路径长度 由它们之间的边数表示。
+     * Given the root of a binary tree, return the length of the longest path, where each node in the path has the same value. This path may or may not pass through the root.
+     * The length of the path between two nodes is represented by the number of edges between them.
+     */
     public static void main(String[] args) {
         //  [1,4,5,4,4,null,5]
       /*  TreeNode root = new TreeNode(1);
@@ -21,9 +28,7 @@ public class Q687_Longest_Univalue_Path {
         TreeNode node1 = new TreeNode(1);
         root.left = node1;
         System.out.println(longestUnivaluePath(root));
-
     }
-
     /**
      * Recursion
      */

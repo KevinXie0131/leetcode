@@ -6,6 +6,11 @@ import java.util.ArrayDeque;
 import java.util.*;
 
 public class Q938_Range_Sum_of_BST {
+    /**
+     * 二叉搜索树的范围和
+     * 给定二叉搜索树的根结点 root，返回值位于范围 [low, high] 之间的所有结点的值的和。
+     * Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
+     */
     public static void main(String[] args) {
         // [10,5,15,3,7,13,18,1,null,6]
         TreeNode root = new TreeNode(10);

@@ -3,6 +3,13 @@ package com.answer.tree;
 import com.template.TreeNode;
 
 public class Q701_Insert_into_a_Binary_Search_Tree {
+    /**
+     * 二叉搜索树中的插入操作
+     * 给定二叉搜索树（BST）的根节点 root 和要插入树中的值 value ，将值插入二叉搜索树。 返回插入后二叉搜索树的根节点。 输入数据 保证 ，新值和原始二叉搜索树中的任意节点值都不同。
+     * 注意，可能存在多种有效的插入方式，只要树在插入后仍保持为二叉搜索树即可。 你可以返回 任意有效的结果 。
+     * You re given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
+     * Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
+     */
     public static void main(String[] args) {
         TreeNode root = new TreeNode(4);
         TreeNode root1 = new TreeNode(2);

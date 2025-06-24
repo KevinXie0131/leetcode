@@ -5,6 +5,12 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q783_Minimum_Distance_Between_BST_Nodes {
+    /**
+     * 二叉搜索树节点最小距离
+     * 给你一个二叉搜索树的根节点 root ，返回 树中任意两不同节点值之间的最小差值 。
+     * 差值是一个正数，其数值等于两值之差的绝对值。
+     * Given the root of a Binary Search Tree (BST), return the minimum difference between the values of any two different nodes in the tree.
+     */
     public static void main(String[] args) {
         TreeNode node1 = new TreeNode(27);
         TreeNode node2 = new TreeNode(34);

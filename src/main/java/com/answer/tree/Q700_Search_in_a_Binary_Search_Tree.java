@@ -6,6 +6,13 @@ import java.util.Stack;
 
 public class Q700_Search_in_a_Binary_Search_Tree {
     /**
+     * 二叉搜索树中的搜索
+     * 给定二叉搜索树（BST）的根节点 root 和一个整数值 val。
+     * 你需要在 BST 中找到节点值等于 val 的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 null 。
+     * You are given the root of a binary search tree (BST) and an integer val.
+     * Find the node in the BST that the node's value equals val and return the subtree rooted with that node. If such a node does not exist, return null.
+     */
+    /**
      * ⼆叉搜索树中的搜索
      * ⼆叉搜索树是⼀个有序树：
      *    若它的左⼦树不空，则左⼦树上所有结点的值均⼩于它的根结点的值；

@@ -5,6 +5,16 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
+    /**
+     * 二叉树中第二小的节点
+     * 给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。
+     * 更正式地说，即 root.val = min(root.left.val, root.right.val) 总成立。
+     * 给出这样的一个二叉树，你需要输出所有节点中的 第二小的值 。
+     * 如果第二小的值不存在的话，输出 -1 。
+     * Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.
+     * Given such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.
+     * If no such second minimum value exists, output -1 instead.
+     */
     public static void main(String[] args) {
         //[2,2,5,null,null,5,7]
        /* TreeNode node1 = new TreeNode(2);

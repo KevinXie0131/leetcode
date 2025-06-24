@@ -3,6 +3,19 @@ package com.answer.tree;
 import com.template.TreeNode;
 
 public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
+    /**
+     * 最深叶节点的最近公共祖先
+     * 给你一个有根节点 root 的二叉树，返回它 最深的叶节点的最近公共祖先 。
+     * 回想一下：
+     *  叶节点 是二叉树中没有子节点的节点
+     *  树的根节点的 深度 为 0，如果某一节点的深度为 d，那它的子节点的深度就是 d+1
+     *  如果我们假定 A 是一组节点 S 的 最近公共祖先，S 中的每个节点都在以 A 为根节点的子树中，且 A 的深度达到此条件下可能的最大值。
+     * Given the root of a binary tree, return the lowest common ancestor of its deepest leaves.
+     * Recall that:
+     *  The node of a binary tree is a leaf if and only if it has no children
+     *  The depth of the root of the tree is 0. if the depth of a node is d, the depth of each of its children is d + 1.
+     *  The lowest common ancestor of a set S of nodes, is the node A with the largest depth such that every node in S is in the subtree with root A.
+     */
     public static void main(String[] args) {
         // root = [3,5,1,6,2,0,8,null,null,7,4]
         TreeNode node1 = new TreeNode(3);

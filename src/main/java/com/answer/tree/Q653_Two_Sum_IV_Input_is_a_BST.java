@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q653_Two_Sum_IV_Input_is_a_BST {
     /**
+     * 两数之和 IV - 输入二叉搜索树
+     * 给定一个二叉搜索树 root 和一个目标结果 k，如果二叉搜索树中存在两个元素且它们的和等于给定的目标结果，则返回 true。
+     * Given the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.
+     */
+    /**
      * Approach #3 Using BST (Binary Search Tree)
      * Inorder traversal of a BST gives the nodes in ascending order
      */

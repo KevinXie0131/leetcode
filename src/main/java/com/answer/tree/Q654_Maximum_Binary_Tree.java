@@ -9,6 +9,19 @@ import java.util.List;
 
 public class Q654_Maximum_Binary_Tree {
     /**
+     * 最大二叉树
+     * 给定一个不重复的整数数组 nums 。 最大二叉树 可以用下面的算法从 nums 递归地构建:
+     *  创建一个根节点，其值为 nums 中的最大值。
+     *  递归地在最大值 左边 的 子数组前缀上 构建左子树。
+     *  递归地在最大值 右边 的 子数组后缀上 构建右子树。
+     * 返回 nums 构建的 最大二叉树 。
+     * You are given an integer array nums with no duplicates. A maximum binary tree can be built recursively from nums using the following algorithm:
+     *  Create a root node whose value is the maximum value in nums.
+     *  Recursively build the left subtree on the subarray prefix to the left of the maximum value.
+     *  Recursively build the right subtree on the subarray suffix to the right of the maximum value.
+     * Return the maximum binary tree built from nums.
+     */
+    /**
      * 构造⼀棵最⼤的⼆叉树
      * ⼀个以此数组构建的最⼤⼆叉树定义如下：
      *     ⼆叉树的根是数组中的最⼤元素。

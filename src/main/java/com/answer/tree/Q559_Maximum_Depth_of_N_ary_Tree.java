@@ -4,6 +4,15 @@ import java.util.*;
 
 public class Q559_Maximum_Depth_of_N_ary_Tree {
     /**
+     * N 叉树的最大深度
+     * 给定一个 N 叉树，找到其最大深度。
+     * 最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。
+     * N 叉树输入按层序遍历序列化表示，每组子节点由空值分隔（请参见示例）。
+     * Given a n-ary tree, find its maximum depth.
+     * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+     * Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
+     */
+    /**
      * Recursion 递归法
      * refer to Q104_Maximum_Depth_of_Binary_Tree
      * 递归法，后序遍历求root节点的高度

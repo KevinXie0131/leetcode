@@ -7,6 +7,13 @@ import java.util.List;
 
 public class Q1382_Balance_a_Binary_Search_Tree {
     /**
+     * 将二叉搜索树变平衡
+     * 给你一棵二叉搜索树，请你返回一棵 平衡后 的二叉搜索树，新生成的树应该与原来的树有着相同的节点值。如果有多种构造方法，请你返回任意一种。
+     * 如果一棵二叉搜索树中，每个节点的两棵子树高度差不超过 1 ，我们就称这棵二叉搜索树是 平衡的
+     * Given the root of a binary search tree, return a balanced binary search tree with the same node values. If there is more than one answer, return any of them.
+     * A binary search tree is balanced if the depth of the two subtrees of every node never differs by more than 1.
+     */
+    /**
      * 可以中序遍历把二叉树转变为有序数组，然后在根据有序数组构造平衡二叉搜索树
      * 98.验证二叉搜索树 学习二叉搜索树的特性
      * 108.将有序数组转换为二叉搜索树 学习如何通过有序数组构造二叉搜索树
