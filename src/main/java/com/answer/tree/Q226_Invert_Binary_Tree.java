@@ -8,6 +8,11 @@ import java.util.List;
 
 public class Q226_Invert_Binary_Tree {
     /**
+     * 翻转二叉树
+     * 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
+     * Given the root of a binary tree, invert the tree, and return its root.
+     */
+    /**
      * 把每一个节点的左右孩子交换一下
      * 前后序遍历都可以
      * 中序不行，因为先左孩子交换孩子，再根交换孩子（做完后，右孩子已经变成了原来的左孩子），再右孩子交换孩子（此时其实是对原来的左孩子做交换）

@@ -4,6 +4,17 @@ import com.template.TreeNode;
 
 public class Q450_Delete_Node_in_a_BST {
     /**
+     * 删除二叉搜索树中的节点
+     * 给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的 key 对应的节点，并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。
+     * 一般来说，删除节点可分为两个步骤：
+     *  首先找到需要删除的节点；
+     *  如果找到了，删除它。
+     * Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
+     * Basically, the deletion can be divided into two stages:
+     *  Search for a node to remove.
+     *  If the node is found, delete the node.
+     */
+    /**
      * 删除⼆叉搜索树中的节点 (⼆叉搜索树删除节点就涉及到结构调整了)
      * ⼀般来说，删除节点可分为两个步骤：
      *      ⾸先找到需要删除的节点；

@@ -5,6 +5,14 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q270_Closest_Binary_Search_Tree_Value {
+    /**
+     * 最近的二叉搜索树的值
+     * 给定一个二叉搜索树（BST）的根节点 root 和一个目标值 target，返回 BST 中最接近目标值 target 的数值。
+     * 你可以假设 BST 中只有一个最接近 target 的值。
+     * Given a non-empty binary search tree and a target value, find the value in the BST that is closest to the target.
+     * Note: Given target value is a floating point.
+     *       You are guaranteed to have only one unique value in the BST that is closest to the target.
+     */
     public static void main(String[] args) {
           //[2,1,3]
         TreeNode node1 = new TreeNode(4);

@@ -9,6 +9,12 @@ import java.util.List;
 
 public class Q513_Find_Bottom_Left_Tree_Value {
     /**
+     * 找树左下角的值
+     * 给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。
+     * 假设二叉树中至少有一个节点。
+     * Given the root of a binary tree, return the leftmost value in the last row of the tree.
+     */
+    /**
      * 本地要找出树的最后⼀⾏找到最左边的值。此时⼤家应该想起⽤层序遍历是⾮常简单的了，反⽽⽤递归的话会⽐较难⼀点
      *
      * 如果需要遍历整颗树，递归函数就不能有返回值。如果需要遍历某⼀条固定路线，递归函数就⼀定要有返回值

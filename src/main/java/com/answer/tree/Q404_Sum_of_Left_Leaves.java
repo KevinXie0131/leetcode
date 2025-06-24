@@ -9,6 +9,12 @@ import java.util.List;
 
 public class Q404_Sum_of_Left_Leaves {
     /**
+     * 左叶子之和
+     * 给定二叉树的根节点 root ，返回所有左叶子之和。
+     * Given the root of a binary tree, return the sum of all left leaves.
+     * A leaf is a node with no children. A left leaf is a leaf that is the left child of another node.
+     */
+    /**
      * ⾸先要注意是判断左叶⼦，不是⼆叉树左侧节点，所以不要上来想着层序遍历
      * 左叶⼦的明确定义：如果左节点不为空，且左节点没有左右孩⼦，那么这个节点就是左叶⼦
      *
