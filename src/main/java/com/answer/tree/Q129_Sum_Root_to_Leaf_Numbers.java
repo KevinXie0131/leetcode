@@ -7,6 +7,19 @@ import java.util.List;
 
 public class Q129_Sum_Root_to_Leaf_Numbers {
     /**
+     * 求根节点到叶节点数字之和
+     * 给你一个二叉树的根节点 root ，树中每个节点都存放有一个 0 到 9 之间的数字。
+     * 每条从根节点到叶节点的路径都代表一个数字：
+     *  例如，从根节点到叶节点的路径 1 -> 2 -> 3 表示数字 123 。
+     * 计算从根节点到叶节点生成的 所有数字之和 。
+     * 叶节点 是指没有子节点的节点。
+     * You are given the root of a binary tree containing digits from 0 to 9 only.
+     * Each root-to-leaf path in the tree represents a number.
+     *  For example, the root-to-leaf path 1 -> 2 -> 3 represents the number 123.
+     * Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
+     * A leaf node is a node with no children.
+     */
+    /**
      * 本题和113.路径总和II 是类似的思路: 首先思路很明确，就是要遍历整个树把更节点到叶子节点组成的数字相加。
      */
     StringBuilder sb = new StringBuilder();

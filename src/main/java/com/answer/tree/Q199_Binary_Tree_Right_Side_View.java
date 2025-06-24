@@ -9,6 +9,11 @@ import java.util.List;
 
 public class Q199_Binary_Tree_Right_Side_View {
     /**
+     * 二叉树的右视图
+     * 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+     * Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+     */
+    /**
      * 层序遍历的时候，判断是否遍历到单层的最后面的元素，如果是，就放进result数组中，随后返回result就可以了。
      * 解法：队列，迭代。
      *  每次返回每层的最后一个字段即可。

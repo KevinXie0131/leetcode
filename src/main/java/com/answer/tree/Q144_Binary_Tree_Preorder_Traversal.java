@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q144_Binary_Tree_Preorder_Traversal {
     /**
+     * 二叉树的前序遍历
+     * 给你二叉树的根节点 root ，返回它节点值的 前序 遍历
+     * Given the root of a binary tree, return the preorder traversal of its nodes' values.
+     */
+    /**
      * 二叉树的前序遍历 (迭代法)
      * 中序遍历顺序: 左-中-右 入栈顺序： 中-右-左
      * 前序遍历是中左右，每次先处理的是中间节点，那么先将根节点放入栈中，然后将右孩子加入栈，再加入左孩子。
