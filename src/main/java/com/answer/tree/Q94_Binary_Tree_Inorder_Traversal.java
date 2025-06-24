@@ -5,6 +5,11 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q94_Binary_Tree_Inorder_Traversal {
+    /**
+     * 二叉树的中序遍历
+     * 给定一个二叉树的根节点 root ，返回 它的 中序 遍历 。
+     * Given the root of a binary tree, return the inorder traversal of its nodes' values.
+     */
     public static void main(String[] args) {
         TreeNode root1 = new TreeNode(1);
         root1.left = new TreeNode(2);
