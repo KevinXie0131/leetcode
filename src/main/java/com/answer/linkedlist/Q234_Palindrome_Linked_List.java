@@ -4,6 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Q234_Palindrome_Linked_List {
+    /**
+     * 回文链表
+     * 给你一个单链表的头节点 head ，请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false 。
+     * Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+     *
+     * 示例 1：
+     *  输入：head = [1,2,2,1]
+     *  输出：true
+     *
+     * Follow up: Could you do it in O(n) time and O(1) space?
+     * 进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+     */
     public static void main(String[] args) {
     //    ListNode node4 = new ListNode(1, null);
      //   ListNode node3 = new ListNode(2, node4);

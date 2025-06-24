@@ -4,6 +4,15 @@ import java.util.*;
 
 public class Q148_Sort_List {
     /**
+     * 排序链表
+     * 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+     * Given the head of a linked list, return the list after sorting it in ascending order.
+     *
+     * 示例 1：
+     *  输入：head = [4,2,1,3]
+     *  输出：[1,2,3,4]
+     */
+    /**
      * Merge sorting - from top to bottom
      */
     public ListNode sortList(ListNode head) {

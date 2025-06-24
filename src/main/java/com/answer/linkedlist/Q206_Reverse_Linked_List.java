@@ -1,7 +1,15 @@
 package com.answer.linkedlist;
 
 public class Q206_Reverse_Linked_List {
-
+    /**
+     * 反转链表
+     * 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+     * Given the head of a singly linked list, reverse the list, and return the reversed list.
+     *
+     * 示例 1：
+     *  输入：head = [1,2,3,4,5]
+     *  输出：[5,4,3,2,1]
+     */
     public static void main(String[] args) {
       //  ListNode node6 = new ListNode(6, null);
         ListNode node5 = new ListNode(5, null);

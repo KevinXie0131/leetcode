@@ -5,7 +5,15 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Q203_Remove_Linked_List_Elements {
-
+    /**
+     * 移除链表元素
+     * 一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
+     * Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+     *
+     * 示例 1：
+     *  输入：head = [1,2,6,3,4,5,6], val = 6
+     *  输出：[1,2,3,4,5]
+     */
     public static void main(String[] args) {
         ListNode node7 = new ListNode(6, null);
         ListNode node6 = new ListNode(5, node7);
