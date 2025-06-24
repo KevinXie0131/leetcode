@@ -5,6 +5,20 @@ import java.util.Set;
 
 public class Q141_Linked_List_Cycle {
     /**
+     * 环形链表
+     * 一个链表的头节点 head ，判断链表中是否有环。
+     * 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
+     * 如果链表中存在环 ，则返回 true 。 否则，返回 false 。
+     * Given head, the head of a linked list, determine if the linked list has a cycle in it.
+     * There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+     * Return true if there is a cycle in the linked list. Otherwise, return false.
+     *
+     * 示例 1：
+     *  输入：head = [3,2,0,-4], pos = 1
+     *  输出：true
+     *  解释：链表中有一个环，其尾部连接到第二个节点。
+     */
+    /**
      * 本题是 Q142. 环形链表 II 的简化版，只需判断快慢指针能否相遇即可。
      * fast-slow pointers
      * 快慢指针法， 分别定义 fast 和 slow指针，从头结点出发，fast指针每次移动两个节点，slow指针每次移动一个节点，如果 fast 和 slow指针在途中相遇 ，说明这个链表有环。

@@ -1,6 +1,28 @@
 package com.answer.linkedlist;
 
 public class Q147_Insertion_Sort_List {
+    /**
+     * 对链表进行插入排序
+     * 给定单个链表的头 head ，使用 插入排序 对链表进行排序，并返回 排序后链表的头 。
+     *
+     * 插入排序 算法的步骤:
+     *  插入排序是迭代的，每次只移动一个元素，直到所有元素可以形成一个有序的输出列表。
+     *  每次迭代中，插入排序只从输入数据中移除一个待排序的元素，找到它在序列中适当的位置，并将其插入。
+     *  重复直到所有输入数据插入完为止。
+     * 下面是插入排序算法的一个图形示例。部分排序的列表(黑色)最初只包含列表中的第一个元素。每次迭代时，从输入数据中删除一个元素(红色)，并就地插入已排序的列表中。
+     *
+     * Given the head of a singly linked list, sort the list using insertion sort, and return the sorted list's head.
+     *
+     * The steps of the insertion sort algorithm:
+     *  Insertion sort iterates, consuming one input element each repetition and growing a sorted output list.
+     *  At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list and inserts it there.
+     *  It repeats until no input elements remain.
+     * The following is a graphical example of the insertion sort algorithm. The partially sorted list (black) initially contains only the first element in the list. One element (red) is removed from the input data and inserted in-place into the sorted list with each iteration.
+     *
+     * 示例 1：
+     *  输入: head = [4,2,1,3]
+     *  输出: [1,2,3,4]
+     */
     public static void main(String[] args) {
         // [4,2,1,3]
         ListNode node4 = new ListNode(3, null);
