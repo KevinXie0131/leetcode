@@ -7,6 +7,15 @@ import java.util.Deque;
 
 public class Q111_Minimum_Depth_of_Binary_Tree {
     /**
+     * 二叉树的最小深度
+     * 给定一个二叉树，找出其最小深度。
+     * 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+     * 说明：叶子节点是指没有子节点的节点
+     * Given a binary tree, find its minimum depth.
+     * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+     * Note: A leaf is a node with no children.
+     */
+    /**
      * 最⼩深度是从根节点到最近叶⼦节点的最短路径上的节点数量。注意是叶⼦节点。
      * 什么是叶⼦节点，左右孩⼦都为空的节点才是叶⼦节点!
      *

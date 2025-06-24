@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q110_Balanced_Binary_Tree {
     /**
+     * 平衡二叉树
+     * 给定一个二叉树，判断它是否是 平衡二叉树
+     * Given a binary tree, determine if it is height-balanced.
+     */
+    /**
      * ⼀棵⾼度平衡⼆叉树定义为：⼀个⼆叉树每个节点的左右两个⼦树的⾼度差的绝对值不超过1
      *
      * ⼆叉树节点的深度：指从根节点到该节点的最长简单路径边的条数。

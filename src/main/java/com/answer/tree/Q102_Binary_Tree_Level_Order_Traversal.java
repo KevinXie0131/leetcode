@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q102_Binary_Tree_Level_Order_Traversal {
     /**
+     * 二叉树的层序遍历
+     * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
+     * Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+     */
+    /**
      * 层序遍历
      * 需要借用一个辅助数据结构即队列来实现，队列先进先出，符合一层一层遍历的逻辑，而用栈先进后出适合模拟深度优先遍历也就是递归的逻辑。
      * 层序遍历方式就是图论中的广度优先遍历

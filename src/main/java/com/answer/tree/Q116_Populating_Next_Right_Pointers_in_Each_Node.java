@@ -5,6 +5,27 @@ import java.util.*;
 
 public class Q116_Populating_Next_Right_Pointers_in_Each_Node {
     /**
+     * 填充每个节点的下一个右侧节点指针
+     * 给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+     * struct Node {
+     *   int val;
+     *   Node *left;
+     *   Node *right;
+     *   Node *next;
+     * }
+     * 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+     * 初始状态下，所有 next 指针都被设置为 NULL。
+     * You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+     * struct Node {
+     *   int val;
+     *   Node *left;
+     *   Node *right;
+     *   Node *next;
+     * }
+     * Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+     * Initially, all next pointers are set to NULL.
+     */
+    /**
      * 只能使用常量级额外空间, 基本上就是要求使用递归了，迭代的方式一定会用到栈或者队列
      * 递归: 最关键的点是可以通过上一层递归 搭出来的线，进行本次搭线。
      */

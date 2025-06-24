@@ -7,6 +7,20 @@ import java.util.Queue;
 
 public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II {
     /**
+     * 填充每个节点的下一个右侧节点指针 II
+     * 给定一个二叉树：
+     * struct Node {
+     *   int val;
+     *   Node *left;
+     *   Node *right;
+     *   Node *next;
+     * }
+     * 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL 。
+     * 初始状态下，所有 next 指针都被设置为 NULL 。
+     * Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+     * Initially, all next pointers are set to NULL.
+     */
+    /**
      * 这道题目说是二叉树，但116题目说是完整二叉树，其实没有任何差别，一样的代码一样的逻辑一样的味道
      * 与Q116的区别就是不一定是满二叉树
      * 相比于 Q116. 填充每个节点的下一个右侧节点指针，本题给出的二叉树没有满二叉树的限制，因此可能存在空节点，

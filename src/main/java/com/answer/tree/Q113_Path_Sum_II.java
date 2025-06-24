@@ -5,6 +5,13 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q113_Path_Sum_II {
+    /**
+     * 路径总和 II
+     * 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
+     * 叶子节点 是指没有子节点的节点。
+     * Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.
+     * A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
+     */
     public static void main(String[] args) {
         TreeNode root = new TreeNode(5);
         TreeNode root1 = new TreeNode(4);

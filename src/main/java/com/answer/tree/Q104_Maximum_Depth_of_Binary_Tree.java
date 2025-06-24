@@ -6,6 +6,13 @@ import java.util.*;
 
 public class Q104_Maximum_Depth_of_Binary_Tree {
     /**
+     * 二叉树的最大深度
+     * 给定一个二叉树 root ，返回其最大深度。
+     * 二叉树的 最大深度 是指从根节点到最远叶子节点的最长路径上的节点数。
+     * Given the root of a binary tree, return its maximum depth.
+     * A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+     */
+    /**
      * 前序（中左右）求的就是深度，也可以用后序遍历（左右中）, 求的是高度。
      * 二叉树节点的深度：指从根节点到该节点的最长简单路径边的条数或者节点数（取决于深度从0开始还是从1开始）
      * 二叉树节点的高度：指从该节点到叶子节点的最长简单路径边的条数或者节点数（取决于高度从0开始还是从1开始）

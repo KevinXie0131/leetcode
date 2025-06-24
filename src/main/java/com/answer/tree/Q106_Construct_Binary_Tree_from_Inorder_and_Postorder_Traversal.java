@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
     /**
+     * 从中序与后序遍历序列构造二叉树
+     * 给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历， postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 。
+     * Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
+     */
+    /**
      * 根据⼀棵树的中序遍历与后序遍历构造⼆叉树
      * 以后序数组的最后⼀个元素为切割点，先切中序数组，根据中序数组，反过来在切后序数组。⼀层⼀层切下去，每次后序数组最后⼀个元素就是节点元素
      *

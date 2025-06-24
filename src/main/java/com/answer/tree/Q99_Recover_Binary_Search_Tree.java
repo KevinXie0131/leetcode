@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q99_Recover_Binary_Search_Tree {
     /**
+     * 恢复二叉搜索树
+     * 给你二叉搜索树的根节点 root ，该树中的 恰好 两个节点的值被错误地交换。请在不改变其结构的情况下，恢复这棵树 。
+     * You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.
+     */
+    /**
      * 先读取所有节点，再判断顺序有问题的节点，再交换
      */
     public void recoverTree(TreeNode root) {

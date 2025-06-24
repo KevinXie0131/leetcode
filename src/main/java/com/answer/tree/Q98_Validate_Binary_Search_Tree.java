@@ -5,6 +5,20 @@ import com.template.TreeNode;
 import java.util.*;
 
 public class Q98_Validate_Binary_Search_Tree {
+    /**
+     * 验证二叉搜索树
+     * 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
+     * 有效 二叉搜索树定义如下：
+     *  节点的左子树只包含 小于 当前节点的数。
+     *  节点的右子树只包含 大于 当前节点的数。
+     *  所有左子树和右子树自身必须也是二叉搜索树。
+     * Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+     * A valid BST is defined as follows:
+     *  The left subtree of a node contains only nodes with keys less than the node's key.
+     *  The right subtree of a node contains only nodes with keys greater than the node's key.
+     *  Both the left and right subtrees must also be binary search trees.
+     *
+     */
     public static void main(String[] args) {
         TreeNode root = new TreeNode(0);
         boolean isValid = isValidBST5(root);

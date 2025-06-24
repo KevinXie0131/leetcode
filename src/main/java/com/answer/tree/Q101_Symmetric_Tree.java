@@ -6,6 +6,11 @@ import java.util.*;
 
 public class Q101_Symmetric_Tree {
     /**
+     * 对称二叉树
+     * 给你一个二叉树的根节点 root ， 检查它是否轴对称。
+     * Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+     */
+    /**
      * 本题遍历只能是“后序遍历”，因为我们要通过递归函数的返回值来判断两个子树的内侧节点和外侧节点是否相等。
      * 正是因为要遍历两棵树而且要比较内侧和外侧节点，所以准确的来说是一个树的遍历顺序是左右中，一个树的遍历顺序是右左中。
      */
