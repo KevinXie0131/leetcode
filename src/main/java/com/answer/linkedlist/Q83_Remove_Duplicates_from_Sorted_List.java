@@ -2,8 +2,17 @@ package com.answer.linkedlist;
 
 public class Q83_Remove_Duplicates_from_Sorted_List {
     /**
-     * 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次
-     * delete elements within two pointers
+     * 删除排序链表中的重复元素
+     * 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
+     * Given the head of a sorted linked list, delete all duplicates such that each element appears only once.
+     * Return the linked list sorted as well.
+     *
+     * 示例 1：
+     *  输入：head = [1,1,2]
+     *  输出：[1,2]
+     * 示例 2：
+     *  输入：head = [1,1,2,3,3]
+     *  输出：[1,2,3]
      */
     public ListNode deleteDuplicates_0(ListNode head) {
         ListNode dummy = new ListNode(-1, head);
