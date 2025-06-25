@@ -33,7 +33,8 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
                 right = mid - 1;
             }
         }
-        result[0] = left < nums.length && nums[left] == target ? left : -1;
+       // result[0] = left < nums.length && nums[left] == target ? left : -1;
+        result[0] = left;
 
         left = 0;
         right = nums.length - 1;
@@ -45,8 +46,45 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
                 right = mid - 1;
             }
         }
-        result[1] = right >= 0 && nums[right] == target ? right : -1;
+       // result[1] = right >= 0 && nums[right] == target ? right : -1;
+        result[1] = right;
         return result;
+    }
+    /**
+     * 先找到这个数的右边相邻数字，也就是 >target 的第一个数。在所有数都是整数的前提下，>target 等价于 ≥target+1，
+     * 这样就可以复用我们已经写好的二分函数了，即 lowerBound(nums, target + 1)，算出这个数的下标后，将其减一，就得到 ≤target 的最后一个数的下标。
+     */
+    public int[] searchRange_8(int[] nums, int target) {
+        int start = lowerBound(nums, target);
+        if (start == nums.length || nums[start] != target) {
+            return new int[]{-1, -1}; // nums 中没有 target
+        }
+        // 如果 start 存在，那么 end 必定存在
+        int end = lowerBound(nums, target + 1) - 1;
+        return new int[]{start, end};
+    }
+
+    // lowerBound 返回最小的满足 nums[i] >= target 的下标 i
+    // 如果数组为空，或者所有数都 < target，则返回 nums.length
+    // 要求 nums 是非递减的，即 nums[i] <= nums[i + 1]
+    private int lowerBound(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1; // 闭区间 [left, right]
+        while (left <= right) { // 区间不为空
+            // 循环不变量：
+            // nums[left-1] < target
+            // nums[right+1] >= target
+            int mid = left + (right - left) / 2;
+            if (nums[mid] >= target) {
+                right = mid - 1; // 范围缩小到 [left, mid-1]
+            } else {
+                left = mid + 1; // 范围缩小到 [mid+1, right]
+            }
+        }
+        // 循环结束后 left = right+1
+        // 此时 nums[left-1] < target 而 nums[left] = nums[right+1] >= target
+        // 所以 left 就是第一个 >= target 的元素下标
+        return left;
     }
     /**
      * From 睡不醒的鲤鱼
