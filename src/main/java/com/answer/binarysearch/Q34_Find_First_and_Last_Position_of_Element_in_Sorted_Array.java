@@ -20,6 +20,35 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         System.out.println(Arrays.toString(searchRange_7(nums, target))); // 输出：[3,4]
     }
     /**
+     * refer to Q704_Binary_Search
+     */
+    public int[] searchRange_0(int[] nums, int target) {
+        int[] result = new int[2];
+        int left = 0, right = nums.length - 1; // 闭区间 [left, right]
+        while (left <= right) { // 寻找左侧边界的二分搜索
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] >= target) {
+                right = mid - 1;
+            }
+        }
+        result[0] = left < nums.length && nums[left] == target ? left : -1;
+
+        left = 0;
+        right = nums.length - 1;
+        while (left <= right) { // 寻找右侧边界的二分查找
+            int mid = left + (right - left) / 2;
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            }
+        }
+        result[1] = right >= 0 && nums[right] == target ? right : -1;
+        return result;
+    }
+    /**
      * From 睡不醒的鲤鱼
      * 求左右边界的二分查找。
      * 为什么计算 mid 时需要 + 1？
@@ -119,7 +148,6 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         if (target == nums[left]) return new int[]{left, left};
         if (target == nums[right]) return new int[]{right, right};
         return new int[]{-1, -1};
-
     }
     /**
      * 解法三
@@ -129,6 +157,7 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         int right = searchRight(nums,target);
         return new int[]{left,right};
     }
+
     public int searchLeft(int[] nums,int target){
         // 寻找元素第一次出现的地方
         int left = 0;
@@ -152,6 +181,7 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         }
         return -1;
     }
+
     public int searchRight(int[] nums,int target){
         // 找最后一次出现
         int left = 0;

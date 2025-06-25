@@ -108,7 +108,7 @@ public class Q704_Binary_Search {
             int mid = left + (right - left) / 2;
             if (nums[mid] < target) {
                 left = mid + 1; // 范围缩小到 [mid + 1, right]
-            } else {
+            } else if (nums[mid] >= target) {
                 right = mid - 1; // 范围缩小到 [left, mid - 1]
             }
         }
