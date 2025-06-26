@@ -24,9 +24,18 @@ public class Q704_Binary_Search {
      *      nums is sorted in ascending order.
      */
     public static void main(String[] args) {
-       int[] nums = {-1,0,3,5,9,9,9,9,9};
+       int[] nums = {0,1,2,3,5,5,5,7,8,9};
        int target = 5;
        int result = lowerBound(nums, target);
+       System.out.println(result);
+       target = 5;
+       result = lowerClosestBound(nums, target);
+       System.out.println(result);
+       target = 5;
+       result = higherBound(nums, target);
+       System.out.println(result);
+       target = 5;
+       result = higherClosestBound(nums, target);
        System.out.println(result);
     }
     /**
@@ -153,6 +162,44 @@ public class Q704_Binary_Search {
         // return left - 1 >=0 && nums[left - 1] == target? left - 1 : -1;
         // 或者 right
          return right >= 0 && nums[right] == target? right : -1;
+    }
+    /**
+     * Find the closest element in lower bound
+     */
+    static private int lowerClosestBound(int[] nums, int target) {
+        int left = 0, right = nums.length - 1; // 闭区间 [left, right]
+        target++;
+
+        while (left <= right) { // 区间不为空
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1; // 范围缩小到 [mid + 1, right]
+            } else if (nums[mid] > target) {
+                right = mid - 1; // 范围缩小到 [left, mid - 1]
+            } else if (nums[mid] == target) {
+                right = mid - 1;
+            }
+        }
+        return left; // 或者 right + 1
+    }
+    /**
+     * Find the closest element in higher bound
+     */
+    static private int higherClosestBound(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        target--;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else if (nums[mid] == target) {
+                left = mid + 1;
+            }
+        }
+        return right; // 或者 left - 1
     }
     /**
      * 左闭右开
