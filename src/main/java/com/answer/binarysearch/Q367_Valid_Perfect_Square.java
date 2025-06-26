@@ -45,6 +45,25 @@ public class Q367_Valid_Perfect_Square {
         return false;
     }
     /**
+     * 二分查找
+     */
+    public boolean isPerfectSquare5(int num) {
+        int left = 0, right = num;
+        while (left <= right) {
+            int mid = (right - left) / 2 + left;
+
+            long square = (long) mid * mid;
+            if (square < num) {
+                left = mid + 1;
+            } else if (square > num) {
+                right = mid - 1;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
      * Approach 1: Brute Force
      */
     public boolean isPerfectSquare_1(int num) {
@@ -69,5 +88,12 @@ public class Q367_Valid_Perfect_Square {
             x = (x + num / x) / 2;
         }
         return (x * x == num);
+    }
+    /**
+     * 方法一：使用内置的库函数
+     */
+    public boolean isPerfectSquare3(int num) {
+        int x = (int) Math.sqrt(num);
+        return x * x == num;
     }
 }
