@@ -1,5 +1,7 @@
 package com.answer.binarysearch;
 
+import java.util.Arrays;
+
 public class Q35_Search_Insert_Position {
     /**
      * 搜索插入位置
@@ -13,6 +15,41 @@ public class Q35_Search_Insert_Position {
      *  输出: 2
      * nums 为 无重复元素 的 升序 排列数组 / nums contains distinct values sorted in ascending order.
      */
+    /**
+     * refer to Q704_Binary_Search
+     * 在一个有序数组中找第一个大于等于 target 的下标: 寻找左侧边界的二分搜索
+     */
+    public int searchInsert_0(int[] nums, int target) {
+        int left = 0, right = nums.length - 1; // 闭区间 [left, right]
+        while (left <= right) { // 区间不为空
+            // 循环不变量：
+            // nums[left-1] < target
+            // nums[right+1] >= target
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1; // 范围缩小到 [mid + 1, right]
+            } else if (nums[mid] > target) {
+                right = mid - 1; // 范围缩小到 [left, mid - 1]
+            } else if (nums[mid] == target) {
+                // 别返回，锁定左侧边界
+                right = mid - 1;  // 所以当 nums[mid] == target 时不要立即返回, 而要收紧右侧边界以锁定左侧边界
+            }
+        }
+        return left;
+        // 为什么直接return left；因为如果上面的没有返回return middle，说明最后一定是，left>right从而跳出循环的，
+        // 在此之前是left=right，如果最后是right-1导致的left>right，说明原来的right位置是大于target的，
+        // 所以返回原来的right位置即left位置；如果最后是left+1导致的left>right,说明是原来的的left=right这个位置小于target，
+        // 而right能移动到这个位置，说明此位置右侧是大于target的，left现在加1就移动到了这样的位置，返回left即可
+    }
+    /**
+     * 库函数写法
+     * 注意：只能在没有重复元素的时候使用
+     * 如果 nums 有多个值为 target 的数，返回值不一定是第一个 >= target 的数的下标
+     */
+    public int searchInsert_9(int[] nums, int target) {
+        int i = Arrays.binarySearch(nums, target);
+        return i >= 0 ? i : ~i; // ~i = -i-1
+    }
     /**
      * 暴力解法 时间复杂度：O(n) 空间复杂度：O(1)
      */

@@ -25,8 +25,8 @@ public class Q704_Binary_Search {
      */
     public static void main(String[] args) {
        int[] nums = {-1,0,3,5,9,9,9,9,9};
-       int target = -10;
-       int result = higherBound(nums, target);
+       int target = 2;
+       int result = lowerBound(nums, target);
        System.out.println(result);
     }
     /**
