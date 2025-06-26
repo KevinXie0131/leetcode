@@ -17,7 +17,7 @@ public class Q374_Guess_Number_Higher_or_Lower {
      *  输出：6
      */
     /**
-     * Approach 2: Using Binary Search
+     * Approach 2: Using Binary Search 二分查找
      */
     public int guessNumber(int n) {
         int left = 1;
