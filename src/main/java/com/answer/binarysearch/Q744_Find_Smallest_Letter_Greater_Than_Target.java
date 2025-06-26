@@ -39,6 +39,67 @@ public class Q744_Find_Smallest_Letter_Greater_Than_Target {
         System.out.println(nextGreatestLetter_0a(letters, target));
     }
     /**
+     * refer to Q704_Binary_Search
+     * 大于 问题转化为target + 1
+     * 寻找左侧边界
+     */
+    public char nextGreatestLetter_0(char[] letters, char target) {
+        int left = 0, right = letters.length - 1; // 闭区间 [left, right]
+        target++; // 稍微转换一下target = target + 1,即可转变为寻找lower bound 的问题
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (letters[mid] < target) {
+                left = mid + 1; // 范围缩小到 [mid + 1, right]
+            } else if (letters[mid] >= target) {
+                right = mid - 1; // 范围缩小到 [left, mid - 1]
+            }
+        }
+        int index = left < letters.length? left : 0;
+        return letters[index];
+    }
+    /**
+     * 容易理解的二分法，加了注释
+     */
+    public char nextGreatestLetter_3(char[] letters, char target) {
+        int n = letters.length;
+        int l = 0;
+        int r = n - 1;
+        char ans = letters[0]; // 找不到默认返回[0]
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if (letters[m] == target) {
+                l = m + 1; // 相等 但是我要的刚好大一点，所以找右边吧
+            }
+            else if (letters[m] < target) {
+                l = m + 1; // 相等都不行 更何况比目标还小呢？ 继续找右边吧
+            }
+            else {
+                ans = letters[m]; // 找到了，我先保存起来 我想要左边界（第一次出现）的位置
+                r = m - 1;// 所以更新右边界，让右边界往左移动，继续找左边
+            }
+        }
+        return ans;
+    }
+    /**
+     * 查找区间左闭右闭[]
+     * 1. 取 left = 0, right = lettersSize - 1，相当于在区间 [left, right]中查找；
+     * 2. 如果 letters[mid] > target，则在区间 [left, mid - 1] 中查找；
+     * 3. 否则在区间 [mid + 1, right] 中查找；
+     * 4. 当 letters[mid] == target 时，也在区间 [mid + 1, right] 中查找，因为题目要求查找比目标字母大的最小字母，所有得在查找到 letters[mid] == target 时，还需要在 mid 的右侧查找。
+     */
+    public char nextGreatestLetter_9(char[] letters, char target) {
+        int left = 0, right = letters.length - 1;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if (letters[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left == letters.length ? letters[0] : letters[left];
+    }
+    /**
      * Approach #3: Binary Search
      */
     public static char nextGreatestLetter(char[] letters, char target) {
@@ -129,8 +190,9 @@ public class Q744_Find_Smallest_Letter_Greater_Than_Target {
      * Approach #2: Linear Scan
      */
     public char nextGreatestLetter_2(char[] letters, char target) {
-        for (char c: letters)
+        for (char c: letters){
             if (c > target) return c;
+        }
         return letters[0];
     }
 }
