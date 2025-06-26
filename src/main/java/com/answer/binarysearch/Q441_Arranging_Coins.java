@@ -19,6 +19,7 @@ public class Q441_Arranging_Coins {
     }
     /**
      * Approach 1: Binary Search
+     * 到第 k 行时的总硬币数等于 k(k+1)/2, 只要找到最接近 n 的那个 k 就可以了, 所以，我们可以使用二分查找
      */
     public static int arrangeCoins(int n) {
         long left = 1;
@@ -26,7 +27,7 @@ public class Q441_Arranging_Coins {
 
         while(left <= right){
             long mid = (left + right) >>> 1;
-            long sum = (mid + 1) * mid / 2;
+            long sum = (mid + 1) * mid / 2; // 根据等差数列求和公式可知，前 mid个完整阶梯行所需的硬币数量
 
             if(sum == n){
                 return (int)mid;
@@ -36,7 +37,28 @@ public class Q441_Arranging_Coins {
                 right = mid - 1;
             }
         }
-        return (int)left - 1; // return (int)right;
+        return (int)left - 1; // return (int)right; // 是同样的结果。right<left,而根据题意，k取较小值
+    }
+    /**
+     * anther form 二分查找
+     */
+    public  int arrangeCoins1(int n) {
+        int left = 1;
+        int right = n;
+        int result = 0;
+
+        while(left <= right){
+            long mid = (left + right) >>> 1;
+            long sum = (mid + 1) * mid / 2; // 根据等差数列求和公式可知，前 mid个完整阶梯行所需的硬币数量
+
+            if(sum <= n){
+                result = (int) mid;
+                left = (int)mid + 1;
+            }else{
+                right = (int)mid - 1;
+            }
+        }
+        return result;
     }
     /**
      * Brute force
