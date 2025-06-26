@@ -72,7 +72,7 @@ public class Q69_Sqrt {
                 right = mid - 1;
             }
         }
-        return left - 1;
+        return left - 1; // return right; // works too
     }
     /**
      * 同上
@@ -85,11 +85,15 @@ public class Q69_Sqrt {
         while (left <= right) {
             pivot = left + (right - left) / 2;
             num = (long)pivot * pivot;
-            if (num > x) right = pivot - 1;
-            else if (num < x) left = pivot + 1;
-            else return pivot;
+            if (num > x) {
+                right = pivot - 1;
+            } else if (num < x) {
+                left = pivot + 1;
+            } else {
+                return pivot;
+            }
         }
-        return right;
+        return right; // return left - 1; // works too
     }
     /**
      * 方法三：牛顿迭代 (牛顿迭代法的核心思想是通过不断逼近的方式，快速找到方程的根)
