@@ -39,7 +39,7 @@ public class Q74_Search_a_2D_Matrix {
         return false;
     }
     /**
-     * Approach 4: Search Space Reduction
+     * Approach 4: Search Space Reduction 排除法
      * Optimized Brute force
      */
     public boolean searchMatrix_0(int[][] matrix, int target) {
@@ -57,7 +57,7 @@ public class Q74_Search_a_2D_Matrix {
         return false;
     }
     /**
-     * Binary Search 二分算法
+     * Binary Search 一次二分查找
      * 看成升序一维数组
      * 我们可以想象把整个矩阵，按行展开成一个一维数组，那么这个一维数组单调递增，然后直接二分即可。
      * 二分时可以通过整除和取模运算得到二维数组的坐标。
@@ -86,7 +86,7 @@ public class Q74_Search_a_2D_Matrix {
         return false;
     }
     /**
-     * Binary Search
+     * Binary Search 两次二分查找
      */
     public static boolean searchMatrix_2(int[][] matrix, int target) {
         int rowIndex = binarySearchFirstColumn(matrix, target);
@@ -109,7 +109,7 @@ public class Q74_Search_a_2D_Matrix {
                 low = mid + 1;
             }
         }
-        return low - 1;
+        return low - 1; // return high; // works too
     }
 
     public static boolean binarySearchRow(int[] row, int target) {
