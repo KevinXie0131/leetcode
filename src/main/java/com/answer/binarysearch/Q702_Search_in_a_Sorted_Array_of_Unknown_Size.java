@@ -26,6 +26,10 @@ public class Q702_Search_in_a_Sorted_Array_of_Unknown_Size {
      *       The value of each element in the array will be in the range [-9999, 9999].
      */
     /**
+     * 这个题目要求你在长度未知的有序数组中搜索目标值。你不能直接用数组长度，但可以用 ArrayReader.get(index) 来访问元素。如果越界则返回 2147483647。
+     * 思路：二分查找法（Binary Search）。
+     *       需要先“扩展边界”——确定一个大于等于 target 的右边界。
+     *       然后在 [0, right] 区间二分查找。
      * Approach 1: Binary Search
      * 1. Define search limits, i.e. left and right boundaries for the search.
      * 2. Perform binary search in the defined boundaries.
@@ -36,25 +40,26 @@ public class Q702_Search_in_a_Sorted_Array_of_Unknown_Size {
     public int search(ArrayReader reader, int target) {
         if (reader.get(0) == target) return 0;
         // search boundaries
-
-        int left = 0, right = 1;
-        while (reader.get(right) < target) {
+        int left = 0, right = 1;   // 1. 寻找右边界
+        //先用指数级扩展法找到一个右边界。
+        //然后普通二分查找。
+        //访问越界会返回 2147483647，不影响查找逻辑。
+        while (reader.get(right) < target) { // 扩展右边界直到大于等于 target 或者越界
             left = right; // Move the left boundary to the right
             right <<= 1; // Extend the right boundary: right = right * 2;
         }
-
-        // binary search
-        int pivot, num;
+        // 2. 二分查找
         while (left <= right) {
-            pivot = left + ((right - left) >> 1);
-            num = reader.get(pivot);
-
-            if (num == target) return pivot;
-            if (num > target) right = pivot - 1;
-            else left = pivot + 1;
+            int mid = left + (right - left) / 2;
+            int val = reader.get(mid);
+            if (val == target) {
+                return mid;
+            } else if (val > target) {
+                right = mid - 1;
+            } else { // val < target
+                left = mid + 1;
+            }
         }
-
-        // there is no target element
         return -1;
     }
     /**
