@@ -75,7 +75,7 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
             // nums[left-1] < target
             // nums[right+1] >= target
             int mid = left + (right - left) / 2;
-            if (nums[mid] >= target) {
+            if (nums[mid] >= target) { // 只需在target <= nums[mid] 时，让 right = mid - 1即可，这样我们就可以继续在 mid 的左区间继续找
                 right = mid - 1; // 范围缩小到 [left, mid-1]
             } else {
                 left = mid + 1; // 范围缩小到 [mid+1, right]

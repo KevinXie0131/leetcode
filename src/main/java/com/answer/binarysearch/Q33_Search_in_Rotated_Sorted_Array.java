@@ -97,6 +97,7 @@ public class Q33_Search_in_Rotated_Sorted_Array {
             }
         }
         return nums[left] != target ? -1 : left;
+        // return nums[right + 1] != target ? -1 : right + 1; // works too
     }
     /**
      * From 睡不醒的鲤鱼
