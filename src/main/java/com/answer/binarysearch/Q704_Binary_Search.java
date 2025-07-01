@@ -2,6 +2,10 @@ package com.answer.binarysearch;
 
 public class Q704_Binary_Search {
     /**
+     * https://leetcode.cn/problems/search-in-rotated-sorted-array-ii/solutions/536363/yi-wen-dai-ni-gao-ding-er-fen-sou-suo-ji-ki52/
+     * 一文带你搞定二分搜索及多个变种
+     */
+    /**
      * 二分查找
      * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果 target 存在返回下标，否则返回 -1。
      * Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
@@ -161,7 +165,7 @@ public class Q704_Binary_Search {
         // 由于 while 的退出条件是 left == right + 1，所以当 target 比 nums 中所有元素都大时，会存在以下情况使得索引越界
         // return left - 1 >=0 && nums[left - 1] == target? left - 1 : -1;
         // 或者 right
-         return right >= 0 && nums[right] == target? right : -1;
+         return right >= 0 && nums[right] == target? right : -1; // 刚好和计算下边界时条件相反，返回right
     }
     /**
      * Find the closest element in lower bound

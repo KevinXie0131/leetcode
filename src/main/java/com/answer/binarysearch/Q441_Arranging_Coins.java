@@ -40,7 +40,7 @@ public class Q441_Arranging_Coins {
         return (int)left - 1; // return (int)right; // 是同样的结果。right<left,而根据题意，k取较小值
     }
     /**
-     * anther form 二分查找
+     * another form 二分查找
      */
     public  int arrangeCoins1(int n) {
         int left = 1;
