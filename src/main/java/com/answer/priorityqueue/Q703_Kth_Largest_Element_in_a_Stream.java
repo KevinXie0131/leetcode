@@ -47,7 +47,6 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
         System.out.println( object.add(9));
         System.out.println( object.add(4));
     }
-
     /**
      * Approach: Heap - use a min-heap (min means that the heap will remove/find the smallest element, a max heap is the same thing but for the largest element)
      * Time:
@@ -63,7 +62,16 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
      */
     PriorityQueue<Integer> heap = null;
     int k = 0;
-
+    /**
+     * 经典 TopK: 本题是我们求在一个数据流中的第 K 大元素
+     * 本题的操作步骤如下：
+     *  使用大小为 K的小根堆，在初始化的时候，保证堆中的元素个数不超过 K。
+     *  在每次 add()的时候，将新元素 push()到堆中，如果此时堆中的元素超过了 K，那么需要把堆中的最小元素（堆顶）pop()出来。
+     *  此时堆中的最小元素（堆顶）就是整个数据流中的第 K大元素。
+     *
+     * 为什么能保证堆顶元素是第 K 大元素？
+     * 因为小根堆中保留的一直是堆中的前 K 大的元素，堆的大小是 K，所以堆顶元素是第 K 大元素。
+     */
     public Q703_Kth_Largest_Element_in_a_Stream(int k, int[] nums) {
         this.heap = new PriorityQueue<>();
         this.k = k;
@@ -86,10 +94,11 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
     public void KthLargest1(int k, int[] nums) {
         this.heap = new PriorityQueue<>();
         this.k = k;
-
+        // 堆排序解法 - 维护一个大小为k的小根堆, 若当前要插入的数小于等于堆顶元素, 则丢弃; 否则插入, 可以直接插入到堆顶,
+        // 在进行调整. 堆顶元素保存了第k大元素.
         for(int n : nums){
             if( this.heap.size() < k){
-                this.heap.offer(n);
+                this.heap.offer(n); // 当数据不满K位，则直接加入队列
             }
             else if(this.heap.peek() < n){
                 this.heap.poll();
@@ -97,11 +106,12 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
             }
         }
     }
+
     public int add1(int val) {
         if( this.heap.size() < k){
-            this.heap.offer(val);
+            this.heap.offer(val); // 如果此时堆的 size 还没到 k，直接将 val 入堆
         }
-        else if(this.heap.peek() < val){
+        else if(this.heap.peek() < val){   // 插入元素大于队首时，说明现在队首已经不再是前k大中的元素了，将其移除，插入新的数据
             this.heap.poll();
             this.heap.offer(val);
         }
