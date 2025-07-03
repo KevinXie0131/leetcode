@@ -1,5 +1,7 @@
 package com.answer.priorityqueue;
 
+import java.util.PriorityQueue;
+
 public class Q1642_Furthest_Building_You_Can_Reach {
     /**
      * 可以到达的最远建筑
@@ -33,4 +35,35 @@ public class Q1642_Furthest_Building_You_Can_Reach {
      *      - Go to building 4 using your only ladder. You must use either bricks or ladders because 6 < 9.
      *      It is impossible to go beyond building 4 because you do not have any more bricks or ladders.
      */
+    /**
+     * 优先队列 + 贪心
+     * 可以用贪心的思路来想这个问题。「梯子」相当于一次性的无限量砖块，
+     * 如果我们有l架梯子，那么我们会在 Δh 最大的那l次使用梯子，而在剩余的情况下使用砖块。
+     */
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        // 贪心的使用在高度差最大的一个位置, 所以要用到大顶堆，来快速得到已经走过的位置的最大高度差
+        PriorityQueue<Integer> queue = new PriorityQueue<>(ladders, (a, b) -> b - a);    // 用于保存已经使用的砖块
+
+        for(int i = 0; i < heights.length - 1; i++){
+            if(heights[i] >= heights[i + 1]){
+                continue;
+            }
+
+            int gap = heights[i + 1] - heights[i];
+            bricks -= gap;
+            queue.offer(gap); // 贪心策略 优先使用砖块补充，先别管有没有砖块，先用，没有了再换砖块
+            if(bricks >= 0){
+                continue; // 还有砖块
+            }
+
+            if(ladders > 0){ // 这个时候没砖块，要用梯子换，换一定要换最多的砖块
+                ladders--;
+                bricks += queue.poll();// 这里不用担心q为空，因为前面有对应的add动作
+            } else {
+                return i; // 没砖块也没梯子，只能返回
+            }
+        }
+
+        return heights.length - 1;
+    }
 }
