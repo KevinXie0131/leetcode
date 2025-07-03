@@ -102,12 +102,12 @@ public class Q215_Kth_Largest_Element_in_an_Array {
     public int findKthLargest_4(int[] nums, int k) {
         // init heap 'the smallest element first'
         PriorityQueue<Integer> heap = new PriorityQueue<Integer>((n1, n2) -> n1 - n2);
-
         // keep k largest elements in the heap
         for (int n: nums) {
             heap.offer(n);
-            if (heap.size() > k)
+            if (heap.size() > k) {
                 heap.poll();
+            }
         }
         // output
         return heap.peek();
@@ -133,8 +133,11 @@ public class Q215_Kth_Largest_Element_in_an_Array {
                 nums[j] = tmp;
             }
         }
-        if (k <= j) return quickselect(nums, l, j, k); // 只要某次划分的 q 为倒数第 k 个下标的时候，我们就已经找到了答案
-        else return quickselect(nums, j + 1, r, k);
+        if (k <= j){
+            return quickselect(nums, l, j, k); // 只要某次划分的 q 为倒数第 k 个下标的时候，我们就已经找到了答案
+        } else {
+            return quickselect(nums, j + 1, r, k);
+        }
     }
 
 }
