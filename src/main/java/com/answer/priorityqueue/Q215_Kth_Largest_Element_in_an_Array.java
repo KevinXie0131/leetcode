@@ -61,7 +61,15 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         return queue.poll(); // 第k个最大的数值
     }
     /**
-     * 最小堆 优化 时间复杂度是O(NlogK)
+     * 最小堆 优化
+     *
+     * 维护一个大小为 k 的最小堆；
+     * 遍历数组，当堆的大小小于 k 时，直接加入堆；
+     * 当堆已满时，比较当前元素与堆顶元素：如果当前元素大于堆顶，弹出堆顶并加入当前元素，否则跳过；
+     * 最后堆顶元素就是第 k 大的元素。
+     *
+     * 时间复杂度：O(nlogk)，每个元素最多进行一次堆操作；
+     * 空间复杂度：O(k)，「优先队列」的大小。
      */
     public static int findKthLargest_1(int[] nums, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue();
@@ -69,10 +77,10 @@ public class Q215_Kth_Largest_Element_in_an_Array {
         for(int i = 0; i < k; i++){
             queue.offer(nums[i]);
         }
-
+        // 在元素入堆的过程中，不断淘汰最小值，最终留在堆中就是数组中前 k 个最大元素，并且堆顶元素为前 k 大元素中的最小值，即为第 k 个元素
         for(int i = k; i < nums.length; i++){
-            if(nums[i] > queue.peek()){
-                queue.poll();
+            if(nums[i] > queue.peek()){ // 只要当前遍历的元素比堆顶元素大，堆顶弹出，遍历的元素进去
+                queue.poll();   // Java 没有 replace()，所以得先 poll() 出来，然后再放回去
                 queue.offer(nums[i]);
             }
         }
@@ -82,7 +90,8 @@ public class Q215_Kth_Largest_Element_in_an_Array {
      * 最小堆 优化 一次遍历
      */
     public static int findKthLargest_2(int[] nums, int k) {
-        PriorityQueue<Integer> queue = new PriorityQueue();
+        // 使用一个含有 k 个元素的最小堆，PriorityQueue 底层是动态数组，为了防止数组扩容产生消耗，可以先指定数组的长度
+        PriorityQueue<Integer> queue = new PriorityQueue(k);
 
         for(int i = 0; i < nums.length; i++){
             if(queue.size() < k){
