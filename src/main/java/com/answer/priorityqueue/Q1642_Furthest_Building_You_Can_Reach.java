@@ -42,7 +42,7 @@ public class Q1642_Furthest_Building_You_Can_Reach {
      */
     public int furthestBuilding(int[] heights, int bricks, int ladders) {
         // 贪心的使用在高度差最大的一个位置, 所以要用到大顶堆，来快速得到已经走过的位置的最大高度差
-        PriorityQueue<Integer> queue = new PriorityQueue<>(ladders, (a, b) -> b - a);    // 用于保存已经使用的砖块
+        PriorityQueue<Integer> queue = new PriorityQueue<>((a, b) -> b - a);    // 用于保存已经使用的砖块
 
         for(int i = 0; i < heights.length - 1; i++){
             if(heights[i] >= heights[i + 1]){
