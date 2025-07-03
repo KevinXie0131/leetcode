@@ -113,10 +113,10 @@ public class Q378_Kth_smallest_Element_in_a_Sorted_Matrix {
         }
         return right;
     }
-
+    // 从循环的坐标变化路径发现，这样进行统计时，最坏的情况是从左下角走到右上角，只需要对比2*n次元素大小。
     static private int findNotBiggerThanMid(int[][] matrix, int mid, int row, int col) {
         // 以列为单位找，找到每一列最后一个<=mid的数即知道每一列有多少个数<=mid
-        int i = row - 1;
+        int i = row - 1; // 从左下角开始查找
         int j = 0;
         int count = 0;
         while (i >= 0 && j < col) {
@@ -146,9 +146,11 @@ public class Q378_Kth_smallest_Element_in_a_Sorted_Matrix {
         }
         return left;
     }
-
+    // 初始位置在 matrix[n−1][0]（即左下角）；
+    // 设当前位置为 matrix[i][j]。若 matrix[i][j]≤mid，则将当前所在列的不大于 mid 的数的数量（即 i+1）累加到答案中，并向右移动，否则向上移动；
+    // 不断移动直到走出格子为止。
     public static boolean check(int[][] matrix, int mid, int k, int n) {
-        int i = n - 1;
+        int i = n - 1; //初始位置在 matrix[n−1][0]（即左下角）
         int j = 0;
         int num = 0;
         while (i >= 0 && j < n) {
