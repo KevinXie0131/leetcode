@@ -21,36 +21,61 @@ public class Offer_40_Least_K_Numbers {
      */
     public static void main(String[] args) {
         int[] arr = {3, 2, 3, 2, 2, 1, 1, 4, 4, 5};
-        int k = 2;
+        int k = 4;
 
-        int[] result = getLeastNumbers_2(arr, k);
+        int[] result = getLeastNumbers(arr, k);
         System.out.println(Arrays.toString(result));
     }
-
+    /**
+     * 优先队列: 用一个大根堆实时维护数组的前 k 小值
+     * 时间复杂度：O(nlogk)，其中 n 是数组 arr 的长度。由于大根堆实时维护前 k 小值，所以插入删除都是 O(logk) 的时间复杂度，最坏情况下数组里 n 个数都会插入
+     * 空间复杂度：O(k)，因为大根堆里最多 k 个数
+     */
     public static int[] getLeastNumbers(int[] arr, int k) {
+        if(k == 0) return new int[]{};
+
         int[] result = new int[k];
-        PriorityQueue<Integer> queue = new PriorityQueue<Integer>(new Comparator<Integer>() {
+      /*  PriorityQueue<Integer> queue = new PriorityQueue<Integer>(new Comparator<Integer>() {
             public int compare(Integer num1, Integer num2) {
                 return num2 - num1;
             }
-        });
+        });*/
+      //  PriorityQueue<Integer> queue = new PriorityQueue<Integer>((a, b) -> b - a);
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
 
         for (int i = 0; i < k; i++) {
-            queue.offer(arr[i]);
+            queue.offer(arr[i]); // 堆内元素不足 k 个：直接将 arr[i] 放入堆内
         }
+        // 从第 k+1 个数开始遍历，如果当前遍历到的数比大根堆的堆顶的数要小，就把堆顶的数弹出，再插入当前遍历到的数。
         for (int i = k; i < arr.length; i++) {
             if (queue.peek() > arr[i]) {
                 queue.poll();
                 queue.offer(arr[i]);
             }
         }
-        for (int i = 0; i < k; i++) {
-            result[i] = queue.poll();
+        // 最后将大根堆里的数存入数组返回即可
+        for (int i = k - 1; i >= 0; i--) {
+            result[i] = queue.poll(); // 使用堆中元素「逆序」构造答案
         }
-
         return result;
     }
-
+    /**
+     * 优先队列（小根堆）
+     * 一个直观的想法是使用「优先队列（小根堆）」，起始将所有元素放入堆中，然后再从堆中取出 k 个元素并「顺序」构造答案。
+     * 时间复杂度：建堆复杂度为 O(nlogn)，构造答案复杂度为 O(klogn)。整体复杂度为 O(nlogn)
+     * 空间复杂度：O(n+k)
+     */
+    public int[] smallestK(int[] arr, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>((a, b) -> a - b);
+        for (int i : arr){
+            queue.add(i);
+        }
+        int[] ans = new int[k];
+        for (int i = 0; i < k; i++) {
+            ans[i] = queue.poll();
+        }
+        return ans;
+    }
     /**
      * Treemap
      */
@@ -83,7 +108,6 @@ public class Offer_40_Least_K_Numbers {
             }
 
         }
-
         // 最后返回map中的元素
         int[] res = new int[k];
         int idx = 0;
@@ -95,10 +119,8 @@ public class Offer_40_Least_K_Numbers {
         }
         return res;
     }
-
     /**
      * use array as counter
-     * \
      */
     public static int[] getLeastNumbers_2(int[] arr, int k) {
         if (k == 0 || arr.length == 0) {
