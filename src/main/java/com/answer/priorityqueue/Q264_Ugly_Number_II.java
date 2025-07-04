@@ -18,7 +18,7 @@ public class Q264_Ugly_Number_II {
      *
      */
     public static void main(String[] args) {
-        System.out.println(nthUglyNumber_2(10));
+        System.out.println(nthUglyNumber8(10));
     }
     /**
      * Time Limit Exceeded
@@ -53,9 +53,9 @@ public class Q264_Ugly_Number_II {
     public static int nthUglyNumber_2(int n) {
         int[] factors = new int[]{2, 3, 5};
         // 为了避免重复元素，可以使用哈希集合去重，避免相同元素多次加入堆。
-        Set<Long> set = new HashSet<>(); // 用于去重
-        PriorityQueue<Long> queue = new PriorityQueue<>();
-        set.add(1L);
+        Set<Long> seen  = new HashSet<>(); // 用于去重
+        PriorityQueue<Long> queue = new PriorityQueue<>(); // 最小堆
+        seen.add(1L);
         queue.add(1L);
         long val = -1L;
         for(int i = 1; i <= n; i++){
@@ -65,10 +65,10 @@ public class Q264_Ugly_Number_II {
                 return (int)val;
             }*/
             for(int factor :factors ){
-                long ugly = factor * val;
-                if(!set.contains(ugly)){ // 去除重复的数值 比如 2*3=6 和3*2=6
-                    set.add(ugly);
-                    queue.add(ugly);
+                long next  = factor * val;
+                if(!seen.contains(next)){ // 去除重复的数值 比如 2*3=6 和3*2=6
+                    seen.add(next); // 哈希集合去重，避免相同元素多次加入堆。
+                    queue.add(next);
                 }
             }
             System.out.println(queue);
@@ -76,7 +76,59 @@ public class Q264_Ugly_Number_II {
         return (int)val;
     }
     /**
+     * anther form 小顶堆
+     */
+    static public int nthUglyNumber8(int n) {
+        Set<Long> set = new HashSet<>();
+        PriorityQueue<Long> queue = new PriorityQueue<>();
+        queue.offer(1L);
+        set.add(1L);
+        int count = 0;
+        while (!queue.isEmpty()) {
+            long cur = queue.poll();
+            count++;
+            if (count == n) {
+                return (int)cur;
+            }
+
+            if (!set.contains(cur * 2)) {
+                queue.offer(cur * 2);
+                set.add(cur * 2);
+            }
+            if (!set.contains(cur * 3)) {
+                queue.offer(cur * 3);
+                set.add(cur * 3);
+            }
+            if (!set.contains(cur * 5)) {
+                queue.offer(cur * 5);
+                set.add(cur * 5);
+            }
+        }
+        return -1;
+    }
+    /**
+     * 多路归并
+     * 维护三个指针，将三个数组合并为一个严格递增的数组。就是传统的双指针法，只是这题是三个指针
+     */
+    public int nthUglyNumber6(int n) {
+        int[] res = new int[n + 1];
+        res[1] = 1;
+
+        for(int p2 = 1, p3 = 1, p5 = 1, index = 2; index <= n; index++){
+            int v2 = res[p2] * 2, v3 = res[p3] * 3, v5 = res[p5] * 5; // 表示当前的三个元素
+            int min = Math.min(v2, Math.min(v3, v5)); // 求出三者的最小值
+            res[index] = min; // 存储到 res 中
+            // 指针后移 (同时具有去重的效果)
+            if(v2 == min) p2++; // 不能使用 else if
+            if(v3 == min) p3++;
+            if(v5 == min) p5++;
+        }
+
+        return res[n];
+    }
+    /**
      * TreeMap - don't worry about duplicated elements
+     * 可以用是 TreeSet ，这样就不用考虑重复元素了。
      */
     static public int nthUglyNumber_3(int n) {
         TreeSet<Long> set = new TreeSet<Long>(); //TreeSet会排序
