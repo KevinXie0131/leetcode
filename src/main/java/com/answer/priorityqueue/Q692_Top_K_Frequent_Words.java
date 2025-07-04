@@ -32,6 +32,14 @@ public class Q692_Top_K_Frequent_Words {
         int k = 4;
         List<String> list = topKFrequent_4(words, k);
         System.out.println(list);
+        // [强制】所有整型包装类对象之间值的比较，全部使用equals方法比较。
+        // 说明:对于 Integer var = ? 在-128 至 127 之间的赋值，Integer 对象是在 IntegerCache.cache 产生， 会复用已有对象，这个区间内的 Integer 值可以直接使用==进行判断，
+        // 但是这个区间之外的所有数据，都 会在堆上产生，并不会复用已有对象，这是一个大坑，推荐使用 equals 方法进行判断。
+        // 所以这里，当cnt.get(word1) 的值超过127，即同一个单词出现次数超过127次之后就会出现异常值:
+        Map<String, Integer> cnt = new HashMap<String, Integer>();
+        cnt.put("a", 128);
+        cnt.put("b",128);
+        System.out.println(cnt.get("a") == (cnt.get("b")));
     }
     /**
      * Use Hashmap 哈希表 + 排序
@@ -47,6 +55,8 @@ public class Q692_Top_K_Frequent_Words {
         for(Map.Entry<String, Integer> entry : map.entrySet()){
             list.add(entry.getKey());
         }
+        //   list= new ArrayList<>(map.keySet());
+
         // 排序时，如果两个字符串出现频率相同，那么我们让两字符串中字典序较小的排在前面，否则我们让出现频率较高的排在前面。
         Collections.sort(list, (o1, o2) -> map.get(o1) == map.get(o2) ? o1.compareTo(o2) : map.get(o2) - map.get(o1));
 
@@ -102,7 +112,7 @@ public class Q692_Top_K_Frequent_Words {
         while(!queue.isEmpty()){
             list.add(queue.poll().getKey());
         }
-        Collections.reverse(list);
+        Collections.reverse(list); // 注意最后需要反转元素的顺序。
         return list;
     }
     /**
