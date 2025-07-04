@@ -35,7 +35,8 @@ public class Q347_Top_K_Frequent_Elements {
      * 大顶堆（堆头是最大元素），小顶堆（堆头是最小元素）
      *
      * 所以我们要用小顶堆，因为要统计最大前k个元素，只有小顶堆每次将最小的元素弹出，最后小顶堆里积累的才是前k个最大元素。
-     * 时间复杂度: O(nlogk) (本题就要使用优先级队列来对部分频率进行排序。 注意这里是对部分数据进行排序而不需要对所有数据排序！) 空间复杂度: O(n)
+     * 时间复杂度: O(nlogk) (本题就要使用优先级队列来对部分频率进行排序。 注意这里是对部分数据进行排序而不需要对所有数据排序！)
+     * 空间复杂度: O(n)
      */
     public static int[] topKFrequent0(int[] nums, int k) {
         // 优先级队列，为了避免复杂 api 操作，pq 存储数组
@@ -44,8 +45,8 @@ public class Q347_Top_K_Frequent_Elements {
         Map<Integer, Integer> map = new HashMap<>();  // 记录元素出现次数 key为数组元素值,val为对应出现次数
         int[] result = new int[k]; // 答案数组为 k 个元素
 
-        for(int i : nums){
-            map.put(i, map.getOrDefault(i, 0) + 1);
+        for(int num : nums){
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
         for(Map.Entry<Integer, Integer> entry : map.entrySet()){
             queue.offer(new int[]{entry.getKey(), entry.getValue()}); // 将 kv 转化成数组
@@ -57,7 +58,7 @@ public class Q347_Top_K_Frequent_Elements {
                 queue.poll();
             }
         }
-        for(int i = 0; i < k; i++){
+        for(int i = k-1; i >= 0; i--){  //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
             // res[i] = pq.poll()[0]; // 获取优先队列里的元素
             int[] res = queue.poll();
             result[i] = res[0];
@@ -95,7 +96,7 @@ public class Q347_Top_K_Frequent_Elements {
             queue.offer(entry);
         }
 
-        for(int i = k-1; i >= 0; i--){  //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
+        for(int i = 0; i < k; i++){
             result[i] = queue.poll().getKey();
         }
         return result;
@@ -139,12 +140,11 @@ public class Q347_Top_K_Frequent_Elements {
                 }
             }
         }*/
-        for(int i = k-1; i >= 0; i--){
+        for(int i = k - 1; i >= 0; i--){
             result[i] = queue.poll().getKey(); //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
         }
         return result;
     }
-
     /**
      * TreeMap
      */
@@ -184,5 +184,48 @@ public class Q347_Top_K_Frequent_Elements {
             }
         }
         return res;
+    }
+    /**
+     * 桶排序法
+     * 首先依旧使用哈希表统计频率，统计完成后，创建一个数组，将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标即可。
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     */
+    public int[] topKFrequent5(int[] nums, int k) {
+        List<Integer> res = new ArrayList();
+        // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
+        HashMap<Integer,Integer> map = new HashMap();
+        for(int i = 0; i < nums.length; i++){
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+        //桶排序
+        //将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
+        List<Integer>[] list = new List[nums.length + 1]; // 把出现次数相同的元素，放到同一个桶中
+/*        Arrays.setAll(list, i -> new ArrayList<>());*/
+        for (Map.Entry<Integer,Integer> entry:map.entrySet()) {
+            // key 是 元素, value 是 频率, 获得元素的频率后，将其存入对应的数组下标中
+            int count = entry.getValue();
+            if (list[count] == null) {
+                list[count] = new ArrayList<>();
+            }
+            list[count].add(entry.getKey());
+        }
+        int[] result = new int[k];
+        int index = 0;
+        // 倒序遍历数组获取出现顺序从大到小的排列
+        for (int i = list.length - 1; i >= 0; i--) {
+            if (list[i] != null) {
+                for (int num : list[i]) {
+                    result[index++] = num;
+                    if (index >= k){
+                        break;
+                    }
+                }
+                if (index >= k) {
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

@@ -2,7 +2,7 @@ package com.answer.priorityqueue;
 
 import java.util.*;
 
-public class Q295_Find_Median_from_Data_Stream {
+public class Q295_Find_Median_from_Data_Stream { // Hard 困难
     /**
      * 数据流的中位数
      * 中位数是有序整数列表中的中间值。如果列表的大小是偶数，则没有中间值，中位数是两个中间值的平均值。
