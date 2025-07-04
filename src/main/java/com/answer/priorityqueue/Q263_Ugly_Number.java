@@ -20,6 +20,8 @@ public class Q263_Ugly_Number {
      */
     /**
      * An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
+     * 为判断 n 是否满足上述形式，可以对 n 反复除以 2,3,5，直到 n 不再包含质因数 2,3,5。若剩下的数等于 1，则说明 n 不包含其他质因数，是丑数
+     * 时间复杂度：当 n 是以 2 为底的对数时，需要除以 logn 次。复杂度为 O(logn)
      */
     public boolean isUgly(int n) {
         if(n <= 0) return false;
