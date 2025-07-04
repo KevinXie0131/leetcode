@@ -34,7 +34,8 @@ public class Q263_Ugly_Number {
         return n == 1;
     }
     /**
-     *
+     * 对 n 执行 2 3 5 的整除操作即可，直到 n 被除干净，如果 n 最终为 1 说明是丑数
+     * 注意，2 3 5 先除哪一个都是可以的，因为乘法本身具有交换律。
      */
     public boolean isUgly_1(int n) {
         if (n <= 0) return false;
