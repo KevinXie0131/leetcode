@@ -24,15 +24,17 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
      *
      * nums1 and nums2 both are sorted in non-decreasing order. / nums1 和 nums2 均为 升序排列
      */
-    /**
-     * PriorityQueue
-     */
     public static void main(String[] args) {
         int[] nums1 = {1,2,4,5,6};
         int [] nums2 = {3,5,7,9};
         int k = 3;
         System.out.println(kSmallestPairs_1(nums1, nums2, k));
     }
+    /**
+     * PriorityQueue 优先队列
+     * 时间复杂度：O(klogk)
+     * 空间复杂度：O(k)
+     */
     public static List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         PriorityQueue<int[]> heap = new PriorityQueue<>(k, (o1, o2)->{
@@ -40,7 +42,7 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
         });
         int m = nums1.length;
         int n = nums2.length;
-        for(int i = 0; i < Math.min(k, m); i++){
+        for(int i = 0; i < Math.min(k, m); i++){ // 至多 k 个
             heap.offer(new int[]{i, 0});
         }
 
@@ -54,6 +56,70 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
             k--;
         }
         return res;
+    }
+    /**
+     * another form
+     */
+    public static List<List<Integer>> kSmallestPairs_a(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> res = new ArrayList<>(k);
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        int m = nums1.length;
+        int n = nums2.length;
+        // 把 nums1 的所有索引入队，nums2 的索引初始时都是 0
+        // 优化：最多入队 k 个就可以了，因为提示中 k 的范围较小，这样可以提高效率
+        for(int i = 0; i < Math.min(k, m); i++){ // 至多 k 个
+            heap.offer(new int[]{nums1[i] + nums2[0], i, 0});
+        }
+        // 最多弹出 k 次
+        while(k > 0 && !heap.isEmpty()){
+            int[] pos = heap.poll();
+            int x = pos[1];
+            int y = pos[2];
+            res.add(Arrays.asList(nums1[x], nums2[y]));
+            if(y < n - 1){
+                heap.offer(new int[]{nums1[x] + nums2[y + 1], x, y + 1});// 将 index2 加 1 之后继续入队
+            }
+            k--;
+        }
+        return res;
+    }
+    /**
+     * 多路归并
+     * 每次需要从 n 个元素中找出最小的元素，需要找 k 次，所以时间复杂度为 O(klogn)
+     * 所以为了更优的时间复杂度，尽量让 nums1 长度更短；如果 nums1 长度更长，我们就交换两个数组的位置
+     */
+    private boolean flag = true; // 标志是否交换了位置 true : 未交换；false : 交换了
+
+    public List<List<Integer>> kSmallestPairs0(int[] nums1, int[] nums2, int k) {
+        int n = nums1.length, m = nums2.length;
+        // 判断是否需要交换顺序
+        if (n > m && !(flag = false)){
+            return kSmallestPairs0(nums2, nums1, k);
+        }
+        // 注意：队列中存储的只是下标
+        // 按照「两数和」递增排列
+        Queue<int[]> q = new PriorityQueue<>((a, b) -> nums1[a[0]] + nums2[a[1]] - nums1[b[0]] - nums2[b[1]]);
+        // 加入头节点
+        // 这里有一个技巧：如果 k < n，那么一开始只需要往队列中添加前 k 个元素即可
+        // 后面的 n - k 个元素肯定比前面 k 个元素大，所以加入没有意义
+        for (int i = 0; i < Math.min(n, k); i++){
+            q.offer(new int[]{i, 0});
+        }
+        List<List<Integer>> ans = new ArrayList<>();
+        while (ans.size() < k && !q.isEmpty()) {
+            // 弹出队顶元素，即最小元素
+            int[] cur = q.poll();
+            int a = cur[0], b = cur[1];
+            ans.add(new ArrayList<Integer>(){{
+                add(flag ? nums1[a] : nums2[b]);
+                add(flag ? nums2[b] : nums1[a]);
+            }});
+            // 如果 b + 1 < m 表示该条链条后面还有元素，可以继续加入队列中
+            if (b + 1 < m){
+                q.offer(new int[]{a, b + 1});
+            }
+        }
+        return ans;
     }
     /**
      * Binary Search
@@ -122,6 +188,7 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
         }
         return ans;
     }
+
     static boolean check(int x, int k) {
         int ans = 0;
         for (int i = 0; i < n && ans < k; i++) {
