@@ -65,7 +65,6 @@ public class Q692_Top_K_Frequent_Words {
         });*/
         return list.subList(0, k);
     }
-
     /**
      * Use PriorityQueue - Min heap
      */
@@ -76,7 +75,6 @@ public class Q692_Top_K_Frequent_Words {
         for(String s : words){
             map.put(s, map.getOrDefault(s, 0) + 1);
         }
-
         /**
          * Min Heap
          */
@@ -87,9 +85,17 @@ public class Q692_Top_K_Frequent_Words {
             }
         });
         for(Map.Entry<String, Integer> entry : map.entrySet()){
-            queue.offer(entry);
+            /*queue.offer(entry);
             if(queue.size() > k){
                queue.poll();
+            }*/
+            if(queue.size() == k){
+                if(queue.peek().getValue() < entry.getValue()){
+                    queue.poll();
+                    queue.offer(entry);
+                }
+            } else {
+                queue.offer(entry);
             }
         }
         while(!queue.isEmpty()){
@@ -124,6 +130,43 @@ public class Q692_Top_K_Frequent_Words {
             list.add(queue.poll().getKey());
         }
         return list;
+    }
+    /**
+     * 桶排序法
+     */
+    public List<String> topKFrequent_5(String[] words, int k) {
+        List<String> res = new ArrayList();
+
+        HashMap<String, Integer> map = new HashMap();
+        for(int i = 0; i < words.length; i++){
+            map.put(words[i], map.getOrDefault(words[i], 0) + 1);
+        }
+
+        List<String>[] list = new List[words.length + 1];
+        Arrays.setAll(list, i -> new ArrayList<>());
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            int count = entry.getValue();
+            list[count].add(entry.getKey());
+        }
+
+        int index = 0;
+        for (int i = list.length - 1; i >= 0; i--) {
+            if (list[i].size() > 0) {
+                Collections.sort(list[i]);
+                for (String s : list[i]) {
+                    res.add(s);
+                    index++;
+                    if (index >= k){
+                        break;
+                    }
+                }
+                if (index >= k) {
+                    break;
+                }
+            }
+        }
+        return res;
     }
     /**
      * Trie 字典树/前缀树 + PriorityQueue
