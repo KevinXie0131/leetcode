@@ -36,7 +36,7 @@ public class Q20_Valid_Parentheses {
      */
     static public boolean isValid(String s) {
         if(s.isEmpty()) return true;
-        Deque<Character> stack = new ArrayDeque<>();
+        Deque<Character> stack = new ArrayDeque<>(); // 栈
         for(char c : s.toCharArray()){
             if(c == '['){ //碰到左括号，就把相应的右括号入栈
                 stack.push(']');
@@ -67,15 +67,15 @@ public class Q20_Valid_Parentheses {
         if(n % 2 == 1) { // 如果s的长度为奇数，一定不符合要求
             return false;
         }
-        HashMap<Character,Character> map = new HashMap<>();
-        map.put(']','[');
-        map.put(')','(');
-        map.put('}','{');
+        HashMap<Character,Character> pairs  = new HashMap<>();
+        pairs .put(']','[');
+        pairs .put(')','(');
+        pairs .put('}','{');
         Deque<Character> stack = new ArrayDeque<>();
         for(int i = 0; i < n; i++){
             char c = s.charAt(i);
-            if(map.containsKey(c)){
-                if(stack.isEmpty() || stack.peek() != map.get(c)){
+            if(pairs .containsKey(c)){
+                if(stack.isEmpty() || stack.peek() != pairs .get(c)){
                     return false;
                 }
                 stack.pop();
