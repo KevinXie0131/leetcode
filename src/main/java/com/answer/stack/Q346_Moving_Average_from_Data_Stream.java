@@ -56,7 +56,7 @@ public class Q346_Moving_Average_from_Data_Stream {
      * Approach 3: Circular Queue with Array
      * tail = (head + 1) mod size
      */
-    int size1, head = 0, windowSum = 0, count = 0;
+    int size1, head = -1, windowSum = 0, count = 0;
     int[] queue1;
 
     public void MovingAverage_1(int size) {
