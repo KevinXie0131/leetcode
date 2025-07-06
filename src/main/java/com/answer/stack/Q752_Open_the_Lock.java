@@ -157,8 +157,9 @@ public class Q752_Open_the_Lock {
                     String strAdd = str.substring(0, i) + (ch == '9' ? '0' :(char)(ch + 1)) + str.substring(i + 1);
                     String strSub = str.substring(0, i) + (ch == '0' ? '9' : (char)(ch - 1)) + str.substring(i + 1);
                     //如果找到直接返回
-                    if (str.equals(target))
+                    if (str.equals(target)) {
                         return level;
+                    }
                     //不能包含死亡数字也不能包含访问过的字符串
                     if (!visited.contains(strAdd) && !set.contains(strAdd)) {
                         queue.offer(strAdd);

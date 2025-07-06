@@ -96,15 +96,15 @@ public class Q286_Walls_and_Gates {
         }
     }
 
-    static void dfs(int[][] rooms, int i, int j, int val) {
-        if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[i].length || rooms[i][j] < val) {
+    static void dfs(int[][] rooms, int i, int j, int step) {
+        if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[i].length || rooms[i][j] < step) {
             return;
         }
-        rooms[i][j] = val;
+        rooms[i][j] = step;
 
-        dfs(rooms, i + 1, j, val + 1);
-        dfs(rooms, i - 1, j, val + 1);
-        dfs(rooms, i, j + 1, val + 1);
-        dfs(rooms, i, j - 1, val + 1);
+        dfs(rooms, i + 1, j, step + 1);
+        dfs(rooms, i - 1, j, step + 1);
+        dfs(rooms, i, j + 1, step + 1);
+        dfs(rooms, i, j - 1, step + 1);
     }
 }
