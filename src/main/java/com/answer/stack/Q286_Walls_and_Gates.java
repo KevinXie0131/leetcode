@@ -78,9 +78,49 @@ public class Q286_Walls_and_Gates {
                 // If out of bounds or not an empty room, skip
                 if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] != INF) continue; // 墙（-1）和门（0）都不会被更新。
                 // Update distance and add to queue
+                // 每个空房间到最近门的距离
                 rooms[r][c] = rooms[row][col] + 1;// 每次弹出一个房间，把它四周的空房间距离更新为当前距离 + 1，并入队。
                 queue.offer(new int[]{r, c});
             }
+        }
+    }
+    /**
+     * use level in BFS
+     */
+    static public void wallsAndGates0(int[][] rooms) {
+        if (rooms == null || rooms.length == 0 || rooms[0].length == 0) return;
+
+        int m = rooms.length, n = rooms[0].length;
+        Queue<int[]> queue = new LinkedList<>();
+        // Add all gates to the queue
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rooms[i][j] == 0) {
+                    queue.offer(new int[]{i, j});
+                }
+            }
+        }
+        // Directions for up, down, left, right
+        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+        int level = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- > 0) {
+                int[] point = queue.poll();
+                int row = point[0], col = point[1];
+                for (int[] dir : dirs) {
+                    int r = row + dir[0];
+                    int c = col + dir[1];
+                    // If out of bounds or not an empty room, skip
+                    if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] != INF) continue; // 墙（-1）和门（0）都不会被更新。
+                    // Update distance and add to queue
+                    // 每个空房间到最近门的距离
+                    rooms[r][c] = level + 1;// 每次弹出一个房间，把它四周的空房间距离更新为当前距离 + 1，并入队。
+                    queue.offer(new int[]{r, c});
+                }
+            }
+            level++;
         }
     }
     /**
@@ -100,6 +140,7 @@ public class Q286_Walls_and_Gates {
         if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[i].length || rooms[i][j] < step) {
             return;
         }
+
         rooms[i][j] = step;
 
         dfs(rooms, i + 1, j, step + 1);
