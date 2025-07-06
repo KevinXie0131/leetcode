@@ -34,6 +34,9 @@ public class Q933_Number_of_Recent_Calls {
     }
     /**
      * 使用Queue
+     * 一个队列维护发生请求的时间，当在时间 t 收到请求时，将时间 t 入队。
+     * 由于每次收到的请求的时间都比之前的大，因此从队首到队尾的时间值是单调递增的。当在时间 t 收到请求时，
+     * 为了求出 [t−3000,t] 内发生的请求数，我们可以不断从队首弹出早于 t−3000 的时间。循环结束后队列的长度就是 [t−3000,t] 内发生的请求数。
      */
     Deque<Integer> queue;
 
@@ -42,16 +45,21 @@ public class Q933_Number_of_Recent_Calls {
     }
 
     public int ping(int t) {
-        queue.offer(t);
-        while(queue.size() > 0 && t - queue.peek() > 3000){
+        queue.offer(t);//遇到请求就存入队列中，存入t
+        while(queue.size() > 0 && t - queue.peek() > 3000){  // 从队列中淘汰t-3000以前的请求
             queue.poll();
         }
+        /* 队首元素的值在[t - 3000, t]内结束循环 */
+    /*    while (queue.peek() < t - 3000) {   //peek判断有几个，并计数
+            queue.poll();
+        }*/
         return queue.size();
     }
     /**
      * Use array as queue
+     * 双指针+数组存储
      */
-    int left, right;
+    int left, right; //代表最后待插入的位置、t-3000范围的起始位置
     int []times;
 
     public void RecentCounter_1() {
@@ -65,6 +73,6 @@ public class Q933_Number_of_Recent_Calls {
         while (times[left] < t - 3000) {
             left++;
         }
-        return right - left;
+        return right - left;   /* 返回数组的大小 = 发生的请求数 */
     }
 }
