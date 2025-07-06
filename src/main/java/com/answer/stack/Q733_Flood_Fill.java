@@ -1,5 +1,9 @@
 package com.answer.stack;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
 public class Q733_Flood_Fill {
     /**
      * 图像渲染
@@ -28,4 +32,121 @@ public class Q733_Flood_Fill {
      *       From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), all pixels connected by a path of the same color as the starting pixel (i.e., the blue pixels) are colored with the new color.
      *       Note the bottom corner is not colored 2, because it is not horizontally or vertically connected to the starting pixel.
      */
+    public static void main(String[] args) {
+       int[][] image = {{1,1,1},{1,1,0},{1,0,1}};
+       int sr = 1, sc = 1, color = 2;
+       System.out.println(Arrays.deepToString(floodFill(image, sr, sc, color)));
+    }
+    /**
+     * 广度优先搜索
+     */
+    static public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int m = image.length;
+        int n = image[0].length;
+        boolean[][] visited = new boolean[m][n];
+
+        Deque<int[]> queue = new ArrayDeque<>();
+        queue.offer(new int[]{sr, sc});
+        int oldColor = image[sr][sc];
+        image[sr][sc] = color;
+        visited[sr][sc] = true;
+/*        if (oldColor == color) { // visited can be ignored
+            return image;
+        }*/
+        int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        while(!queue.isEmpty()){
+            int[] cur = queue.poll();
+            for(int k = 0; k < 4; k++){
+                int x = cur[0] + dirs[k][0];
+                int y = cur[1] + dirs[k][1];
+                if(x >= 0 && x <= m - 1 && y >= 0 && y <= n - 1 && image[x][y] == oldColor && !visited[x][y]) {
+                    image[x][y] = color;
+                    visited[x][y] = true;
+                    queue.offer(new int[]{x, y});
+                }
+            }
+        }
+        return image;
+    }
+    /**
+     * 深度优先搜索
+     */
+    public int[][] floodFill_1(int[][] image, int sr, int sc, int color) {
+        int m = image.length;
+        int n = image[0].length;
+
+        Deque<int[]> stack = new ArrayDeque<>();
+        stack.push(new int[]{sr, sc});
+        int oldColor = image[sr][sc];
+        image[sr][sc] = color;
+
+        if (oldColor == color) { // visited can be ignored
+            return image; // 如果颜色相同则不处理
+        }
+
+        int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        while(!stack.isEmpty()){
+            int[] cur = stack.pop();
+            for(int k = 0; k < 4; k++){
+                int x = cur[0] + dirs[k][0];
+                int y = cur[1] + dirs[k][1];
+                if(x >= 0 && x <= m - 1 && y >= 0 && y <= n - 1 && image[x][y] == oldColor) {
+                    image[x][y] = color;
+                    stack.push(new int[]{x, y});
+                }
+            }
+        }
+        return image;
+    }
+    /**
+     * DFS
+     */
+    int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public int[][] floodFill_2(int[][] image, int sr, int sc, int color) {
+        int currColor = image[sr][sc];
+        if (currColor != color) {
+            dfs(image, sr, sc, currColor, color);
+        }
+        return image;
+    }
+
+    public void dfs(int[][] image, int sr, int sc, int currColor, int color) {
+        if(image[sr][sc] == currColor){
+            image[sr][sc] = color;
+
+            for(int[] dir : dirs){
+                int x = sr + dir[0];
+                int y = sc + dir[1];
+                if(x >= 0 && x <= image.length - 1 && y >= 0 && y <= image[0].length - 1 && image[x][y] == currColor) {
+                    dfs(image, x, y, currColor, color);
+                }
+            }
+        }
+    }
+    /**
+     * another form
+     */
+    public int[][] floodFill_4(int[][] image, int sr, int sc, int newColor) {
+        helper(image, sr, sc, newColor, image[sr][sc]);
+        return image;
+
+    }
+
+    void helper(int[][] image, int sr, int sc, int newColor, int oldColor) {
+        if (sr < 0 || sc < 0 || sr >= image.length || sc >= image[0].length
+                || image[sr][sc] != oldColor || newColor == oldColor){
+            return;
+        }
+
+        image[sr][sc] = newColor;
+
+        helper(image, sr - 1, sc, newColor, oldColor);
+        helper(image, sr + 1, sc, newColor, oldColor);
+        helper(image, sr, sc - 1, newColor, oldColor);
+        helper(image, sr, sc + 1, newColor, oldColor);
+
+    }
 }
