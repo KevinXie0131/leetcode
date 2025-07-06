@@ -38,7 +38,7 @@ public class Q150_Evaluate_Reverse_Polish_Notation {
      * 其实逆波兰表达式相当于是二叉树中的后序遍历。 大家可以把运算符作为中间节点，按照后序遍历的规则画出一个二叉树。
      */
     public int evalRPN(String[] tokens) {
-        Deque<Integer> stack = new ArrayDeque<>();
+        Deque<Integer> stack = new ArrayDeque<>(); // 栈
         for(String s : tokens){
             if(s.equals("+")){  // leetcode 内置jdk的问题，不能使用==判断字符串是否相等
                 stack.push(stack.pop() + stack.pop());
@@ -47,44 +47,49 @@ public class Q150_Evaluate_Reverse_Polish_Notation {
             }else if(s.equals("*")){
                 stack.push(stack.pop() * stack.pop());
             }else if(s.equals("/")){
-                int temp1 = stack.pop();
+                int temp1 = stack.pop(); // 注意，栈是先进后出的，先出栈的数字是后遇到的，做运算时不要搞反。
                 int temp2 = stack.pop();
-                stack.push(temp2 / temp1);
+                stack.push(temp2 / temp1); // 先出栈的是右操作数，后出栈的是左操作数
             } else{
                 stack.push(Integer.valueOf(s));
             }
         }
-
         return stack.pop();
     }
     /**
-     * Use array as stack
+     * Use array as stack 使用一个数组模拟栈操作
+     * 如果遇到操作数，则将 index 的值加 1，然后将操作数赋给 stack[index]；
+     * 如果遇到运算符，则将 index 的值减 1，此时 stack[index] 和 stack[index+1] 的元素分别是左操作数和右操作数，
+     * 使用运算符对两个操作数进行运算，将运算得到的新操作数赋给 stack[index]。
      */
     public int evalRPN_1(String[] tokens) {
         int n = tokens.length;
-        int[] stack = new int[(n + 1) / 2];
+        int[] stack = new int[(n + 1) / 2]; // 对于一个有效的逆波兰表达式，其长度 n 一定是奇数，且操作数的个数一定比运算符的个数多 1 个
         int index = -1;
-        for(String s : tokens){
-            if(s.equals("+")){
-                stack[index-1] = stack[index-1] + stack[index];
-                index--;
-            }else if(s.equals("-")){
-                stack[index-1] = stack[index-1] - stack[index];
-                index--;
-            }else if(s.equals("*")){
-                stack[index-1] = stack[index-1] * stack[index];
-                index--;
-            }else if(s.equals("/")){
-                int temp1 = stack[index];
-                int temp2 = stack[index-1];
-                stack[index-1] = temp2 / temp1;
-                index--;
-            } else{
-                index++;
-                stack[index] = Integer.valueOf(s);
+        for (int i = 0; i < n; i++) {
+            String token = tokens[i]; //switch代替if-else，效率优化
+            switch (token) { // 遇到操作数时，栈内元素增加 1 个；遇到运算符时，栈内元素减少 1 个
+                case "+":
+                    index--;
+                    stack[index] += stack[index + 1];
+                    break;
+                case "-":
+                    index--;
+                    stack[index] -= stack[index + 1];
+                    break;
+                case "*":
+                    index--;
+                    stack[index] *= stack[index + 1];
+                    break;
+                case "/":
+                    index--;
+                    stack[index] /= stack[index + 1];
+                    break;
+                default:
+                    index++;
+                    stack[index] = Integer.parseInt(token); // Integer.parseInt代替Integer.valueOf,减少自动拆箱装箱操作
             }
         }
-
         return stack[index];
     }
 }
