@@ -17,8 +17,22 @@ public class Q346_Moving_Average_from_Data_Stream {
      *  m.next(3) = (1 + 10 + 3) / 3
      *  m.next(5) = (10 + 3 + 5) / 3
      */
+    public static void main(String[] args) {
+        Q346_Moving_Average_from_Data_Stream m = new Q346_Moving_Average_from_Data_Stream(3);
+        System.out.println(m.next(1));   // 输出 1.0
+        System.out.println(m.next(10));  // 输出 5.5
+        System.out.println(m.next(3));   // 输出 4.666666666666667
+        System.out.println(m.next(5));   // 输出 6.0
+
+        // 额外测试
+        Q346_Moving_Average_from_Data_Stream n = new Q346_Moving_Average_from_Data_Stream(2);
+        System.out.println(n.next(4));   // 输出 4.0
+        System.out.println(n.next(0));   // 输出 2.0
+        System.out.println(n.next(-2));  // 输出 -1.0
+        System.out.println(n.next(8));   // 输出 3.0
+    }
     /**
-     * Approach 2: Double-ended Queue
+     * Approach 2: Double-ended Queue 双端队列，因为队列的两头都可以操作
      */
     Deque<Integer> queue;
     int size;
@@ -44,6 +58,7 @@ public class Q346_Moving_Average_from_Data_Stream {
      */
     int size1, head = 0, windowSum = 0, count = 0;
     int[] queue1;
+
     public void MovingAverage_1(int size) {
         this.size1 = size;
         queue1 = new int[size];
@@ -64,9 +79,11 @@ public class Q346_Moving_Average_from_Data_Stream {
      */
     int size2;
     List queue2 = new ArrayList<Integer>();
+
     public void MovingAverage_2(int size) {
         this.size2 = size;
     }
+
     public double next_2(int val) {
         queue2.add(val);
         // calculate the sum of the moving window
