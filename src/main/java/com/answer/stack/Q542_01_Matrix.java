@@ -1,23 +1,31 @@
 package com.answer.stack;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 public class Q542_01_Matrix {
     /**
-     * Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.
-     * If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and leave the other as original.
-     * Example 1:
-     *  Input: s = "abcdefg", k = 2
-     *  Output: "bacdfeg"
-     * Example 2:
-     *  Input: s = "abcd", k = 2
-     *  Output: "bacd"
-     * 反转字符串 II
-     * 给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。
-     * 如果剩余字符少于 k 个，则将剩余字符全部反转。
-     * 如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。
+     * Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
+     * The distance between two cells sharing a common edge is 1.
+     * 01 矩阵
+     * 给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的距离。
+     * 两个相邻元素间的距离为 1 。
+     *
+     * 示例 2：
+     *   输入：mat = [[0,0,0],
+     *                [0,1,0],
+     *                [1,1,1]]
+     *   输出：[[0,0,0],
+     *         [0,1,0],
+     *         [1,2,1]]
      */
+    public static void main(String[] args) {
+        int[][] mat = {{0,0,0},
+                       {0,1,0},
+                       {1,1,1}};
+        System.out.println(Arrays.deepToString(updateMatrix3(mat)));
+    }
     /**
      * 广度优先搜索
      * 广度优先搜索可以找到从起点到其余所有点的 最短距离
@@ -77,4 +85,107 @@ public class Q542_01_Matrix {
      *     }
      *     level ++;
      */
+    /**
+     * 回溯
+     */
+    private int min;
+
+    public int[][] updateMatrix0(int[][] mat) {
+        if (mat == null) return mat;
+        // 标记数组
+        boolean[][] visitied = new boolean[mat.length][mat[0].length];
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                if (mat[i][j] == 1) {
+                    int count = 0;
+                    min = Integer.MAX_VALUE;
+                    dfs(mat, i, j, count, visitied);
+                    mat[i][j] = min;
+                }
+            }
+        }
+        return mat;
+    }
+
+    public void dfs (int[][] arr,int i,int j,int count,boolean[][] visitied) {
+        if (i < 0 || j < 0 || i >= arr.length || j >= arr[0].length || visitied[i][j]) return;
+        // 剪枝
+        if (count > min) {
+            return;
+        }
+        if (arr[i][j] == 0) {
+            min = Math.min(min, count);
+            return;
+        }
+        visitied[i][j] = true;
+        dfs(arr, i + 1, j, count + 1, visitied);
+        dfs(arr, i, j + 1, count + 1, visitied);
+        dfs(arr, i - 1, j, count + 1, visitied);
+        dfs(arr, i, j - 1, count + 1, visitied);
+        // 回溯
+        visitied[i][j] = false;
+    }
+    /**
+     * DFS
+     * refer to Q286_Walls_and_Gates / Time Limit Exceeded
+     */
+    public int[][] updateMatrix1(int[][] mat) {
+        for (int i = 0; i < mat.length; ++i) {
+            for (int j = 0; j < mat[i].length; ++j) {
+                if (mat[i][j] == 1) {
+                    mat[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        for (int i = 0; i < mat.length; ++i) {
+            for (int j = 0; j < mat[i].length; ++j) {
+                if (mat[i][j] == 0) {
+                    dfs(mat, i, j, 0);
+                }
+            }
+        }
+        return mat;
+    }
+
+    void dfs(int[][] mat, int i, int j, int step) {
+        if (i < 0 || i >= mat.length || j < 0 || j >= mat[i].length || mat[i][j] < step) {
+            return;
+        }
+        mat[i][j] = step;
+
+        dfs(mat, i + 1, j, step + 1);
+        dfs(mat, i - 1, j, step + 1);
+        dfs(mat, i, j + 1, step + 1);
+        dfs(mat, i, j - 1, step + 1);
+    }
+    /**
+     * DFS
+     * can pass all test cases
+     */
+   static public int[][] updateMatrix3(int[][] mat) {
+        int[][] res = new int[mat.length][mat[0].length];
+        for (int i = 0; i < mat.length; ++i) {
+            for (int j = 0; j < mat[i].length; ++j) {
+                if (mat[i][j] == 0) {
+                    dfs1(mat, i, j, 0, res);
+                }
+            }
+        }
+        return res; // return res
+    }
+
+    static void dfs1(int[][] mat, int i, int j, int step, int[][] res) {
+        if (i < 0 || i >= mat.length || j < 0 || j >= mat[i].length
+                || (mat[i][j] == 0 && step > 0) // let the first mat[i][j] == 0 pass
+                || (mat[i][j] == 1 && res[i][j] > 0 && res[i][j] <= step)) { // let mat[i][j] == 1 and distance > step pass
+            return;
+        }
+
+        res[i][j] = step;
+
+        dfs1(mat, i + 1, j, step + 1, res);
+        dfs1(mat, i - 1, j, step + 1, res);
+        dfs1(mat, i, j + 1, step + 1, res);
+        dfs1(mat, i, j - 1, step + 1, res);
+    }
 }
