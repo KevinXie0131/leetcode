@@ -24,13 +24,13 @@ public class Q542_01_Matrix {
         int[][] mat = {{0,0,0},
                        {0,1,0},
                        {1,1,1}};
-        System.out.println(Arrays.deepToString(updateMatrix3(mat)));
+        System.out.println(Arrays.deepToString(updateMatrix(mat)));
     }
     /**
      * 广度优先搜索
      * 广度优先搜索可以找到从起点到其余所有点的 最短距离
      */
-    public int[][] updateMatrix(int[][] mat) { // 找出每个 1 到最近 0 的距离 -> 多源 BFS, 首先需要把多个源点都入队
+    static public int[][] updateMatrix(int[][] mat) { // 找出每个 1 到最近 0 的距离 -> 多源 BFS, 首先需要把多个源点都入队
         int m = mat.length;
         int n = mat[0].length;
 
@@ -62,6 +62,41 @@ public class Q542_01_Matrix {
                 }
             }
             step++;  //下次遍历到的-1元素相比前一次距离step加1
+        }
+        return mat;
+    }
+    /**
+     * anther form
+     * refer to Q286_Walls_and_Gates
+     */
+    public int[][] updateMatrix_0(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+
+        Deque<int[]> queue = new ArrayDeque<>();
+        for(int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(mat[i][j] == 0){
+                    queue.offer(new int[]{i, j});
+                } else {
+                    mat[i][j] = Integer.MIN_VALUE;
+                }
+            }
+        }
+        int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        while(!queue.isEmpty()){
+            int[] cur = queue.poll();
+            for(int k = 0; k < 4; k++){
+                int x = cur[0] + dirs[k][0];
+                int y = cur[1] + dirs[k][1];
+                if(x < 0 || x >= m || y < 0 || y >= n || mat[x][y] != Integer.MIN_VALUE){
+                    continue;
+                }
+
+                mat[x][y] = mat[cur[0]][cur[1]] + 1;
+                queue.offer(new int[]{x, y});
+            }
         }
         return mat;
     }
