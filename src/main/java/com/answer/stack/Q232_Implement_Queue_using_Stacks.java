@@ -31,6 +31,8 @@ public class Q232_Implement_Queue_using_Stacks {
      *  myQueue.empty(); // return false
      */
     /**
+     * 双栈: 将一个栈当作输入栈，用于压入 push 传入的数据；另一个栈当作输出栈，用于 pop 和 peek 操作
+     * 每次 pop 或 peek 时，若输出栈为空则将输入栈的全部数据依次弹出并压入输出栈，这样输出栈从栈顶往栈底的顺序就是队列从队首往队尾的顺序。
      * 时间复杂度: push和empty为O(1), pop和peek为O(n)
      * 空间复杂度: O(n)
      */
@@ -45,6 +47,8 @@ public class Q232_Implement_Queue_using_Stacks {
     public void push(int x) {
         stackIn.push(x);
     }
+    // 当出队栈存在内容时，出队栈的栈顶，即为第一个出队的元素。
+    // 若出队栈无元素，我们的需求又是出队的话，我们就需要将入队栈的内容反序导入出队栈，然后弹出栈顶即可。
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
         // 只有当stOut为空的时候，再从stIn里导入数据（导入stIn全部数据）
