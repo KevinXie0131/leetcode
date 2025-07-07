@@ -120,28 +120,26 @@ public class Q225_Implement_Stack_using_Queues {
     }
     /**
      * 使用两个 Queue 实现方法1
+     * queue1用于存储栈内的元素  queue2作为入栈操作的辅助队列。
      */
     class MyStack1 {
-
         Queue<Integer> queue1; // 和栈中保持一样元素的队列
         Queue<Integer> queue2; // 辅助队列
 
-        /** Initialize your data structure here. */
         public MyStack1() {
             queue1 = new LinkedList<>();
             queue2 = new LinkedList<>();
         }
 
-        /** Push element x onto stack. */
+        /** 首先将元素入队到queue2 然后将queue1的全部元素依次出队并入队到queue2, 此时queue2的前端的元素即为新入栈的元素 */
         public void push(int x) {
             queue2.offer(x); // 先放在辅助队列中
             while (!queue1.isEmpty()){
-                queue2.offer(queue1.poll());
+                queue2.offer(queue1.poll());  //然后再将queue1的所有元素加入到queue2，使得新插入的元素插入到了队列头
             }
-            Queue<Integer> queueTemp;
-            queueTemp = queue1;
+            Queue<Integer> temp = queue1;
             queue1 = queue2;
-            queue2 = queueTemp; // 最后交换queue1和queue2，将元素都放到queue1中
+            queue2 = temp; // 最后交换queue1和queue2，将元素都放到queue1中, queue1的前端和后端分别对应栈顶和栈底
         }
 
         /** Removes the element on top of the stack and returns that element. */
