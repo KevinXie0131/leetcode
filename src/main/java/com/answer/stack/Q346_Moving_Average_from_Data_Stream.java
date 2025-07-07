@@ -64,8 +64,8 @@ public class Q346_Moving_Average_from_Data_Stream {
         insert = 0;
         sum1 = 0;
     }
-    //    // 用新值覆盖数组中当前位置的旧值，并调整 sum。
-    //    // 指针循环递增。
+    // 用新值覆盖数组中当前位置的旧值，并调整 sum。
+    // 指针循环递增。
     // 返回当前窗口的平均值。
     public double next3(int val) {
         if (n < window.length) {
