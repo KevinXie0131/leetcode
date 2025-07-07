@@ -28,11 +28,14 @@ public class Q155_Min_Stack {
      *  minStack.pop();
      *  minStack.top();      --> 返回 0.
      *  minStack.getMin();   --> 返回 -2.
-     *
      */
     private Stack<Integer> stack;
-    private Stack<Integer> minStack;
-
+    private Stack<Integer> minStack; // 用于存获取 stack 中最小值
+    /**
+     * 辅助栈
+     * 可以在每个元素 a 入栈时把当前栈的最小值 m 存储起来。在这之后无论何时，如果栈顶元素是 a，我们就可以直接返回存储的最小值 m。
+     * 只需要设计一个数据结构，使得每个元素 a 与其相应的最小值 m 时刻保持一一对应。因此我们可以使用一个辅助栈，与元素栈同步插入与删除，用于存储与每个元素对应的最小值。
+     */
     public Q155_Min_Stack() {
         stack = new Stack<>();
         minStack = new Stack<>();
@@ -40,22 +43,35 @@ public class Q155_Min_Stack {
     }
 
     public void push(int val) {
-        stack.push(val);
+        stack.push(val); // 当一个元素要入栈时，我们取当前辅助栈的栈顶存储的最小值，与当前元素比较得出最小值，将这个最小值插入辅助栈中；
 
         int top = minStack.peek();
         minStack.push(Math.min(top, val)); // 保存最小值在minStack
     }
 
+/*    public void push(int x) {
+        stack.push(x);
+        if(minStack.isEmpty() || x <= minStack.peek())
+            minStack.push(x);
+    }*/
+
     public void pop() {
-        stack.pop();
+        stack.pop(); // 当一个元素要出栈时，我们把辅助栈的栈顶元素也一并弹出；
         minStack.pop();
     }
+
+/*    public void pop() {
+        if(stack.pop().equals(minStack.peek()))
+            minStack.pop();
+    }*/
 
     public int top() {
         return stack.peek();
     }
-
+    /**
+     * 题目要求在常数时间内获得栈中的最小值
+     */
     public int getMin() {
-        return minStack.peek();
+        return minStack.peek(); // 在任意一个时刻，栈内元素的最小值就存储在辅助栈的栈顶元素中。
     }
 }

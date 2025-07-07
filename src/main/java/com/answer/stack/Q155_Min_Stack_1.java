@@ -3,7 +3,7 @@ package com.answer.stack;
 import java.util.Stack;
 
 public class Q155_Min_Stack_1 {
-
+    // 元组
     private Stack<MyTuple> stack;
 
     public Q155_Min_Stack_1() {
