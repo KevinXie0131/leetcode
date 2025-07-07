@@ -23,7 +23,6 @@ public class Q346_Moving_Average_from_Data_Stream {
         System.out.println(m.next(10));  // 输出 5.5
         System.out.println(m.next(3));   // 输出 4.666666666666667
         System.out.println(m.next(5));   // 输出 6.0
-
         // 额外测试
         Q346_Moving_Average_from_Data_Stream n = new Q346_Moving_Average_from_Data_Stream(2);
         System.out.println(n.next(4));   // 输出 4.0
@@ -51,6 +50,36 @@ public class Q346_Moving_Average_from_Data_Stream {
         queue.offer(val);
         sum += val;
         return sum / queue.size();
+    }
+    /**
+     * 环形数组（Circular Array）
+     */
+    private int[] window; // window：固定长度的数组，保存窗口内的数字。
+    private int n, insert; // n：当前窗口内元素数量，初始化为 0，最多等于窗口大小。 insert：下一个要插入的位置（循环使用）。
+    private double sum1; // sum：窗口元素和。
+
+    public void MovingAverage_3(int size) {
+        window = new int[size];
+        n = 0;
+        insert = 0;
+        sum1 = 0;
+    }
+    //    // 用新值覆盖数组中当前位置的旧值，并调整 sum。
+    //    // 指针循环递增。
+    // 返回当前窗口的平均值。
+    public double next3(int val) {
+        if (n < window.length) {
+            n++;
+        }
+        // 减去要被覆盖的数
+        sum1 -= window[insert];
+        // 加上新数
+        sum1 += val;
+        // 放入数组
+        window[insert] = val;
+        // 移动下标
+        insert = (insert + 1) % window.length;
+        return sum1 / n;
     }
     /**
      * Approach 3: Circular Queue with Array
