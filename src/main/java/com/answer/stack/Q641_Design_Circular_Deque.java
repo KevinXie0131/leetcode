@@ -37,7 +37,7 @@ public class Q641_Design_Circular_Deque {
     int capacity;
     int[] elements;
     /**
-     * 数组: 利用循环队列实现双端队列
+     * 数组实现: 利用循环队列实现双端队列
      */
     public Q641_Design_Circular_Deque(int k) {
         capacity = k + 1;
@@ -59,7 +59,7 @@ public class Q641_Design_Circular_Deque {
             return false;
         }
         elements[rear] = value;
-        rear = (rear + 1) % capacity;
+        rear = (rear + 1) % capacity; // 指向队列尾部（即最后 1 个有效数据）的 下一个位置，即下一个从队尾入队元素的位置
         return true;
     }
 
@@ -67,7 +67,7 @@ public class Q641_Design_Circular_Deque {
         if(isEmpty()){
             return false;
         }
-        front = (front + 1) % capacity;
+        front = (front + 1) % capacity;  // front 被设计在数组的开头，所以是 +1
         return true;
     }
 
@@ -75,7 +75,7 @@ public class Q641_Design_Circular_Deque {
         if(isEmpty()){
             return false;
         }
-        rear = (rear - 1 + capacity) % capacity;
+        rear = (rear - 1 + capacity) % capacity;   // rear 被设计在数组的末尾，所以是 -1
         return true;
     }
 
@@ -90,14 +90,14 @@ public class Q641_Design_Circular_Deque {
         if(isEmpty()){
             return -1;
         }
-        return elements[(rear - 1 + capacity) % capacity];
+        return elements[(rear - 1 + capacity) % capacity];  // 当 rear 为 0 时防止数组越界
     }
 
     public boolean isEmpty() {
         return rear == front;//队列判空的条件是 front = rear
     }
 
-    public boolean isFull() {
+    public boolean isFull() { // 注意：这个设计是非常经典的做法
         return ((rear + 1) % capacity) == front; // 队列判满的条件是 front = (rear + 1) mod capacity
     }
     /**
@@ -173,7 +173,7 @@ public class Q641_Design_Circular_Deque {
         return size1 == limit;
     }
     /**
-     * 链表: 使用双向链表来模拟双端队列
+     * 链表实现: 使用双向链表来模拟双端队列
      */
     private class DLinkListNode {
         int val;
@@ -248,7 +248,43 @@ public class Q641_Design_Circular_Deque {
         size--;
         return true;
     }
+    /**
+     * 方便垃圾回收
+     */
+    public boolean deleteFront3_() {
+        //判断是否为空
+        if (isEmpty()) {
+            return false;
+        }
+        size--;
+        DLinkListNode next = head.next;
+        //让删除节点指向null 方便垃圾回收
+        head.next = null;
+        if (next != null) {
+            next.prev = null;
+        }
+        head = next;
+        return true;
+    }
 
+    public boolean deleteLast3_a() {
+        //判断是否为空
+        if (isEmpty()) {
+            return false;
+        }
+        size--;
+        //让删除节点指向null 方便垃圾回收
+        DLinkListNode pre = tail.prev;
+        if (pre != null) {
+            pre.next = null;
+        }
+        tail.prev = null;
+        tail = pre;
+        return true;
+    }
+    /**
+     * end
+     */
     public int getFront3() {
         if (size == 0) {
             return -1;
@@ -270,5 +306,106 @@ public class Q641_Design_Circular_Deque {
     public boolean isFull3() {
         return size == capacity1;
     }
+    /**
+     * 双向链表: 可以声明一个虚拟节点，这样可以极大地减少我们的操作。
+     */
+    private int capacity4;
+    private int size4;
+    Node head4, tail4;
 
+    public void MyCircularDeque4(int k) {
+        this.capacity4 = k;
+        this.size4 = 0;
+        // 虚拟节点
+        Node dummy = new Node();
+        dummy.next = dummy;
+        dummy.prev = dummy;
+        this.head4 = this.tail4 = dummy;
+    }
+
+    public boolean insertFront4(int value) {
+        if (isFull4()) {
+            return false;
+        }
+        Node node = new Node();
+        node.value = value;
+
+        insert(head4, head4.next, node);
+        return true;
+    }
+
+    public boolean insertLast4(int value) {
+        if (isFull4()) {
+            return false;
+        }
+        Node node = new Node();
+        node.value = value;
+
+        insert(tail4.prev, tail4, node);
+        return true;
+    }
+
+    public boolean deleteFront4() {
+        if (isEmpty4()) {
+            return false;
+        }
+
+        delete(head4.next);
+        return true;
+    }
+
+    public boolean deleteLast4() {
+        if (isEmpty4()) {
+            return false;
+        }
+
+        delete(tail4.prev);
+        return true;
+    }
+
+    public int getFront4() {
+        if (isEmpty4()) {
+            return -1;
+        }
+        return head4.next.value;
+    }
+
+    public int getRear4() {
+        if (isEmpty4()) {
+            return -1;
+        }
+        return tail4.prev.value;
+    }
+
+    public boolean isEmpty4() {
+        return size4 == 0;
+    }
+
+    public boolean isFull4() {
+        return size4 == capacity4;
+    }
+
+    private void insert(Node prev, Node next, Node node) {
+        prev.next = node;
+        node.prev = prev;
+        node.next = next;
+        next.prev = node;
+
+        size++;
+    }
+
+    private void delete(Node node) {
+        Node prev = node.prev;
+        Node next = node.next;
+
+        prev.next = next;
+        next.prev = prev;
+
+        size--;
+    }
+
+    class Node {
+        int value;
+        Node prev, next;
+    }
 }
