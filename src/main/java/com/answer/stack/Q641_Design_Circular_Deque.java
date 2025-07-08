@@ -32,11 +32,13 @@ public class Q641_Design_Circular_Deque {
      *  circularDeque.insertFront(4);			        // 返回 true
      *  circularDeque.getFront();				// 返回 4
      */
-    int front;
-    int rear;
+    int front; // 队列首元素对应的数组的索引。
+    int rear;  // 队列尾元素对应的索引的下一个索引。
     int capacity;
     int[] elements;
-
+    /**
+     * 数组: 利用循环队列实现双端队列
+     */
     public Q641_Design_Circular_Deque(int k) {
         capacity = k + 1;
         front = rear = 0;
@@ -92,11 +94,11 @@ public class Q641_Design_Circular_Deque {
     }
 
     public boolean isEmpty() {
-        return rear == front;
+        return rear == front;//队列判空的条件是 front = rear
     }
 
     public boolean isFull() {
-        return ((rear + 1) % capacity) == front;
+        return ((rear + 1) % capacity) == front; // 队列判满的条件是 front = (rear + 1) mod capacity
     }
     /**
      * 多定义一个size变量
@@ -170,4 +172,103 @@ public class Q641_Design_Circular_Deque {
     public boolean isFull2() {
         return size1 == limit;
     }
+    /**
+     * 链表: 使用双向链表来模拟双端队列
+     */
+    private class DLinkListNode {
+        int val;
+        DLinkListNode prev, next;
+
+        DLinkListNode(int val) {
+            this.val = val;
+        }
+    }
+
+    private DLinkListNode head, tail;
+    private int capacity1;
+    private int size;
+
+    public void MyCircularDeque3(int k) {
+        capacity1 = k;
+        size = 0;
+    }
+
+    public boolean insertFront3(int value) {
+        if (size == capacity1) {
+            return false;
+        }
+        DLinkListNode node = new DLinkListNode(value);
+        if (size == 0) {
+            head = tail = node;
+        } else {
+            node.next = head;
+            head.prev = node;
+            head = node;
+        }
+        size++;
+        return true;
+    }
+
+    public boolean insertLast3(int value) {
+        if (size == capacity1) {
+            return false;
+        }
+        DLinkListNode node = new DLinkListNode(value);
+        if (size == 0) {
+            head = tail = node;
+        } else {
+            tail.next = node;
+            node.prev = tail;
+            tail = node;
+        }
+        size++;
+        return true;
+    }
+
+    public boolean deleteFront3() {
+        if (size == 0) {
+            return false;
+        }
+        head = head.next;
+        if (head != null) {
+            head.prev = null;
+        }
+        size--;
+        return true;
+    }
+
+    public boolean deleteLast3() {
+        if (size == 0) {
+            return false;
+        }
+        tail = tail.prev;
+        if (tail != null) {
+            tail.next = null;
+        }
+        size--;
+        return true;
+    }
+
+    public int getFront3() {
+        if (size == 0) {
+            return -1;
+        }
+        return head.val;
+    }
+
+    public int getRear3() {
+        if (size == 0) {
+            return -1;
+        }
+        return tail.val;
+    }
+
+    public boolean isEmpty3() {
+        return size == 0;
+    }
+
+    public boolean isFull3() {
+        return size == capacity1;
+    }
+
 }
