@@ -2,6 +2,8 @@ package com.answer.stack;
 
 import com.leetcode.ListNode;
 
+import java.util.*;
+
 public class Q622_Design_Circular_Queue {
     /**
      * 设计循环队列
@@ -113,7 +115,7 @@ public class Q622_Design_Circular_Queue {
         if(isEmpty2()){
             return false;
         }
-        l = l == limit - 1 ? 0 : l + 1;
+        l = l == limit - 1 ? 0 : l + 1; // l = (l + 1) % limit;
         size1--;
         return true;
     }
@@ -129,7 +131,7 @@ public class Q622_Design_Circular_Queue {
         if(isEmpty2()){
             return -1;
         }
-        int last = r == 0 ? limit - 1 : r - 1;
+        int last = r == 0 ? limit - 1 : r - 1; // int last =  (r-1 + limit) % limit;
         return queue[last];
     }
 
@@ -198,5 +200,51 @@ public class Q622_Design_Circular_Queue {
 
     public boolean isFull1() {
         return size == capacity1;
+    }
+    /**
+     * 双端队列模拟
+     */
+    private Deque<Integer> q;
+    private int n;
+
+    public void MyCircularQueue3(int k) {
+        n = k;
+        q = new ArrayDeque<>(); // 初始化队列
+    }
+    public boolean enQueue3(int value) {
+        if (q.size() == n) {
+            return false; // 如果队列满了
+        }
+        q.addLast(value); // 入队，添加到队尾
+        return true;
+    }
+
+    public boolean deQueue3() {
+        if (isEmpty3()) {
+            return false; // 队列为空，无法出队
+        }
+        q.pollFirst(); // 出队，从队首移除
+        return true;
+    }
+    public int Front3() {
+        if (isEmpty3()) {
+            return -1; // 队列为空，返回 -1
+        }
+        return q.peekFirst(); // 获取队首元素
+    }
+
+    public int Rear3() {
+        if (isEmpty3()) {
+            return -1; // 队列为空，返回 -1
+        }
+        return q.peekLast(); // 获取队尾元素
+    }
+
+    public boolean isEmpty3() {
+        return q.isEmpty(); // 正确方法
+    }
+
+    public boolean isFull3() {
+        return q.size() == n; // 判断是否满了
     }
 }
