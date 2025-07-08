@@ -1,5 +1,7 @@
 package com.answer.stack;
 
+import com.leetcode.ListNode;
+
 public class Q622_Design_Circular_Queue {
     /**
      * 设计循环队列
@@ -34,9 +36,12 @@ public class Q622_Design_Circular_Queue {
     int rear;
     int capacity;
     int[] elements;
-
+    /**
+     * 通过一个数组进行模拟
+     */
     public Q622_Design_Circular_Queue(int k) {
-        capacity = k + 1;
+        // 不要让循环队列装满，于是判断(rear + 1) % len == head (即空出来一个元素)，但是这样就会导致少一个元素，所以把整个循环队列的长度在实现时隐式 + 1
+        capacity = k + 1; // 数组的空间初始化大小为 k+1 (不要求我们实现动态扩容与动态缩容)
         front = rear = 0;
         elements = new int[capacity];
     }
@@ -46,7 +51,7 @@ public class Q622_Design_Circular_Queue {
             return false;
         }
         elements[rear] = value;
-        rear = (rear + 1) % capacity;
+        rear = (rear + 1) % capacity; // 指向队列尾部（即最后 1 个有效数据）的下一个位置，即下一个从队尾入队元素的位置。
         return true;
     }
 
@@ -75,9 +80,123 @@ public class Q622_Design_Circular_Queue {
     public boolean isEmpty() {
         return rear == front;
     }
-
+    // 在循环队列中，当队列为空，可知 front=rear；而当所有队列空间全占满时，也有 front=rear。为了区别这两种情况，
+    // 假设队列使用的数组有 capacity 个存储空间，则此时规定循环队列最多只能有capacity−1 个队列元素，
+    // 当循环队列中只剩下一个空存储单元时，则表示队列已满
+    // 队列当前的长度：(rear − front + capacity) mod capacity
     public boolean isFull() {
-        return ((rear + 1) % capacity) == front;
+        return ((rear + 1) % capacity) == front; // 为了避免「队列为空」和「队列为满」的判别条件冲突，我们有意浪费了一个位置。
+    }
+    /**
+     * 多定义一个size变量
+     */
+    int[] queue;
+    int l, r, size1, limit;
+
+    public void MyCircularQueue2(int k) {
+        queue = new int[k];
+        l = r = size1 = 0;
+        limit = k;
     }
 
+    public boolean enQueue2(int value) {
+        if(isFull2()){
+            return false;
+        }
+        queue[r] = value;
+        r = r == limit - 1 ? 0 : r + 1;
+        size1++;
+        return true;
+    }
+
+    public boolean deQueue2() {
+        if(isEmpty2()){
+            return false;
+        }
+        l = l == limit - 1 ? 0 : l + 1;
+        size1--;
+        return true;
+    }
+
+    public int Front2() {
+        if(isEmpty2()){
+            return -1;
+        }
+        return queue[l];
+    }
+
+    public int Rear2() {
+        if(isEmpty2()){
+            return -1;
+        }
+        int last = r == 0 ? limit - 1 : r - 1;
+        return queue[last];
+    }
+
+    public boolean isEmpty2() {
+        return size1 == 0;
+    }
+
+    public boolean isFull2() {
+        return size1 == limit;
+    }
+    /**
+     * 可以用链表实现队列，用链表实现队列则较为简单, 因为链表可以在 O(1) 时间复杂度完成插入与删除。
+     */
+    private ListNode head; // 链表的头节点，队列的头节点。
+    private ListNode tail; // 链表的尾节点，队列的尾节点。
+    private int capacity1;  // 队列的容量，即队列可以存储的最大元素数量。
+    private int size;      // 队列当前的元素的数量。
+
+    public void MyCircularQueue(int k) {
+        capacity1 = k;
+        size = 0;
+    }
+
+    public boolean enQueue1(int value) {
+        if (isFull1()) {
+            return false;
+        }
+        ListNode node = new ListNode(value);
+        if (head == null) {
+            head = tail = node;
+        } else {
+            tail.next = node;
+            tail = node;
+        }
+        size++;
+        return true;
+    }
+
+    public boolean deQueue1() {
+        if (isEmpty1()) {
+            return false;
+        }
+        ListNode node = head;
+        head = head.next;
+        size--;
+        return true;
+    }
+
+    public int Front1() {
+        if (isEmpty1()) {
+            return -1;
+        }
+        return head.value;
+    }
+
+    public int Rear1() {
+        if (isEmpty1()) {
+            return -1;
+        }
+        return tail.value;
+    }
+
+    public boolean isEmpty1() {
+        return size == 0;
+    }
+
+    public boolean isFull1() {
+        return size == capacity1;
+    }
 }
