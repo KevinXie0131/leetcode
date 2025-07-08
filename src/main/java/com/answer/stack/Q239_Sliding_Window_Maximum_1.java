@@ -7,17 +7,18 @@ import java.util.Deque;
 public class Q239_Sliding_Window_Maximum_1 {
 
     public static void main(String[] args) {
-/*        int[] nums = {1,3,-1,-3,5,3,6,7};
-        int k = 3;*/
-        int[] nums = {1,-1};
-        int k = 1;
-
+        int[] nums = {1,3,-1,-3,5,3,6,7};
+        int k = 3;
+      /*  int[] nums = {1,-1};
+        int k = 1;*/
 /*        int[] nums = {-7,-8,7,5,7,1,6,0};
         int k = 4;*/
-        int[] result = maxSlidingWindow(nums, k);
+        int[] result = maxSlidingWindow_1(nums, k);
         System.out.println(Arrays.toString(result));
     }
-    // 利用双端队列手动实现单调队列
+    /**
+     * 利用双端队列手动实现单调队列
+     */
     public static int[] maxSlidingWindow(int[] nums, int k) {
         Deque<Integer> queue = new ArrayDeque<>();
         int len = nums.length - k + 1;
@@ -46,13 +47,14 @@ public class Q239_Sliding_Window_Maximum_1 {
         }
         return result;
     }
-    // 解法二
-    // 利用双端队列手动实现单调队列
+    /**
+     * 解法二 利用双端队列手动实现单调队列
+     */
     /**
      * 用一个单调队列来存储对应的下标，每当窗口滑动的时候，直接取队列的头部指针对应的值放入结果集即可
      * 单调队列类似 （tail -->） 3 --> 2 --> 1 --> 0 (--> head) (右边为头结点，元素存的是下标)
      */
-    public int[] maxSlidingWindow_1(int[] nums, int k) {
+    static public int[] maxSlidingWindow_1(int[] nums, int k) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         int n = nums.length;
         int[] res = new int[n - k + 1];

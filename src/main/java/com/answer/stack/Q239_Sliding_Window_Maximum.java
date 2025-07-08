@@ -2,7 +2,7 @@ package com.answer.stack;
 
 import java.util.*;
 
-public class Q239_Sliding_Window_Maximum {
+public class Q239_Sliding_Window_Maximum { // Hard 困难
     /**
      * 滑动窗口最大值
      * 一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
@@ -66,9 +66,8 @@ public class Q239_Sliding_Window_Maximum {
         }
         return result;
     }
-
     /**
-     *
+     * 自定义队列
      */
     public static int[] maxSlidingWindow1(int[] nums, int k) {
         MyMonoTonicQueue myQueue = new MyMonoTonicQueue(); //自定义队列
@@ -76,17 +75,18 @@ public class Q239_Sliding_Window_Maximum {
         for(int i = 0; i < k; i++){
             myQueue.offer(nums[i]);   //先将前k的元素放入队列
         }
+
         result[0] = myQueue.peek();
 
         for(int i = k; i < nums.length; i++){
-            myQueue.poll(nums[i-k]); //滑动窗口移除最前面的元素，移除是判断该元素是否放入队列
+            myQueue.poll(nums[i - k]); //滑动窗口移除最前面的元素，移除是判断该元素是否放入队列
             myQueue.offer(nums[i]); //滑动窗口加入最后面的元素
-            result [i-k + 1] = myQueue.peek();  //记录对应的最大值
+            result [i - k + 1] = myQueue.peek();  //记录对应的最大值
         }
         return result;
     }
 }
-//单调队列（从大到小）
+//自定义 单调队列（从大到小）
 class MyMonoTonicQueue {
     // 使用deque来实现单调队列
     Deque<Integer> queue = new ArrayDeque<>();
@@ -100,8 +100,8 @@ class MyMonoTonicQueue {
     // 如果push的数值大于入口元素的数值，那么就将队列后端的数值弹出，直到push的数值小于等于队列入口元素的数值为止。
     // 这样就保持了队列里的数值是单调从大到小的了。
     //
-    //添加元素时，如果要添加的元素大于入口处的元素，就将入口元素弹出
-    //保证队列元素单调递减
+    // 添加元素时，如果要添加的元素大于入口处的元素，就将入口元素弹出
+    // 保证队列元素单调递减
     // 比如此时队列元素3,1，2将要入队，比1大，所以1弹出，此时队列：3,2
     void offer(int val){
         while(!queue.isEmpty() && val > queue.getLast()){
