@@ -98,4 +98,76 @@ public class Q641_Design_Circular_Deque {
     public boolean isFull() {
         return ((rear + 1) % capacity) == front;
     }
+    /**
+     * 多定义一个size变量
+     */
+    int[] queue;
+    int l, r, size1, limit;
+
+    public void MyCircularDeque2(int k) {
+        queue = new int[k];
+        l = r = size1 = 0;
+        limit = k;
+    }
+
+    public boolean insertFront2(int value) {
+        if(isFull2()){
+            return false;
+        }
+        l = (l - 1 + limit) % limit;
+        queue[l] = value;
+        size1++;
+        return true;
+    }
+
+    public boolean insertLast2(int value) {
+        if(isFull2()){
+            return false;
+        }
+        queue[r] = value;
+        r = (r + 1) % limit;
+        size1++;
+        return true;
+    }
+
+    public boolean deleteFront2() {
+        if(isEmpty2()){
+            return false;
+        }
+        l = (l + 1) % limit;
+        size1--;
+        return true;
+    }
+
+    public boolean deleteLast2() {
+        if(isEmpty2()){
+            return false;
+        }
+        r = (r - 1 + limit) % limit;
+        size1--;
+        return true;
+    }
+
+    public int getFront2() {
+        if(isEmpty2()){
+            return -1;
+        }
+        return queue[l];
+    }
+
+    public int getRear2() {
+        if(isEmpty2()){
+            return -1;
+        }
+        int last =  (r - 1 + limit) % limit;
+        return queue[last];
+    }
+
+    public boolean isEmpty2() {
+        return size1 == 0;
+    }
+
+    public boolean isFull2() {
+        return size1 == limit;
+    }
 }

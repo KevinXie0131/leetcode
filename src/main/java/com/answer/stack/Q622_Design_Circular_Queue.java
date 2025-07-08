@@ -106,7 +106,7 @@ public class Q622_Design_Circular_Queue {
             return false;
         }
         queue[r] = value;
-        r = r == limit - 1 ? 0 : r + 1;
+        r = r == limit - 1 ? 0 : r + 1; // r = (r + 1) % limit;
         size1++;
         return true;
     }
