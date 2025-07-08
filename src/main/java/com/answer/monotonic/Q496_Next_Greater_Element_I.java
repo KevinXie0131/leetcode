@@ -32,6 +32,25 @@ public class Q496_Next_Greater_Element_I {
         System.out.println(Arrays.toString(output));
     }
     /**
+     * 暴力 时间复杂度：O(mn)
+     */
+    public int[] nextGreaterElement0(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        int[] res = new int[m];
+        for (int i = 0; i < m; ++i) {
+            int j = 0;
+            while (j < n && nums2[j] != nums1[i]) {
+                j++;
+            }
+            int k = j + 1;
+            while (k < n && nums2[k] < nums2[j]) {
+                k++;
+            }
+            res[i] = k < n ? nums2[k] : -1;
+        }
+        return res;
+    }
+    /**
      * 使用stack做brute force
      */
    static public int[] nextGreaterElement_0(int[] nums1, int[] nums2) {
@@ -64,6 +83,18 @@ public class Q496_Next_Greater_Element_I {
     }
     /**
      * 使用Stack和HashMap（简化一些）
+     * 单调栈 + 哈希表
+     * 将题目分解为两个子问题：
+     *  第 1 个子问题：如何更高效地计算 nums2中每个元素右边的第一个更大的值；
+     *  第 2 个子问题：如何存储第 1 个子问题的结果。
+     *
+     * 只要遍历到比栈顶元素更大的数，就意味着栈顶元素找到了答案，记录答案，并弹出栈顶。
+     * 时间复杂度降到 n+m
+     *
+     * 单调栈一些特点：
+     *  单调递减栈：栈内元素从栈底到栈顶是递减的（严格或非严格递减）。常用于找“下一个更大元素”。
+     *  单调递增栈：栈内元素从栈底到栈顶是递增的（严格或非严格递增）。常用于找“下一个更小元素”。
+     *  栈内存储索引还是值：一般存储索引（下标），方便在结果数组中直接更新
      */
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         int[] result = new int[nums1.length];
@@ -71,16 +102,16 @@ public class Q496_Next_Greater_Element_I {
         Map<Integer,Integer> map = new HashMap<>();
 
         for (int i = 0; i < nums2.length; i++) { // 把nums2中每个元素的下一个最大值存入hashmap
-            while (!stack.isEmpty() && nums2[i] > nums2[stack.peek()]) { //如果比栈顶元素大，则存入hashmap
+      /*      while (!stack.isEmpty() && nums2[i] > nums2[stack.peek()]) { //如果比栈顶元素大，则存入hashmap
                 int prevIndex = stack.pop();
                 map.put(nums2[prevIndex], nums2[i]);
             }
-            stack.push(i);
-        /*    while (!stack.isEmpty() && nums2[i] > stack.peek()) { //把数值存入stack
-                int top = stack.pop();
-                map.put(top, nums2[i]);
+            stack.push(i);*/
+           while (!stack.isEmpty() && nums2[i] > stack.peek()) { //把数值存入stack
+                int top = stack.pop(); // top 是栈顶的下一个更大元素, 既然栈顶已经算出答案，弹出
+                map.put(top, nums2[i]); // 当前数字 > 栈顶，代表栈顶对应下一个更大的数字就是当前数字，则将该组数字对应关系，记录到哈希表。
             }
-            stack.push(nums2[i]);*/
+            stack.push(nums2[i]); // 当前数字 < 栈顶，当前数字压入栈，供后续数字判断使用。
         }
 
         for (int i = 0 ; i < nums1.length; i++) {
@@ -102,6 +133,12 @@ public class Q496_Next_Greater_Element_I {
      */
     /**
      * 单调栈 / 把数值存入stack
+     * 单调栈实际上就是栈，只是利用了一些巧妙的逻辑，使得每次新元素入栈后，栈内的元素都保持有序（单调递增或单调递减）。
+     * 听起来有点像堆（heap）？不是的，单调栈用途不太广泛，只处理一种典型的问题，叫做 Next Greater Element
+     * 实际上算法的复杂度只有 O(n)
+     *
+     * 逆向遍历时，栈中存的是有可能成为前一个元素右边界的元素
+     * 正向遍历时，栈中存到是还未找到右边界的元素
      */
     public int[] nextGreaterElement2a(int[] nums1, int[] nums2) {
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -114,6 +151,8 @@ public class Q496_Next_Greater_Element_I {
         Deque<Integer> stack = new LinkedList<>();
 
         for(int i = 0; i < nums2.length; i++){
+            // 栈不为空且当前元素大于栈顶元素, 说明当前元素是栈顶元素的下一个更大元素
+            // while循环表示当前元素是栈中所有已存元素的下一个更大元素
             while(!stack.isEmpty() && stack.peek() < nums2[i] ){
                 int top = stack.pop();
                 if(map.containsKey(top)){
@@ -121,12 +160,12 @@ public class Q496_Next_Greater_Element_I {
                     result[value] = nums2[i];
                 }
             }
-            stack.push(nums2[i]);
+            stack.push(nums2[i]);   // 将当前考察元素入栈，看后面是否有其下一个更大元素
         }
         return result;
     }
     /**
-     * 版本2
+     * 版本2: 单调栈中存放的元素最好是下标而不是值，因为有的题目需要根据下标计算，这样泛化性更好
      */
     public int[] nextGreaterElement2(int[] nums1, int[] nums2) {
         HashMap<Integer, Integer> map = new HashMap<>();
