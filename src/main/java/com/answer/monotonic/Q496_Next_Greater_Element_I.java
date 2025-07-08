@@ -101,6 +101,31 @@ public class Q496_Next_Greater_Element_I {
      *    记录结果这块逻辑有一点小绕，要清楚，此时栈顶元素在nums2数组中右面第一个大的元素是nums2[i]（即当前遍历元素）
      */
     /**
+     * 单调栈 / 把数值存入stack
+     */
+    public int[] nextGreaterElement2a(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < nums1.length; i++){
+            map.put(nums1[i], i);
+        }
+
+        int[] result = new int[nums1.length];
+        Arrays.fill(result, -1); // result数组如果某位置没有被赋值，那么就应该是是-1，所以就初始化为-1。
+        Deque<Integer> stack = new LinkedList<>();
+
+        for(int i = 0; i < nums2.length; i++){
+            while(!stack.isEmpty() && stack.peek() < nums2[i] ){
+                int top = stack.pop();
+                if(map.containsKey(top)){
+                    int value = map.get(top);
+                    result[value] = nums2[i];
+                }
+            }
+            stack.push(nums2[i]);
+        }
+        return result;
+    }
+    /**
      * 版本2
      */
     public int[] nextGreaterElement2(int[] nums1, int[] nums2) {
