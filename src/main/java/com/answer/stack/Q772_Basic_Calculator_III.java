@@ -28,69 +28,63 @@ public class Q772_Basic_Calculator_III { // Hard 困难
     }
     /**
      * https://algo.monster/liteproblems/772
+     * 加减号在乘除号面前是没有地位的，遇到了需要先去栈里待着，押后处理
+     * 左括号是没有地位的，无论什么情况都需要先去栈里待着，直到右括号出现。
      */
-    static private int precedence(char op) {
-        if (op == '(' || op == ')') return 0;
-        else if (op == '+' || op == '-') return 1;
-        else return 2;
-    }
-
-    static private int apply_operand(char op, int a, int b) {
-        switch (op) {
-            case '+':
-                return a + b;
-            case '-':
-                return a - b;
-            case '*':
-                return a * b;
-            default:
-                return a / b;
-        }
-    }
-
     static public int calculate(String s) {
-        Stack<Integer> nums = new Stack<>();
-        Stack<Character> ops = new Stack<>();
-
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == ' ') continue;
-
-            if (Character.isDigit(s.charAt(i))) {
-                int num = 0;
-                while (i < s.length() && Character.isDigit(s.charAt(i))) {
-                    num = num * 10 + s.charAt(i) - '0';
-                    i++;
-                }
-                nums.push(num);
-                i--;
+        Deque<Integer> nums = new ArrayDeque<>();
+        Deque<Character> ops = new ArrayDeque<>();
+        int n = s.length();
+        int num = 0;
+        boolean hasNum = false;
+        for (int i = 0; i < n; ++i) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                // (c - '0') 的这个括号不能省略，否则可能造成整型溢出。
+                num = num * 10 + (c - '0'); // 一个字符串形式的正整数，转化成 int 型
+                hasNum = true;
             }
-            else if (s.charAt(i) == '(') {
-                ops.push(s.charAt(i));
-            }
-            else if (s.charAt(i) == ')') {
-                while (ops.peek() != '(') {
-                    int b = nums.pop();
-                    int a = nums.pop();
-                    nums.push(apply_operand(ops.pop(), a, b));
+            if (!Character.isDigit(c) && c != ' ' || i == n - 1) {  // 如果不是数字，或者是算式的末尾
+                if (hasNum) {
+                    nums.push(num);
+                    num = 0;
+                    hasNum = false;
                 }
-                ops.pop();
-            } else {
-                while (!ops.empty() && ops.peek() != '(' && precedence(ops.peek()) >= precedence(s.charAt(i))) {
-                    int b = nums.pop();
-                    int a = nums.pop();
-                    nums.push(apply_operand(ops.pop(), a, b));
+                if (c == '(') {
+                    ops.push(c);
+                } else if (c == ')') {
+                    while (ops.peek() != '(') {
+                        nums.push(applyOp(ops.pop(), nums.pop(), nums.pop()));
+                    }
+                    ops.pop();
+                } else if (c == '+' || c == '-' || c == '*' || c == '/') {
+                    while (!ops.isEmpty() && precedence(ops.peek()) >= precedence(c)) {
+                        nums.push(applyOp(ops.pop(), nums.pop(), nums.pop()));
+                    }
+                    ops.push(c);
                 }
-                ops.push(s.charAt(i));
             }
         }
-
-        while (!ops.empty()) {
-            int b = nums.pop();
-            int a = nums.pop();
-            nums.push(apply_operand(ops.pop(), a, b));
+        while (!ops.isEmpty()) {
+            nums.push(applyOp(ops.pop(), nums.pop(), nums.pop()));
         }
+        return nums.pop();
+    }
 
-        return nums.peek();
+    static private int precedence(char op) {
+        if (op == '+' || op == '-') return 1;
+        if (op == '*' || op == '/') return 2;
+        return 0;
+    }
+
+    static private int applyOp(char op, int b, int a) {
+        switch (op) {
+            case '+': return a + b;
+            case '-': return a - b;
+            case '*': return a * b;
+            case '/': return a / b; // assume b != 0
+        }
+        return 0;
     }
     /**
      * https://ttzztt.gitbooks.io/lc/content/quant-dev/basic-calculator-iii.html
