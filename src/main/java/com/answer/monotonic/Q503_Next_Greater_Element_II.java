@@ -20,8 +20,33 @@ public class Q503_Next_Greater_Element_II {
          * 第二个 1 的下一个最大的数需要循环搜索，结果也是 2。
          */
         int[] nums = {1,2,1};
-        int[] r = nextGreaterElements1(nums);
+        int[] r = nextGreaterElements0(nums);
         System.out.println(Arrays.toString(r));
+    }
+    /**
+     * 单调栈 / 把下标存入stack <- not distinct 0-indexed integer arrays & only one array, so there is no need for map
+     * refer to Q496_Next_Greater_Element_I
+     */
+    public static int[] nextGreaterElements0(int[] nums) {
+        int[] result = new int[nums.length];
+        Arrays.fill(result, -1);
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        int[] newNums = new int[nums.length * 2];
+        int index = 0;
+        for(int i = 0; i < newNums.length; i++){
+            newNums[i] = nums[index++];
+            index = index % nums.length;
+        }
+
+        for(int i = 0; i < newNums.length; i++){
+            while(!stack.isEmpty() && newNums[stack.peek()] < newNums[i] ){
+                int top = stack.pop();
+                result[top % nums.length] = newNums[i];
+            }
+            stack.push(i);
+        }
+        return result;
     }
     /**
      * 直接把两个数组拼接在一起，然后使用单调栈求下一个最大值

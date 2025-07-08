@@ -82,7 +82,7 @@ public class Q496_Next_Greater_Element_I {
         return result.stream().mapToInt(i -> i).toArray();
     }
     /**
-     * 使用Stack和HashMap（简化一些）
+     * 使用Stack和HashMap（简化一些）<-  two distinct 0-indexed integer arrays
      * 单调栈 + 哈希表
      * 将题目分解为两个子问题：
      *  第 1 个子问题：如何更高效地计算 nums2中每个元素右边的第一个更大的值；
