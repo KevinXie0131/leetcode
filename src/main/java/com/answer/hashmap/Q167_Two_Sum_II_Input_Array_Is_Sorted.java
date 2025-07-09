@@ -52,7 +52,6 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
                 i++;
             }
         }
-
         return null;
     }
     /**
@@ -75,7 +74,6 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
                 }
             }
         }
-
         return null;
     }
     /**

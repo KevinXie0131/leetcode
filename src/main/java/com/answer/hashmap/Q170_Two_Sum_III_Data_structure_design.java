@@ -47,8 +47,9 @@ public class Q170_Two_Sum_III_Data_structure_design {
         this.nums.add(number);
         this.is_sorted = false;
     }
-
-    /** Find if there exists any pair of numbers which sum is equal to the value. */
+    /**
+     * Find if there exists any pair of numbers which sum is equal to the value.
+     */
     public boolean find(int value) {
         if (!this.is_sorted) {
             Collections.sort(this.nums);

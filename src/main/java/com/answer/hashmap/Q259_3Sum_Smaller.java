@@ -40,7 +40,6 @@ public class Q259_3Sum_Smaller {
                 }
             }
         }
-
         return count;
     }
 }

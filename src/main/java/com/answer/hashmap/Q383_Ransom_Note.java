@@ -38,7 +38,6 @@ public class Q383_Ransom_Note {
                 return false;
             }
         }
-
         return true;
     }
 }
