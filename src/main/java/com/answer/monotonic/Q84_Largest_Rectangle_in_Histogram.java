@@ -23,6 +23,7 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
     }
     /**
      * 暴力解法 (超时，因为时间复杂度是 O(n^2))
+     * 朴素的想法:遍历每一根柱子的高度然后向两边进行扩散找到最大宽度
      */
     public int largestRectangleArea1(int[] heights) {
         int sum = 0;
@@ -132,6 +133,72 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
             }
         }
         return result;
+    }
+    /**
+     * 单调栈
+     * refer to Q42_Trapping_Rain_Water
+     * 头尾都加0的目的:
+     *  头部的0是为了不用判断栈是否为空, 因为题目中都是非负整数, 所以没有数会比0小, 即0一直会在栈底.
+     *  尾部的0是为了压出最后已经形成的单调栈的
+     */
+    public int largestRectangleArea2a(int[] heights) {
+        int [] newHeights = new int[heights.length + 2];
+        newHeights[0] = 0; // 数组头部加入元素0
+        newHeights[newHeights.length - 1] = 0; // 数组尾部加入元素0
+        for (int index = 0; index < heights.length; index++){
+            newHeights[index + 1] = heights[index];
+        }
+        heights = newHeights;
+
+        Deque<Integer> stack = new ArrayDeque<>();
+        int sum = 0;
+
+        for(int i = 0; i < heights.length; i++){
+            while(!stack.isEmpty() && heights[stack.peek()] > heights[i]){
+                int cur = stack.pop();
+                int left = stack.peek();
+                int width = i - left - 1;
+                int height = heights[cur];
+                sum = Math.max(sum, width * height);
+            }
+            stack.push(i);
+        }
+        return sum;
+    }
+    /**
+     * 单调栈（Monotone Stack）
+     * refer to Q42_Trapping_Rain_Water
+     * 需要考虑两种特殊的情况：
+     *  弹栈的时候，栈为空；
+     *  遍历完成以后，栈中还有元素；
+     * 为此可以我们可以在输入数组的两端加上两个高度为 0
+     *
+     */
+    public int largestRectangleArea2b(int[] heights) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        int sum = 0;
+        // 在确定一个柱形的面积的时候，除了右边要比当前严格小，其实还蕴含了一个条件，那就是左边也要比当前高度严格小
+        // 那么每当遇到新加入的元素<栈顶便可以确定栈顶柱子右边界, 而栈顶柱子左边界就是栈顶柱子下面的柱子(<栈顶柱子), 左右边界确定以后就可以进行面积计算与维护最大面积
+        for(int i = 0; i <= heights.length; i++){
+            int currHeight = (i == heights.length) ? 0 : heights[i]; // 处理最后一个元素
+
+            while(!stack.isEmpty() && heights[stack.peek()] > currHeight){  // 当前高度小于栈顶元素，弹出栈顶并计算面积
+                int cur = stack.pop();
+                int left ;
+
+                if(stack.isEmpty()){
+                    left = -1;
+                }else {
+                    left = stack.peek();
+                }
+                int width = i - left - 1;
+
+                int height = heights[cur];
+                sum = Math.max(sum, width * height);
+            }
+            stack.push(i); // 当前索引入栈
+        }
+        return sum;
     }
     /**
      * 单调栈
