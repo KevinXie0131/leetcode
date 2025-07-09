@@ -1,7 +1,6 @@
 package com.answer.hashmap;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Q170_Two_Sum_III_Data_structure_design {
     /**
@@ -35,22 +34,21 @@ public class Q170_Two_Sum_III_Data_structure_design {
      */
     private ArrayList<Integer> nums;
     private boolean is_sorted;
-
-    /** Initialize your data structure here. */
+    /**
+     * 排序 + 双指针
+     */
     public Q170_Two_Sum_III_Data_structure_design() {
         this.nums = new ArrayList<Integer>();
         this.is_sorted = false;
     }
 
-    /** Add the number to an internal data structure.. */
+    // Add the number to an internal data structure
     public void add(int number) {
         this.nums.add(number);
         this.is_sorted = false;
     }
-    /**
-     * Find if there exists any pair of numbers which sum is equal to the value.
-     */
-    public boolean find(int value) {
+    // Find if there exists any pair of numbers which sum is equal to the value
+    public boolean find(int sum) {
         if (!this.is_sorted) {
             Collections.sort(this.nums);
             this.is_sorted = true;
@@ -58,12 +56,49 @@ public class Q170_Two_Sum_III_Data_structure_design {
         int low = 0, high = this.nums.size() - 1;
         while (low < high) {
             int twosum = this.nums.get(low) + this.nums.get(high);
-            if (twosum < value)
-                low += 1;
-            else if (twosum > value)
-                high -= 1;
-            else
+            if (twosum < sum) {
+                low++;
+            } else if (twosum > sum) {
+                high--;
+            } else {
                 return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * HashMap 哈希查找
+     */
+    private final Map<Integer, Integer> numCounts = new HashMap<>();
+
+    public void add1(int number) {
+        numCounts.put(number, numCounts.getOrDefault(number, 0) + 1);
+    }
+
+    public boolean find1(int sum) {
+        for (Integer num : numCounts.keySet()) {
+            int complement = sum - num;
+            if (complement == num) {
+                if (numCounts.get(num) > 1) { // 判断 num 的出现次数是否大于 1，如果大于 1，说明找到了一对和为 sum 的数字
+                    return true;
+                }
+            } else if (numCounts.containsKey(complement)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * another form
+     */
+    public boolean find2(int sum) {
+        for (Map.Entry<Integer, Integer> entry : numCounts.entrySet()) {
+            int key = entry.getKey();
+            int freq = entry.getValue();
+            int target = sum - key;
+            if (numCounts.containsKey(target) && (key != target || freq > 1)) {
+                return true;
+            }
         }
         return false;
     }
