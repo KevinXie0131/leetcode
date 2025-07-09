@@ -35,11 +35,12 @@ public class Q1_Two_Sum {
         System.out.println(Arrays.toString(result));
     }
     /**
-     * Brute force
+     * 暴力枚举 Brute force
+     * 时间复杂度：O(N^2)
      */
     public int[] twoSum(int[] nums, int target) {
-        for(int i = 0; i<nums.length-1; i++){
-            for(int j = i+1; j<nums.length; j++){
+        for(int i = 0; i < nums.length - 1; i++){
+            for(int j = i + 1; j < nums.length; j++){
                 if(nums[i] + nums[j] == target){
                     return new int[]{i, j};
                 }
@@ -74,7 +75,7 @@ public class Q1_Two_Sum {
      */
     public int[] twoSum_1(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
-
+        // 题目要求「不能使用两次相同的元素」，也就是两个数的下标必须不同。我们的做法是枚举右边的数的下标 j，去找左边的数的下标 i
         for(int i = 0; i < nums.length; i++){
             //int complement = target - nums[i]; // 记录当前的目标值的余数 can use complement to replace  target - nums[i]
             if(map.containsKey(target- nums[i])){ // 查找当前的map中是否有满足要求的值
@@ -97,8 +98,8 @@ public class Q1_Two_Sum {
         for(int i = 0; i < nums.length; i++){
             int temp = target - nums[i];
             if(map.containsKey(temp)){
-                res[1] = i;
                 res[0] = map.get(temp);
+                res[1] = i;
             }
             map.put(nums[i], i);
         }
@@ -111,8 +112,7 @@ public class Q1_Two_Sum {
     public static int[] twoSum_2(int[] nums, int target) {
         Arrays.sort(nums);
 
-        for(int i = 0, j = nums.length-1; i < j;){
-
+        for(int i = 0, j = nums.length - 1; i < j;){
             if(nums[i] + nums[j] == target){
                 return new int[]{i, j};
             }else if (nums[i] + nums[j] < target){
@@ -121,14 +121,13 @@ public class Q1_Two_Sum {
                 j--;
             }
         }
-
         return null;
     }
     /**
      * 使用排序 + 双指针 It can work
      */
     public int[] twoSum_3(int[] nums, int target) {
-        int m = 0, n = 0, k, board = 0;
+        int m = 0, n = 0, board = 0;
         int[] res = new int[2];
         int[] tmp1 = new int[nums.length];
         //备份原本下标的nums数组
@@ -147,6 +146,7 @@ public class Q1_Two_Sum {
                 break;
             }
         }
+        int k;
         //找到nums[m]在tmp1数组中的下标
         for(k = 0; k < nums.length; k++){
             if(tmp1[k] == nums[m]){
@@ -156,8 +156,10 @@ public class Q1_Two_Sum {
         }
         //找到nums[n]在tmp1数组中的下标
         for(int i = 0; i < nums.length; i++){
-            if(tmp1[i] == nums[n] && i != k)
+            if(tmp1[i] == nums[n] && i != k) { // 题目要求「不能使用两次相同的元素」，也就是两个数的下标必须不同
                 res[1] = i;
+                break;
+            }
         }
         return res;
     }
