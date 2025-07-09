@@ -24,7 +24,7 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
      * 可以看出每一列雨水的高度，取决于，该列 左侧最高的柱子和右侧最高的柱子中最矮的那个柱子的高度。
      * 一样的方法，只要从头遍历一遍所有的列，然后求出每一列雨水的体积，相加之后就是总雨水的体积了。
      */
-    static public int trap_0(int[] height) {
+    static public int trap_0(int[] height) { // 按列求: 求每一列的水，我们只需要关注当前列，以及左边最高的墙，右边最高的墙就够了
         int sum = 0;
         for (int i = 0; i < height.length; i++) {
             if (i == 0 || i == height.length - 1) { // 第一个柱子和最后一个柱子不接雨水
@@ -110,21 +110,23 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
         return sum;
     }
     /**
-     * 单调栈
+     * 单调栈 存储的是下标，满足从栈底到栈顶的下标对应的数组 height 中的元素递减
+     * 时间复杂度：虽然 while 循环里套了一个 while 循环，但是考虑到每个元素最多访问两次，入栈一次和出栈一次，所以时间复杂度是 O(n)。
+     * 空间复杂度：O(n)。栈的空间。
      */
     public static int trap_1a(int[] heights) {
         Deque<Integer> stack = new ArrayDeque<>();
         int sum = 0;
-
+        // 单调栈的做法相当于「横着」计算面积. 这个方法可以总结成 16 个字：找上一个更大元素，在找的过程中填坑
         for(int i = 0; i < heights.length; i++){
-            while(!stack.isEmpty() && heights[stack.peek()] < heights[i]){
-                int cur = stack.pop();
-                if(stack.isEmpty()){ // need to check if stack is empty
-                    break;
+            while(!stack.isEmpty() && heights[stack.peek()] < heights[i]){  //如果栈不空并且当前指向的高度大于栈顶高度就一直循环 // heights[stack.peek()] <= heights[i] works too 注意 while 中加了等号，这可以让栈中没有重复元素，从而在有很多重复元素的情况下，使用更少的空间。
+                int cur = stack.pop(); // 低洼处弹出，尝试结算此低洼处能积攒的雨水
+                if(stack.isEmpty()){ // need to check if stack is empty  看看栈里还有没有东西（左墙是否存在）
+                    break;           // 没有左墙+有低洼+有右墙=白搭
                 }
 
                 int left = stack.peek();
-                int width = i - left - 1; // -1
+                int width = i - left - 1; // -1  两堵墙之前的距离。
                 int height = Math.min(heights[i], heights[left]) - heights[cur];
                 if(height > 0){ // can be commented
                     sum += width * height;
@@ -238,5 +240,37 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
             }
         }
         return ans;
+    }
+    /**
+     * 双指针，时间O(n)，空间O(1)
+     */
+    public int trap6(int[] height) {
+        int n = height.length;
+        int res = 0;
+        // 左右指针：分别指向左右两边界的列
+        int left = 0, right = n - 1;
+        // 左指针的左边最大高度、右指针的右边最大高度
+        int leftMax = height[left], rightMax = height[right];
+        // 最两边的列存不了水
+        left++;
+        right--;
+        // 向中间靠拢
+        while(left <= right){
+            leftMax = Math.max(leftMax, height[left]); //更新左边最大值
+            rightMax = Math.max(rightMax, height[right]);  //更新右边最大值
+            if(leftMax < rightMax){
+                // 左指针的leftMax比右指针的rightMax矮
+                // 说明：左指针的右边至少有一个板子 > 左指针左边所有板子
+                // 根据水桶效应，保证了左指针当前列的水量决定权在左边
+                // 那么可以计算左指针当前列的水量：左边最大高度-当前列高度
+                res += leftMax - height[left]; //左边高度比右边小 计算左边最大高度与当前高度差
+                left++;
+            }else{
+                // 右边同理
+                res += rightMax - height[right];  //计算右边最大高度与当前高度差
+                right--;
+            }
+        }
+        return res;
     }
 }
