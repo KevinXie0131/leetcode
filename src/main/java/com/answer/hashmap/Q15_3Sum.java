@@ -35,7 +35,7 @@ public class Q15_3Sum {
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         int n = nums.length;
-        if(n<3) {
+        if(n < 3) {
             return result;
         }
         Arrays.sort(nums); // 首先将数组排序
@@ -55,7 +55,7 @@ public class Q15_3Sum {
             // 我们要做的是 不能有重复的三元组，但三元组内的元素是可以重复的！
             // 这么写就是当前使用 nums[i]，我们判断前一位是不是一样的元素，在看 {-1, -1 ,2} 这组数据，当遍历到 第一个 -1 的时候，
             // 只要前一位没有-1，那么 {-1, -1 ,2} 这组数据一样可以收录到 结果集里。
-            if(i > 0 && i < n-1 && nums[i] == nums[i-1]  ){
+            if(i > 0 && i < n - 1 && nums[i] == nums[i - 1]  ){
                 continue;
             }
             int left = i + 1;
@@ -66,10 +66,10 @@ public class Q15_3Sum {
                  //   result.add(Arrays.stream(res).boxed().collect(Collectors.toList()));
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     // 去重逻辑应该放在找到一个三元组之后，对b 和 c去重
-                    while(left<right && nums[left]==nums[left+1]){
+                    while(left < right && nums[left] == nums[left + 1]){
                         left++;  // 去重 left
                     }
-                    while(left<right && nums[right]==nums[right-1]){
+                    while(left < right && nums[right] == nums[right - 1]){
                         right--; // 去重 right
                     }
                     left++; // 找到答案时，双指针同时收缩
@@ -82,6 +82,42 @@ public class Q15_3Sum {
             }
         }
         return result;
+    }
+    /**
+     * 排序 + 双指针，左右指针更加清晰一点
+     * 本题的难点在于如何去除重复解
+     * 枚举 nums[i]，问题变成 nums[j]+nums[k]=−nums[i]，这和 167. 两数之和 II - 输入有序数组 是一样的。
+     */
+    public List<List<Integer>> threeSum2(int[] nums) {
+        Arrays.sort(nums); // 先排序
+        List<List<Integer>> res = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if(nums[i] > 0) break; // 提前终止，效率更高
+            // 跳过重复元素
+            if (i > 0 && nums[i] == nums[i - 1]) continue;  //去重，当起始的值等于前一个元素，那么得到的结果将会和前一次相同
+
+            // 双指针，目标是找到 nums[l] + nums[r] = -nums[i]
+            int l = i + 1, r = nums.length - 1;
+            int target = -nums[i];
+
+            while (l < r) {
+                int sum = nums[l] + nums[r];
+                if (sum == target) {
+                    res.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    l++;
+                    r--;
+                    // 跳过重复元素
+                    while (l < r && nums[l] == nums[l - 1]) l++; //去重，因为 i 不变，当此时 l取的数的值与前一个数相同，所以不用在计算，直接跳
+                    while (l < r && nums[r] == nums[r + 1]) r--; //去重，因为 i不变，当此时 r 取的数的值与前一个相同，所以不用在计算
+                } else if (sum < target) {
+                    l++;
+                } else {
+                    r--;
+                }
+            }
+        }
+        return res;
     }
     /**
      * 使用哈希集合
@@ -117,6 +153,5 @@ public class Q15_3Sum {
             }
         }
         return result;
-
     }
 }
