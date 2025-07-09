@@ -29,8 +29,7 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
      * https://leetcode.com/problems/two-sum-iii-data-structure-design/solution/
      */
     /**
-     * Two points
-     *
+     * Two points 双指针 (由于输入数组有序（非严格递增）)
      * already sorted in non-decreasing order
      * Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
      * Your solution must use only constant extra space.
@@ -55,13 +54,13 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
         return null;
     }
     /**
-     * Binary Search
+     * Binary Search 二分查找
      * Time Complexity O(nlogn)
      * Space Complexity O(1)
      */
     public int[] twoSum_1(int[] numbers, int target) {
-        for(int i = 0; i< numbers.length; i++){
-            int left = i + 1;
+        for(int i = 0; i < numbers.length; i++){
+            int left = i + 1; // 为了避免重复寻找，在寻找第二个数时，只在第一个数的右侧寻找。
             int right = numbers.length - 1;
             while(left <= right){
                 int mid = (left + right) >>> 1;
