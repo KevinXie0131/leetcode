@@ -69,7 +69,7 @@ public class Q503_Next_Greater_Element_II {
         return result;
     }
     /**
-     * 可以不扩充nums，而是在遍历的过程中模拟走了两遍nums
+     * 在处理时对下标取模即可, 可以不扩充nums，而是在遍历的过程中模拟走了两遍nums
      */
     public int[] nextGreaterElements2(int[] nums) {
         int size = nums.length;
@@ -78,13 +78,12 @@ public class Q503_Next_Greater_Element_II {
         Deque<Integer> stack = new LinkedList<>();//栈中存放的是nums中的元素下标
 
         for(int i = 0; i < size * 2; i++){
-            while(!stack.isEmpty() && nums[stack.peek()] < nums[i % size] ){// 模拟遍历两遍nums，注意一下都是用i % nums.size()来操作
+            while(!stack.isEmpty() && nums[stack.peek() % size] < nums[i % size] ){// 模拟遍历两遍nums，注意一下都是用i % nums.size()来操作
                 result[stack.peek() % nums.length] = nums[i % size];   //更新result
                 stack.pop(); //弹出栈顶
             }
-            stack.push(i % size);
+            stack.push(i);
         }
-
         return result;
     }
     /**
@@ -96,16 +95,54 @@ public class Q503_Next_Greater_Element_II {
         Arrays.fill(result, -1);
         Deque<Integer> stack = new ArrayDeque<>();
 
-        for(int i=0; i < 2 * nums.length; i++){
-            while(!stack.isEmpty() && nums[i % n] > nums[stack.peek()]){
+        for(int i = 0; i < 2 * nums.length; i++){
+            while(!stack.isEmpty() && nums[stack.peek()] < nums[i % n]){
                 int preIndex = stack.pop();
                 result[preIndex] = nums[i % n];
             }
 
             stack.push(i % n);
         }
-
         return result;
+    }
+    /**
+     * 同上
+     */
+    public int[] nextGreaterElements7(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        Arrays.fill(res, -1);   // 初始结果都为-1
+        Stack<Integer> st = new Stack<>();              // 单调栈，从栈底到栈顶单调递减，存储的是元素索引
+        for(int i = 0; i < 2 * n; i++){
+            int idx = i % n;    // 实际索引
+            // 弹出栈内比nums[idx]小的元素，nums[idx]就是弹出元素的下一个更大元素
+            while(!st.isEmpty() && nums[idx] > nums[st.peek()]){
+                res[st.pop()] = nums[idx];
+            }
+            // 当i大于n，则已经在循环取之前的元素了，这些元素重复出现只是为了作为后面的元素的下一个更大值，而它们本身已经是出现过了的，无须再入栈处理
+            if(i < n)st.push(idx);
+        }
+        return res;
+    }
+    /**
+     * 数组模拟
+     * 可以使用静态数组来模拟栈，这样我们的代码将会更快一点
+     */
+    public int[] nextGreaterElements6(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+        // 使用数组模拟栈，bottom 代表栈底，top 代表栈顶
+        int[] stack = new int[n * 2];
+        int bottom = 0, top = -1;
 
+        for (int i = 0; i < n * 2; i++) {
+            while (bottom <= top && nums[i % n] > nums[stack[top]]) {
+                int index = stack[top--];
+                ans[index] = nums[i % n];
+            }
+            stack[++top] = i % n;
+        }
+        return ans;
     }
 }
