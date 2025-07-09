@@ -27,18 +27,25 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
     static public int trap_0(int[] height) {
         int sum = 0;
         for (int i = 0; i < height.length; i++) {
-            if (i == 0 || i == height.length - 1) continue;// 第一个柱子和最后一个柱子不接雨水
-
+            if (i == 0 || i == height.length - 1) { // 第一个柱子和最后一个柱子不接雨水
+                continue;
+            }
             int rHeight = height[i]; // 记录右边柱子的最高高度
             int lHeight = height[i]; // 记录左边柱子的最高高度
             for (int r = i + 1; r < height.length; r++) {
-                if (height[r] > rHeight) rHeight = height[r];
+                if (height[r] > rHeight) {
+                    rHeight = height[r];
+                }
             }
             for (int l = i - 1; l >= 0; l--) {
-                if (height[l] > lHeight) lHeight = height[l];
+                if (height[l] > lHeight){
+                    lHeight = height[l];
+                }
             }
             int h = Math.min(lHeight, rHeight) - height[i];
-            if (h > 0) sum += h;  // 注意只有h大于零的时候，在统计到总和中
+            if (h > 0) {
+                sum += h;  // 注意只有h大于零的时候，在统计到总和中
+            }
         }
         return sum;
     }
@@ -71,7 +78,9 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
         for (int i = 0; i < size; i++) {
             int count = Math.min(maxLeft[i], maxRight[i]) - height[i];
             // count: 0 0 1 0 1 2 1 0 0 1 0 0
-            if (count > 0) sum += count;
+            if (count > 0) {
+                sum += count;
+            }
         }
         return sum;
     }
@@ -97,6 +106,31 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
                 sum += maxRight - height[right];
                 right--;
             }
+        }
+        return sum;
+    }
+    /**
+     * 单调栈
+     */
+    public static int trap_1a(int[] heights) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        int sum = 0;
+
+        for(int i = 0; i < heights.length; i++){
+            while(!stack.isEmpty() && heights[stack.peek()] < heights[i]){
+                int cur = stack.pop();
+                if(stack.isEmpty()){ // need to check if stack is empty
+                    break;
+                }
+
+                int left = stack.peek();
+                int width = i - left - 1; // -1
+                int height = Math.min(heights[i], heights[left]) - heights[cur];
+                if(height > 0){ // can be commented
+                    sum += width * height;
+                }
+            }
+            stack.push(i);
         }
         return sum;
     }
@@ -137,14 +171,14 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
         int ans = 0;
         int size = height.length;
         for (int i = 1; i < size - 1; i++) {
-            int left_max = 0, right_max = 0;
+            int leftMax = 0, rightMax = 0;
             for (int j = i; j >= 0; j--) { //Search the left part for max bar size
-                left_max = Math.max(left_max, height[j]);
+                leftMax = Math.max(leftMax, height[j]);
             }
             for (int j = i; j < size; j++) { //Search the right part for max bar size
-                right_max = Math.max(right_max, height[j]);
+                rightMax = Math.max(rightMax, height[j]);
             }
-            ans += Math.max(left_max, right_max) - height[i];
+            ans += Math.max(leftMax, rightMax) - height[i];
         }
         return ans;
     }
