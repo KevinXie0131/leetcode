@@ -2,7 +2,7 @@ package com.answer.monotonic;
 
 import java.util.*;
 
-public class Q84_Largest_Rectangle_in_Histogram {
+public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
     /**
      * Given an array of integers heights representing the histogram's bar height where the width of each bar is 1,
      * return the area of the largest rectangle in the histogram.
