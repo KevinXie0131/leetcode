@@ -16,15 +16,38 @@ public class Q739_Daily_Temperatures {
          * 输入: temperatures = [73,74,75,71,69,72,76,73]
          * 输出: [1,1,4,2,1,1,0,0]
          */
+        int[] temperatures = {73,74,75,71,69,72,76,73};
+        System.out.println(Arrays.toString(dailyTemperatures0(temperatures)));
     }
     /**
+     * 暴力: 针对每个温度值 向后进行依次搜索 ，找到比当前温度更高的值
+     * Time Limit Exceeded
+     */
+    public int[] dailyTemperatures_0(int[] T) {
+        int length = T.length;
+        int[] result = new int[length];
+        for (int i = 0; i < length; i++) {
+            int current = T[i];
+            if (current < 100) {
+                for (int j = i + 1; j < length; j++) {
+                    if (T[j] > current) {
+                        result[i] = j - i;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    /**
+     * 单调栈
      * 通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。时间复杂度为O(n)。
      * 单调栈的本质是空间换时间，因为在遍历的过程中需要用一个栈来记录右边第一个比当前元素高的元素，优点是整个数组只需要遍历一次。
      * 更直白来说，就是用一个栈来记录我们遍历过的元素. 所以我们需要用一个容器（这里用单调栈）来记录我们遍历过的元素(单调栈里只需要存放元素的下标i就可以)
      * 如果求一个元素右边第一个更大元素，单调栈就是递增的(从栈顶到栈底的顺序，即栈顶的元素比栈底的元素小)，
      * 如果求一个元素右边第一个更小元素，单调栈就是递减的(从栈顶到栈底的顺序，即栈顶的元素比栈底的元素大)。
      */
-    public int[] dailyTemperatures0(int[] temperatures) {  // 版本 1 时间复杂度：O(n)   空间复杂度：O(n)
+    static public int[] dailyTemperatures0(int[] temperatures) {  // 版本 1 时间复杂度：O(n)   空间复杂度：O(n)
         int[] result = new int[temperatures.length];
         Deque<Integer> stack = new LinkedList<>();
         stack.push(0); //  注意，单调栈里 加入的元素是 下标。
@@ -37,7 +60,7 @@ public class Q739_Daily_Temperatures {
                     // 如果当前遍历的元素 大于栈顶元素，表示 栈顶元素的 右边的最大的元素就是 当前遍历的元素，所以弹出 栈顶元素，并记录
                     // 如果栈不空的话，还要考虑新的栈顶与当前元素的大小关系 否则的话，可以直接入栈。
                     while(!stack.isEmpty() &&  temperatures[stack.peek()] < temperatures[i]){
-                        result[stack.peek()] = i- stack.peek();
+                        result[stack.peek()] = i- stack.peek(); // 改为存储差值
                         stack.pop();
                     }
                     stack.push(i);
@@ -49,7 +72,7 @@ public class Q739_Daily_Temperatures {
         return result;
     }
     /**
-     * 版本 2
+     * 单调栈 版本 2
      */
     public int[] dailyTemperatures1(int[] temperatures) {
         int[] result = new int[temperatures.length];
@@ -89,13 +112,31 @@ public class Q739_Daily_Temperatures {
         int[] result = new int[n];
         Deque<Integer> stack = new ArrayDeque<>();
 
-        for(int i = 0; i< n; i++){
-            while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()] ){
-                int preIndex = stack.pop();
-                result[preIndex] = i - preIndex;
+        for(int i = 0; i < n; i++){
+            while(!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]){
+                int day = stack.pop();
+                result[day] = i - day;
             }
             stack.push(i);
         }
         return result;
+    }
+    /**
+     * 数组模拟单调栈
+     */
+    public int[] dailyTemperatures3(int[] temperatures) {
+        int n = temperatures.length;
+        int[] ans = new int[n];
+        int[] stack = new int[n]; // 数组模拟，效率更高
+        int top = -1;
+        for (int i = 0; i < n; i++) {
+            int temperature = temperatures[i];
+            while (top >= 0 && temperature > temperatures[stack[top]]) {
+                int j = stack[top--];
+                ans[j] = i - j;
+            }
+            stack[++top] = i;
+        }
+        return ans;
     }
 }
