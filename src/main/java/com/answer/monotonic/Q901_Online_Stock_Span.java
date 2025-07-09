@@ -91,28 +91,28 @@ class StockSpanner{
  * 3、最后将当前天的天数和股票价格入栈
  */
 class StockSpanner_1{
-        Deque<int[]> stack = new ArrayDeque<>();// 记录截止到目前为止，上一个比自己价格大的。int[]存储的是{天数, 价格}
-        int day = 0; // 记录天数
+    Deque<int[]> stack = new ArrayDeque<>();// 记录截止到目前为止，上一个比自己价格大的。int[]存储的是{天数, 价格}
+    int day = 0; // 记录天数
 
-        public StockSpanner_1() {
+    public StockSpanner_1() {
+    }
+
+    public int next(int price) {
+        while (!stack.isEmpty() && stack.peek()[1] <= price) {
+            stack.pop();// 如果栈顶元素小于等于当前元素，说明栈顶元素也不会是后面任何股票的<左侧第一个比我大的>，此时直接出栈即可。
         }
-
-        public int next(int price) {
-            while (!stack.isEmpty() && stack.peek()[1] <= price) {
-                stack.pop();// 如果栈顶元素小于等于当前元素，说明栈顶元素也不会是后面任何股票的<左侧第一个比我大的>，此时直接出栈即可。
-            }
-            int prev;
-            if(stack.isEmpty()){
-                prev = -1;
-            }else{
-                prev = stack.peek()[0];
-            }
-            int ans = day - prev; // 计算当前天数和栈顶这个元素天数的差值
-
-            stack.push(new int[]{day++, price});// 最后将当前天的天数和股票价格入栈
-
-            return ans;
+        int prev;
+        if(stack.isEmpty()){
+            prev = -1;
+        }else{
+            prev = stack.peek()[0];
         }
+        int ans = day - prev; // 计算当前天数和栈顶这个元素天数的差值
+
+        stack.push(new int[]{day++, price});// 最后将当前天的天数和股票价格入栈
+
+        return ans;
+    }
 }
 /**
  * 单调栈
