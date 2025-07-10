@@ -36,7 +36,7 @@ public class Q16_3Sum_Closest {
             int right = nums.length - 1;
             while(left < right){
                 int sum = nums[i] + nums[left] + nums[right];
-                if(Math.abs(target -sum) < Math.abs(target - result)){
+                if(Math.abs(target - sum) < Math.abs(target - result)){
                     result = sum;
                 } else if (sum < target){
                     left++;
@@ -44,6 +44,58 @@ public class Q16_3Sum_Closest {
                     right--;
                 } else {
                     return result;
+                }
+            }
+        }
+        return result;
+    }
+    /**
+     * 对双指针法进行优化
+     */
+    public static int threeSumClosest1(int[] nums, int target) {
+        Arrays.sort(nums); // 首先将数组排序
+
+        int result = nums[0] + nums[1] + nums[2];
+        for(int i = 0; i < nums.length - 2; i++){
+            if (i > 0 && nums[i] == nums[i - 1]) { // 优化
+                continue;
+            }
+            int left = i + 1;
+            int right = nums.length - 1;
+            while(left < right){
+                // 满足条件的情况下就可以直接取值，而不需要双指针一步步的判断来进行取值，减少了双指针的移动。
+                // 如果 target 的值比 nums[i] + nums[left] + nums[left + 1] 的值还小，那么双指针无论怎么取，最后都会取到 nums[i] + nums[left] + nums[left + 1]
+                // 同理可证 target 的值比nums[i] + nums[right] + nums[right - 1] 的值还大的情况。
+                // 判断最小值
+                int min = nums[i] + nums[left] + nums[left + 1];  // 优化
+                if(target < min){
+                    if(Math.abs(result - target) > Math.abs(min - target))
+                        result = min;
+                    break;
+                }
+                //判断最大值
+                int max = nums[i] + nums[right] + nums[right - 1];  // 优化
+                if(target > max){
+                    if(Math.abs(result - target) > Math.abs(max - target))
+                        result = max;
+                    break;
+                }
+
+                int sum = nums[i] + nums[left] + nums[right];
+                if(Math.abs(target - sum) < Math.abs(target - result)){
+                    result = sum;
+                } else if (sum < target){
+                    left++;
+                    while (right > left && nums[left] == nums[left - 1]){ // 优化 解决nums[left]重复
+                        left++;
+                    }
+                } else if (sum > target){
+                    right--;
+                    while (right > left && nums[right + 1] == nums[right]){ // 优化  解决nums[right]重复
+                        right--;
+                    }
+                } else {
+                    return result;  // 判断三数之和是否等于target
                 }
             }
         }
