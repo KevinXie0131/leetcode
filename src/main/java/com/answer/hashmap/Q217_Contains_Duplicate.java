@@ -19,18 +19,24 @@ public class Q217_Contains_Duplicate {
      */
     public boolean containsDuplicate_0(int[] nums) {
         Set<Integer> set = new HashSet<>();
-        for (int num: nums) {
+        for (int num : nums) {
             if (set.contains(num)) {
                 return true; // 遍历数组，数字放到 set 中。如果数字已经存在于 set 中，直接返回 true
             }
             set.add(num);
         }
         return false;
-     /*   Set<Integer> set = new HashSet<>();  // 另一种形式
+    }
+    /**
+     * 另一种形式
+     * 把 nums 中的元素都丢到哈希集合中（去重）。如果哈希集合的大小小于 n，则说明有重复元素。
+     */
+    public boolean containsDuplicate_0a(int[] nums) {
+        Set<Integer> set = new HashSet<>();
         for (int x : nums) {
             set.add(x);
         }
-        return set.size() < nums.length; */
+        return set.size() < nums.length;
     }
     /**
      * Approach #3 (Hash Table) 哈希表
