@@ -35,8 +35,25 @@ public class Q202_Happy_Number {
             set.add(n);
             n = getNextNumber(n);
         }
-
         return n == 1;
+    }
+    /**
+     * another form
+     * 思路：如果数字不快乐，那它一定重复了
+     */
+    public boolean isHappy_0(int n) {
+        HashSet<Integer> set = new HashSet<>();
+        int sum = n;
+        while(sum != 1) {
+            sum = getNextNumber(sum);
+            //先判断哈希表中是否存在这个数
+            if(set.contains(sum)) {
+                return false;
+            }
+            //如果不再将每次结果放到哈希表中去
+            set.add(sum);
+        }
+        return true;
     }
     // 取数值各个位上的单数之和
     public int getNextNumber(int n){
@@ -65,9 +82,12 @@ public class Q202_Happy_Number {
         }
         return sum;
     }
-    // 快慢指针判断有没有环
+    /**
+     * 我们可以发现，即使数字很大，next 范围也会跌下来，很快陷入 [1,243] 这个范围内。接下来面临循环或者达到 1 退出。
+     * 这是典型的环形链表问题，我们可以通过快慢指针来解决
+     */
     boolean isHappy_1(int n) {
-        int slow = n, fast = n;
+        int slow = n, fast = n; // 快慢指针判断有没有环
         do{
             slow = bitSquareSum(slow);
             fast = bitSquareSum(fast);
@@ -75,5 +95,57 @@ public class Q202_Happy_Number {
         }while(slow != fast); // 如果 n 不是一个快乐的数字，那么最终快跑者和慢跑者将在同一个数字上相遇。
 
         return slow == 1; // 如果是1，则是快乐数
+    }
+    /**
+     * another form
+     */
+    boolean isHappy_1a(int n) {
+        int slow = n;
+        int fast = bitSquareSum(n);// 快慢指针判断有没有环
+        while (slow != fast) {
+            slow = bitSquareSum(slow);
+            fast = bitSquareSum(bitSquareSum(fast));
+        }
+        return slow == 1; // 如果是1，则是快乐数
+    }
+    /**
+     * another form
+     */
+    public boolean isHappy_1b(int n) {
+        int fast = n;
+        int slow = n;
+
+        while (true) {
+            // 快慢指针异速前进
+            fast = bitSquareSum(fast);
+            fast = bitSquareSum(fast);
+            slow = bitSquareSum(slow);
+
+            if (fast == 1) return true;
+            if (fast == slow) return false;
+        }
+    }
+    /**
+     *  递归循环
+     */
+    public boolean isHappy3(int n) {
+        return loop(n, 0);
+    }
+
+    public boolean loop(int n, int count) {
+        if (count > 10) {
+            return false;
+        }
+        char[] array = String.valueOf(n).toCharArray();
+        int sum = 0;
+        for (char ch : array) {
+            Integer num = Integer.valueOf(ch + "");
+            sum += num * num;
+        }
+        if (sum == 1) {
+            return true;
+        }
+        count++;
+        return loop(sum, count);
     }
 }
