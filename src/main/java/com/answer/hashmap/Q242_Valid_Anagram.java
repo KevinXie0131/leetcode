@@ -1,6 +1,5 @@
 package com.answer.hashmap;
 
-import java.util.Arrays;
 import java.util.*;
 
 public class Q242_Valid_Anagram {
@@ -29,11 +28,11 @@ public class Q242_Valid_Anagram {
             return false;
         }
         int[] characters = new int[26];
-        for(int i=0; i < s.length(); i++){
+        for(int i = 0; i < s.length(); i++){
             characters[s.charAt(i) - 'a']++;
             characters[t.charAt(i) - 'a']--;
         }
-        for(int i=0; i<26; i++){
+        for(int i = 0; i < 26; i++){
             if(characters[i] != 0){
                 return false;
             }
@@ -45,23 +44,23 @@ public class Q242_Valid_Anagram {
      * 时间复杂度O(m+n) 空间复杂度O(1)
      */
     public boolean isAnagram_0(String s, String t) {
-        int[] record = new int[26];
+        int[] record = new int[26]; // 维护一个长度为 26 的频次数组
 
         for (int i = 0; i < s.length(); i++) {
-            record[s.charAt(i) - 'a']++;     // 并不需要记住字符a的ASCII，只要求出一个相对数值就可以了
+            record[s.charAt(i) - 'a']++; // 并不需要记住字符a的ASCII，只要求出一个相对数值就可以了
         }
         for (int i = 0; i < t.length(); i++) {
             record[t.charAt(i) - 'a']--;
         }
         for (int count: record) {
-            if (count != 0) {               // record数组如果有的元素不为零0，说明字符串s和t 一定是谁多了字符或者谁少了字符。
+            if (count != 0) { // record数组如果有的元素不为零0，说明字符串s和t 一定是谁多了字符或者谁少了字符。
                 return false;
             }
         }
-        return true;                        // record数组所有元素都为零0，说明字符串s和t是字母异位词
+        return true; // record数组所有元素都为零0，说明字符串s和t是字母异位词
     }
     /**
-     *
+     * t 是 s 的异位词等价于「两个字符串排序后相等」
      */
     public boolean isAnagram_1(String s, String t) {
         if(s.length() != t.length()){
@@ -74,7 +73,7 @@ public class Q242_Valid_Anagram {
         return Arrays.equals(str1, str2);
     }
     /**
-     *
+     * t 是 s 的异位词等价于「两个字符串中字符出现的种类和次数均相等」
      */
     public boolean isAnagram_2(String s, String t) {
         if(s.length() != t.length()){
@@ -88,7 +87,7 @@ public class Q242_Valid_Anagram {
         for(int i=0; i < t.length(); i++){
             char ch = t.charAt(i);
             map.put(ch, map.getOrDefault(ch, 0) - 1);
-            if(map.get(ch) < 0){
+            if(map.get(ch) < 0){ // 剪枝退出更快
                 return false;
             }
         }
