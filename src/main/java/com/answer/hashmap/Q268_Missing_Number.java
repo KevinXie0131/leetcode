@@ -20,6 +20,51 @@ public class Q268_Missing_Number {
      * 输出：8
      * 解释：n = 9，因为有 9 个数字，所以所有的数字都在范围 [0,9] 内。8 是丢失的数字，因为它没有出现在 nums 中。
      */
+    public static void main(String[] args) {
+        int[] nums = {3,0,1};
+        missingNumber5(nums);
+    }
+    /**
+     * 数组哈希
+     * 利用 nums 的数值范围为 [0,n]，且只有一个值缺失，我们可以直接开一个大小为 n+1 的数组充当哈希表，进行计数，没被统计到的数值即是答案。
+     */
+    public int missingNumber0(int[] nums) {
+        int n = nums.length;
+        boolean[] hash = new boolean[n + 1];
+        for (int i = 0; i <= n - 1; i++) {
+            hash[nums[i]] = true;
+        }
+        for (int i = 0; i <= n; i++) {
+            if (!hash[i]) {
+                return i;
+            }
+        }
+        return n;
+    }
+    /**
+     * 原地哈希
+     * 可以将 nums 本身作为哈希表进行使用，将 nums[i] 放到其应该出现的位置（下标） nums[i] 上（ nums[i]<n ）
+     */
+    static public int missingNumber5(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i && nums[i] <= n - 1) { // 将数组的每个元素放在对应下标的位置，比如元素3放在下标为3的位置, 如果元素等于n(数组长度)，则跳过它。
+                swap(nums, nums[i], i--);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (i != nums[i]) { // 再遍历一遍数组，如果当前下标i放的元素不是i，说明答案就是i；遍历完后还没找到答案的话，那么n就是答案。
+                return i;
+            }
+        }
+        return n;
+    }
+
+    static void swap(int[] nums, int i, int j) {
+        int c = nums[i];
+        nums[i] = nums[j];
+        nums[j] = c;
+    }
     /**
      * HashSet 哈希集合
      * 使用哈希集合，可以将时间复杂度降低到 O(n)。
@@ -36,7 +81,7 @@ public class Q268_Missing_Number {
         return set.iterator().next();
     }
     /**
-     * HashSet 同上
+     * 哈希集合 HashSet 同上
      */
     public int missingNumber_1(int[] nums) {
         Set<Integer> set = new HashSet<>();
@@ -73,12 +118,45 @@ public class Q268_Missing_Number {
     public int missingNumber_3(int[] nums) {
         int x = 0;
         for (int n : nums) {
-            x ^= n;
+            x ^= n; // 按位异或运算
         }
         for (int i = 0; i <= nums.length; i++) {
             x ^= i;
         }
         return x;
+    }
+    /**
+     * anther from 异或
+     * 这个数组添加从0~n的n+1个元素，就变成了数组中只有一个数出现了一次，其他数字都出现了2次，让我们求这个只出现一次的数字
+     */
+    public int missingNumber6(int[] nums) {
+        int n = nums.length;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans ^= nums[i] ^ i;
+        }
+        return ans ^ n;
+    }
+    /**
+     * 二分法查找
+     */
+    public int missingNumber7(int[] nums) {
+        Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == mid) {
+                // 如果nums[mid] == mid也就是说当前元素的下标等于他自己，
+                // 比如数组[0,1,2,3,4,5]每个元素的下标都等于他自己，说明[start,mid]
+                // 没有缺少任何数字，那么缺少的肯定是在[mid+1,end]
+                start = mid + 1;
+            } else {
+                //注意这里写法和上面代码不一样
+                end = mid - 1;
+            }
+        }
+        return start;
     }
     /**
      * Approach #4 Gauss' Formula 数学
