@@ -2,6 +2,7 @@ package com.answer.hashmap;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Q349_Intersection_of_Two_Arrays {
     /**
@@ -25,7 +26,7 @@ public class Q349_Intersection_of_Two_Arrays {
         System.out.println(Arrays.toString(result));
     }
     /**
-     * 使用Hash數組
+     * 使用Hash数组
      */
     public int[] intersection_0(int[] nums1, int[] nums2) {
         int[] hash1 = new int[1002];
@@ -58,21 +59,43 @@ public class Q349_Intersection_of_Two_Arrays {
         for(int i : nums1){
             set1.add(i);
         }
-
         for(int i : nums2){
             if(set1.contains(i)){
                 set2.add(i);
             }
         }
-        // return set2.stream().mapToInt(i -> i).toArray();
+        // return set2.stream().mapToInt(i -> i).toArray();// works too
         int[] result = new int[set2.size()];
-        result =  set2.stream().mapToInt(Number::intValue).toArray();
+        result = set2.stream().mapToInt(Number::intValue).toArray();
         return result;
     }
-
+    /**
+     * 使用HashMap
+     */
+    public int[] intersection3(int[] nums1, int[] nums2) {
+        List<Integer> ans = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums1) {
+            map.put(num, 1);
+        }
+        for (int num : nums2) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
+                if (map.get(num) == 2) {
+                    ans.add(num);
+                }
+            }
+        }
+        return ans.stream().mapToInt(Integer::intValue).toArray();
+      //  return ans.stream().mapToInt(i -> i).toArray();// works too
+    }
+    /**
+     * 排序 + 双指针
+     */
     public static int[] intersection_1(int[] nums1, int[] nums2) {
         Arrays.sort(nums1);
         Arrays.sort(nums2);
+
         int len1 = nums1.length;
         int len2 = nums2.length;
         int[] result = new int[len1 + len2];
@@ -82,7 +105,7 @@ public class Q349_Intersection_of_Two_Arrays {
             int n1 = nums1[index1];
             int n2 = nums2[index2];
             if(n1 == n2){
-                if(!(index > 0 && result[index-1] == n1)){
+                if(index == 0 || result[index - 1] != n1){  // 保证加入元素的唯一性
                     result[index++] = n1;
                 }
                 index1++;
@@ -95,4 +118,14 @@ public class Q349_Intersection_of_Two_Arrays {
         }
         return Arrays.copyOfRange(result, 0, index);
     }
+    /**
+     * 使用Stream处理
+     */
+    public int[] intersection4(int[] nums1, int[] nums2) {
+        Set<Integer> set1 = Arrays.stream(nums1).boxed().collect(Collectors.toSet());
+        Set<Integer> set2 = Arrays.stream(nums2).boxed().collect(Collectors.toSet());
+        set1.retainAll(set2); // Modifies set1 to contain only common elements
+        return set1.stream().mapToInt(Integer::intValue).toArray();
+    }
+
 }
