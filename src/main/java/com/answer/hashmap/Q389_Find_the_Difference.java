@@ -46,7 +46,7 @@ public class Q389_Find_the_Difference {
     /**
      * HashSet - this method works 这个方法可以运行
      */
-    public char findTheDifference_0(String s, String t) {
+   static public char findTheDifference_0(String s, String t) {
         Set<Character> set = new HashSet<>();
         char[] array = s.concat(t).toCharArray();
         for(int i = 0; i <array.length; i++){
@@ -63,7 +63,6 @@ public class Q389_Find_the_Difference {
      */
     public char findTheDifference_0a(String s, String t) {
         char extraChar = '\0';
-
         // Prepare a counter for string s.
         // This hash map holds the characters as keys and respective frequency as value.
         HashMap <Character,Integer> counterS = new HashMap <>();
@@ -71,9 +70,8 @@ public class Q389_Find_the_Difference {
             char ch = s.charAt(i);
             counterS.put(ch, counterS.getOrDefault(ch, 0) + 1);
         }
-
         // Iterate through string t and find the character which is not in s.
-        for (int i = 0; i < t.length(); i += 1) {
+        for (int i = 0; i < t.length(); i++) {
             char ch = t.charAt(i);
             if (!counterS.containsKey(ch)) {
                 extraChar = ch;
@@ -95,7 +93,7 @@ public class Q389_Find_the_Difference {
      * int[26]是常数，所以空间复杂度O(1)
      */
     public static char findTheDifference_1(String s, String t) {
-        int[] count = new int[26];
+        int[] count = new int[26]; // 计数
         char[] c1 = t.toCharArray();
         char[] c2 = s.toCharArray();
         // s和t长度可能不一样，所以要遍历两边
@@ -115,6 +113,23 @@ public class Q389_Find_the_Difference {
         for(int i = 0; i < count.length; i++){ // int[26]是常数，所以时间复杂度O(1)
             if(count[i] > 0){
                 return (char)('a' + i);
+            }
+        }
+        return 'a';
+    }
+    /**
+     * another form
+     * 既然字符串s比t少一个字符，我们先统计字符串s中每个字符的数量，然后减去字符串t中的每个字符，
+     * 如果小于0，说明字符串s比t少的就是这个字符，直接返回即可
+     */
+    public char findTheDifference7(String s, String t) {
+        int count[] = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            if (--count[t.charAt(i) - 'a'] < 0) {
+                return t.charAt(i);
             }
         }
         return 'a';
@@ -143,6 +158,21 @@ public class Q389_Find_the_Difference {
         return (char)sum;*/
     }
     /**
+     * another from
+     */
+    public char findTheDifference9(String s, String t) {
+        return (char)(Math.abs(sumChar(s) - sumChar(t)));
+
+    }
+    //把char转成数字求和
+    public int sumChar(String str){
+        int sum = 0;
+        for(char c : str.toCharArray()){
+            sum += (int)c;
+        }
+        return sum;
+    }
+    /**
      * XOR 异或
      */
     public char findTheDifference_3(String s, String t) {
@@ -156,7 +186,6 @@ public class Q389_Find_the_Difference {
         for(char c : c2){
             xor ^= c;
         }
-
         return (char)xor;
     }
     /**
@@ -168,6 +197,20 @@ public class Q389_Find_the_Difference {
             exor ^= c;
         }
         return exor;
-
+    }
+    /**
+     * 位运算
+     * 因为 t 只比 s 多了一个字母，相当于 只有 1 个字母出现了奇数次，其它字母全部出现了偶数次。
+     */
+    public char findTheDifference8(String s, String t) {
+        int len = s.length();
+        char[] chs = s.toCharArray();
+        char[] cht = t.toCharArray();
+        int res = 0;
+        for (int i = 0; i < len; i++) {
+            res ^= chs[i] ^ cht[i]; // XOR 运算满足交换律和结合律：a⊕b⊕a = (a⊕a)⊕b = 0⊕b = b
+        }
+        res ^= cht[len];
+        return (char) res;
     }
 }
