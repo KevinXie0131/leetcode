@@ -11,7 +11,6 @@ public class Q287_Find_the_Duplicate_Number {
      * Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
      * There is only one repeated number in nums, return this repeated number.
      * You must solve the problem without modifying the array nums and using only constant extra space
-     *
      * 示例 1：
      * 输入：nums = [1,3,4,2,2]
      * 输出：2
@@ -76,6 +75,8 @@ public class Q287_Find_the_Duplicate_Number {
      * Marked and modifying the array 标记法(不需要额外空间，需要修改原始数组 )
      * Time: N
      * Space: 1
+     * 只需要遍历数组把出现的元素的位置的数的对应下标取相反数，下一次再访问到负数就是重复数了，比如[1,3,2,4,3]，
+     * 遍历到3时，nums[3]= -nums[3]，遍历到第二个重复的3时，此时nums[3]<0 就return 3，类似41.缺失的第一个正数/First Missing Positive
      */
     public static int findDuplicate_mark(int[] nums) {
         int len = nums.length;
@@ -84,7 +85,7 @@ public class Q287_Find_the_Duplicate_Number {
             if (nums[idx] < 0) {
                 return idx; // 这个下标已被访问过 则返回
             }
-            nums[idx] = -nums[idx]; // 做标记
+            nums[idx] = -nums[idx]; // 做标记, 每一次遍历就把该索引对应的数组中的元素设为负
         }
         return len;
     }
@@ -99,15 +100,15 @@ public class Q287_Find_the_Duplicate_Number {
     public int findDuplicate8(int[] nums) {
         int i = 0;
         while(i < nums.length) {
-            if(nums[i] == i) {
+            if(nums[i] == i) { //  说明此数字已在对应索引位置，无需交换，因此跳过
                 i++;
                 continue;
             }
             if(nums[nums[i]] == nums[i]) {
-                return nums[i];
+                return nums[i]; // 代表索引 nums[i] 处和索引 i 处的元素值都为 nums[i] ，即找到一组重复值，返回此值 nums[i]
             }
-            int tmp = nums[i]; // 不需要额外空间，需要修改原始数组
-            nums[i] = nums[tmp];
+            int tmp = nums[i]; // 交换索引为 i 和 nums[i] 的元素值，将此数字交换至对应索引位置
+            nums[i] = nums[tmp]; // 不需要额外空间，需要修改原始数组
             nums[tmp] = tmp;
         }
         return -1;
@@ -124,14 +125,14 @@ public class Q287_Find_the_Duplicate_Number {
     public static int findDuplicate_index_sort(int[] nums) {
         int len = nums.length;
         for (int i = 0; i < len; ) {
-            int n = nums[i];
-            if (n == i + 1) {
+            int num = nums[i];
+            if (num == i + 1) {
                 i++;
-            } else if (n == nums[n - 1]) {
-                return n;
+            } else if (num == nums[num - 1]) {
+                return num;
             } else {
-                nums[i] = nums[n - 1];
-                nums[n - 1] = n;
+                nums[i] = nums[num - 1];
+                nums[num - 1] = num;
             }
         }
         return 0;
@@ -170,9 +171,35 @@ public class Q287_Find_the_Duplicate_Number {
         return low;
     }
     /**
+     * another form
+     * 时间复杂度：O(NlogN)，二分法的时间复杂度为 O(logN)，在二分法的内部，执行了一次 for 循环，时间复杂度为 O(N)，
+     * 故时间复杂度为 O(NlogN)。
+     */
+    public int findDuplicate_8(int[] nums) {
+        int n = nums.length;
+        int l = 1, r = n - 1, ans = -1;
+        while (l <= r) {
+            int mid = (l + r) >> 1;
+            int cnt = 0;
+            for (int i = 0; i < n; ++i) { // 遍历数组，统计数组中小于 mid的元素个数
+                if (nums[i] <= mid) {
+                    cnt++;
+                }
+            }
+            if (cnt <= mid) {
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+                ans = mid;  // 个数超出范围长度，即存在重复数
+            }
+        }
+        return ans;
+    }
+    /**
      * Slow Fast Pointers 快慢指针(数组索引看成链表next指针)
      * Time: N
      * Space: 1
+     * refer to 142. Linked List Cycle II
      * 使用 142 题的思想来解决此题的关键是要理解如何将输入的数组看作为链表。
      * 从理论上讲，数组中如果有重复的数，那么就会产生多对一的映射，这样，形成的链表就一定会有环路了，
      * 综上
@@ -184,19 +211,24 @@ public class Q287_Find_the_Duplicate_Number {
      *   142 题中快指针走两步 fast = fast.next.next ==> 本题 fast = nums[nums[fast]]
      */
     public static int findDuplicate_fastSlow(int[] nums) {
+        // 将这个题目给的特殊的数组当作一个链表来看，数组的下标就是指向元素的指针，把数组的元素也看作指针。
+        // 如 0 是指针，指向 nums[0]，而 nums[0] 也是指针，指向 nums[nums[0]].
         int slow = 0;
         int fast = 0;
+        // 寻找慢指针与快指针的相遇点
         do {
-            slow = nums[slow];
-            fast = nums[nums[fast]];
+            slow = nums[slow]; //慢指针走一步
+            fast = nums[nums[fast]]; //快指针走两步
         } while (slow != fast); // 快慢指针相遇
-
-        slow = 0; // 回到原点
+        // 当 fast 和 last 相遇之后，我们设置第三个指针 finder，它从起点开始和 slow(在 fast 和 slow 相遇处)同步前进，
+        // 当 finder 和 slow 相遇时，就是在环的入口处相遇，也就是重复的那个数字相遇
+        // 寻找环的入口
+        slow = 0; // 回到原点 慢指针从头开始走
         while (slow != fast) {
             slow = nums[slow];
             fast = nums[fast];
         }
-
+        // 根据数学推导，两者将在环入口相遇：
         return slow;
     }
 }
