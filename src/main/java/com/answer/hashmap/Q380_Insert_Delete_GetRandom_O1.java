@@ -25,6 +25,18 @@ public class Q380_Insert_Delete_GetRandom_O1 {
      *       randomizedSet.insert(2); // 2 已在集合中，所以返回 false 。
      *       randomizedSet.getRandom(); // 由于 2 是集合中唯一的数字，getRandom 总是返回 2 。
      */
+    public static void main(String[] args) {
+        Q380_Insert_Delete_GetRandom_O1 set = new Q380_Insert_Delete_GetRandom_O1();
+
+        set.insert1(1);   // returns true
+        set.remove1(2);   // returns false, 2 not present
+        set.insert1(2);   // returns true
+        int rand = set.getRandom1();
+        System.out.println(rand); // getRandom should return 1 or 2
+        set.remove1(1);   // returns true
+        set.insert1(2);  // returns false, 2 already present
+        System.out.println(set.getRandom1()); // Only 2 should be present
+    }
     /**
      * 变长数组 + 哈希表
      * 哈希表可以在 O(1) 的时间内完成插入和删除操作，但是由于无法根据下标定位到特定元素，因此不能在 O(1) 的时间内完成获取随机元素操作。
@@ -102,8 +114,10 @@ public class Q380_Insert_Delete_GetRandom_O1 {
         int loc = map.remove(value); // 删除交换
         if (loc != idx) {
             map.put(nums1[idx], loc);
+            nums1[loc] = nums1[idx--];
+        } else {
+            idx--;
         }
-        nums1[loc] = nums1[idx--];
         return true;
     }
 
