@@ -97,7 +97,7 @@ public class Q287_Find_the_Duplicate_Number {
      *  若 nums[nums[i]]=nums[i] ： 代表索引 nums[i] 处和索引 i 处的元素值都为 nums[i] ，即找到一组重复值，返回此值 nums[i] 。
      *  否则： 交换索引为 i 和 nums[i] 的元素值，将此数字交换至对应索引位置。
      */
-    public int findDuplicate8(int[] nums) {
+   static public int findDuplicate8(int[] nums) {
         int i = 0;
         while(i < nums.length) {
             if(nums[i] == i) { //  说明此数字已在对应索引位置，无需交换，因此跳过
@@ -122,7 +122,7 @@ public class Q287_Find_the_Duplicate_Number {
      *   如果 nums[i]==nums[nums[i]−1] ，说明在正确的索引已经有一个值了，那么这个值就是重复的元素；
      *   上述均不满足，交换 nums[i] 和 nums[nums[i]−1] 的值。
      */
-    public static int findDuplicate_index_sort(int[] nums) {
+    static public int findDuplicate_index_sort(int[] nums) {
         int len = nums.length;
         for (int i = 0; i < len; ) {
             int num = nums[i];
