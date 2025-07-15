@@ -11,7 +11,6 @@ public class Q146_LRU_Cache {
      *  int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
      *  void put(int key, int value) 如果关键字 key 已经存在，则变更其数据值 value ；如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 capacity ，则应该 逐出 最久未使用的关键字。
      * 函数 get 和 put 必须以 O(1) 的平均时间复杂度运行。
-     *
      * 示例：
      * 输入 ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
      *      [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
@@ -66,32 +65,24 @@ public class Q146_LRU_Cache {
         if (node == null) {
             return -1;
         }
-        // 如果 key 存在，先通过哈希表定位，再移到头部
-        moveToHead(node);
+        moveToHead(node); // 如果 key 存在，先通过哈希表定位，再移到头部
         return node.value;
     }
 
     public void put(int key, int value) {
         DLinkedNode node = cache.get(key);
         if (node == null) {
-            // 如果 key 不存在，创建一个新的节点
-            DLinkedNode newNode = new DLinkedNode(key, value);
-            // 添加进哈希表
-            cache.put(key, newNode);
-            // 添加至双向链表的头部
-            addToHead(newNode);
+            DLinkedNode newNode = new DLinkedNode(key, value);// 如果 key 不存在，创建一个新的节点
+            cache.put(key, newNode); // 添加进哈希表
+            addToHead(newNode);  // 添加至双向链表的头部
             ++size;
             if (size > capacity) {
-                // 如果超出容量，删除双向链表的尾部节点
-                DLinkedNode tail = removeTail();
-                // 删除哈希表中对应的项
-                cache.remove(tail.key);
+                DLinkedNode tail = removeTail();  // 如果超出容量，删除双向链表的尾部节点
+                cache.remove(tail.key); // 删除哈希表中对应的项
                 --size;
             }
-        }
-        else {
-            // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
-            node.value = value;
+        } else {
+            node.value = value; // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
             moveToHead(node);
         }
     }
