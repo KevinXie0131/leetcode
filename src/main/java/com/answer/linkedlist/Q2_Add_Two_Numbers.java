@@ -39,6 +39,7 @@ public class Q2_Add_Two_Numbers {
         result.print();
     }
     /**
+     * 模拟
      * 比较简洁的迭代法
      * 按位模拟加法，注意循环条件不要忘记 || sum
      */
@@ -86,6 +87,29 @@ public class Q2_Add_Two_Numbers {
             cur.next = new ListNode(carry, null);
         }
         return dummy.next;
+    }
+    /**
+     * 迭代法 代码精简易记
+     */
+    public ListNode addTwoNumbers6(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(-1, null); // 哨兵节点
+        ListNode cur = dummy;
+        int carry = 0;
+        while(l1 != null || l2 != null || carry > 0){  // 有一个不是空节点，或者还有进位，就继续迭代
+            int v1 = l1 == null ? 0 : l1.val;
+            int v2 = l2 == null ? 0 : l2.val;
+
+            int sum = v1 + v2 + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+
+            cur.next = new ListNode(sum, null);
+            cur = cur.next;
+
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
+        }
+        return dummy.next;  // 哨兵节点的下一个节点就是头节点
     }
     /**
      * Recursive 递归法
@@ -172,9 +196,34 @@ public class Q2_Add_Two_Numbers {
         return head;
     }
     /**
+     * 比较易懂的递归
+     */
+    public ListNode addTwoNumbers_7(ListNode l1, ListNode l2) {
+        return mT(l1, l2, 0);
+    }
+
+    public ListNode mT(ListNode l1, ListNode l2, int carry) {
+        if (l1 == null && l2 == null && carry == 0) {
+            return null;
+        }
+        int sum = carry;
+        if (l1 != null) {
+            sum += l1.val;
+            l1 = l1.next;
+        }
+        if (l2 != null) {
+            sum += l2.val;
+            l2 = l2.next;
+        }
+        ListNode node = new ListNode(sum % 10);
+        node.next = mT(l1, l2, sum / 10);
+        return node;
+    }
+    /**
+     * 原地修改
      * 有一个简化代码的小技巧：如果递归中发现 l2 的长度比 l1 更长，那么可以交换 l1 和 l2，保证 l1 不是空节点，从而简化代码逻辑。
      */
-    public   ListNode recursion1(ListNode l1, ListNode l2 , int carry){
+    public ListNode recursion1(ListNode l1, ListNode l2 , int carry){ // l1 和 l2 为当前遍历的节点，carry 为进位
         if (l1 == null && l2 == null) { // 递归边界：l1 和 l2 都是空节点
             return carry != 0 ? new ListNode(carry) : null; // 如果进位了，就额外创建一个节点
         }
@@ -190,7 +239,7 @@ public class Q2_Add_Two_Numbers {
     /**
      * 不直接修改原链表
      */
-    public   ListNode recursion3(ListNode l1, ListNode l2 , int carry){
+    public ListNode recursion3(ListNode l1, ListNode l2 , int carry){
         if (l1 == null && l2 == null) {
             return carry != 0 ? new ListNode(carry) : null;
         }
@@ -202,5 +251,42 @@ public class Q2_Add_Two_Numbers {
         ListNode head = new ListNode(sum % 10);
         head.next = recursion(l1.next, (l2 != null ? l2.next : null), sum / 10);
         return head;
+    }
+    /**
+     * 链表递归
+     */
+    public ListNode addTwoNumbers_8(ListNode l1, ListNode l2) {
+        return add(l1, l2, 0);
+    }
+
+    // 返回两个链表相加的头部
+    public ListNode add(ListNode l1, ListNode l2, int carry) {
+        if (l1 == null && l2 == null && carry == 0) {  // 递归边界
+            return null;
+        }
+        int sum = carry;
+        if (l1 != null) {
+            sum += l1.val;  // 累加进位与节点值
+            l1 = l1.next;
+        }
+        if (l2 != null) {
+            sum += l2.val;
+            l2 = l2.next;
+        }
+        ListNode node = new ListNode(sum % 10);  // sum 除以 10 的余数为当前节点值，商为进位
+        node.next = add(l1, l2, sum / 10);
+        return node;
+    }
+    /**
+     * 递归
+     */
+    private ListNode add1(ListNode l1,ListNode l2,int carry){
+        if (l1 == null && l2 == null && carry == 0) {// 递归出口:两个链表都到末尾且无进位，则返回null
+            return null;
+        }
+        int val = carry + (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0); // 每步工作，计算当前节点的值，为两个链表节点的值+进位的值
+        ListNode curNode = new ListNode(val % 10);
+        curNode.next = add1(l1 != null ? l1.next : null, l2 != null ?  l2.next : null,val / 10);// 递归的设置当前节点的后继节点
+        return curNode; // 返回当前节点
     }
 }
