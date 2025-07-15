@@ -3,7 +3,7 @@ package com.answer.hashmap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Q460_LFU_Cache {
+public class Q460_LFU_Cache { // Hard 困难
     /**
      * LFU 缓存
      * 请你为 最不经常使用（LFU）缓存算法设计并实现数据结构。Design and implement a data structure for a Least Frequently Used (LFU) cache.
@@ -15,7 +15,6 @@ public class Q460_LFU_Cache {
      * 为了确定最不常使用的键，可以为缓存中的每个键维护一个 使用计数器 。使用计数最小的键是最久未使用的键。
      * 当一个键首次插入到缓存中时，它的使用计数器被设置为 1 (由于 put 操作)。对缓存中的键执行 get 或 put 操作，使用计数器的值将会递增。
      * 函数 get 和 put 必须以 O(1) 的平均时间复杂度运行。
-     *
      * 示例：
      * 输入：
      * ["LFUCache", "put", "put", "get", "put", "get", "get", "put", "get", "get", "get"]
@@ -56,7 +55,7 @@ public class Q460_LFU_Cache {
     Map<Integer, DoublyLinkedList> freqTable;
 
     public Q460_LFU_Cache(int capacity) {
-        this.minfreq = 0;
+        this.minfreq = 0; // minFreq的变量，用来记录LFU缓存中频率最小的元素
         this.capacity = capacity;
         keyTable = new HashMap<Integer, Node>();
         freqTable = new HashMap<Integer, DoublyLinkedList>();

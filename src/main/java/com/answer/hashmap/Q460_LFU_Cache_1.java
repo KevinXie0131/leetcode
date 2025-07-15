@@ -44,6 +44,7 @@ public class Q460_LFU_Cache_1 {
             node.value = value; // 更新 value
             return;
         }
+        // 移除最不经常使用的项, 具有相同使用频率时，应该去除 最久未使用 的键
         if (keyToNode.size() == capacity) { // 书太多了
             Node dummy = freqToDummy.get(minFreq);
             Node backNode = dummy.prev; // 最左边那摞书的最下面的书
