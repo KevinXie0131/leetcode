@@ -48,7 +48,7 @@ public class Q21_Merge_Two_Sorted_Lists {
         return head;
     }
     /**
-     * Recursive
+     * Recursive 递归
      */
     public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         if(list1 == null){
@@ -71,26 +71,37 @@ public class Q21_Merge_Two_Sorted_Lists {
         }
     }
     /**
+     * 递归
+     */
+    public ListNode mergeTwoLists_3(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        if (l1.val < l2.val) {
+            return new ListNode(l1.val, mergeTwoLists(l1.next, l2));
+        } else {
+            return new ListNode(l2.val, mergeTwoLists(l1, l2.next));
+        }
+    }
+    /**
      * Iterative
      * 同时遍历两个链表，从中选取较小的元素添加到结果链表，直至两个链表都遍历完成。
      */
     public ListNode mergeTwoLists_1(ListNode list1, ListNode list2) {
-        ListNode dummy = new ListNode(-1, null); // 增加虚拟节点
+        ListNode dummy = new ListNode(-1, null); // 增加虚拟节点 简化代码逻辑
         ListNode cur = dummy;
 
         while(list1 != null && list2 != null){
             if(list1.val < list2.val){
-                cur.next = list1;
+                cur.next = list1; // 把 list1 加到新链表中
                 list1 = list1.next;
-            } else {
-                cur.next = list2;
+            } else {  // 注：相等的情况加哪个节点都是可以的
+                cur.next = list2; // 把 list2 加到新链表中
                 list2 = list2.next;
             }
             cur = cur.next;
         }
-
-        cur.next = list1 == null ? list2 : list1;
-
+        // 拼接剩余链表
+        cur.next = list1 == null ? list2 : list1; // 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可
         return dummy.next;
     }
 }
