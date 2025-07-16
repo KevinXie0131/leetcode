@@ -13,6 +13,16 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
      * 进阶：你能尝试使用一趟扫描实现吗？
      * Follow up: Could you do this in one pass?
      */
+    public static void main(String[] args) {
+        ListNode node5 = new ListNode(5, null);
+        ListNode node4 = new ListNode(4, node5);
+        ListNode node3 = new ListNode(3, node4);
+        ListNode node2 = new ListNode(2, node3);
+        ListNode node1 = new ListNode(1, node2);
+
+        ListNode res = removeNthFromEnd_3(node1 , 2);
+        System.out.println(res);
+    }
     /**
      * fast-slow pointers 快慢指针
      * 快慢双指针，令快指针先走 n 步，之后两指针再同步移动，直到快指针移动到链表结尾，此时慢指针指向的下一个位置即为要删除元素。
@@ -54,37 +64,55 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
             fast = fast.next;
             slow = slow.next;
         }
-
         slow.next = slow.next.next;
         return dummy.next;
-
     }
     /**
      * 虚拟头节点
      */
     public ListNode removeNthFromEnd_1(ListNode head, int n) {
-        //新建一个虚拟头节点指向head
-        ListNode dummyNode = new ListNode(0);
+        ListNode dummyNode = new ListNode(0); // 新建一个虚拟头节点指向head
         dummyNode.next = head;
-        //快慢指针指向虚拟头节点
-        ListNode fastIndex = dummyNode;
+        ListNode fastIndex = dummyNode;   // 快慢指针指向虚拟头节点
         ListNode slowIndex = dummyNode;
 
-        // 只要快慢指针相差 n 个结点即可
-        for (int i = 0; i <= n; i++) {
+        for (int i = 0; i <= n; i++) { // 只要快慢指针相差 n 个结点即可
             fastIndex = fastIndex.next;
         }
         while (fastIndex != null) {
             fastIndex = fastIndex.next;
             slowIndex = slowIndex.next;
         }
-
-        // 此时 slowIndex 的位置就是待删除元素的前一个位置。
-        // 具体情况可自己画一个链表长度为 3 的图来模拟代码来理解
-        // 检查 slowIndex.next 是否为 null，以避免空指针异常
-        if (slowIndex.next != null) {
+        // 此时 slowIndex 的位置就是待删除元素的前一个位置。具体情况可自己画一个链表长度为 3 的图来模拟代码来理解
+        if (slowIndex.next != null) { // 检查 slowIndex.next 是否为 null，以避免空指针异常
             slowIndex.next = slowIndex.next.next;
         }
         return dummyNode.next;
+    }
+    /**
+     * 递归
+     */
+    static public ListNode removeNthFromEnd_3(ListNode head, int n) {
+        ListNode dummyNode = new ListNode(0);
+        dummyNode.next = head;
+
+        deleteNode(dummyNode, n); // for [1] , 1
+
+        return dummyNode.next;
+    }
+
+    static int size;
+
+    static private void deleteNode(ListNode head, int n){
+        if (head == null) {//边界条件判断
+            return;
+        }
+        deleteNode(head.next, n);
+        size++;
+        if(size == n + 1){
+            if (head.next != null) head.next = head.next.next; // head.next = head.next.next; // works too
+            return;
+        }
+
     }
 }

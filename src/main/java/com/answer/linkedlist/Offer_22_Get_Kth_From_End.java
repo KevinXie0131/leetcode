@@ -79,8 +79,7 @@ public class Offer_22_Get_Kth_From_End {
      * 用一个集合记录所有的链表元素，返回集合中第 集合长度 - K 个元素
      */
     static public ListNode getKthFromEnd_6(ListNode head, int k) {
-        // 用一个集合记录所有的链表元素
-        List<ListNode> list = new ArrayList<>();
+        List<ListNode> list = new ArrayList<>();  // 用一个集合记录所有的链表元素
         while (head != null) {
             list.add(head);
             head = head.next;
@@ -93,8 +92,7 @@ public class Offer_22_Get_Kth_From_End {
     static int size;
 
     static public ListNode getKthFromEnd_3(ListNode head, int k) {
-        //边界条件判断
-        if (head == null)
+        if (head == null) //边界条件判断
             return null;
         ListNode val = getKthFromEnd_3(head.next, k);
         ++size;
@@ -111,8 +109,7 @@ public class Offer_22_Get_Kth_From_End {
      * another form
      */
     static public ListNode getKthFromEnd_3a(ListNode head, int k) {
-        //边界条件判断
-        if (head == null)
+        if (head == null) //边界条件判断
             return null;
         ListNode val = getKthFromEnd_3a(head.next, k);
         ++size;
