@@ -22,7 +22,7 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1, node2);
 
-        ListNode res = removeNthFromEnd_3(node1 , 2);
+        ListNode res = removeNthFromEnd10(node1 , 2);
         System.out.println(res);
     }
     /**
@@ -109,6 +109,26 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         return dummy.next;
     }
     /**
+     * another form
+     */
+    public ListNode removeNthFromEnd_0b(ListNode head, int n) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode slow = dummy;
+        ListNode fast = dummy;
+
+        while(n-- > 0){  // 右指针先向右走 n 步
+            fast = fast.next;
+        }
+
+        while(fast.next != null){  // 左右指针一起走
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next; // 左指针的下一个节点就是倒数第 n 个节点
+        return dummy.next;
+    }
+    /**
      * 虚拟头节点
      */
     public ListNode removeNthFromEnd_1(ListNode head, int n) {
@@ -154,6 +174,31 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
             if (head.next != null) head.next = head.next.next; // head.next = head.next.next; // works too
             return;
         }
+    }
+    /**
+     * another form
+     */
+    static int deleteNode_1(ListNode head, int n){
+        if (head == null) {//边界条件判断
+            return 0;
+        }
+        int target = deleteNode_1(head.next, n);
 
+        if(target == n){
+            head.next = head.next.next;
+        }
+        return target + 1;
+    }
+    /**
+     * 递归
+     */
+    static int pos = 0;
+
+    static public ListNode removeNthFromEnd10(ListNode head, int n) {
+        if (head == null){
+            return null;
+        }
+        head.next = removeNthFromEnd10(head.next, n);
+        return ++pos == n ? head.next : head;
     }
 }
