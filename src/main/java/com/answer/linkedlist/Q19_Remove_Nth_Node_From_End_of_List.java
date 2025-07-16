@@ -1,5 +1,7 @@
 package com.answer.linkedlist;
 
+import java.util.*;
+
 public class Q19_Remove_Nth_Node_From_End_of_List {
     /**
      * 删除链表的倒数第 N 个结点
@@ -24,6 +26,46 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         System.out.println(res);
     }
     /**
+     * 计算链表长度: 首先从头节点开始对链表进行一次遍历，得到链表的长度 L
+     */
+    public ListNode removeNthFromEnd0(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        int length = getLength(head);
+        ListNode cur = dummy;
+        for (int i = 1; i < length - n + 1; ++i) { // 为了与题目中的 n 保持一致，节点的编号从 1 开始，头节点为编号 1 的节点。
+            cur = cur.next; // 从哑节点开始遍历 L−n+1 个节点。当遍历到第 L−n+1 个节点时，它的下一个节点就是我们需要删除的节点
+        }
+        cur.next = cur.next.next;
+        return dummy.next;
+    }
+
+    public int getLength(ListNode head) {
+        int length = 0;
+        while (head != null) {
+            ++length;
+            head = head.next;
+        }
+        return length;
+    }
+    /**
+     * 栈
+     */
+    public ListNode removeNthFromEnd_0a(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        Deque<ListNode> stack = new LinkedList<ListNode>();
+        ListNode cur = dummy;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        for (int i = 0; i < n; ++i) {
+            stack.pop();
+        }
+        ListNode prev = stack.peek();
+        prev.next = prev.next.next;
+        return dummy.next;
+    }
+    /**
      * fast-slow pointers 快慢指针
      * 快慢双指针，令快指针先走 n 步，之后两指针再同步移动，直到快指针移动到链表结尾，此时慢指针指向的下一个位置即为要删除元素。
      * 注意
@@ -42,11 +84,10 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
             slow = slow.next;
         }
         slow.next = slow.next.next; // slow.next指向要删除的节点
-
         return dummy.next;
     }
     /**
-     * 虚拟头节点
+     * 双指针 + 虚拟头节点
      */
     public ListNode removeNthFromEnd_0(ListNode head, int n) {
         ListNode dummy = new ListNode();
@@ -93,7 +134,7 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
      * 递归
      */
     static public ListNode removeNthFromEnd_3(ListNode head, int n) {
-        ListNode dummyNode = new ListNode(0);
+        ListNode dummyNode = new ListNode(0); // dummy node不需要对头节点进行特殊的判断
         dummyNode.next = head;
 
         deleteNode(dummyNode, n); // for [1] , 1
