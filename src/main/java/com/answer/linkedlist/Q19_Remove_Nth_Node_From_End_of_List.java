@@ -182,12 +182,12 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         if (head == null) {//边界条件判断
             return 0;
         }
-        int target = deleteNode_1(head.next, n);
+        int count = deleteNode_1(head.next, n);
 
-        if(target == n){
+        if(count == n){
             head.next = head.next.next;
         }
-        return target + 1;
+        return count + 1;
     }
     /**
      * 递归
