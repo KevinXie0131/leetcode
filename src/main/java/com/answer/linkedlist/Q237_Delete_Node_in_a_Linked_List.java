@@ -1,6 +1,6 @@
 package com.answer.linkedlist;
 
-public class Q237_Delete_Node_in_a_Linked_List {
+public class Q237_Delete_Node_in_a_Linked_List { // Hard 困难
     /**
      * 删除链表中的节点
      * 有一个单链表(singly-linked list)的 head，我们想删除它其中的一个节点 node。
