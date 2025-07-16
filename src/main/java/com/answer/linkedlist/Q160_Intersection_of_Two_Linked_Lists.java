@@ -1,7 +1,6 @@
 package com.answer.linkedlist;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Q160_Intersection_of_Two_Linked_Lists {
     /**
@@ -20,7 +19,6 @@ public class Q160_Intersection_of_Two_Linked_Lists {
      *  skipA - 在 listA 中（从头节点开始）跳到交叉节点的节点数
      *  skipB - 在 listB 中（从头节点开始）跳到交叉节点的节点数
      * 评测系统将根据这些输入创建链式数据结构，并将两个头节点 headA 和 headB 传递给你的程序。如果程序能够正确返回相交节点，那么你的解决方案将被 视作正确答案 。
-     *
      * 示例 1：
      *  输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
      *  输出：Intersected at '8'
@@ -32,6 +30,16 @@ public class Q160_Intersection_of_Two_Linked_Lists {
     /**
      * two pointers 双指针
      * 相交节点
+     * 如果指针 pA 为空，则将指针 pA 移到链表 headB 的头节点；如果指针 pB 为空，则将指针 pB 移到链表 headA 的头节点。
+     * 当指针 pA 和 pB 指向同一个节点或者都为空时，返回它们指向的节点或者 null。
+     *
+     * 假设：链表 A 长度为 m = a + c （前段 a，公共段 c）
+     *       链表 B 长度为 n = b + c （前段 b，公共段 c）
+     * 指针 pA 先走 A，再走 B；
+     * 指针 pB 先走 B，再走 A。
+     * 走的路径长度： pA: a + c + b
+     *               pB: b + c + a
+     * 都走了 a + b + c 的长度后，会在交点处 相遇，或者同时走到 None（如果没有交点）。
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // curA 指向 A 链表头结点，curB 指向 B 链表头结点
@@ -54,7 +62,7 @@ public class Q160_Intersection_of_Two_Linked_Lists {
         return curA; // 不相交，返回null
     }
     /**
-     * Use set
+     * Use set 判断两个链表是否相交，可以使用哈希集合存储链表节点。
      */
     public ListNode getIntersectionNode_1(ListNode headA, ListNode headB) {
         Set<ListNode> visited = new HashSet<ListNode>();
@@ -72,6 +80,21 @@ public class Q160_Intersection_of_Two_Linked_Lists {
             cur = cur.next;
         }
 
+        return null;
+    }
+    /**
+     * another form
+     */
+    public ListNode getIntersectionNode6(ListNode headA, ListNode headB) {
+        Set<ListNode> aNodes = new HashSet<>();
+        for (ListNode node = headA; node != null; node = node.next) {
+            aNodes.add(node);
+        }
+        for (ListNode node = headB; node != null; node = node.next) {
+            if (aNodes.contains(node)) {
+                return node;
+            }
+        }
         return null;
     }
     /**
