@@ -2,7 +2,7 @@ package com.answer.linkedlist;
 
 import java.util.*;
 
-public class Q23_Merge_k_Sorted_Lists {// Hard 困难
+public class Q23_Merge_k_Sorted_Lists { // Hard 困难
     /**
      * 合并 K 个升序链表
      * 给你一个链表数组，每个链表都已经按升序排列。
