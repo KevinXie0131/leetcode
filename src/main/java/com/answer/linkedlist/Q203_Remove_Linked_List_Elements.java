@@ -1,8 +1,6 @@
 package com.answer.linkedlist;
 
-import javax.imageio.stream.ImageInputStream;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 public class Q203_Remove_Linked_List_Elements {
     /**
@@ -29,7 +27,7 @@ public class Q203_Remove_Linked_List_Elements {
         node.print();
     }
     /**
-     * Iterative / fast-slow pointers
+     * Iterative / fast-slow pointers 迭代
      */
     public static ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1 , head);
@@ -47,33 +45,59 @@ public class Q203_Remove_Linked_List_Elements {
         return dummy.next;
     }
     /**
-     * Iterative / dummy header
+     * Iterative / dummy header 迭代
      */
     public static ListNode removeElements_2(ListNode head, int val) {
-        ListNode dummy =  new ListNode(-1 , head);
+        ListNode dummy =  new ListNode(-1 , head); // 添加一个虚拟头结点，删除头结点就不用另做考虑
         ListNode cur = dummy;
 
         while(cur.next != null){ // 只用一个指针
             if(cur.next.val == val){
-                cur.next = cur.next.next;
+                cur.next = cur.next.next; // 删除下一个节点
             } else{
-                cur = cur.next;
+                cur = cur.next; // 继续向后遍历链表
             }
         }
         return dummy.next;
     }
     /**
-     * Recursive - from tail to head
+     * 不用哨兵节点
+     */
+    public ListNode removeElements6(ListNode head, int val) {
+        while(head != null && head.val == val){
+            head = head.next;
+        }
+        if(head == null)  return head;
+        // 这里需要加入一个吻判断，head.next == null
+        // 便于下面ListNode cur = pre.next;这一步的定义
+        if(head.next == null){
+            return head;
+        }
+        ListNode pre = head;
+        ListNode cur = pre.next;
+        while(cur != null){
+            if(cur.val == val){
+                pre.next = cur.next;
+            }else{
+                pre = pre.next;
+            }
+            cur = cur.next;
+        }
+        return head;
+
+    }
+    /**
+     * Recursive - from tail to head 递归
      */
     public static ListNode removeElements_recursive(ListNode head, int val) {
         if(head == null){
-            return null;
+            return null; // 如果链表为空，直接返回null
         }
         head.next = removeElements_recursive(head.next, val);
         if(head.val == val){
-            return head.next;
+            return head.next;   // 如果等于val，就跳过当前节点，返回下一个节点. 这样，当前节点就会被移除
         }else{
-            return head;
+            return head; // 如果不等于val，就返回当前节点
         }
     }
     /**
@@ -106,5 +130,27 @@ public class Q203_Remove_Linked_List_Elements {
             head = stack.pop();
         }
         return head;
+    }
+    /**
+     * user ArrayList
+     */
+    public static ListNode removeElements_4(ListNode head, int val) {
+        List<ListNode> list = new ArrayList<>();
+        while(head != null){
+            if(head.val != val){
+                list.add(head);
+            }
+            head = head.next;
+        }
+
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        for(int i = 0; i < list.size(); i++){
+            cur.next = list.get(i);
+            cur = cur.next;
+        }
+        cur.next = null;
+
+        return dummy.next;
     }
 }
