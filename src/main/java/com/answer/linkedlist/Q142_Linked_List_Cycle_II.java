@@ -48,7 +48,7 @@ public class Q142_Linked_List_Cycle_II {
         return fast;
     }
     /**
-     * another form
+     * another form 快慢指针
      */
     public ListNode detectCycle_2(ListNode head) {
         ListNode slow = head;
@@ -56,7 +56,7 @@ public class Q142_Linked_List_Cycle_II {
         while (fast != null && fast.next != null && slow != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if (slow == fast) {// 有环
+            if (slow == fast) {    //相遇，证明有环，开始找环入口
                 ListNode index1 = fast;
                 ListNode index2 = head;
                 // 两个指针，从头结点和相遇结点，各走一步，直到相遇，相遇点即为环入口
@@ -64,20 +64,39 @@ public class Q142_Linked_List_Cycle_II {
                     index1 = index1.next;
                     index2 = index2.next;
                 }
-                return index1;
+                return index1;  //找到环入口，返回
             }
         }
         return null;
     }
     /**
-     * Use set
+     * 快慢指针
+     */
+    public ListNode detectCycle3(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) { // 相遇点 - 找入环节点（相遇点到入环节点距离 == 头节点到入环节点距离）
+                while (slow != head) { // 再走 a 步
+                    slow = slow.next;  // head距离入口为a步，相遇点距离入口也为a步。
+                    head = head.next;
+                }
+                return slow;
+            }
+        }
+        return null; //链表不带环
+    }
+
+    /**
+     * Use set 哈希表
      */
     public ListNode detectCycle_1(ListNode head) {
         ListNode cur = head;
         Set<ListNode> set = new HashSet<>();
         while (cur != null) {
             if (set.contains(cur)) {
-                return cur;
+                return cur;   // 如果集合已经包含右这个节点，说明有环，且这个节点就是环入口
             }else{
                 set.add(cur);
             }
