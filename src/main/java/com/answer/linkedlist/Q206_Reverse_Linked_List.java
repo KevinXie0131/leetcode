@@ -47,19 +47,20 @@ public class Q206_Reverse_Linked_List {
      * 在更改引用之前，还需要存储后一个节点。最后返回新的头引用。
      */
     public static ListNode reverseList_Iterative(ListNode head) {
-        ListNode pre = null;
-        ListNode cur = head;
-        while(cur != null){
-            ListNode next = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = next;
+        ListNode pre = null;          // 前指针（相当于空轨道）
+        ListNode cur = head;          // 当前处理的车厢
+        while(cur != null){           // 直到所有车厢处理完
+            ListNode next = cur.next; // 暂存下一节车厢的位置（防止断链）
+            cur.next = pre;           // 当前车厢调转方向指向前车
+            pre = cur;                // 前车轨道推进到当前车厢
+            cur = next;               // 当前车厢处理下一节
         }
-        return pre;
+        return pre; // 最终prev停在原链表的末尾（即新链表的头）
     }
     /**
      * Iterative 双指针法
      * 同上
+     * 用头插法依次把节点 1,2,3 插到这个新链表的头部，就得到了链表 3→2→1，这正是反转后的链表
      */
     public ListNode reverseList_Iterative1(ListNode head) {
         ListNode prev = null;
@@ -72,7 +73,7 @@ public class Q206_Reverse_Linked_List {
             prev = cur;
             cur = temp;
         }
-        return prev;
+        return prev;   // 当循环结束时，pre 指向了原链表的最后一个节点，也就是反转后的头节点. 返回 pre 作为反转后链表的头节点
     }
     /**
      * 以链表1->2->3->4->5举例
@@ -185,6 +186,21 @@ public class Q206_Reverse_Linked_List {
         ListNode next = curr.next;
         curr.next = prev;
         return reverse1(curr, next);
+    }
+    /**
+     * another form
+     */
+    public ListNode reverseList9(ListNode head) {
+        return recur(head, null);    // 调用递归并返回
+    }
+
+    private ListNode recur(ListNode cur, ListNode pre) {
+        if (cur == null) {
+            return pre; // 终止条件
+        }
+        ListNode newHead = recur(cur.next, cur);  // 递归后继节点
+        cur.next = pre;              // 修改节点引用指向
+        return newHead;                  // 返回反转链表的头节点
     }
     /**
      * 用栈实现的反转链表
