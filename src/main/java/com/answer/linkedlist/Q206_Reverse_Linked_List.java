@@ -1,5 +1,7 @@
 package com.answer.linkedlist;
 
+import java.util.*;
+
 public class Q206_Reverse_Linked_List {
     /**
      * 反转链表
@@ -172,5 +174,34 @@ public class Q206_Reverse_Linked_List {
        // return reverse(cur, temp);
         ListNode newNode = reverse(cur, temp);
         return newNode;
+    }
+    /**
+     * another form 递归简洁易读的写法
+     */
+    private ListNode reverse1(ListNode prev, ListNode curr) {
+        if(curr == null) {
+            return prev;
+        }
+        ListNode next = curr.next;
+        curr.next = prev;
+        return reverse1(curr, next);
+    }
+    /**
+     * 用栈实现的反转链表
+     */
+    public static ListNode reverseList6(ListNode head) {
+        Deque<ListNode> stack = new ArrayDeque<>();
+        while(head != null){
+            stack.push(head);
+            head = head.next;
+        }
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (!stack.isEmpty()){
+            cur.next = stack.pop();
+            cur = cur.next;
+        }
+        cur.next = null; // Error - Found cycle in the ListNode
+        return dummy.next;
     }
 }
