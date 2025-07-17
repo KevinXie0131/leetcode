@@ -177,6 +177,23 @@ public class Q206_Reverse_Linked_List {
         return newNode;
     }
     /**
+     * another from 比较容易理解的递归
+     */
+    ListNode pre = null, tmp = null;
+
+    public ListNode reverseList_Recursive_5(ListNode head) {
+        if (head == null) {
+            return pre;
+        }
+
+        tmp = head.next;
+        head.next = pre;
+        pre = head;
+        head = tmp;
+
+        return reverseList_Recursive_5(head);
+    }
+    /**
      * another form 递归简洁易读的写法
      */
     private ListNode reverse1(ListNode prev, ListNode curr) {
