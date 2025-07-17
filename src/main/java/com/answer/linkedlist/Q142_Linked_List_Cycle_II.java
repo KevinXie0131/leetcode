@@ -45,27 +45,10 @@ public class Q142_Linked_List_Cycle_II {
             slow = slow.next;
             fast = fast.next;
         }
-
         return fast;
     }
     /**
-     * Use set
-     */
-    public ListNode detectCycle_1(ListNode head) {
-        ListNode cur = head;
-        Set<ListNode> set = new HashSet<>();
-        while (cur != null) {
-            if (set.contains(cur)) {
-                return cur;
-            }else{
-                set.add(cur);
-            }
-            cur = cur.next;
-        }
-        return null;
-    }
-    /**
-     *
+     * another form
      */
     public ListNode detectCycle_2(ListNode head) {
         ListNode slow = head;
@@ -86,4 +69,21 @@ public class Q142_Linked_List_Cycle_II {
         }
         return null;
     }
+    /**
+     * Use set
+     */
+    public ListNode detectCycle_1(ListNode head) {
+        ListNode cur = head;
+        Set<ListNode> set = new HashSet<>();
+        while (cur != null) {
+            if (set.contains(cur)) {
+                return cur;
+            }else{
+                set.add(cur);
+            }
+            cur = cur.next;
+        }
+        return null;
+    }
+
 }
