@@ -76,6 +76,31 @@ public class Q206_Reverse_Linked_List {
         return prev;   // 当循环结束时，pre 指向了原链表的最后一个节点，也就是反转后的头节点. 返回 pre 作为反转后链表的头节点
     }
     /**
+     * 头插法
+     * refer to Q92_Reverse_Linked_List_II
+     */
+    public ListNode reverseBetween_3(ListNode head, int left, int right) {
+        ListNode dummyNode = new ListNode(-1);   // 设置 dummyNode 是这一类问题的一般做法
+        dummyNode.next = head;
+        // curr: 指向待反转区域的第一个节点 left
+        // next: 永远指向 curr 的下一个节点，循环过程中，curr 变化以后 next 会变化
+        // pre/dummyNode: 永远指向待反转区域的第一个节点 left 的前一个节点，在循环过程中不变
+        // 操作步骤:
+        // 先将 curr 的下一个节点记录为 next
+        // 执行操作1: 把 curr 的下一个节点指向 next 的下一个节点
+        // 执行操作2: 把 next 的下一个节点指向 pre/dummyNode 的下一个节点
+        // 执行操作3: 把 pre/dummyNode 的下一个节点指向 next
+        ListNode cur = dummyNode.next;
+        ListNode next;
+        while (cur != null && cur.next != null) {
+            next = cur.next;
+            cur.next = next.next;
+            next.next = dummyNode.next;
+            dummyNode.next = next;
+        }
+        return dummyNode.next;
+    }
+    /**
      * 以链表1->2->3->4->5举例
      * @param head
      * @return
