@@ -109,9 +109,11 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         }
 
         if(head.val == head.next.val){
+            // This part is different from Q83_Remove_Duplicates_from_Sorted_List
             while(head.next != null && head.val == head.next.val){
                 head = head.next;
             }
+            // end
             return deleteDuplicates_Recursive(head.next); // the current node doesn't need to be kept.
         }else{
             head.next = deleteDuplicates_Recursive(head.next);
@@ -123,7 +125,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
      * Recursive - from tail to head
      */
     public static ListNode deleteDuplicates_Recursive_1(ListNode head) {
-        return deleteDuplicates_Recursive_func(head, Integer.MAX_VALUE, head == null || head.next == null ? Integer.MAX_VALUE : head.next.val);
+        return deleteDuplicates_Recursive_func(head, Integer.MAX_VALUE, head == null || head.next == null ? Integer.MAX_VALUE : head.next.val); // This part is different from Q83_Remove_Duplicates_from_Sorted_List
     }
 
     public static ListNode deleteDuplicates_Recursive_func(ListNode head, int preValue, int nextValue) {
@@ -132,13 +134,12 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         }
 
         head.next = deleteDuplicates_Recursive_func(head.next, head.val,
-                head.next == null || head.next.next == null? Integer.MAX_VALUE : head.next.next.val);
+                head.next == null || head.next.next == null? Integer.MAX_VALUE : head.next.next.val); // This part is different from Q83_Remove_Duplicates_from_Sorted_List
 
-        if(head.val == preValue || head.val == nextValue){
+        if(head.val == preValue || head.val == nextValue){ // This part is different from Q83_Remove_Duplicates_from_Sorted_List
             return head.next;
         }else{
             return head;
         }
-
     }
 }
