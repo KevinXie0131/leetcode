@@ -35,20 +35,42 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         node.print();
     }
     /**
-     * dummy node
+     * dummy node 一次遍历
+     * 由于给定的链表是排好序的，因此重复的元素在链表中出现的位置是连续的，因此我们只需要对链表进行一次遍历，
+     * 就可以删除重复的元素。由于链表的头节点可能会被删除，因此我们需要额外使用一个哑节点（dummy node）指向链表的头节点。
      */
     public ListNode deleteDuplicates(ListNode head) {
         ListNode dummy = new ListNode(-1, head);
         ListNode cur = dummy;
+        // 细节: 需要注意 cur.next 以及 cur.next.next 可能为空节点，如果不加以判断，可能会产生运行错误。
         while(cur.next != null && cur.next.next != null){
             if(cur.next.val == cur.next.next.val){
                 int val = cur.next.val;
                 cur.next = cur.next.next;
 
-                while(cur.next != null && cur.next.val == val){
+                while(cur.next != null && cur.next.val == val){ // 将链表中所有元素值为 val 的节点全部删除
                     cur.next = cur.next.next;
                 }
             }else{
+                cur = cur.next;
+            }
+        }
+        return dummy.next;
+    }
+    /**
+     * anther form
+     */
+    public ListNode deleteDuplicates_0(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        while (cur.next != null && cur.next.next != null) {
+            int val = cur.next.val;
+            if (cur.next.next.val == val) { // 后两个节点值相同
+                // 值等于 val 的节点全部删除
+                while (cur.next != null && cur.next.val == val) {
+                    cur.next = cur.next.next;
+                }
+            } else {
                 cur = cur.next;
             }
         }
@@ -59,18 +81,18 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
      */
     public static ListNode deleteDuplicates_1(ListNode head) {
         ListNode dummy = new ListNode(-1, head);
-        ListNode pre = dummy;
+        ListNode pre = dummy; // 多加一个变量, 维护2个指针
         ListNode cur = head;
         while(cur != null && cur.next != null){
             if(cur.val == cur.next.val){
                 int val = cur.val;
 
-                while(cur != null && cur.val == val){
+                while(cur != null && cur.val == val){   // 中间的全删除
                     cur = cur.next;
                 }
                 pre.next = cur;
             }else{
-                pre = cur;
+                pre = cur; // 前节点存起来
                 cur = cur.next;
             }
         }
@@ -85,16 +107,16 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
      */
     public ListNode deleteDuplicates_3(ListNode head) {
         ListNode dummy = new ListNode(-1, head);
-        ListNode p = dummy;
-        while(p.next != null){
-            ListNode q = p.next;
-            while(q.next != null && q.next.val == q.val){
-                q = q.next;
+        ListNode pre = dummy;
+        while(pre.next != null){
+            ListNode cur = pre.next;
+            while(cur.next != null && cur.next.val == cur.val){
+                cur = cur.next;
             }
-            if(q == p.next){
-                p = p.next;
+            if(cur == pre.next){
+                pre = pre.next;
             }else{
-                p.next = q.next; // delete elements within two pointers
+                pre.next = cur.next; // delete elements within two pointers
             }
         }
         return dummy.next;
@@ -108,17 +130,38 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
             return head;
         }
 
-        if(head.val == head.next.val){
+        if(head.val == head.next.val){ //存在相同情况
             // This part is different from Q83_Remove_Duplicates_from_Sorted_List
-            while(head.next != null && head.val == head.next.val){
+            while(head.next != null && head.val == head.next.val){ //等于就删除，找到不相同的
                 head = head.next;
             }
             // end
             return deleteDuplicates_Recursive(head.next); // the current node doesn't need to be kept.
+            // head = deleteDuplicates_Recursive(head.next); // works too
         }else{
-            head.next = deleteDuplicates_Recursive(head.next);
+            head.next = deleteDuplicates_Recursive(head.next); //没有相同，那就比较下一个数
         }
 
+        return head;
+    }
+    /**
+     * another form
+     * 利用递归去重。注意需要考虑头节点是重复元素时，需要更换头节点
+     */
+    public ListNode deleteDuplicates_8(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode next = head.next;
+        if(next != null && head.val == next.val){  //头结点被删除
+            while(next != null && head.val == next.val){
+                head = next;
+                next = next.next;
+            }
+            head = deleteDuplicates_8(next);
+        }else{
+            head.next = deleteDuplicates_8(next);
+        }
         return head;
     }
     /**

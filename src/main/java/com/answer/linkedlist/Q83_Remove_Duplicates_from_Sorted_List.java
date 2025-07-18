@@ -114,7 +114,7 @@ public class Q83_Remove_Duplicates_from_Sorted_List {
         }
 
         if(head.val == head.next.val){
-            return deleteDuplicates(head.next);
+            return deleteDuplicates(head.next);  // the current node doesn't need to be kept.
         }else{
             head.next = deleteDuplicates(head.next);
         }
