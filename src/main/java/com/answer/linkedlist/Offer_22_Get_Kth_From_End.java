@@ -21,7 +21,7 @@ public class Offer_22_Get_Kth_From_End {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1, node2);
 
-        ListNode res = getKthFromEnd_7(node1 , 2);
+        ListNode res = getKthFromEnd_8(node1 , 2);
         System.out.println(res);
     }
     /**
@@ -143,5 +143,19 @@ public class Offer_22_Get_Kth_From_End {
         if (num == 0) {
             res = node;
         }
+    }
+    /**
+     * another form / from head to tail 链表中第k个节点
+     */
+    static public ListNode getKthFromEnd_8(ListNode head, int k) {
+        if (head == null) //边界条件判断
+            return null;
+        size++;
+        if  (size == k) {
+            return head;
+        }
+        ListNode val = getKthFromEnd_8(head.next, k);
+
+        return val;
     }
 }
