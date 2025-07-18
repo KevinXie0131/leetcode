@@ -102,8 +102,6 @@ public class Q206_Reverse_Linked_List {
     }
     /**
      * 以链表1->2->3->4->5举例
-     * @param head
-     * @return
      */
     public ListNode reverseList7(ListNode head) {
         if (head == null || head.next == null) {
