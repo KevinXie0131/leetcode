@@ -1,7 +1,5 @@
 package com.answer.linkedlist;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.*;
 
 public class Q234_Palindrome_Linked_List_1 {
@@ -21,16 +19,18 @@ public class Q234_Palindrome_Linked_List_1 {
             return true;
         }
         ListNode slow = head, fast = head;
-        while(fast != null && fast.next != null){
+        while(fast != null && fast.next != null){  // 找到前半部分链表的尾节点并反转后半部分链表
             slow = slow.next;
             fast = fast.next.next;
         }
-        if(fast != null){ // 如果链表元素是奇数
+        // 如果链表有奇数个节点，那么slow是正中间的节点。
+        // 如果链表有偶数个节点，那么slow是正中间右边的节点。
+       /* if(fast != null){ // 如果链表元素是奇数 // can be commented
             slow = slow.next;
-        }
+        }*/
         slow = reverse(slow);
 
-        fast = head;
+        fast = head;  // 判断是否回文
         while(slow != null){
             if(slow.val != fast.val){
                 return false;
@@ -40,7 +40,7 @@ public class Q234_Palindrome_Linked_List_1 {
         }
         return true;
     }
-
+    // 反转链表
     public static ListNode reverse(ListNode head){
         ListNode pre = null;
         while(head != null){
@@ -76,11 +76,11 @@ public class Q234_Palindrome_Linked_List_1 {
      */
     public static boolean isPalindrome_3(ListNode head) {
         List<ListNode> list = new ArrayList<>();
-        while(head != null){
+        while(head != null){ // 将值复制到队列中后用双指针法
             list.add(head);
             head = head.next;
         }
-        int left = 0, right = list.size() - 1;
+        int left = 0, right = list.size() - 1; // 使用双指针判断是否回文
         while(left <= right){
             if(list.get(left).val != list.get(right).val){
                 return false;
