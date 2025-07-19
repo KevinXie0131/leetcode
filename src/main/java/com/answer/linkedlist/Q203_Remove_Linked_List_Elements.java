@@ -114,6 +114,20 @@ public class Q203_Remove_Linked_List_Elements {
         return head;
     }
     /**
+     * 同上
+     */
+    public ListNode removeElements_recursive_2(ListNode head, int val) {
+        if(head == null){
+            return null;
+        }
+        if(head.val == val){
+            head = removeElements_recursive_2(head.next, val); // the current node doesn't need to be kept.
+        } else {
+            head.next = removeElements_recursive_2(head.next, val);
+        }
+        return head;
+    }
+    /**
      * Use stack
      */
     public static ListNode removeElements_3(ListNode head, int val) {
