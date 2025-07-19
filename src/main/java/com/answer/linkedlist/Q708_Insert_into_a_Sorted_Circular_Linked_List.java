@@ -2,6 +2,10 @@ package com.answer.linkedlist;
 
 public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
     /**
+     * https://leetcode.cn/problems/4ueAj6/
+     * LCR 029. 循环有序列表的插入
+     */
+    /**
      * Given a node from a cyclic linked list which is sorted in ascending order, write a function to insert a value into the list such that it remains a cyclic sorted list. The given node can be a reference to any single node in the list, and may not be necessarily the smallest value in the cyclic list.
      * If there are multiple suitable places for insertion, you may choose any place to insert the new value. After the insertion, the cyclic list should remain sorted.
      * If the list is empty (i.e., given node is null), you should create a new single cyclic list and return the reference to that single node. Otherwise, you should return the original given node.
@@ -22,4 +26,137 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
      *  输入：head = [1], insertVal = 0
      *  输出：[1,0]
      */
+    public static void main(String[] args) {
+        Q708_Insert_into_a_Sorted_Circular_Linked_List test = new Q708_Insert_into_a_Sorted_Circular_Linked_List();
+        // Test 1: Insert into [3,4,1], insert 2 => [3,4,1,2]
+        Node head1 = test.makeCircularList(new int[]{3, 4, 1});
+        Node res1 = test.insert_1(head1, 2);
+        System.out.print("Test 1: ");
+        test.printCircularList(res1, 4); // Expected: 3 4 1 2 (or rotation)
+        // Test 2: Insert into [1], insert 0 => [1,0]
+        Node head2 = test.makeCircularList(new int[]{1});
+        Node res2 = test.insert_1(head2, 0);
+        System.out.print("Test 2: ");
+        test.printCircularList(res2, 2); // Expected: 1 0
+        // Test 3: Insert into [], insert 5 => [5]
+        Node head3 = test.makeCircularList(new int[]{});
+        Node res3 = test.insert_1(head3, 5);
+        System.out.print("Test 3: ");
+        test.printCircularList(res3, 1); // Expected: 5
+        // Test 4: Insert into [1,1,1], insert 0 => [1,1,1,0]
+        Node head4 = test.makeCircularList(new int[]{1,1,1});
+        Node res4 = test.insert_1(head4, 0);
+        System.out.print("Test 4: ");
+        test.printCircularList(res4, 4); // Expected: 1 1 1 0
+        // Test 5: Insert into [1,3,5], insert 4 => [1,3,4,5]
+        Node head5 = test.makeCircularList(new int[]{1,3,5});
+        Node res5 = test.insert_1(head5, 4);
+        System.out.print("Test 5: ");
+        test.printCircularList(res5, 4); // Expected: 1 3 4 5
+    }
+    /**
+     * 情况1：正常插入，insertVal 介于 prev 和 curr 之间。
+     * 情况2：到达最大值和最小值的分界点（如 3->4->1），此时插入最大值或最小值。
+     * 情况3：所有节点值都相等，或者遍历一圈都没有插入位置，直接插入。
+     */
+    public Node insert(Node head, int insertVal) {
+        if(head == null){
+            Node newNode = new Node(insertVal);
+            newNode.next = newNode;
+            return newNode;
+        }
+        Node pre = head;
+        Node cur = head.next;
+        boolean isFound = false;
+        do {
+            if(pre.val <= insertVal && insertVal <= cur.val){ // Case 1: insertVal fits between prev and curr
+                isFound = true;
+            } else if(pre.val > cur.val){ // Case 2: At the "end" of the sorted list
+                if(pre.val <= insertVal || insertVal <= cur.val){
+                    isFound = true;
+                }
+            }
+
+            if(isFound){
+                Node node = new Node(insertVal);
+                pre.next = node;
+                node.next = cur;
+                return head;
+            }
+            pre = pre.next;
+            cur = cur.next;
+        } while (cur != head);
+        // Case 3: All values are the same or didn't fit anywhere
+        Node node = new Node(insertVal);
+        pre.next = node;
+        node.next = cur;
+        return head;
+    }
+    /**
+     * 找 下一个节点 >= insert && 当前节点 <= insert 的节点
+     * 没有找到说明是最大或者最小值，记录值最大的最后一个节点
+     */
+    public Node insert_1(Node head, int insertVal) {
+        if(head == null){
+            Node newNode = new Node(insertVal);
+            newNode.next = newNode;
+            return newNode;
+        }
+        Node newnode = new Node(insertVal);
+        Node biggest = head, cur = head;
+        int biggestVal = head.val;//最大值
+        while(true) {
+            if(cur.val <= insertVal && cur.next.val >= insertVal) {	//找到了
+                newnode.next = cur.next;
+                cur.next = newnode;
+                return head;
+            }
+            if(cur.val >= biggestVal) {	//记录最大值节点
+                biggestVal = cur.val;
+                biggest = cur;
+            }
+            if(cur.next == head) {//转了一圈了
+                break;
+            }
+            cur = cur.next;
+        }
+        newnode.next = biggest.next;//插入的是最大值或最小值
+        biggest.next = newnode;
+        return head;
+    }
+
+    public Node makeCircularList(int[] arr) {
+        if (arr.length == 0) return null;
+        Node head = new Node(arr[0]);
+        Node curr = head;
+        for (int i = 1; i < arr.length; i++) {
+            curr.next = new Node(arr[i]);
+            curr = curr.next;
+        }
+        curr.next = head;
+        return head;
+    }
+
+    // Helper to print circular list (n nodes)
+    public void printCircularList(Node head, int n) {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        Node curr = head;
+        for (int i = 0; i < n; i++) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+        System.out.println();
+    }
+
+    // Definition for a Node.
+    class Node {
+        public int val;
+        public Node next;
+        public Node(int val) {
+            this.val = val;
+        }
+    }
 }
