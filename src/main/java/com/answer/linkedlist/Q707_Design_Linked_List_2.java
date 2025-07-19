@@ -1,18 +1,19 @@
 package com.answer.linkedlist;
 
 public class Q707_Design_Linked_List_2 {
-
     /**
-     * Approach 2: Doubly Linked List
+     * Approach 2: Doubly Linked List 双向链表
      */
     class ListNode {
         int val;
-        ListNode next,prev;
-        ListNode(int x) {val = x;}
+        ListNode next, prev;
+        ListNode(int x) {
+            val = x;
+        }
     }
 
     int size;
-    ListNode head,tail;//Sentinel node
+    ListNode head, tail; // Sentinel node
 
     /** Initialize your data structure here. */
     public Q707_Design_Linked_List_2() {
@@ -25,9 +26,10 @@ public class Q707_Design_Linked_List_2 {
 
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
     public int get(int index) {
-        if(index < 0 || index >= size){return -1;}
+        if(index < 0 || index >= size){
+            return -1;
+        }
         ListNode cur = head;
-
         // 通过判断 index < (size - 1) / 2 来决定是从头结点还是尾节点遍历，提高效率
         if(index < (size - 1) / 2){
             for(int i = 0; i <= index; i++){
@@ -66,8 +68,12 @@ public class Q707_Design_Linked_List_2 {
 
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
     public void addAtIndex(int index, int val) {
-        if(index > size){return;}
-        if(index < 0){index = 0;}
+        if(index > size){
+            return;
+        }
+        if(index < 0){
+            index = 0;
+        }
         ListNode cur = head;
         for(int i = 0; i < index; i++){
             cur = cur.next;
@@ -82,7 +88,9 @@ public class Q707_Design_Linked_List_2 {
 
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
-        if(index >= size || index < 0){return;}
+        if(index >= size || index < 0){
+            return;
+        }
         ListNode cur = head;
         for(int i = 0; i < index; i++){
             cur = cur.next;

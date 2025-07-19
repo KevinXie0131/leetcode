@@ -30,21 +30,21 @@ public class Q707_Design_Linked_List {
      *  myLinkedList.get(1);              // 返回 3
      */
     /**
-     * Approach 1: Singly Linked List
+     * Approach 1: Singly Linked List 单向链表
      */
     int size;
     ListNode head;
 
     public Q707_Design_Linked_List() {
         size = 0;
-        head = new ListNode(0);
+        head = new ListNode(0); // 哨兵（sentinel）节点作为头节点
     }
 
     public int get(int index) {
         if(index < 0 || index >= size){
             return -1;
         }
-        ListNode cur=  head;
+        ListNode cur =  head;
         for(int i = 0; i <= index; i++){
             cur = cur.next;
         }
@@ -63,7 +63,7 @@ public class Q707_Design_Linked_List {
         if(index > size) return;
         index = Math.max(0, index);
         size++;
-        ListNode cur=  head;
+        ListNode cur =  head;
         for(int i = 0; i < index; i++){
             cur = cur.next;
         }
@@ -77,11 +77,10 @@ public class Q707_Design_Linked_List {
             return;
         }
         size--;
-        ListNode cur=  head;
+        ListNode cur =  head;
         for(int i = 0; i < index; i++){
             cur = cur.next;
         }
         cur.next = cur.next.next;
     }
-
 }

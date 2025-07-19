@@ -21,7 +21,7 @@ public class Q707_Design_Linked_List_1 {
 
     public Q707_Design_Linked_List_1() {
         size = 0;
-        head = new DoublyListNode(0);
+        head = new DoublyListNode(0); // 需要一个哨兵节点作为头节点 head 和一个哨兵节点作为尾节点 tail
         tail = new DoublyListNode(0);
         head.next = tail;
         tail.prev = head;
@@ -38,7 +38,7 @@ public class Q707_Design_Linked_List_1 {
             }
    /*     }else{
             cur = tail;
-            for(int i = 0; i < size-index; i++){
+            for(int i = 0; i < size - index; i++){
                 cur = cur.prev;
             }
         }*/
@@ -66,7 +66,7 @@ public class Q707_Design_Linked_List_1 {
             succ = pred.next;
       /*  } else {
             succ = tail;
-            for(int i = 0; i < size-index; i++){
+            for(int i = 0; i < size - index; i++){
                 succ = succ.prev;
             }
             pred = succ.prev;
