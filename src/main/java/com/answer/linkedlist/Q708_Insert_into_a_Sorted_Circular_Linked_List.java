@@ -55,6 +55,37 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
         test.printCircularList(res5, 4); // Expected: 1 3 4 5
     }
     /**
+     * 一次遍历
+     */
+    public Node insert_0(Node head, int insertVal) {
+        Node node = new Node(insertVal);
+        if (head == null) {
+            node.next = node;
+            return node;
+        }
+        if (head.next == head) {
+            head.next = node;
+            node.next = head;
+            return head;
+        }
+        Node curr = head, next = head.next;
+        while (next != head) {
+            if (insertVal >= curr.val && insertVal <= next.val) {
+                break;
+            }
+            if (curr.val > next.val) {
+                if (insertVal > curr.val || insertVal < next.val) {
+                    break;
+                }
+            }
+            curr = curr.next;
+            next = next.next;
+        }
+        curr.next = node;
+        node.next = next;
+        return head;
+    }
+    /**
      * 情况1：正常插入，insertVal 介于 prev 和 curr 之间。
      * 情况2：到达最大值和最小值的分界点（如 3->4->1），此时插入最大值或最小值。
      * 情况3：所有节点值都相等，或者遍历一圈都没有插入位置，直接插入。
@@ -71,8 +102,8 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
         do {
             if(pre.val <= insertVal && insertVal <= cur.val){ // Case 1: insertVal fits between prev and curr
                 isFound = true;
-            } else if(pre.val > cur.val){ // Case 2: At the "end" of the sorted list
-                if(pre.val <= insertVal || insertVal <= cur.val){
+            } else if(pre.val > cur.val){ // Case 2: At the "end" of the sorted list 当插入节点为最小值或者最大值
+                if(pre.val <= insertVal || insertVal <= cur.val){ // 满足 比最小的还小 或 比最大的还大
                     isFound = true;
                 }
             }
@@ -86,7 +117,7 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
             pre = pre.next;
             cur = cur.next;
         } while (cur != head);
-        // Case 3: All values are the same or didn't fit anywhere
+        // Case 3: All values are the same or didn't fit anywhere 当链表所有元素都相同时
         Node node = new Node(insertVal);
         pre.next = node;
         node.next = cur;
