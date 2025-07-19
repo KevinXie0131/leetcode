@@ -22,7 +22,7 @@ public class Q206_Reverse_Linked_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseList(node1);
+        ListNode node = reverseList_Recursive_3(node1);
         node.print();
     }
     /**
@@ -101,7 +101,7 @@ public class Q206_Reverse_Linked_List {
         return dummyNode.next;
     }
     /**
-     * 以链表1->2->3->4->5举例
+     * 递归 以链表1->2->3->4->5举例
      */
     public ListNode reverseList7(ListNode head) {
         if (head == null || head.next == null) {
@@ -188,15 +188,15 @@ public class Q206_Reverse_Linked_List {
         if (cur == null) {
             return prev;
         }
-        ListNode temp = null;
-        temp = cur.next;// 先保存下一个节点
+        ListNode next = null;
+        next = cur.next;// 先保存下一个节点
         cur.next = prev;// 反转
         // 更新prev、cur位置
         // prev = cur;
         // cur = temp;
 
        // return reverse(cur, temp);
-        ListNode newNode = reverse(cur, temp);
+        ListNode newNode = reverse(cur, next);
         return newNode;
     }
     /**
