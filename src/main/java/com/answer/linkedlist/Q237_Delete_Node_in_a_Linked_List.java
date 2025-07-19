@@ -1,6 +1,6 @@
 package com.answer.linkedlist;
 
-public class Q237_Delete_Node_in_a_Linked_List { // Hard 困难
+public class Q237_Delete_Node_in_a_Linked_List {
     /**
      * 删除链表中的节点
      * 有一个单链表(singly-linked list)的 head，我们想删除它其中的一个节点 node。
@@ -33,9 +33,16 @@ public class Q237_Delete_Node_in_a_Linked_List { // Hard 困难
      *
      * 1. Update current node with next node details
      * 2. Update current node next pointer with next node next pointer
+     *
+     * 和下一个节点交换
+     * 本题仅传入「待删除节点 node 」，由于普通链表只有「单向指针」，因此无法访问到 node 的「前驱节点」，进而无法使用以上方法删除节点 node
      */
     public void deleteNode(ListNode node) {
-        node.val = node.next.val;
-        node.next = node.next.next;
+        // 例如，给定链表 4→5→1→9，要被删除的节点是 5，即链表中的第 2 个节点。可以通过如下两步操作实现删除节点的操作。
+        // 将第 2 个节点的值修改为第 3 个节点的值，即将节点 5 的值修改为 1，此时链表如下：4→1→1→9
+        // 删除第 3 个节点，此时链表如下：4→1→9
+        // 达到删除节点 5 的效果。
+        node.val = node.next.val; // 复制后继节点 node.next 的「节点值」至节点 node
+        node.next = node.next.next; // 将 node.next 从链表中删除即可
     }
 }
