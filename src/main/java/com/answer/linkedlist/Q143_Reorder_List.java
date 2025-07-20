@@ -1,9 +1,6 @@
 package com.answer.linkedlist;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q143_Reorder_List {
     /**
@@ -14,7 +11,6 @@ public class Q143_Reorder_List {
      * You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln
      * Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
      * You may not modify the values in the list's nodes. Only nodes themselves may be changed.
-     *
      * 示例 1：
      *  输入：head = [1,2,3,4]
      *  输出：[1,4,2,3]
@@ -27,7 +23,7 @@ public class Q143_Reorder_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1,node2);
 
-        reorderList(node1);
+        reorderList4(node1);
         node1.print();
     }
     /**
@@ -46,7 +42,6 @@ public class Q143_Reorder_List {
             ListNode node;
             if(count % 2 != 0){
                 node = list.poll(); // 奇数，取出队列左边头部的值
-
             }else{
                 node = list.pollLast();  // 偶数，取出队列右边尾部的值
             }
@@ -77,7 +72,21 @@ public class Q143_Reorder_List {
             j--;
         }
         list.get(i).next = null;  // 注意结尾
-/*        int i = 0; int j = list.size() - 1;
+    }
+    /**
+     * another form
+     */
+    static public void reorderList4(ListNode head) {
+        List<ListNode> list = new ArrayList<>();  // ArrayList底层是数组，可以使用下标随机访问
+        ListNode cur = head;
+        while(cur != null){
+            list.add(cur);
+            cur = cur.next;
+        }
+
+        cur = head;
+        int count  = 0;
+        int i = 1; int j = list.size() - 1;
         while(i <= j){
             ListNode node;
             if(count % 2 == 0){ // 偶数
@@ -91,7 +100,7 @@ public class Q143_Reorder_List {
             cur.next = node;
             cur = cur.next;  // 每一次指针都需要移动
         }
-        cur.next = null;*/  // 注意结尾要结束一波
+        cur.next = null; // 注意结尾要结束一波
     }
     /**
      * Approach 1: Reverse the Second Part of the List and Merge Two Sorted Lists
