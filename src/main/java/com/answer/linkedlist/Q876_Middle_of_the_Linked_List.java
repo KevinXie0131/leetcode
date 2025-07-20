@@ -23,7 +23,7 @@ public class Q876_Middle_of_the_Linked_List {
     public ListNode middleNode(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        while(fast != null && fast.next != null){
+        while(fast != null && fast.next != null){ // 快指针fast向前移动的条件
             slow = slow.next;
             fast = fast.next.next;
         }

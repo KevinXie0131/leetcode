@@ -157,7 +157,7 @@ public class Q143_Reorder_List {
         ListNode left = head;//左部分的起点
         //进行左右部分来回连接
         while (right != null) { //这里左部分的节点个数一定大于等于右部分的节点个数 因此只判断right即可
-            ListNode curLeft = left.next;
+            ListNode curLeft = left.next;  // 保存节点
             left.next = right;
             left = curLeft;
 
