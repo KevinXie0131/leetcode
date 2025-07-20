@@ -118,30 +118,86 @@ public class Q24_Swap_Nodes_in_Pairs {
         return dummy.next;
     }
     /**
+     * 万能方法: dummy假头 + 插头法
+     * refer to Q92_Reverse_Linked_List_II
+     */
+    public ListNode swapPairs_4a(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        while (cur.next != null && cur.next.next != null) {
+            ListNode nxt = cur.next.next;
+            cur.next.next = nxt.next;
+            nxt.next = cur.next;;
+            cur.next = nxt;
+            cur = cur.next.next;
+        }
+        return dummy.next;
+    }
+    /**
+     * 方法一：迭代
+     */
+    public ListNode swapPairs7(ListNode head) {
+        ListNode dummy = new ListNode(0, head); // 用哨兵节点简化代码逻辑
+        ListNode node0 = dummy;
+        ListNode node1 = head;
+        while (node1 != null && node1.next != null) { // 至少有两个节点
+            ListNode node2 = node1.next;
+            ListNode node3 = node2.next;
+
+            node0.next = node2; // 0 -> 2
+            node2.next = node1; // 2 -> 1
+            node1.next = node3; // 1 -> 3
+
+            node0 = node1; // 下一轮交换，0 是 1
+            node1 = node3; // 下一轮交换，1 是 3
+        }
+        return dummy.next; // 返回新链表的头节点
+    }
+    /**
+     * 方法二：递归
+     */
+    public ListNode swapPairs9(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode node1 = head;
+        ListNode node2 = head.next;
+        ListNode node3 = node2.next;
+
+        node1.next = swapPairs9(node3); // 1 指向递归返回的链表头
+        node2.next = node1; // 2 指向 1
+
+        return node2; // 返回交换后的链表头节点
+    }
+    /**
      * 递归
+     * 需要交换的两个点为 head 和 next，head 连接后面交换完成的子链表，next 连接 head，完成交换
      */
     public ListNode swapPairs_Recursive_0(ListNode head) {
-        if(head == null || head.next == null){
+        if(head == null || head.next == null){ // 递归的终止条件是链表中没有节点，或者链表中只有一个节点，此时无法进行交换。
             return head;
         }
 
         ListNode next = head.next;
-        head.next = swapPairs_Recursive_0(head.next.next);
+        head.next = swapPairs_Recursive_0(head.next.next); // 将其余节点进行两两交换
         next.next = head;
 
         return next;
     }
     /**
      * 同上
+     * 两两翻转链表中的节点+返回翻转后的新的头结点
      */
     public static ListNode swapPairs_Recursive_2(ListNode first) {
         if(first == null || first.next == null) {  // base case 退出提交
             return first;
         }
-        ListNode second = first.next;   // 获取当前节点的下一个节点
-
+        // 我们知道翻转后新的头结点必然是第二个节点. 举例子:1->2->3->4 翻转后:2->1->4->3
+        ListNode second = first.next;   // 获取当前节点的下一个节点 // 这句就先保存节点2
+        //继续递归，处理节点3->4. 当递归结束返回后，就变成了4->3. 于是head节点就指向了4，变成1->4->3
         ListNode third = swapPairs_Recursive_2(second.next);  // 进行递归
-
+        //将2节点指向1
         second.next = first; // 这里进行交换
         first.next = third;
 
@@ -161,7 +217,21 @@ public class Q24_Swap_Nodes_in_Pairs {
 
         head.next = swapPairs_Recursive(nextNextNode); // head.next = swapPairs_Recursive(head.next.next); // not work
         return newNode;
+    }
+    /**
+     * 递归 同上
+     * 标记好1、2、3号节点
+     */
+    public ListNode swapPairs_5(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode one = head;
+        ListNode two = one.next;
+        ListNode three = two.next;
 
+        two.next = one;
+        one.next = swapPairs_5(three);
+
+        return two;
     }
     /**
      * Recursive - from tail to head 递归
