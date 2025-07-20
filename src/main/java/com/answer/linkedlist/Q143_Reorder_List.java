@@ -17,17 +17,20 @@ public class Q143_Reorder_List {
      */
     public static void main(String[] args) {
         //head = [1,2,3,4,5]
-        //  ListNode node5 = new ListNode(5, null);
-        ListNode node4 = new ListNode(4, null);
+          ListNode node5 = new ListNode(5, null);
+        ListNode node4 = new ListNode(4, node5);
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1,node2);
 
-        reorderList4(node1);
+        reorderList_1(node1);
         node1.print();
     }
     /**
      * 方法二: 把链表放进双向队列，然后通过双向队列一前一后弹出数据，来构造新的链表。这种方法比操作数组容易一些，不用双指针模拟一前一后了
+     *
+     * 因为链表不支持下标访问，所以我们无法随机访问链表中任意位置的元素。
+     * 因此比较容易想到的一个方法是，我们利用线性表存储该链表，然后利用线性表可以下标访问的特点，直接按顺序访问指定元素，重建该链表即可。
      */
    static public void reorderList(ListNode head) {
         Deque<ListNode> list = new ArrayDeque<>(); // 使用双端队列，简化了数组的操作，代码相对于前者更简洁（避免一些边界条件）
@@ -103,6 +106,7 @@ public class Q143_Reorder_List {
         cur.next = null; // 注意结尾要结束一波
     }
     /**
+     * 寻找链表中点 Q876_Middle_of_the_Linked_List + 右半端反转 Q206_Reverse_Linked_List + 合并链表
      * Approach 1: Reverse the Second Part of the List and Merge Two Sorted Lists
      * This problem is a combination of these three easy problems:
      *
@@ -112,26 +116,23 @@ public class Q143_Reorder_List {
      * 方法三: 将链表分割成两个链表，然后把第二个链表反转，之后在通过两个链表拼接成新的链表。
      * 将链表从中间分成两部分，将后部分链表反转，然后同时遍历两链表进行拼接。
      */
-    public void reorderList_1(ListNode head) {
+    static public void reorderList_1(ListNode head) {
         ListNode fast = head, slow = head;
         //求出中点
+        // while (fast != null && fast.next != null) { // works too
         while (fast.next != null && fast.next.next != null) { // if the count of elements is odd, slow is in the middle.
             slow = slow.next;                                 // if the count of elements is even, slow is the left to the middle.
             fast = fast.next.next;
         }
-        //right就是右半部分 12345 就是45  1234 就是34
-        ListNode right = slow.next;
-        //断开左部分和右部分
-        slow.next = null;
-        //反转右部分 right就是反转后右部分的起点
-        right = reverseList(right);
+
+        ListNode right = slow.next; //right就是右半部分 12345 就是45  1234 就是34
+        slow.next = null;   //断开左部分和右部
+        right = reverseList(right); //反转右部分 right就是反转后右部分的起点
         // ListNode right = reverseList_1(slow.next); // the above 3 lines of code can be replaced with these 2 lines
         // slow.next = null;
-        //左部分的起点
-        ListNode left = head;
+        ListNode left = head;//左部分的起点
         //进行左右部分来回连接
-        //这里左部分的节点个数一定大于等于右部分的节点个数 因此只判断right即可
-        while (right != null) {
+        while (right != null) { //这里左部分的节点个数一定大于等于右部分的节点个数 因此只判断right即可
             ListNode curLeft = left.next;
             left.next = right;
             left = curLeft;
@@ -142,7 +143,7 @@ public class Q143_Reorder_List {
         }
     }
     // 反转链表
-    public ListNode reverseList(ListNode head) {
+    static public ListNode reverseList(ListNode head) {
         ListNode headNode = new ListNode(0);
         ListNode cur = head;
         ListNode next = null;
