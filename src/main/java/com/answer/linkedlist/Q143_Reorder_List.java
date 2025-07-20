@@ -61,9 +61,10 @@ public class Q143_Reorder_List {
         List<ListNode> list = new ArrayList<>();  // ArrayList底层是数组，可以使用下标随机访问
         ListNode cur = head;
         while(cur != null){
-            list.add(cur);
+            list.add(cur); //存到 list 中去
             cur = cur.next;
         }
+        //头尾指针依次取元素
         int i = 0, j = list.size() - 1; // i j为之前前后的双指针
         while(i < j){
             list.get(i).next = list.get(j);
@@ -104,6 +105,29 @@ public class Q143_Reorder_List {
             cur = cur.next;  // 每一次指针都需要移动
         }
         cur.next = null; // 注意结尾要结束一波
+    }
+    /**
+     * 栈
+     */
+    public void reorderList5(ListNode head) {
+        Deque<ListNode> stack = new ArrayDeque<>();
+        ListNode fast = head, slow = head; //快慢指针寻找终点和中点，因为fast是2倍速的slow，所以fast为终点时，slow为中点
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        while(slow != null){  //将中点slow往后的压入栈
+            stack.push(slow);
+            slow = slow.next;
+        }
+        ListNode cur = head; //默认为1->2->3...每弹出一个栈，就插入到当前节点cur和cur.next的中间
+        while(!stack.isEmpty()){
+            ListNode temp = stack.pop();
+            temp.next = cur.next;
+            cur.next = temp;
+            cur = temp.next;
+        }
+        cur.next = null;  //最后节点补一个null结尾
     }
     /**
      * 寻找链表中点 Q876_Middle_of_the_Linked_List + 右半端反转 Q206_Reverse_Linked_List + 合并链表
