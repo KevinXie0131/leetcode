@@ -1,14 +1,6 @@
 package com.answer.linkedlist;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
-
 public class Q143_Reorder_List_1 {
-    /**
-     *
-     */
     public static void main(String[] args) {
         //head = [1,2,3,4,5]
           ListNode node5 = new ListNode(5, null);
