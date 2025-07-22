@@ -29,7 +29,7 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseKGroup_1(node1, 3);
+        ListNode node = reverseKGroup4(node1, 2);
         node.print();
     }
     /**
@@ -38,21 +38,21 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
      */
     public static ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(-1, head);
-        ListNode pre = dummy;
+        ListNode pre = dummy; // pre 代表待翻转链表的前驱
         ListNode cur = dummy;
         while(cur.next != null){
             for(int i = 0; i < k && cur != null; i++){ // 先走k步 cur不为空
                 cur = cur.next;
             }
-            if(cur == null) break;
+            if(cur == null) break; //需要翻转的链表的节点数小于k，不执行翻转。
 
             ListNode start = pre.next; // 确定边界
-            ListNode end = cur.next;
+            ListNode end = cur.next; // cur 代表待翻转链表的末尾 end 记录待翻转链表的后继
             cur.next = null; // 断开链表
             pre.next = reverseList(start); // 反转链表
-            start.next = end; // 拼接链表
+            start.next = end; // 拼接链表 // 反转之后，start节点实际是已经最后一个节点了，为了和后面的划分段链接，让他的下一个节点连接上下一段的起始点即可
 
-            pre = start;
+            pre = start;  // pre再次来到下一段的上一个节点，也就是本段的结尾点
             cur = pre; //  cur = start; // works too
         }
         return dummy.next;
@@ -133,7 +133,6 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
         }
 
         tail.next = reverseKGroup2(tail.next, k);
-
         // 翻转【head-----tail】
         while(head != tail){
             ListNode nxt = head.next;
@@ -142,5 +141,58 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
             head = nxt;
         }
         return head;
+    }
+    /**
+     * 递归
+     */
+    static public ListNode reverseKGroup4(ListNode head, int k) {
+        if (head == null || head.next == null) {  //退出递归的条件
+            return head;
+        }
+        ListNode tail = head;
+        for (int i = 0; i < k; i++) {
+            if (tail == null) {  //剩余数量小于k的话，则不需要反转。
+                return head;
+            }
+            tail = tail.next;
+        }
+
+        ListNode newHead = reverse(head, tail); // 反转前 k 个元素
+        head.next = reverseKGroup4(tail, k);      //下一轮的开始还是tail节点，因为你是要确定下一次返回链表的头节点的位置
+        return newHead;
+    }
+    /**
+     * 翻转为左闭又开区间，所以本轮操作的尾结点其实就是下一轮操作的头结点）。
+     */
+    static private ListNode reverse(ListNode head, ListNode tail) {
+        ListNode pre = null;
+        ListNode next;
+        while (head != tail) {  //只需要把原来判断尾节点为空的，改为在传入节点就行。
+            next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
+    }
+    /**
+     * 递归同上 改进
+     */
+    public ListNode reverseKGroup6(ListNode head, int k) {
+        ListNode tail = head;
+        for (int i = 1; i < k; i++) { // 由于没有使用dummy节点，所以这里向后移动了k-1个节点
+            if (tail == null) {
+                return head;
+            }
+            tail = tail.next;
+        }
+        if (tail == null) { // 这里需要对第k个节点特判，否则会空指针
+            return head;
+        }
+        ListNode next = tail.next;  // next指向第k+1个节点
+        tail.next = null;
+        ListNode curHead = reverseList(head);
+        head.next = reverseKGroup6(next, k);
+        return curHead;
     }
 }
