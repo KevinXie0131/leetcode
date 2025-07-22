@@ -11,7 +11,6 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
      * Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
      * k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.
      * You may not alter the values in the list's nodes, only nodes themselves may be changed.
-     *
      * 示例 1：
      *  输入：head = [1,2,3,4,5], k = 2
      *  输出：[2,1,4,3,5]
@@ -19,6 +18,7 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
      *  输入：head = [1,2,3,4,5], k = 3
      *  输出：[3,2,1,4,5]
      *
+     * 进阶：你可以设计一个只用 O(1) 额外内存空间的算法解决此问题吗？
      */
     public static void main(String[] args) {
         ListNode node7 = new ListNode(7, null);
@@ -38,7 +38,7 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
      */
     public static ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(-1, head);
-        ListNode pre =dummy;
+        ListNode pre = dummy;
         ListNode cur = dummy;
         while(cur.next != null){
             for(int i = 0; i < k && cur != null; i++){ // 先走k步 cur不为空
@@ -53,7 +53,7 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
             start.next = end; // 拼接链表
 
             pre = start;
-            cur = pre;
+            cur = pre; //  cur = start; // works too
         }
         return dummy.next;
     }
@@ -73,27 +73,26 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
      * Use stack
      */
     public static ListNode reverseKGroup_1(ListNode head, int k) {
-        Deque<ListNode> stack = new ArrayDeque<ListNode>();
+        Deque<ListNode> stack = new ArrayDeque<>();
         ListNode dummy = new ListNode(0);
-        ListNode p = dummy;
+        ListNode cur = dummy;
+        ListNode nxt = head;
         while (true) {
             int count = 0;
-            ListNode tmp = head;
-            while (tmp != null && count < k) {
-                stack.add(tmp);
-                tmp = tmp.next;
+
+            while (nxt != null && count < k) {
+                stack.push(nxt);
+                nxt = nxt.next;
                 count++;
             }
             if (count != k) {
-                p.next = head;
                 break;
             }
             while (!stack.isEmpty()){
-                p.next = stack.pollLast();
-                p = p.next;
+                cur.next = stack.pop();
+                cur = cur.next;
             }
-            p.next = tmp;
-            head = tmp;
+            cur.next = nxt;
         }
         return dummy.next;
     }
