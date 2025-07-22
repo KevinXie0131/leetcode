@@ -55,22 +55,22 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
      * 本题与 Q21. 合并两个有序链表 思路类似，都是找到剩余链表中最小的数字插入结果，不同的是，
      * 本题使用一个小根堆加速这个查找的过程。
      */
-    public ListNode mergeKLists_1(ListNode[] lists) {
+    public ListNode mergeKLists_1(ListNode[] lists) { // 使用优先队列合并
         //  Queue<ListNode> pq = new PriorityQueue<>((v1, v2) -> {return v1.val - v2.val;}); // works too
         Queue<ListNode> pq = new PriorityQueue<>((v1, v2) -> v1.val - v2.val); // (e1, e2)->e1.val-e2.val 需要加上
-        for (ListNode node: lists) { // 将每个链表的头节点加入堆中
+        for (ListNode node: lists) { // 将所有非空链表链表的头节点加入堆中
             if (node != null) {
-                pq.offer(node);
+                pq.offer(node);  // 初始化堆
             }
         }
-        ListNode dummyHead = new ListNode(0);
+        ListNode dummyHead = new ListNode(0); // 哨兵节点，作为合并后链表头节点的前一个节点
         ListNode tail = dummyHead;
-        while (!pq.isEmpty()) {
-            ListNode minNode = pq.poll();
-            tail.next = minNode;
-            tail = minNode; // tail = tail.next; // works too
-            if (minNode.next != null) {
-                pq.offer(minNode.next);
+        while (!pq.isEmpty()) { // 循环直到堆为空
+            ListNode minNode = pq.poll(); // 剩余节点中的最小节点
+            tail.next = minNode;  // 把 minNode 添加到新链表的末尾
+            tail = minNode; // tail = tail.next; // works too  // 准备合并下一个节点
+            if (minNode.next != null) { // 下一个节点不为空
+                pq.offer(minNode.next);  // 下一个节点有可能是最小节点，入堆
             }
         }
         return dummyHead.next;
@@ -149,23 +149,51 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
     }
     /**
      * 两两合并 - 迭代
+     * 直接自底向上合并链表, 两两合并/四四合并/八八合并, 依此类推，直到所有链表都合并到 lists[0] 中。最后返回 lists[0]
      */
     public ListNode mergeKLists_5(ListNode[] lists) {
         if (lists.length == 0) {
             return null;
         }
         int size = lists.length;
-        while (size > 1) { // 只剩最后一个队列了
+        while (size > 1) { // 只剩最后一个队列了 //当size为1时，及合并成了一条链表时结束循环，后返回合并后的结果
             int index = 0;
             for (int i = 0; i < size; i += 2) {
-                if (i == size - 1) { // i 处于最后的奇数节点
+                if (i == size - 1) { // i 处于最后的奇数节点 //链表个数为奇数时，将剩余的未参与此次循环合并的最后一个链表，单独作为一条链表参加下次 while 循环合并
                     lists[index++] = lists[i]; // 直接加入
-                } else {
+                } else { //将两条链表合并成一条链表后参加下一次 while 循环合并
                     lists[index++] = merge2Lists(lists[i], lists[i + 1]);
                 }
             }
-            size = index;
+            size = index; //将当前经过“两两”合并后的链表个数赋值给size
         }
         return lists[0];
+    }
+    /**
+     * 新建一个ArrayList，将所有的节点直接放入ArrayList中
+     * 使用Collections.sort对ArrayList进行排序
+     * 将排序后的值重新组合成链表
+     */
+    public ListNode mergeKLists6(ListNode[] lists) {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        int size = 0;
+        for (int i = 0 ; i < lists.length ; i++){
+            while (lists[i] != null){
+                arrayList.add(lists[i].val);
+                size++;
+                lists[i] = lists[i].next;
+            }
+        }
+
+        Collections.sort(arrayList);
+
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        for (int j = 0 ; j < size ; j++){
+            cur.next = new ListNode(arrayList.get(j));
+            cur = cur.next;
+        }
+        cur.next = null;
+        return dummy.next;
     }
 }
