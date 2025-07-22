@@ -33,7 +33,7 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
         node.print();
     }
     /**
-     * Iterative
+     * Iterative 模拟
      * 把整个链表按照 k 个一组截断，然后把每组链表翻转后再拼接。
      */
     public static ListNode reverseKGroup(ListNode head, int k) {
@@ -95,5 +95,52 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
             cur.next = nxt;
         }
         return dummy.next;
+    }
+    /**
+     * 递归解法更简短，耗时0ms，递归消耗栈的空间复杂度大于O(1)
+     */
+    public ListNode reverseKGroup1(ListNode head, int k) {
+        if(head == null) {
+            return null;
+        }
+        ListNode cur = head, nxt = head.next;//双指针操纵反转
+        int n = 0;
+        while (++n < k && nxt != null) {
+            cur.next = nxt.next;
+            nxt.next = head;
+            head = nxt;
+            nxt = cur.next;
+        }
+        if(n < k) {
+            return reverseKGroup1(head, n);  // 不足k个元素，反转回去
+        }
+        cur.next = reverseKGroup1(nxt, k);// index位置翻转下一个窗口
+        return head;
+    }
+    /**
+     * 递归
+     */
+    public ListNode reverseKGroup2(ListNode head, int k) {
+        if (head == null || k == 1) { // if (head == null) { // works too
+            return head;
+        }
+        ListNode tail = head;
+        for (int i = 1; i < k; i++) {
+            tail = tail.next;
+            if (tail == null){
+                return head;
+            }
+        }
+
+        tail.next = reverseKGroup2(tail.next, k);
+
+        // 翻转【head-----tail】
+        while(head != tail){
+            ListNode nxt = head.next;
+            head.next = tail.next;
+            tail.next = head;
+            head = nxt;
+        }
+        return head;
     }
 }
