@@ -196,4 +196,38 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
         cur.next = null;
         return dummy.next;
     }
+    /**
+     * 定义一个数组哈希表
+     *  对链表数组中每个链表的每个节点进行遍历
+     *  在数组哈希表记录每个数值对应的节点个数，有keyArr[cur.val + 10000]个节点的数值为cur.val，
+     *  因为节点的值可能为负，且最大为-10000，所以下 标要偏移10000
+     *  遍历数组哈希表，对链表节点进行连接
+     */
+    public ListNode mergeKLists7(ListNode[] lists) {
+        ListNode dummy = new ListNode();   //伪头节点，方便返回结果
+        int[] keyArr = new int[2 * 10000 + 1];   //定义一个数组哈希表
+        //对链表数组中每个链表的每个节点进行遍历
+        //在数组哈希表记录每个数值对应的节点个数，有keyArr[cur.val + 10000]个节点的数值为cur.val
+        //因为节点的值可能为负，且最大为-10000，所以下标要偏移10000
+        for (int i = 0; i < lists.length;i++) {
+            ListNode cur = lists[i];
+            while (cur != null) {
+                keyArr[cur.val + 10000]++;
+                cur = cur.next;
+            }
+        }
+        ListNode temp = dummy;
+
+        for (int i = 0; i < keyArr.length; i++) { //遍历数组哈希表
+            if (keyArr[i] == 0) {    //keyArr[i] == 0表示没有节点的值等于该数值，则直接跳过
+                continue;
+            } else {
+                while (keyArr[i]-- > 0) {    //在temp后面循环连接keyArr[i]个节点值为(i-10000)的节点
+                    temp.next = new ListNode(i-10000);
+                    temp = temp.next;
+                }
+            }
+        }
+        return dummy.next;
+    }
 }
