@@ -9,16 +9,13 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
      * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
      * You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
      * Merge all the linked-lists into one sorted linked-list and return it.
-     *
      * 示例 1：
      *  输入：lists = [[1,4,5],[1,3,4],[2,6]]
      *  输出：[1,1,2,3,4,4,5,6]
      *  解释：链表数组如下：
-     *  [
-     *      1->4->5,
-     *      1->3->4,
-     *      2->6
-     *  ]
+     *  [ 1->4->5,
+     *    1->3->4,
+     *    2->6 ]
      *  将它们合并到一个有序链表中得到: 1->1->2->3->4->4->5->6
      */
     /**
@@ -59,6 +56,7 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
      * 本题使用一个小根堆加速这个查找的过程。
      */
     public ListNode mergeKLists_1(ListNode[] lists) {
+        //  Queue<ListNode> pq = new PriorityQueue<>((v1, v2) -> {return v1.val - v2.val;}); // works too
         Queue<ListNode> pq = new PriorityQueue<>((v1, v2) -> v1.val - v2.val); // (e1, e2)->e1.val-e2.val 需要加上
         for (ListNode node: lists) { // 将每个链表的头节点加入堆中
             if (node != null) {
@@ -70,12 +68,11 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
         while (!pq.isEmpty()) {
             ListNode minNode = pq.poll();
             tail.next = minNode;
-            tail = minNode;
+            tail = minNode; // tail = tail.next; // works too
             if (minNode.next != null) {
                 pq.offer(minNode.next);
             }
         }
-
         return dummyHead.next;
     }
     /**
@@ -100,9 +97,12 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
         if (l1.val < l2.val) {
             l1.next = merge2Lists(l1.next, l2);
             return l1;
+        } else {
+            l2.next = merge2Lists(l1, l2.next);
+            return l2;
         }
-        l2.next = merge2Lists(l1, l2.next);
-        return l2;
+      //  l2.next = merge2Lists(l1, l2.next); // works too
+      //  return l2;
     }
     // 合并两条有序链表 — 迭代
     ListNode merge2Lists1(ListNode l1, ListNode l2) {
