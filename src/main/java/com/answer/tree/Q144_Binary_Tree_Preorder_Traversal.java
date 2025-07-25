@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q144_Binary_Tree_Preorder_Traversal {
@@ -35,7 +34,6 @@ public class Q144_Binary_Tree_Preorder_Traversal {
             if(node.left != null){   // 左（空节点不入栈）
                 stack.push(node.left);
             }
-
         }
         return returnList;
     }
@@ -58,7 +56,6 @@ public class Q144_Binary_Tree_Preorder_Traversal {
             TreeNode cur = stack.pop();
             root = cur.right; //最后再找 右节点
         }
-
         return list;
     }
     /**
