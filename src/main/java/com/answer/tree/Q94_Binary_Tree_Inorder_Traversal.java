@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q94_Binary_Tree_Inorder_Traversal {
@@ -30,10 +29,10 @@ public class Q94_Binary_Tree_Inorder_Traversal {
      */
     public ArrayList<Integer> inorderTraversal(TreeNode root) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        if(root == null)
+        if(root == null) {
             return result;
-
-        Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
         //define a pointer to track nodes
         TreeNode cur = root;
 
@@ -42,8 +41,7 @@ public class Q94_Binary_Tree_Inorder_Traversal {
             if(cur != null){ // 指针来访问节点，访问到最底层
                 stack.push(cur);  // 将访问的节点放进栈
                 cur = cur.left;  // 左
-                // if no left child pop stack, process the node then let p point to the right
-            }else{
+            }else{ // if no left child pop stack, process the node then let p point to the right
                 TreeNode node = stack.pop();  // 从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）
                 result.add(node.value);  // 中
                 cur = node.right;    // 右
@@ -103,7 +101,9 @@ public class Q94_Binary_Tree_Inorder_Traversal {
     public List<Integer> inorderTraversal_2(TreeNode root) {
         List<Integer> result = new LinkedList<>();
         Stack<TreeNode> st = new Stack<>();
-        if (root != null) st.push(root);
+        if (root != null) {
+            st.push(root);
+        }
         while (!st.empty()) {
             TreeNode node = st.peek();
             if (node != null) {
