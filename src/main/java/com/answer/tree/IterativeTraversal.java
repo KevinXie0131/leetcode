@@ -115,6 +115,23 @@ public class IterativeTraversal {
         Collections.reverse(returnList);  // 将结果反转之后就是左右中的顺序了
         return returnList;
     }
+    /**
+     * 二叉树的后序遍历 (迭代法) 模板3: 头插法
+     */
+    public List<Integer> postorderTraversal_1a(TreeNode node) {
+        List<Integer> list =  new LinkedList<>();
+        Deque <TreeNode> stack = new ArrayDeque<>();
 
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                list.add(0, node.value); // 头插法
+                stack.push(node);
+                node = node.right;//右节点（比前序遍历不同的地方）
+            }
 
+            TreeNode cur = stack.pop();
+            node = cur.left; // 左节点（比前序遍历不同的地方）
+        }
+        return list;
+    }
 }
