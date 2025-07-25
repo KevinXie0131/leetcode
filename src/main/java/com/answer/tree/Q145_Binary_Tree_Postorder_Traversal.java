@@ -67,6 +67,26 @@ public class Q145_Binary_Tree_Postorder_Traversal {
         return list;
     }
     /**
+     * 头插法
+     * 参考Q144 Binary Tree Preorder Traversal
+     */
+    public List<Integer> postorderTraversal_1a(TreeNode node) {
+        List<Integer> list =  new LinkedList<>();
+        Deque <TreeNode> stack = new ArrayDeque<>();
+
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                list.add(0, node.value); // 头插法
+                stack.push(node);
+                node = node.right;//右节点（比前序遍历不同的地方）
+            }
+
+            TreeNode cur = stack.pop();
+            node = cur.left; // 左节点（比前序遍历不同的地方）
+        }
+        return list;
+    }
+    /**
      * 统一迭代法 后序遍历
      *  (注意此时我们和中序遍历相比仅仅改变了两行代码的顺序)
      */
