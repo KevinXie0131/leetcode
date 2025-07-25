@@ -6,6 +6,10 @@ import java.util.*;
 
 public class IterativeTraversal {
     /**
+     * 遍历二叉树详解
+     * https://leetcode.cn/problems/binary-tree-preorder-traversal/solutions/87526/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
+     */
+    /**
      * 二叉树的中序遍历 (迭代法) 模板
      */
     public List<Integer> inorderTraversal_1(TreeNode node) {
@@ -25,7 +29,7 @@ public class IterativeTraversal {
         return list;
     }
     /**
-     * 二叉树的前序遍历 (迭代法) 模板
+     * 二叉树的前序遍历 (迭代法) 模板1
      */
     public List<Integer> preorderTraversal_1(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
@@ -45,6 +49,50 @@ public class IterativeTraversal {
     }
     /**
      * 二叉树的后序遍历 (迭代法) 模板1
+     */
+    public List<Integer> postorderTraversal_1(TreeNode node) {
+        List<Integer> list =  new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                list.add(node.value); // 记录节点值
+                stack.push(node);
+                node = node.right; //右节点（比前序遍历不同的地方）
+            }
+
+            TreeNode cur = stack.pop();
+            node = cur.left; // 左节点（比前序遍历不同的地方）
+        }
+        Collections.reverse(list); //  结果反转 中-右-左 变成 左-右-中
+        return list;
+    }
+    /**
+     * 二叉树的前序遍历 (迭代法) 模板2
+     */
+    public List<Integer> preorderTraversal(TreeNode root) {
+        ArrayList<Integer> returnList = new ArrayList<Integer>();
+
+        if(root == null) return returnList;
+
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop(); // 中
+            returnList.add(node.value);
+
+            if(node.right != null){  // 右（空节点不入栈）
+                stack.push(node.right);
+            }
+            if(node.left != null){   // 左（空节点不入栈）
+                stack.push(node.left);
+            }
+        }
+        return returnList;
+    }
+    /**
+     * 二叉树的后序遍历 (迭代法) 模板2
      */
     public List<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> returnList = new ArrayList<Integer>();
@@ -67,24 +115,6 @@ public class IterativeTraversal {
         Collections.reverse(returnList);  // 将结果反转之后就是左右中的顺序了
         return returnList;
     }
-    /**
-     * 模板2
-     */
-    public List<Integer> postorderTraversal_1(TreeNode node) {
-        List<Integer> list =  new ArrayList<>();
-        Deque<TreeNode> stack = new ArrayDeque<>();
 
-        while (node != null || !stack.isEmpty()) {
-            while (node != null) {
-                list.add(node.value); // 记录节点值
-                stack.push(node);
-                node = node.right; //右节点（比前序遍历不同的地方）
-            }
 
-            TreeNode cur = stack.pop();
-            node = cur.left; // 左节点（比前序遍历不同的地方）
-        }
-        Collections.reverse(list); //  结果反转 中-右-左 变成 左-右-中
-        return list;
-    }
 }
