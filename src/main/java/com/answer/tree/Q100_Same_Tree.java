@@ -74,9 +74,9 @@ public class Q100_Same_Tree {
      * 精简之后代码
      */
     public boolean isSameTree_1a(TreeNode p, TreeNode q) {
-        if (p == null && q == null) return true;
-        if (p == null || q == null) return false;
-        return p.value == q.value && isSameTree_1a(p.left, q.left) &&  isSameTree_1a(p.right, q.right);
+        if (p == null && q == null) return true; // 两个节点均为空
+        if (p == null || q == null) return false; // 一个节点为空 一个节点不为空
+        return p.value == q.value && isSameTree_1a(p.left, q.left) &&  isSameTree_1a(p.right, q.right);  // 两个节点均不为空
     }
     /**
      * 迭代法
@@ -128,7 +128,6 @@ public class Q100_Same_Tree {
         queue.offer(p);  //  添加根节点p
         queue.offer(q);  //  添加根节点q
         while (!queue.isEmpty()) {
-
             TreeNode left = queue.poll();
             TreeNode right = queue.poll();
 
@@ -154,6 +153,7 @@ public class Q100_Same_Tree {
     }
     /**
      * 迭代法
+     * 广度优先搜索
      */
     static public boolean isSameTree_4(TreeNode p, TreeNode q) {
         Deque<TreeNode> queue = new LinkedList<>(); // LinkedList可以接受null, ArrayDeque不可以
