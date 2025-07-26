@@ -1,5 +1,7 @@
 package com.answer.tree;
 
+import com.template.TreeNode;
+
 import java.util.*;
 
 public class Q559_Maximum_Depth_of_N_ary_Tree {
@@ -24,15 +26,14 @@ public class Q559_Maximum_Depth_of_N_ary_Tree {
         int max = 0;
         for(Node child : root.children) {
             int depth = maxDepth(child);
-            if(depth > max){
+            if(depth > max){ // max = Math.max(max, depth);
                 max = depth;  // depth = max (depth, maxDepth(root.children[i]));
             }
         }
-
         return max + 1; //中节点
     }
     /**
-     * 递归
+     * 递归 同上
      */
     public int maxDepth_0(Node root) {
         if (root == null) {
@@ -45,6 +46,26 @@ public class Q559_Maximum_Depth_of_N_ary_Tree {
         return depth + 1;
     }
     /**
+     * 前序遍历 / 自顶向下
+     */
+    private int ans;
+
+    public int maxDepth_3(Node root) {
+        dfs1(root, 0);
+        return ans;
+    }
+
+    private void dfs1(Node node, int depth) {
+        if (node == null) {
+            return;
+        }
+        depth++;
+        ans = Math.max(ans, depth);
+        for(Node child : node.children) {
+            dfs1(child, depth);
+        }
+    }
+    /**
      * Iteration 迭代法
      * 迭代法，使用层序遍历
      */
@@ -53,13 +74,11 @@ public class Q559_Maximum_Depth_of_N_ary_Tree {
         if (root == null) {
             return depth;
         }
-
         Deque<Node> queue = new ArrayDeque<>();
         queue.offer(root);
 
         while (!queue.isEmpty()) {
             int size = queue.size();
-
             while (size > 0) {
                 Node cur = queue.poll();
 
