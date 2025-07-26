@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q104_Maximum_Depth_of_Binary_Tree {
@@ -32,7 +31,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         //                    深度最⼤的数值 再+1 （加1是因为算上当前中间节点）就是⽬前节点为根节点的树的深度
         int left = maxDepth(root.left);    // 左
         int right = maxDepth(root.right);  // 右
-        return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度 / 二叉树的最大深度为左右子树的最大深度加一得到。
+        return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度 / 二叉树的最大深度为左右子树的最大深度加1得到。
     }
     /**
      * 代码精简
@@ -45,6 +44,25 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
     /**
+     * 前序遍历 / 自顶向下
+     */
+    private int ans;
+
+    public int maxDepth_3(TreeNode root) {
+        dfs1(root, 0);
+        return ans;
+    }
+
+    private void dfs1(TreeNode node, int depth) {
+        if (node == null) {
+            return;
+        }
+        depth++;
+        ans = Math.max(ans, depth);
+        dfs1(node.left, depth);
+        dfs1(node.right, depth);
+    }
+    /**
      * 迭代法 层序遍历
      * 使用迭代法的话，使用层序遍历是最为合适的，因为最大的深度就是二叉树的层数，和层序遍历的方式极其吻合。
      * 在二叉树中，一层一层的来遍历二叉树，记录一下遍历的层数就是二叉树的深度
@@ -54,7 +72,6 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         if (root == null) {
             return depth;
         }
-
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
 
@@ -64,8 +81,8 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
             while (size > 0) {
                 TreeNode cur = queue.poll();
 
-                if (cur.left != null) {queue.offer(cur.left);}
-                if (cur.right != null) {queue.offer(cur.right);}
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
 
                 size--;
             }
@@ -73,7 +90,6 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         }
         return depth;
     }
-
     /**
      * DFS递归 (层序)
      */
@@ -99,15 +115,16 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
      * 充分表现出求深度回溯的过程
      */
     int result = 0;
+
     int maxDepth4(TreeNode root) {
         result = 0;
         if (root == null) return result;
         getdepth(root, 1);
         return result;
     }
+    // 在104.二叉树的最大深度 中，如果真正求取二叉树的最大深度，代码应该写成如下：（前序遍历）
     public void getdepth(TreeNode node, int depth) {
-        // 在104.二叉树的最大深度 中，如果真正求取二叉树的最大深度，代码应该写成如下：（前序遍历）
-        result = Math.max(depth ,result); // 中
+        result = Math.max(result, depth); // 中
 
         if (node.left == null && node.right == null) return;
 
@@ -133,6 +150,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
      * 递归法(求深度法)
      */
     int result1 = 0;  //定义最大深度
+
     int maxDepth_2(TreeNode root) {
         if (root == null) {
             return result1;
@@ -140,6 +158,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         getdepth(root, 1);
         return result1;
     }
+
     public void getdepth2(TreeNode node, int depth) {
         //递归求解最大深度
         if (node == null) {
