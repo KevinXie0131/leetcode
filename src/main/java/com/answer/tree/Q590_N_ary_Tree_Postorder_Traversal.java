@@ -30,25 +30,26 @@ public class Q590_N_ary_Tree_Postorder_Traversal {
         list.add(root.val);
     }
     /**
-     * 迭代
+     * 迭代（栈实现）
+     * N叉树的后序遍历代码操作的顺序是，根节点->子节点（从左到右进栈，出来的顺序为右到左），对应得到的遍历结果就是 根节点+子节点（从右到左）。再把这个结果反转一下，遍历结果就是 子节点（从左到右）+ 根节点。
      */
     public List<Integer> postorder1(Node root) {
-        List list = new LinkedList();
-        if(root == null) return list;
+        LinkedList list = new LinkedList();
         Deque<Node> stack = new ArrayDeque<>();
 
+        if(root == null) return list;
         stack.push(root);
 
         while(!stack.isEmpty()){
             Node node = stack.pop();
-            list.add(node.val);
+            list.add(node.val); // 用头插法进行反转，list.add(0, node.val) / list.addFirst(node.val); ，也可以在最后用函数反转
 
             List<Node> nodes = node.children;
             for(int i = 0; i <= nodes.size() - 1; i++){
                 stack.push(nodes.get(i));
             }
         }
-        Collections.reverse(list);
+        Collections.reverse(list); // 利用前序遍历反转
         return list;
     }
 }
