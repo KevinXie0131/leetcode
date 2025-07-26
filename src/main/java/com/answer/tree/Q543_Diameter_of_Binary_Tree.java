@@ -1,11 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q543_Diameter_of_Binary_Tree {
     /**
@@ -17,6 +13,10 @@ public class Q543_Diameter_of_Binary_Tree {
      * The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
      * The length of a path between two nodes is represented by the number of edges between them.
      */
+    /**
+     * 深度优先搜索
+     * 实质是最大高度，实质等于求左右子树的最大高度：
+     */
     int result = 0;
 
     public int diameterOfBinaryTree(TreeNode root) {
@@ -25,11 +25,12 @@ public class Q543_Diameter_of_Binary_Tree {
     }
 
     public int dfs(TreeNode root){
-        if (root == null) return 0;
+        if (root == null) return 0; // 高度为0
+        if (root.left == null && root.right == null) return 1; // can be commented
 
-        int left = dfs(root.left);
+        int left = dfs(root.left); // 求左右子树的高度（递归）
         int right = dfs(root.right);
         result = Math.max(result, left + right);
-        return Math.max(left,  right) + 1;
+        return Math.max(left,  right) + 1; // 左右子树中的最大高度+1即为最大高度
     }
 }
