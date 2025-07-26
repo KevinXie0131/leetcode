@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q101_Symmetric_Tree {
@@ -50,6 +49,14 @@ public class Q101_Symmetric_Tree {
         boolean isRight = dfs(left.right, right.left); // 左⼦树：右、 右⼦树：左
 
         return isLeft && isRight; // 左⼦树：中、 右⼦树：中（逻辑处理）
+    }
+    /**
+     * 精简之后代码
+     */
+    public boolean dfs1(TreeNode left, TreeNode right) {
+        if (left == null && right == null) return true; // 两个节点均为空
+        if (left == null || right == null) return false; // 一个节点为空 一个节点不为空
+        return left.value == right.value && dfs1(left.left, right.right) &&  dfs1(left.right, right.left);  // 两个节点均不为空
     }
     /**
      * 使⽤队列 迭代法 (但要注意，这里的迭代法可不是前中后序的迭代写法，因为本题的本质是判断两个树是否是相互翻转的，其实已经不是所谓二叉树遍历的前中后序的关系了)
