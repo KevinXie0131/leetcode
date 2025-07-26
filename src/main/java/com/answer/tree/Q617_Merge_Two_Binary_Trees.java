@@ -1,11 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
 
 public class Q617_Merge_Two_Binary_Trees {
     /**
@@ -56,10 +52,35 @@ public class Q617_Merge_Two_Binary_Trees {
 
         // 确定单层递归的逻辑
         // 修改了t1的数值和结构, 重复利用一下t1这个树，t1就是合并之后树的根节点（就是修改了原来树的结构）
+        // 因为题目没有说不能改变树的值和结构
         root1.value += root2.value;                          // 中
 
         root1.left = mergeTrees(root1.left, root2.left);     // 左
         root1.right = mergeTrees(root1.right, root2.right);  // 右
+        return root1;
+    }
+    /**
+     * 中序遍历也是可以的
+     */
+    public TreeNode mergeTrees0a(TreeNode root1, TreeNode root2) {
+        if(root2 == null) return root1;
+        if(root1 == null) return root2;
+
+        root1.left = mergeTrees(root1.left, root2.left);     // 左
+        root1.value += root2.value;                          // 中
+        root1.right = mergeTrees(root1.right, root2.right);  // 右
+        return root1;
+    }
+    /**
+     * 后序遍历依然可以
+     */
+    public TreeNode mergeTrees0b(TreeNode root1, TreeNode root2) {
+        if(root2 == null) return root1;
+        if(root1 == null) return root2;
+
+        root1.left = mergeTrees(root1.left, root2.left);     // 左
+        root1.right = mergeTrees(root1.right, root2.right);  // 右
+        root1.value += root2.value;                          // 中
         return root1;
     }
     /**
@@ -72,16 +93,16 @@ public class Q617_Merge_Two_Binary_Trees {
         if (root2 == null) { // 如果t2为空，合并之后就应该是t1
             return root1;
         }
-        TreeNode node = new TreeNode(root1.value+root2.value); // 中 重新定义新的节点，不修改原有两个树的结构
-        node.left=mergeTrees(root1.left,  root2.left);                // 左
-        node.right=mergeTrees(root1.right,  root2.right);             // 右
+        TreeNode node = new TreeNode(root1.value + root2.value); // 中 重新定义新的节点，不修改原有两个树的结构
+        node.left = mergeTrees(root1.left, root2.left);                // 左
+        node.right = mergeTrees(root1.right, root2.right);             // 右
         return node;
     }
     /**
-     * 递归
+     * 递归 同上
      */
     public TreeNode mergeTrees1(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) { // 可以省略号
+        if (root1 == null && root2 == null) { // 可以省略
             return null;
         }
         if (root1 == null && root2 != null) {
@@ -90,14 +111,15 @@ public class Q617_Merge_Two_Binary_Trees {
         if (root2 == null && root1!=null) {
             return root1;
         }
-        TreeNode node = new TreeNode(root1.value+root2.value);
-        node.left=mergeTrees1(root1.left,  root2.left);
-        node.right=mergeTrees1(root1.right,  root2.right);
+        TreeNode node = new TreeNode(root1.value + root2.value);
+        node.left = mergeTrees1(root1.left,  root2.left);
+        node.right = mergeTrees1(root1.right,  root2.right);
         return node;
     }
     /**
      * 迭代法 使用队列迭代
      * 把两个树的节点同时加⼊队列
+     * 广度优先搜索
      */
     public TreeNode mergeTrees2(TreeNode root1, TreeNode root2) {
         if (root1 == null) {
@@ -115,22 +137,21 @@ public class Q617_Merge_Two_Binary_Trees {
 
             r1.value = r1.value + r2.value; // 此时两个节点⼀定不为空，val相加
 
-            if(r1.left!=null && r2.left!=null){ // 如果两棵树左节点都不为空，加⼊队列
+            if(r1.left != null && r2.left != null){ // 如果两棵树左节点都不为空，加⼊队列
                 queue.offer(r1.left);
                 queue.offer(r2.left);
             }
-            if(r1.right!=null && r2.right!=null){ // 如果两棵树右节点都不为空，加⼊队列
+            if(r1.right != null && r2.right != null){ // 如果两棵树右节点都不为空，加⼊队列
                 queue.offer(r1.right);
                 queue.offer(r2.right);
             }
-            if(r1.left==null && r2.left!=null) { // 当t1的左节点 为空 t2左节点不为空，就赋值过去
+            if(r1.left == null && r2.left != null) { // 当t1的左节点 为空 t2左节点不为空，就赋值过去
                 r1.left = r2.left;
             }
-            if(r1.right==null && r2.right!=null) { // 当t1的右节点 为空 t2右节点不为空，就赋值过去
+            if(r1.right == null && r2.right != null) { // 当t1的右节点 为空 t2右节点不为空，就赋值过去
                 r1.right = r2.right;
             }
         }
-
         return root1;
     }
     /**
@@ -138,8 +159,8 @@ public class Q617_Merge_Two_Binary_Trees {
      */
     public static TreeNode mergeTrees4(TreeNode root1, TreeNode root2) {
         Deque<TreeNode> stack = new ArrayDeque<>();
-        if(root1 == null) {return root2;}
-        if(root2 == null) {return root1;}
+        if(root1 == null) return root2;
+        if(root2 == null) return root1;
         stack.push(root2);
         stack.push(root1);
         while(!stack.isEmpty()){
@@ -164,20 +185,19 @@ public class Q617_Merge_Two_Binary_Trees {
           /*  if (node2.right != null && node1.right != null) {
                 stack.push(node2.right);
                 stack.push(node1.right);
-            } else {
-                if (node1.right == null) {
+            } else if (node1.right == null) {
                     node1.right = node2.right;
                 }
             }
             if (node2.left != null && node1.left != null) {
                 stack.push(node2.left);
                 stack.push(node1.left);
-            } else {
-                if (node1.left == null) {
+            } else if (node1.left == null) {
                     node1.left = node2.left;
                 }
             }*/
         }
         return root1;
     }
+
 }
