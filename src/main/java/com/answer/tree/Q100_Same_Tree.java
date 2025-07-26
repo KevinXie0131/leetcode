@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q100_Same_Tree {
@@ -57,6 +56,7 @@ public class Q100_Same_Tree {
     public boolean isSameTree_1(TreeNode p, TreeNode q) {
         return compare(p, q);
     }
+
     boolean compare(TreeNode left, TreeNode right) {
         if (left == null && right != null) {
             return false;
@@ -69,6 +69,14 @@ public class Q100_Same_Tree {
         } else {
             return compare(left.left, right.left) && compare(left.right, right.right);
         }
+    }
+    /**
+     * 精简之后代码
+     */
+    public boolean isSameTree_1a(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        return p.value == q.value && isSameTree_1a(p.left, q.left) &&  isSameTree_1a(p.right, q.right);
     }
     /**
      * 迭代法
@@ -164,7 +172,6 @@ public class Q100_Same_Tree {
             queue.offer(node1.right);
             queue.offer(node2.right);
         }
-
         return true;
     }
 }
