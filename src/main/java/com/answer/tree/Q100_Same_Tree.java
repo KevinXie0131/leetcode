@@ -85,7 +85,7 @@ public class Q100_Same_Tree {
         if (p == null && q == null) return true;
         if (p == null || q == null) return false;
 
-        Deque<TreeNode> que = new ArrayDeque<>();
+        Deque<TreeNode> que = new ArrayDeque<>(); // ArrayDeque不允许存储null元素
         que.offer(p);
         que.offer(q);
 

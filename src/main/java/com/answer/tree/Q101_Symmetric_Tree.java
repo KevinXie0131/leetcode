@@ -52,6 +52,7 @@ public class Q101_Symmetric_Tree {
     }
     /**
      * 精简之后代码
+     * refer to Q100_Same_Tree
      */
     public boolean dfs1(TreeNode left, TreeNode right) {
         if (left == null && right == null) return true; // 两个节点均为空
@@ -64,15 +65,12 @@ public class Q101_Symmetric_Tree {
      * 的存放我们要⽐较的元素，知道这⼀本质之后就发现，⽤队列，⽤栈，甚⾄⽤数组，都是可以的。
      */
     public boolean isSymmetric_1c(TreeNode root) { // 通过队列来判断根节点的左子树和右子树的内侧和外侧是否相等
-        if (root == null) {
-            return true;
-        }
+        if (root == null) return true;
 
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offerFirst(root.left); // 将左⼦树头结点加⼊队列
         queue.offerLast(root.right); // 将右⼦树头结点加⼊队列
         while (!queue.isEmpty()) { // 接下来就要判断这这两个树是否相互翻转
-
             TreeNode left = queue.pollFirst(); // 使用双端队列，相当于两个栈
             TreeNode right = queue.pollLast();
 
@@ -101,15 +99,12 @@ public class Q101_Symmetric_Tree {
      * 使用普通队列
      */
     public boolean isSymmetric_1d(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
+        if (root == null) return true;
 
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offer(root.left);
         queue.offer(root.right);
         while (!queue.isEmpty()) {
-
             TreeNode left = queue.poll();
             TreeNode right = queue.poll();
 
@@ -126,6 +121,7 @@ public class Q101_Symmetric_Tree {
     /*             if (left == null || right == null || left.val != right.val) {
                     return false;
                 }*/
+            // 将左节点的左子树和右节点的右子树，以及左节点的右子树和右节点的左子树加入队列
             queue.offerFirst(left.left); // 这里顺序与使用Deque不同
             queue.offerFirst(right.right);
             queue.offerLast(left.right);
