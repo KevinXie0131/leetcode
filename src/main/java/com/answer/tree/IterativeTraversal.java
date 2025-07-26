@@ -8,6 +8,9 @@ public class IterativeTraversal {
     /**
      * 遍历二叉树详解
      * https://leetcode.cn/problems/binary-tree-preorder-traversal/solutions/87526/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
+     *
+     * 一篇文章带你吃透对称性递归(思路分析+解题模板+案例解读)
+     * https://leetcode.cn/problems/invert-binary-tree/solutions/791028/yi-pian-wen-zhang-dai-ni-chi-tou-dui-che-21l9/
      */
     /**
      * 二叉树的中序遍历 (迭代法) 模板
