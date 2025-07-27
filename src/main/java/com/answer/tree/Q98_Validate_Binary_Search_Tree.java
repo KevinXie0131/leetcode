@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q98_Validate_Binary_Search_Tree {
@@ -17,7 +16,6 @@ public class Q98_Validate_Binary_Search_Tree {
      *  The left subtree of a node contains only nodes with keys less than the node's key.
      *  The right subtree of a node contains only nodes with keys greater than the node's key.
      *  Both the left and right subtrees must also be binary search trees.
-     *
      */
     public static void main(String[] args) {
         TreeNode root = new TreeNode(0);
@@ -35,8 +33,7 @@ public class Q98_Validate_Binary_Search_Tree {
      * 递归中序遍历将⼆叉搜索树转变成⼀个数组, 然后只要⽐较⼀下，这个数组是否是有序的，注意⼆叉搜索树中不能有重复元素
      * 但其实不用转变成数组，可以在递归遍历的过程中直接判断是否有序
      *
-     * 陷阱1
-     *    不能单纯的⽐较左节点⼩于中间节点，右节点⼤于中间节点就完事了, 我们要⽐较的是 左⼦树所有节点⼩于中间节点，右⼦树所有节点⼤于中间节点
+     * 陷阱1: 不能单纯的⽐较左节点⼩于中间节点，右节点⼤于中间节点就完事了, 我们要⽐较的是 左⼦树所有节点⼩于中间节点，右⼦树所有节点⼤于中间节点
      */
     List<Integer> list = new ArrayList<>();
 
@@ -48,6 +45,7 @@ public class Q98_Validate_Binary_Search_Tree {
         }
         return true;
     }
+
     void traversal(TreeNode root) {
         if (root == null) return;
 
@@ -66,11 +64,10 @@ public class Q98_Validate_Binary_Search_Tree {
     public static boolean isValidBST5(TreeNode root) {
         if(root == null) return true;
 
-        boolean left = isValidBST5( root.left); // 左
+        boolean left = isValidBST5(root.left); // 左
 /*        if (!left) {  // 可以加上
             return false;
         }*/
-
         if(root.value > max){ // 中序遍历，验证遍历的元素是不是从小到大
             max = root.value; // 中
         }else {
@@ -81,8 +78,7 @@ public class Q98_Validate_Binary_Search_Tree {
         return left && right;
     }
     /**
-     * 陷阱2
-     *    样例中最⼩节点 可能是int的最⼩值，如果这样使⽤最⼩的int来⽐较也是不⾏的。此时可以初始化⽐较元素为double的最⼩值。
+     * 陷阱2: 样例中最⼩节点 可能是int的最⼩值，如果这样使⽤最⼩的int来⽐较也是不⾏的。此时可以初始化⽐较元素为double的最⼩值。
      */
     public boolean isValidBST(TreeNode root) {
         double result = -Double.MAX_VALUE; // 因为后台测试数据中有int最⼩值
@@ -123,7 +119,6 @@ public class Q98_Validate_Binary_Search_Tree {
                 return false;
             }
             root = cur.right; // 右
-
         }
         return true;
     }
@@ -163,7 +158,7 @@ public class Q98_Validate_Binary_Search_Tree {
             return false;
         }
 
-        boolean left = validBST(root.left, lower, root.value);
+        boolean left = validBST(root.left, lower, root.value); // 前序遍历
         boolean right = validBST(root.right, root.value, upper);
         return left && right;
     }
@@ -172,6 +167,7 @@ public class Q98_Validate_Binary_Search_Tree {
      *  对二叉树进行中序遍历，每遍历到一个节点都和当前已遍历的最后一个节点值比较，只要能满足递增关系就继续遍历，直到遍历所有节点。
      */
     private long prev = Long.MIN_VALUE;
+
     public boolean isValidBST_5(TreeNode root) {
         if (root == null) {
             return true;
