@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q173_Binary_Search_Tree_Iterator {
@@ -16,7 +15,7 @@ public class Q173_Binary_Search_Tree_Iterator {
      * 你可以假设 next() 调用总是有效的，也就是说，当调用 next() 时，BST 的中序遍历中至少存在一个下一个数字。
      */
     /**
-     * Approach 1: Flattening the BST
+     * Approach 1: Flattening the BST 扁平化
      * 本质是中序遍历
      * 参考Q94 Binary Tree Inorder Traversal
      */
