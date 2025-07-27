@@ -12,6 +12,8 @@ public class IterativeTraversal {
      * https://leetcode.cn/problems/invert-binary-tree/solutions/791028/yi-pian-wen-zhang-dai-ni-chi-tou-dui-che-21l9/
      * 写树算法的套路框架
      * https://leetcode.cn/problems/same-tree/solutions/6558/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
+     * 「代码随想录」我要打十个！二叉树层序遍历登场
+     * https://leetcode.cn/problems/average-of-levels-in-binary-tree/solutions/859789/dai-ma-sui-xiang-lu-wo-yao-da-shi-ge-er-cbxt1/
      */
     /**
      * 二叉树的中序遍历 (迭代法) 模板
