@@ -13,20 +13,35 @@ public class Q404_Sum_of_Left_Leaves {
     /**
      * 前序遍历
      */
+    int sum = 0;
+
     public int sumOfLeftLeaves_9(TreeNode root) {
-        int sum = 0;
-        dfs(root, sum);
+        dfs(root);
         return sum;
     }
 
-    public void dfs(TreeNode root, int sum) {
+    public void dfs(TreeNode root) {
         if (root == null) return;
         // 中
         if (root.left != null && root.left.left == null && root.left.right == null) { // 左叶⼦节点处理逻辑
             sum += root.left.value;
         }
-        dfs(root.left, sum);    // 左
-        dfs(root.right, sum);  // 右
+        dfs(root.left);    // 左
+        dfs(root.right);  // 右
+    }
+    /**
+     * 前序遍历 another form
+     */
+    public int sumOfLeftLeaves_8(TreeNode root) {
+        int sum = 0;
+        if (root == null) return 0;
+        // 中
+        if (root.left != null && root.left.left == null && root.left.right == null) { // 左叶⼦节点处理逻辑
+            sum += root.left.value;
+        }
+        sum += sumOfLeftLeaves_8(root.left);    // 左
+        sum += sumOfLeftLeaves_8(root.right);  // 右
+        return sum;
     }
     /**
      * ⾸先要注意是判断左叶⼦，不是⼆叉树左侧节点，所以不要上来想着层序遍历
@@ -67,7 +82,7 @@ public class Q404_Sum_of_Left_Leaves {
         return sum;
     }
     /**
-     * 递归 （另一种形式的后序遍历）也是可以的
+     * 递归 （中序遍历）也是可以的
      */
     public int sumOfLeftLeaves_2(TreeNode root) {
         if (root == null) return 0;
