@@ -44,6 +44,25 @@ public class Q404_Sum_of_Left_Leaves {
         return sum;
     }
     /**
+     * 前序遍历 another form 当前节点是不是左节点，可以通过父节点标识。
+     */
+    public int sumOfLeftLeaves_7(TreeNode root) {
+        return sumOfLeftLeavesHelper(root, false);
+    }
+    // 先序遍历求所有左叶子节点值之和
+    public int sumOfLeftLeavesHelper(TreeNode root, boolean flag) {
+        if (root == null) {
+            return 0;
+        }
+        int leave = 0;
+        if (flag && root.left == null && root.right == null) { // 左叶子节点
+            leave = root.value;
+        }
+        int left = sumOfLeftLeavesHelper(root.left, true);
+        int right = sumOfLeftLeavesHelper(root.right, false);
+        return left + right + leave;
+    }
+    /**
      * ⾸先要注意是判断左叶⼦，不是⼆叉树左侧节点，所以不要上来想着层序遍历
      * 左叶⼦的明确定义：如果左节点不为空，且左节点没有左右孩⼦，那么这个节点就是左叶⼦
      *
