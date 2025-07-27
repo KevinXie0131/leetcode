@@ -2,10 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q515_Find_Largest_Value_in_Each_Tree_Row {
     /**
@@ -23,7 +20,6 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row {
         if (root == null) {
             return list;
         }
-
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
 
@@ -35,15 +31,14 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row {
                 if (cur.value > max) {
                     max = cur.value;
                 }
-
-                if (cur.left != null) {queue.offer(cur.left);}
-                if (cur.right != null) {queue.offer(cur.right);}
+                //  max = Math.max(max, cur.val); // works too
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
 
                 size--;
             }
             list.add(max); // 把最⼤值放进数组
         }
-
         return list;
     }
 }

@@ -14,6 +14,8 @@ public class IterativeTraversal {
      * https://leetcode.cn/problems/same-tree/solutions/6558/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
      * 「代码随想录」我要打十个！二叉树层序遍历登场
      * https://leetcode.cn/problems/average-of-levels-in-binary-tree/solutions/859789/dai-ma-sui-xiang-lu-wo-yao-da-shi-ge-er-cbxt1/
+     * 二叉树关于行操作汇总级别整理「带给你不一样的灵感」
+     * https://leetcode.cn/problems/find-largest-value-in-each-tree-row/solutions/1621053/by-lfool-b1ty/
      */
     /**
      * 二叉树的中序遍历 (迭代法) 模板
