@@ -1,9 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 public class Q111_Minimum_Depth_of_Binary_Tree {
     /**
@@ -27,6 +25,9 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
      * 那么使用后序遍历，其实求的是根节点到叶子节点的最小距离，就是求高度的过程，不过这个最小距离 也同样是最小深度。
      */
     public int minDepth0(TreeNode root) { // 递归 后序遍历（左右中）
+        // 1、当树为空时，深度为0
+        // 2、树的左右节点都不为空时,需要获取最小的树深度Math.min(minDepth(root.left),minDepth(root.right))+1
+        // 3、左右子树其中一个为空时，return minDepth(root.right 或者 root.left) + 1
         if (root == null) {
             return 0;
         }
@@ -43,7 +44,6 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         }
 
         int result = 1 + Math.min(leftDepth, rightDepth); // 最后如果左右子树都不为空，返回左右子树深度最小值 + 1 。
-
         return result;
     }
     /**
@@ -55,7 +55,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         if (root == null) {
             return 0;
         }
-        if (root.left == null && root.right == null) {
+        if (root.left == null && root.right == null) { // can be commented
             return 1;
         }
 
@@ -71,8 +71,8 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
          *       return 1 + leftDepth;
          *    }
          */
-        if (root.left == null || root.right == null) {
-            return left + right +1 ;
+        if (root.left == null || root.right == null) {  //这里其中一个节点为空，说明left和right有一个必然为0，所以可以返回left + right + 1;
+            return left + right + 1;
         }
         // 左右结点都不为null
         return Math.min(left, right) + 1;
@@ -101,6 +101,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
      * 这个模板与Q104_Maximum_Depth_of_Binary_Tree相似
      */
     int result1 = Integer.MAX_VALUE;
+
     public int minDepth_4(TreeNode root) {
         if (root == null) {  // 函数递归终止条件
             return 0;
@@ -108,15 +109,15 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         getdepth2(root, 1);
         return result1;
     }
+
     public void getdepth2(TreeNode node, int depth) {
-        if (node == null) {
+        if (node == null || depth >= result1) { //  最优性剪枝 depth>= result1, 如果递归中发现 depth >= result1，由于继续向下递归也不会让 result1 变小，直接返回
             return;
         }
         // 中，处理逻辑：判断是不是叶子结点
         if(node.left == null && node.right == null){
-            result1 = Math.min(depth ,result1); // 中  第一次碰到叶子结点就是最小深度
+            result1 = Math.min(depth, result1); // 中  第一次碰到叶子结点就是最小深度
         }
-
         getdepth2(node.left, depth + 1); // 左
         getdepth2(node.right, depth + 1); // 右
     }
@@ -126,21 +127,23 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
      * 该题求最小深度，最小深度为根节点到叶子节点的深度，所以在迭代到每个叶子节点时更新最小值。
      */
     int depth = 0;
-    // 定义最小深度，初始化最大值
-    int minDepth = Integer.MAX_VALUE;
+    int minDepth = Integer.MAX_VALUE; // 定义最小深度，初始化最大值
+
     public int minDept5h(TreeNode root) {
         dep(root);
         return minDepth == Integer.MAX_VALUE ? 0 : minDepth;
     }
+
     void dep(TreeNode root){
-        if(root == null) return ;
+        if(root == null) return;
         // 递归开始，深度增加
         depth++;
         dep(root.left);
         dep(root.right);
         // 该位置表示递归到叶子节点了，需要更新最小深度minDepth
-        if(root.left == null && root.right == null)
-            minDepth = Math.min(minDepth , depth);
+        if(root.left == null && root.right == null) {
+            minDepth = Math.min(minDepth, depth);
+        }
         // 递归结束，深度减小
         depth--;
     }
@@ -152,12 +155,11 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
         if (root == null) {
             return 0;
         }
-
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
         int depth = 0;
-        while (!queue.isEmpty()) {
 
+        while (!queue.isEmpty()) {
             int size = queue.size();
             depth++; // 记录最⼩深度
             while (size > 0) {
@@ -168,13 +170,12 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
                     result = Math.min(result, depth); // 当左右孩⼦都为空的时候，说明是最低点的⼀层了，退出
                 }
 
-                if (cur.left != null) {queue.offer(cur.left);}
-                if (cur.right != null) {queue.offer(cur.right);}
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
 
                 size--;
             }
         }
-
         return result;
     }
     /**
@@ -196,14 +197,13 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
             while (size > 0) {
                 TreeNode cur = queue.poll();
 
-                if (cur.left != null) {queue.offer(cur.left);}
-                if (cur.right != null) {queue.offer(cur.right);}
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
                 if(cur.right == null && cur.left ==null){
                     return depth; // 当左右孩子都为空的时候， 是叶子结点, 说明是最低点的一层了，因为从上往下遍历，直接返回最小深度
                 }
                 size--;
             }
-
         }
         return depth;
     }
