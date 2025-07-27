@@ -2,10 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayDeque;
 import java.util.*;
-import java.util.Deque;
-import java.util.List;
 
 public class Q199_Binary_Tree_Right_Side_View {
     /**
@@ -20,14 +17,12 @@ public class Q199_Binary_Tree_Right_Side_View {
      * 小优化：每层右孩子先入队。代码略。
      */
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
-        if (root == null) {
-            return list;
-        }
+        List<Integer> list = new ArrayList<>();
+        if (root == null) return list;
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-
+        // 广度优先遍历每一层节点，用队列存储每一层节点值，每一层节点出队时该层节点最后一个元素即为右视图的元素
         while (!queue.isEmpty()) {
             int size = queue.size();
 
@@ -37,8 +32,8 @@ public class Q199_Binary_Tree_Right_Side_View {
                     list.add(cur.value);
                 }
 
-                if (cur.left != null) {queue.offer(cur.left);}
-                if (cur.right != null) {queue.offer(cur.right);}
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
 
                 size--;
             }
