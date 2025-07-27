@@ -1,9 +1,6 @@
 package com.answer.tree;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q429_Nary_Tree_Level_Order_Traversal {
     /**
@@ -19,11 +16,8 @@ public class Q429_Nary_Tree_Level_Order_Traversal {
      */
     public List<List<Integer>> levelOrder(Node root) {
 
-        List<List<Integer>> list = new ArrayList<List<Integer>>();
-
-        if (root == null) {
-            return list;
-        }
+        List<List<Integer>> list = new ArrayList<>();
+        if (root == null) return list;
 
         Deque<Node> queue = new ArrayDeque<>();
         queue.offer(root);
@@ -51,7 +45,6 @@ public class Q429_Nary_Tree_Level_Order_Traversal {
             }
             list.add(sublist);
         }
-
         return list;
     }
 }
