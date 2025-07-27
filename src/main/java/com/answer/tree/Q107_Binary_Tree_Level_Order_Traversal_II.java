@@ -1,8 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.ArrayList;
 import java.util.*;
 
 public class Q107_Binary_Tree_Level_Order_Traversal_II {
@@ -22,9 +20,9 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II {
         if (root == null) {
             return list;
         }
-
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
+
         while (!queue.isEmpty()) {
             List<Integer> sublist = new ArrayList<>();
             int size = queue.size();
@@ -33,17 +31,18 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II {
                 TreeNode cur = queue.poll();
                 sublist.add(cur.value);
 
-                if (cur.left != null) {queue.offer(cur.left);}
-                if (cur.right != null) {queue.offer(cur.right);}
+                if (cur.left != null) queue.offer(cur.left);
+                if (cur.right != null) queue.offer(cur.right);
 
                 size--;
             }
-            list.add(0,sublist); // 在这里反转一下数组即可
+            list.add(0, sublist); // 在这里反转一下数组即可
         }
 /*        List<List<Integer>> result = new ArrayList<>();
         for (int i = list.size() - 1; i >= 0; i-- ) {
             result.add(list.get(i));
         }*/
+//      Collections.reverse(list);
 
         return list;
     }
@@ -70,7 +69,6 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II {
             // 新遍历到的层插到头部, 这样就满足按照层次反序的要求
             ans.addFirst(temp);
         }
-
         return ans;
     }
 }

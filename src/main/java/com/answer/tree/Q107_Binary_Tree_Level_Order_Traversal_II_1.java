@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
 
-    List<List<Integer>> resListRec = new ArrayList<List<Integer>>();
+    List<List<Integer>> resListRec = new ArrayList<>();
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         dfs(root, 0);
@@ -23,11 +23,11 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
         deep++;
 
         if (resListRec.size() < deep) {
-            List<Integer> sublist = new ArrayList<Integer>();
+            List<Integer> sublist = new ArrayList<>();
             resListRec.add(sublist);
         }
 
-        resListRec.get(deep-1).add(root.value);
+        resListRec.get(deep - 1).add(root.value);
 
         dfs(root.left,  deep);
         dfs(root.right, deep);
@@ -41,7 +41,7 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
         }
 
         if (resListRec.size() == level) {
-            List<Integer> sublist = new ArrayList<Integer>();
+            List<Integer> sublist = new ArrayList<>();
             resListRec.add(sublist);
         }
 
@@ -49,5 +49,30 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II_1 {
 
         dfs(root.left,  level + 1);
         dfs(root.right, level + 1);
+    }
+    /**
+     * 无需进行反转, 只要改了这两处就可以了
+     *   代码变为ans.get(ans.size() - 1 - level).add(root.val);
+     *   代码改成ans.add(0，new ArrayList<>());
+     */
+    public List<List<Integer>> levelOrderBottom1(TreeNode root) {
+        dfs_2(root, 0);
+        return resListRec;
+    }
+
+    public void dfs_2(TreeNode root, int level) {
+        if (root == null){
+            return;
+        }
+
+        if (resListRec.size() == level) {
+            List<Integer> sublist = new ArrayList<>();
+            resListRec.add(0, sublist);   // 当前层数还没有元素，先 new 一个空的列表
+        }
+
+        resListRec.get(resListRec.size() - 1 - level).add(root.value);   // 当前值加入
+
+        dfs_2(root.left,  level + 1);
+        dfs_2(root.right, level + 1);
     }
 }
