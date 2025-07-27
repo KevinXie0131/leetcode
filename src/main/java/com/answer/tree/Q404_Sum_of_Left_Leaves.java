@@ -1,11 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q404_Sum_of_Left_Leaves {
     /**
@@ -14,6 +10,24 @@ public class Q404_Sum_of_Left_Leaves {
      * Given the root of a binary tree, return the sum of all left leaves.
      * A leaf is a node with no children. A left leaf is a leaf that is the left child of another node.
      */
+    /**
+     * 前序遍历
+     */
+    public int sumOfLeftLeaves_9(TreeNode root) {
+        int sum = 0;
+        dfs(root, sum);
+        return sum;
+    }
+
+    public void dfs(TreeNode root, int sum) {
+        if (root == null) return;
+        // 中
+        if (root.left != null && root.left.left == null && root.left.right == null) { // 左叶⼦节点处理逻辑
+            sum += root.left.value;
+        }
+        dfs(root.left, sum);    // 左
+        dfs(root.right, sum);  // 右
+    }
     /**
      * ⾸先要注意是判断左叶⼦，不是⼆叉树左侧节点，所以不要上来想着层序遍历
      * 左叶⼦的明确定义：如果左节点不为空，且左节点没有左右孩⼦，那么这个节点就是左叶⼦
@@ -34,7 +48,7 @@ public class Q404_Sum_of_Left_Leaves {
         if (root.left != null && root.left.left == null && root.left.right == null) { // 左叶⼦节点处理逻辑
             return root.left.value + leftValue + rightValue;
         }
-        return  leftValue + rightValue;
+        return leftValue + rightValue;
     }
     /**
      * 递归 （另一种形式的后序遍历）
@@ -104,6 +118,7 @@ public class Q404_Sum_of_Left_Leaves {
         int sum = 0;
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
+
         while (!queue.isEmpty()) {
             int size = queue.size();
             while (size > 0) {
@@ -115,7 +130,7 @@ public class Q404_Sum_of_Left_Leaves {
                         sum += cur.left.value;
                     }
                 }
-                if (cur.right != null) {queue.offer(cur.right);}
+                if (cur.right != null) queue.offer(cur.right);
 
                 size--;
             }
