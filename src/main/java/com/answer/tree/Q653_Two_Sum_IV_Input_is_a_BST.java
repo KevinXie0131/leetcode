@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q653_Two_Sum_IV_Input_is_a_BST {
@@ -13,6 +12,7 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
     /**
      * Approach #3 Using BST (Binary Search Tree)
      * Inorder traversal of a BST gives the nodes in ascending order
+     * 深度优先搜索 + 中序遍历 + 双指针
      */
     public boolean findTarget(TreeNode root, int k) {
         List<Integer> list = new ArrayList<>();
@@ -28,7 +28,6 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -84,6 +83,28 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
 
                 cur = cur.right;
             }
+        }
+        return false;
+    }
+    /**
+     * another form
+     */
+    public boolean findTarget_2a(TreeNode root, int k) {
+        Set<Integer> set = new HashSet();
+        if (root == null) return false;
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()){
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            if(set.contains(k - cur.value)){
+                return true;
+            }
+            set.add(cur.value);
+            cur = cur.right;
         }
         return false;
     }
