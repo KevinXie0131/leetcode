@@ -1,10 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-import org.apache.commons.lang3.tuple.Pair;
-
 import java.util.*;
-import java.util.LinkedList;
 
 public class Q662_Maximum_Width_of_Binary_Tree {
     /**
@@ -47,9 +44,7 @@ public class Q662_Maximum_Width_of_Binary_Tree {
      */
     public static int widthOfBinaryTree(TreeNode root) {
         int res = 0;
-        if (root == null) {
-            return 0;
-        }
+        if (root == null) return 0;
 
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
@@ -214,14 +209,12 @@ public class Q662_Maximum_Width_of_Binary_Tree {
      * Recursion 深度优先搜索
      *
      * 历时如果是先访问左子节点，再访问右子节点，每一层最先访问到的节点会是最左边的节点，即每一层编号的最小值，
-     * 需要记录下来进行后续的比较。一次深度优先搜索中，需要当前节点到当前行最左边节点的宽度
-     * ，以及对子节点进行深度优先搜索，求出最大宽度，并返回最大宽度。
+     * 需要记录下来进行后续的比较。一次深度优先搜索中，需要当前节点到当前行最左边节点的宽度，以及对子节点进行深度优先搜索，求出最大宽度，并返回最大宽度。
      */
     public static int widthOfBinaryTree_4(TreeNode root) {
         // 给每个节点一个编号（索引）
         // 按满二叉树来算，如果一个节点的索引为 x，那么它左右子节点的索引分别是 2x 和 2x+1
         int ans = 0;
-
         // 记录每个层级最小和最大的编号
         // 也可以只记录最小编号，边遍历边计算结果
         List<int[]> list = new ArrayList<>();
@@ -230,7 +223,6 @@ public class Q662_Maximum_Width_of_Binary_Tree {
         for (int[] arr : list) {
             ans = Math.max(ans, arr[1] - arr[0] + 1); // 右节点index - 左节点index + 1
         }
-
         return ans;
     }
 
@@ -247,6 +239,28 @@ public class Q662_Maximum_Width_of_Binary_Tree {
 
         dfs(list, node.left, 2 * index, level + 1);//左节点index i*2
         dfs(list, node.right, 2 * index + 1, level + 1); //右节点index i*2 + 1
+    }
+    /**
+     * 深度优先 + 哈希表
+     */
+    Map<Integer, Integer> map = new HashMap<>();
+    int ans;
+
+    public int widthOfBinaryTree6(TreeNode root) {
+        dfs(root, 1, 0);
+        return ans;
+    }
+    // root的编号=N
+    // root.left的编号=2 * N
+    // root.right的编号=2 * N + 1
+    void dfs(TreeNode root, int index, int depth) {
+        if (root == null) return;
+
+        map.putIfAbsent(depth, index); // 每一层最先访问到的节点会是最左边的节点，即每一层编号的最小值
+        ans = Math.max(ans, index - map.get(depth) + 1);
+
+        dfs(root.left, index * 2, depth + 1);
+        dfs(root.right, index * 2 + 1, depth + 1);
     }
 }
 
