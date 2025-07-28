@@ -2,10 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q513_Find_Bottom_Left_Tree_Value {
     /**
@@ -33,7 +30,7 @@ public class Q513_Find_Bottom_Left_Tree_Value {
      */
     private void dfs(TreeNode node, int level) { // 是要遍历整个树找到最深的叶⼦节点，需要遍历整颗树，所以递归函数没有返回值
         if (node == null) return;
-        if (level > maxHeight) {
+        if (level > maxHeight) { // 先序遍历
             maxHeight = level;   // 更新最⼤深度
             result = node.value; // 最⼤深度最左⾯的数值
         }
@@ -41,20 +38,46 @@ public class Q513_Find_Bottom_Left_Tree_Value {
         dfs(node.right, level + 1); // 隐藏着回溯
         /**
          * 回溯
-         * if (root->left) { // 左
-         *      leftLen++; // 深度加⼀
-         *      traversal(root->left, leftLen);
-         *      leftLen--; // 回溯，深度减⼀
+         * if (root.left != null) { // 左
+         *      depth++; // 深度加⼀
+         *      traversal(root.left, depth);
+         *      depth--; // 回溯，深度减⼀
          * }
-         * if (root->right) { // 右
-         *      leftLen++; // 深度加⼀
-         *      traversal(root->right, leftLen);
-         *      leftLen--; // 回溯，深度减⼀
+         * if (root.right != null) { // 右
+         *      depth++; // 深度加⼀
+         *      traversal(root.right, depth);
+         *      depth--; // 回溯，深度减⼀
          * }
          */
     }
     /**
-     * 迭代法
+     * 先序：根左右；中序：左根右；后序：左右根。不管哪种顺序肯定是先访问到左子树，再访问右子树。所以只用管深度就行
+     * 保证优先左边搜索，然后记录深度最大的叶子节点，此时就是树的最后一行最左边的值。
+     * 中序遍历
+     */
+    private void dfs1(TreeNode node, int level) {
+        if (node == null) return;
+        dfs1(node.left, level + 1);
+        if (level > maxHeight) {
+            maxHeight = level;
+            result = node.value;
+        }
+        dfs1(node.right, level + 1);
+    }
+    /**
+     * 后序遍历
+     */
+    private void dfs2(TreeNode node, int level) {
+        if (node == null) return;
+        dfs2(node.left, level + 1);
+        dfs2(node.right, level + 1);
+        if (level > maxHeight) {
+            maxHeight = level;
+            result = node.value;
+        }
+    }
+    /**
+     * 迭代法 / 前序遍历
      */
     public int findBottomLeftValue1(TreeNode root) {
         if (root == null) return 0;
@@ -65,14 +88,13 @@ public class Q513_Find_Bottom_Left_Tree_Value {
 
         while (!queue.isEmpty()) {
             TreeNode tmpNode = queue.poll();
-
+            // 先右后左
             if (tmpNode.right != null) { // 右在左前面
                 queue.offer(tmpNode.right);
             }
             if (tmpNode.left != null) {
                 queue.offer(tmpNode.left);
             }
-
             value = tmpNode.value;
         }
         return value;
