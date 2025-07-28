@@ -142,4 +142,29 @@ public class IterativeTraversal {
         }
         return list;
     }
+    /**
+     * 二叉树的后序遍历 (迭代法) 模板4: 使用一个栈来模拟递归的后序遍历
+     */
+    public List<Integer> postorderTraversal_3(TreeNode root) {
+        List<Integer> list =  new LinkedList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode pre = null;
+
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {  // 一路向左，将路径上的节点全部压入栈
+                stack.push(root);
+                root = root.left;
+            }
+            TreeNode cur = stack.peek();   // 查看栈顶节点
+            if (cur.right == null || cur.right == pre) {// 如果右子树为空或右子树已经被访问过，则可以处理当前节点
+                list.add(cur.value);   // 输出
+                stack.pop();
+                pre = cur;
+                root = null;// 当前结点下，没有要遍历的结点了
+            } else {
+                root = cur.right;// 右结点还没遍历，遍历右结点
+            }
+        }
+        return list;
+    }
 }
