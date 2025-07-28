@@ -1,9 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Q222_Count_Complete_Tree_Nodes {
     /**
@@ -13,6 +11,11 @@ public class Q222_Count_Complete_Tree_Nodes {
      * Given the root of a complete binary tree, return the number of the nodes in the tree.
      * According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2^h nodes inclusive at the last level h.
      * Design an algorithm that runs in less than O(n) time complexity.
+     */
+    /**
+     * 根据二叉树的以下特性：
+     *  二叉树第 h 层最多可以有 2^(h-1) 个节点。（h >= 1）
+     *  h层的二叉树最多有 2^h - 1 个节点，最多的情况是每一层的节点都是满的
      */
     /**
      * 精简的代码版本，其实不建议⼤家照着这个来写，代码确实精简，但隐藏了⼀些内容，连遍历的顺序都看不出来
@@ -49,7 +52,7 @@ public class Q222_Count_Complete_Tree_Nodes {
             return 0;
         }
 
-        Queue<TreeNode> que = new LinkedList<TreeNode>();
+        Queue<TreeNode> que = new LinkedList<>();
         que.offer(root);
         int size = 0;
         while (!que.isEmpty()) {
@@ -81,7 +84,6 @@ public class Q222_Count_Complete_Tree_Nodes {
         } else {// 右子树是满二叉树
             return (1 << rightDepth) + countNodes(root.left);
         }
-
     }
 
     private int getDepth(TreeNode root) {
@@ -97,7 +99,13 @@ public class Q222_Count_Complete_Tree_Nodes {
      * 时间复杂度：O(logn * logn)
      * 空间复杂度：O(logn)
      *
-     *  针对Perfect二叉树的解法. Perfect二叉树的结点数为：2^depth - 1
+     * 针对Perfect二叉树的解法. Perfect二叉树的结点数为：2^depth - 1
+     *
+     * 对于一个完全二叉树 complete binary tree：
+     *  它的所有子树都是完全二叉树
+     *  有的子树是 perfect binary tree
+     *  perfect binary tree 的节点个数很好计算：2^h − 1，h为高度
+     *  如果不是 perfect binary tree，那就是规模小一点的完全二叉树，递归处理。
      */
     public int countNodes_5(TreeNode root) {
         if (root == null) return 0;
@@ -116,6 +124,8 @@ public class Q222_Count_Complete_Tree_Nodes {
         // 情况一，可以直接用 2^树深度 - 1 来计算
         if (leftHeight == rightHeight) {
             return (2 << leftHeight) - 1; // 注意(2<<1) 相当于2^2，所以leftHeight初始为0
+        //  return (1 << leftHeight + 1) - 1;  // works too
+        //  return (int)Math.pow(2, leftHeight + 1) - 1; // works too
         }
         // 情况二，分别递归左孩子，和右孩子，递归到某一深度一定会有左孩子或者右孩子为Perfect二叉树，然后依然可以按照情况1来计算
         return countNodes_5(root.left) + countNodes_5(root.right) + 1; // 精简之后代码
