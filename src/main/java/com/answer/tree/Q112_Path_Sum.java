@@ -1,11 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q112_Path_Sum {
     /**
@@ -48,7 +44,6 @@ public class Q112_Path_Sum {
             }
         }
         return false;
-
     }
     /**
      * 递归
@@ -69,7 +64,7 @@ public class Q112_Path_Sum {
         if (node == null)  return false;
 
         if (node.left == null && node.right== null){
-            return node.value == targetSum;
+            return node.value == targetSum; // 直接判断 targetSum 是否等于 value 即可
         }
 
         boolean left = dfs(node.left, sum, targetSum - node.value); // 隐藏回溯
@@ -77,12 +72,12 @@ public class Q112_Path_Sum {
         return left || right;
         /**
          * 为了把回溯的过程体现出来
-         * if (cur->left) { // 左
-         *      count -= cur->left->val; // 递归，处理节点;
-         *      if (traversal(cur->left, count)) {
+         * if (cur.left != null) { // 左
+         *      count -= cur.left.val; // 递归，处理节点;
+         *      if (traversal(cur.left, count)) {
          *          return true;
          *      }
-         *      count += cur->left->val; // 回溯，撤销处理结果
+         *      count += cur.left.val; // 回溯，撤销处理结果
          * }
          */
     }
@@ -116,10 +111,9 @@ public class Q112_Path_Sum {
             pathSum.remove(pathSum.size() - 1); // 回溯
         }
         return left || right;
-
     }
     /**
-     * 迭代
+     * 迭代 广度优先搜索
      */
     public boolean hasPathSum3(TreeNode root, int targetSum) {
         if (root == null) return false;
@@ -147,7 +141,6 @@ public class Q112_Path_Sum {
                 stackVal.push(tmpNode.left.value + tmpVal);
             }
         }
-
         return false;
     }
 }
