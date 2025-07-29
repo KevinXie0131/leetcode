@@ -2,8 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Q129_Sum_Root_to_Leaf_Numbers {
     /**
@@ -19,6 +18,32 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
      * Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
      * A leaf node is a node with no children.
      */
+    /**
+     * refer to Q113_Path_Sum_II_1
+     */
+    int res = 0;
+
+    public int sumNumbers_0(TreeNode root) {
+        Deque<String> path = new ArrayDeque<>();
+        dfs_0(root, path);
+        return res;
+    }
+
+    private void dfs_0(TreeNode root, Deque<String> path){
+        if(root == null) return;
+
+        if(root.left == null && root.right == null){
+            path.addLast(root.value  + "");
+            res += Integer.valueOf(String.join("", path));
+            path.removeLast();
+            return;
+        }
+
+        path.addLast(root.value + "");
+        dfs_0(root.left, path);
+        dfs_0(root.right, path);
+        path.removeLast();
+    }
     /**
      * 本题和113.路径总和II 是类似的思路: 首先思路很明确，就是要遍历整个树把更节点到叶子节点组成的数字相加。
      */
@@ -51,6 +76,7 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
      */
     List<Integer> path = new ArrayList<>();
     int sum1 = 0;
+
     public int sumNumbers1(TreeNode root) {
         dfs1(root);
         return sum1;
@@ -82,6 +108,7 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
      * DFS，维护从根节点到当前节点所构成的数字，当遍历到叶子节点时，累加到结果。
      */
     int sum2 = 0;
+
     public int sumNumbers2(TreeNode root) {
         dfs2(root, 0);
         return sum2;
