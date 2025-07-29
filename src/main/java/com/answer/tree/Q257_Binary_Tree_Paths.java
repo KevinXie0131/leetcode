@@ -37,6 +37,7 @@ public class Q257_Binary_Tree_Paths {
             path.add(node.value + "");
 
             result.add(path.stream().collect(Collectors.joining("")));
+            // result.add(String.join("->", path)); // works too
 
             path.remove(path.size() - 1);
             return;
