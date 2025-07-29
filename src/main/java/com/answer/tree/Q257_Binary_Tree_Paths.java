@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q257_Binary_Tree_Paths {
@@ -27,6 +26,31 @@ public class Q257_Binary_Tree_Paths {
         return result;
     }
     /**
+     * refer to Q113_Path_Sum_II_1
+     */
+    public void dfs0(TreeNode node, List<String> path, List<String> result)     {
+        if (node == null) {
+            return;
+        }
+        if ( node.left == null && node.right == null) {
+            path.add(node.value + "");
+
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0; i < path.size() - 1; i++){
+                sb.append(path.get(i)).append("->");
+            }
+            sb.append(path.get(path.size() - 1));
+            result.add(sb.toString());
+
+            path.remove(path.size() - 1);
+            return;
+        }
+        path.add(node.value + "");
+        dfs(node.left,  path, result);
+        dfs(node.right,  path, result);
+        path.remove(path.size() - 1);
+    }
+    /**
      * 前序遍历 + 回溯
      */
     public void dfs(TreeNode node, List<String> path, List<String> result)     {
@@ -48,7 +72,6 @@ public class Q257_Binary_Tree_Paths {
             dfs(node.left, path, result);
             path.remove(path.size() - 1); // 回溯
         }
-
         if(node.right != null){ // 右
             dfs(node.right, path, result);
             path.remove(path.size() - 1); // 回溯
@@ -79,11 +102,11 @@ public class Q257_Binary_Tree_Paths {
         // 递归和回溯是同时进行，所以要放在同一个花括号里
         if(root.left != null){
             dfs_0(root.left, path, result);  // 左
-            path.remove(path.size() -1);// 回溯
+            path.remove(path.size() - 1);// 回溯
         }
         if(root.right != null){
             dfs_0(root.right, path, result); // 右
-            path.remove(path.size() -1);// 回溯
+            path.remove(path.size() - 1);// 回溯
         }
     }
     /**
