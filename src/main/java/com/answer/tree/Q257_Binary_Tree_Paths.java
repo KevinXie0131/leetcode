@@ -2,6 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Q257_Binary_Tree_Paths {
     /**
@@ -35,12 +36,7 @@ public class Q257_Binary_Tree_Paths {
         if ( node.left == null && node.right == null) {
             path.add(node.value + "");
 
-            StringBuffer sb = new StringBuffer();
-            for(int i = 0; i < path.size() - 1; i++){
-                sb.append(path.get(i)).append("->");
-            }
-            sb.append(path.get(path.size() - 1));
-            result.add(sb.toString());
+            result.add(path.stream().collect(Collectors.joining("")));
 
             path.remove(path.size() - 1);
             return;
@@ -120,6 +116,7 @@ public class Q257_Binary_Tree_Paths {
         dfs1(root, "", res);
         return res;
     }
+
     public void dfs1(TreeNode node, String path, List<String> res ){
         if (node == null) {
             return;
@@ -158,12 +155,10 @@ public class Q257_Binary_Tree_Paths {
             if (node.left == null && node.right == null) { // 遇到叶⼦节点
                 res.add(path);
             }
-
             if (node.right != null) { // 右
                 stack.push(node.right);
                 stack.push(path + "->" + node.right.value);
             }
-
             if (node.left != null) { // 左
                 stack.push(node.left);
                 stack.push(path + "->" + node.left.value);
@@ -189,12 +184,10 @@ public class Q257_Binary_Tree_Paths {
             if (node.left == null && node.right == null) {
                 res.add(path);
             }
-
             if (node.right != null) {
                 queue.add(node.right);
                 queue.add(path + "->" + node.right.value);
             }
-
             if (node.left != null) {
                 queue.add(node.left);
                 queue.add(path + "->" + node.left.value);
