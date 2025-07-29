@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q113_Path_Sum_II {
@@ -58,7 +57,10 @@ public class Q113_Path_Sum_II {
             pathSum.remove(pathSum.size() - 1); // 回溯
         }
     }
-/*    public void dfs(TreeNode root, int targetSum){  // 另一种不同形式
+    /**
+     * 另一种不同形式
+     */
+    public void dfs_1(TreeNode root, int targetSum){
         if (root == null) return;
 
         pathSum.add(root.value);
@@ -76,8 +78,11 @@ public class Q113_Path_Sum_II {
             pathSum(root.right,  targetSum - root.value);
             pathSum.remove(pathSum.size() - 1);
         }
-    }*/
-    /*    public void dfs(TreeNode root, int targetSum){  // 另一种不同形式
+    }
+    /**
+     * 另一种不同形式
+     */
+    public void dfs_4(TreeNode root, int targetSum){
         if (root == null) return;
 
         pathSum.add(root.value);
@@ -88,23 +93,19 @@ public class Q113_Path_Sum_II {
                 ArrayList newList = new ArrayList(pathSum);
                 result.add(newList);
             }
+            // return; // not working. cannot add return here
         }
-        if (root.left != null) {
-            pathSum(root.left,  targetSum);
-            pathSum.remove(pathSum.size() - 1);
-        }
-        if (root.right != null) {
-            pathSum(root.right,  targetSum);
-            pathSum.remove(pathSum.size() - 1);
-        }
-    }*/
+        pathSum(root.left,  targetSum);
+        pathSum(root.right,  targetSum);
+        pathSum.remove(pathSum.size() - 1);
+    }
     /**
      * 路径总和ii要遍历整个树，找到所有路径，所以递归函数不要返回值
      */
-    static  List<List<Integer>> result1 = new ArrayList<List<Integer>>();
+    static List<List<Integer>> result1 = new ArrayList<List<Integer>>();
     static List<Integer> path = new ArrayList<>();
 
-    public static  List<List<Integer>> pathSum1(TreeNode root, int targetSum) {
+    public static List<List<Integer>> pathSum1(TreeNode root, int targetSum) {
         if (root == null) return result1;
         path.add(root.value);// 把根节点放进路径
         dfs(root, path, targetSum - root.value);
