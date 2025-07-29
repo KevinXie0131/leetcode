@@ -3,7 +3,6 @@ package com.answer.tree;
 import com.template.TreeNode;
 
 import java.util.*;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Q501_Find_Mode_in_Binary_Search_Tree_1 {

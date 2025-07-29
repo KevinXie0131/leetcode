@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q501_Find_Mode_in_Binary_Search_Tree {
@@ -68,7 +67,7 @@ public class Q501_Find_Mode_in_Binary_Search_Tree {
         recursion(root.right); // 右
     }
     /**
-     * 迭代法
+     * 迭代法 中序遍历
      */
     public int[] findMode_1(TreeNode root) {
         TreeNode pre = null;
