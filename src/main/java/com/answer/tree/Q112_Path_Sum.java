@@ -12,6 +12,28 @@ public class Q112_Path_Sum {
      * A leaf is a node with no children.
      */
     /**
+     * refer to Q113_Path_Sum_II_1
+     */
+    boolean hasFound = false;
+
+    public boolean hasPathSum_0(TreeNode root, int targetSum) {
+        dfs_0(root, targetSum);
+        return hasFound;
+    }
+
+    private void dfs_0(TreeNode root, int targetSum){
+        if(root == null) return;
+
+        if(root.left == null && root.right == null){
+            if(targetSum == root.value){
+                hasFound = true;
+            }
+            return;
+        }
+        dfs_0(root.left, targetSum - root.value);
+        dfs_0(root.right, targetSum - root.value);
+    }
+    /**
      * 路径总和
      * 说明: 叶⼦节点是指没有⼦节点的节点
      *
