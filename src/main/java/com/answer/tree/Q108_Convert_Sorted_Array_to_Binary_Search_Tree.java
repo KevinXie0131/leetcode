@@ -8,6 +8,9 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
      * 将有序数组转换为二叉搜索树
      * 给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 平衡 二叉搜索树。
      * Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+     *
+     * 平衡二叉树 是指该树所有节点的左右子树的高度相差不超过 1。
+     * A height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
      */
     public static void main(String[] args) {
         int[] nums = {-10,-3,0,5,9};
@@ -36,12 +39,14 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
      *     1   3  5   7
      */
     public TreeNode traversal(int[] nums, int left , int right){ // ⽤递归函数的返回值来构造中节点的左右孩⼦
-        if(left> right){
+        if(left > right){
             return null;
         }
+        // 左闭右闭
+        // 总是选择中间位置左边的数字作为根节点
         int mid = (left + right) >>> 1; // 获取中间节点的下标mid，以中间节点作为root，这样可以让左右两边的节点数量接近
         TreeNode root = new TreeNode(nums[mid]); // 在构造⼆叉树的时候尽量不要重新定义左右区间数组，⽽是⽤下表来操作原数组
-        root.left = traversal(nums, left, mid -1);   // root的左孩⼦接住下⼀层左区间的构造节点
+        root.left = traversal(nums, left, mid - 1);   // root的左孩⼦接住下⼀层左区间的构造节点
         root.right = traversal(nums, mid + 1, right); // 右孩⼦接住下⼀层右区间构造的节点
 
         return root;
@@ -52,6 +57,7 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
     public TreeNode sortedArrayToBST1(int[] nums) {
         return sortedArrayToBST1(nums, 0, nums.length);
     }
+
     public TreeNode sortedArrayToBST1(int[] nums, int left, int right) {
         if (left >= right) {
             return null;
@@ -68,20 +74,22 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
     /**
      * 迭代法
      * 可以通过三个队列来模拟，⼀个队列放遍历的节点，⼀个队列放左区间下表，⼀个队列放右区间下表
+     * 其实思路也是一样的，不断中间分割，然后递归处理左区间，右区间，也可以说是分治。
      */
     public static TreeNode sortedArrayToBST_1(int[] nums) {
         if (nums.length == 0) {
             return null;
         }
         TreeNode root = new TreeNode(0); // 初始根节点
-        Deque<TreeNode> nodeQue = new ArrayDeque<>(); // 放遍历的节点
-        Deque<Integer> leftQue = new ArrayDeque<>(); // 保存左区间下表
-        Deque<Integer> rightQue = new ArrayDeque<>(); // 保存右区间下表
+        Deque<TreeNode> nodeQue = new ArrayDeque<>(); // 放遍历的节点 // 存储待处理的节点
+        Deque<Integer> leftQue = new ArrayDeque<>(); // 保存左区间下表  // 存储左边界
+        Deque<Integer> rightQue = new ArrayDeque<>(); // 保存右区间下表 // 存储右边界
 
         nodeQue.offer(root); // 根节点⼊队列
         leftQue.offer(0); // 0为左区间下表初始位置
         rightQue.offer(nums.length - 1); // nums.size() - 1为右区间下表初始位置
-
+        // 当nodeQue中还有待处理的节点时，去除该节点以及其对应的左右边界，计算中间下标，用中间的元素为该节点赋值；
+        // 如果该节点左侧还有未处理的元素，新建一个空节点作为其左孩子，存入nodeQue中，并存入左孩子对应的左右边界，右侧同理；
         while (!nodeQue.isEmpty()) {
             TreeNode curNode = nodeQue.poll();
             int left = leftQue.poll();
