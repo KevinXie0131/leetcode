@@ -1,8 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
-import java.util.ArrayDeque;
 import java.util.*;
 
 public class Q938_Range_Sum_of_BST {
@@ -32,6 +30,21 @@ public class Q938_Range_Sum_of_BST {
         node4.left = node8;
 
         System.out.println(rangeSumBST_0a( root, 6, 10));
+    }
+    /**
+     * Official answer 深度优先搜索
+     */
+    public static int rangeSumBST_5(TreeNode root, int L, int R) {
+        if (root == null) { // 当前节点为 null 时返回 0
+            return 0;
+        }
+        if (root.value < L) { // 当前节点 X < L 时则返回右子树之和
+            return rangeSumBST_5(root.right, L, R);
+        }
+        if (root.value > R) { // 当前节点 X > R 时则返回左子树之和
+            return rangeSumBST_5(root.left, L, R);
+        }
+        return root.value + rangeSumBST_5(root.left, L, R) + rangeSumBST_5(root.right, L, R); // 当前节点 X >= L 且 X <= R 时则返回：当前节点值 + 左子树之和 + 右子树之和
     }
     /**
      * Recursive 递归
@@ -74,19 +87,37 @@ public class Q938_Range_Sum_of_BST {
      * Inorder Recursive / Improved 中序递归
      */
     static int result = 0;
+
     public static int rangeSumBST_0a(TreeNode root, int low, int high) {
         dfs(root, low, high);
         return result;
     }
+
     public static void dfs(TreeNode node, int low, int high){
-        if(node == null){
-            return;
-        }
+        if(node == null) return;
+
         dfs(node.left, low, high);
         if(node.value >= low && node.value <= high){
             result += node.value;
         }
         dfs(node.right, low, high);
+    }
+    /**
+     * another form
+     */
+    public int rangeSumBST6(TreeNode root, int low, int high) {
+        if(root == null) return 0;
+        int sum = 0;
+        if(low <= root.value) { // 剪枝
+            sum += rangeSumBST6(root.left, low, high);
+        }
+        if(low <= root.value && root.value <= high) {
+            sum += root.value;
+        }
+        if(root.value <= high) { // 剪枝
+            sum += rangeSumBST6(root.right, low, high);
+        }
+        return sum;
     }
     /**
      * Inorder Iterative 中序迭代
@@ -142,7 +173,7 @@ public class Q938_Range_Sum_of_BST {
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             if(node == null){
-                continue;
+                continue; // 每次取出队首节点时，若节点为空则跳过该节点
             }
             if(node.value > high){
                 queue.offer(node.left);
@@ -155,20 +186,5 @@ public class Q938_Range_Sum_of_BST {
             }
         }
         return sum;
-    }
-    /**
-     * Official answer
-     */
-    public static int rangeSumBST_5(TreeNode root, int L, int R) {
-        if (root == null) {
-            return 0;
-        }
-        if (root.value < L) {
-            return rangeSumBST_5(root.right, L, R);
-        }
-        if (root.value > R) {
-            return rangeSumBST_5(root.left, L, R);
-        }
-        return root.value + rangeSumBST_5(root.left, L, R) + rangeSumBST_5(root.right, L, R);
     }
 }
