@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q230_Kth_Smallest_Element_in_a_BST {
@@ -21,12 +20,12 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
         node2.right = node4;
         System.out.println(kthSmallest_0(node1, 1));
     }
-
     /**
      * Approach 1: Recursive Inorder Traversal
      */
     static int target = 0;
     static int res = 0;
+
     public static int kthSmallest(TreeNode root, int k) {
         target = k;
         recursion(root);
@@ -36,7 +35,6 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
         if(root == null) {
             return;
         }
-
         recursion(root.left);
         if(target == 1){
             res = root.value;
@@ -55,7 +53,6 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
                 stack.push(root);
                 root = root.left;
             }
-
             TreeNode cur = stack.pop();
             if(k == 1) return cur.value;
             k--;
@@ -66,17 +63,18 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
     /**
      * Another form of recursion
      */
+    public int kthSmallest_1(TreeNode root, int k) {
+        ArrayList<Integer> nums = inorder(root, new ArrayList<Integer>());
+        return nums.get(k - 1);
+    }
+
     public ArrayList<Integer> inorder(TreeNode root, ArrayList<Integer> arr) {
         if (root == null) return arr;
+
         inorder(root.left, arr);
         arr.add(root.value);
         inorder(root.right, arr);
         return arr;
-    }
-
-    public int kthSmallest_1(TreeNode root, int k) {
-        ArrayList<Integer> nums = inorder(root, new ArrayList<Integer>());
-        return nums.get(k - 1);
     }
     /**
      * Another form of iteration
@@ -90,7 +88,9 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
                 root = root.left;
             }
             root = stack.pop();
-            if (--k == 0) return root.value;
+            if (--k == 0) {
+                return root.value;
+            }
             root = root.right;
         }
     }
