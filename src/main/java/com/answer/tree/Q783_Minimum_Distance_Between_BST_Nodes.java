@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q783_Minimum_Distance_Between_BST_Nodes {
@@ -23,9 +22,7 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
         node4.left = node3;
 
         System.out.println(minDiffInBST_3(node1));
-
     }
-
     /**
      * Approach 2: In-order Traversal Without List
      * Recursion - Inorder:  The in-order traversal of a binary search tree produces a sorted array.
@@ -80,8 +77,7 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
     /**
      * Approach 1: In-order Traversal with List
      */
-    // List to store the tree nodes in the inorder traversal.
-    List<Integer> inorderNodes = new ArrayList<>();
+    List<Integer> inorderNodes = new ArrayList<>();  // List to store the tree nodes in the inorder traversal.
 
     public int minDiffInBST_0(TreeNode root) {
         inorderTraversal(root);
@@ -89,18 +85,17 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
         int minDistance = Integer.MAX_VALUE;
         // Find the diff between every two consecutive values in the list.
         for (int i = 1; i < inorderNodes.size(); i++) {
-            minDistance = Math.min(minDistance, inorderNodes.get(i) - inorderNodes.get(i-1));
+            minDistance = Math.min(minDistance, inorderNodes.get(i) - inorderNodes.get(i - 1));
         }
-
         return minDistance;
     }
+
     void inorderTraversal(TreeNode root) {
         if (root == null) {
             return;
         }
         inorderTraversal(root.left);
-        // Store the nodes in the list.
-        inorderNodes.add(root.value);
+        inorderNodes.add(root.value); // Store the nodes in the list.
         inorderTraversal(root.right);
     }
     /**
@@ -108,26 +103,23 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
      */
     public int minDiffInBST_1(TreeNode root) {
         int min = Integer.MAX_VALUE;
-        int pre = Integer.MAX_VALUE;
+        TreeNode pre = null;
         Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode cur = root;
 
         while (cur != null || !stack.isEmpty()){
-            if (cur != null) {
+            while (cur != null) {
                 stack.push(cur);
                 cur = cur.left;
-            } else {
-                cur = stack.pop();
-
-                if(pre == Integer.MAX_VALUE){
-                    pre = cur.value;
-                }else{
-                    min = Math.min(min, cur.value - pre);
-                    pre = cur.value;
-                }
-
-                cur = cur.right;
             }
+            cur = stack.pop();
+
+            if(pre != null){
+                min = Math.min(min, cur.value - pre.value);
+            }
+            pre = cur;
+
+            cur = cur.right;
         }
         return min;
     }
