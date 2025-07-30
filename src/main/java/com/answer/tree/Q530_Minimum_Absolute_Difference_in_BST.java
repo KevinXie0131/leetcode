@@ -40,7 +40,6 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
         return result;
     }
     private void find(TreeNode root) {
-
         if (root == null) return;
 
         find(root.left);  // 左
@@ -66,12 +65,13 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
         double result = Double.MAX_VALUE;
         inOrder1(root);
 
-        for (int i = 0; i < list.size()-1; i++) { // 统计有序数组的最⼩差值
-            result = Math.min(list.get(i+1) - list.get(i), result);
+        for (int i = 0; i < list.size() - 1; i++) { // 统计有序数组的最⼩差值
+            result = Math.min(list.get(i + 1) - list.get(i), result);
         }
 
         return (int)result;
     }
+
     public void inOrder1 (TreeNode root) { // 中序遍历
         if (root == null) return;
 
@@ -85,10 +85,9 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
      */
     double result0 = Double.MAX_VALUE;
     int pre0 = -1;
+
     public int getMinimumDifference2(TreeNode root) {
-
         inOrder2(root);
-
         return (int)result;
     }
 
@@ -114,7 +113,6 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
     Deque<TreeNode> stack = new ArrayDeque<>();
 
     public int getMinimumDifference3(TreeNode root) {
-
         while (!stack.isEmpty() || root != null) {
             while(root != null){ // 指针来访问节点，访问到最底层
                 stack.push(root); // 将访问的节点放进栈
@@ -131,7 +129,6 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
             }
 
             root= cur.right; // 右
-
         }
         return (int)result1;
     }
@@ -140,6 +137,7 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
      */
     static TreeNode pre2 = null;
     static int result2 = Integer.MAX_VALUE;
+
     public static int getMinimumDifference_5(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode cur = root;
@@ -158,5 +156,4 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
         }
         return result2;
     }
-
 }
