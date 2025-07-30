@@ -90,10 +90,6 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
      * 如果有左孩子有右孩子，就找一个结点指向左孩子的最右叶子结点，然后把这一串插入父结点和右孩子中间。
      */
     public void flatten5(TreeNode root) {
-        dfs1(root);
-    }
-
-    public void dfs1(TreeNode root) {
         if (root == null) return;
 
         if (root.left != null) {
@@ -105,8 +101,8 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
             root.right = root.left;
             root.left = null;
         }
-        //  dfs(root.left); // can be commented
-        dfs1(root.right); //这时没有左树，只右递归
+        //  flatten5(root.left); // can be commented
+        flatten5(root.right); //这时没有左树，只右递归
     }
     /**
      * 递归
