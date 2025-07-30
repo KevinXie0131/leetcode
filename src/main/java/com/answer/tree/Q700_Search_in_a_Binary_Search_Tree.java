@@ -1,7 +1,7 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-import java.util.Stack;
+import java.util.*;
 
 public class Q700_Search_in_a_Binary_Search_Tree {
     /**
