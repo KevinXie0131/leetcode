@@ -73,20 +73,20 @@ public class Q449_Serialize_and_Deserialize_BST {
     }
     /**
      * BST的特性
-     *  二叉搜索树：每个节点的值大于左子树所有节点的值，小于右子树所有节点的值。因此，先序遍历（根-左-右）可以唯一确定一棵BST
+     *   二叉搜索树：每个节点的值大于左子树所有节点的值，小于右子树所有节点的值。因此，先序遍历（根-左-右）可以唯一确定一棵BST
      *
      * 如果告诉你某BST的inOrder/preOrder/postOrder遍历结果，能不能还原唯一的BST?
-     *  preOrder/postOrder可以，首先，你可以定位root（preOrder是第一个元素，postOrder是最后一个）；
-     *  其次，BST，那么可以知道root->left全是小于它的，right全是大于它的。所以可以还原唯一的BST。
-     *  但是inOrder遍历就不行了，因为in遍历形成的数组是按照从小到大的顺序排列的，你根本不知道root是哪一个元素。
+     *   preOrder/postOrder可以，首先，你可以定位root（preOrder是第一个元素，postOrder是最后一个）；
+     *   其次，BST，那么可以知道root->left全是小于它的，right全是大于它的。所以可以还原唯一的BST。
+     *   但是inOrder遍历就不行了，因为in遍历形成的数组是按照从小到大的顺序排列的，你根本不知道root是哪一个元素。
      */
-    // Encodes a tree to a single string. 序列化
+    // Encodes a tree to a single string.
+    // 序列化
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
         preorder(root, sb);
         return sb.toString().trim();
     }
-
     // 先序遍历
     // 用先序遍历将树转为字符串（只需要记录节点值，不需要null占位符）。
     // 节点值用空格或逗号分隔。
@@ -96,8 +96,9 @@ public class Q449_Serialize_and_Deserialize_BST {
         preorder(node.left, sb);
         preorder(node.right, sb);
     }
-    // Decodes your encoded data to tree. 反序列化：递归重建BST
-    // int[] idx = {0}; is equal to static int index = 0;
+    // Decodes your encoded data to tree.
+    // 反序列化：递归重建BST
+    // int[] idx = {0}; 相当于 static int index = 0;
     public TreeNode deserialize(String data) {
         if (data == null || data.isEmpty()) {
             return null;
