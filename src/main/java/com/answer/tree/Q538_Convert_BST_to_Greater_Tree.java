@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q538_Convert_BST_to_Greater_Tree {
@@ -29,11 +28,18 @@ public class Q538_Convert_BST_to_Greater_Tree {
      * 需要定义⼀个全局变量pre，⽤来保存cur节点的前⼀个节点的数值
      */
     int pre = 0; // 记录前⼀个节点的数值
+    int sum = 0;
+
     public TreeNode convertBST(TreeNode root) {
         traversal(root);
         return root;
     }
-    // 要右中左来遍历⼆叉树， 中节点的处理逻辑就是让cur的数值加上前⼀个节点的数值
+    // 反序中序遍历: 要右中左来遍历⼆叉树， 中节点的处理逻辑就是让cur的数值加上前⼀个节点的数值
+
+    // 对如下只有三个节点的搜索二叉树而言，计算结果就是，右子节点保持不变，中间节点的值是其本身与右子节点相加的和，
+    // 左子节点的值是其本身与中间节点、右子节点三者的累计之和。
+    // 也就是说，若求中间节点的值必须要先遍历完右子节点，而若求左子节点的值必须要遍历完中间节点和右子节点。因此，我们只需要进行一次
+    // 反向中序遍历（即遍历顺序为右子树-->根节点-->左子树），在遍历过程中需要将已经遍历的节点的值进行累加，然后再赋值给当前节点。
     public void traversal(TreeNode node){  // 右中左遍历. 不需要递归函数的返回值做什么操作了，要遍历整棵树
         if(node == null) return;
 
@@ -41,13 +47,16 @@ public class Q538_Convert_BST_to_Greater_Tree {
 
         node.value += pre; // 中  按右中左顺序遍历，累加即可
         pre = node.value;
-
+      //  sum += node.value;  // works too
+      //  node.value = sum;
         traversal(node.left); // 左
     }
     /**
      * 迭代法 中序模板题(右中左)
+     * 右子节点（右子树）优先压栈。
      */
     int pre1 = 0; // 记录前⼀个节点的数值
+
     public TreeNode convertBST1(TreeNode root) {
         TreeNode cur = root;
         Deque<TreeNode> stack = new ArrayDeque<>();
