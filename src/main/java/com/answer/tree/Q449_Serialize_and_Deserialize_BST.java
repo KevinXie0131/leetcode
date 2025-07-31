@@ -96,8 +96,8 @@ public class Q449_Serialize_and_Deserialize_BST {
         preorder(node.left, sb);
         preorder(node.right, sb);
     }
-
     // Decodes your encoded data to tree. 反序列化：递归重建BST
+    // int[] idx = {0}; is equal to static int index = 0;
     public TreeNode deserialize(String data) {
         if (data == null || data.isEmpty()) {
             return null;
@@ -124,4 +124,24 @@ public class Q449_Serialize_and_Deserialize_BST {
         node.right = build(vals, idx, val + 1, upper); // 构建右子树，区间为：[val+1, upper]
         return node;
     }
+    /**
+     * 在 Java 中，通过递归方法传递 int[]（整型数组）作为参数是按引用传递，即递归过程中对数组内容的修改会影响到外层调用者看到的数组内容。
+     * 这是因为虽然 Java 方法参数本身是按值传递的，但数组是对象，传递的是数组对象的引用的副本。因此，递归过程中对数组元素的更改始终会反映到原数组上。
+     */
+    /**
+     *  public static void main(String[] args) {
+     *         int[] arr = {1, 2, 3};
+     *         incrementElements(arr, 0);
+     *         for (int n : arr) {
+     *             System.out.print(n + " "); // 输出：2 3 4
+     *         }
+     *     }
+     *
+     *     // 递归将数组每个元素加1
+     *     public static void incrementElements(int[] arr, int idx) {
+     *         if (idx == arr.length) return;
+     *         arr[idx] += 1;
+     *         incrementElements(arr, idx + 1);
+     *     }
+     */
 }
