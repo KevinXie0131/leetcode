@@ -47,7 +47,7 @@ public class Q285_Inorder_Successor_in_BST {
     }
 
     static void printSuccessor(TreeNode root, TreeNode p, Q285_Inorder_Successor_in_BST solution) {
-        TreeNode succ = solution.inorderSuccessor5(root, p);
+        TreeNode succ = solution.inorderSuccessor6(root, p);
         System.out.println("Node " + p.value + " successor is: " + (succ == null ? "null" : succ.value));
     }
     /**
@@ -68,7 +68,7 @@ public class Q285_Inorder_Successor_in_BST {
         return successor;
     }
     /**
-     * 递归
+     * 递归 利用BST的性质
      */
     static TreeNode successor = null;
 
@@ -86,6 +86,23 @@ public class Q285_Inorder_Successor_in_BST {
             inorderSuccessor5(root.left, p);
         } else {
             inorderSuccessor5(root.right, p);
+        }
+    }
+    /**
+     * 上面方法也可以写成递归形式
+     */
+    static public TreeNode inorderSuccessor6(TreeNode root, TreeNode p) {
+        if(root == null) {
+            return null;
+        }
+        // 如果根节点值大于p节点值，那么有可能根节点就是p的后继节点，或者左子树中的某个节点是p的后继节点，所以先对左子节点递归调用此函数，
+        // 如果返回空，说明根节点是后继节点，返回即可，如果不为空，则将那个节点返回，
+        if(p.value < root.value){
+            TreeNode successor = inorderSuccessor6(root.left, p);
+            return successor != null ? successor : root;
+        } else {
+            // 当根节点值小于等于p节点值，说明p的后继节点一定在右子树中，所以对右子节点递归调用此函数，
+            return inorderSuccessor6(root.right, p);
         }
     }
     /**
