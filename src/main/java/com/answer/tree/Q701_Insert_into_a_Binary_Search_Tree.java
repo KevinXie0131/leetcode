@@ -38,6 +38,7 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
         if (root.value > val) {
             root.left = insertIntoBST(root.left, val);  // 递归创建左子树
         }
+        // else { // works too
         if (root.value < val) {
             root.right = insertIntoBST(root.right, val); // 递归创建右子树
         }
@@ -47,13 +48,15 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
      * 递归函数不⽤返回值也可以，找到插⼊的节点位置，直接让其⽗节点指向插⼊节点，结束递归，也是可以的
      */
     TreeNode parent; // 记录遍历节点的⽗节点
-    public TreeNode insertIntoBST_0(TreeNode cur, int val) {
+
+    public TreeNode insertIntoBST_0(TreeNode root, int val) {
         parent = new TreeNode(0);
-        if (cur == null) {
-            cur = new TreeNode(val);
+        if (root == null) {
+            root = new TreeNode(val);
+            return root;
         }
-        traversal(cur, val);
-        return cur;
+        traversal(root, val);
+        return root;
     }
     // 没有返回值，需要记录上⼀个节点（parent），遇到空节点了，就让parent左孩⼦或者右孩⼦指向新插⼊的节点。然后结束递归
     void traversal(TreeNode cur, int val) {
@@ -96,10 +99,18 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
         else if(parent.value < val){
             parent.right = node;
         }
-
         return root;
     }
-
+    /**
+     * 模拟 迭代
+     * 具体的步骤就是：
+     *    如果插入的节点值比根节点的数值小：
+     *        如果根节点的左子树为空，那该节点直接插入到根节点的左孩子位置。
+     *        如果根节点的左子树不为空，继续遍历左子树寻找插入的位置。
+     *    如果插入的节点值比根节点的数值大：
+     *        如果根节点的右子树为空，那该节点直接插入到根节点的右孩子位置。
+     *        如果根节点的右子树不为空，继续遍历右子树寻找插入的位置。
+     */
     public TreeNode insertIntoBST2(TreeNode root, int val) {
         if (root == null) {
             TreeNode node = new TreeNode(val);
