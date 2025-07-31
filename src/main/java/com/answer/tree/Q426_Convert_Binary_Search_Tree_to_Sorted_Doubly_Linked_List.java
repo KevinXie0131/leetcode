@@ -113,7 +113,7 @@ public class Q426_Convert_Binary_Search_Tree_to_Sorted_Doubly_Linked_List {
                 prev.right = cur; //前面节点的后驱
                 cur.left = prev; //当前节点的前驱
             }
-            prev = cur; //前节点更新
+            prev = cur; // prev 一直更新直到最后一次进入也就是最右边那个点
 
             cur = cur.right;
         }
