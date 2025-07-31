@@ -98,6 +98,7 @@ public class Q549_Binary_Tree_Longest_Consecutive_Sequence_II {
                 decr =  Math.max(decr, right[1] + 1);
             }
         }
+        // 经过当前节点的最长连续路径（可能从左子树递增到当前节点再递减到右子树，或反之）
         maxLen = Math.max(maxLen, incr + decr - 1);  // 经过当前节点的最长路径：inc + dec - 1
         return new int[]{incr, decr};
     }
