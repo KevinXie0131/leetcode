@@ -105,7 +105,8 @@ public class Q449_Serialize_and_Deserialize_BST {
         }
         String[] vals = data.split(" "); // 读取字符串，转换为整数列表。
         int[] idx = {0}; // 指针，记录当前读取到的位置
-        return build(vals, idx, Integer.MIN_VALUE, Integer.MAX_VALUE);
+   //     return build(vals, idx, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return build2(vals, 0, vals.length - 1);
     }
     // 根据BST性质和先序遍历构建树
     // 递归还原BST：每次分配一个值给节点，然后所有比它小的值递归建左子树，比它大的递归建右子树。
@@ -145,4 +146,20 @@ public class Q449_Serialize_and_Deserialize_BST {
      *         incrementElements(arr, idx + 1);
      *     }
      */
+    /**
+     * another from
+     */
+    private TreeNode build2(String[] vals, int left, int right) {
+        if(left > right) return null;
+
+        int val = Integer.parseInt(vals[left]);
+        TreeNode node = new TreeNode(val);
+        int j = left + 1;
+        while (j <= right && Integer.parseInt(vals[j]) <= val){
+            j++;
+        }
+        node.left = build2(vals, left + 1, j - 1);
+        node.right = build2(vals, j, right);
+        return node;
+    }
 }
