@@ -76,26 +76,78 @@ public class Q606_Construct_String_from_Binary_Tree {
      */
     public String tree2str(TreeNode root) {
         StringBuilder sb = new StringBuilder();
-        build(root, sb);
+        buildTree(root, sb);
         return sb.toString();
     }
     // 根据题意，就2种情况：
     //    左子树：存在，保留(left->val)；不存在，并且right存在，保留()
     //    右子树：存在，保留(right->val)
     // 直接加到递归代码里面即可。
-    public void build(TreeNode root, StringBuilder sb){
+    public void buildTree(TreeNode root, StringBuilder sb){
         if(root == null) return;
         sb.append(root.value);
         if(root.left != null || root.right != null){ // 左子树存在 或 右子树存在（为了保留空的左括号对）
             sb.append("(");
-            build(root.left, sb);
+            buildTree(root.left, sb);
             sb.append(")");
 
             if(root.right != null){  // 只有右子树存在时，才需要加上右子树括号
                 sb.append("(");
-                build(root.right, sb);
+                buildTree(root.right, sb);
                 sb.append(")");
             }
         }
+    }
+    /**
+     * another form
+     */
+    public String tree2str1(TreeNode root) {
+        if (root == null) {
+            return "";
+        }
+        if (root.left == null && root.right == null) {
+            return Integer.toString(root.value);
+        }
+        if (root.right == null) {
+            return new StringBuffer()
+                    .append(root.value)
+                    .append("(")
+                    .append(tree2str1(root.left))
+                    .append(")")
+                    .toString();
+        }
+        return new StringBuffer()
+                .append(root.value)
+                .append("(")
+                .append(tree2str1(root.left))
+                .append(")(")
+                .append(tree2str(root.right))
+                .append(")")
+                .toString();
+    }
+    /**
+     * 采用后续遍历的方式将会是更加的方便：
+     * 数据的格式是：root.val(left)(right)
+     * 化简：如果 left == right == null：可以直接返回root.val
+     *      如果 right == null：可以直接返回root.val(left)
+     *      如果 left == null：为了保持格式的完整，我们需要返回root.val()(right)
+     */
+    public String tree2str2(TreeNode root) {
+        if (root == null){
+            return null;
+        }
+
+        String left = tree2str2(root.left);
+        String right = tree2str2(root.right);
+        if (left == null && right == null){
+            return String.valueOf(root.value);
+        }
+        if (right == null){
+            return root.value + "(" + left + ")";
+        }
+        if (left == null){
+            return root.value + "()(" + right + ")";
+        }
+        return root.value + "(" + left + ")" + "(" + right + ")";
     }
  }
