@@ -29,10 +29,22 @@ public class Q951_Flip_Equivalent_Binary_Trees {
         return notFlipped || flipped;
     }
     /**
+     * refer to Q100_Same_Tree
+     */
+    public boolean flipEquiv0a(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) return true;
+        if (root1 == null || root2 == null) return false;
+        return  root1.value == root2.value && ((flipEquiv0a(root1.left, root2.left) && flipEquiv0a(root1.right, root2.right)) || (flipEquiv0a(root1.left, root2.right) && flipEquiv0a(root1.right, root2.left)));
+    }
+    /**
      * There are 3 cases:
      *     If root1 or root2 is null, then they are equivalent if and only if they are both null.
      *     Else, if root1 and root2 have different values, they aren't equivalent.
      *     Else, let's check whether the children of root1 are equivalent to the children of root2. There are two different ways to pair these children.
+     * 存在三种情况：
+     *   如果 root1 或者 root2 是 null，那么只有在他们都为 null 的情况下这两个二叉树才等价。
+     *   如果 root1，root2 的值不相等，那这两个二叉树的一定不等价。
+     *   如果以上条件都不满足，也就是当 root1 和 root2 的值相等的情况下，需要继续判断 root1 的孩子节点是不是跟 root2 的孩子节点相当。因为可以做翻转操作，所以这里有两种情况需要去判断。
      */
     public boolean flipEquiv(TreeNode root1, TreeNode root2) {
         if (root1 == root2)
