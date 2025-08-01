@@ -39,7 +39,7 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
      *     1   3  5   7
      */
     public TreeNode traversal(int[] nums, int left , int right){ // ⽤递归函数的返回值来构造中节点的左右孩⼦
-        if(left > right){
+        if(left > right){ // 终止条件: 当 left > right 时，就终止，返回 null，因为这个时候就是空节点。
             return null;
         }
         // 左闭右闭
