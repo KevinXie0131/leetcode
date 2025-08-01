@@ -17,5 +17,31 @@ public class Q331_Verify_Preorder_Serialization_of_a_Binary_Tree {
      * You may assume that the input format is always valid.
      *  For example, it could never contain two consecutive commas, such as "1,,3".
      * Note: You are not allowed to reconstruct the tree.
+     * 示例 1:
+     *  输入: preorder = "9,3,4,#,#,1,#,#,2,#,6,#,#"
+     *  输出: true
      */
+    /**
+     * 用一个 slots 变量记录可用的槽位数。
+     * 遇到非 # 节点（数字），消耗一个槽，增加两个槽（因为加了左右子树）。
+     * 遇到 # 叶子节点，只消耗一个槽。
+     * 最后所有槽位消耗完（slots == 0）才是合法的序列化。
+     */
+    public boolean isValidSerialization(String preorder) {
+        String[] nodes = preorder.split(",");
+        // 用槽位计数法
+        int slot = 1;  // 初始有一个根节点的槽位
+        for(String node : nodes){
+            slot--;   // 每读一个节点，占用一个槽
+            if(slot < 0){ // 槽位用完了还没结束，直接返回 false
+                return false;
+            }
+            if(!node.equals("#")){  // 非空节点会再生成两个槽位
+                slot += 2;
+            }
+        }
+      /*  if(slot > 0) return false;
+        return true;*/
+        return slot == 0; // 最终所有槽位正好用完
+    }
 }
