@@ -1,5 +1,7 @@
 package com.answer.tree;
 
+import java.util.*;
+
 public class Q331_Verify_Preorder_Serialization_of_a_Binary_Tree {
     /**
      * 验证二叉树的前序序列化
@@ -21,6 +23,33 @@ public class Q331_Verify_Preorder_Serialization_of_a_Binary_Tree {
      *  输入: preorder = "9,3,4,#,#,1,#,#,2,#,6,#,#"
      *  输出: true
      */
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        String[] tests = {
+                "9,3,4,#,#,1,#,#,2,#,6,#,#", // true
+                "1,#",                      // false
+                "9,#,#,1",                  // false
+                "#",                        // true
+                "7,2,#,2,#,#,#",            // true
+                "9,#,92,#,#"                // true
+        };
+        boolean[] expected = {
+                true,
+                false,
+                false,
+                true,
+                true,
+                true
+        };
+
+        for (int i = 0; i < tests.length; i++) {
+            boolean result = Q331_Verify_Preorder_Serialization_of_a_Binary_Tree.isValidSerialization0(tests[i]);
+            System.out.println("Test " + (i + 1) + ": " + tests[i]);
+            System.out.println("Expected: " + expected[i] + ", Got: " + result);
+            System.out.println(result == expected[i] ? "PASS\n" : "FAIL\n");
+        }
+    }
     /**
      * 用一个 slots 变量记录可用的槽位数。
      * 遇到非 # 节点（数字），消耗一个槽，增加两个槽（因为加了左右子树）。
@@ -43,5 +72,107 @@ public class Q331_Verify_Preorder_Serialization_of_a_Binary_Tree {
       /*  if(slot > 0) return false;
         return true;*/
         return slot == 0; // 最终所有槽位正好用完
+    }
+    /**
+     * 在一棵二叉树中：
+     *  每个空节点（ "#" ）会提供 0 个出度和 1 个入度。
+     *  每个非空节点会提供 2 个出度和 1 个入度（根节点的入度是 0）。
+     * 所有节点的入度之和等于出度之和。可以根据这个特点判断输入序列是否为有效的！
+     *
+     * 每加入一个节点 都要先减去一个入度   若该节点是非空节点 还要再加上两个出度
+     * 遍历完之前，出度是大于等于入度的    1个出度认为提供一个挂载点  1个入度认为消耗一个挂载点
+     */
+    static public boolean isValidSerialization0(String preorder) {
+        if (preorder == "#") { // 特例
+            return true;
+        }
+        int indegree = 0, outdegree = 0; // 初始 入度出度
+        String[] nodes = preorder.split(","); // 转成数组
+        // 这直接判断第一个位置的两种特殊情况，循环里面不需要判断了
+        if (nodes.length == 1 && nodes[0].equals("#")) {
+            return true;
+        }
+        if (nodes.length > 1 && nodes[0].equals("#")) {
+            return false;
+        }
+        for (int i = 0; i < nodes.length; i++) { // 遍历数组
+            if (i == 0) { // 根节点
+                outdegree += 2; // 根节点  出度+2
+            }
+            else if (nodes[i].equals("#")) { // null节点，入度+1
+                indegree += 1;
+            } else {               // 非空节点 入度+1 出度+2
+                indegree += 1;
+                outdegree += 2;
+            }
+            if (i != nodes.length - 1 && indegree >= outdegree) {
+                return false;//一直保持indegree<outdegree，直到最后才indegree==outdegree，做不到就false
+            }
+        }
+        return indegree == outdegree; // 最后肯定入度==出度
+    }
+    /**
+     * 使用栈来维护槽位的变化。
+     * 当遇到空节点时，仅将栈顶元素减1个；当遇到非空节点时，将栈顶元素减1个后，再向栈中压入2个。
+     * 无论何时，如果栈顶元素变为0个，就立刻将栈顶弹出。
+     */
+    public boolean isValidSerialization1(String preorder) {
+        Deque<Integer> stack = new LinkedList<Integer>();
+        stack.push(0);
+        int i = 0;
+        while (i < preorder.length()) {
+            if (stack.isEmpty()) {
+                return false;
+            }
+            if (preorder.charAt(i) == ',') {
+                i++;
+            } else if (preorder.charAt(i) == '#'){
+                stack.pop();
+                i++;
+            } else {
+                while (i < preorder.length() && preorder.charAt(i) != ',') { // 读一个数字
+                    i++;
+                }
+                stack.pop();
+                stack.push(0);
+                stack.push(0);
+            }
+        }
+        return stack.isEmpty();
+    }
+    /**
+     * 把有效的叶子节点使用 "#" 代替。 比如把 4## 替换成 # 。此时，叶子节点会变成空节点！
+     */
+    static public boolean isValidSerialization2(String preorder) {
+        String[] nodes = preorder.split(",");
+        List<String> stack = new ArrayList<>();
+
+        for(String node : nodes){
+            stack.add(node);
+            while(stack.size() >= 3 && stack.get(stack.size() - 1).equals("#") && stack.get(stack.size() - 2).equals("#")
+                    && !stack.get(stack.size() - 3).equals("#")){
+                stack.remove(stack.size() - 1);
+                stack.remove(stack.size() - 1);
+                stack.remove(stack.size() - 1);
+                stack.add("#");
+            }
+        }
+        return stack.size() == 1 && stack.get(0).equals("#");
+    }
+    /**
+     * another form
+     */
+    public boolean isValidSerialization4(String preorder) {
+        LinkedList<String> stack = new LinkedList<>();
+        for (String s : preorder.split(",")) {
+            stack.push(s);
+            while (stack.size() >= 3 && stack.get(0).equals("#") && stack.get(1).equals("#") && !stack.get(2).equals("#")) {
+                stack.pop();
+                stack.pop();
+                stack.pop();
+                stack.push("#");
+            }
+        }
+        return stack.size() == 1 && stack.pop().equals("#");
     }
 }
