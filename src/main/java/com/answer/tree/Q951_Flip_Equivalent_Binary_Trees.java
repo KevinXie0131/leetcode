@@ -13,8 +13,23 @@ public class Q951_Flip_Equivalent_Binary_Trees {
      * Given the roots of two binary trees root1 and root2, return true if the two trees are flip equivalent or false otherwise.
      */
     /**
+     * 递归判断两棵树在当前节点是否等价。
+     * 如果当前节点值不同，或仅有一个节点为 null，返回 false。
+     * 否则递归判断两种情况：
+     *    不翻转的子树等价
+     *    翻转左右子树后等价
+     * 只要有一种情况成立即可。
+     */
+    public boolean flipEquiv0(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) return true;  // 都为空，等价
+        if (root1 == null || root2 == null || root1.value != root2.value) return false; // 有一个为空或值不同，不等价
+        // 两种情况：不翻转 或 翻转
+        boolean notFlipped = flipEquiv0(root1.left, root2.left) && flipEquiv(root1.right, root2.right);
+        boolean flipped = flipEquiv0(root1.left, root2.right) && flipEquiv(root1.right, root2.left);
+        return notFlipped || flipped;
+    }
+    /**
      * There are 3 cases:
-     *
      *     If root1 or root2 is null, then they are equivalent if and only if they are both null.
      *     Else, if root1 and root2 have different values, they aren't equivalent.
      *     Else, let's check whether the children of root1 are equivalent to the children of root2. There are two different ways to pair these children.
@@ -27,11 +42,9 @@ public class Q951_Flip_Equivalent_Binary_Trees {
 
         return (flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right) ||
                 flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left));
-
     }
-
     /**
-     *
+     * another form
      */
     public boolean flipEquiv_1(TreeNode root1, TreeNode root2) {
         if (root1 == root2)
