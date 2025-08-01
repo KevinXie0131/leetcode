@@ -12,7 +12,7 @@ public class Q687_Longest_Univalue_Path {
      */
     public static void main(String[] args) {
         //  [1,4,5,4,4,null,5]
-      /*  TreeNode root = new TreeNode(1);
+        TreeNode root = new TreeNode(1);
         TreeNode node1 = new TreeNode(4);
         TreeNode node2 = new TreeNode(5);
         TreeNode node3 = new TreeNode(4);
@@ -23,15 +23,44 @@ public class Q687_Longest_Univalue_Path {
         node1.left = node3;
         node1.right = node4;
         node2.right = node4;
-        node4.right = node5;*/
-        TreeNode root = new TreeNode(1);
+        node4.right = node5;
+   /*     TreeNode root = new TreeNode(1);
         TreeNode node1 = new TreeNode(1);
-        root.left = node1;
-        System.out.println(longestUnivaluePath(root));
+        root.left = node1;*/
+        System.out.println(longestUnivaluePath0(root));
     }
     /**
-     * Recursion
+     * 路径长度是边数，不是节点数。
+     * 可以从树中任意节点开始，不必经过根。
+     * 返回的是最长同值路径的边数，即节点数-1。
      */
+    static private int maxLen = 0;
+
+    static public int longestUnivaluePath0(TreeNode root) {
+        dfs0(root);
+        return maxLen;
+    }
+    // 返回以当前节点为起点的、向下的同值路径最长边数
+    static private int dfs0(TreeNode node) {
+        if (node == null) return 0;
+        int left = dfs0(node.left); // 递归左右子树
+        int right = dfs0(node.right);
+
+        int leftPath = 0, rightPath = 0;
+        if (node.left != null && node.left.value == node.value) {  // 如果左子节点和当前节点值相等，可以向左延伸
+            leftPath = left + 1;
+        }
+        if (node.right != null && node.right.value == node.value) {  // 如果右子节点和当前节点值相等，可以向右延伸
+            rightPath = right + 1;
+        }
+        maxLen = Math.max(maxLen, leftPath + rightPath);// 更新全局最长路径（可能穿过当前节点，左+右）
+        return Math.max(leftPath, rightPath);// 返回当前节点可向父节点延续的最长同值路径
+    }
+    /**
+     * Recursion 同上
+     */
+    static int res = 0;
+
     public static int longestUnivaluePath(TreeNode root) {
         dfs(root);
         return res;
@@ -63,36 +92,14 @@ public class Q687_Longest_Univalue_Path {
     /**
      * Recursion
      */
-    static int res = 0;
-    public static int longestUnivaluePath_1(TreeNode root) {
-        dfs_1(root);
-        return res;
-    }
-
-    public static int dfs_1(TreeNode root){
-        if (root == null) {
-            return 0;
-        }
-        int left = dfs_1(root.left), right = dfs_1(root.right);
-        int left1 = 0, right1 = 0;
-        if (root.left != null && root.left.value == root.value) {
-            left1 = left + 1;
-        }
-        if (root.right != null && root.right.value == root.value) {
-            right1 = right + 1;
-        }
-        res = Math.max(res, left1 + right1);
-        return Math.max(left1, right1);
-    }
-    /**
-     *
-     */
     int ans = 0;
+
     public int longestUnivaluePath_2(TreeNode root) {
         if (root == null) return 0;
         dfs_2(root, Integer.MAX_VALUE);
         return ans;
     }
+
     int dfs_2(TreeNode root, int val) {
         if (root == null) {
             return 0;
