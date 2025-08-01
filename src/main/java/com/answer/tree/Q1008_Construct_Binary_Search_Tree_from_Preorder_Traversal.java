@@ -35,6 +35,9 @@ public class Q1008_Construct_Binary_Search_Tree_from_Preorder_Traversal {
     }
     /**
      * refer to Q449_Serialize_and_Deserialize_BST
+     * nodes[lo]必是当前段的根节点，接着在[lo,hi]中搜索第一个比根节点值大的位置right_start
+     * nodes[lo]的左子树就可以在[lo+1,right_start−1]段中递归构造
+     * nodes[lo]的右子树就可以在[right_start,hi]段中递归构造
      */
     public TreeNode bstFromPreorder2(int[] preorder) {
         int[] idx = {0};
