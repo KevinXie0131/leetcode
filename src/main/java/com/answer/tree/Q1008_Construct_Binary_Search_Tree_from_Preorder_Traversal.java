@@ -19,14 +19,20 @@ public class Q1008_Construct_Binary_Search_Tree_from_Preorder_Traversal {
     public TreeNode bstFromPreorder(int[] preorder) {
         return build2(preorder, 0, preorder.length - 1);
     }
-
+    // 二分法构造
     private TreeNode build2(int[] vals, int left, int right) {
         if(left > right) return null;
 
         int val = vals[left];
         TreeNode node = new TreeNode(val);
         int j = left + 1;
-        while (j <= right && vals[j] <= val){
+        /*while (j <= right && vals[j] <= val){ // works too
+            j++;
+        }*/
+        while (j <= right){
+            if(vals[j] > val){
+                break;
+            }
             j++;
         }
         node.left = build2(vals, left + 1, j - 1);
@@ -43,7 +49,8 @@ public class Q1008_Construct_Binary_Search_Tree_from_Preorder_Traversal {
         int[] idx = {0};
         return build(preorder, idx, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
-
+    // 先序遍历构造
+    // 通过下限和上限来控制指针移动的范围
     private TreeNode build(int[] vals, int[] idx, int lower, int upper) {
         if (idx[0] == vals.length) {// 递归终止条件
             return null;
@@ -58,5 +65,53 @@ public class Q1008_Construct_Binary_Search_Tree_from_Preorder_Traversal {
         node.left = build(vals, idx, lower, val - 1); // 构建左子树，区间为：[lower, val-1]
         node.right = build(vals, idx, val + 1, upper); // 构建右子树，区间为：[val+1, upper]
         return node;
+    }
+    /**
+     * 通过递归地将每个后续节点插入到已有的二叉搜索树中，从而逐步构建整棵树。
+     */
+    // 主函数，从给定的前序遍历数组构建二叉搜索树
+    public TreeNode bstFromPreorder3(int[] preorder) {
+        TreeNode root = new TreeNode(preorder[0]);   // 创建根节点，使用第一个元素作为根
+        for (int i = 1; i < preorder.length; i++) {   // 遍历前序数组中的剩余元素，并依次插入到树中
+            insert(root, preorder[i]);
+        }
+        return root;  // 返回构建好的二叉搜索树的根节点
+    }
+    // 辅助函数，用于将值val插入到以node为根的子树中
+    private TreeNode insert(TreeNode node, int val) {
+        if (node == null) {  // 如果当前节点为空，则创建新节点并返回
+            return new TreeNode(val);
+        }
+        if (val < node.value) {// 如果插入值小于当前节点值，则递归地在左子树中插入
+            node.left = insert(node.left, val);
+        }
+        else if (node.value < val) {     // 如果插入值大于当前节点值，则递归地在右子树中插入
+            node.right = insert(node.right, val);
+        }
+        return node;// 返回当前节点（保持链的连续性）
+    }
+    /**
+     * 迭代
+     */
+    private void insert0(TreeNode root, int val) {
+        TreeNode node = new TreeNode(val);
+        TreeNode cur = root;
+        while (true) {
+            if (cur.value > val) {   //如果要插入的结点data比结点p的值小，就往p结点的左子节点找，否则往p的右子节点找
+                if (cur.left == null) { //如果p的左子节点等于空，直接放进去
+                    cur.left = node;
+                    break;
+                } else {
+                    cur = cur.left;
+                }
+            } else {
+                if (cur.right == null) {  //如果p的右子节点等于空，直接放进去
+                    cur.right = node;
+                    break;
+                } else {
+                    cur = cur.right;
+                }
+            }
+        }
     }
 }
