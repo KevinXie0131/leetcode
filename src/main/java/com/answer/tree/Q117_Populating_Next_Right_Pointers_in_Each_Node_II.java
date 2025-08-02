@@ -27,22 +27,21 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II {
         Node cur = root;
         while (cur != null) {
             // 两个辅助指针
-            Node head = new Node(); // 虚拟头节点
-            Node tail = head;
-
-            Node p = cur;
-            while(p != null){
-                if (p.left != null) {
-                    tail.next = p.left;
+            Node dummy  = new Node(); // 虚拟头节点
+            Node tail = dummy ;
+            //遍历 cur 的当前层
+            while(cur != null){
+                if (cur.left != null) {
+                    tail.next = cur.left;
                     tail = tail.next;
                 }
-                if (p.right != null) {
-                    tail.next = p.right;
+                if (cur.right != null) {
+                    tail.next = cur.right;
                     tail = tail.next;
                 }
-                p = p.next;
+                cur = cur.next; // cur 指针利用 next 不停的遍历当前层。
             }
-            cur = head.next;
+            cur = dummy .next; // 当前层遍历完毕， 更新 cur 到下一层
         }
         return root;
     }
