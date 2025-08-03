@@ -21,7 +21,28 @@ public class Q1372_Longest_ZigZag_Path_in_a_Binary_Tree {
      * Zigzag length is defined as the number of nodes visited - 1. (A single node has a length of 0).
      * Return the longest ZigZag path contained in that tree.
      */
+    /**
+     * 交错路径指的是，从一个节点到另一个节点的路径上，每一步的方向都与前一步相反。例如，从父节点向左，下一步就必须向右，再下一步又必须向左，以此类推。
+     * 需要注意的是，这条路径可以从树中的任意一个节点开始，也可以在任意一个节点结束。这意味着我们不能只从根节点开始搜索，而是要考虑以每个节点作为起点的最长交错路径。
+     */
+    int maxLen = 0;
+
     public int longestZigZag(TreeNode root) {
-        return 0;
+        dfs(root, true, 0);  // 起步向左
+        dfs(root, false, 0);  // 起步向右
+        return maxLen;
+    }
+    // 每次切换方向，长度加 1；如果尝试相同方向则重置长度（从 1 开始，从该节点新起步）。
+    // 朝着 isLeft 方向走的最长交错路径的长度。 true 表示向左，false 表示向右。
+    public void dfs(TreeNode root, boolean isLeft, int len) {
+        if (root == null) return;
+        maxLen = Math.max(maxLen, len);
+        if (isLeft) {
+            dfs(root.right, false, len + 1);
+            dfs(root.left, true, 1);
+        } else {
+            dfs(root.left, true, len + 1);
+            dfs(root.right, false, 1);
+        }
     }
 }
