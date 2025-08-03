@@ -46,12 +46,13 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
         if ((root.left == p && root.right == q) || (root.left == q && root.right == p)) {
             return root;
         }
-
+        //如果根节点和p,q的差相乘是正数，说明这两个差值要么都是正数要么都是负数，也就是说
+        //他们肯定都位于根节点的同一侧，就继续往下找
         while ((root.value - p.value) * (root.value - q.value) > 0) {
             root = p.value < root.value ? root.left : root.right;
           //  root = q.value < root.value ? root.left : root.right; // works too
         }
-        return root;
+        return root;   //如果相乘的结果是负数，说明p和q位于根节点的两侧，如果等于0，说明至少有一个就是根节点
     }
     /**
      * 在遍历⼆叉搜索树的时候就是寻找区间[p.val, q.val]（注意这⾥是左闭又闭）
@@ -119,11 +120,12 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
      */
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         while (root != null) {
-            if (p.value < root.value && q.value < root.value) {
+            if (p.value < root.value && q.value < root.value) {  // 如果p和q都比根小，说明LCA在左子树
                 root = root.left;
-            } else if (p.value > root.value && q.value > root.value) {
+            } else if (p.value > root.value && q.value > root.value) {  // 如果p和q都比根大，说明LCA在右子树
                 root = root.right;
             } else {
+                // 否则，当前root就是最近公共祖先
                 return root; // 剩下的情况，就是cur节点在区间中，那么cur就是最近公共祖先了，直接返回cur
             }
         }
