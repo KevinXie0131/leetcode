@@ -17,6 +17,7 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      * 最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表⽰为⼀个结点 x，满⾜ x 是 p、q 的祖先且 x 的深度尽可能⼤（⼀个节点也可以是它⾃⼰的祖先）
      *
      * 后序遍历 - 如果找到⼀个节点，发现左⼦树出现结点p，右⼦树出现节点q，或者 左⼦树出现结点q，右⼦树出现节点p，那么该节点就是节点p和q的最近公共祖先
+     * 因为我们是自底向上从叶子节点开始更新的，所以在所有满足条件的公共祖先中一定是深度最大的祖先先被访问到
      */
     public TreeNode lowestCommonAncestor0(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) { // 递归结束条件
@@ -61,6 +62,22 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
         } else {
             return null;
         }
+    }
+    /**
+     * 如果当前节点等于 p 或 q，则返回当前节点；否则递归左右子树。如果左右子树都非空，说明当前节点是最近公共祖先。如果只有一边有值，则把那一边返回
+     */
+    public TreeNode lowestCommonAncestor5(TreeNode root, TreeNode p, TreeNode q) {
+        // 如果当前节点是 null，或者当前节点就是 p 或 q，直接返回
+        if (root == null || root == p || root == q) return root;
+        // 递归左右子树
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        // 左右两边都找到，说明当前节点是最近公共祖先
+        if (left != null && right != null) return root;
+        // 只在一边找到，说明公共祖先在这一边
+        return left != null ? left : right;
+     //   if (left == null) return right;  // works too
+      //  return left;
     }
     /**
      * 迭代
@@ -108,14 +125,14 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      *
      * 本题没有给出迭代法，因为迭代法不适合模拟回溯的过程。理解递归的解法就够了
      */
-    Map<Integer, TreeNode> parent = new HashMap<>();
+    Map<Integer, TreeNode> parent = new HashMap<>(); // 存储父节点
     Set<Integer> visited = new HashSet<>();
 
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         dfs(root);
         while(p != null){
             visited.add(p.value);
-            p= parent.get(p.value);
+            p = parent.get(p.value);
         }
         while(q != null){
             if(visited.contains(q.value)){
