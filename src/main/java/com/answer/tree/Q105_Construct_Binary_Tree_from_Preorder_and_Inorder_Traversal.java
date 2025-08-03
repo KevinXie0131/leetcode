@@ -76,7 +76,7 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
     public static TreeNode buildTree0a(int[] preorder, int[] inorder) {
         return buildHelper_0a(inorder, 0, inorder.length - 1, preorder, 0, preorder.length - 1);
     }
-    // 左闭右开闭
+    // 左闭右闭
     private static TreeNode buildHelper_0a(int[] inorder, int inorderStart, int inorderEnd, int[] preorder, int preorderStart, int preorderEnd){
         if (preorderStart > preorderEnd) {
             return null;
