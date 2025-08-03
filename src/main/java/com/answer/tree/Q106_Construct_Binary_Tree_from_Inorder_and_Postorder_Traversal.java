@@ -39,7 +39,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
                 break;
             }
         }
-        TreeNode root = new TreeNode(postorder[postorder.length-1]); // 第⼆步：后序遍历数组最后⼀个元素，就是当前的中间节点
+        TreeNode root = new TreeNode(postorder[postorder.length - 1]); // 第⼆步：后序遍历数组最后⼀个元素，就是当前的中间节点
         // 第四步：切割中序数组，得到 中序左数组和中序右数组
         root.right = buildTree(Arrays.copyOfRange(inorder, inorderRoot + 1, inorder.length),
                                Arrays.copyOfRange(postorder, inorderRoot, postorder.length -1));
@@ -81,7 +81,6 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
 
         root.left = buildHelper(inorder, leftInorderStart, leftInorderEnd, postorder, leftPostStart, leftPostEnd); // (中序左数组, 后序左数组)
         root.right = buildHelper(inorder, rightInorderStart, rightInorderEnd, postorder, rightPostStart, rightPostEnd); // (中序右数组, 后序右数组)
-
         return root;
     }
     /**
