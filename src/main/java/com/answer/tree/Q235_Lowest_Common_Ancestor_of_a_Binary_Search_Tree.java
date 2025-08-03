@@ -12,6 +12,30 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
      * Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
      * According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
      */
+    public static void main(String[] args) {
+        // Construct BST:
+        //       6
+        //      / \
+        //     2   8
+        //    / \ / \
+        //   0  4 7  9
+        //     / \
+        //    3   5
+        TreeNode root = new TreeNode(6);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(8);
+        root.left.left = new TreeNode(0);
+        root.left.right = new TreeNode(4);
+        root.left.right.left = new TreeNode(3);
+        root.left.right.right = new TreeNode(5);
+        root.right.left = new TreeNode(7);
+        root.right.right = new TreeNode(9);
+
+        TreeNode p = root.left; // 2
+        TreeNode q = root.left.right; // 4
+        TreeNode lca = lowestCommonAncestor5(root, p, q);
+        System.out.println(lca.value); // 2
+    }
     /**
      * ⼆叉搜索树的最近公共祖先 - 前序遍历
      * 给定⼀个⼆叉搜索树, 找到该树中两个指定节点的最近公共祖先
@@ -78,16 +102,20 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
     public TreeNode lowestCommonAncestor3(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return null; // 可省略 不存在遇到空的情况
 
-        if(root.value > p.value && root.value > q.value){
+        if(root.value > p.value && root.value > q.value){ // 第二种情况，p和q都在左子树，应该把视角放在左边，去左子树找第三种情况
             return lowestCommonAncestor3(root.left, p,q);
-        }else if(root.value < p.value && root.value < q.value){
+        }else if(root.value < p.value && root.value < q.value){ // 第一种情况，p和q都在右子树，应该把视角放在右边，去右子树找第三种情况
             return lowestCommonAncestor3(root.right, p,q);
         }else{
-            return root;
+            return root; // 第三种情况，p,q不在同一子树，只能是p，q分别在一左一右，或者，p，q其中一个是根节点，都返回root
         }
     }
     /**
      * 迭代法
+     * 从根节点开始遍历；
+     * 如果当前节点的值大于 p 和 q 的值，说明 p 和 q 应该在当前节点的左子树，因此将当前节点移动到它的左子节点；
+     * 如果当前节点的值小于 p 和 q 的值，说明 p 和 q 应该在当前节点的右子树，因此将当前节点移动到它的右子节点；
+     * 如果当前节点的值不满足上述两条要求，那么说明当前节点就是「分岔点」。此时，p 和 q 要么在当前节点的不同的子树中，要么其中一个就是当前节点。
      */
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         while (root != null) {
@@ -97,6 +125,22 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
                 root = root.right;
             } else {
                 return root; // 剩下的情况，就是cur节点在区间中，那么cur就是最近公共祖先了，直接返回cur
+            }
+        }
+        return root;
+    }
+    /**
+     * another form
+     */
+    public TreeNode lowestCommonAncestor1a(TreeNode root, TreeNode p, TreeNode q) {
+        while (root != null) {
+            if (p == root || q == root || (p.value < root.value && q.value > root.value) || (p.value > root.value && q.value < root.value)) {
+                return root;
+            }
+            if (p.value < root.value) {
+                root = root.left;
+            } else {
+                root = root.right;
             }
         }
         return root;
@@ -158,5 +202,37 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
             parent.put(root.right.value, root);
             dfs(root.right);
         }
+    }
+    /**
+     * 两次遍历
+     * p 和 q 的最近公共祖先就是从根节点到它们路径上的「分岔点」，也就是最后一个相同的节点。
+     */
+   static public TreeNode lowestCommonAncestor5(TreeNode root, TreeNode p, TreeNode q) {
+       ArrayList<TreeNode> pathP = getPath(root, p);
+       ArrayList<TreeNode> pathQ = getPath(root, q);
+       TreeNode lca = null;
+       int i = 0;
+       while(i <= pathP.size() - 1 && i <= pathQ.size() - 1){
+           if(pathP.get(i) == pathQ.get(i)){
+               lca = pathP.get(i); // 找出最大的编号 i
+           }
+           i++;
+       }
+       return lca;
+    }
+
+    static public ArrayList<TreeNode> getPath(TreeNode root, TreeNode node) {
+        ArrayList<TreeNode> path = new ArrayList<>();
+        while(root != null){
+            path.add(root);
+            if(root.value > node.value){
+                root = root.left;
+            } else if(root.value < node.value) {
+                root = root.right;
+            } else {
+                break;
+            }
+        }
+        return path;
     }
 }
