@@ -14,7 +14,6 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
     /**
      * ⼆叉树的最近公共祖先
      * 给定⼀个⼆叉树, 找到该树中两个指定节点的最近公共祖先
-     *
      * 最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表⽰为⼀个结点 x，满⾜ x 是 p、q 的祖先且 x 的深度尽可能⼤（⼀个节点也可以是它⾃⼰的祖先）
      *
      * 后序遍历 - 如果找到⼀个节点，发现左⼦树出现结点p，右⼦树出现节点q，或者 左⼦树出现结点q，右⼦树出现节点p，那么该节点就是节点p和q的最近公共祖先
@@ -41,9 +40,7 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      * 同上
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // 从底向上遍历
-        // 遍历整棵树
-        // 把结果传到根节点的
+        // 从底向上遍历, 遍历整棵树, 把结果传到根节点的
         if (root == null) return null;
 
         if (root == p || root == q) return root; // 如果找到了 节点p或者q，或者遇到空节点，就返回
@@ -111,8 +108,8 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      *
      * 本题没有给出迭代法，因为迭代法不适合模拟回溯的过程。理解递归的解法就够了
      */
-    Map<Integer, TreeNode> parent = new HashMap<Integer, TreeNode>();
-    Set<Integer> visited = new HashSet<Integer>();
+    Map<Integer, TreeNode> parent = new HashMap<>();
+    Set<Integer> visited = new HashSet<>();
 
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         dfs(root);
@@ -124,7 +121,7 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
             if(visited.contains(q.value)){
                 return q;
             }
-            q= parent.get(q.value);
+            q = parent.get(q.value);
         }
         return null;
     }
