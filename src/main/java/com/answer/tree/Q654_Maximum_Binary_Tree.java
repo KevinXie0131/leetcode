@@ -2,10 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Q654_Maximum_Binary_Tree {
     /**
@@ -20,6 +17,19 @@ public class Q654_Maximum_Binary_Tree {
      *  Recursively build the left subtree on the subarray prefix to the left of the maximum value.
      *  Recursively build the right subtree on the subarray suffix to the right of the maximum value.
      * Return the maximum binary tree built from nums.
+     * 示例 1：
+     * 输入：nums = [3,2,1,6,0,5]
+     * 输出：[6,3,5,null,2,0,null,null,1]
+     * 解释：递归调用如下所示：
+     * - [3,2,1,6,0,5] 中的最大值是 6 ，左边部分是 [3,2,1] ，右边部分是 [0,5] 。
+     *     - [3,2,1] 中的最大值是 3 ，左边部分是 [] ，右边部分是 [2,1] 。
+     *         - 空数组，无子节点。
+     *         - [2,1] 中的最大值是 2 ，左边部分是 [] ，右边部分是 [1] 。
+     *             - 空数组，无子节点。
+     *             - 只有一个元素，所以子节点是一个值为 1 的节点。
+     *     - [0,5] 中的最大值是 5 ，左边部分是 [0] ，右边部分是 [] 。
+     *         - 只有一个元素，所以子节点是一个值为 0 的节点。
+     *         - 空数组，无子节点。
      */
     /**
      * 构造⼀棵最⼤的⼆叉树
@@ -49,7 +59,7 @@ public class Q654_Maximum_Binary_Tree {
         // 1. 先要找到数组中最⼤的值和对应的下表， 最⼤的值构造根节点，下表⽤来下⼀步分割数组
         int maxIndex = left;      // 最大值所在位置
         int maxVal = nums[left]; ;// 最大值
-        for (int i = left + 1; i< right; i++) {
+        for (int i = left + 1; i < right; i++) {
             if (nums[i] > maxVal){
                 maxIndex = i; // 分割点下表：maxValueIndex
                 maxVal = nums[i];
@@ -64,7 +74,9 @@ public class Q654_Maximum_Binary_Tree {
         return root;
     }
     /**
-     *
+     * 递归 左闭右闭
+     * 递归区间内找最大值为根节点，左边递归构建左子树，右边递归构建右子树。
+     * 时间复杂度：平均 O(n log n)，最坏 O(n²)。
      */
     public TreeNode constructMaximumBinaryTree1(int[] nums) {
         return dfs1(nums, 0, nums.length - 1);
@@ -74,10 +86,10 @@ public class Q654_Maximum_Binary_Tree {
         if(right < left){
             return null;
         }
-        if(right == left){
+        if(right == left){  // can be commented
             return new TreeNode(nums[left]);
         }
-        int maxIndex = left;
+        int maxIndex = left;  // 找到当前区间最大值及其下标, 每次都要找一段序列中的最大值
         int maxVal = nums[left];
         for (int i = left + 1; i <= right; i++) {
             if (nums[i] > maxVal){
@@ -87,9 +99,34 @@ public class Q654_Maximum_Binary_Tree {
         }
         TreeNode root = new TreeNode(maxVal);
 
-        root.left = dfs(nums, left, maxIndex - 1);
-        root.right = dfs(nums, maxIndex + 1, right);
+        root.left = dfs1(nums, left, maxIndex - 1);
+        root.right = dfs1(nums, maxIndex + 1, right);
 
         return root;
+    }
+    /**
+     * 单调栈 : 仅通过对数组nums的一次遍历，就可以得出最终结果
+     * 根据题意，进行二叉树的构造。即：
+     *  1> 如果栈顶元素大于待插入的元素，则：栈顶元素.right = 待插入元素。
+     *  2> 如果栈顶元素小于待插入的元素，则：待插入元素.left = 栈顶元素。
+     */
+    public TreeNode constructMaximumBinaryTree2(int[] nums) {
+        Deque<TreeNode> deque = new ArrayDeque();
+        for (int i = 0; i < nums.length; i++) {
+            TreeNode node = new TreeNode(nums[i]);
+            while(!deque.isEmpty()) {
+                TreeNode topNode = deque.peekLast();
+                if (topNode.value > node.value) {
+                    deque.addLast(node);
+                    topNode.right = node;
+                    break;
+                } else {
+                    deque.removeLast(); // 出栈操作
+                    node.left = topNode;
+                }
+            }
+            if (deque.isEmpty()) deque.addLast(node);
+        }
+        return deque.peek();
     }
 }
