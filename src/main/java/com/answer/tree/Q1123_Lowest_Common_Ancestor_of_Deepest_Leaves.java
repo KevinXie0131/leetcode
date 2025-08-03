@@ -2,6 +2,8 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
+import java.util.*;
+
 public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
     /**
      * 最深叶节点的最近公共祖先
@@ -35,9 +37,18 @@ public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
         node3.right = node7;
         node5.left = node8;
         node5.right = node9;
-
         TreeNode node = lcaDeepestLeaves(node1);
         System.out.println(node.value);
+
+        TreeNode node1a = new TreeNode(0);
+        TreeNode node2a = new TreeNode(1);
+        TreeNode node3a = new TreeNode(3);
+        TreeNode node4a = new TreeNode(2);
+        node1a.left = node2a;
+        node1a.right = node3a;
+        node2a.right = node4a;
+        TreeNode node11 = lcaDeepestLeaves1(node1a);
+        System.out.println(node11.value);
     }
     /**
      * DFS
@@ -47,19 +58,28 @@ public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
      *
      * Q104 Maximum Depth of Binary Tree
      * Q236 Lowest Common Ancestor of a Binary Tree
+     * 核心思想
+     *  最深节点一定出现在更深的那棵子树中
+     *  当左右子树深度相同时，当前节点就是答案
+     * 操作步骤
+     *  计算左右子树深度
+     *  比较深度：
+     *      左深 → 答案在左子树
+     *      右深 → 答案在右子树
+     *      同深 → 当前节点就是答案
      */
     public static TreeNode lcaDeepestLeaves(TreeNode root) {
         if(root == null) {
             return null;
         }
-        int left = maxDepth(root.left);
+        int left = maxDepth(root.left);  // 计算左右子树的深度
         int right = maxDepth(root.right);
-
-        if(left == right){
+        // 根据深度比较决定搜索方向
+        if(left == right) { // 深度相等时，当前节点就是所求子树的根
             return root;
-        }else if(left > right){
+        } else if (left > right) { // 左子树更深，继续在左子树中搜索
             return lcaDeepestLeaves(root.left);
-        }else{
+        } else {                   // 右子树更深，继续在右子树中搜索
             return lcaDeepestLeaves(root.right);
         }
     }
@@ -72,5 +92,96 @@ public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
         int right = maxDepth(root.right);
         return Math.max(left, right) + 1;
     }
+    /**
+     * 全局最大深度
+     * 正确做法如下：
+     *  从根节点开始递归，同时维护全局最大深度 maxDepth。
+     *  在「递」的时候往下传 depth，用来表示当前节点的深度。
+     *  在「归」的时候往上传当前子树最深的空节点的深度。这里为了方便，用空节点代替叶子，因为最深的空节点的上面一定是最深的叶子。
+     *  设左子树最深空节点的深度为 leftMaxDepth，右子树最深空节点的深度为 rightMaxDepth。如果最深的空节点左右子树都有，即 leftMaxDepth=rightMaxDepth=maxDepth，那么更新答案为当前节点。注意这并不代表我们找到了答案，如果后面发现了更深的空节点，答案还会更新。另外注意，这个判断方式在只有一个最深叶子的情况下，也是正确的
+     */
+    static private TreeNode ans;
+    static private int maxDepth = -1; // 全局最大深度
 
+    static public TreeNode lcaDeepestLeaves1(TreeNode root) {
+        dfs(root, 0);
+        return ans;
+    }
+    // 用后序遍历搜索当前节点的深度，如果左右子树的深度一样，且均为当前最深的节点，则更新答案。由于是找最深的节点的祖先，因此ans只会更新不会被覆盖掉。
+    static private int dfs(TreeNode node, int depth) {
+        if (node == null) {
+            maxDepth = Math.max(maxDepth, depth); // 更新全局最大深度
+            return depth;
+        }
+        int leftMaxDepth = dfs(node.left, depth + 1); // 左子树最深空节点的深度
+        int rightMaxDepth = dfs(node.right, depth + 1); // 右子树最深空节点的深度
+        if (rightMaxDepth == maxDepth && leftMaxDepth == maxDepth) { // 最深的空节点左右子树都有
+            ans = node; // 如果左右子树的深度相同，并且都等于最大深度，则说明当前节点是这棵子树的最近公共祖先。
+        }
+        return Math.max(leftMaxDepth, rightMaxDepth); // 当前子树最深空节点的深度
+    }
+    /**
+     * 暴力BFS
+     */
+    public TreeNode lcaDeepestLeaves3(TreeNode root) {
+        // 第一步：遍历树并记录每个节点的深度和父节点
+        Map<TreeNode, Integer> depth = new HashMap<>();
+        Map<TreeNode, TreeNode> parent = new HashMap<>();  // (节点i，它的父亲)
+        parent.put(root, null);  // 根节点的父节点是 null
+        Queue<Object[]> queue = new LinkedList<>();  // 层序遍历，记录[节点i，它的高度]
+        List<TreeNode> deepestLeaves = new ArrayList<>();
+        int maxDepth = -1;
+
+        queue.offer(new Object[]{root, 0});
+
+        while (!queue.isEmpty()) {
+            Object[] item = queue.poll();
+            TreeNode node = (TreeNode) item[0];
+            int level = (Integer) item[1];
+            depth.put(node, level);
+
+            if (node.left == null && node.right == null) {  // 叶子节点
+                if (level > maxDepth) {  // 更新最大深度
+                    maxDepth = level;
+                    deepestLeaves = new ArrayList<>();  // 清空并重新添加
+                    deepestLeaves.add(node);
+                } else if (level == maxDepth) {  // 否则，继续记录
+                    deepestLeaves.add(node);
+                }
+            }
+            if (node.left != null) {
+                parent.put(node.left, node);  // 左孩子-父节点
+                queue.offer(new Object[]{node.left, level + 1});
+            }
+            if (node.right != null) {
+                parent.put(node.right, node);  // 右孩子-父节点
+                queue.offer(new Object[]{node.right, level + 1});
+            }
+        }
+        // 第二步：求所有最深叶子的LCA
+        if (deepestLeaves.size() == 1) {
+            return deepestLeaves.get(0);
+        }
+        // 找到lcaa与node的公共祖先
+        TreeNode currentLCA = deepestLeaves.get(0);
+        for (int i = 1; i < deepestLeaves.size(); i++) {  // 让每个节点的祖先一致
+            currentLCA = getLCA(currentLCA, deepestLeaves.get(i), parent);
+        }
+        return currentLCA;
+    }
+
+    private TreeNode getLCA(TreeNode lcaa, TreeNode node, Map<TreeNode, TreeNode> parent) {
+        // 得到节点lcaa的所有祖先
+        Set<TreeNode> ancestors = new HashSet<>();
+        ancestors.add(lcaa);  // 添加自己
+        while (parent.containsKey(lcaa)) {  // 添加祖先
+            lcaa = parent.get(lcaa);
+            ancestors.add(lcaa);
+        }
+        // 查找节点node的祖先
+        while (!ancestors.contains(node)) {
+            node = parent.get(node);
+        }
+        return node;
+    }
 }
