@@ -1,5 +1,7 @@
 package com.answer.tree;
 
+import com.template.TreeNode;
+
 public class Q1372_Longest_ZigZag_Path_in_a_Binary_Tree {
     /**
      * 二叉树中的最长交错路径
@@ -19,4 +21,7 @@ public class Q1372_Longest_ZigZag_Path_in_a_Binary_Tree {
      * Zigzag length is defined as the number of nodes visited - 1. (A single node has a length of 0).
      * Return the longest ZigZag path contained in that tree.
      */
+    public int longestZigZag(TreeNode root) {
+        return 0;
+    }
 }
