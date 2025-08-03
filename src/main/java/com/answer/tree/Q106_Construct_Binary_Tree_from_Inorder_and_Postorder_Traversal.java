@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
@@ -17,13 +16,12 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
      * 递归
      */
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-
         if(inorder.length == 0){ // 第⼀步
             return null;
         }
         int inorderRoot = -1; // 第三步：找切割点
         for (int i = 0; i < inorder.length; i++) {
-            if (postorder[postorder.length-1] == inorder[i]) {
+            if (postorder[postorder.length - 1] == inorder[i]) {
                 inorderRoot = i;
                 break;
             }
@@ -31,10 +29,10 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         TreeNode root = new TreeNode(postorder[postorder.length-1]); // 第⼆步：后序遍历数组最后⼀个元素，就是当前的中间节点
         // 第四步：切割中序数组，得到 中序左数组和中序右数组
         root.right = buildTree(Arrays.copyOfRange(inorder, inorderRoot + 1, inorder.length),
-                Arrays.copyOfRange(postorder, inorderRoot, postorder.length -1));
+                               Arrays.copyOfRange(postorder, inorderRoot, postorder.length -1));
         // 第五步：切割后序数组，得到 后序左数组和后序右数组
         root.left = buildTree(Arrays.copyOfRange(inorder, 0, inorderRoot),
-                Arrays.copyOfRange(postorder, 0, inorderRoot));
+                              Arrays.copyOfRange(postorder, 0, inorderRoot));
         // ⾸先后序数组的最后⼀个元素指定不能要了，这是切割点 也是 当前⼆叉树中间节点的元素，已经⽤了
         // 中序数组⼤⼩⼀定是和后序数组的⼤⼩相同的（这是必然）
         return root;
@@ -45,6 +43,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
     public TreeNode buildTree0(int[] inorder, int[] postorder) {
         return buildHelper(inorder, 0, inorder.length, postorder, 0, postorder.length);
     }
+
     private TreeNode buildHelper(int[] inorder, int inorderStart, int inorderEnd, int[] postorder, int postorderStart, int postorderEnd){
         if(postorderStart == postorderEnd){
             return null;
@@ -52,7 +51,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         int rootValue = postorder[postorderEnd - 1]; // 后序遍历数组最后一个元素，就是当前的中间节点
         TreeNode root = new TreeNode(rootValue);
         int index;
-        for( index = inorderStart; index < inorderEnd - 1; index++ ){ // 找切割点
+        for(index = inorderStart; index < inorderEnd - 1; index++){ // 找切割点
             if(inorder[index] == rootValue){
                 break;
             }
@@ -76,6 +75,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
      * 使用map方便根据数值查找位置 + 递归
      */
     Map<Integer, Integer> map;  // 方便根据数值查找位置
+
     public TreeNode buildTree_3(int[] inorder, int[] postorder) {
         map = new HashMap<>();
         for (int i = 0; i < inorder.length; i++) { // 用map保存中序序列的数值对应位置
@@ -93,10 +93,9 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         TreeNode root = new TreeNode(inorder[rootIndex]);  // 构造结点
         int lenOfLeft = rootIndex - inBegin;  // 保存中序左子树个数，用来确定后序数列的个数
         root.left = findNode(inorder, inBegin, rootIndex,
-                postorder, postBegin, postBegin + lenOfLeft);
+                             postorder, postBegin, postBegin + lenOfLeft);
         root.right = findNode(inorder, rootIndex + 1, inEnd,
-                postorder, postBegin + lenOfLeft, postEnd - 1);
-
+                              postorder, postBegin + lenOfLeft, postEnd - 1);
         return root;
     }
     /**
@@ -108,38 +107,27 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
     int[] inorder;
     HashMap<Integer, Integer> idx_map = new HashMap<Integer, Integer>();
 
-    public TreeNode helper(int in_left, int in_right) {
-        // if there is no elements to construct subtrees
-        if (in_left > in_right)
-            return null;
-
-        // pick up post_idx element as a root
-        int root_val = postorder[post_idx];
-        TreeNode root = new TreeNode(root_val);
-
-        // root splits inorder list
-        // into left and right subtrees
-        int index = idx_map.get(root_val);
-
-        // recursion
-        post_idx--;
-        // build right subtree
-        root.right = helper(index + 1, in_right);
-        // build left subtree
-        root.left = helper(in_left, index - 1);
-        return root;
-    }
-
     public TreeNode buildTree1(int[] inorder, int[] postorder) {
         this.postorder = postorder;
         this.inorder = inorder;
-        // start from the last postorder element
-        post_idx = postorder.length - 1;
-
-        // build a hashmap value -> its index
+        post_idx = postorder.length - 1;    // start from the last postorder element
         int idx = 0;
-        for (Integer val : inorder)
+        for (Integer val : inorder) { // build a hashmap value -> its index
             idx_map.put(val, idx++);
+        }
         return helper(0, inorder.length - 1);
+    }
+
+    public TreeNode helper(int in_left, int in_right) {
+        if (in_left > in_right) return null;// if there is no elements to construct subtrees
+
+        int root_val = postorder[post_idx];// pick up post_idx element as a root
+        TreeNode root = new TreeNode(root_val);
+        int index = idx_map.get(root_val);// root splits inorder list into left and right subtrees
+        post_idx--;
+        // recursion
+        root.right = helper(index + 1, in_right);  // build right subtree
+        root.left = helper(in_left, index - 1);// build left subtree
+        return root;
     }
 }
