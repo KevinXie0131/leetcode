@@ -9,6 +9,19 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
      * 给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历， postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 。
      * Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
      */
+    public static void main(String[] args) {
+        int[] inorder = {9,15,7,20,3};
+        int[] postorder = {9,3,15,20,7};
+        TreeNode root = buildTree3(postorder, inorder);
+        System.out.println(root);
+        /**
+         *      3
+         *     / \
+         *   9    20
+         *       /  \
+         *     15    7
+         */
+    }
     /**
      * 根据⼀棵树的中序遍历与后序遍历构造⼆叉树
      * 以后序数组的最后⼀个元素为切割点，先切中序数组，根据中序数组，反过来在切后序数组。⼀层⼀层切下去，每次后序数组最后⼀个元素就是节点元素
@@ -69,6 +82,32 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         root.left = buildHelper(inorder, leftInorderStart, leftInorderEnd, postorder, leftPostStart, leftPostEnd); // (中序左数组, 后序左数组)
         root.right = buildHelper(inorder, rightInorderStart, rightInorderEnd, postorder, rightPostStart, rightPostEnd); // (中序右数组, 后序右数组)
 
+        return root;
+    }
+    /**
+     * 同上 左闭右闭 + 哈希表
+     */
+    static private Map<Integer, Integer> indexMap;
+
+    static public TreeNode buildTree3(int[] inorder, int[] postorder) {
+        int n = postorder.length;
+        indexMap = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            indexMap.put(inorder[i], i);
+        }
+        return myBuildTree(postorder, inorder, 0, n - 1, 0, n - 1);
+    }
+
+    static public TreeNode myBuildTree(int[] postorder, int[] inorder, int postorder_left, int postorder_right, int inorder_left, int inorder_right) {
+        if (postorder_left > postorder_right || inorder_left > inorder_right) {
+            return null;
+        }
+        int postorder_root = postorder_right;
+        int inorder_root = indexMap.get(postorder[postorder_root]);
+        TreeNode root = new TreeNode(postorder[postorder_root]);
+        int size_left_subtree = inorder_root - inorder_left;
+        root.left = myBuildTree(postorder, inorder, postorder_left, postorder_left + (size_left_subtree) - 1, inorder_left, inorder_root - 1);
+        root.right = myBuildTree(postorder, inorder, postorder_left + (size_left_subtree), postorder_right - 1, inorder_root + 1, inorder_right);
         return root;
     }
     /**
