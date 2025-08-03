@@ -104,7 +104,9 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
         return root;
     }
     /**
-     *
+     * 在中序遍历中对根节点进行定位时，一种简单的方法是直接扫描整个中序遍历的结果并找出根节点，但这样做的时间复杂度较高。
+     * 我们可以考虑使用哈希表来帮助我们快速地定位根节点
+     * 对于哈希映射中的每个键值对，键表示一个元素（节点的值），值表示其在中序遍历中的出现位置。
      */
     private Map<Integer, Integer> indexMap;
 
@@ -118,7 +120,8 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
     }
 
     public TreeNode myBuildTree(int[] preorder, int[] inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
-        if (preorder_left > preorder_right) {
+        if (preorder_left > preorder_right || inorder_left > inorder_right) {
+      //  if (preorder_left > preorder_right) { // works too
             return null;
         }
         int preorder_root = preorder_left;// 前序遍历中的第一个节点就是根节点
