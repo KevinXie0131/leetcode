@@ -1,7 +1,6 @@
 package com.answer.tree;
 
 import com.template.TreeNode;
-
 import java.util.*;
 
 public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
@@ -115,6 +114,21 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
     Map<Integer, TreeNode> parent = new HashMap<Integer, TreeNode>();
     Set<Integer> visited = new HashSet<Integer>();
 
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        dfs(root);
+        while(p != null){
+            visited.add(p.value);
+            p= parent.get(p.value);
+        }
+        while(q != null){
+            if(visited.contains(q.value)){
+                return q;
+            }
+            q= parent.get(q.value);
+        }
+        return null;
+    }
+
     public void dfs(TreeNode root){
         if(root == null){
             return;
@@ -127,22 +141,5 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
             parent.put(root.right.value, root);
             dfs(root.right);
         }
-
-    }
-    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
-        dfs(root);
-        while(p != null){
-            visited.add(p.value);
-            p= parent.get(p.value);
-        }
-
-        while(q != null){
-            if(visited.contains(q.value)){
-                return q;
-            }
-            q= parent.get(q.value);
-        }
-
-        return null;
     }
 }
