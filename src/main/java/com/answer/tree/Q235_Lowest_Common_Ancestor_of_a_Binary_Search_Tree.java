@@ -149,6 +149,7 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
     }
     /**
      * Q236题解  没有运用搜索树
+     * refer to Q236_Lowest_Common_Ancestor_of_a_Binary_Tree
      */
     public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return null;
@@ -172,6 +173,7 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
     }
     /**
      * Q236题解 没有运用搜索树
+     * refer to Q236_Lowest_Common_Ancestor_of_a_Binary_Tree
      */
     Map<Integer, TreeNode> parent = new HashMap<>();
     Set<Integer> visited = new HashSet<>();
