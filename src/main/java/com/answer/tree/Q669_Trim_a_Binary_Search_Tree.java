@@ -47,10 +47,28 @@ public class Q669_Trim_a_Binary_Search_Tree {
             return trimBST( root.left,  low,  high); // 寻找符合区间[low,high]的节点
         }
         else if (root.value >= low && root.value <= high) {
-            root.left = trimBST( root.left,  low,  high); // root->left接⼊符合条件的左孩⼦
-            root.right = trimBST( root.right,  low,  high); // root->right接⼊符合条件的右孩⼦
+            root.left = trimBST( root.left,  low,  high); // root.left接⼊符合条件的左孩⼦
+            root.right = trimBST( root.right,  low,  high); // root.right接⼊符合条件的右孩⼦
         }
         return root;
+    }
+    /**
+     *  对以 root 为根的二叉搜索树进行修剪，只保留 [low, high] 范围内的节点
+     */
+    public TreeNode trimBST7(TreeNode root, int low, int high) {
+        if (root == null) {  // 如果遇到空节点，直接返回空
+            return null;
+        }
+        root.left = trimBST(root.left, low, high); // 先递归修剪左子树，修剪后的左子树接回 root->left
+        root.right = trimBST(root.right, low, high); // 再递归修剪右子树，修剪后的右子树接回 root->right
+        if (root.value < low) {// 当前节点值小于 low，说明整棵左子树都比 low 小（BST 的性质），整个左子树和当前节点都要丢弃，返回修剪后的右子树
+            return root.right;
+        }
+        else if (root.value > high) { // 当前节点值大于 high，说明整棵右子树都比 high 大，丢弃右子树和当前节点，返回修剪后的左子树
+            return root.left;
+        } else {    // 如果当前节点在 [low, high] 范围内，则保留它，并返回它本身
+            return root;
+        }
     }
     /**
      * 迭代法 因为二叉搜索树的有序性，不需要使用栈模拟递归的过程
