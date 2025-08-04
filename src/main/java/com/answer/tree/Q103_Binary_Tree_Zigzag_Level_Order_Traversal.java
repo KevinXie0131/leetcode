@@ -7,6 +7,8 @@ public class Q103_Binary_Tree_Zigzag_Level_Order_Traversal {
     /**
      * 二叉树的锯齿形层序遍历
      * 给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+     * Given the root of a binary tree, return the zigzag level order traversal of its nodes' values.
+     * (i.e., from left to right, then right to left for the next level and alternate between).
      * 示例 1：
      *      3
      *    /   \
