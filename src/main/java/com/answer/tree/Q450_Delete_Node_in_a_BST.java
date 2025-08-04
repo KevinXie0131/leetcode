@@ -49,7 +49,6 @@ public class Q450_Delete_Node_in_a_BST {
                 return root;
             }
         }
-
         if(key < root.value) root.left =  deleteNode( root.left,  key);
         if(key > root.value) root.right =  deleteNode( root.right,  key);
         return root;
@@ -77,14 +76,14 @@ public class Q450_Delete_Node_in_a_BST {
             }
             // 第五种情况：左右孩⼦节点都不为空，则将删除节点的左⼦树放到删除节点的右⼦树的最左⾯节点的左孩⼦的位置
             // 并返回删除节点右孩⼦为新的根节点。
-            else if(root.right != null && root.right != null){
+       //     else if(root.right != null && root.right != null){  // can be commented
                 TreeNode node = root.right;
                 while(node.left != null){ // 找右⼦树最左⾯的节点
                     node = node.left;
                 }
                 node.left = root.left; // 把要删除的节点（root）左⼦树放在cur的左孩⼦的位置
                 root = root.right; // 返回旧root的右孩⼦作为新root
-            }
+        //    }
         }
         return root;
     }
@@ -122,6 +121,7 @@ public class Q450_Delete_Node_in_a_BST {
         }
         return root;
     }
+
     TreeNode deleteOneNode(TreeNode target) {
         if (target == null) {
             return target;
@@ -129,6 +129,9 @@ public class Q450_Delete_Node_in_a_BST {
         if (target.right == null) {
             return target.left;
         }
+       /* if (target.left == null) { // can be commented
+            return target.right;
+        }*/
         TreeNode cur = target.right;
         while (cur.left != null) {
             cur = cur.left;
@@ -139,7 +142,7 @@ public class Q450_Delete_Node_in_a_BST {
         return target;*/
     }
     /**
-     * 迭代
+     * 迭代 official answer
      */
     public TreeNode deleteNode1(TreeNode root, int key) {
         TreeNode cur = root, curParent = null;
