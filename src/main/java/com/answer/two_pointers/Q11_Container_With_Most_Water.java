@@ -16,6 +16,10 @@ public class Q11_Container_With_Most_Water {
      * 输出：49
      * 解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
      */
+    /**
+     * 双指针
+     * 贪心算法: 为了接住更多水，尽量手持大的板，去找更大的板
+     */
     public int maxArea(int[] height) {
         int left = 0;
         int right = height.length - 1;
@@ -24,12 +28,11 @@ public class Q11_Container_With_Most_Water {
             int area = (right - left) * Math.min(height[left], height[right]);
             max = Math.max(max, area);
             if(height[left] < height[right]){
-                left++;
+                left++;  // height[left] 与右边的任意线段都无法组成一个比 ans 更大的面积
             } else {
-                right--;
+                right--;   // height[right] 与左边的任意线段都无法组成一个比 ans 更大的面积
             }
         }
-
         return max;
     }
 }
