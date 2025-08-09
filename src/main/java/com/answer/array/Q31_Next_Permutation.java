@@ -8,7 +8,8 @@ public class Q31_Next_Permutation {
      * 整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。
      *
      * 例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。
-     * 整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。
+     * 整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，
+     * 那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。
      *
      * 例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。
      * 类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。
@@ -73,15 +74,11 @@ public class Q31_Next_Permutation {
      * 必须 原地 修改，只允许使用额外常数空间。The replacement must be in place and use only constant extra memory.
      */
     public void nextPermutation_2(int[] nums) {
-        // 1.从后向前获取逆序区域的前一位
-        int index = findIndex(nums);
-        // 判断数组是否处于最小组合状态
-        if(index != 0){
-            // 2.交换逆序区域刚好大于它的最小数字
-            exchange(nums,index);
+        int index = findIndex(nums);// 1.从后向前获取逆序区域的前一位
+        if(index != 0){// 判断数组是否处于最小组合状态
+            exchange(nums, index);// 2.交换逆序区域刚好大于它的最小数字
         }
-        // 3.把原来的逆序区转为顺序
-        reverse1(nums,index);
+        reverse1(nums, index);  // 3.把原来的逆序区转为顺序
     }
 
     public static int findIndex(int [] nums){
@@ -92,6 +89,7 @@ public class Q31_Next_Permutation {
         }
         return 0;
     }
+
     public static void exchange(int [] nums, int index){
         int head = nums[index - 1];
         for(int i = nums.length - 1; i > 0; i--){
@@ -102,6 +100,7 @@ public class Q31_Next_Permutation {
             }
         }
     }
+
     public static void reverse1(int [] nums, int index){
         for(int i = index, j = nums.length - 1; i < j; i++, j--){
             int temp = nums[i];
@@ -127,10 +126,8 @@ public class Q31_Next_Permutation {
             while(j >= 0 && nums[i] >= nums[j]){ // 在 [j,end) 从后向前 查找第一个满足 A[i] < A[k] 的 k。A[i]、A[k] 分别就是上文所说的「小数」、「大数」
                 j--;
             }
-
             swap(nums, i, j); // 将 A[i] 与 A[k] 交换
         }
-
         reverse(nums, i + 1); // 可以断定这时 [j,end) 必然是降序，逆置 [j,end)，使其升序
     }
 
