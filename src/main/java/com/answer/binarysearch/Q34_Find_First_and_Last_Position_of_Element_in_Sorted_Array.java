@@ -63,7 +63,6 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         int end = lowerBound(nums, target + 1) - 1;
         return new int[]{start, end};
     }
-
     // lowerBound 返回最小的满足 nums[i] >= target 的下标 i
     // 如果数组为空，或者所有数都 < target，则返回 nums.length
     // 要求 nums 是非递减的，即 nums[i] <= nums[i + 1]
@@ -164,8 +163,11 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
      * 解题思路同上
      */
     public static int[] searchRange_3(int[] nums, int target) {
+        if( nums == null || nums.length == 0){
+            return new int[]{-1, -1};
+        }
         int left = 0, right = nums.length - 1;
-        while (left + 1 < right) {
+        while (left <= right) {
             int mid = (right - left) / 2 + left;
             if (target == nums[mid]) {
                 int l = mid, r = mid;
@@ -177,11 +179,13 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
                 }
                 return new int[]{++l, --r};
             } else if (target < nums[mid]) {
-                right = mid;
+                right = mid - 1;
             } else {
-                left = mid;
+                left = mid + 1;
             }
         }
+        if(left > nums.length - 1) left = nums.length - 1;
+        if(right < 0) right =0;
         if (target == nums[left] && target == nums[right]) return new int[]{left, right};
         if (target == nums[left]) return new int[]{left, left};
         if (target == nums[right]) return new int[]{right, right};
@@ -200,10 +204,10 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         // 寻找元素第一次出现的地方
         int left = 0;
         int right = nums.length-1;
-        while(left<=right){
-            int mid = left+(right-left)/2;
+        while(left <= right){
+            int mid = left + (right-left) / 2;
             // >= 的都要缩小 因为要找第一个元素
-            if(nums[mid]>=target){
+            if(nums[mid] >= target){
                 right = mid - 1;
             }else{
                 left = mid + 1;
@@ -211,23 +215,24 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         }
         // right = left - 1
         // 如果存在答案 right是首选
-        if(right>=0&&right<nums.length&&nums[right]==target){
+        if(right >=0 && right < nums.length && nums[right] == target){
             return right;
         }
-        if(left>=0&&left<nums.length&&nums[left]==target){
+        if(left >= 0 && left < nums.length && nums[left] == target){
             return left;
         }
         return -1;
+        // return left < nums.length && nums[left] == target? left : -1; // works too
     }
 
     public int searchRight(int[] nums,int target){
         // 找最后一次出现
         int left = 0;
         int right = nums.length-1;
-        while(left<=right){
-            int mid = left + (right-left)/2;
+        while(left <= right){
+            int mid = left + (right-left) / 2;
             // <= 的都要更新 因为我们要找最后一个元素
-            if(nums[mid]<=target){
+            if(nums[mid] <= target){
                 left = mid + 1;
             }else{
                 right = mid - 1;
@@ -235,12 +240,13 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array {
         }
         // left = right + 1
         // 要找最后一次出现 如果有答案 优先找left
-        if(left>=0&&left<nums.length&&nums[left]==target){
+        if(left >= 0 && left < nums.length && nums[left] == target){
             return left;
         }
-        if(right>=0&&right<=nums.length&&nums[right]==target){
+        if(right>=0 && right <= nums.length && nums[right] == target){
             return right;
         }
         return -1;
+       // return right >= 0 && nums[right] == target ? right : -1; // works too
     }
 }
