@@ -148,4 +148,24 @@ public class binarySearchTemplate {
         }
         return right; // 或者 left - 1
     }
+    /**
+     * 寻找比目标字母大的最小字母
+     *  - 取中间m
+     *  - m大于目标：答案可能是m或左侧，故先记下m，再在m左侧查找（right = m - 1）
+     *  - m小于等于目标：答案可能是m右侧，在m右侧查找（left = m + 1）
+     */
+    public char nextGreatestLetter_(char[] letters, char target) {
+        int l = 0, r = letters.length - 1;
+        int ret = 0;
+        while(l <= r){
+            int m = l + (r - l)/2;
+            if(letters[m] <= target){
+                l = m + 1;
+            }else{
+                ret = m; // 先记下m
+                r = m - 1;
+            }
+        }
+        return letters[ret];
+    }
 }

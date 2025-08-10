@@ -42,6 +42,23 @@ public class Q35_Search_Insert_Position {
         // 而right能移动到这个位置，说明此位置右侧是大于target的，left现在加1就移动到了这样的位置，返回left即可
     }
     /**
+     * refer to Q744_Find_Smallest_Letter_Greater_Than_Target
+     */
+    public int searchInsert_0a(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        int res = nums.length; // for nums = [1,3,5,6] & target = 7
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1; // 范围缩小到 [mid + 1, right]
+            } else if (nums[mid] >= target) {
+                res = mid; // 先记下mid
+                right = mid - 1; // 范围缩小到 [left, mid - 1]
+            }
+        }
+        return res;
+    }
+    /**
      * 库函数写法
      * 注意：只能在没有重复元素的时候使用
      * 如果 nums 有多个值为 target 的数，返回值不一定是第一个 >= target 的数的下标
