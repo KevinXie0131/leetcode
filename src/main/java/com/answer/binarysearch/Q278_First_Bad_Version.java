@@ -104,5 +104,7 @@ public class Q278_First_Bad_Version {
         return -1;
     }
 
-    boolean isBadVersion(int version){return true;};
+    boolean isBadVersion(int version){
+        return true;
+    }
 }
