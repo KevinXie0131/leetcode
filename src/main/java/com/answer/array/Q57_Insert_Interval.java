@@ -91,13 +91,11 @@ public class Q57_Insert_Interval {
         temp.add(newInterval);
         // Q56的解法
         temp.sort((v1, v2)->v1[0] - v2[0]);
-        int index = -1;
         for(int[] interval : temp){
-            int[] last = result.size() == 0 ? new int[]{-1, -1} : result.get(result.size() - 1);
-            if (result.isEmpty() || last[1] < interval[0]) {
+            if (result.isEmpty() || result.get(result.size() - 1)[1] < interval[0]) {
                 result.add(interval);
             } else { // 开始时间比结束时间小
-                last[1] = Math.max(last[1], interval[1]);
+                result.get(result.size() - 1)[1] = Math.max(result.get(result.size() - 1)[1], interval[1]);
             }
         }
         return result.toArray(new int[result.size()][2]);
