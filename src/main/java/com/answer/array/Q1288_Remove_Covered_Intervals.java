@@ -76,8 +76,7 @@ public class Q1288_Remove_Covered_Intervals {
         int end, prev_end = 0;
         for (int[] curr : intervals) {
             end = curr[1];
-            // if current interval is not covered
-            // by the previous one
+            // if current interval is not covered by the previous one
             if (prev_end < end) {
                 ++count;
                 prev_end = end;
