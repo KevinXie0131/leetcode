@@ -59,7 +59,7 @@ public class Q1365_How_Many_Numbers_Are_Smaller_Than_the_Current_Number {
             data[i][0] = nums[i];
             data[i][1] = i;
         }
-      Arrays.sort(data, new Comparator<int[]>() {
+        Arrays.sort(data, new Comparator<int[]>() {
             public int compare(int[] data1, int[] data2) {
                 return data1[0] - data2[0];
             }
@@ -73,6 +73,15 @@ public class Q1365_How_Many_Numbers_Are_Smaller_Than_the_Current_Number {
             }
             ret[data[i][1]] = prev;
         }
+     /* ret[data[0][1]] = 0; // don't use prev, and works too
+        for (int i = 1; i < n; i++) {
+            if (data[i - 1][0] < data[i][0]) {
+                ret[data[i][1]] = i;
+            } else {
+                ret[data[i][1]] = ret[data[i - 1][1]];
+            }
+
+        }*/
         return ret;
     }
     /**
