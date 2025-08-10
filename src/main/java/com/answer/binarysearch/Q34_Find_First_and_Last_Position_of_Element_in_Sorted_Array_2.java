@@ -15,17 +15,17 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array_2 {
         if(nums == null || nums.length == 0) return -1;
 
         int l = 0, r = nums.length - 1;
-        while(l + 1 < r){
+        while(l <= r){
             int mid = l + (r - l) / 2;
             if(nums[mid] < target){
-                l = mid;
+                l = mid + 1;
             }
             else{
-                r = mid;
+                r = mid - 1;
             }
         }
-        if(nums[l] == target) return l;
-        if(nums[r] == target) return r;
+     //   if(l < nums.length && nums[l] == target) return l; // can be commented
+        if(r >= 0 && nums[r] == target) return r;
 
         return -1;
     }
@@ -33,18 +33,18 @@ public class Q34_Find_First_and_Last_Position_of_Element_in_Sorted_Array_2 {
     private int rightSearch(int[] nums, int target){
         if(nums == null || nums.length == 0) return -1;
 
-        int l = 0,r = nums.length - 1;
-        while(l + 1 < r){
+        int l = 0, r = nums.length - 1;
+        while(l <= r){
             int mid = l + (r - l) / 2;
             if(nums[mid] <= target){
-                l = mid;
+                l = mid + 1;
             }
             else{
-                r = mid;
+                r = mid - 1;
             }
         }
-        if(nums[r] == target) return r;
-        if(nums[l] == target) return l;
+        if(r >= 0 && nums[r] == target) return r;
+    //    if(l < nums.length && nums[l] == target) return l; // can be commented
 
         return -1;
     }
