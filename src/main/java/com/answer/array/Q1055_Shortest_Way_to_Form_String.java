@@ -49,7 +49,7 @@ public class Q1055_Shortest_Way_to_Form_String {
         int count = 0 ;
         while( j < str2.length){
             int prev = j ;
-            for(int i = 0 ; i < str1.length ; i++){ //
+            for(int i = 0 ; i < str1.length ; i++){
                 if( j < str2.length && str1[i] == str2[j]) {
                     j++;
                 }

@@ -53,7 +53,6 @@ public class Q922_Sort_Array_By_Parity_II {
      * 空间复杂度：O(1)
      */
     static public int[] sortArrayByParityII_1(int[] nums) {
-
         int oddIndex = 1;
 
         for(int i = 0; i < nums.length; i += 2){
@@ -143,6 +142,29 @@ public class Q922_Sort_Array_By_Parity_II {
                 nums[j] = tmp;
                 i += 2;
                 j += 2;
+            }
+        }
+        return nums;
+    }
+    /**
+     * another form 同上
+     */
+    public int[] sortArrayByParityII_4a(int[] nums) {
+        int i = 0;
+        int j = 1;
+        while (i < nums.length) {
+            while (i < nums.length && nums[i] % 2 == 0) { // 寻找偶数下标中最左边的奇数
+                i += 2;
+            }
+            while (j < nums.length && nums[j] % 2 == 1) { // 寻找奇数下标中最左边的偶数
+                j += 2;
+            }
+            if(i < nums.length && j < nums.length){
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+           //     i += 2; // can be commented
+           //     j += 2;
             }
         }
         return nums;

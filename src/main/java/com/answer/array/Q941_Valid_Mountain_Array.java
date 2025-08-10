@@ -53,7 +53,7 @@ public class Q941_Valid_Mountain_Array {
         }
         // 最高点不能是数组的第一个位置或最后一个位置
         if (i == 0 || i == len - 1) {
-            return false; // 即整个数组都是单调递增的），那么就返回 false
+            return false; // 即整个数组都是单调递增的，那么就返回 false
         }
         // 递减扫描
         while (i + 1 < len && arr[i] > arr[i + 1]) {
