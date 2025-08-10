@@ -37,13 +37,11 @@ public class Q1089_Duplicate_Zeros {
         for(int i = 0; i < len & j < len; i++){
             temp[j] = arr[i];
             j++;
-
             if(arr[i] == 0 && j < len){
                 temp[j] = 0;
                 j++;
             }
         }
-
         for(int i = 0; i < len; i++){
             arr[i] = temp[i];
         }
@@ -68,14 +66,12 @@ public class Q1089_Duplicate_Zeros {
                 top += 2; //遇到0则top多向右移动一步 模拟添加一个0
             }
         }
-
         int j = len - 1;
         if (top == len + 1) { //有可能最后也是一个0，会多一个元素
             arr[j] = 0;
             j--;
             i--;
         }
-
         while(j >= 0){
             arr[j] = arr[i];  //从右向左填充数据
             j--;
