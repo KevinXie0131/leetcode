@@ -93,7 +93,7 @@ public class Q448_Find_All_Numbers_Disappeared_in_an_Array {
         List<Integer> res = new ArrayList<Integer>();
         // 遍历下数组的元素，对对应的索引位置的元素作标记
         for(int i = 0; i <= nums.length - 1; i++){
-            int x = Math.abs(nums[i]) - 1;  // 由于数组的元素有可能被*-1，所以取绝对值
+            int x = Math.abs(nums[i]) - 1;  // 由于数组的元素有可能被乘以-1，所以取绝对值
             if(nums[x] > 0){
                 nums[x] = -nums[x];
             }

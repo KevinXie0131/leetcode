@@ -3,7 +3,9 @@ package com.answer.array;
 public class Q498_Diagonal_Traverse {
     /**
      * 对角线遍历: 给你一个大小为 m x n 的矩阵 mat ，请以对角线遍历的顺序，用一个数组返回这个矩阵中的所有元素。
-     * 输入：mat = [[1,2,3],[4,5,6],[7,8,9]]
+     * 输入：mat = [[1,2,3],
+     *             [4,5,6],
+     *             [7,8,9]]
      * 输出：[1,2,4,7,5,3,6,8,9]
      */
     /**
@@ -16,8 +18,7 @@ public class Q498_Diagonal_Traverse {
         int n = mat.length, m = mat[0].length;
         int[] res = new int[n * m];
 
-        for (int i = 0, idx = 0; i < n + m - 1; i++)
-        {
+        for (int i = 0, idx = 0; i < n + m - 1; i++) {
             if (i % 2 == 0) {//偶数对角线
                 // 如果是偶数对角线 ，确定其横坐标x，从下往上遍历，将mat[x][i - x]加入res中
                 for (int x = Math.min(i, n - 1); x >= Math.max(0, i - m + 1); x--) //从下往上遍历
@@ -74,7 +75,6 @@ public class Q498_Diagonal_Traverse {
                     m--;
                     n=n+2;
                 }
-
             }
         }
         return answer;

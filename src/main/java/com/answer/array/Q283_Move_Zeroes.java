@@ -41,7 +41,7 @@ public class Q283_Move_Zeroes {
         }
     }
     /**
-     *
+     * not easy to understand
      */
     public static void moveZeroes(int[] nums) {
         int n = nums.length;

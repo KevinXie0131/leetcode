@@ -31,7 +31,8 @@ public class Q253_Meeting_Rooms_II {
      * 2. Use a minHeap(pq) to save the endTime for all intervals according to the order of start time.
      *   i. Add end time to the pq.
      *   ii. if cur start time < pq.peek() => means current start time is before first ending time, which means we must have a new room.
-     *   iii. if cur start time >= pq.peek() => means we can use this room for the meeting, we poll out the the original period and add current period to the pq (Means we update the room with the new meeting).
+     *   iii. if cur start time >= pq.peek() => means we can use this room for the meeting, we poll out the the original period
+     *        and add current period to the pq (Means we update the room with the new meeting).
      */
     static public int minMeetingRooms_0(int[][] intervals) {
         if(intervals == null || intervals.length == 0) return 0;
