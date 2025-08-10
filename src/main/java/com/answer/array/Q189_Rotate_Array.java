@@ -41,6 +41,9 @@ public class Q189_Rotate_Array {
      * 三次反转
      * 时间复杂度 O(n)
      * 空间复杂度 O(n)
+     * 1 2 3 4 5
+     * 5 4 3 2 1
+     * 4 5 1 2 3
      */
     static public void rotate_1(int[] nums, int k) { // 数组翻转
         k %= nums.length;

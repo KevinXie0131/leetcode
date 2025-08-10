@@ -61,7 +61,7 @@ public class Q209_Minimum_Size_Subarray_Sum {
                 left++;
             }
         }
-        return result == Integer.MAX_VALUE? 0 : result;
+        return result == Integer.MAX_VALUE ? 0 : result;
     }
     /**
      * 使用队列相加（实际上我们也可以把它称作是滑动窗口，这里的队列其实就相当于一个窗口）
@@ -152,11 +152,30 @@ public class Q209_Minimum_Size_Subarray_Sum {
         for (int i = 1; i <= n; i++) {
             int targetSum = target + prefixSum[i - 1];
             int index  = binarySearch(prefixSum, targetSum);
-            if (index <= n ) { //  If there is no such subarray, return 0 instead.
-                min = Math.min(min, index - (i - 1));
+            if (index <= n) { //  If there is no such subarray, return 0 instead.
+                min = Math.min(min, index - i + 1);
             }
         }
         return min  == Integer.MAX_VALUE ? 0 : min;
+    }
+    // 二分查找 More clear format
+    private int binarySearch0(int[] nums, int target){
+        int low = 0;
+        int high = nums.length - 1;
+        int pos = nums.length;
+        while (low <= high) {
+            int mid = (low + high) >>> 1;
+            int midVal = nums[mid];
+            if (midVal < target){
+                low = mid + 1;
+                pos = low;
+            } else if (midVal > target) {
+                high = mid - 1;
+            } else {
+                return mid; // key found
+            }
+        }
+        return pos;
     }
     // 二分查找
     static private int binarySearch(int[] nums, int target){
@@ -167,15 +186,17 @@ public class Q209_Minimum_Size_Subarray_Sum {
             int mid = (low + high) >>> 1;
             int midVal = nums[mid];
 
-            if (midVal < target)
+            if (midVal < target) {
                 low = mid + 1;
-            else if (midVal > target)
+            } else if (midVal > target) {
                 high = mid - 1;
-            else
+            } else {
                 return mid; // key found
+            }
         }
         return low < 0 ? 0: low;
-        //  high > nums.length - 1 ? nums.length - 1: high; // not work
+        // return  high > nums.length - 1 ? nums.length - 1: high; // not work
+        // return  high > nums.length - 1 ? nums.length - 1: high + 1; // can work
     }
     /**
      *  前缀和 Time Limit Exceeded
@@ -193,7 +214,7 @@ public class Q209_Minimum_Size_Subarray_Sum {
             int targetSum = target + prefixSum[i - 1];
             for(int j = i; j <= n; j++){
                 if(prefixSum[j] >= targetSum){
-                   ans = Math.min(ans, j - (i - 1));
+                   ans = Math.min(ans, j - i + 1);
                 }
             }
         }
