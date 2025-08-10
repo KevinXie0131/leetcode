@@ -155,17 +155,18 @@ public class binarySearchTemplate {
      *  - m小于等于目标：答案可能是m右侧，在m右侧查找（left = m + 1）
      */
     public char nextGreatestLetter_(char[] letters, char target) {
-        int l = 0, r = letters.length - 1;
-        int ret = 0;
-        while(l <= r){
-            int m = l + (r - l)/2;
-            if(letters[m] <= target){
-                l = m + 1;
+        int left = 0, right = letters.length - 1;
+        int result = 0;
+        while(left <= right){
+            int mid = left + (right - left)/2;
+
+            if(letters[mid] <= target){
+                left = mid + 1;
             }else{
-                ret = m; // 先记下m
-                r = m - 1;
+                result = mid; // 先记下mid
+                right = mid - 1;
             }
         }
-        return letters[ret];
+        return letters[result];
     }
 }
