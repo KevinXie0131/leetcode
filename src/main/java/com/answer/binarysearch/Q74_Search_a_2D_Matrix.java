@@ -113,6 +113,26 @@ public class Q74_Search_a_2D_Matrix {
         }
         return low - 1; // return high; // works too
     }
+    /**
+     * another form
+     */
+    public int binarySearchFirstColumn_1(int[][] matrix, int target) {
+        int low = 0, high = matrix.length - 1;
+        int result = 0;
+        while(low <= high){
+            int mid = (low + high) >>> 1;
+            int value = matrix[mid][0];
+            if(value == target){
+                return mid;
+            }else if(value > target){
+                high = mid - 1;
+            }else{
+                result = mid; // keep mid first
+                low = mid + 1;
+            }
+        }
+        return result;
+    }
 
     public static boolean binarySearchRow(int[] row, int target) {
         int low = 0, high = row.length - 1;
