@@ -49,7 +49,7 @@ public class Q1456_Maximum_Number_of_Vowels_in_a_Substring_of_Given_Length {
             if(set.contains(ch[i - k])){
                 queue.poll();
             }
-            max =Math.max(max, queue.size());
+            max = Math.max(max, queue.size());
         }
         return max;
     }
