@@ -20,12 +20,6 @@ public class Q119_Pascal_Triangle_II {
     /**
      * Approach 1: Brute Force Recursion
      */
-    private int getNum(int row, int col) {
-        if (row == 0 || col == 0 || row == col) {
-            return 1;
-        }
-        return getNum(row - 1, col - 1) + getNum(row - 1, col);
-    }
     public List<Integer> getRow_0(int rowIndex) {
         List<Integer> ans = new ArrayList<>();
 
@@ -34,6 +28,14 @@ public class Q119_Pascal_Triangle_II {
         }
         return ans;
     }
+
+    private int getNum(int row, int col) {
+        if (row == 0 || col == 0 || row == col) {
+            return 1;
+        }
+        return getNum(row - 1, col - 1) + getNum(row - 1, col);
+    }
+
     /**
      * Based on Q118
      */

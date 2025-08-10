@@ -1,5 +1,7 @@
 package com.answer.array;
 
+import java.util.Arrays;
+
 public class Q165_Compare_Version_Numbers {
     /**
      * 比较版本号: 给你两个 版本号字符串 version1 和 version2 ，请你比较它们。版本号由被点 '.' 分开的修订号组成。修订号的值 是它 转换为整数 并忽略前导零。
@@ -28,8 +30,7 @@ public class Q165_Compare_Version_Numbers {
         String[] v1 = version1.split("\\.");
         String[] v2 = version2.split("\\.");
 
-        for(int i = 0; i< v1.length || i < v2.length; i++){
-
+        for(int i = 0; i < v1.length || i < v2.length; i++){
             int ver1 = 0, ver2 = 0;
             if(i < v1.length){
                 ver1 = Integer.parseInt(v1[i]);
