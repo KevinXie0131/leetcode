@@ -30,6 +30,7 @@ public class Q66_Plus_One {
         }
 
         value++;
+
         String str = String.valueOf(value);
         int[] res = new int[str.length()];
         for(int i = 0; i < res.length; i++){
@@ -46,8 +47,13 @@ public class Q66_Plus_One {
 
         for(int i = digits.length - 1; i >= 0; i--){
             int num = digits[i] + carry;
-            if(num >= 10) {str.append(num % 10); carry = 1;}
-            else {str.append(num); carry = 0;}
+            if(num >= 10) {
+                str.append(num % 10);
+                carry = 1;
+            } else {
+                str.append(num);
+                carry = 0;
+            }
         }
         if(carry == 1) str.append(1);
 
@@ -83,7 +89,7 @@ public class Q66_Plus_One {
         }
         Collections.reverse(res);
         int[] result = new int[res.size()];
-        for(int i = 0; i<res.size(); i++){
+        for(int i = 0; i < res.size(); i++){
             result[i] = res.get(i);
         }
         return result;
@@ -104,7 +110,8 @@ public class Q66_Plus_One {
               digits[i] = 0;
               if(i == 0){
                   int[] newDigits = new int[len + 1];
-                  newDigits = Arrays.copyOf(digits, len + 1);
+             //     int[] newDigits;
+             //     newDigits = Arrays.copyOf(digits, len + 1);
                   newDigits[0] = 1;
                   System.out.println(Arrays.toString(newDigits));
                   return newDigits;
@@ -123,8 +130,9 @@ public class Q66_Plus_One {
         for(int i = len - 1; i >= 0; i--) {
             digits[i]++; // 循环直到判断没有再进位就退出循环返回结果
             digits[i] %= 10;
-            if(digits[i] != 0)
+            if(digits[i] != 0) {
                 return digits; // 加法运算如不出现进位就运算结束
+            }
         }
         digits = new int[len + 1];
         digits[0] = 1; // 当出现 99、999 之类的数字时，循环到最后也需要进位，出现这种情况时需要手动将它进一位。

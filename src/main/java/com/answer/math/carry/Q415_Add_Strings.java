@@ -39,7 +39,7 @@ public class Q415_Add_Strings {
         int i = num1.length() - 1, j = num2.length() - 1, carry = 0;
         char[] num1Char = num1.toCharArray();
         char[] num2Char = num2.toCharArray();
-        while (i >= 0 || j >= 0 || carry != 0) {
+        while (i >= 0 || j >= 0 || carry > 0) {
             int x = i < 0 ? 0 : num1Char[i--] - '0';
             int y = j < 0 ? 0 : num2Char[j--] - '0';
             int sum = x + y + carry;
@@ -56,7 +56,7 @@ public class Q415_Add_Strings {
     public String addStrings_2(String num1, String num2) {
         StringBuilder s = new StringBuilder();
         int carry = 0, i = num1.length() - 1, j = num2.length() - 1;
-        while (i >= 0 || j >= 0 || carry != 0) {
+        while (i >= 0 || j >= 0 || carry > 0) {
             int x = i < 0 ? 0 : num1.charAt(i--) - '0';
             int y = j < 0 ? 0 : num2.charAt(j--) - '0';
             int sum = x + y + carry;

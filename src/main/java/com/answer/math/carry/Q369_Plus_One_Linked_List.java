@@ -35,29 +35,42 @@ public class Q369_Plus_One_Linked_List {
         res.print();
     }
     /**
-     * it doesn't work for [9]
+     * 递归 it works well
      */
+    static int carryOverNum = 0;
+    static int depth = 0;
+
     public static ListNode plusOne(ListNode head) {
+        depth++;
         if(head == null){
             return head;
         }
-        ListNode newNode = plusOne(head.next);
+        ListNode node = plusOne(head.next);
+        depth--;
 
-        if(newNode == null || newNode.val == 10){
-            head.val +=  1;
-            head.val %= 10;
-            if(head.val == 0){
-                return new ListNode(10, head.next);
-            } else {
-                return head;
+        if(node == null){
+            int sum = head.val + 1;
+            carryOverNum = sum / 10;
+            head.val = sum % 10;
+        } else {
+            int sum = head.val + carryOverNum;
+            carryOverNum = sum / 10;
+            head.val = sum % 10;
+        }
+
+        if(depth == 1){
+            if(carryOver == 1){
+                ListNode newHead = new ListNode(1, head);
+                return newHead;
             }
         }
         return head;
     }
     /**
-     * it works well
+     * 递归 it works well
      */
     static int carryOver = 0;
+
     public static ListNode plusOne_1(ListNode head) {
         helper(head);
 
@@ -85,9 +98,10 @@ public class Q369_Plus_One_Linked_List {
         return head;
     }
     /**
-     *
+     * 递归 同上
      */
     int carry = 0;
+
     public ListNode plusOne_2(ListNode head) {
         help(head);
 
@@ -112,6 +126,7 @@ public class Q369_Plus_One_Linked_List {
         return;
     }
     /**
+     * 递归
      * The addOne method recursively traverses to the end of the list, adds 1, and handles the carry as the recursion unwinds.
      * If after processing all nodes there is still a carry (the most significant digit had a carryover), a new node is created at the head.
      */
@@ -135,6 +150,7 @@ public class Q369_Plus_One_Linked_List {
         return sum / 10;
     }
     /**
+     * 迭代
      * Reverse the linked list to make it easy to add one starting from the least significant digit.
      * Traverse the list, add one, and manage carry.
      * If a carry remains, add a new node at the end.

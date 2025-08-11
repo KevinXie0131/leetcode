@@ -16,28 +16,28 @@ public class Q989_Add_to_Array_Form_of_Integer {
     public static void main(String[] args) {
         int[] num = {1,2,0,0};
         int k = 34;
-        List<Integer> res = addToArrayForm2(num, k);
+        List<Integer> res = addToArrayForm1(num, k);
         System.out.println(Integer.MAX_VALUE);
         System.out.println(res);
     }
     /*
-     * cannot handle num = [0], k = 23
+     * it works well
      */
     static public List<Integer> addToArrayForm1(int[] num, int k) {
         int carry = 0;
         StringBuffer str = new StringBuffer();
-
-        for(int i = num.length - 1; i >= 0; i--){
-            int addVal = (k % (int)Math.pow(10, num.length - i));
-            int val = num[i] + carry + addVal/(int)Math.pow(10, num.length - i - 1);
-            if(val >= 10) {str.append(val % 10); carry = 1;}
-            else {str.append(val); carry = 0;}
+        int i = num.length - 1;
+        while(i >= 0 || k > 0 || carry > 0){
+           int value = i >= 0 ? num[i] : 0;
+           int sum = value + carry + k % 10;
+           k /= 10;
+           carry = sum / 10;
+           str.append(sum % 10);
+           i--;
         }
-        if(carry == 1) str.append(1);
-
         List<Integer> res = new ArrayList<>();
-        for(int i = 0; i < str.length(); i++){
-            res.add(str.charAt(str.length() - 1 - i) - '0');
+        for(int j = 0; j < str.length(); j++){
+            res.add(str.charAt(str.length() - 1 - j) - '0');
         }
         return res;
     }
