@@ -72,7 +72,7 @@ public class Q875_Koko_Eating_Bananas {
         return hours;
     }
     /**
-     *
+     * use Math.ceil()
      */
     public int minEatingSpeed1(int[] piles, int h) {
         int left = 1;
