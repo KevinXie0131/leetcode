@@ -60,18 +60,24 @@ public class Q29_Divide_Two_Integers {
         if (a < 0) a = -a;
         if (b < 0) b = -b;
         long l = 0, r = a;
-        while (l < r) {
+        long res = 0;
+        while (l <= r) {
             // 考虑 l = 0, r = 1 的简单情况，如果不 +1 的话，l + r >> 1 等于 0 + 1 / 2，l 仍然是 0，陷入死循环。
-            long mid = l + r + 1 >> 1; // +1 操作主要是为了避免发生「死循环」，因为 >> 和 直接使用 / 一样，都属于「下取整」操作。
-            if (mul(mid, b) <= a) l = mid;
-            else r = mid - 1;
+           // long mid = l + r + 1 >> 1; // +1 操作主要是为了避免发生「死循环」，因为 >> 和 直接使用 / 一样，都属于「下取整」操作。
+            long mid = (l + r) >>> 1;
+            if (mul(mid, b) <= a) {
+                res = mid;
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
         }
-        r = flag ? -r : r;
-        if (r > INF || r < -INF - 1) return INF;
-        return (int)r;
+        res = flag ? -res : res;
+        if (res > INF || res < -INF - 1) return INF;
+        return (int)res;
     }
-    /*
-        int res = 0;
+    // Time Limit Exceeded for dividend = -2147483648 & divisor = -1
+    /*  int res = 0;
         for(int i = 1; i <= Math.max(a, b); i++){
             long result = mul(i, b);
             if(result == a){
