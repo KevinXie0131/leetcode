@@ -29,7 +29,7 @@ public class MathTemplate {
             z &= z - 1;
             count++;
         }
-        System.out.println(count); // 1的个数
+        System.out.println(count); // 计算其二进制表示中 1 的个数
         /**
          * 位运算 x & -x 取出 x 的二进制表示中最低位那个 1
          */
