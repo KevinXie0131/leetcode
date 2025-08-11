@@ -86,10 +86,12 @@ public class Q7_Reverse_Integer {
         int ans = 0;
         while (x != 0) {
             int pop = x % 10;
-            if (ans > Integer.MAX_VALUE / 10 || (ans == Integer.MAX_VALUE / 10 && pop > 7))
+            if (ans > Integer.MAX_VALUE / 10 || (ans == Integer.MAX_VALUE / 10 && pop > 7)) {
                 return 0;
-            if (ans < Integer.MIN_VALUE / 10 || (ans == Integer.MIN_VALUE / 10 && pop < -8))
+            }
+            if (ans < Integer.MIN_VALUE / 10 || (ans == Integer.MIN_VALUE / 10 && pop < -8)) {
                 return 0;
+            }
             ans = ans * 10 + pop;
             x /= 10;
         }
@@ -109,7 +111,9 @@ public class Q7_Reverse_Integer {
             ans = ans * 10 + digit;
         }
         // 溢出则返回 0
-        if (ans > Integer.MAX_VALUE || ans < Integer.MIN_VALUE) return 0;
+        if (ans > Integer.MAX_VALUE || ans < Integer.MIN_VALUE) {
+            return 0;
+        }
         return (int) ans;
     }
     /**
@@ -127,7 +131,8 @@ public class Q7_Reverse_Integer {
             char temp = chars[l];
             chars[l] = chars[r];
             chars[r] = temp;
-            ++l; --r;
+            ++l;
+            --r;
         }
         String reversedStr = new String(chars);
         // 先转换为 long long，用来检测是否溢出
