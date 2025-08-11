@@ -106,6 +106,27 @@ public class Q162_Find_Peak_Element {
         return left; // return right + 1; // works too
     }
     /**
+     * another fomm
+     */
+    public int findPeakElement_6(int[] nums) {
+        int length = nums.length;
+        if(length == 1) return 0;
+        int left = 0, right = length - 1;
+        int res = 0;
+
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(mid < length - 1 && nums[mid] < nums[mid + 1]){ // nums[mid] <= nums[mid + 1] works too
+                left = mid + 1;
+                res = left; // keep mid + 1
+            } else{
+             //   res = mid; // works too, and res = left & res = mid can uncomment at the same time
+                right = mid - 1;
+            }
+        }
+        return res;
+    }
+    /**
      * 二分查找
      * 在二分查找中，每次会找到一个位置 mid。我们发现，mid 只有如下三种情况：
      *  mid 为一个峰值，此时我们通过比较 mid 位置元素与两边元素大小即可。
