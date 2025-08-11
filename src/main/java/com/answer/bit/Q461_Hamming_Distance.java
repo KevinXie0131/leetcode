@@ -47,17 +47,17 @@ public class Q461_Hamming_Distance {
         int xor = x ^ y;
 
         while(xor > 0){
-            /**
-             * while(xor > 0){
-             *    count += xor & 1;
-             *    xor = xor >> 1;
-             * }
-             */
             if(xor % 2 == 1){
                 count++;
             }
             xor = xor >> 1;
         }
+        /**
+         * while(xor > 0){
+         *    count += xor & 1;
+         *    xor = xor >> 1;
+         * }
+         */
         return count;
     }
     /**
@@ -69,7 +69,6 @@ public class Q461_Hamming_Distance {
         for (int i = 0; i < 32; i++) {
             distance += ((s >> i) & 1);
         }
-
         return distance;
     }
 }

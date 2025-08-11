@@ -20,8 +20,16 @@ public class MathTemplate {
          * x & (x-1) = 1010 0000
          */
         int x = Integer.parseInt("10110000",2);
-        x = x & (x-1);
+        x = x & (x - 1);
         System.out.println(Integer.toBinaryString(x));
+
+        int count = 0;
+        int z = 10;
+        while(z > 0){
+            z &= z - 1;
+            count++;
+        }
+        System.out.println(count); // 1的个数
         /**
          * 位运算 x & -x 取出 x 的二进制表示中最低位那个 1
          */
