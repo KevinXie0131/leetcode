@@ -40,6 +40,7 @@ public class Q190_Reverse_Bits {
             int t = (n >> i) & 1;
             if (t == 1) {
                 ans |= (1 << (31 - i));
+                //  ans += (1 << (31 - i)); // works too
             }
         }
         return ans;
