@@ -40,6 +40,27 @@ public class Q441_Arranging_Coins {
         return (int)left - 1; // return (int)right; // 是同样的结果。right<left,而根据题意，k取较小值
     }
     /**
+     * another form
+     */
+    public int arrangeCoins_7(int n) {
+        long left = 1, right = n, res = 0;
+        while(left <= right){
+            long mid = (left + right) >>> 1;
+            long sum = (mid + 1) * mid / 2; // 根据等差数列求和公式可知，前 mid个完整阶梯行所需的硬币数量
+
+            if(sum == n){
+                return (int)mid;
+            }else if(sum < n){
+                res = mid;
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+                res = mid - 1;
+            }
+        }
+        return (int) res;
+    }
+    /**
      * another form 二分查找
      */
     public  int arrangeCoins1(int n) {
@@ -68,6 +89,7 @@ public class Q441_Arranging_Coins {
 
         for(int i = 1; ; i++){
             sum += i;
+            if(sum == n) return i;
             if(sum > n){
                 return i - 1;
             }
