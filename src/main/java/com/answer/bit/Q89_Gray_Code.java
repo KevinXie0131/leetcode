@@ -22,8 +22,8 @@ public class Q89_Gray_Code {
      *   给你一个整数 n ，返回任一有效的 n 位格雷码序列 。
      */
     public static void main(String[] args) {
-        int n = 3;
-        System.out.println(grayCode(n)); // [0,1,3,2] or [0,2,3,1]
+        int n = 2;
+        System.out.println(grayCode_1(n)); // [0,1,3,2] or [0,2,3,1]
     }
     /**
      * 方法一：归纳法
@@ -50,8 +50,9 @@ public class Q89_Gray_Code {
         List<Integer> res = new ArrayList<Integer>() {{ add(0); }};
         int head = 1;
         for (int i = 0; i < n; i++) {
-            for (int j = res.size() - 1; j >= 0; j--)   // 注意这里要倒序
+            for (int j = res.size() - 1; j >= 0; j--) {  // 注意这里要倒序
                 res.add(head + res.get(j));
+            }
             head <<= 1;
         }
         return res;

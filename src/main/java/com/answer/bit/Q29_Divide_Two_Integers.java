@@ -9,7 +9,7 @@ public class Q29_Divide_Two_Integers {
      * Return the quotient after dividing dividend by divisor.
      * 给你两个整数，被除数 dividend 和除数 divisor。将两数相除，要求 不使用 乘法、除法和取余运算。
      * 整数除法应该向零截断，也就是截去（truncate）其小数部分。例如，8.345 将被截断为 8 ，-2.7335 将被截断至 -2 。
-     * 返回被除数 dividend 除以除数 divisor 得到的 商 。
+     * 返回被除数 dividend 除以除数 divisor 得到的 商(quotient)。
      */
     public static void main(String[] args) {
         System.out.println(Integer.MAX_VALUE);
@@ -52,6 +52,7 @@ public class Q29_Divide_Two_Integers {
      *      小于等于 x 的数 y 不满足 y∗b>a；
      */
     int INF = Integer.MAX_VALUE;
+
     public int divide_1a(int _a, int _b) {
         long a = _a, b = _b;
         boolean flag = false;
@@ -69,12 +70,28 @@ public class Q29_Divide_Two_Integers {
         if (r > INF || r < -INF - 1) return INF;
         return (int)r;
     }
+    /*
+        int res = 0;
+        for(int i = 1; i <= Math.max(a, b); i++){
+            long result = mul(i, b);
+            if(result == a){
+                res = (int)i;
+                break;
+            } else if (result > a){
+               res = (int)i - 1;
+               break;
+            }
+        }
+        return flag ? -res : res;
+    */
     // 根据「二段性」分析，我们发现二分的 check 实现需要用到乘法，
     // 因此我们需要实现一个「不用乘法符号」的乘法实现（这可以使用倍增思想来实现 mul 操作）
     long mul(long a, long k) {
         long ans = 0;
         while (k > 0) {
-            if ((k & 1) == 1) ans += a; // 「快速乘法」模板，采用了倍增的思想
+            if ((k & 1) == 1) {
+                ans += a; // 「快速乘法」模板，采用了倍增的思想
+            }
             k >>= 1;
             a += a;
         }
