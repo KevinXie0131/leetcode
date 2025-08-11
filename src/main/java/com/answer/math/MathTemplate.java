@@ -13,6 +13,15 @@ public class MathTemplate {
         System.out.println(5 ^ 5); // 0
         System.out.println(2 ^ 2 ^ 1); // 1
         System.out.println(2 ^ 1 ^ 2); // 1
+        /**
+         * n & (n−1)这个操作，，可以'消除最后一个1', 其运算结果恰为把 n 的二进制位中的最低位的 1 变为 0。
+         * x = 1011 0000
+         * x-1= 1010 1111
+         * x & (x-1) = 1010 0000
+         */
+        int x = Integer.parseInt("10110000",2);
+        x = x & (x-1);
+        System.out.println(Integer.toBinaryString(x));
     }
     /**
      * 快速幂 https://oi-wiki.org/math/binary-exponentiation/
