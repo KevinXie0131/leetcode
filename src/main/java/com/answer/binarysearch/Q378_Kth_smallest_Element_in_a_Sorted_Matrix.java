@@ -79,7 +79,7 @@ public class Q378_Kth_smallest_Element_in_a_Sorted_Matrix {
         }
         while(--k > 0) {
             int[] min = queue.poll();
-            int x = min[0],y = min[1] + 1;
+            int x = min[0], y = min[1] + 1;
             if(y < n) {
                 queue.offer(new int[]{x, y});
             }
@@ -100,7 +100,7 @@ public class Q378_Kth_smallest_Element_in_a_Sorted_Matrix {
         int col = matrix[0].length;
         int left = matrix[0][0];
         int right = matrix[row - 1][col - 1];
-        while (left < right) {
+        while (left <= right) {
             // 每次循环都保证第K小的数在start~end之间，当start==end，第k小的数就是start
             int mid = left + (right - left) / 2;
 
@@ -108,10 +108,11 @@ public class Q378_Kth_smallest_Element_in_a_Sorted_Matrix {
             if (count < k) {
                 left = mid + 1; // 第k小的数在右半部分，且不包含mid
             } else {
-                right = mid;  // 第k小的数在左半部分，可能包含mid
+                // res = mid; // works too
+                right = mid - 1;  // 第k小的数在左半部分，可能包含mid
             }
         }
-        return right;
+        return right + 1; //  return left; // works too
     }
     // 从循环的坐标变化路径发现，这样进行统计时，最坏的情况是从左下角走到右上角，只需要对比2*n次元素大小。
     static private int findNotBiggerThanMid(int[][] matrix, int mid, int row, int col) {
@@ -136,15 +137,17 @@ public class Q378_Kth_smallest_Element_in_a_Sorted_Matrix {
         int n = matrix.length;
         int left = matrix[0][0];
         int right = matrix[n - 1][n - 1];
-        while (left < right) {
+        while (left <= right) {
             int mid = left + ((right - left) >> 1);
             if (check(matrix, mid, k, n)) {
-                right = mid;
+                // res = mid; // works too
+                right = mid - 1;
             } else {
                 left = mid + 1;
             }
         }
-        return left;
+        return right + 1;
+       // return left; // works too
     }
     // 初始位置在 matrix[n−1][0]（即左下角）；
     // 设当前位置为 matrix[i][j]。若 matrix[i][j]≤mid，则将当前所在列的不大于 mid 的数的数量（即 i+1）累加到答案中，并向右移动，否则向上移动；
