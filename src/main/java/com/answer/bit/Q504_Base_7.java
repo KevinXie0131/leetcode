@@ -16,7 +16,7 @@ public class Q504_Base_7 {
      * 当输入为负时，我们可以先取 num 的绝对值来求七进制，最后再添加负号。
      */
     static public String convertToBase7(int num) {
-        if(num == 0)return "0";
+        if(num == 0) return "0";
 
         boolean isNeg = false;
         if(num < 0) isNeg = true;
@@ -33,4 +33,26 @@ public class Q504_Base_7 {
 
         return  digits.reverse().toString();
     }
+    /**
+     * another form
+     */
+    public String convertToBase7_1(int num) {
+        if(num == 0) return "0";
+
+        boolean isNeg = false;
+        if(num < 0){
+            isNeg = true;
+            num = Math.abs(num);
+        }
+
+        StringBuilder digits = new StringBuilder();
+        while(num > 0){
+            int r = num % 7;
+            num /= 7;
+            digits.insert(0, r);
+        }
+        if(isNeg) digits.insert(0, "-");
+        return  digits.toString();
+    }
 }
+

@@ -46,7 +46,6 @@ public class Q338_Counting_Bits {
             x = x & (x - 1); // zeroing out the least significant nonzero bit
             count++;
         }
-
         return count;
     }
     /**
@@ -59,8 +58,9 @@ public class Q338_Counting_Bits {
             //一个数的比特位1的个数先让他等于他一半的比特位量
             bits[i] = bits[i / 2];
             //如果是奇数还要加1
-            if ((i & 1) == 1)
+            if ((i & 1) == 1) {
                 bits[i]++;
+            }
         }
         return bits;
     }
@@ -77,7 +77,7 @@ public class Q338_Counting_Bits {
             if(i % 2 == 1) {
                 bits[i] = bits[i - 1] + 1;
             } else {
-                bits[i] = bits[i/2];
+                bits[i] = bits[i / 2];
             }
         }
         return bits;
