@@ -89,6 +89,6 @@ public class Q260_Single_Number_III {
             }
         }
 
-        return new int[]{x, bitmask^x};
+        return new int[]{x, bitmask ^ x};
     }
 }

@@ -22,6 +22,13 @@ public class MathTemplate {
         int x = Integer.parseInt("10110000",2);
         x = x & (x-1);
         System.out.println(Integer.toBinaryString(x));
+        /**
+         * 位运算 x & -x 取出 x 的二进制表示中最低位那个 1
+         */
+        int y = 6;
+        System.out.println(Integer.toBinaryString(y)); // 110
+        System.out.println(Integer.toBinaryString(-y)); // 11111111111111111111111111111010
+        System.out.println(Integer.toBinaryString(y & -y)); // 10
     }
     /**
      * 快速幂 https://oi-wiki.org/math/binary-exponentiation/
