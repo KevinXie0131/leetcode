@@ -11,7 +11,7 @@ public class binarySearchTemplate {
         while(left <= right){  // 左闭右闭
             int mid = (left + right) >>> 1;
           //  int mid = left + ((right- left) >> 1); // works too
-
+          //  int mid = left + (right - left) / 2; // works too
             if(nums[mid] == target){
                 return mid;
             } else if(nums[mid] < target){
