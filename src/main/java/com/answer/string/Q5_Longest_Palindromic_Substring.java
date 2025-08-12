@@ -115,6 +115,7 @@ public class Q5_Longest_Palindromic_Substring {
             --left;
             ++right;
         }
+        // (right - 1) - (left + 1) + 1 = right - left - 1
         return right - left - 1; // 退出循环时，right和left一定是指向不是回文串的部分，即回文串为[left + 1, right - 1]
     }
     /**
