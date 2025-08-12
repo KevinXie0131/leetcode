@@ -23,7 +23,6 @@ public class Q779_K_th_Symbol_in_Grammar {
      *
      * 对于查询某一个行第 k 个数字，如果 k 在后半部分，那么原问题就可以转化为求解该行前半部分的对应位置的“翻转”数字，
      * 又因为该行前半部分与上一行相同，所以又转化为上一行对应对应的“翻转”数字。那么按照这样一直递归下去，并在第一行时返回数字 0 即可。
-
      */
     static public int kthGrammar(int n, int k) {
         if (k == 1) {
