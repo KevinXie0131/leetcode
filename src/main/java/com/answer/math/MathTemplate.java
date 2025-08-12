@@ -3,6 +3,7 @@ package com.answer.math;
 public class MathTemplate {
     public static void main(String[] args) {
         System.out.println(multiply(3, 5));
+        System.out.println(myPow(5, 3));
         /**
          * 异或 XOR
          * a⊕0 = a
@@ -57,5 +58,23 @@ public class MathTemplate {
             a += a; //也就是将a乘2
         }
         return ans;
+    }
+    /**
+     * 计算 x 的整数 n 次幂函数（即，x^n ）
+     * 快速幂 + 迭代
+     * 例如 3^13 = 3^8 + 3^4 + 3^1
+     * n^9 = n^1*1 + n^0*2 + n^0*4 + n^1*8
+     */
+    static public double myPow(double x, int n) {
+        double result = 1.0;
+
+        while(n > 0){  // 在对 n 进行二进制拆分的同时计算答案
+            if((n & 1) == 1){ // 相当于n % 2 == 1  位运算&要加括号
+                result *= x;   // 如果 n 二进制表示的最低位为 1，那么需要计入贡献
+            }
+            n = n >> 1;  // 舍弃 n 二进制表示的最低位，这样我们每次只要判断最低位即可
+            x *= x; // 将贡献不断地平方
+        }
+        return result;
     }
 }

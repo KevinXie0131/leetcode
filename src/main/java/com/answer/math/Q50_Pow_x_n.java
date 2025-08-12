@@ -31,7 +31,6 @@ public class Q50_Pow_x_n {
             }
             n = n >> 1;  // 舍弃 n 二进制表示的最低位，这样我们每次只要判断最低位即可
             tmp *= tmp; // 将贡献不断地平方
-
         }
         return result;
     }
@@ -52,7 +51,6 @@ public class Q50_Pow_x_n {
             }
             x = x * x;
         }
-
         if(n < 0){
             res = 1.0 / res;
         }
