@@ -56,7 +56,7 @@ public class Q405_Convert_a_Number_to_Hexadecimal {
         if(num == 0) {
             return "0";
         }
-        int f= 0xf;
+        int f= 0xf; // oxf = 15 (如果一个整数值以0x或0X开头，则表示它是一个十六进制数)
         StringBuffer sb = new StringBuffer();
 
         char[] ch = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -68,7 +68,6 @@ public class Q405_Convert_a_Number_to_Hexadecimal {
             sb.append(c);*/
             num = num >>> 4; // 逻辑右移4位
         }
-
         sb.reverse();
         return sb.toString();
     }
