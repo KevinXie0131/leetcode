@@ -1,9 +1,20 @@
 package com.answer.math;
 
 public class MathTemplate {
+    /**
+     * 常用位操作
+     * 判断奇偶
+     * (x & 1) == 1 ---等价---> (x % 2 == 1)
+     * (x & 1) == 0 ---等价---> (x % 2 == 0)
+     * x / 2 ---等价---> x >> 1
+     * x &= (x - 1) ------> 把x最低位的二进制1给去掉
+     * x & -x -----> 得到最低位的1 (−n 的二进制表示为 n 的二进制表示的每一位取反再加上 1)
+     * x & ~x -----> 0
+     */
     public static void main(String[] args) {
         System.out.println(multiply(3, 5));
         System.out.println(myPow(5, 3));
+        System.out.println(mySqrt(16));
         /**
          * 异或 XOR
          * a⊕0 = a
@@ -76,5 +87,21 @@ public class MathTemplate {
             x *= x; // 将贡献不断地平方
         }
         return result;
+    }
+
+    /**
+     *  一个简单的 sqrt 的实现。复杂度为 O(logn)
+      */
+    static public  int mySqrt(int n) {
+        long l = 0, r = n;
+        while (l < r) {
+            long mid = l + r >> 1;
+            if (mid * mid >= n) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return (int)r;
     }
 }

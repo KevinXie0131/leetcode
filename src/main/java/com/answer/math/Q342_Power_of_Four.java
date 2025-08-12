@@ -11,7 +11,7 @@ public class Q342_Power_of_Four {
      * 整数 n 是 4 的幂次方需满足：存在整数 x 使得 n == 4^x
      */
     public static void main(String[] args) {
-        System.out.println(isPowerOfFour_6(16));
+        System.out.println(isPowerOfFour_7(64));
     }
     /**
      * Bineary Search 二分查找法
@@ -126,5 +126,14 @@ public class Q342_Power_of_Four {
         System.out.println(Math.log(2));
         System.out.println(Math.log(num) / Math.log(2));
         return (num > 0) && (Math.log(num) / Math.log(4) % 2 == 0);
+    }
+    /**
+     *
+     */
+    public static boolean isPowerOfFour_7(int num) {
+        System.out.println(Math.log(num));
+        System.out.println(Math.log(4));
+        System.out.println(Math.log(num) / Math.log(4));
+        return (num > 0) && (Math.log(num) / Math.log(4) % 1 == 0);
     }
 }
