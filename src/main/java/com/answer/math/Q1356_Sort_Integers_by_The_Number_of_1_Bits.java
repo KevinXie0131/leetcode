@@ -5,8 +5,7 @@ import java.util.*;
 public class Q1356_Sort_Integers_by_The_Number_of_1_Bits {
     /**
      * You are given an integer array arr. Sort the integers in the array in ascending order by the number of 1's
-     * in their binary representation and in case of two or more integers have the same number of 1's you have to
-     * sort them in ascending order.
+     * in their binary representation and in case of two or more integers have the same number of 1's you have to sort them in ascending order.
      * 根据数字二进制下 1 的数目排序
      * 给你一个整数数组 arr 。请你将数组中的元素按照其二进制表示中数字 1 的数目升序排序。
      * 如果存在多个数字二进制中 1 的数目相同，则必须将它们按照数值大小升序排列。
@@ -44,7 +43,9 @@ public class Q1356_Sort_Integers_by_The_Number_of_1_Bits {
     static int bitCount1(int n) {
         int count = 0; // 计数器
         while (n > 0) {
-            if((n & 1) == 1)  count++;  // 当前位是1，count++
+            if((n & 1) == 1)  {
+                count++;  // 当前位是1，count++
+            }
             n >>= 1 ; // n向右移位
         }
         return count;
