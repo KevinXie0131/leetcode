@@ -8,7 +8,7 @@ public class Q557_Reverse_Words_in_a_String_III {
      */
     public static void main(String[] args) {
         String s = "Let's take LeetCode contest";
-        System.out.println(reverseWords_3(s)); // "s'teL ekat edoCteeL tsetnoc"
+        System.out.println(reverseWords_3(s));  // "s'teL ekat edoCteeL tsetnoc"
     }
     /**
      * Reverse each word
@@ -108,15 +108,17 @@ public class Q557_Reverse_Words_in_a_String_III {
      * use StringBuffer
      */
     public String reverseWords_1(String s) {
-        String[] s1 = s.split(" ");
-        StringBuilder stringBuilder1 = new StringBuilder();
-        for (int i = 0; i < s1.length ;i++) {
-            StringBuilder stringBuilder = new StringBuilder(s1[i]);
-            stringBuilder1.append(stringBuilder.reverse());
-            if(i != s1.length - 1){
-                stringBuilder1.append(" ");
+        String[] strs = s.split(" ");
+        StringBuilder newStr = new StringBuilder();
+
+        for (int i = 0; i < strs.length ;i++) {
+            StringBuilder sb = new StringBuilder(strs[i]);
+            newStr.append(sb.reverse());
+
+            if(i != strs.length - 1){
+                newStr.append(" ");
             }
         }
-        return stringBuilder1.toString();
+        return newStr.toString();
     }
 }

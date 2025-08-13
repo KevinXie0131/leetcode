@@ -12,7 +12,7 @@ public class Q151_Reverse_Words_in_a_String {
      * 注意：输入字符串 s中可能会存在前导空格、尾随空格或者单词间的多个空格。返回的结果字符串中，单词间应当仅用单个空格分隔，且不包含任何额外的空格。
      */
     public static void main(String[] args) {
-     //  String s = "the sky is blue"; // "blue is sky the"
+     // String s = "the sky is blue"; // "blue is sky the"
      // String s = "a good   example"; // "example good a"
        String s= "  hello world  "; // "world hello"
        System.out.println(reverseWords_1(s));
@@ -145,6 +145,21 @@ public class Q151_Reverse_Words_in_a_String {
         }
     }
     /**
+     * another form, improved
+     */
+    private static void reverseEachWord_1(StringBuffer sb) {
+        int left = 0;
+        int right = 1;
+        int n = sb.length();
+        while(right <= n){
+            if(right == n || sb.charAt(right) == ' '){
+                reverseString(sb, left, right - 1);  // 翻转单词
+                left = right + 1;  // 更新start，去找下一个单词
+            }
+            right++;
+        }
+    }
+    /**
      * 双端队列
      * 由于双端队列支持从队列头部插入的方法，因此我们可以沿着字符串一个一个单词处理，然后将单词压入队列的头部，再将队列转成字符串即可。
      */
@@ -207,17 +222,21 @@ public class Q151_Reverse_Words_in_a_String {
         //源字符数组
         char[] initialArr = s.toCharArray();
         //新字符数组
-        char[] newArr = new char[initialArr.length+1];//下面循环添加"单词 "，最终末尾的空格不会返回
+        char[] newArr = new char[initialArr.length + 1];//下面循环添加"单词 "，最终末尾的空格不会返回
         int newArrPos = 0;
         //i来进行整体对源字符数组从后往前遍历
-        int i = initialArr.length-1;
-        while(i>=0){
-            while(i>=0 && initialArr[i] == ' '){i--;}  //跳过空格
+        int i = initialArr.length - 1;
+        while(i >= 0){
+            while(i >= 0 && initialArr[i] == ' '){//跳过空格
+                i--;
+            }
             //此时i位置是边界或!=空格，先记录当前索引，之后的while用来确定单词的首字母的位置
             int right = i;
-            while(i>=0 && initialArr[i] != ' '){i--;}
+            while(i >= 0 && initialArr[i] != ' '){
+                i--;
+            }
             //指定区间单词取出(由于i为首字母的前一位，所以这里+1,)，取出的每组末尾都带有一个空格
-            for (int j = i+1; j <= right; j++) {
+            for (int j = i + 1; j <= right; j++) {
                 newArr[newArrPos++] = initialArr[j];
                 if(j == right){
                     newArr[newArrPos++] = ' ';//空格
@@ -228,7 +247,7 @@ public class Q151_Reverse_Words_in_a_String {
         if(newArrPos == 0){
             return "";
         }else{
-            return new String(newArr,0,newArrPos-1);
+            return new String(newArr,0,newArrPos - 1);
         }
     }
     /**

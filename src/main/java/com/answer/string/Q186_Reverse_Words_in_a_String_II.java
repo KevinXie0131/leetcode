@@ -11,7 +11,7 @@ public class Q186_Reverse_Words_in_a_String_II {
      */
     public static void main(String[] args) {
         char[] input =  {'t','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e'};
-        // Output: ['b','l','u','e',' ','i','s',' ','s','k','y',' ','t','h','e']
+        //  Output: ['b','l','u','e',' ','i','s',' ','s','k','y',' ','t','h','e']
         reverseWords1(input);
         System.out.println(input);
     }
@@ -30,13 +30,6 @@ public class Q186_Reverse_Words_in_a_String_II {
             }
         }
     }
-    /**
-     * Approach 1: Reverse the Whole String and Then Reverse Each Word
-     */
-    static public void reverseWords(char[] s) {
-        reverseString(s, 0 , s.length - 1);  // Step 1: Reverse the entire array
-        reverseEachWord(s);                             // Step 2: Reverse each word in the reversed array
-    }
 
     private static void reverseString(char[] s, int start, int end){
         while(start < end){
@@ -46,6 +39,13 @@ public class Q186_Reverse_Words_in_a_String_II {
             start++;
             end--;
         }
+    }
+    /**
+     * Approach 1: Reverse the Whole String and Then Reverse Each Word
+     */
+    static public void reverseWords(char[] s) {
+        reverseString(s, 0 , s.length - 1);  // Step 1: Reverse the entire array
+        reverseEachWord(s);                             // Step 2: Reverse each word in the reversed array
     }
 
     private static void reverseEachWord(char[] s) {
