@@ -147,7 +147,7 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
     /**
      * 方法一
      */
-    public void getNext(int[] next, String s){ // 前缀表
+    public void getNext(int[] next, String s){ // KMP前缀表
         int j = -1;
         next[0] = j;
         for (int i = 1; i < s.length(); i++){
@@ -161,6 +161,7 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
             next[i] = j;
         }
     }
+
     public int strStr_2(String haystack, String needle) {
         if(needle.length()==0){
             return 0;
@@ -184,7 +185,7 @@ public class Q28_Find_the_Index_of_the_First_Occurrence_in_a_String {
         return -1;
     }
     /**
-     * 前缀表（不减一）Java实现
+     * KMP前缀表（不减一）Java实现
      */
     public int strStr3(String haystack, String needle) {
         if (needle.length() == 0) return 0;

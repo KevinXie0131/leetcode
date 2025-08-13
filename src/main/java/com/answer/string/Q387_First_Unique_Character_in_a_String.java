@@ -59,7 +59,9 @@ public class Q387_First_Unique_Character_in_a_String {
         }
 
         for(int i = 0; i < sc.length; i++){
-            if(dic.get(sc[i])) return i;
+            if(dic.get(sc[i])) {
+                return i;
+            }
         }
         return -1;
     }

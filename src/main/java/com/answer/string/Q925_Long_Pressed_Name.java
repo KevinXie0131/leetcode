@@ -33,13 +33,13 @@ public class Q925_Long_Pressed_Name {
             if (i < name.length() && name.charAt(i) == typed.charAt(j)) { // 当 name[i]=typed[j] 时，说明两个字符串存在一对匹配的字符，此时将 i,j 都加 1。
                 i++;
                 j++;
-            } else if (j > 0 && typed.charAt(j) == typed.charAt(j - 1)) { // 否则，如果 typed[j]=typed[j−1]，说明存在一次长按键入，此时只将 j 加 1。
+            } else if (j > 0 && typed.charAt(j) == typed.charAt(j - 1)) { // 否则，如果 typed[j]=typed[j − 1]，说明存在一次长按键入，此时只将 j 加 1。
                 j++;
             } else {
                 return false;
             }
         }
-        return i == name.length(); // 最后，如果 i=name.length，说明 name 的每个字符都被「匹配」了。
+        return i == name.length(); // 最后，如果 i = name.length，说明 name 的每个字符都被「匹配」了。
     }
     /**
      * 1.核心while循环,如果字符一样则两个指针都加一,如果不一样,则长按键字符指针加1;
@@ -57,7 +57,7 @@ public class Q925_Long_Pressed_Name {
                 p2++;
             }
             else{
-                if(p1 >= 1 && c2[p2] == c1[p1-1]) {
+                if(p1 >= 1 && c2[p2] == c1[p1 - 1]) {
                     p2++;
                 } else {
                     return false;
@@ -96,8 +96,8 @@ public class Q925_Long_Pressed_Name {
             if(nameArr[i] == typedArr[j]){  // 相同则同时向后匹配
                 i++; j++;
             } else { // 不相同
-                while(j < typedArr.length && j > 0 // j跨越重复项，向后移动，同时防止j越界
-                        && typedArr[j] == typedArr[j - 1]){
+                while(j < typedArr.length && j > 0
+                        && typedArr[j] == typedArr[j - 1]){ // j跨越重复项，向后移动，同时防止j越界
                     j++;
                 }
                 if(i < nameArr.length && j < typedArr.length && nameArr[i] == typedArr[j]){// j跨越重复项之后再次和name[i]匹配

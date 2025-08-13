@@ -30,6 +30,5 @@ public class Q657_Robot_Return_to_Origin {
             else if(ch == 'D') y++;
         }
         return x == 0 && y == 0;
-
     }
 }

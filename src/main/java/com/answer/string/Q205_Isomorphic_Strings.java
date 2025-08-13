@@ -42,8 +42,8 @@ public class Q205_Isomorphic_Strings {
                 dict1[c1] = c2;
                 dict2[c2] = c1;
             } else if(!(dict1[c1] == c2 && dict2[c2] == c1)){ // Case 2: Ether mapping doesn't exist in one of the dictionaries or Mapping exists and
-                // it doesn't match in either of the dictionaries or both
-                return false;
+            //  else if(dict1[c1] != c2 || dict2[c2] != c1){ // works too
+                return false;// it doesn't match in either of the dictionaries or both
             }
         }
         return true;
@@ -83,8 +83,7 @@ public class Q205_Isomorphic_Strings {
     }
     /**
      * Use only one HashMap
-     * 需要我们判断 s 和 t 每个位置上的字符是否都一一对应，即 s 的任意一个字符被 t 中唯一的字符对应，
-     * 同时 t 的任意一个字符被 s 中唯一的字符对应。
+     * 需要我们判断 s 和 t 每个位置上的字符是否都一一对应，即 s 的任意一个字符被 t 中唯一的字符对应，同时 t 的任意一个字符被 s 中唯一的字符对应。
      * 以示例 2 为例，t 中的字符 a 和 r 虽然有唯一的映射 o，但对于 s 中的字符 o 来说其存在两个映射 {a,r}，故不满足条件。
      */
     public boolean isIsomorphic_3(String s, String t) {

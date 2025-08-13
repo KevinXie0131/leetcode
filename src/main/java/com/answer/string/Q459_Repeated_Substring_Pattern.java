@@ -14,7 +14,7 @@ public class Q459_Repeated_Substring_Pattern {
      *  输出: false
      */
     public static void main(String[] args) {
-       String s = "abab";
+       String s = "abcabcabc";
         repeatedSubstringPattern_1(s);
     }
     /**
@@ -35,14 +35,16 @@ public class Q459_Repeated_Substring_Pattern {
      */
     public  boolean repeatedSubstringPattern2(String s) { // Time Limit Exceeded
         for(int i = 1; i < s.length(); i++) {
-            String str = rotate(s.toCharArray(),i);
+            String str = rotate(s.toCharArray(), i);
             if(s.equals(str)) {
                 return true;
             }
         }
         return false;
     }
-
+    // 1, 2, 3, 4, 5
+    // 5, 4, 3, 2, 1
+    // 4, 5, 1, 2, 3
     public  String rotate(char[] nums, int k) {
         k = k % nums.length;
         reverse(nums, 0, nums.length - 1);

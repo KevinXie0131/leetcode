@@ -12,7 +12,7 @@ public class Q49_Group_Anagrams {
      */
     public static void main(String[] args) {
         String[] strs =  {"eat","tea","tan","ate","nat","bat"};
-        groupAnagrams(strs);
+        System.out.println(groupAnagrams(strs));
     }
     /**
      * Approach 1: Categorize by Sorted String

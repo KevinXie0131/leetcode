@@ -1,7 +1,5 @@
 package com.answer.string;
 
-import java.util.Arrays;
-
 public class Q541_Reverse_String_II {
     /**
      * Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.

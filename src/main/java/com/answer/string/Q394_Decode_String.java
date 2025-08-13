@@ -34,12 +34,10 @@ public class Q394_Decode_String {
         while (ptr < s.length()) {
             char cur = s.charAt(ptr);
             if (Character.isDigit(cur)) {
-                // 获取一个数字并进栈
-                String digits = getDigits(s);
+                String digits = getDigits(s); // 获取一个数字并进栈
                 stk.addLast(digits);
             } else if (Character.isLetter(cur) || cur == '[') {
-                // 获取一个字母并进栈
-                stk.addLast(String.valueOf(s.charAt(ptr++)));
+                stk.addLast(String.valueOf(s.charAt(ptr++)));   // 获取一个字母并进栈
             } else {
                 ++ptr;
                 LinkedList<String> sub = new LinkedList<String>();
@@ -47,21 +45,17 @@ public class Q394_Decode_String {
                     sub.addLast(stk.removeLast());
                 }
                 Collections.reverse(sub);
-                // 左括号出栈
-                stk.removeLast();
-                // 此时栈顶为当前 sub 对应的字符串应该出现的次数
-                int repTime = Integer.parseInt(stk.removeLast());
+                stk.removeLast(); // 左括号出栈
+                int repTime = Integer.parseInt(stk.removeLast()); // 此时栈顶为当前 sub 对应的字符串应该出现的次数
                 StringBuffer t = new StringBuffer();
                 String o = getString(sub);
-                // 构造字符串
-                while (repTime-- > 0) {
+
+                while (repTime-- > 0) { // 构造字符串
                     t.append(o);
                 }
-                // 将构造好的字符串入栈
-                stk.addLast(t.toString());
+                stk.addLast(t.toString()); // 将构造好的字符串入栈
             }
         }
-
         return getString(stk);
     }
 
@@ -173,8 +167,9 @@ public class Q394_Decode_String {
         StringBuilder res = new StringBuilder();
         int multi = 0;
         while(i < s.length()) {
-            if(s.charAt(i) >= '0' && s.charAt(i) <= '9')
+            if(s.charAt(i) >= '0' && s.charAt(i) <= '9') {
                 multi = multi * 10 + Integer.parseInt(String.valueOf(s.charAt(i)));
+            }
             else if(s.charAt(i) == '[') {
                 String[] tmp = dfs(s, i + 1);
                 i = Integer.parseInt(tmp[0]);
@@ -183,10 +178,12 @@ public class Q394_Decode_String {
                     multi--;
                 }
             }
-            else if(s.charAt(i) == ']')
-                return new String[] { String.valueOf(i), res.toString() };
-            else
+            else if(s.charAt(i) == ']') {
+                return new String[]{String.valueOf(i), res.toString()};
+            }
+            else {
                 res.append(String.valueOf(s.charAt(i)));
+            }
             i++;
         }
         return new String[] { res.toString() };

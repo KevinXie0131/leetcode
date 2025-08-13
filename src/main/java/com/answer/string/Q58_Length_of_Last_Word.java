@@ -14,10 +14,14 @@ public class Q58_Length_of_Last_Word {
      */
     public int lengthOfLastWord_2(String s) {
         for (int i = s.length() - 1; i >= 0; i--) {
-            if (s.charAt(i) == ' ') continue;
+            if (s.charAt(i) == ' ') {
+                continue;
+            }
             int j = i - 1;
-            while (j >= 0 && s.charAt(j) != ' ') j--;
-            return i - j;
+            while (j >= 0 && s.charAt(j) != ' ') {
+                j--;
+            }
+            return i - (j + 1) + 1;
         }
         return 0;
     }

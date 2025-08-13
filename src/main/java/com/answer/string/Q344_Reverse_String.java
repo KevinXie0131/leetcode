@@ -91,5 +91,8 @@ public class Q344_Reverse_String {
             l++;
             r--;
         }
+        // a ^ b
+        // b ^ a ^ b = a
+        // a ^ b ^ a = b
     }
 }
