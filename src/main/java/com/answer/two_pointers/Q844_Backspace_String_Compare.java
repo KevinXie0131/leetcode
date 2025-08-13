@@ -56,6 +56,7 @@ public class Q844_Backspace_String_Compare {
         for(int fast = 0; fast < s.length(); fast++){
             if(s.charAt(fast) != '#'){
                 builder.setCharAt(slow, s.charAt(fast));
+             //   builder.insert(slow, s.charAt(fast)); // works too
                 slow++;
             } else {
                 if(slow > 0){
@@ -74,9 +75,9 @@ public class Q844_Backspace_String_Compare {
     String process1(String s){
         StringBuilder sb = new StringBuilder(); // 模拟栈
 
-        for(int fast = 0; fast < s.length(); fast++){
-            if(s.charAt(fast) != '#'){
-                sb.append(s.charAt(fast));  // 模拟入栈
+        for(int index = 0; index < s.length(); index++){
+            if(s.charAt(index) != '#'){
+                sb.append(s.charAt(index));  // 模拟入栈
             } else {
                 if(sb.length() > 0){ // 栈非空才能弹栈
                     sb.deleteCharAt(sb.length() - 1);  // 模拟弹栈
@@ -167,8 +168,7 @@ public class Q844_Backspace_String_Compare {
     }
     /**
      * 双指针
-     * 一个字符是否会被删掉，只取决于该字符后面的退格符，而与该字符前面的退格符无关。因此当我们逆序地遍历字符串，
-     * 就可以立即确定当前字符是否会被删掉。
+     * 一个字符是否会被删掉，只取决于该字符后面的退格符，而与该字符前面的退格符无关。因此当我们逆序地遍历字符串，就可以立即确定当前字符是否会被删掉。
      * 时间复杂度：O(N+M)
      * 空间复杂度：O(1)
      */

@@ -82,7 +82,6 @@ public class Q977_Squares_of_a_Sorted_Array {
                 left++;
             }
         }
-
         return res;
     }
     /**
@@ -93,7 +92,7 @@ public class Q977_Squares_of_a_Sorted_Array {
         int[] res = new int[n];
         // 最左元素和最右元素的下标。
         int l = 0, r = n - 1;
-        for(int i = n - 1;i >= 0;i--) {
+        for(int i = n - 1; i >= 0; i--) {
             if(nums[l] + nums[r] > 0) {
                 res[i] = nums[r] * nums[r];
                 r--;
@@ -102,7 +101,6 @@ public class Q977_Squares_of_a_Sorted_Array {
                 l++;
             }
         }
-
         return res;
     }
     /**

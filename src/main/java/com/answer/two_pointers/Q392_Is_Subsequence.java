@@ -12,7 +12,7 @@ public class Q392_Is_Subsequence {
      * 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。
      * （例如，"ace"是"abcde"的一个子序列，而"aec"不是）。
      * s and t consist only of lowercase English letters. 两个字符串都只由小写字符组成。
-     * Follow up: Suppose there are lots of incoming s, say s1, s2, ..., sk where k >= 109, and you want to check
+     * Follow up: Suppose there are lots of incoming s, say s1, s2, ..., sk where k >= 10^9, and you want to check
      * one by one to see if t has its subsequence. In this scenario, how would you change your code?
      * 进阶：如果有大量输入的 S，称作 S1, S2, ... , Sk 其中 k >= 10亿，你需要依次检查它们是否为 T 的子序列。
      * 在这种情况下，你会怎样改变代码？
@@ -48,13 +48,15 @@ public class Q392_Is_Subsequence {
      * anther form
      */
     static public boolean isSubsequence3(String s, String t) {
-        if (s.length() == 0) return true;
+        if (s.length() == 0) {
+            return true;
+        }
         for (int i = 0, j = 0; j < t.length(); j++) {
             if (s.charAt(i) == t.charAt(j)) {
                 i++;
-                // 若已经遍历完 s ，则提前返回 true
-                if (i == s.length())
+                if (i == s.length()) {  // 若已经遍历完 s ，则提前返回 true
                     return true;
+                }
             }
         }
         return false;

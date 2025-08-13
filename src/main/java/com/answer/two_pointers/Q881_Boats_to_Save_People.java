@@ -33,9 +33,7 @@ public class Q881_Boats_to_Save_People {
      * 可以先对 people 排序，然后用两个指针分别指向体重最轻和体重最重的人，按照上述规则来移动指针，并统计答案。
      */
    static public int numRescueBoats(int[] people, int limit) {
-        /**
-         * Sort array at first
-         */
+        // Sort array at first
         Arrays.sort(people);
 
         int n = people.length;

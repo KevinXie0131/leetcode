@@ -50,7 +50,6 @@ public class Q345_Reverse_Vowels_of_a_String {
             left++;
             right--;
         }
-
         return new String(ch);
     }
     /**
@@ -80,7 +79,7 @@ public class Q345_Reverse_Vowels_of_a_String {
     }
     /**
      * 一些细节：由于题目没有说字符串中只包含字母，因此在使用数组模拟哈希表时，
-     * 我们需要用当前字符减去 ASCII 码的最小值（空字符），而不是 'A'
+     * 我们需要用当前字符减去 ASCII 码的最小值（空字符），而不是 'A' (because test case has "a.")
      */
     static boolean[] hash = new boolean[128];
     static char[] vowels = new char[]{'a','e','i','o','u'};
@@ -97,13 +96,12 @@ public class Q345_Reverse_Vowels_of_a_String {
         while (l < r) {
             if (hash[cs[l] - ' '] && hash[cs[r] - ' ']) {
                 swap1(cs, l++, r--);
-            } else {
-                if (!hash[cs[l] - ' ']) {
-                    l++;
-                }
-                if (!hash[cs[r] - ' ']) {
-                    r--;
-                }
+            }
+            else if (!hash[cs[l] - ' ']) {
+                l++;
+            }
+            else if (!hash[cs[r] - ' ']) {
+                r--;
             }
         }
         return String.valueOf(cs);

@@ -110,6 +110,8 @@ public class Q611_Valid_Triangle_Number {
                     }
                 }
                 ans += found - j;
+                //  ans += (left - 1) - j; // works too
+                //  ans += right - j; // works too
             }
         }
         return ans;
@@ -124,7 +126,9 @@ public class Q611_Valid_Triangle_Number {
         for (int i = 2; i < n; i++) {
             for (int j = i - 1; j >= 0; j--) {
                 for (int k = j - 1; k >= 0; k--) {
-                    if (nums[j] + nums[k] > nums[i]) ans++;
+                    if (nums[j] + nums[k] > nums[i]) {
+                        ans++;
+                    }
                 }
             }
         }

@@ -15,7 +15,7 @@ public class Q324_Wiggle_Sort_II {
     public static void main(String[] args) {
        int[] nums = {1,3,2,2,3,1};
         wiggleSort(nums);
-        System.out.println(Arrays.toString(nums));
+        System.out.println(Arrays.toString(nums)); // [2, 3, 1, 3, 1, 2]
     }
     /**
      * 排序 + 双指针 交错填充
