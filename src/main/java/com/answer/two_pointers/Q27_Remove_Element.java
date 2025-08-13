@@ -105,6 +105,22 @@ public class Q27_Remove_Element {
         }
         return j + 1;
     }
+    /**
+     * another form
+     */
+    public int removeElement6b(int[] nums, int val) {
+        int i = 0, j = nums.length - 1;
+        while(i <= j) {
+            if (nums[i] == val) {
+                swap(nums, i, j);
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return j + 1;
+        //  return i; // works too
+    }
 
     static void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
@@ -174,5 +190,30 @@ public class Q27_Remove_Element {
             nums[right] = temp;
         }
         return nums[left] == val ? left : left + 1; // nums = {2} val = 3
+    }
+    /**
+     * 另一种形式
+     */
+    public int removeElement3a(int[] nums, int val) {
+        if(nums.length == 0) return 0;
+
+        int left = 0;
+        int right = nums.length - 1;
+        while(left <= right) {
+            if(left <= right && nums[left] != val) {
+                left++;
+            }
+            else if (left <= right && nums[right] == val) {
+                right--;
+            }
+            else {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+            }
+        }
+        return nums[left] == val ? left : left + 1; // nums = {2} val = 3
+        // return left; // works too
+        // return right + 1; // works too
     }
 }

@@ -82,7 +82,7 @@ public class Q88_Merge_Sorted_Array {
      * 直接合并后排序
      */
     public void merge3(int[] nums1, int m, int[] nums2, int n) {
-        for (int i = 0; i != n; ++i) {
+        for (int i = 0; i < n; i++) {
             nums1[m + i] = nums2[i];
         }
         Arrays.sort(nums1);

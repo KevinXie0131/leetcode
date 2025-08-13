@@ -125,7 +125,7 @@ public class Q80_Remove_Duplicates_from_Sorted_Array_II {
         return correct.size();
     }
     /**
-     * another form
+     * another form 同上
      */
     public int removeDuplicates8(int[] nums) {
         int n = nums.length;
