@@ -1,6 +1,6 @@
 package com.answer.two_pointers;
 
-public class TwoPointTemplate {
+public class TwoPointerTemplate {
     /**
      * General solution 通用解法
      * 为了让解法更具有一般性，我们将原问题的「最多保留 1 位」修改为「最多保留 k 位」。
