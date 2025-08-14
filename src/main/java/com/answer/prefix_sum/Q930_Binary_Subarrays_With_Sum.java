@@ -1,6 +1,6 @@
 package com.answer.prefix_sum;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class Q930_Binary_Subarrays_With_Sum {
     /**

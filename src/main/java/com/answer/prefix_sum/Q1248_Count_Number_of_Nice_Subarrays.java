@@ -103,7 +103,7 @@ public class Q1248_Count_Number_of_Nice_Subarrays {
                 count += map.get(oddnum - k);
             }
             //存入
-            map.put(oddnum,map.getOrDefault(oddnum,0)+1);
+            map.put(oddnum, map.getOrDefault(oddnum,0) + 1);
         }
         return count;
     }
@@ -121,7 +121,7 @@ public class Q1248_Count_Number_of_Nice_Subarrays {
             //如果是奇数则加一，偶数加0，相当于没加
             oddnum += nums[i] & 1;
             if (oddnum - k >= 0) {
-                count += map[oddnum-k];
+                count += map[oddnum - k];
             }
             map[oddnum]++;
         }

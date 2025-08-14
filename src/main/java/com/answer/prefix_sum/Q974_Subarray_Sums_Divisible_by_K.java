@@ -13,12 +13,12 @@ public class Q974_Subarray_Sums_Divisible_by_K {
      * 子数组 是数组中 连续 的部分。
      */
     public static void main(String[] args) {
+     //    int[] nums = {4,5,0,-2,-3,1};
+    //     int k = 5;
         /**
          * 输出：7
          * 解释：有 7 个子数组满足其元素之和可被 k = 5 整除：[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
          */
-     //    int[] nums = {4,5,0,-2,-3,1};
-    //     int k = 5;
    //     int[] nums = {5};
     //    int k = 9;
        int[] nums = {-6,1,-5,10};
@@ -47,7 +47,7 @@ public class Q974_Subarray_Sums_Divisible_by_K {
         return count;
     }
     /**
-     * 判断子数组的和能否被 k 整除就等价于判断 (P[j]−P[i−1])modk==0，根据 同余定理，只要 P[j]modk==P[i−1]modk，就可以保证上面的等式成立。
+     * 判断子数组的和能否被 k 整除就等价于判断 (P[j]−P[i−1]) mod k==0，根据 同余定理，只要 P[j] mod k==P[i−1] mod k，就可以保证上面的等式成立。
      *
      * 要判断的是 (sum[j]−sum[i])%K是否等于 0。
      * 根据 mod 运算的性质，我们知道 (sum[j]−sum[i])%K=sum[j]%K−sum[i]%K。
@@ -75,7 +75,6 @@ public class Q974_Subarray_Sums_Divisible_by_K {
             }
             map.put(key, map.getOrDefault(key,0) + 1);
         }
-
         return count;
     }
     /**
@@ -96,7 +95,6 @@ public class Q974_Subarray_Sums_Divisible_by_K {
             }
             hash[key] = hash[key] + 1;    //存入哈希表当前key，也就是余数
         }
-
         return count;
     }
 }

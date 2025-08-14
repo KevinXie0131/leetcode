@@ -50,6 +50,8 @@ public class Q724_Find_Pivot_Index {
             }
             // 判定一个下标是否为'中心索引'的时候，利用前缀和计算左侧值和右侧值。
            /* if(prefixSum[i - 1] == prefixSum[n] - prefixSum[i]){ // works too
+                // prefixSum[i-1] = num[0] + .. + num[i-2]
+                // prefixSum[n] - prefixSum[i] = num[i] + .. + num[n-1]
                 return i - 1;
             }*/
         }

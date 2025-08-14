@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class _TwoPointerTemplate {
+    public static void main(String[] args) {
+       int i =  prefixSum(new int[]{1, 2,3 ,5,6, 19, 100}, 3, 5);
+       System.out.println(i);
+    }
     /**
      * 删除有序数组中的重复项
      * General solution 通用解法
@@ -123,18 +127,41 @@ public class _TwoPointerTemplate {
     /**
      * 计算前缀和数组
      */
-    static public int prefixSum(int[] nums, int target) {
+    static public int prefixSum(int[] nums, int a, int b) {
         int len = nums.length;
         int[] prefixSum = new int[len + 1];
         for (int i = 0; i < len; i++) {
             prefixSum[i + 1] = prefixSum[i] + nums[i];//计算前缀和数组
         }
-
-        for(int i = 1; i < len + 1; i++){
+        // nums:         [1, 2, 3, 5,  6,  19, 100]
+        // prefixSum: [0, 1, 3, 6, 11, 17, 36, 136]
+    /*    for(int i = 1; i < len + 1; i++){
             if(prefixSum[i] - prefixSum[i - 1] == target){
                 return i - 1;
             }
         }
-        return  -1;
+        return  -1;*/
+        return prefixSum[b] - prefixSum[a];
+        // prefixSum[5] - prefixSum[3] = nums[3] + nums[4]
+    }
+    /**
+     * 和为 K 的子数组
+     */
+    public int subarraySum(int[] nums, int k) {
+        int len = nums.length;
+        int[] prefixSum = new int[len + 1];
+        for (int i = 0; i < len; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i]; //计算前缀和数组
+        }
+        // 两次遍历
+        int result = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();  //转化为两数之和
+        for (int i = 0; i < len + 1; i++) { // must have i = 0. for example nums = [1,1,1] & k = 2
+            if (map.containsKey(prefixSum[i] - k)) {
+                result += map.get(prefixSum[i] - k);
+            }
+            map.put(prefixSum[i], map.getOrDefault(prefixSum[i], 0) + 1);
+        }
+        return result;
     }
 }

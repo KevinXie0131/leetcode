@@ -60,6 +60,26 @@ public class Q560_Subarray_Sum_Equals_K {
         return result;
     }
     /**
+     * another form 同上
+     */
+    public int subarraySum_9(int[] nums, int k) {
+        int len = nums.length;
+        int[] prefixSum = new int[len + 1];
+        for (int i = 0; i < len; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];//计算前缀和数组
+        }
+        // 两次遍历
+        int result = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();  //转化为两数之和
+        for (int i = 0; i < len + 1; i++) { // must have i = 0. for example nums = [1,1,1] & k = 2
+            if (map.containsKey(prefixSum[i] - k)) {
+                result += map.get(prefixSum[i] - k);
+            }
+            map.put(prefixSum[i], map.getOrDefault(prefixSum[i], 0) + 1);
+        }
+        return result;
+    }
+    /**
      * 前缀和
      * 对比暴力法并没有提升性能，时间复杂度仍为O(n^2)，空间复杂度成了 O(n)
      */

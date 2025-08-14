@@ -125,7 +125,7 @@ public class Q523_Continuous_Subarray_Sum {
      */
     static public boolean checkSubarraySum3(int[] nums, int k) {
         HashMap<Integer,Integer> map = new HashMap<>();
-        //细节2：另外一个就是之前我们都是统计个数，value 里保存的是次数，但是此时我们加了一个条件就是长度至少为 2，
+        // 细节2：另外一个就是之前我们都是统计个数，value 里保存的是次数，但是此时我们加了一个条件就是长度至少为 2，
         // 保存的是索引，所以我们不能继续 map.put(0,1)，应该赋初值为 map.put(0,-1)。这样才不会漏掉一些情况，
         // 例如我们的数组为[2,3,4],k = 1,当我们 map.put(0,-1) 时，当我们遍历到 nums[1] 即 3 时，则可以返回 true，
         // 因为 1-（-1）= 2，5 % 1=0 , 同时满足。
