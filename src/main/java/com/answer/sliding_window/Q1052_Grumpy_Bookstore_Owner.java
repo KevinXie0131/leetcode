@@ -109,5 +109,4 @@ public class Q1052_Grumpy_Bookstore_Owner {
         }
         return ans + max;
     }
-
 }

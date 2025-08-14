@@ -13,7 +13,7 @@ public class Q1004_Max_Consecutive_Ones_III {
          * 输出：6
          * 解释：[1,1,1,0,0,1,1,1,1,1,1] index=5/10 从 0 翻转到 1，最长的子数组长度为 6。
          */
-        System.out.println(longestOnes(nums, k));
+        System.out.println(longestOnes1(nums, k));
     }
     /**
      * Similar with Q487 Max Consecutive Ones II
@@ -40,7 +40,6 @@ public class Q1004_Max_Consecutive_Ones_III {
                     left++;
                 }
             }
-
             max = Math.max(max, right - left + 1);
             right++;
         }
@@ -75,29 +74,30 @@ public class Q1004_Max_Consecutive_Ones_III {
      * 由于数组中不会出现负权值，因此前缀和数组具有「单调性」，那么必然满足「其中一段满足 len−tol<=k，另外一段不满足 len−tol<=k」。
      * 因此，对于某个确定的「左端点/右端点」而言，以「其最远右端点/最远左端点」为分割点的前缀和数轴，具有「二段性」。可以通过二分来找分割点。
      */
-    public int longestOnes1(int[] nums, int k) {
+    static public int longestOnes1(int[] nums, int k) {
         int n = nums.length;
-        int[] sum  = new int[n + 1];
-        for (int i = 1; i <= n; ++i) {
-            sum [i] = sum [i - 1] + (1 - nums[i - 1]);
+        int[] presum  = new int[n + 1];
+        for (int i = 0; i < n; ++i) {
+            presum [i + 1] = presum [i] + (1 - nums[i]);
         }
-
+        // nums:      [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0]
+        // presum: [0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 4]
         int ans = 0;
         for (int right = 0; right < n; right++) {
-            int left = binarySearch(sum , sum [right + 1] - k);
+            int left = binarySearch(presum , presum[right + 1] - k);
             ans = Math.max(ans, right - left + 1);
         }
         return ans;
     }
 
-    public int binarySearch(int[] sum , int target) {
+    static public int binarySearch(int[] sum , int target) {
         int low = 0, high = sum.length - 1;
-        while (low < high) {
+        while (low <= high) {
             int mid = (high - low) / 2 + low;
             if (sum [mid] < target) {
                 low = mid + 1;
             } else {
-                high = mid;
+                high = mid - 1;
             }
         }
         return low;

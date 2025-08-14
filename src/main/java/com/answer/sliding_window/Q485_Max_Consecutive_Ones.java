@@ -75,7 +75,7 @@ public class Q485_Max_Consecutive_Ones {
         int n = nums.length;
         int ans = 0;
 
-        for (int left = 0, right = 0; left < n;  left++) {
+        for (int left = 0, right = 0; left < n; left++) {
             if (nums[left] == 1) {
                 right = left;
                 while (right + 1 < n && nums[right + 1] == 1) {

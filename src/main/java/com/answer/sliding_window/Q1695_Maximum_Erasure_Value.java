@@ -33,6 +33,7 @@ public class Q1695_Maximum_Erasure_Value {
             int num = nums[right];
             sum += num; // 更新当前和
             // increment start until subarray has unique elements
+        //  while(set.contains(nums[right])){ // works too
             while(set.contains(num)){   // 如果当前数字已经在集合中
                 sum -= nums[left];      // 从当前和中减去该数字
                 set.remove(nums[left]); // 移除左指针指向的数字
@@ -43,7 +44,26 @@ public class Q1695_Maximum_Erasure_Value {
             max = Math.max(sum, max); //  更新最大得分
             right++;
         }
+        return max;
+    }
+    /**
+     * another form works too
+     */
+    public int maximumUniqueSubarray_0(int[] nums) {
+        int max = 0, sum = 0;
+        int left = 0;
+        Set<Integer> set = new HashSet<>();
 
+        for(int right = 0; right < nums.length;  right++){
+            while(set.contains(nums[right])){   // 如果当前数字已经在集合中
+                sum -= nums[left];      // 从当前和中减去该数字
+                set.remove(nums[left]); // 移除左指针指向的数字
+                left++;                 // 移动左指针
+            }
+            sum += nums[right]; // 更新当前和
+            set.add(nums[right]); // 添加当前数字到集合
+            max = Math.max(sum, max); //  更新最大得分
+        }
         return max;
     }
     /**
@@ -77,22 +97,22 @@ public class Q1695_Maximum_Erasure_Value {
     public int maximumUniqueSubarray_2(int[] nums) {
         int start = 0;
         int result = 0;
-        int currentSum = 0;
+        int sum = 0;
         int k = 10001;
-        int[] countMap = new int[k];
+        int[] counter = new int[k];
 
         for (int end = 0; end < nums.length; end++) {
-            int currentElement = nums[end];
-            countMap[currentElement]++;
-            currentSum += currentElement;
+            int cur = nums[end];
+            counter[cur]++;
+            sum += cur;
 
-            while (start < end && countMap[currentElement] > 1) {
-                countMap[nums[start]]--;
-                currentSum -= nums[start];
+            while (start < end && counter[cur] > 1) {
+                counter[nums[start]]--;
+                sum -= nums[start];
                 start++;
             }
             // update result with maximum sum found so far
-            result = Math.max(result, currentSum);
+            result = Math.max(result, sum);
         }
         return result;
     }

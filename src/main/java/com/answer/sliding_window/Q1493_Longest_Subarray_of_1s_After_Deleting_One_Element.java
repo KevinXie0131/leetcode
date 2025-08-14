@@ -22,7 +22,7 @@ public class Q1493_Longest_Subarray_of_1s_After_Deleting_One_Element {
      * 直接把所求子数组看成只含一个0的子数组，然后再减掉1就行了
      *
      * 滑动窗口枚举右端点，当发现窗口中0的个数大于1个时缩小窗口。这一题不一样的点在于必须要移除一个元素，
-     * 所以最后判断的是`max(res, right-left)`，而不是right-left+1.
+     * 所以最后判断的是max(res, right-left)，而不是right-left+1.
      *
      * 注意：题目要求必须删除一个元素。
      *  只包含一个0，将这个0删掉；
@@ -35,6 +35,12 @@ public class Q1493_Longest_Subarray_of_1s_After_Deleting_One_Element {
         while (right < nums.length) {
             if (nums[right] == 0) { //记录0的个数
                 count++;
+             /* while (count > 1) { // works too
+                    if (nums[left] == 0) {
+                        count--;
+                    }
+                    left++;
+                }*/
             }
             while (count > 1) { //如果又遇到一个0，就把前一个0给扔掉
                 if (nums[left] == 0) {
@@ -46,7 +52,6 @@ public class Q1493_Longest_Subarray_of_1s_After_Deleting_One_Element {
             max = Math.max(max, right - left); //本来是i - left + 1,但是0不计入，所以再减1
             right++;
         }
-
         return max;
     }
 }

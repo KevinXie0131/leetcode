@@ -42,6 +42,7 @@ public class Q1423_Maximum_Points_You_Can_Obtain_from_Cards {
         for(int i = 0; i < len - k; i++){
             sum += cardPoints[i];
         }
+
         min = sum;
 
         for(int i = len - k; i < len; i++){
@@ -68,7 +69,7 @@ public class Q1423_Maximum_Points_You_Can_Obtain_from_Cards {
 
         for(int i = len - k; i < len; i++){
             total += cardPoints[i];
-            sum += cardPoints[i] -cardPoints[i - (len - k)];
+            sum += cardPoints[i] - cardPoints[i - (len - k)];
             min = Math.min(min, sum);
         }
         return total - min;
@@ -108,10 +109,11 @@ public class Q1423_Maximum_Points_You_Can_Obtain_from_Cards {
         for(int i = 0; i < len; i++){
             preSum[i + 1] = preSum[i] + cardPoints[i]; // 先求 preSum
         }
-
+        // cards:     [100, 40,  17,  9,   73,  75]
+        // preSum: [0, 100, 140, 157, 166, 239, 314]
         int min = Integer.MAX_VALUE;
         int size = len - k;
-        // 使用一个 0 ~ k 的遍历表示从左边拿走的元素数，然后根据窗口大小 windowSize = N - k ，
+        // 使用一个 0 ~ k 的遍历表示从左边拿走的元素数，然后根据窗口大小 windowSize = len - k ，
         // 利用 preSum 快速求窗口内元素之和
         for(int i = 0; i <= k; i++){
             min = Math.min(min, preSum[i + size] - preSum[i]);
@@ -148,7 +150,9 @@ public class Q1423_Maximum_Points_You_Can_Obtain_from_Cards {
         for (int i = 0; i < windowSize; ++i) {// 选前 n-k 个作为初始值
             sum += cardPoints[i];
         }
+
         int minSum = sum;
+
         for (int i = windowSize; i < n; ++i) {
             // 滑动窗口每向右移动一格，增加从右侧进入窗口的元素值，并减少从左侧离开窗口的元素值
             sum += cardPoints[i] - cardPoints[i - windowSize];

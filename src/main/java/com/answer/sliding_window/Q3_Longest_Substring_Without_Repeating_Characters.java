@@ -83,12 +83,12 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
 
         int res = 0;
         while (right < s.length()) {
-            char r = s.charAt(right);
-            chars.put(r, chars.getOrDefault(r,0) + 1);
+            char rc = s.charAt(right);
+            chars.put(rc, chars.getOrDefault(rc,0) + 1);
 
-            while (chars.get(r) > 1) { // 不含有重复字符
-                char l = s.charAt(left);
-                chars.put(l, chars.get(l) - 1);
+            while (chars.get(rc) > 1) { // 不含有重复字符
+                char lc = s.charAt(left);
+                chars.put(lc, chars.get(lc) - 1);
                 left++;
             }
             res = Math.max(res, right - left + 1);
@@ -107,12 +107,12 @@ public class Q3_Longest_Substring_Without_Repeating_Characters {
         int[] cnt = new int[128]; // 也可以用 HashMap<Character, Integer>，这里为了效率用的数组
 
         for (int right = 0; right < array.length; right++) {
-            char r = s.charAt(right);
-            cnt[r]++;
+            char rc = s.charAt(right);
+            cnt[rc]++;
 
-            while (cnt[r] > 1) { // 不含有重复字符
-                char l = array[left];
-                cnt[l]--;
+            while (cnt[rc] > 1) { // 不含有重复字符
+                char lc = array[left];
+                cnt[lc]--;
                 left++;
             }
             res = Math.max(res, right - left + 1);

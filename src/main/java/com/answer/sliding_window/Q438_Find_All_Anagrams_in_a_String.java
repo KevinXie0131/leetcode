@@ -24,7 +24,7 @@ public class Q438_Find_All_Anagrams_in_a_String {
         String s2 ="bb";*/
         String s1 = "abab";
         String s2 = "ab";
-        System.out.println(findAnagrams_5(s1, s2));
+        System.out.println(findAnagrams4(s1, s2));
     }
     /**
      * 定长滑窗
@@ -61,7 +61,7 @@ public class Q438_Find_All_Anagrams_in_a_String {
      * 不定长滑窗
      * 代码实现时，可以把 cntS 和 cntP 合并成一个 cnt：
      *  对于 p 的字母 c，把 cnt[p] 加一。
-     *  对于 s′的字母 c，把 cnt[c] 减一。
+     *  对于 s 的字母 c，把 cnt[c] 减一。
      *  如果 cnt[c]<0，说明窗口中的字母 c 的个数比 p 的多，右移左端点。
      */
     public static List<Integer> findAnagrams4(String s, String p) {
@@ -79,8 +79,8 @@ public class Q438_Find_All_Anagrams_in_a_String {
                 counter[s.charAt(left) - 'a']++; // 左端点字母离开窗口
                 left++;
             }
-            if (right - left + 1 == p.length()) { // s' 和 p 的每种字母的出现次数都相同
-                ans.add(left); // s' 左端点下标加入答案
+            if (right - left + 1 == p.length()) { // s 和 p 的每种字母的出现次数都相同
+                ans.add(left); // s 左端点下标加入答案
             }
         }
         return ans;

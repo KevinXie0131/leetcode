@@ -74,18 +74,18 @@ public class Q487_Max_Consecutive_Ones_II {
     static public int findMaxConsecutiveOnes3(int[] nums) {
         int ans = 0;
         int left = 0, right = 0;
-        int windowZeroCnt = 0;
+        int zeroCounter = 0;
 
         while (right < nums.length) {
             if (nums[right] == 0) {
-                windowZeroCnt++;
-                if (windowZeroCnt == 2) {//windowZeroCnt不能超过1，等于2就开始移动left,记录当前窗口长度
+                zeroCounter++;
+                if (zeroCounter == 2) {//windowZeroCnt不能超过1，等于2就开始移动left,记录当前窗口长度
                     ans = Math.max(ans, right - left);
                 }
             }
-            while (windowZeroCnt == 2) {//如果窗口里一直有2个0，left一直右移，窗内保留1个0
+            while (zeroCounter == 2) {//如果窗口里一直有2个0，left一直右移，窗内保留1个0
                 if (nums[left] == 0) {
-                    windowZeroCnt--;//left遇到第一个0时，窗内0计数器减1
+                    zeroCounter--;//left遇到第一个0时，窗内0计数器减1
                 }
                 left++;
             }

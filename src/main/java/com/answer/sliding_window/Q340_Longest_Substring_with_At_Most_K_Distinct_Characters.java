@@ -75,7 +75,6 @@ public class Q340_Longest_Substring_with_At_Most_K_Distinct_Characters {
             }
             max = Math.max(max, right - left);
         }
-
         return max;
     }
     /**
@@ -87,17 +86,17 @@ public class Q340_Longest_Substring_with_At_Most_K_Distinct_Characters {
         }
         Deque<Character> queue = new ArrayDeque<>();
         int[] arr = new int[256];
-        int count = 0;
+        int distinct = 0;
         int max = 0;
 
         for(int i = 0; i < s.length(); i++){
             if(arr[s.charAt(i)] == 0){
-                count++;
-                while(count > k){
+                distinct++;
+                while(distinct > k){
                     char temp = queue.poll();
                     arr[temp]--;
                     if(arr[temp] == 0){
-                        count--;
+                        distinct--;
                     }
                 }
             }

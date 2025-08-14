@@ -76,7 +76,6 @@ public class Q395_Longest_Substring_with_At_Least_K_Repeating_Characters {
         }
         return res;
     }
-
     /**
      * 分治（递归）实现思路主要是：
      *  如果当前字符串长度小于k，返回0。

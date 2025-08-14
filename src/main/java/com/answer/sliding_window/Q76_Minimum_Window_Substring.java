@@ -15,7 +15,7 @@ public class Q76_Minimum_Window_Substring {
      */
     public static void main(String[] args) { // Hard 困难
        String s = "ADOBECODEBANC", t = "ABC";
-       System.out.println(minWindow4(s, t));
+       System.out.println(minWindow4(s, t)); // Output: "BANC"
     }
     /**
      * 滑动窗口

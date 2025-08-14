@@ -86,7 +86,6 @@ public class Q1208_Get_Equal_Substrings_Within_Budget {
             max = Math.max(max, right - left + 1); // 窗口合理，更新最大窗口长度
             right++;
         }
-
         return max;
     }
     /**
@@ -114,36 +113,36 @@ public class Q1208_Get_Equal_Substrings_Within_Budget {
     }
     /**
      * 前缀和 + 二分查找
-     * 由于 diff 的的每个元素都是非负的，因此 accDiff 是递增的，对于每个下标 j，可以通过在 accDiff 内
+     * 由于 diff 的的每个元素都是非负的，因此 presum 是递增的，对于每个下标 j，可以通过在 presum 内
      * 进行二分查找的方法找到符合要求的最小的下标 k。
      */
     public int equalSubstring4(String s, String t, int maxCost) {
         int n = s.length();
-        int[] accDiff = new int[n + 1];
+        int[] presum = new int[n + 1];
         for (int i = 0; i < n; i++) {
-            accDiff[i + 1] = accDiff[i] + Math.abs(s.charAt(i) - t.charAt(i));
+            presum[i + 1] = presum[i] + Math.abs(s.charAt(i) - t.charAt(i));
         }
         /**
-         * 对于下标范围 [1,n] 内的每个 i，通过二分查找的方式，在下标范围 [0,i] 内找到最小的下标 start，
-         * 使得 accDiff[start]≥accDiff[i]−maxCost，此时对应的 diff 的子数组的下标范围是从 start 到 i−1，
-         * 子数组的长度是 i−start。
+         * 对于下标范围 [0,n-1] 内的每个 i，通过二分查找的方式，在下标范围 [0,end] 内找到最小的下标 start，
+         * 使得 presum[start]≥presum[end]−maxCost，此时对应的 diff 的子数组的下标范围是从 start 到 end，
+         * 子数组的长度是 end−start + 1。
          */
         int maxLength = 0;
-        for (int i = 1; i <= n; i++) {
-            int start = binarySearch(accDiff, i, accDiff[i] - maxCost);
-            maxLength = Math.max(maxLength, i - start);
+        for (int end = 0; end < n; end++) {
+            int start = binarySearch(presum, end, presum[end + 1] - maxCost);
+            maxLength = Math.max(maxLength, end - start + 1);
         }
         return maxLength;
     }
 
-    public int binarySearch(int[] accDiff, int endIndex, int target) {
-        int low = 0, high = endIndex;
-        while (low < high) {
+    public int binarySearch(int[] presum, int end, int target) {
+        int low = 0, high = end;
+        while (low <= high) {
             int mid = (high - low) / 2 + low;
-            if (accDiff[mid] < target) {
+            if (presum[mid] < target) {
                 low = mid + 1;
             } else {
-                high = mid;
+                high = mid - 1; // 找到最小的下标 start
             }
         }
         return low;
@@ -160,18 +159,20 @@ public class Q1208_Get_Equal_Substrings_Within_Budget {
     public int equalSubstring5(String s, String t, int maxCost) {
         int n = s.length(), res = 0;
         int[] prefixSum = new int[n + 1]; // 前缀和数组
-        for (int i = 0; i < n; ++i) //计算前缀和
+        for (int i = 0; i < n; ++i) { //计算前缀和
             prefixSum[i + 1] = prefixSum[i] + Math.abs(s.charAt(i) - t.charAt(i));
-
+        }
         for (int r = 0; r < n; r++) { // 遍历前缀和数组
-            // 二分查找 `l`，满足 `prefixSum[r+1] - prefixSum[l] <= maxCost`
-            int left = 0, right = r + 1;  // `right = r+1` 因为 `prefixSum` 有 n+1 长度
+            // 二分查找 l，满足 prefixSum[r+1] - prefixSum[l] <= maxCost
+            int left = 0, right = r + 1;  // right = r+1 因为 prefixSum 有 n+1 长度
 
-            while (left < right) { // 二分查找
+            while (left <= right) { // 二分查找
                 int mid = left + (right - left) / 2; // 二分
-                if (prefixSum[r + 1] - prefixSum[mid] > maxCost) // 对比
+                if (prefixSum[r + 1] - prefixSum[mid] > maxCost) { // 对比
                     left = mid + 1;  // 右移
-                else right = mid;  // 左移
+                } else {
+                    right = mid -1;  // 左移
+                }
             }
             res = Math.max(res, r - left + 1); // 更新窗口大小
         }

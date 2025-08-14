@@ -5,8 +5,7 @@ import java.util.*;
 
 public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
     /**
-     * Given a binary array data, return the minimum number of swaps required to group all 1’s present in the array together
-     * in any place in the array.
+     * Given a binary array data, return the minimum number of swaps required to group all 1’s present in the array together in any place in the array.
      * Example 1:
      *  Input: [1,0,1,0,1]
      *  Output: 1
@@ -27,11 +26,11 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
      */
     public static void main(String[] args) {
         int[] data1 = {1,0,1,0,1};
-        System.out.println(minSwaps_a(data1));
+    //    System.out.println(minSwaps5(data1));
         int[] data2 = {0,0,0,1,0};
-        System.out.println(minSwaps_a(data2));
+   //     System.out.println(minSwaps5(data2));
         int[] data = {1,0,1,0,1,0,0,1,1,0,1};
-        System.out.println(minSwaps_a(data));
+        System.out.println(minSwaps5(data));
     }
     /**
      * 滑动窗口
@@ -105,7 +104,6 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
             }
             right++;
         }
-
         return min;
     }
     /**
@@ -118,7 +116,6 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
      */
     public static int minSwaps2(int[] data) {
         int len = data.length;
-        int min = Integer.MIN_VALUE;
         int totalCount = Arrays.stream(data).sum();
 
         int sum = 0;
@@ -132,7 +129,6 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
             }
             max = Math.max(max, sum);
         }
-
         return totalCount - max;
     }
     /**
@@ -174,11 +170,11 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
 
         int min = n;
         int ones = preSum[n];
-
+        // data       [1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1]
+        // presum: [0, 1, 1, 2, 2, 3, 3, 3, 4, 5, 5, 6]
         for(int i = ones; i < n + 1; i++){
             min = Math.min(min, ones - (preSum[i] - preSum[i - ones]));
         }
-
         return min;
     }
 }

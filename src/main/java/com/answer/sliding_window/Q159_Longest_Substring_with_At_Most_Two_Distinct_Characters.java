@@ -85,13 +85,13 @@ public class Q159_Longest_Substring_with_At_Most_Two_Distinct_Characters {
             map.put(c, right); // 记录字符c最新出现的位置
 
             if (map.size() > 2) {  // 如果map中不同字符超过两个，则需要收缩窗口
-                int delIdx = Integer.MAX_VALUE; // 找到最左侧字符的位置
+                int deletedIdx = Integer.MAX_VALUE; // 找到最左侧字符的位置
                 for (int idx : map.values()) {
-                    delIdx = Math.min(delIdx, idx);
+                    deletedIdx = Math.min(deletedIdx, idx);
                 }
 
-                map.remove(s.charAt(delIdx));// 移除最左侧的字符
-                left = delIdx + 1;   // 左指针移动到被移除字符的下一个位置
+                map.remove(s.charAt(deletedIdx));// 移除最左侧的字符
+                left = deletedIdx + 1;   // 左指针移动到被移除字符的下一个位置
             }
             maxLen = Math.max(maxLen, right - left + 1);  // 更新最大长度
         }

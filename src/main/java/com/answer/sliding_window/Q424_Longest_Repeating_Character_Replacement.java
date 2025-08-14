@@ -39,18 +39,18 @@ public class Q424_Longest_Repeating_Character_Replacement {
     static public int characterReplacement1(String s, int k) {
         int len = s.length();
         int left = 0, right = 0, ans = 0;
-        int historyCharMax = 0; // 记录字串中最长的连续相同字符的长度（可能中间有间隔，但间隔次数不超过k）
+        int maxCharLen = 0; // 记录字串中最长的连续相同字符的长度（可能中间有间隔，但间隔次数不超过k）
         int[] map = new int[26]; // 记录每个字符的数量
         // [left, right) 内最多替换 k 个字符可以得到只有一种字符的子串
         while (right < len) {
             int index = s.charAt(right) - 'A';
             map[index]++;
-            historyCharMax = Math.max(historyCharMax, map[index]); // 看是之前的连续字符长，还是新加入的字符构成的连续字符长
+            maxCharLen = Math.max(maxCharLen, map[index]); // 看是之前的连续字符长，还是新加入的字符构成的连续字符长
             // 当前子串总长为right - left + 1，如果抛开最长连续字符后的其它字符(异类)的个数超过了k个，
             // 那么左边界右移，保证滑动窗口中非最长连续字符外的其它字符(异类)不超过k个，
             // 同时被移走的字符左边界字符的数量计数减1
-            while (right - left + 1 > historyCharMax + k) { // 说明此时 k 不够用
-                map[s.charAt(left) - 'A']--;                // 把其它不是最多出现的字符替换以后，都不能填满这个滑动的窗口，这个时候须要考虑左边界向右移动
+            while (right - left + 1 > maxCharLen + k) { // 说明此时 k 不够用
+                map[s.charAt(left) - 'A']--; // 把其它不是最多出现的字符替换以后，都不能填满这个滑动的窗口，这个时候须要考虑左边界向右移动
                 left++;
             }
             ans = Math.max(ans, right - left + 1);
