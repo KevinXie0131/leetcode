@@ -120,4 +120,21 @@ public class _TwoPointerTemplate {
         }
         return maxLen;
     }
+    /**
+     * 计算前缀和数组
+     */
+    static public int prefixSum(int[] nums, int target) {
+        int len = nums.length;
+        int[] prefixSum = new int[len + 1];
+        for (int i = 0; i < len; i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];//计算前缀和数组
+        }
+
+        for(int i = 1; i < len + 1; i++){
+            if(prefixSum[i] - prefixSum[i - 1] == target){
+                return i - 1;
+            }
+        }
+        return  -1;
+    }
 }
