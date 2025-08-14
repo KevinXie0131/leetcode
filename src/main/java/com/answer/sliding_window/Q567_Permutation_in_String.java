@@ -36,7 +36,6 @@ public class Q567_Permutation_in_String {
             if(i >= s1.length()){
                 count2[s2.charAt(i - s1.length()) - 'a']--;
             }
-
             if(Arrays.equals(count1, count2)){
                 return true;
             }
@@ -44,7 +43,7 @@ public class Q567_Permutation_in_String {
         return false;
     }
     /**
-     * another form
+     * Brute force
      * 时间复杂度是O（n*m） s1长度 * s2长度
      */
     public static boolean checkInclusion8(String s1, String s2) {
@@ -55,6 +54,7 @@ public class Q567_Permutation_in_String {
         }
 
         int l = 0, r = s1.length(); // 定义滑动窗口的范围是[l,r]，闭区间，长度与s1相等
+
         while (r <= s2.length()) {
             int[] count2 = new int[26];  // 统计窗口s2[l,r-1]内的元素出现的次数
             for (int i = l; i < r; i++) {
@@ -71,7 +71,7 @@ public class Q567_Permutation_in_String {
     }
     /**
      * Approach 5: Sliding Window
-     * Instead of making use of a special HashMap datastructure just to store the frequency of occurence of characters,
+     * Instead of making use of a special HashMap data structure just to store the frequency of occurrence of characters,
      * we can use a simpler array data structure to store the frequencies. Given strings contains only lowercase alphabets ('a' to 'z').
      * So we need to take an array of size 26.
      * 初始化将滑动窗口压满，取得第一个滑动窗口的目标值
@@ -142,6 +142,7 @@ public class Q567_Permutation_in_String {
         }
         return false;
     }
+
     public String sort(String s) {
         char[] t = s.toCharArray();
         Arrays.sort(t);
