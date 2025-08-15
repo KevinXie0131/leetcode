@@ -4,7 +4,7 @@ import com.template.TreeNode;
 
 import java.util.*;
 
-public class IterativeTraversal {
+public class IterativeTraversalTemplate {
     /**
      * 遍历二叉树详解
      * https://leetcode.cn/problems/binary-tree-preorder-traversal/solutions/87526/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/

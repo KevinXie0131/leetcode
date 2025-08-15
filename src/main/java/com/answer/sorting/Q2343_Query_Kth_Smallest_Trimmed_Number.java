@@ -7,7 +7,7 @@ public class Q2343_Query_Kth_Smallest_Trimmed_Number {
      * 裁剪数字后查询第 K 小的数字
      * 一个下标从 0 开始(0-indexed)的字符串数组 nums ，其中每个字符串 长度相等 且只包含数字(equal length and consists of only digits)。
      * 再给你一个下标从 0 开始的二维整数数组 queries ，其中 queries[i] = [ki, trimi] 。对于每个 queries[i] ，你需要：
-     *  将 nums 中每个数字 裁剪(Trim ) 到剩下 最右边(rightmost ) trimi 个数位。
+     *  将 nums 中每个数字 裁剪(Trim ) 到剩下 最右边(rightmost ) trim i 个数位。
      *  在裁剪过后的数字(smallest trimmed number )中，找到 nums 中第 ki 小数字对应的 下标(index) 。如果两个裁剪后数字一样大，那么下标 更小(lower index) 的数字视为更小的数字。
      *  将 nums 中每个数字恢复(Reset)到原本字符串。
      * 请你返回一个长度与 queries 相等的数组 answer，其中 answer[i]是第 i 次查询的结果。
@@ -117,7 +117,6 @@ class Pair1<T1, T2> {
     public Pair1(String s) {
 
     }
-
 
     public T1 getKey() {
         return key;

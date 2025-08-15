@@ -34,7 +34,7 @@ public class Q414_Third_Maximum_Number {
     public int thirdMax(int[] nums) {
         nums = Arrays.stream(nums).boxed()
                 .sorted(Collections.reverseOrder())
-                .mapToInt(Integer::intValue)
+                .mapToInt(Integer::intValue) // .mapToInt(i -> i) // works too
                 .toArray();
 
         int diff = 1;
