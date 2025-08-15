@@ -32,8 +32,8 @@ public class Q1248_Count_Number_of_Nice_Subarrays {
         }
 
         int count = 0;
-        for(int i = 0; i < len + 1; i++){
-            for(int j = 1; j < len + 1; j++){
+        for(int i = 0; i < len; i++){
+            for(int j = i + 1; j < len + 1; j++){
                 if(prefixSum[j] - prefixSum[i] == k){
                     count++;
                 }
