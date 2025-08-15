@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Q912_Sort_an_Array_3 {
     /**
-     * 方法三：归并排序 Quick sort
+     * 方法三：归并排序 Merge sort
      */
     int[] tmp;
 

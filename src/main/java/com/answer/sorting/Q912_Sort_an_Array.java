@@ -50,7 +50,6 @@ public class Q912_Sort_an_Array {
      * Selection sort
      * 选择排序：每一轮选择最小元素交换到未排定部分的开头
      */
-    // 选择排序：每一轮选择最小元素交换到未排定部分的开头
     public  static int[] sortArray(int[] nums) {
         int len = nums.length;
         // 循环不变量：[0, i) 有序，且该区间里所有元素就是最终排定的样子
