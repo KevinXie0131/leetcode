@@ -85,18 +85,18 @@ public class Q1151_Minimum_Swaps_to_Group_All_1s_Together {
      * 找到全局最小的 swap 次数即可。
      */
     public static int minSwaps4(int[] data) {
-        int ones = Arrays.stream(data).sum();
-        int count = 0, left = 0, right = 0, min = Integer.MAX_VALUE;
+        int totalOne = Arrays.stream(data).sum();
+        if(totalOne == 1 || totalOne == 0) return 0;
 
-       if(ones == 1 || ones == 0) return 0;
+        int count = 0, left = 0, right = 0, min = Integer.MAX_VALUE;
 
         while(right < data.length){
             if(data[right] == 1){
                 count++;
             }
 
-            if(right - left == ones){
-                min = Math.min(min, ones - count);
+            if(right - left == totalOne){
+                min = Math.min(min, totalOne - count);
                 if(data[left] == 1){
                     count--;
                 }
