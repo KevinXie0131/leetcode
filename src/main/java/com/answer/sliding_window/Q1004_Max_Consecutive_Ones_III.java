@@ -85,6 +85,8 @@ public class Q1004_Max_Consecutive_Ones_III {
         int ans = 0;
         for (int right = 0; right < n; right++) {
             int left = binarySearch(presum , presum[right + 1] - k);
+            // presum[right + 1] - presum[left] = k
+            // nums[left], .., presum[right] = k
             ans = Math.max(ans, right - left + 1);
         }
         return ans;
