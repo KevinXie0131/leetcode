@@ -1,7 +1,6 @@
 package com.answer.priorityqueue;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Q1337_The_K_Weakest_Rows_in_a_Matrix {
     /**
@@ -125,6 +124,12 @@ public class Q1337_The_K_Weakest_Rows_in_a_Matrix {
             if (q.size() < k) {
                 q.add(new int[]{cur, i});
             }
+          /*  if (q.size() < k) { // works too
+                q.add(new int[]{cur, i});
+            } else if (q.peek()[0] > cur) {
+                q.poll();
+                q.add(new int[]{cur, i});
+            }*/
         }
         int[] ans = new int[k];
         int idx = k - 1;

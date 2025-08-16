@@ -24,7 +24,9 @@ public class Q263_Ugly_Number {
      * 时间复杂度：当 n 是以 2 为底的对数时，需要除以 logn 次。复杂度为 O(logn)
      */
     public boolean isUgly(int n) {
-        if(n <= 0) return false;
+        if(n <= 0){
+            return false;
+        }
         int[] factors = {2, 3, 5};
         for(int factor : factors){
             while(n % factor == 0){
@@ -38,8 +40,9 @@ public class Q263_Ugly_Number {
      * 注意，2 3 5 先除哪一个都是可以的，因为乘法本身具有交换律。
      */
     public boolean isUgly_1(int n) {
-        if (n <= 0) return false;
-
+        if (n <= 0){
+            return false;
+        }
         while(n % 2 == 0) n = n / 2;
         while(n % 3 == 0) n = n / 3;
         while(n % 5 == 0) n = n / 5;

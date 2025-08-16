@@ -21,7 +21,6 @@ public class Q347_Top_K_Frequent_Elements {
     public static void main(String[] args) {
         int[] nums = {1,1,1,2,2,3,4,4,4,5,5,5};
         int k = 2;
-
         int[] result = topKFrequent0(nums, k);
         System.out.println(Arrays.toString(result));
     }
@@ -58,7 +57,7 @@ public class Q347_Top_K_Frequent_Elements {
                 queue.poll();
             }
         }
-        for(int i = k-1; i >= 0; i--){  //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
+        for(int i = k - 1; i >= 0; i--){  //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
             // res[i] = pq.poll()[0]; // 获取优先队列里的元素
             int[] res = queue.poll();
             result[i] = res[0];
@@ -130,7 +129,8 @@ public class Q347_Top_K_Frequent_Elements {
                 queue.offer(entry);
             }
         }
-      /*  for (Map.Entry<Integer, Integer> entry : map.entrySet()) { //小顶堆只需要维持k个元素有序
+      /*   PriorityQueue<int[]> pq = new PriorityQueue<>((pair1, pair2) -> pair1[1] - pair2[1]);
+       for (Map.Entry<Integer, Integer> entry : map.entrySet()) { //小顶堆只需要维持k个元素有序
             if (pq.size() < k) { //小顶堆元素个数小于k个时直接加
                 pq.add(new int[]{entry.getKey(), entry.getValue()});
             } else {
@@ -142,6 +142,7 @@ public class Q347_Top_K_Frequent_Elements {
         }*/
         for(int i = k - 1; i >= 0; i--){
             result[i] = queue.poll().getKey(); //依次弹出小顶堆,先弹出的是堆的根,出现次数少,后面弹出的出现次数多
+            //   result[i] = pq.poll()[0];
         }
         return result;
     }
@@ -158,14 +159,16 @@ public class Q347_Top_K_Frequent_Elements {
         int count = 0;
         for (Map.Entry<Integer, Integer> entry : counterMap.entrySet()) {
             int num = entry.getKey();
-            int cnt = entry.getValue();
+            int frequency = entry.getValue();
             if (count < k) {
-                treeMap.computeIfAbsent(cnt, ArrayList::new).add(num);
+                treeMap.computeIfAbsent(frequency, ArrayList::new).add(num);
+                //   treeMap.computeIfAbsent(frequency,  e -> new ArrayList()).add(num); // works too
                 count++;
             } else {
                 Map.Entry<Integer, List<Integer>> firstEntry = treeMap.firstEntry();
-                if (cnt > firstEntry.getKey()) {
-                    treeMap.computeIfAbsent(cnt, ArrayList::new).add(num);
+                if (frequency > firstEntry.getKey()) {
+                    treeMap.computeIfAbsent(frequency, ArrayList::new).add(num);
+                    //  treeMap.computeIfAbsent(frequency, e -> new ArrayList()).add(num); // works too
                     List<Integer> list = firstEntry.getValue();
                     if (list.size() == 1) {
                         treeMap.pollFirstEntry();
@@ -192,24 +195,25 @@ public class Q347_Top_K_Frequent_Elements {
      * 空间复杂度：O(n)
      */
     public int[] topKFrequent5(int[] nums, int k) {
-        List<Integer> res = new ArrayList();
         // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
         HashMap<Integer,Integer> map = new HashMap();
         for(int i = 0; i < nums.length; i++){
             map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
         }
-        //桶排序
-        //将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
+        // 桶排序
+        // 将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
         List<Integer>[] list = new List[nums.length + 1]; // 把出现次数相同的元素，放到同一个桶中
-/*        Arrays.setAll(list, i -> new ArrayList<>());*/
-        for (Map.Entry<Integer,Integer> entry:map.entrySet()) {
-            // key 是 元素, value 是 频率, 获得元素的频率后，将其存入对应的数组下标中
-            int count = entry.getValue();
+        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
+            int count = entry.getValue(); // key 是 元素, value 是 频率, 获得元素的频率后，将其存入对应的数组下标中
             if (list[count] == null) {
                 list[count] = new ArrayList<>();
             }
             list[count].add(entry.getKey());
         }
+    /*  Arrays.setAll(list, i -> new ArrayList<>());
+        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
+            list[entry.getValue()].add(entry.getKey()); // key 是 元素, value 是 频率, 获得元素的频率后，将其存入对应的数组下标中
+        } */
         int[] result = new int[k];
         int index = 0;
         // 倒序遍历数组获取出现顺序从大到小的排列

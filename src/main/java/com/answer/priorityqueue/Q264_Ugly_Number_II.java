@@ -36,6 +36,7 @@ public class Q264_Ugly_Number_II {
         }
         return num;
     }
+
     public static boolean isUgly_1(int n) {
         if (n <= 0) return false;
 
@@ -64,8 +65,8 @@ public class Q264_Ugly_Number_II {
                 System.out.println(i);
                 return (int)val;
             }*/
-            for(int factor :factors ){
-                long next  = factor * val;
+            for(int factor : factors ){
+                long next = factor * val;
                 if(!seen.contains(next)){ // 去除重复的数值 比如 2*3=6 和3*2=6
                     seen.add(next); // 哈希集合去重，避免相同元素多次加入堆。
                     queue.add(next);

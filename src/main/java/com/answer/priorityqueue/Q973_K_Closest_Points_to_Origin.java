@@ -1,8 +1,6 @@
 package com.answer.priorityqueue;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Q973_K_Closest_Points_to_Origin {
     /**
@@ -80,6 +78,7 @@ public class Q973_K_Closest_Points_to_Origin {
             if (pq.size() < k) { // 如果堆中不足 K 个，直接将当前 point 加入即可
                 pq.offer(point);
             } else if (pq.comparator().compare(point, pq.peek()) > 0) { // 否则，判断当前点的距离是否小于堆中的最大距离，若是，则将堆中最大距离poll出，将当前点加入堆中。
+         //   } else if (point[0] * point[0] + point[1] * point[1] < pq.peek()[0] * pq.peek()[0] + pq.peek()[1] * pq.peek()[1]) { // works too
                 pq.poll();
                 pq.offer(point);
             }

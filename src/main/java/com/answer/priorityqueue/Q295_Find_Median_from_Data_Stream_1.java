@@ -57,6 +57,6 @@ public class Q295_Find_Median_from_Data_Stream_1 {
                 if (n <= 0) return num;
             }
         }
-        return -1; // never
+        return -1; // never reach
     }
 }

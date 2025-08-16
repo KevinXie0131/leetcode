@@ -1,6 +1,6 @@
 package com.answer.priorityqueue;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Q1167_Minimum_Cost_to_Connect_Sticks {
     /**

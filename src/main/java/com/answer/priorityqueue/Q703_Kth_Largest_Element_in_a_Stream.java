@@ -117,4 +117,37 @@ public class Q703_Kth_Largest_Element_in_a_Stream {
         }
         return this.heap.peek();
     }
+    /**
+     * 优先队列 / 大根堆
+     * Time Limit Exceeded
+     * 10 / 12 testcases passed
+     */
+    PriorityQueue<Integer> maxHeap = null;
+    List<Integer> list = new ArrayList<>();
+    int k1 = 0;
+
+    public void KthLargest2(int k, int[] nums) {
+        this.k1 = k;
+        maxHeap = new PriorityQueue<>((a, b) -> b - a);
+        for(int num : nums){
+            maxHeap.offer(num);
+        }
+    }
+
+    public int add2(int val) {
+        maxHeap.offer(val);
+        int index = 1;
+
+        while(index++ < this.k1){
+            list.add(maxHeap.poll());
+        }
+        int res = maxHeap.peek();
+
+        for(int i : list){
+            maxHeap.offer(i);
+        }
+        list.clear();
+
+        return res;
+    }
 }

@@ -1,8 +1,5 @@
 package com.answer.priorityqueue;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
 import java.util.*;
 
 public class Offer_40_Least_K_Numbers {
@@ -22,7 +19,6 @@ public class Offer_40_Least_K_Numbers {
     public static void main(String[] args) {
         int[] arr = {3, 2, 3, 2, 2, 1, 1, 4, 4, 5};
         int k = 4;
-
         int[] result = getLeastNumbers(arr, k);
         System.out.println(Arrays.toString(result));
     }

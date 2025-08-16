@@ -40,6 +40,9 @@ public class Q692_Top_K_Frequent_Words {
         cnt.put("a", 128);
         cnt.put("b",128);
         System.out.println(cnt.get("a") == (cnt.get("b")));
+        cnt.put("c", 127);
+        cnt.put("d",127);
+        System.out.println(cnt.get("c") == (cnt.get("d")));
     }
     /**
      * Use Hashmap 哈希表 + 排序
@@ -55,7 +58,7 @@ public class Q692_Top_K_Frequent_Words {
         for(Map.Entry<String, Integer> entry : map.entrySet()){
             list.add(entry.getKey());
         }
-        //   list= new ArrayList<>(map.keySet());
+        // list= new ArrayList<>(map.keySet());
 
         // 排序时，如果两个字符串出现频率相同，那么我们让两字符串中字典序较小的排在前面，否则我们让出现频率较高的排在前面。
         Collections.sort(list, (o1, o2) -> map.get(o1) == map.get(o2) ? o1.compareTo(o2) : map.get(o2) - map.get(o1));
@@ -66,7 +69,9 @@ public class Q692_Top_K_Frequent_Words {
                 return map.get(o1) == map.get(o2) ? o1.compareTo(o2) : map.get(o2) - map.get(o1);
             }
         });*/
-/*        candidates.sort((a, b) -> {
+
+/*      List<String> candidates= new ArrayList<>(map.keySet());
+        candidates.sort((a, b) -> {
             // 字符串频率相等按照字典序比较使得大的在堆顶,Java 可以直接使用 compareTo 方法即可。
             if (count.get(a).equals(count.get(b))) {
                 return a.compareTo(b);
@@ -74,7 +79,9 @@ public class Q692_Top_K_Frequent_Words {
                 // 字符串频率不等则按照频率排列。
                 return count.get(b) - count.get(a);
             }
-        });*/
+        });
+        return candidates.subList(0, k);
+*/
         return list.subList(0, k); // 只需要保留序列中的前 k 个字符串即可
     }
     /**
@@ -188,7 +195,7 @@ public class Q692_Top_K_Frequent_Words {
         for(String word : words){
             root.insert(word, k);
         }
-        Queue<WrodTuple>  queue = new PriorityQueue<>(new Comparator<WrodTuple>() {
+        Queue<WrodTuple>  queue = new PriorityQueue<>(new Comparator<WrodTuple>() {   // 大顶堆
             @Override
             public int compare(WrodTuple o1, WrodTuple o2) {
                 return o1.getFrequency() == o2.getFrequency() ? o1.getVal().compareTo(o2.getVal()) : o2.getFrequency() - o1.getFrequency();
@@ -202,12 +209,12 @@ public class Q692_Top_K_Frequent_Words {
     }
 
     static void dfs(Trie node, Queue<WrodTuple>  queue) {
-        if( node.isEnd ) {
+        if(node.isEnd) {
             queue.offer(new WrodTuple(node.val, node.frequency));
         }
         // Recursion exit
         if( node.children.length == 0) {
-            return ;
+            return;
         }
         // Recursion
         Trie[] children = node.children;

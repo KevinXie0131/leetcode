@@ -27,8 +27,10 @@ public class Q786_Kth_Smallest_Prime_Fraction {
      * 输出：[1,7]
      */
     public static void main(String[] args) {
-        int[] arr = {1,2,3,5};
-        int k = 3;
+/*        int[] arr = {1,2,3,5};
+        int k = 3;*/
+        int[] arr = {1,29,47};
+        int k = 1;
         System.out.println(Arrays.toString(kthSmallestPrimeFraction(arr, k)));
     }
     /**
@@ -44,7 +46,7 @@ public class Q786_Kth_Smallest_Prime_Fraction {
                     if (q.size() == k) {
                         q.poll();
                     }
-                    q.add(new int[]{arr[i], arr[j]});
+                    q.add(new int[]{arr[i], arr[j]}); // arr[] is stored
                 }
             }
         }
@@ -56,42 +58,44 @@ public class Q786_Kth_Smallest_Prime_Fraction {
      */
     public int[] kthSmallestPrimeFraction_0(int[] arr, int k) {
         int n = arr.length;
-        PriorityQueue<int[]> q = new PriorityQueue<>((i, j) -> { // 小顶堆
+        PriorityQueue<int[]> queue = new PriorityQueue<>((i, j) -> { // 小顶堆
             double i1 = arr[i[0]] * 1.0 / arr[i[1]];
             double i2 = arr[j[0]] * 1.0 / arr[j[1]];
             return Double.compare(i1, i2);
         });
-        for (int i = 1; i < n; i++) {
-            q.add(new int[]{0, i});
+        for (int j = 1; j < n; j++) {
+            queue.add(new int[]{0, j});
         }
         // 我们首先将每个分类中最小的分数入队，优先队列底层是一个小顶堆，顶部元素最小；然后出队最小的分数，
         // 将和该分数分母一样但分子更大的下一个分数入队，这样可以保证每次出队的元素一定是最小的；进行k-1次操作后；
         // 优先队列首部就是最小的第k个元素了。
+     /* k--;  // works too
+        while (k-- > 0) { */
         while (--k > 0) {
-            int[] poll = q.poll();
+            int[] poll = queue.poll();
             int i = poll[0], j = poll[1];
             if (i + 1 < j) {  // 分子下标不能超过分母
-                q.add(new int[]{i + 1, j});
+                queue.add(new int[]{i + 1, j}); // index of arr is stored
             }
         }
-        int[] poll = q.poll();
+        int[] poll = queue.poll();
         return new int[]{arr[poll[0]], arr[poll[1]]};
     }
     /**
      * another form
      */
     public int[] kthSmallestPrimeFraction7(int[] arr, int k) {
-        // 定义比较规则
-        Queue<int[]> q = new PriorityQueue<>((a, b) -> arr[a[0]] * arr[b[1]] - arr[b[0]] * arr[a[1]]);
+        // 定义比较规则, 这里有一个小技巧：如果直接比较除完之后的结果，可能会存在误差, 我们只需要比较 ad<bc 即可
+        Queue<int[]> q = new PriorityQueue<>((a, b) -> arr[a[0]] * arr[b[1]] - arr[b[0]] * arr[a[1]]); // 小顶堆
         // 加入头节点
         for (int j = 1; j < arr.length; j++) {
             q.offer(new int[]{0, j});
         }
-        for (int cnt = 1; cnt <= k; cnt++) {
+        for (int index = 1; index <= k; index++) {
             // 弹出队顶元素，即最小元素
             int[] cur = q.poll();
             int i = cur[0], j = cur[1];
-            if (cnt == k) {
+            if (index == k) {
                 return new int[]{arr[i], arr[j]};
             }
             if (i + 1 < j) {// 分子下标不能超过分母
@@ -106,13 +110,11 @@ public class Q786_Kth_Smallest_Prime_Fraction {
      * Space: O(n)
      */
     public static int[] kthSmallestPrimeFraction(int[] arr, int k) {
-        int[] res = new int[2];
         int m = arr.length;
 
-        PriorityQueue<int[]> heap = new PriorityQueue<int[]>((x, y) -> arr[x[0]] * arr[y[1]] - arr[y[0]] * arr[x[1]]);
-        /**
-         * PriorityQueue<int[]> q = new PriorityQueue<>((a,b)->Double.compare(b[0]*1.0/b[1],a[0]*1.0/a[1]));
-         */
+     //   PriorityQueue<int[]> heap = new PriorityQueue<int[]>((x, y) -> arr[x[0]] * arr[y[1]] - arr[y[0]] * arr[x[1]]);  // 小顶堆
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Double.compare(arr[a[0]]* 1.0 / arr[a[1]], arr[b[0]]* 1.0 / arr[b[1]]));
+
         for(int i = 1; i < m; i++){
             heap.offer(new int[]{0, i});
         }
@@ -122,7 +124,7 @@ public class Q786_Kth_Smallest_Prime_Fraction {
             int x = pos[0];
             int y = pos[1];
             if(x < y - 1){
-                heap.offer(new int[]{x + 1,pos[1]});
+                heap.offer(new int[]{x + 1, pos[1]}); // index of arr is stored
             }
             k--;
         }
@@ -143,7 +145,7 @@ public class Q786_Kth_Smallest_Prime_Fraction {
             }
         }
         Collections.sort(frac, (x, y) -> x[0] * y[1] - x[1] * y[0]);
-        return frac.get(k-1);
+        return frac.get(k - 1);
     }
     /**
      * 二分查找 + 双指针

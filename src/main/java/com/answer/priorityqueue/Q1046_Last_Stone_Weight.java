@@ -1,6 +1,6 @@
 package com.answer.priorityqueue;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Q1046_Last_Stone_Weight {
     /**

@@ -1,6 +1,6 @@
 package com.answer.priorityqueue;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Q1642_Furthest_Building_You_Can_Reach {
     /**
@@ -63,7 +63,6 @@ public class Q1642_Furthest_Building_You_Can_Reach {
                 return i; // 没砖块也没梯子，只能返回
             }
         }
-
         return heights.length - 1;
     }
 }

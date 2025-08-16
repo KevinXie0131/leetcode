@@ -191,5 +191,4 @@ public class Q295_Find_Median_from_Data_Stream { // Hard 困难
         }
         return (left1.peek() + right1.peek()) / 2.0;
     }
-
 }

@@ -26,9 +26,9 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
      */
     public static void main(String[] args) {
         int[] nums1 = {1,2,4,5,6};
-        int [] nums2 = {3,5,7,9};
+        int[] nums2 = {3,5,7,9};
         int k = 3;
-        System.out.println(kSmallestPairs_1(nums1, nums2, k));
+        System.out.println(kSmallestPairs(nums1, nums2, k));
     }
     /**
      * PriorityQueue 优先队列
@@ -84,6 +84,37 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
         return res;
     }
     /**
+     * 同上
+     * Time Limit Exceeded
+     * 21 / 31 testcases passed
+     */
+    public static List<List<Integer>> kSmallestPairs_b(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> res = new ArrayList<>(k);
+        PriorityQueue<int[]> heap = new PriorityQueue<>(k, (a, b) -> b[0] - a[0]); // 大根堆
+        int m = nums1.length;
+        int n = nums2.length;
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(heap.size() < k){
+                    heap.offer(new int[]{nums1[i] + nums2[j], i, j});
+                } else if(nums1[i] + nums2[j] < heap.peek()[0]) {
+                    heap.poll();
+                    heap.offer(new int[]{nums1[i] + nums2[j], i, j});
+                }
+            }
+        }
+        // 最多弹出 k 次
+        while(k > 0 && !heap.isEmpty()){
+            int[] pos = heap.poll();
+            int x = pos[1];
+            int y = pos[2];
+            res.add(Arrays.asList(nums1[x], nums2[y]));
+            k--;
+        }
+        return res;
+    }
+    /**
      * 多路归并
      * 每次需要从 n 个元素中找出最小的元素，需要找 k 次，所以时间复杂度为 O(klogn)
      * 所以为了更优的时间复杂度，尽量让 nums1 长度更短；如果 nums1 长度更长，我们就交换两个数组的位置
@@ -126,6 +157,7 @@ public class Q373_Find_K_Pairs_with_Smallest_Sums {
      */
     static int[] nums1, nums2;
     static int n, m;
+
     public static List<List<Integer>> kSmallestPairs_1(int[] n1, int[] n2, int k) {
         nums1 = n1; nums2 = n2;
         n = nums1.length; m = nums2.length;
