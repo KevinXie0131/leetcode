@@ -130,7 +130,6 @@ public class Q225_Implement_Stack_using_Queues {
             queue1 = new LinkedList<>();
             queue2 = new LinkedList<>();
         }
-
         /** 首先将元素入队到queue2 然后将queue1的全部元素依次出队并入队到queue2, 此时queue2的前端的元素即为新入栈的元素 */
         public void push(int x) {
             queue2.offer(x); // 先放在辅助队列中
@@ -141,17 +140,14 @@ public class Q225_Implement_Stack_using_Queues {
             queue1 = queue2;
             queue2 = temp; // 最后交换queue1和queue2，将元素都放到queue1中, queue1的前端和后端分别对应栈顶和栈底
         }
-
         /** Removes the element on top of the stack and returns that element. */
         public int pop() {
             return queue1.poll(); // 因为queue1中的元素和栈中的保持一致，所以这个和下面两个的操作只看queue1即可
         }
-
         /** Get the top element. */
         public int top() {
             return queue1.peek();
         }
-
         /** Returns whether the stack is empty. */
         public boolean empty() {
             return queue1.isEmpty();
@@ -161,10 +157,8 @@ public class Q225_Implement_Stack_using_Queues {
      * 使用两个 Queue 实现方法2
      */
     class MyStack2 {
-        //q1作为主要的队列，其元素排列顺序和出栈顺序相同
-        Queue<Integer> q1 = new ArrayDeque<>();
-        //q2仅作为临时放置
-        Queue<Integer> q2 = new ArrayDeque<>();
+        Queue<Integer> q1 = new ArrayDeque<>();//q1作为主要的队列，其元素排列顺序和出栈顺序相同
+        Queue<Integer> q2 = new ArrayDeque<>();//q2仅作为临时放置
 
         public MyStack2() {
 

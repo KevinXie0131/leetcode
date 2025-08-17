@@ -36,23 +36,38 @@ public class Q286_Walls_and_Gates {
                          {INF, -1, INF, -1},
                          {0, -1, INF, INF}};
 
-        wallsAndGates1(rooms);
-
+        wallsAndGates3(rooms);
         for (int[] row : rooms) {
             for (int cell : row) {
                 System.out.print(cell + "\t");
             }
             System.out.println();
         }
+
+        int[][] rooms1 = {
+                {INF, INF, INF},
+                {INF, 0, INF},
+                {INF, INF, INF}
+        };
+        wallsAndGates3(rooms1);
+        for (int[] row : rooms1) {
+            for (int cell : row) {
+                System.out.print(cell + "\t");
+            }
+            System.out.println();
+        }
+        // {2, 1, 2},
+        // {1, 0, 1},
+        // {2, 1, 2}
     }
-    // Define constant for INF (empty room)
-    private static final int INF = 2147483647;
     /**
      * 多源 BFS
      * 找出所有为0的位置/门的位置，放入队列中
      * 从为0的位置开始向四个方向遍历，直接修改迷宫的可以走的位置的数字是距离门最近的距离
      * 把新的可以走的位置放入队列中，继续搜索
      */
+    private static final int INF = 2147483647; // Define constant for INF (empty room)
+
     static public void wallsAndGates(int[][] rooms) {
         if (rooms == null || rooms.length == 0 || rooms[0].length == 0) return;
 
@@ -66,8 +81,8 @@ public class Q286_Walls_and_Gates {
                 }
             }
         }
-        // Directions for up, down, left, right
-        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}; // Directions for up, down, left, right
 
         while (!queue.isEmpty()) {
             int[] point = queue.poll();
@@ -76,7 +91,9 @@ public class Q286_Walls_and_Gates {
                 int r = row + dir[0];
                 int c = col + dir[1];
                 // If out of bounds or not an empty room, skip
-                if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] != INF) continue; // 墙（-1）和门（0）都不会被更新。
+                if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] != INF){
+                    continue; // 墙（-1）和门（0）都不会被更新。
+                }
                 // Update distance and add to queue
                 // 每个空房间到最近门的距离
                 rooms[r][c] = rooms[row][col] + 1;// 每次弹出一个房间，把它四周的空房间距离更新为当前距离 + 1，并入队。
@@ -100,8 +117,8 @@ public class Q286_Walls_and_Gates {
                 }
             }
         }
-        // Directions for up, down, left, right
-        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}; // Directions for up, down, left, right
 
         int level = 0;
         while (!queue.isEmpty()) {
@@ -113,7 +130,9 @@ public class Q286_Walls_and_Gates {
                     int r = row + dir[0];
                     int c = col + dir[1];
                     // If out of bounds or not an empty room, skip
-                    if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] != INF) continue; // 墙（-1）和门（0）都不会被更新。
+                    if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] != INF){
+                        continue; // 墙（-1）和门（0）都不会被更新。
+                    }
                     // Update distance and add to queue
                     // 每个空房间到最近门的距离
                     rooms[r][c] = level + 1;// 每次弹出一个房间，把它四周的空房间距离更新为当前距离 + 1，并入队。
@@ -137,6 +156,7 @@ public class Q286_Walls_and_Gates {
     }
 
     static void dfs(int[][] rooms, int i, int j, int step) {
+        // rooms[i][j] < step is needed. if step has a smaller value, rooms[i][j] will be repopulated.
         if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[i].length || rooms[i][j] < step) {
             return;
         }
@@ -147,5 +167,41 @@ public class Q286_Walls_and_Gates {
         dfs(rooms, i - 1, j, step + 1);
         dfs(rooms, i, j + 1, step + 1);
         dfs(rooms, i, j - 1, step + 1);
+    }
+    /**
+     * DFS iterative
+     */
+    static public void wallsAndGates3(int[][] rooms) {
+        if (rooms == null || rooms.length == 0 || rooms[0].length == 0) return;
+
+        int m = rooms.length, n = rooms[0].length;
+        Deque<int[]> stack = new LinkedList<>();
+        // Add all gates to the queue
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rooms[i][j] == 0) {
+                    stack.push(new int[]{i, j});
+                }
+            }
+        }
+
+        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}; // Directions for up, down, left, right
+
+        while (!stack.isEmpty()) {
+            int[] point = stack.pop();
+            int row = point[0], col = point[1];
+            for (int[] dir : dirs) {
+                int r = row + dir[0];
+                int c = col + dir[1];
+                // If out of bounds or not an empty room, skip
+                if (r < 0 || r >= m || c < 0 || c >= n || rooms[r][c] == -1 || rooms[row][col] >= rooms[r][c]){ // rooms[row][col] >= rooms[r][c] is needed
+                    continue; // 墙（-1）和门（0）都不会被更新。
+                }
+                // Update distance and add to queue
+                // 每个空房间到最近门的距离
+                rooms[r][c] = rooms[row][col] + 1;// 每次弹出一个房间，把它四周的空房间距离更新为当前距离 + 1，并入队。
+                stack.push(new int[]{r, c});
+            }
+        }
     }
 }

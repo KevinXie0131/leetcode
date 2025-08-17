@@ -13,8 +13,8 @@ public class Q232_Implement_Queue_using_Stacks {
      *  int peek() 返回队列开头的元素
      *  boolean empty() 如果队列为空，返回 true ；否则，返回 false
      * 说明：
-     *  你 只能 使用标准的栈操作 —— 也就是只有 push to top, peek/pop from top, size, 和 is empty 操作是合法的。
-     *  你所使用的语言也许不支持栈。你可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。
+     *  只能使用标准的栈操作 —— 也就是只有 push to top, peek/pop from top, size, 和 is empty 操作是合法的。
+     *  所使用的语言也许不支持栈。可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。
      * Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity? In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
      * 进阶：你能否实现每个操作均摊时间复杂度为 O(1) 的队列？换句话说，执行 n 个操作的总时间复杂度为 O(n) ，即使其中一个操作可能花费较长时间。
      *
@@ -51,10 +51,8 @@ public class Q232_Implement_Queue_using_Stacks {
     // 若出队栈无元素，我们的需求又是出队的话，我们就需要将入队栈的内容反序导入出队栈，然后弹出栈顶即可。
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
-        // 只有当stOut为空的时候，再从stIn里导入数据（导入stIn全部数据）
-        if(stackOut.isEmpty()){
-            // 从stIn导入数据直到stIn为空
-            while(!stackIn.isEmpty()){
+        if(stackOut.isEmpty()){ // 只有当stOut为空的时候，再从stIn里导入数据（导入stIn全部数据）
+            while(!stackIn.isEmpty()){// 从stIn导入数据直到stIn为空
                 stackOut.push(stackIn.pop());
             }
         }
@@ -79,7 +77,6 @@ public class Q232_Implement_Queue_using_Stacks {
     public boolean empty() {
         return stackOut.isEmpty() && stackIn.isEmpty();
     }
-
     // 如果stackOut为空，那么将stackIn中的元素全部放到stackOut中
 /*    private void dumpstackIn(){
         if (!stackOut.isEmpty()) {

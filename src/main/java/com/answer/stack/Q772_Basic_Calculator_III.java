@@ -44,7 +44,7 @@ public class Q772_Basic_Calculator_III { // Hard 困难
                 num = num * 10 + (c - '0'); // 一个字符串形式的正整数，转化成 int 型
                 hasNum = true;
             }
-            if (!Character.isDigit(c) && c != ' ' || i == n - 1) {  // 如果不是数字，或者是算式的末尾
+            if (!Character.isDigit(c) && c != ' ' || i == n - 1) { // 如果不是数字，或者是算式的末尾
                 if (hasNum) {
                     nums.push(num);
                     num = 0;
@@ -134,7 +134,6 @@ public class Q772_Basic_Calculator_III { // Hard 困难
                 l2 = 1; o2 = 1;
             }
         }
-
         return (l1 + o1 * l2);
     }
 }

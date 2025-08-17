@@ -50,7 +50,7 @@ public class Q733_Flood_Fill {
         int oldColor = image[sr][sc];
         image[sr][sc] = color;
         visited[sr][sc] = true;
-/*        if (oldColor == color) { // visited can be ignored
+/*        if (oldColor == color) { // visited can be commented
             return image;
         }*/
         int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -60,7 +60,7 @@ public class Q733_Flood_Fill {
             for(int k = 0; k < 4; k++){
                 int x = cur[0] + dirs[k][0];
                 int y = cur[1] + dirs[k][1];
-                if(x >= 0 && x <= m - 1 && y >= 0 && y <= n - 1 && image[x][y] == oldColor && !visited[x][y]) {
+                if(x >= 0 && x <= m - 1 && y >= 0 && y <= n - 1 && image[x][y] == oldColor && !visited[x][y]) { // !visited[x][y] can be commented
                     image[x][y] = color;
                     visited[x][y] = true;
                     queue.offer(new int[]{x, y});

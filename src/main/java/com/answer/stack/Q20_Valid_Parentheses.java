@@ -74,7 +74,7 @@ public class Q20_Valid_Parentheses {
         Deque<Character> stack = new ArrayDeque<>();
         for(int i = 0; i < n; i++){
             char c = s.charAt(i);
-            if(pairs .containsKey(c)){
+            if(pairs.containsKey(c)){
                 if(stack.isEmpty() || stack.peek() != pairs .get(c)){
                     return false;
                 }

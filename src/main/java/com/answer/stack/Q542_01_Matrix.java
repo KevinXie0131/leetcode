@@ -1,8 +1,6 @@
 package com.answer.stack;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.*;
 
 public class Q542_01_Matrix {
     /**
@@ -53,7 +51,7 @@ public class Q542_01_Matrix {
                 for(int k = 0; k < 4; k++){
                     int x = cur[0] + dirs[k][0];   //向四个方向依次走一步
                     int y = cur[1] + dirs[k][1];
-                    if(x < 0 || x >= m || y < 0 || y >= n || mat[x][y] != Integer.MIN_VALUE){   //如果超出矩阵范围，或者遇见零元素及设置过距离step的元素则跳过，只对未遍历到的操作
+                    if(x < 0 || x >= m || y < 0 || y >= n || mat[x][y] != Integer.MIN_VALUE){ //如果超出矩阵范围，或者遇见零元素及设置过距离step的元素则跳过，只对未遍历到的操作
                         continue;
                     }
 
@@ -183,7 +181,7 @@ public class Q542_01_Matrix {
     }
 
     void dfs(int[][] mat, int i, int j, int step) {
-        if (i < 0 || i >= mat.length || j < 0 || j >= mat[i].length || mat[i][j] < step) {
+        if (i < 0 || i >= mat.length || j < 0 || j >= mat[i].length || mat[i][j] < step) { // mat[i][j] < step is needed
             return;
         }
         mat[i][j] = step;
@@ -222,5 +220,40 @@ public class Q542_01_Matrix {
         dfs1(mat, i - 1, j, step + 1, res);
         dfs1(mat, i, j + 1, step + 1, res);
         dfs1(mat, i, j - 1, step + 1, res);
+    }
+    /**
+     * DFS iterative
+     */
+    static public int[][] updateMatrix4(int[][] mat) {
+        int m = mat.length, n = mat[0].length;
+        Deque<int[]> stack = new LinkedList<>();
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (mat[i][j] == 1) {
+                    mat[i][j] = Integer.MAX_VALUE;
+                } else if (mat[i][j] == 0) {
+                    stack.push(new int[]{i, j});
+                }
+            }
+        }
+
+        int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}}; // Directions for up, down, left, right
+
+        while (!stack.isEmpty()) {
+            int[] point = stack.pop();
+            int row = point[0], col = point[1];
+            for (int[] dir : dirs) {
+                int r = row + dir[0];
+                int c = col + dir[1];
+                // If out of bounds, skip
+                if (r < 0 || r >= m || c < 0 || c >= n || mat[row][col] >= mat[r][c]){ // mat[row][col] >= mat[r][c] is needed
+                    continue;
+                }
+                // Update distance and add to queue
+                mat[r][c] = mat[row][col] + 1;
+                stack.push(new int[]{r, c});
+            }
+        }
+        return mat;
     }
 }

@@ -13,7 +13,7 @@ public class Q933_Number_of_Recent_Calls {
      * 保证 每次对 ping 的调用都使用比之前更大的 t 值。
      * It is guaranteed that every call to ping uses a strictly larger value of t than the previous call.
      *
-     * 示例 1：
+     * 示例：
      * 输入：["RecentCounter", "ping", "ping", "ping", "ping"]
      *       [[], [1], [100], [3001], [3002]]
      * 输出：[null, 1, 2, 3, 3]
@@ -60,7 +60,7 @@ public class Q933_Number_of_Recent_Calls {
      * 双指针+数组存储
      */
     int left, right; //代表最后待插入的位置、t-3000范围的起始位置
-    int []times;
+    int[] times;
 
     public void RecentCounter_1() {
         left = 0;
@@ -70,9 +70,9 @@ public class Q933_Number_of_Recent_Calls {
 
     public int ping_1(int t) {
         times[right++] = t;
-        while (times[left] < t - 3000) {
+        while (times[left] < t - 3000) { //  while (t > times[left] + 3000) { // works too
             left++;
         }
-        return right - left;   /* 返回数组的大小 = 发生的请求数 */
+        return right - left;   // 返回数组的大小 = 发生的请求数 right has been increased by 1
     }
 }

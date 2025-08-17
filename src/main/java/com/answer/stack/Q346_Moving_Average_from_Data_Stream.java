@@ -6,8 +6,8 @@ public class Q346_Moving_Average_from_Data_Stream {
     /**
      * 数据流中的移动平均值
      * 给定一个整数数据流和一个滑动窗口的大小，请计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：
-     *  MovingAverage(int size) 用窗口大小 size 初始化对象。
-     *  double next(int val) 成员函数 next，每次调用会向数据流添加一个整数 val，并返回滑动窗口里所有数字的平均值。
+     *   MovingAverage(int size) 用窗口大小 size 初始化对象。
+     *   double next(int val) 成员函数 next，每次调用会向数据流添加一个整数 val，并返回滑动窗口里所有数字的平均值。
      *
      * Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
      * Example:

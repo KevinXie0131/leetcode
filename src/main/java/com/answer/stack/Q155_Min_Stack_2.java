@@ -6,8 +6,7 @@ public class Q155_Min_Stack_2 {
     /**
      * 栈中存储数组实现
      */
-    // 数组栈, [当前值, 当前最小值]
-    private Stack<int[]> stack = new Stack<>();
+    private Stack<int[]> stack = new Stack<>(); // 数组栈, [当前值, 当前最小值]
 
     public Q155_Min_Stack_2() {
 

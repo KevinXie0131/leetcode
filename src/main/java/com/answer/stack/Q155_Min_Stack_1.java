@@ -1,9 +1,11 @@
 package com.answer.stack;
 
-import java.util.Stack;
+import java.util.*;
 
 public class Q155_Min_Stack_1 {
-    // 元组
+    /**
+     * 元组
+     */
     private Stack<MyTuple> stack;
 
     public Q155_Min_Stack_1() {
@@ -27,8 +29,9 @@ public class Q155_Min_Stack_1 {
     }
 
     public int getMin() {
-        if(stack.isEmpty()) return Integer.MAX_VALUE;
-
+        if(stack.isEmpty()) {
+            return Integer.MAX_VALUE;
+        }
         MyTuple myTuple= stack.peek();
         return myTuple.minValue;
     }

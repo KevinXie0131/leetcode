@@ -1,7 +1,6 @@
 package com.answer.stack;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 public class Q225_Implement_Stack_using_Queues_2 {
     /**
@@ -29,8 +28,9 @@ public class Q225_Implement_Stack_using_Queues_2 {
         queue.offer(x);
         int size = queue.size();
         //移动除了 A 的其它数
-        while (size-- > 1)
+        while (size-- > 1){
             queue.offer(queue.poll());
+        }
     }*/
 
     public int pop() {
@@ -63,7 +63,6 @@ public class Q225_Implement_Stack_using_Queues_2 {
                 size--;
             }
             int result = myQue1.poll();  // 此时弹出的元素顺序就是栈的顺序了
-
             return result;
         }
 

@@ -21,6 +21,7 @@ public class Q622_Design_Circular_Queue {
      *  deQueue(): 从循环队列中删除一个元素。如果成功删除则返回真。
      *  isEmpty(): 检查循环队列是否为空。
      *  isFull(): 检查循环队列是否已满。
+     *
      * 示例：
      *  MyCircularQueue circularQueue = new MyCircularQueue(3); // 设置长度为 3
      *  circularQueue.enQueue(1);  // 返回 true
@@ -131,7 +132,7 @@ public class Q622_Design_Circular_Queue {
         if(isEmpty2()){
             return -1;
         }
-        int last = r == 0 ? limit - 1 : r - 1; // int last =  (r-1 + limit) % limit;
+        int last = r == 0 ? limit - 1 : r - 1; // int last = (r - 1 + limit) % limit;
         return queue[last];
     }
 
@@ -211,6 +212,7 @@ public class Q622_Design_Circular_Queue {
         n = k;
         q = new ArrayDeque<>(); // 初始化队列
     }
+
     public boolean enQueue3(int value) {
         if (q.size() == n) {
             return false; // 如果队列满了
@@ -226,6 +228,7 @@ public class Q622_Design_Circular_Queue {
         q.pollFirst(); // 出队，从队首移除
         return true;
     }
+
     public int Front3() {
         if (isEmpty3()) {
             return -1; // 队列为空，返回 -1

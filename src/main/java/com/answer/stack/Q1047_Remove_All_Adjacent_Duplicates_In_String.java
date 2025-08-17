@@ -117,7 +117,6 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
         }
         return sb.reverse().toString();  // 此时字符串需要反转一下
         */
-
         /*
         StringBuffer sb = new StringBuffer();
         while(deque.size() > 0){
@@ -125,8 +124,8 @@ public class Q1047_Remove_All_Adjacent_Duplicates_In_String {
         }
         return sb.toString();
         */
-
-      /*  StringBuffer sb = new StringBuffer();
+        /*
+        StringBuffer sb = new StringBuffer();
         while(deque.size() > 0){
             sb.append(deque.pollLast()); //字符串不需要反转
         }

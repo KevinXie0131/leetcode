@@ -19,7 +19,6 @@ public class Q641_Design_Circular_Deque {
      * 输入 ["MyCircularDeque", "insertLast", "insertLast", "insertFront", "insertFront", "getRear", "isFull", "deleteLast", "insertFront", "getFront"]
      *      [[3], [1], [2], [3], [4], [], [], [], [4], []]
      * 输出 [null, true, true, true, false, 2, true, true, true, 4]
-     *
      * 解释
      *  MyCircularDeque circularDeque = new MycircularDeque(3); // 设置容量大小为3
      *  circularDeque.insertLast(1);			        // 返回 true
