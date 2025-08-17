@@ -31,6 +31,7 @@ public class Q239_Sliding_Window_Maximum_2 {
         }
         int[] ans = new int[n - k + 1];
         ans[0] = pq.peek()[0];
+
         for (int i = k; i < n; ++i) {
             pq.offer(new int[]{nums[i], i});
             while (pq.peek()[1] <= i - k) {
@@ -57,7 +58,6 @@ public class Q239_Sliding_Window_Maximum_2 {
                 while(!pq.isEmpty() && pq.peek()[0] < i - k + 1){
                     pq.poll();
                 }
-
                 result[index++] = pq.peek()[1];
             }
         }
@@ -70,16 +70,13 @@ public class Q239_Sliding_Window_Maximum_2 {
         if (nums == null || k == 0) return new int[0];
         int n = nums.length;
         int[] result = new int[n - k + 1];
-
         // PriorityQueue with custom comparator to create a max-heap
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
-
         // Fill the heap with the first k elements
         for (int i = 0; i < k; i++) {
             pq.offer(new int[] {nums[i], i});
         }
         result[0] = pq.peek()[0];
-
         // Process the rest of the elements
         for (int i = k; i < n; i++) {
             pq.offer(new int[] {nums[i], i});

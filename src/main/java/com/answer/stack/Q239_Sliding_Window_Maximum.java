@@ -58,7 +58,9 @@ public class Q239_Sliding_Window_Maximum { // Hard 困难
         for(int i = 0; i < k; i++){
             myQueue.offer(nums[i]); // 先将前k的元素放进队列
         }
+
         result[num++] = myQueue.peek(); // result 记录前k的元素的最大值
+
         for(int i = k; i < nums.length; i++){
             myQueue.poll(nums[i - k]); // 滑动窗口移除最前面元素
             myQueue.offer(nums[i]); // 滑动窗口前加入最后面的元素
@@ -81,7 +83,7 @@ public class Q239_Sliding_Window_Maximum { // Hard 困难
         for(int i = k; i < nums.length; i++){
             myQueue.poll(nums[i - k]); //滑动窗口移除最前面的元素，移除是判断该元素是否放入队列
             myQueue.offer(nums[i]); //滑动窗口加入最后面的元素
-            result [i - k + 1] = myQueue.peek();  //记录对应的最大值
+            result[i - k + 1] = myQueue.peek();  //记录对应的最大值
         }
         return result;
     }
@@ -110,7 +112,6 @@ class MyMonoTonicQueue {
         queue.offer(val);
     }
     // 查询当前队列里的最大值 直接返回队列前端也就是front就可以了。
-    //
     // 队列队顶元素始终为最大值
     int peek(){
         return queue.peek();

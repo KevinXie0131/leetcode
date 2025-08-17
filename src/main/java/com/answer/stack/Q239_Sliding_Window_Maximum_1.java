@@ -1,11 +1,8 @@
 package com.answer.stack;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.*;
 
 public class Q239_Sliding_Window_Maximum_1 {
-
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
         int k = 3;
@@ -71,7 +68,6 @@ public class Q239_Sliding_Window_Maximum_1 {
             }
 
             deque.offer(i);
-
             // 因为单调，当i增长到符合第一个k范围的时候，每滑动一步都将队列头节点放入结果就行了
             if(i >= k - 1){
                 res[idx++] = nums[deque.peek()];
