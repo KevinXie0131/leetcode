@@ -69,7 +69,7 @@ public class MonTonicQueueTemplate {
             if(!queue.isEmpty() && nums[i - k] == queue.peek()){
                 queue.poll();
             }
-            while(!queue.isEmpty() && nums[i]  > queue.getLast()){
+            while(!queue.isEmpty() && nums[i] > queue.getLast()){
                 queue.removeLast();
             }
             queue.offer(nums[i]);
