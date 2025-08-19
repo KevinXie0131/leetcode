@@ -11,7 +11,6 @@ public class Q16_3Sum_Closest {
      * Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
      * Return the sum of the three integers.
      * You may assume that each input would have exactly one solution.
-     *
      * 示例 1：
      *  输入：nums = [-1,2,1,-4], target = 1
      *  输出：2
@@ -42,7 +41,7 @@ public class Q16_3Sum_Closest {
                     left++;
                 } else if (sum > target){
                     right--;
-                } else {
+                } else { // for nums = [0,1,2] & target = 3
                     return result;
                 }
             }
@@ -69,15 +68,17 @@ public class Q16_3Sum_Closest {
                 // 判断最小值
                 int min = nums[i] + nums[left] + nums[left + 1];  // 优化
                 if(target < min){
-                    if(Math.abs(result - target) > Math.abs(min - target))
+                    if(Math.abs(result - target) > Math.abs(min - target)) {
                         result = min;
+                    }
                     break;
                 }
                 //判断最大值
                 int max = nums[i] + nums[right] + nums[right - 1];  // 优化
                 if(target > max){
-                    if(Math.abs(result - target) > Math.abs(max - target))
+                    if(Math.abs(result - target) > Math.abs(max - target)) {
                         result = max;
+                    }
                     break;
                 }
 

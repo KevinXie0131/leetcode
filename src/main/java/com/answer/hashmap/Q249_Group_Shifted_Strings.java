@@ -37,24 +37,24 @@ public class Q249_Group_Shifted_Strings {
      * getKey 方法为每个字符串生成一个移位特征（每两个字符的差值），这样具有相同移位关系的字符串会归为一组。
      * 使用哈希表分组，遍历输入字符串并生成 key。
      */
-    public List<List<String>> groupStrings(String[] strings) {
+    static public List<List<String>> groupStrings(String[] strings) {
         Map<String, List<String>> map = new HashMap<>();
         for (String s : strings) {
             String key = getKey(s);
+            System.out.println(key);
             map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
         }
         return new ArrayList<>(map.values());
     }
 
     // 生成字符串的移位特征 key
-    private String getKey(String s) {
+    static private String getKey(String s) {
         StringBuilder key = new StringBuilder();
         for (int i = 1; i < s.length(); i++) {
             int diff = (s.charAt(i) - s.charAt(i - 1) + 26) % 26; // 保证是正数
             key.append(diff).append(",");
         }
-        // 长度为1的字符串 key 为空
-        return key.toString();
+        return key.toString();  // 长度为1的字符串 key 为空
     }
     /**
      * 哈希表
@@ -80,7 +80,7 @@ public class Q249_Group_Shifted_Strings {
     public List<List<String>> groupStrings2(String[] strings){
         Map<String, List<String>> map = new HashMap<>();
         for(String str : strings){
-            String hash = getHash(str);
+            String hash = getHash1(str);
             List<String> group = map.get(hash);
             if(group == null){
                 group = new ArrayList<>();
@@ -93,14 +93,28 @@ public class Q249_Group_Shifted_Strings {
     //将字符串str移位直到第一个字符变成'a'，返回移位后的字符串
     //返回的字符串可以作为原始字符串的哈希值，通过该哈希值就可以对字符串进行归类
     public static String getHash(String str){
-        if(str.isEmpty())
+        if(str.isEmpty()) {
             return str;
-
+        }
         char[] arr = str.toCharArray();
         int tem = arr[0] - 26;
-        for(int i = 0; i < arr.length; i++)
-            arr[i] = (char)((arr[i] - tem) % 26 + 'a');
-
+        for(int i = 0; i < arr.length; i++) {
+            arr[i] = (char) ((arr[i] - tem) % 26 + 'a');
+        }
+        return new String(arr).intern();
+    }
+    /**
+     * another form
+     */
+    public static String getHash1(String str){
+        if(str.isEmpty()) {
+            return str;
+        }
+        char[] arr = str.toCharArray();
+        char first = arr[0];
+        for(int i = 0; i < arr.length; i++) {
+            arr[i] = (char) ((arr[i] - first + 26) % 26 + 'a');
+        }
         return new String(arr).intern();
     }
 }

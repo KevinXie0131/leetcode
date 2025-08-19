@@ -64,6 +64,10 @@ public class Q706_Design_HashMap {
         }
     }
 
+    private static int hash(int key) {
+        return key % BASE;
+    }
+
     public void put(int key, int value) {
         int h = hash(key);
         Iterator<Pair> iterator = data[h].iterator();
@@ -100,10 +104,6 @@ public class Q706_Design_HashMap {
             }
         }
     }
-
-    private static int hash(int key) {
-        return key % BASE;
-    }
     /**
      * 利用链表chaining最大化减少空间浪费
      * 每个链表预设一个dummy head，这样head永远不会为空，省去判断为空的情况，略费空间
@@ -125,8 +125,8 @@ public class Q706_Design_HashMap {
     public void put1(int key, int value) {
         int hashKey = getHashKey(key);
         MyListNode head = nums[hashKey];
-        MyListNode p = head;
-        MyListNode tail = p;
+        MyListNode tail = head;
+        MyListNode p = head.next;
         while (p != null) {
             if (p.key == key) {
                 p.val = value;

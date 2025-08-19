@@ -76,7 +76,6 @@ public class Q460_LFU_Cache_1 {
         pushFront(++node.freq, node); // 放在右边这摞书的最上面
         return node;
     }
-
     // 创建一个新的双向链表
     private Node newList() {
         Node dummy = new Node(0, 0); // 哨兵节点
@@ -84,7 +83,6 @@ public class Q460_LFU_Cache_1 {
         dummy.next = dummy;
         return dummy;
     }
-
     // 在链表头添加一个节点（把一本书放在最上面）
     private void pushFront(int freq, Node x) {
         Node dummy = freqToDummy.computeIfAbsent(freq, k -> newList());
@@ -93,7 +91,6 @@ public class Q460_LFU_Cache_1 {
         x.prev.next = x;
         x.next.prev = x;
     }
-
     // 删除一个节点（抽出一本书）
     private void remove(Node x) {
         x.prev.next = x.next;

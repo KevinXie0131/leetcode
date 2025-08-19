@@ -75,7 +75,7 @@ public class Q36_Valid_Sudoku {
         return true;
     }
     /**
-     * HashMap
+     * HashMap 哈希
      */
     public boolean isValidSudoku2(char[][] board) {
         HashMap<String, Integer> map = new HashMap<>();

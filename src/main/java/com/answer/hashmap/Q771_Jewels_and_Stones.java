@@ -35,7 +35,6 @@ public class Q771_Jewels_and_Stones {
                 cnt++;
             }
         }
-
         return cnt;
     }
     /**
@@ -72,7 +71,9 @@ public class Q771_Jewels_and_Stones {
             map[jewels.charAt(i) - 'A']++;
         }
         for (int i = 0; i < n; i++) {
-            if (map[stones.charAt(i) - 'A'] > 0) res++;
+            if (map[stones.charAt(i) - 'A'] > 0) {
+                res++;
+            }
         }
         return res;
     }
@@ -118,8 +119,9 @@ public class Q771_Jewels_and_Stones {
         }
         int res = 0;
         for (int i = 0; i < stones.length(); i++) {
-            if ((xor & (1L << (stones.charAt(i) - 'A'))) != 0)
+            if ((xor & (1L << (stones.charAt(i) - 'A'))) != 0) {
                 res++;
+            }
         }
         return res;
     }

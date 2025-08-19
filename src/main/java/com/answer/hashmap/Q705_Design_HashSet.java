@@ -39,6 +39,10 @@ public class Q705_Design_HashSet {
         }
     }
 
+    private static int hash(int key) {
+        return key % BASE; // 除留余数法计算哈希值
+    }
+
     public void add(int key) {
         int h = hash(key);  // 计算元素的哈希值
         Iterator<Integer> iterator = data[h].iterator(); //建立迭代器
@@ -74,9 +78,4 @@ public class Q705_Design_HashSet {
         }
         return false; // 没有找到元素，返回false
     }
-
-    private static int hash(int key) {
-        return key % BASE; // 除留余数法计算哈希值
-    }
-
 }

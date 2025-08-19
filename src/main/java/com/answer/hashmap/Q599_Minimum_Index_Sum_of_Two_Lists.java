@@ -45,7 +45,9 @@ public class Q599_Minimum_Index_Sum_of_Two_Lists {
         List<String> res = new ArrayList<>();
         int min = Integer.MAX_VALUE;
         for(int i = 0; i < list2.length; i++){
-            if (i > min) break;  // 优化
+            if (i > min) {
+                break;  // 优化
+            }
 
             if(map.containsKey(list2[i])){
                 int index = i + map.get(list2[i]);
@@ -59,5 +61,7 @@ public class Q599_Minimum_Index_Sum_of_Two_Lists {
             }
         }
         return res.toArray(new String[0]);
+        // return res.toArray(new String[res.size()]); // works too
+        // return res.toArray(new String[]); // doesn't work
     }
 }

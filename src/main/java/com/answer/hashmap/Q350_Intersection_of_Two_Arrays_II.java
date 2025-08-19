@@ -51,7 +51,7 @@ public class Q350_Intersection_of_Two_Arrays_II {
         }
 
         List<Integer> ans = new ArrayList<>();
-        for(int num: nums2){
+        for(int num : nums2){
             if(map.containsKey(num) && map.get(num) > 0) {
                 ans.add(num);
                 map.put(num, map.get(num) - 1);
@@ -60,7 +60,7 @@ public class Q350_Intersection_of_Two_Arrays_II {
         return ans.stream().mapToInt(i -> i).toArray();
     }
     /**
-     * Approach 1: Hash Map
+     * Approach 1: HashMap
      */
     public int[] intersect(int[] nums1, int[] nums2) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -75,14 +75,12 @@ public class Q350_Intersection_of_Two_Arrays_II {
             int count = map.getOrDefault(n, 0);
             if(count > 0){
                 result[index++] = n;
-
                 count--;
                 if(count > 0){
                     map.put(n, count);
                 }else{
                     map.remove(n);
                 }
-
             }
         }
         return Arrays.copyOfRange(result, 0, index);
@@ -100,6 +98,7 @@ public class Q350_Intersection_of_Two_Arrays_II {
     public static int[] intersection_1(int[] nums1, int[] nums2) {
         Arrays.sort(nums1);
         Arrays.sort(nums2);
+
         int len1 = nums1.length;
         int len2 = nums2.length;
         int[] result = new int[len1 + len2];

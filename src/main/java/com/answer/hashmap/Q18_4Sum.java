@@ -5,7 +5,8 @@ import java.util.*;
 public class Q18_4Sum {
     /**
      * 四数之和
-     * 给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] （若两个四元组元素一一对应，则认为两个四元组重复）：
+     * 给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]]
+     * （若两个四元组元素一一对应，则认为两个四元组重复）：
      *  0 <= a, b, c, d < n
      *  a、b、c 和 d 互不相同
      *  nums[a] + nums[b] + nums[c] + nums[d] == target
@@ -38,7 +39,7 @@ public class Q18_4Sum {
      * 本题思路与 Q15. 三数之和 相同，只需增加一层循环，枚举前两个数字的值，双指针确定后两个数字的值即可。
      */
     public static List<List<Integer>> fourSum(int[] nums, int target) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>(); // 结果集
+        List<List<Integer>> result = new ArrayList<>(); // 结果集
         int n = nums.length;
         if(n < 4){
             return result;
@@ -53,13 +54,15 @@ public class Q18_4Sum {
             if(i > 0 && nums[i] == nums[i - 1]){ // 对nums[i]去重
                 continue;
             }
-
             // 如果剩余四元组的最小元素和 > target，退出即可
-            if ((long)nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) break;
+            if ((long)nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) {
+                break;
+            }
             // 如果固定此 i 时，四元组的最大元素和 < target，跳到下一个 i
-            if ((long)nums[i] + nums[n - 1] + nums[n - 2] + nums[n - 3] < target) continue;
-
-            for(int j = i + 1; j < n - 2;j++){
+            if ((long)nums[i] + nums[n - 1] + nums[n - 2] + nums[n - 3] < target) {
+                continue;
+            }
+            for(int j = i + 1; j < n - 2; j++){
                 if (nums[j] + nums[i] > target && nums[j] + nums[i] >= 0) { // 第二级剪枝
                     break;
                 }
@@ -68,10 +71,13 @@ public class Q18_4Sum {
                 }
                 // 相加时用 Int 是会溢出的，在这些语言中我们在求 nums[i]+nums[j]+nums[l]+nums[r] 时要先转换为 long
                 // 固定此 i 并限定最小 j 时，如果剩余四元组的最小元素和 > target，跳到下一个 i
-                if ((long)nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target) break;
+                if ((long)nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target){
+                    break;
+                }
                 // 固定此 i j 时，如果四元组的最大元素和 < target，跳到下一个 j
-                if ((long)nums[i] + nums[j] + nums[n - 1] + nums[n - 2] < target) continue;
-
+                if ((long)nums[i] + nums[j] + nums[n - 1] + nums[n - 2] < target) {
+                    continue;
+                }
                 int left = j + 1;
                 int right = n - 1;
                 while(left < right){

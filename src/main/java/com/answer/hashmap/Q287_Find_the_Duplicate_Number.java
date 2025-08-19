@@ -23,7 +23,7 @@ public class Q287_Find_the_Duplicate_Number {
      */
     public static void main(String[] args) {
         int[] nums = {1,3,4,2,2};
-        int res = findDuplicate_index_sort(nums);
+        int res = findDuplicate_fastSlow(nums);
         System.out.println(res);
     }
     /**
@@ -153,7 +153,7 @@ public class Q287_Find_the_Duplicate_Number {
         int len = nums.length;
         int low = 0;
         int high = len - 1;
-        while (low < high) {
+        while (low <= high) {
             int mid = low + (high - low) / 2;
             int cnt = 0; // 计数
             for (int i = 0; i < len; i++) {
@@ -165,7 +165,7 @@ public class Q287_Find_the_Duplicate_Number {
             if (cnt <= mid) {
                 low = mid + 1;  // 下一轮搜索的区间 [mid + 1..right]
             } else {
-                high = mid;  // 下一轮搜索的区间 [left..mid]
+                high = mid - 1;  // 下一轮搜索的区间 [left..mid]
             }
         }
         return low;

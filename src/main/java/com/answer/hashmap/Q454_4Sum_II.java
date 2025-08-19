@@ -5,7 +5,7 @@ import java.util.*;
 public class Q454_4Sum_II {
     /**
      * 四数相加 II
-     * 给你四个整数数组 nums1、nums2、nums3 和 nums4 ，数组长度都是 n ，请你计算有多少个元组(tuples ) (i, j, k, l) 能满足：
+     * 给你四个整数数组 nums1、nums2、nums3 和 nums4 ，数组长度都是 n ，请你计算有多少个元组(tuples) (i, j, k, l) 能满足：
      *  0 <= i, j, k, l < n
      *  nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0
      * 示例 1：
@@ -51,7 +51,7 @@ public class Q454_4Sum_II {
      * 用哈希表存储前两组的和及其出现次数，后两组只需查找对应的负数
      */
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> map = new HashMap<>();
         // 计算前两组的和并存储次数
         for(int a : nums1){
             for(int b : nums2){

@@ -22,7 +22,7 @@ public class Q268_Missing_Number {
      */
     public static void main(String[] args) {
         int[] nums = {3,0,1};
-        missingNumber5(nums);
+        missingNumber_5(nums);
     }
     /**
      * 数组哈希
@@ -43,13 +43,14 @@ public class Q268_Missing_Number {
     }
     /**
      * 原地哈希
-     * 可以将 nums 本身作为哈希表进行使用，将 nums[i] 放到其应该出现的位置（下标） nums[i] 上（ nums[i]<n ）
+     * 可以将 nums 本身作为哈希表进行使用，将 nums[i] 放到其应该出现的位置(下标)nums[i]上(nums[i]<n)
      */
     static public int missingNumber5(int[] nums) {
         int n = nums.length;
         for (int i = 0; i < n; i++) {
             if (nums[i] != i && nums[i] <= n - 1) { // 将数组的每个元素放在对应下标的位置，比如元素3放在下标为3的位置, 如果元素等于n(数组长度)，则跳过它。
-                swap(nums, nums[i], i--);
+                swap(nums, nums[i], i);
+                i--;
             }
         }
         for (int i = 0; i < n; i++) {
@@ -64,6 +65,33 @@ public class Q268_Missing_Number {
         int c = nums[i];
         nums[i] = nums[j];
         nums[j] = c;
+    }
+    /**
+     * 同上
+     * refer to Q287_Find_the_Duplicate_Number
+     */
+   static public int missingNumber_5(int[] nums) {
+        int n = nums.length;
+        int j = 0;
+        while(j < nums.length) {
+            if(nums[j] == j) {
+                j++;
+                continue;
+            }
+            if(nums[j] <= n - 1) {
+                int tmp = nums[j];
+                nums[j] = nums[tmp];
+                nums[tmp] = tmp;
+            } else {
+                j++;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (i != nums[i]) {
+                return i;
+            }
+        }
+        return n;
     }
     /**
      * HashSet 哈希集合
@@ -126,7 +154,7 @@ public class Q268_Missing_Number {
         return x;
     }
     /**
-     * anther from 异或
+     * another form 异或
      * 这个数组添加从0~n的n+1个元素，就变成了数组中只有一个数出现了一次，其他数字都出现了2次，让我们求这个只出现一次的数字
      */
     public int missingNumber6(int[] nums) {
@@ -155,6 +183,30 @@ public class Q268_Missing_Number {
                 //注意这里写法和上面代码不一样
                 end = mid - 1;
             }
+        }
+        return start;
+    }
+    /**
+     * 同上 二分法
+     */
+    public int missingNumber7a(int[] nums) {
+        Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            // {0, 1, 2, 3, 4, 5, 8, 9} mid = 4
+            // {0, 1, 2, 3, 4, 5, 8, 9, 10} mid = 5
+            // {0, 2, 3, 4, 5, 6, 7, 8} mid = 4
+            if (nums[mid] == mid) { // missing number is in [mid + 1, end]
+                start = mid + 1;
+            }
+            else if (nums[mid] > mid) { // missing number is in [start, mid - 1]
+                end = mid - 1;
+            }
+        //    else if (nums[mid] < mid) {  // no need to consider
+        //        end = mid - 1;
+       //     }
         }
         return start;
     }

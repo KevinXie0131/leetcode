@@ -29,7 +29,7 @@ public class Q219_Contains_Duplicate_II {
                 return true;
             }
             set.add(nums[i]);
-            if(set.size() > k){ // 如果 i>k，则下标 i−k−1 处的元素被移出滑动窗口，因此将 nums[i−k−1] 从哈希集合中删除；
+            if(set.size() > k){ // 如果 size>k，则下标 i−k 处的元素被移出滑动窗口，因此将 nums[i−k] 从哈希集合中删除；
                 set.remove(nums[i - k]);
             }
         }
@@ -54,10 +54,28 @@ public class Q219_Contains_Duplicate_II {
         return false;
     }
     /**
+     * another form
+     */
+    public boolean containsNearbyDuplicate0a(int[] nums, int k) {
+        int n = nums.length;
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            if (set.contains(nums[i])) { // works too
+                return true;
+            }
+            set.add(nums[i]);
+        //  if (i > k - 1) { // works too
+            if (i >= k) {
+                set.remove(nums[i - k]);  // 长度超过k，移除最左侧元素
+            }
+        }
+        return false;
+    }
+    /**
      * Use HashMap 哈希表
      */
     public boolean containsNearbyDuplicate_1(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>(); // 记录每个值最近出现过的索引
+        Map<Integer, Integer> map = new HashMap<>(); // 记录每个值最近出现过的索引
         int length = nums.length;
         for (int i = 0; i < length; i++) {
             int num = nums[i];

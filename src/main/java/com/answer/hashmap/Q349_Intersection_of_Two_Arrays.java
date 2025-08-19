@@ -1,6 +1,5 @@
 package com.answer.hashmap;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -67,6 +66,7 @@ public class Q349_Intersection_of_Two_Arrays {
         // return set2.stream().mapToInt(i -> i).toArray();// works too
         int[] result = new int[set2.size()];
         result = set2.stream().mapToInt(Number::intValue).toArray();
+        // result = set2.stream().mapToInt(Integer::intValue).toArray(); // work too
         return result;
     }
     /**

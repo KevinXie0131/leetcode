@@ -11,8 +11,8 @@ public class Q1_Two_Sum {
      * You may assume that each input would have exactly one solution, and you may not use the same element twice.
      * 你可以按任意顺序返回答案。
      * You can return the answer in any order.
-     * 进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗？
-     * Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
+     * 进阶：你可以想出一个时间复杂度小于 O(n^2) 的算法吗？
+     * Follow-up: Can you come up with an algorithm that is less than O(n^2) time complexity?
      *
      * 示例 1：
      *  输入：nums = [2,7,11,15], target = 9
@@ -65,7 +65,6 @@ public class Q1_Two_Sum {
                 result[0] = map.get(nums[i]);
                 result[1] = i;
             }
-
             map.put(temp, i);    // 如果没找到匹配对，就把访问过的元素和下标加入到map中
         }
         return result;
@@ -83,7 +82,6 @@ public class Q1_Two_Sum {
             }
             map.put(nums[i], i); //  如果没有，把访问过的元素和下标加入map中
         }
-
         return null;
     }
     /**
@@ -104,7 +102,6 @@ public class Q1_Two_Sum {
             map.put(nums[i], i);
         }
         return res;
-
     }
     /**
      * Sorting will change index. This doesn't work.
@@ -132,6 +129,7 @@ public class Q1_Two_Sum {
         int[] tmp1 = new int[nums.length];
         //备份原本下标的nums数组
         System.arraycopy(nums,0, tmp1,0, nums.length);
+    //  tmp1 =  nums.clone(); // works too
         //将nums排序
         Arrays.sort(nums);
         //双指针

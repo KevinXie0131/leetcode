@@ -9,38 +9,57 @@ public class Q1418_Display_Table_of_Food_Orders_in_a_Restaurant {
      * 请你返回该餐厅的 点菜展示表 。在这张表中，表中第一行为标题，其第一列为餐桌桌号 “Table” ，后面每一列都是按字母顺序排列的餐品名称。接下来每一行中的项则表示每张餐桌订购的相应餐品数量，第一列应当填对应的桌号，后面依次填写下单的餐品数量。
      * 注意：客户姓名不是点菜展示表的一部分。此外，表中的数据行应该按餐桌桌号升序排列。
      */
+    public static void main(String[] args) {
+        Q1418_Display_Table_of_Food_Orders_in_a_Restaurant solution = new Q1418_Display_Table_of_Food_Orders_in_a_Restaurant();
+        List<List<String>> orders = Arrays.asList(
+                Arrays.asList("David", "3", "Ceviche"),
+                Arrays.asList("Corina", "10", "Beef Burrito"),
+                Arrays.asList("David", "3", "Fried Chicken"),
+                Arrays.asList("Carla", "5", "Water"),
+                Arrays.asList("Carla", "5", "Ceviche"),
+                Arrays.asList("Rous", "3", "Ceviche")
+        );
+        List<List<String>> expected = Arrays.asList(
+                Arrays.asList("Table", "Beef Burrito", "Ceviche", "Fried Chicken", "Water"),
+                Arrays.asList("3", "0", "2", "1", "0"),
+                Arrays.asList("5", "0", "1", "0", "1"),
+                Arrays.asList("10", "1", "0", "0", "0")
+        );
+        System.out.println(solution.displayTable(orders));
+    }
     /**
      * HashMap + HashSet 哈希表
      */
     public List<List<String>> displayTable(List<List<String>> orders) {
         // 从订单中获取餐品名称和桌号，统计每桌点餐数量
-        Set<String> nameSet = new HashSet<String>(); // 保存所有的餐品名称
-        Map<Integer, Map<String, Integer>> foodsCnt = new HashMap<Integer, Map<String, Integer>>(); // 保存桌号及该桌点餐数量，点餐数量也用一个哈希表保存。
+        Set<String> nameSet = new HashSet<>(); // 保存所有的餐品名称
+        Map<Integer, Map<String, Integer>> foodsCnt = new HashMap<>(); // 保存桌号及该桌点餐数量，点餐数量也用一个哈希表保存。
 
         for(List<String> order : orders){
             nameSet.add(order.get(2));
             int id = Integer.parseInt(order.get(1));
             Map<String, Integer> map = foodsCnt.getOrDefault(id, new HashMap<String, Integer>());
+           //  Map<String, Integer> map = foodsCnt.computeIfAbsent(id, e -> new HashMap<String, Integer>()); // works too
             map.put(order.get(2), map.getOrDefault(order.get(2), 0) + 1);
             foodsCnt.put(id, map);
         }
         // 提取餐品名称，并按字母顺序排列
         int n = nameSet.size();
-        List<String> names= new ArrayList<String>();
+        List<String> names= new ArrayList<>();
         for(String name : nameSet){
             names.add(name);
         }
         Collections.sort(names);    // 构造 title & 手动排序
         // 提取桌号，并按餐桌桌号升序排列
         int m = foodsCnt.size();
-        List<Integer> ids= new ArrayList<Integer>();
+        List<Integer> ids= new ArrayList<>();
         for(int id : foodsCnt.keySet()){
             ids.add(id);
         }
         Collections.sort(ids);  // 构造内容 & 手动排序
         // 填写点菜展示表
-        List<List<String>> tables = new ArrayList<List<String>>();
-        List<String> header = new ArrayList<String>();
+        List<List<String>> tables = new ArrayList<>();
+        List<String> header = new ArrayList<>();
         header.add("Table");
         for (String name : names) {
             header.add(name);
@@ -50,7 +69,7 @@ public class Q1418_Display_Table_of_Food_Orders_in_a_Restaurant {
         for(int i = 0 ; i < m; i++){
             int id = ids.get(i);
             Map<String, Integer> cnt = foodsCnt.get(id);
-            List<String> row = new ArrayList<String>();
+            List<String> row = new ArrayList<>();
             row.add(Integer.toString(id));
             for(int j = 0 ; j < n; j++){
                 row.add(Integer.toString(cnt.getOrDefault(names.get(j), 0)));
@@ -74,6 +93,7 @@ public class Q1418_Display_Table_of_Food_Orders_in_a_Restaurant {
             String foodItem = order.get(2);
             set.add(foodItem);
             Map<String, Integer> count = tableList.getOrDefault(tableNumber, new HashMap<>());
+         //   Map<String, Integer> count = tableList.computeIfAbsent(tableNumber, e -> new HashMap<>()); // works too
             count.put(foodItem, 1 + count.getOrDefault(foodItem, 0));
             tableList.put(tableNumber, count);
         }

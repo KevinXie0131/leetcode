@@ -39,10 +39,20 @@ public class Q288_Unique_Word_Abbreviation {
         System.out.println(vwa.isUnique("cart")); // true
         System.out.println(vwa.isUnique("cane")); // false
         System.out.println(vwa.isUnique("make")); // true
+
+            Map<String, Set<String>> abbrDict = new HashMap<>();
+        abbrDict.computeIfAbsent("abc", k -> new HashSet<>()).add("123");
+        abbrDict.computeIfAbsent("abc", k -> new HashSet<>()).add("456");
+        System.out.println(abbrDict);
+        abbrDict.computeIfAbsent("ccc", k -> new HashSet<>()).add("cc123");
+        abbrDict.computeIfAbsent("ddd", k -> new HashSet<>()).add("dd456");
+        abbrDict.computeIfAbsent("ddd", k -> new HashSet<>()).add("dd456111");
+        System.out.println(abbrDict);
     }
-
+    /**
+     * 哈希 HashSet
+     */
     private final Map<String, Set<String>> abbrDict = new HashMap<>();
-
     // Constructor to build the abbreviation dictionary
     public Q288_Unique_Word_Abbreviation(String[] dictionary) {
         for (String word : dictionary) {
@@ -78,6 +88,7 @@ public class Q288_Unique_Word_Abbreviation {
      * 如果有其它单词出现就不是唯一的。
      */
     Map<String, Set<String>> map;
+
     public void ValidWordAbbr1(String[] dictionary) {
         map = new HashMap<>();
         for (String s : dictionary) {
@@ -104,5 +115,4 @@ public class Q288_Unique_Word_Abbreviation {
         int len = s.length();
         return s.substring(0, 1) + (len - 2) + s.substring(len - 1);
     }
-
 }

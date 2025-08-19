@@ -9,6 +9,7 @@ public class Q146_LRU_Cache_2 {
      */
     int cap;
     LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
+
     public Q146_LRU_Cache_2(int capacity) {
         this.cap = capacity;
     }

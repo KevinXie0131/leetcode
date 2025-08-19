@@ -1,7 +1,6 @@
 package com.answer.hashmap;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Q15_3Sum {
     /**
@@ -21,8 +20,9 @@ public class Q15_3Sum {
      *       注意，输出的顺序和三元组的顺序并不重要。
      */
     public static void main(String[] args) {
-        int[] nums = {-1,0,1,2,-1,-4};
-        List<List<Integer>> list = threeSum_1(nums);
+      //  int[] nums = {-1,0,1,2,-1,-4};
+        int[] nums = {2,-3,0,-2,-5,-5,-4,1,2,-2,2,0,2,-4,5,5,-10};
+        List<List<Integer>> list = threeSum_2(nums);
         System.out.println(list);
     }
     /**
@@ -93,10 +93,13 @@ public class Q15_3Sum {
         List<List<Integer>> res = new ArrayList<>();
 
         for (int i = 0; i < nums.length - 2; i++) {
-            if(nums[i] > 0) break; // 提前终止，效率更高
+            if(nums[i] > 0) {
+                break; // 提前终止，效率更高
+            }
             // 跳过重复元素
-            if (i > 0 && nums[i] == nums[i - 1]) continue;  //去重，当起始的值等于前一个元素，那么得到的结果将会和前一次相同
-
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;  //去重，当起始的值等于前一个元素，那么得到的结果将会和前一次相同
+            }
             // 双指针，目标是找到 nums[l] + nums[r] = -nums[i]
             int l = i + 1, r = nums.length - 1;
             int target = -nums[i];
@@ -108,8 +111,12 @@ public class Q15_3Sum {
                     l++;
                     r--;
                     // 跳过重复元素
-                    while (l < r && nums[l] == nums[l - 1]) l++; //去重，因为 i 不变，当此时 l取的数的值与前一个数相同，所以不用在计算，直接跳
-                    while (l < r && nums[r] == nums[r + 1]) r--; //去重，因为 i不变，当此时 r 取的数的值与前一个相同，所以不用在计算
+                    while (l < r && nums[l] == nums[l - 1]) {
+                        l++; //去重，因为 i 不变，当此时 l取的数的值与前一个数相同，所以不用在计算，直接跳
+                    }
+                    while (l < r && nums[r] == nums[r + 1]){
+                        r--; //去重，因为 i不变，当此时 r 取的数的值与前一个相同，所以不用在计算
+                    }
                 } else if (sum < target) {
                     l++;
                 } else {
@@ -120,26 +127,23 @@ public class Q15_3Sum {
         return res;
     }
     /**
-     * 使用哈希集合
+     * 使用哈希集合 同上
      */
     public static List<List<Integer>> threeSum_1(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
 
         for (int i = 0; i < nums.length; i++) {
-            // 如果第一个元素大于零，不可能凑成三元组
-            if (nums[i] > 0) {
+            if (nums[i] > 0) { // 如果第一个元素大于零，不可能凑成三元组
                 return result;
             }
-            // 三元组元素a去重
-            if (i > 0 && nums[i] == nums[i - 1]) {
+            if (i > 0 && nums[i] == nums[i - 1]) { // 三元组元素a去重
                 continue;
             }
 
             HashSet<Integer> set = new HashSet<>();
             for (int j = i + 1; j < nums.length; j++) {
-                // 三元组元素b去重
-                if (j > i + 2 && nums[j] == nums[j - 1] && nums[j - 1] == nums[j - 2]) {
+                if (j > i + 2 && nums[j] == nums[j - 1] && nums[j - 1] == nums[j - 2]) { // 三元组元素b去重 for {0, 0, 0}
                     continue;
                 }
 
@@ -149,6 +153,40 @@ public class Q15_3Sum {
                     set.remove(c); // 三元组元素c去重
                 } else {
                     set.add(nums[j]);
+                }
+            }
+        }
+        return result;
+    }
+    /**
+     * 使用HashMap
+     */
+    public static List<List<Integer>> threeSum_2(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) { // 如果第一个元素大于零，不可能凑成三元组
+                return result;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) { // 三元组元素a去重
+                continue;
+            }
+
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j > i + 2 && nums[j] == nums[j - 1] && nums[j - 1] == nums[j - 2]) { // 三元组元素b去重 for {0, 0, 0}
+                    continue;
+                }
+
+                int temp = - nums[i] - nums[j];
+                if (map.containsKey(temp)) {
+                    if(map.get(temp) > 0){
+                        result.add(Arrays.asList(nums[i], nums[j], temp));
+                        map.put(temp, 0);  // 三元组元素c去重
+                    }
+                } else {
+                    map.put(nums[j], 1);
                 }
             }
         }

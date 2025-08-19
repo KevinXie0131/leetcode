@@ -27,7 +27,6 @@ public class Q380_Insert_Delete_GetRandom_O1 {
      */
     public static void main(String[] args) {
         Q380_Insert_Delete_GetRandom_O1 set = new Q380_Insert_Delete_GetRandom_O1();
-
         set.insert1(1);   // returns true
         set.remove1(2);   // returns false, 2 not present
         set.insert1(2);   // returns true
@@ -90,7 +89,7 @@ public class Q380_Insert_Delete_GetRandom_O1 {
     /**
      * 哈希表 + 删除交换
      */
-    static int[] nums1 = new int[200010]; // At most 2 * 105 calls
+    static int[] nums1 = new int[200010]; // At most 2 * 10^5 calls
     Random random1 = new Random();
     Map<Integer, Integer> map = new HashMap<>();
     int idx = -1; // 记录当前使用到哪一位（即下标在 [0,idx] 范围内均是存活值）

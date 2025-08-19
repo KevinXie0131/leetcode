@@ -5,7 +5,7 @@ import java.util.*;
 public class Q460_LFU_Cache_3 {
     /**
      * 哈希表 + 平衡二叉树
-     * 本方法需要使用到「平衡二叉树」，我们可以直接使用 TreeSet
+     * 本方法需要使用到「平衡二叉树」，我们可以直接使用TreeSet
      */
     // 缓存容量，时间戳
     int capacity, time;
@@ -23,7 +23,6 @@ public class Q460_LFU_Cache_3 {
         if (capacity == 0) {
             return -1;
         }
-
         if (!key_table.containsKey(key)) { // 如果哈希表中没有键 key，返回 -1
             return -1;
         }

@@ -51,7 +51,7 @@ public class Q217_Contains_Duplicate {
         return false;
     }
     /**
-     * 使用 hashMap
+     * 使用 HashMap
      */
     public boolean containsDuplicate4(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();

@@ -41,18 +41,16 @@ public class Q220_Contains_Duplicate_III { // Hard 困难
         TreeSet<Long> ts = new TreeSet<>(); // 由于 nums 中的数较大，会存在 int 溢出问题，我们需要使用 long 来存储
         for (int i = 0; i < n; i++) {
             Long u = nums[i] * 1L;
-            // 从 ts 中找到小于等于 u 的最大值（小于等于 u 的最接近 u 的数）
-            Long l = ts.floor(u);
-            // 从 ts 中找到大于等于 u 的最小值（大于等于 u 的最接近 u 的数）
-            Long r = ts.ceiling(u);
+            Long l = ts.floor(u);// 从 ts 中找到小于等于 u 的最大值（小于等于 u 的最接近 u 的数）
+            Long r = ts.ceiling(u);   // 从 ts 中找到大于等于 u 的最小值（大于等于 u 的最接近 u 的数）
             if(l != null && u - l <= t) {
                 return true;
             }
             if(r != null && r - u <= t) {
                 return true;
             }
-            // 将当前数加到 ts 中，并移除下标范围不在 [max(0, i - k), i) 的数（维持滑动窗口大小为 k）
-            ts.add(u);
+
+            ts.add(u);     // 将当前数加到 ts 中，并移除下标范围不在 [max(0, i - k), i) 的数（维持滑动窗口大小为 k）
             if (i >= k) {
                 ts.remove(nums[i - k] * 1L);
             }
@@ -80,18 +78,19 @@ public class Q220_Contains_Duplicate_III { // Hard 困难
     }
     /**
      * 桶排序
-     abs(nums[i] - nums[j]) <= t，假设t = 2，则差的绝对值可以是0，1，2
-
-     因此坐标计算 inx， 当 x >= 0 ： x / (t + 1)
-     当 x < 0：( x + 1 ) / (t + 1) - 1
-     为了把某（t + 1）个数正确映射到某个容量范围的桶
-     如 0， 1， 2，除以容量3，得到 0
-     而 -1， -2， -3 除以3则有-1和0，出现错误，因此，
-     把负数统一加一得到 0，-1，-2， 此时除以3是0，也出错，但若再减一则是-1，正确
-
-     abs (i - j) <= k是桶的数量，即坐标差绝对值
+     * abs(nums[i] - nums[j]) <= t，假设t = 2，则差的绝对值可以是0，1，2
+     *
+     * 因此坐标计算 inx， 当 x >= 0 ： x / (t + 1)
+     * 当 x < 0：( x + 1 ) / (t + 1) - 1
+     * 为了把某（t + 1）个数正确映射到某个容量范围的桶
+     * 如 0， 1， 2，除以容量3，得到 0
+     * 而 -1， -2， -3 除以3则有-1和0，出现错误，因此，
+     * 把负数统一加一得到 0，-1，-2， 此时除以3是0，也出错，但若再减一则是-1，正确
+     *
+     * abs (i - j) <= k是桶的数量，即坐标差绝对值
      */
     long size;
+
     public boolean containsNearbyAlmostDuplicate1(int[] nums, int k, int t) {
         int n = nums.length;
         Map<Long, Long> map = new HashMap<>();  //桶容量

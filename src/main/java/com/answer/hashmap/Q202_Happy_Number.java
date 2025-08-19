@@ -46,12 +46,11 @@ public class Q202_Happy_Number {
         int sum = n;
         while(sum != 1) {
             sum = getNextNumber(sum);
-            //先判断哈希表中是否存在这个数
-            if(set.contains(sum)) {
+
+            if(set.contains(sum)) {  //先判断哈希表中是否存在这个数
                 return false;
             }
-            //如果不再将每次结果放到哈希表中去
-            set.add(sum);
+            set.add(sum);   //如果不再将每次结果放到哈希表中去
         }
         return true;
     }
@@ -74,8 +73,7 @@ public class Q202_Happy_Number {
      */
     int bitSquareSum(int n) {
         int sum = 0;
-        while(n > 0)
-        {
+        while(n > 0) {
             int bit = n % 10;
             sum += bit * bit;
             n = n / 10;
@@ -92,7 +90,7 @@ public class Q202_Happy_Number {
             slow = bitSquareSum(slow);
             fast = bitSquareSum(fast);
             fast = bitSquareSum(fast);
-        }while(slow != fast); // 如果 n 不是一个快乐的数字，那么最终快跑者和慢跑者将在同一个数字上相遇。
+        } while(slow != fast); // 如果 n 不是一个快乐的数字，那么最终快跑者和慢跑者将在同一个数字上相遇。
 
         return slow == 1; // 如果是1，则是快乐数
     }
@@ -137,9 +135,11 @@ public class Q202_Happy_Number {
             return false;
         }
         char[] array = String.valueOf(n).toCharArray();
+        // char[] array = Integer.toString(n).toCharArray(); // works too
         int sum = 0;
         for (char ch : array) {
             Integer num = Integer.valueOf(ch + "");
+            // Integer num = Integer.parseInt(ch + ""); // works too
             sum += num * num;
         }
         if (sum == 1) {

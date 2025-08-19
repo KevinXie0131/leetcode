@@ -9,6 +9,7 @@ public class Q146_LRU_Cache_3 {
     class Node {
         int key, value;
         Node prev, next;
+
         Node(int k, int v) {
             key = k;
             value = v;

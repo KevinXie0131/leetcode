@@ -118,7 +118,9 @@ public class Q1002_Find_Common_Characters {
      */
     public List<String> commonChars1(String[] words) {
         List<String> result = new ArrayList<>();
-        if (words.length == 0) return result;
+        if (words.length == 0) {
+            return result;
+        }
         int[] hash= new int[26]; // 用来统计所有字符串里字符出现的最小频率
 
         for (int i = 0; i < words[0].length(); i++) { // 用第一个字符串给hash初始化
@@ -137,9 +139,10 @@ public class Q1002_Find_Common_Characters {
         }
         // 将hash统计的字符次数，转成输出形式
         for (int i = 0; i < 26; i++) {
-            while (hash[i] != 0) { // 注意这里是while，多个重复的字符
+            while (hash[i] > 0) { // 注意这里是while，多个重复的字符
                 char c= (char) (i + 'a');
                 result.add(String.valueOf(c));
+                //  result.add(Character.toString(c)); // works too
                 hash[i]--;
             }
         }

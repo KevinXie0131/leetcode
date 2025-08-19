@@ -74,8 +74,6 @@ public class Q146_LRU_Cache_1 {
             value = v;
         }
     }
-
-
 }
 
 

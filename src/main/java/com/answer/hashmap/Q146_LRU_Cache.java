@@ -40,12 +40,16 @@ public class Q146_LRU_Cache {
         int value;
         DLinkedNode prev;
         DLinkedNode next;
-        public DLinkedNode() {}
-        public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+        public DLinkedNode() {
+        }
+        public DLinkedNode(int _key, int _value) {
+            key = _key;
+            value = _value;
+        }
     }
     // 哈希表 + 双向链表，哈希表记录 key 和链表节点的映射关系，当需要淘汰时，从链表尾部删除节点；
     // 当需要更新时间戳时，通过哈希表获取节点，将其删除并插入到链表头。
-    private Map<Integer, DLinkedNode> cache = new HashMap<Integer, DLinkedNode>();
+    private Map<Integer, DLinkedNode> cache = new HashMap<>();
     private int size;
     private int capacity;
     private DLinkedNode head, tail;

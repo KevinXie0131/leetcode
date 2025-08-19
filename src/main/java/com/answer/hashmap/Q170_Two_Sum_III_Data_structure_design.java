@@ -16,7 +16,6 @@ public class Q170_Two_Sum_III_Data_structure_design {
      * Design and implement a TwoSum class. It should support the following operations: add and find.
      *  add - Add the number to an internal data structure.
      *  find - Find if there exists any pair of numbers which sum is equal to the value.
-     *
      * Example 1:
      *  add(1); add(3); add(5);
      *  find(4) -> true
@@ -33,25 +32,25 @@ public class Q170_Two_Sum_III_Data_structure_design {
      * boolean param_2 = obj.find(value);
      */
     private ArrayList<Integer> nums;
-    private boolean is_sorted;
+    private boolean isSorted;
     /**
      * 排序 + 双指针
      */
     public Q170_Two_Sum_III_Data_structure_design() {
         this.nums = new ArrayList<Integer>();
-        this.is_sorted = false;
+        this.isSorted = false;
     }
 
     // Add the number to an internal data structure
     public void add(int number) {
         this.nums.add(number);
-        this.is_sorted = false;
+        this.isSorted = false;
     }
     // Find if there exists any pair of numbers which sum is equal to the value
     public boolean find(int sum) {
-        if (!this.is_sorted) {
+        if (!this.isSorted) {
             Collections.sort(this.nums);
-            this.is_sorted = true;
+            this.isSorted = true;
         }
         int low = 0, high = this.nums.size() - 1;
         while (low < high) {

@@ -89,7 +89,6 @@ public class Q359_Logger_Rate_Limiter {
             LogEntry old = queue.poll();
             recentMessages.remove(old.message);
         }
-
         if (!recentMessages.contains(message)) {    // 如果消息不在10秒窗口内，则可以打印
             queue.offer(new LogEntry(timestamp, message));
             recentMessages.add(message);

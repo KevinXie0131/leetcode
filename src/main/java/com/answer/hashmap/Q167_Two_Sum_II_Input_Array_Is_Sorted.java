@@ -9,7 +9,6 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
      * 以长度为 2 的整数数组 [index1, index2] 的形式返回这两个整数的下标 index1 和 index2。
      * 你可以假设每个输入 只对应唯一的答案exactly one solution ，而且你 不可以 重复使用相同的元素。
      * 你所设计的解决方案必须只使用常量级的额外空间。
-     *
      * 示例 1：
      *  输入：numbers = [2,7,11,15], target = 9
      *  输出：[1,2]
@@ -90,7 +89,6 @@ public class Q167_Two_Sum_II_Input_Array_Is_Sorted {
                 result[0] = map.get(numbers[i]) + 1; // 1-indexed array of integers 所以加1
                 result[1] = i + 1;
             }
-
             map.put(temp, i);    // 如果没找到匹配对，就把访问过的元素和下标加入到map中
         }
         return result;

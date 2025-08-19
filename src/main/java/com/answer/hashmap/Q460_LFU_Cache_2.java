@@ -45,7 +45,6 @@ public class Q460_LFU_Cache_2 {
         if (capacity <= 0){
             return;
         }
-
         if (keyToVal.containsKey(key)) {
             keyToVal.put(key, value);
             get(key); // update freq

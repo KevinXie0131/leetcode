@@ -23,14 +23,14 @@ public class Q389_Find_the_Difference {
     public static void main(String[] args) {
         String s = "abcd";
         String t = "abcde";
-        char c = findTheDifference_1(s, t);
+        char c = findTheDifference(s, t);
         System.out.println(c);
     }
     /**
      * HashSet - doesn't work for "a"& "aa"
      * 提交后有java.util.NoSuchElementException
      */
-    public char findTheDifference(String s, String t) {
+    static public char findTheDifference(String s, String t) {
         Set<Character> set = new HashSet<>();
 
         char[] c1 = t.toCharArray();
@@ -49,7 +49,7 @@ public class Q389_Find_the_Difference {
    static public char findTheDifference_0(String s, String t) {
         Set<Character> set = new HashSet<>();
         char[] array = s.concat(t).toCharArray();
-        for(int i = 0; i <array.length; i++){
+        for(int i = 0; i < array.length; i++){
             if(set.contains(array[i])){
                 set.remove(array[i]);
             }else{
@@ -57,6 +57,7 @@ public class Q389_Find_the_Difference {
             }
         }
         return (char)set.toArray()[0];
+        // return set.iterator().next(); // works too
     }
     /**
      * HashMap
@@ -64,8 +65,8 @@ public class Q389_Find_the_Difference {
     public char findTheDifference_0a(String s, String t) {
         char extraChar = '\0';
         // Prepare a counter for string s.
-        // This hash map holds the characters as keys and respective frequency as value.
-        HashMap <Character,Integer> counterS = new HashMap <>();
+        // This hashmap holds the characters as keys and respective frequency as value.
+        HashMap <Character,Integer> counterS = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             counterS.put(ch, counterS.getOrDefault(ch, 0) + 1);
@@ -104,7 +105,7 @@ public class Q389_Find_the_Difference {
             count[c -'a']--;
         }
         // 题目有要求t.length == s.length + 1，所以可以遍历一边
-/*        for(int i = 0 ; i < c1.length; i++){
+/*        for(int i = 0; i < c1.length; i++){
             count[c1[i] -'a']++;
             if(i < c2.length){
                 count[c2[i] -'a']--;

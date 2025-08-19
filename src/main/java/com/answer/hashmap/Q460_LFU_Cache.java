@@ -1,7 +1,6 @@
 package com.answer.hashmap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Q460_LFU_Cache { // Hard 困难
     /**
@@ -92,7 +91,8 @@ public class Q460_LFU_Cache { // Hard 困难
         }
         if (!keyTable.containsKey(key)) {
             // 缓存已满，需要进行删除操作
-            // 能够知道 freq_table 里目前最少使用频率的索引，同时因为我们保证了链表中从链表头到链表尾的插入时间是有序的，所以 freq_table[minFreq] 的链表中链表尾的节点即为使用频率最小且插入时间最早的节点，我们删除它同时根据情况更新 minFreq
+            // 能够知道 freq_table 里目前最少使用频率的索引，同时因为我们保证了链表中从链表头到链表尾的插入时间是有序的，
+            // 所以 freq_table[minFreq] 的链表中链表尾的节点即为使用频率最小且插入时间最早的节点，我们删除它同时根据情况更新 minFreq
             if (keyTable.size() == capacity) {
                 // 通过 minFreq 拿到 freqTable[minFreq] 链表的末尾节点
                 Node node = freqTable.get(minfreq).getTail();
