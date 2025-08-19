@@ -19,6 +19,13 @@ public class Q652_Find_Duplicate_Subtrees {
      * 示例 1：
      * 输入：root = [1,2,3,4,null,2,4,null,null,4]
      * 输出：[[2,4],[4]]
+     *        1
+     *      /   \
+     *     2     3
+     *    /     / \
+     *   4     2   4
+     *        /
+     *       4
      */
     /**
      * 使用序列化进行唯一表示
@@ -91,6 +98,7 @@ public class Q652_Find_Duplicate_Subtrees {
         dfs1(root);
         return new ArrayList<TreeNode>(repeat1);
     }
+
     // 辅助函数 深度优先遍历所有节点,返回“节点作为根节点的子树”对应的唯一序号idx
     public int dfs1(TreeNode node) {
         if (node == null) {// 空节点对应序号0 递归结束
@@ -123,10 +131,12 @@ public class Q652_Find_Duplicate_Subtrees {
      */
     Map<String, Integer> map = new HashMap<>();
     List<TreeNode> ans = new ArrayList<>();
+
     public List<TreeNode> findDuplicateSubtrees2(TreeNode root) {
         dfs2(root);
         return ans;
     }
+
     String dfs2(TreeNode root) {
         if (root == null){
             return " ";
@@ -159,10 +169,12 @@ public class Q652_Find_Duplicate_Subtrees {
      */
     Map<String,Integer> tree = new HashMap();
     List<TreeNode> answer = new LinkedList<>();
+
     public List<TreeNode> findDuplicateSubtrees3(TreeNode root) {
         traverse(root);
         return answer;
     }
+
     //返回序列化子树
     private String traverse(TreeNode root) {
         if(root == null) {
