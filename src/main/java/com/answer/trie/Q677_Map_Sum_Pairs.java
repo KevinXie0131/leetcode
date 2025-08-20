@@ -87,7 +87,9 @@ class Trie4 {
 
     // 辅助函数，求以 node 为根节点的子树的节点和
     private int getAllSum(Trie4 node) {
-        if (node == null) return 0;
+        if (node == null){
+            return 0;
+        }
         int sum = 0;
 
         for (int i = 0; i < 26; i++) {
@@ -95,5 +97,18 @@ class Trie4 {
         }
         return sum + node.value;
     }
+    /**
+     * another form
+     */
+    private int getAllSum_1(Trie4 node) {
+        if (node == null){
+            return 0;
+        }
+        int sum = node.value;
 
+        for (int i = 0; i < 26; i++) {
+            sum += getAllSum(node.children[i]);
+        }
+        return sum;
+    }
 }

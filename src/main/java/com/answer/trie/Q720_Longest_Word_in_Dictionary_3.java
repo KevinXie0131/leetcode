@@ -7,8 +7,7 @@ public class Q720_Longest_Word_in_Dictionary_3 {
      * 这里，我们使用面向对象的思想，把字典树封装成一个类来操作，该是谁的行为就放在对应的类里面来处理。
      */
     public String longestWord(String[] words) {
-        // 字典树
-        Trie trie = new Trie();
+        Trie trie = new Trie();    // 字典树
         for (String word : words) {
             trie.insert(word);
         }
@@ -23,8 +22,7 @@ public class Q720_Longest_Word_in_Dictionary_3 {
             this.root = new Node();
         }
 
-        void insert(String word) {
-            // 往字典树中放一个字符串
+        void insert(String word) {    // 往字典树中放一个字符串
             Node node = this.root;
             for (char c : word.toCharArray()) {
                 int index = c - 'a';
@@ -37,8 +35,7 @@ public class Q720_Longest_Word_in_Dictionary_3 {
         }
 
         String findLongestWord() {
-            // 从根节点开始DFS
-            dfs(new StringBuilder(), root);
+            dfs(new StringBuilder(), root);// 从根节点开始DFS
             return longestWord;
         }
 
@@ -47,17 +44,12 @@ public class Q720_Longest_Word_in_Dictionary_3 {
                 Node child = node.children[i];
                 // 注意题意：逐步增长
                 if (child != null && child.isEnd) {
-                    // 当前字母是符合条件的
-                    sb.append((char) ('a' + i));
-
-                    // 计算并与候选结果比较
-                    if (sb.length() > longestWord.length()) {
+                    sb.append((char) ('a' + i));     // 当前字母是符合条件的
+                    if (sb.length() > longestWord.length()) {  // 计算并与候选结果比较
                         longestWord = sb.toString();
                     }
-                    // 递归
-                    dfs(sb, child);
-                    // 回溯：恢复状态
-                    sb.deleteCharAt(sb.length() - 1); // backtracking
+                    dfs(sb, child);   // 递归
+                    sb.deleteCharAt(sb.length() - 1); // 回溯：恢复状态 // backtracking
                 }
             }
         }

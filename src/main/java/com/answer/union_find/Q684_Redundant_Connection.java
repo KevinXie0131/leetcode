@@ -32,7 +32,7 @@ public class Q684_Redundant_Connection {
      * 判断一下边的两个节点在不在同一个集合就可以了
      */
     public int[] findRedundantConnection0(int[][] edges) {
-        DisJoint disJoint = new DisJoint(edges.length + 1);
+        _UnionFindTemplate disJoint = new _UnionFindTemplate(edges.length + 1);
 
         for (int i = 0; i < edges.length; ++i) {
             if(disJoint.isSame(edges[i][0], edges[i][1])){

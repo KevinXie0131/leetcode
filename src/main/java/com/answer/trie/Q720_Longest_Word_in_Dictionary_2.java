@@ -30,7 +30,6 @@ public class Q720_Longest_Word_in_Dictionary_2 {
         node.isEnd = true;
         node.word = word;
     }
-
     // 通过递归遍历 node 的 children 数组并且每遍历一次深度 deep 增加 1：DFS
     public void getMaxLengthWord(Trie7 node, int deep) {
         // 若当前传入的节点不是最后一个位置上节点而是中间某位置的节点，此时直接结束
@@ -56,8 +55,8 @@ class Trie7 {
     Trie7[] children;
     boolean isEnd;
     String word; // 用来保存当前遍历的 word
-    public Trie7() {
 
+    public Trie7() {
         children = new Trie7[26];
         isEnd = false;
     }

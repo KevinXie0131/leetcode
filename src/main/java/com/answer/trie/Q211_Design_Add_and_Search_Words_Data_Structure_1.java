@@ -16,8 +16,7 @@ public class Q211_Design_Add_and_Search_Words_Data_Structure_1 {
         int n = word.length();
 
         for(int i = 0; i < n; i++){
-            // 将当前字符添加到当前节点对应的子节点位置，然后递归更新
-            int id = word.charAt(i) - 'a';
+            int id = word.charAt(i) - 'a';   // 将当前字符添加到当前节点对应的子节点位置，然后递归更新
             if(node.children[id] == null){
                 node.children[id] = new Node1();
             }
@@ -29,7 +28,6 @@ public class Q211_Design_Add_and_Search_Words_Data_Structure_1 {
     public boolean search(String word) {
         return DFS_Search(word, 0, root);   // 从根节点开始匹配word[0]
     }
-
     /**
      * 回溯法查找字典树是否匹配word
      * @param word: 待匹配字符串
@@ -37,44 +35,44 @@ public class Q211_Design_Add_and_Search_Words_Data_Structure_1 {
      * @param node: 搜索待匹配字符是否存在的节点
      */
     private boolean DFS_Search(String word, int idx, Node1 node) {
-        if (idx == word.length())
+        if (idx == word.length()) {
             return node.isEnd;     // 字符匹配结束，返回当前节点是否为尾节点
-
+        }
         if (word.charAt(idx) == '.') {
-            // 当前字符为.，匹配任意字符，即枚举所有非空子节点去匹配下一个字符
-            for (Node1 child : node.children) {
-                if (child != null && DFS_Search(word, idx + 1, child))
+            for (Node1 child : node.children) { // 当前字符为.，匹配任意字符，即枚举所有非空子节点去匹配下一个字符
+                if (child != null && DFS_Search(word, idx + 1, child)) {
                     return true;    // 匹配成功直接返回
+                }
             }
         } else {
-            // 获取当前字符对应的子节点
-            Node1 child = node.children[word.charAt(idx) - 'a'];
-            if (child != null && DFS_Search(word, idx + 1, child))
+            Node1 child = node.children[word.charAt(idx) - 'a'];// 获取当前字符对应的子节点
+            if (child != null && DFS_Search(word, idx + 1, child)) {
                 return true;    // 匹配成功直接返回
+            }
         }
         return false;   // 否则匹配失败
     }
 
 /*    public boolean search(String word) {
-        return search(word, root, 0);
+        return dfs(word, 0, root);
     }
 
-    private boolean search(String word, Node node, int i) {
+    public boolean dfs(String word, int i, Node node){ // works too
         if (node == null) return false;
         if (i >= word.length()) return node.isEnd;
 
         char c = word.charAt(i);
         if (c == '.') {
-            for (Node next : node.nexts) {
-                if (search(word, next, i + 1)) {
+            for (Node next : node.children) {
+                if (dfs(word, i + 1, next)) {
                     return true;
                 }
             }
             return false;
         } else {
-            return search(word, node.nexts[c - 'a'], i + 1);
+            return dfs(word, i + 1, node.children[c - 'a']);
         }
-    } */
+    }*/
 }
 /**
  * 字典树节点

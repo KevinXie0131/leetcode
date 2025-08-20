@@ -24,14 +24,17 @@ public class Q211_Design_Add_and_Search_Words_Data_Structure {
      */
     public static void main(String[] args) {
         Q211_Design_Add_and_Search_Words_Data_Structure wordDictionary = new Q211_Design_Add_and_Search_Words_Data_Structure();
-        wordDictionary.addWord("a");
+       /* wordDictionary.addWord("a");
         wordDictionary.addWord("a");
         wordDictionary.addWord("mad");
-        wordDictionary.search("a."); // return False
-        wordDictionary.search("bad"); // return True
-        wordDictionary.search(".ad"); // return True
-        wordDictionary.search("b.."); // return True
-
+        System.out.println(wordDictionary.search("a.")); // return False
+        System.out.println(wordDictionary.search("bad"));  // return True
+        System.out.println(wordDictionary.search(".ad"));  // return True
+        System.out.println(wordDictionary.search("b.."));  // return True*/
+        wordDictionary.addWord("bad");
+        wordDictionary.addWord("dad");
+        wordDictionary.addWord("mad");
+        System.out.println(wordDictionary.search("b.."));
     }
     /**
      * 字典树
@@ -58,29 +61,35 @@ public class Q211_Design_Add_and_Search_Words_Data_Structure {
     }
 
     public boolean search(String word) {
-        Node cur = root;
-        for (char ch : word.toCharArray()) {
-            if(ch == '.'){
-                if(cur.children.length == 0){
-                    return false;
-                }
-                for(int i = 0; i < 26; i++){
-                    int index = i;
-                    if (cur.children[index] != null) {
-                        cur = cur.children[index];
-                    }
-                }
-            } else {
-                int index = ch - 'a';
-                if (cur.children[index] == null) {
-                    return false;
-                }
-                cur = cur.children[index];
-            }
-        }
-        return cur != null && cur.isEnd;
+        return dfs(word, 0, root);
     }
 
+    public boolean dfs(String word, int index, Node node){
+        if(index == word.length()){
+            return node.isEnd;
+        }
+        Character ch = word.charAt(index);
+        if(Character.isLetter(ch)){
+            int childIndex = ch - 'a';
+            Node child = node.children[childIndex];
+            if(child != null && dfs(word, index + 1, child)){
+                return true;
+            }
+        } else{
+            for(int i = 0; i < 26; i++){
+                Node child = node.children[i];
+                if(child != null && dfs(word, index + 1, child)){
+                    return true;
+                }
+            }
+         /*   for( Node child  : node.children){ // works too
+                if(child != null && dfs(word, index + 1, child)){
+                    return true;
+                }
+            }*/
+        }
+        return false;
+    }
 }
 
 class Node {

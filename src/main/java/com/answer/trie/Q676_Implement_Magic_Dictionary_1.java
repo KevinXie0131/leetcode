@@ -3,7 +3,6 @@ package com.answer.trie;
 public class Q676_Implement_Magic_Dictionary_1 {
     /**
      * 使用字典树优化枚举
-     *
      * 从前缀树的根节点开始，对于当前遍历到的字母：
      *
      * 我们首先判断是否存在与其相同的子节点，如果存在，则继续向下遍历

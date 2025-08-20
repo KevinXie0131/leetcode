@@ -17,7 +17,6 @@ public class Q720_Longest_Word_in_Dictionary {
      *  输入：words = ["a", "banana", "app", "appl", "ap", "apply", "apple"]
      *  输出："apple"
      *  解释："apply" 和 "apple" 都能由词典中的单词组成。但是 "apple" 的字典序小于 "apply"
-     *
      */
     public static void main(String[] args) {
       //  String[] words = {"w","wo","wor","worl","world"};
@@ -39,7 +38,7 @@ public class Q720_Longest_Word_in_Dictionary {
             if(word.length() > result.length() // 利用当前的最长单词来做剪枝
                     || (word.length() == result.length() && word.compareTo(result) < 0)){ // 若其中有多个可行的答案，则返回答案中字典序最小的单词
                 boolean isPrefix = true;
-                for(int i = 1; i <= word.length(); i++){
+                for(int i = 1; i <= word.length() - 1; i++){
                     if(!set.contains(word.substring(0, i))){
                         isPrefix = false; // 有一个前缀都不匹配，就跳出循环
                         break;
@@ -79,7 +78,6 @@ public class Q720_Longest_Word_in_Dictionary {
                     }
                 }
             }
-
         }
         return longestWord;
     }
@@ -105,7 +103,7 @@ public class Q720_Longest_Word_in_Dictionary {
         Arrays.sort(words, (a, b) -> a.length() == b.length() ? b.compareTo(a) : a.length() - b.length());// 相同长度下把字典序较大的排在前面
 
         String longest = "";
-        Set<String> candidates = new HashSet<String>(); // 使用哈希集合存储所有符合要求的单词
+        Set<String> candidates = new HashSet<>(); // 使用哈希集合存储所有符合要求的单词
         candidates.add("");
         int n = words.length;
         for (int i = 0; i < n; i++) {
@@ -143,8 +141,7 @@ public class Q720_Longest_Word_in_Dictionary {
         String result = "";
         for(String word : words) {
             TrieNode cur = root;
-            if(word.length() > result.length()
-                    || (word.length() == result.length() && word.compareTo(result) < 0)){
+            if(word.length() > result.length() || (word.length() == result.length() && word.compareTo(result) < 0)){
                 boolean isPrefix = true;
                 for(int i = 1; i <= word.length(); i++){
                     cur = cur.children.get(word.substring(0, i));
@@ -153,7 +150,7 @@ public class Q720_Longest_Word_in_Dictionary {
                         break;
                     }
                 }
-                if(isPrefix ){
+                if(isPrefix){
                     result = word;
                 }
             }

@@ -2,7 +2,7 @@ package com.answer.trie;
 
 import java.util.*;
 
-public class Q642_Design_Search_Autocomplete_System {
+public class Q642_Design_Search_Autocomplete_System { // Hard 困难
     /**
      * 设计搜索自动补全系统
      * 为搜索引擎设计一个搜索自动补全系统。用户会输入一条语句（最少包含一个字母，以特殊字符 '#' 结尾）。

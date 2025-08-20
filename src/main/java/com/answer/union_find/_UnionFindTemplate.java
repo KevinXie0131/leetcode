@@ -1,10 +1,10 @@
 package com.answer.union_find;
 
-//并查集模板
-public class DisJoint{
+//并查集(DisJoint)模板
+public class _UnionFindTemplate{
     private int[] father;
 
-    public DisJoint(int N) {
+    public _UnionFindTemplate(int N) {
         father = new int[N];
         for (int i = 0; i < N; ++i){
             father[i] = i;    // 每个新元素的根节点一开始都是指向自己的
@@ -18,7 +18,6 @@ public class DisJoint{
   //      if (father[n] == n) return n;
             // 否则，根据父节点继续往上找，直到找到根节点
    //     else return find(father[x]);
-
     }
 
     public void join (int n, int m) {
@@ -33,5 +32,4 @@ public class DisJoint{
         m = find(m);
         return n == m;
     }
-
 }

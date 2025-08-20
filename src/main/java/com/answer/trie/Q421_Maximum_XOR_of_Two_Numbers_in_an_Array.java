@@ -41,7 +41,7 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array {
     public int findMaximumXOR(int[] nums) {
         int x = 0;
         for (int k = HIGH_BIT; k >= 0; --k) {
-            Set<Integer> seen = new HashSet<Integer>();
+            Set<Integer> seen = new HashSet<>();
             // 将所有的 pre^k(a_j) 放入哈希表中
             for (int num : nums) {
                 seen.add(num >> k); // 如果只想保留从最高位开始到第 k 个二进制位为止的部分 只需将其右移 k 位
@@ -113,7 +113,6 @@ public class Q421_Maximum_XOR_of_Two_Numbers_in_an_Array {
                 // 用 & 依次提取最高位
                 hashSet.add(num & mask);
             }
-
             // 这里先假定该位是 1，所以用变量 temp
             int temp = res | (1 << i);
             for (Integer prefix : hashSet) {

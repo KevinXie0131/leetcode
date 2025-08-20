@@ -2,11 +2,11 @@ package com.answer.trie;
 
 public class Q676_Implement_Magic_Dictionary {
     /**
-     * 设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。 如果给出一个单词，请判定能否只将这个单词中
+     * 设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同。如果给出一个单词，请判定能否只将这个单词中
      * 一个字母换成另一个字母，使得所形成的新单词存在于你构建的字典中。
      * Design a data structure that is initialized with a list of different words. Provided a string,
      * you should determine if you can change exactly one character in this string to match any word in the data structure.
-     * <p>
+     *
      * 输入 ["MagicDictionary", "buildDict", "search", "search", "search", "search"]
      * [[], [["hello", "leetcode"]], ["hello"], ["hhllo"], ["hell"], ["leetcoded"]]
      * 输出 [null, null, false, true, false, false]
@@ -29,7 +29,9 @@ public class Q676_Implement_Magic_Dictionary {
             TrieNode p = root;
             for (char c : word.toCharArray()) {
                 int i = c - 'a';
-                if (p.children[i] == null) p.children[i] = new TrieNode();
+                if (p.children[i] == null) {
+                    p.children[i] = new TrieNode();
+                }
                 p = p.children[i];
             }
             p.val = true;
@@ -40,22 +42,30 @@ public class Q676_Implement_Magic_Dictionary {
      * match any string in the data structure, otherwise returns false.
      */
     public boolean search(String searchWord) {
-        // 遍历每一种替换的情况
-        for (int i = 0; i < searchWord.length(); i++) {
-            if (search(root, searchWord, 0, i)) return true;
+        for (int i = 0; i < searchWord.length(); i++) { // 遍历每一种替换的情况
+            if (search(root, searchWord, 0, i)) {
+                return true;
+            }
         }
         return false;
     }
     // 参数：当前节点，要搜索的单词，当前第几位，替换的第几位
     private boolean search(TrieNode node, String searchWord, int index, int changeId) {
-        if (node == null) return false;  // 说明没找到
-        if (index == searchWord.length()) return node.val;   // 搜索完了，看看长度是否一样
+        if (node == null){ // 说明没找到
+            return false;
+        }
+        if (index == searchWord.length()) { // 搜索完了，看看长度是否一样
+            return node.val;
+        }
         int i = searchWord.charAt(index) - 'a';
         if (index == changeId) { // 遇到修改的这一位了
             for (int j = 0; j < 26; j++) {
-                if (j == i) continue;   // 修改成一样的，不考虑
-                // 否则尝试修改成第j个字母，继续递归
-                if (search(node.children[j], searchWord, index + 1, changeId)) return true;
+                if (j == i) {
+                    continue;   // 修改成一样的，不考虑
+                }
+                if (search(node.children[j], searchWord, index + 1, changeId)) {// 否则尝试修改成第j个字母，继续递归
+                    return true;
+                }
             }
             return false;
         }
@@ -93,5 +103,4 @@ public class Q676_Implement_Magic_Dictionary {
         }
         return false;
     }
-
 }

@@ -6,17 +6,17 @@ public class Q336_Palindrome_Pairs { // Hard 困难
     /**
      * given a 0-indexed array of unique strings words.
      * A palindrome pair is a pair of integers (i, j) such that:
-     *  0 <= i, j < words.length,
-     *  i != j, and
-     *  words[i] + words[j] (the concatenation of the two strings) is a palindrome.
+     *   0 <= i, j < words.length,
+     *   i != j, and
+     *   words[i] + words[j] (the concatenation of the two strings) is a palindrome.
      * Return an array of all the palindrome pairs of words.
      * You must write an algorithm with O(sum of words[i].length) runtime complexity.
      * 回文对
      * 给定一个由唯一字符串构成的 0 索引 数组 words 。
      * 回文对 是一对整数 (i, j) ，满足以下条件：
-     *  0 <= i, j < words.length，
-     *  i != j ，并且
-     *  words[i] + words[j]（两个字符串的连接）是一个回文串。
+     *   0 <= i, j < words.length，
+     *   i != j ，并且
+     *   words[i] + words[j]（两个字符串的连接）是一个回文串。
      * 返回一个数组，它包含 words 中所有满足 回文对 条件的字符串。
      * 你必须设计一个时间复杂度为 O(sum of words[i].length) 的算法。
      * words[i] consists of lowercase English letters.
@@ -27,7 +27,8 @@ public class Q336_Palindrome_Pairs { // Hard 困难
      */
     public static void main(String[] args) {
        // String[] words = {"abcd", "dcba", "lls", "s", "sssll"};
-        String[] words = {"a",""};
+     //  String[] words = {"a",""};
+        String[] words = {"a","b","c","ab","ac","aa"};
         System.out.println(palindromePairs3(words));
     }
     /**
@@ -39,8 +40,12 @@ public class Q336_Palindrome_Pairs { // Hard 困难
         int n = words.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i == j) continue;
-                if (!isPalindrome(words[i] + words[j])) continue;
+                if (i == j) {
+                    continue;
+                }
+                if (!isPalindrome(words[i] + words[j])) {
+                    continue;
+                }
                 List<Integer> temp = new ArrayList<>();
                 temp.add(i);
                 temp.add(j);
@@ -53,8 +58,11 @@ public class Q336_Palindrome_Pairs { // Hard 困难
     static private boolean isPalindrome(String s) {
         int i = 0, j = s.length()-1;
         while (i < j) {
-            if (s.charAt(i) != s.charAt(j)) return false;
-            i++; j--;
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
         }
         return true;
     }
@@ -67,7 +75,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
      * 再看看右边部分是不是回文，如果是，则期望左边部分找到翻转词。
      * 为了能快速找出翻转词，我们提前将单词都翻转一遍，存入哈希表，还有它对应的索引
      */
-    static public List<List<Integer>> palindromePairs3(String[] words) { // cannot pass all test cases
+    static public List<List<Integer>> palindromePairs3(String[] words) { // pass all test cases
         int n = words.length, len = 0;
         String temp = "", left = "", right = "";
         HashMap<String, Integer> rev_words = new HashMap<>(); // 存储所有单词的翻转串
@@ -85,8 +93,9 @@ public class Q336_Palindrome_Pairs { // Hard 困难
             //这意味他可以放在任何回文串的首尾
             if(isPalindrome(temp)) {
                 Integer index = rev_words.get("");
-                if (index != null && index != i) result.add(new ArrayList<>(Arrays.asList(i, index)));
-
+                if (index != null && index != i) {
+                    result.add(new ArrayList<>(Arrays.asList(i, index)));
+                }
             }
             // 左子串长度为0 ~ n - 1，右子串长度为n ~ 1
             for(int j = 0; j < len; ++j) {
@@ -98,7 +107,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
                 }
                 // 若右子串right为回文，则从rev_words中找是否存在left，存在则两单词构成回文，即 temp + 该单词 构成回文
                 if(isPalindrome(right) && rev_words.containsKey(left) && rev_words.get(left) != i) {
-                    result.add(new ArrayList<>(Arrays.asList(rev_words.get(left), i)));
+                    result.add(new ArrayList<>(Arrays.asList(i, rev_words.get(left))));
                 }
             }
         }
@@ -131,7 +140,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
                         res.add(Arrays.asList(i, leftId));
                     }
                 }
-                if (j != 0 && isPalindrome(words[i], 0, j - 1)) {
+                if (j > 0 && isPalindrome(words[i], 0, j - 1)) {
                     String w = words[i].substring(j, m);
                     int rightId = indices.getOrDefault(w, -1);
                     if (rightId != -1 && rightId != i) {
@@ -155,6 +164,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
         TriNode []childNode = new TriNode[26];
         Integer index;
     }
+
     TriNode root = new TriNode();
 
     private void insert(String word, int index) {
@@ -162,7 +172,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
         for (int i = 0; i < word.length(); i++) {
             int pos = word.charAt(i) - 'a';
             if (curr.childNode[pos] == null) {
-                curr.childNode[pos]=new TriNode();
+                curr.childNode[pos] = new TriNode();
             }
             curr = curr.childNode[pos];
         }
@@ -182,12 +192,13 @@ public class Q336_Palindrome_Pairs { // Hard 困难
     }
     // 判断一个字符串是否是回文字符串
     private boolean isPalindrome(String s,int start,int end) {
-        int i=start,j=end;
+        int i = start , j = end;
         while (i < j) {
             if (s.charAt(i) != s.charAt(j)) {
                 return false;
             }
-            i++;j--;
+            i++;
+            j--;
         }
         return true;
     }
@@ -209,7 +220,7 @@ public class Q336_Palindrome_Pairs { // Hard 困难
                         res.add(Arrays.asList(i, index));
                     }
                 }
-                if (j != 0 && isPalindrome(word, 0, j - 1)) {
+                if (j > 0 && isPalindrome(word, 0, j - 1)) {
                     Integer index = search(word, j, len - 1);
                     if (index != null && index != i) {
                         res.add(Arrays.asList(index,i));

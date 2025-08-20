@@ -27,7 +27,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
      * 主要就是集合问题，两个节点在不在一个集合，也可以将两个节点添加到一个集合中。如何算是同一个集合呢，有边连在一起，就算是一个集合。
      */
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        DisJoint disJoint = new DisJoint(n + 1);
+        _UnionFindTemplate disJoint = new _UnionFindTemplate(n + 1);
         for (int i = 0; i < edges.length; ++i) {
             disJoint.join(edges[i][0], edges[i][1]);
         }

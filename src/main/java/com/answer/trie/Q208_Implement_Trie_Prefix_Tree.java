@@ -43,7 +43,7 @@ public class Q208_Implement_Trie_Prefix_Tree {
         }
 
         public boolean search(String word) {
-            // 若搜索到了前缀的末尾，就说明字典树中存在该前缀。此外，若前缀末尾对应节点的 isEnd 为真，
+            // 若搜索到了前缀的末尾，就说明字典树中存在该前缀。此外，若前缀末尾对应节点的isEnd为真，
             // 则说明字典树中存在该字符串。
             Trie node = searchPrefix(word);
             return node != null && node.isEnd;
@@ -80,6 +80,7 @@ public class Q208_Implement_Trie_Prefix_Tree {
         public Trie1() {
             root = new Node(); // 根节点
         }
+
         // 相当于生成了一条移动方向为「左-左-右」的路径。标记最后一个节点为终止节点
         public void insert(String word) {
             Node cur = root; // 初始值为 root    // 从根节点开始构造这个word对应的路径节点
@@ -92,15 +93,18 @@ public class Q208_Implement_Trie_Prefix_Tree {
             }
             cur.isEnd = true; // 遍历结束，把 cur 的 end 标记为 true。 // 最后一个节点的isEnd置为true，表示一个完整的字符串
         }
+
         // 相当于查找二叉树中是否存在一条移动方向为「左-左-右」的路径，且最后一个节点是终止节点
         public boolean search(String word) {
             Node node = find(word);
             return node != null && node.isEnd; // 返回不为空且节点标记为尾节点，则包含word这个完整的字符串
         }
+
         // 相当于查找二叉树中是否存在一条移动方向为「左-左」的路径，无其他要求
         public boolean startsWith(String prefix) {
             return find(prefix) != null; // 返回不为空，则包含了prefix前缀
         }
+
         // 查找字典树是否包含word前缀
         private Node find(String word) {
             Node cur = root; // 初始值为 root // 从根节点依次开始匹配每个字符

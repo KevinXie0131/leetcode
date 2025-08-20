@@ -30,13 +30,13 @@ public class Q648_Replace_Words {
      */
     public String replaceWords(List<String> dictionary, String sentence) {
         Trie2 trie2 = new Trie2();
-        for(String str : dictionary){  //构建字典树
+        for(String str : dictionary){  // 构建字典树
             trie2.insert(str);
         }
 
         String[] words = sentence.split(" ");
-        //在字典树中查找每个单词是否有前缀存在
-        for(int i = 0; i < words.length; i++){
+
+        for(int i = 0; i < words.length; i++){  // 在字典树中查找每个单词是否有前缀存在
             String prefix = trie2.searchPrefix(words[i]);
             if(prefix != null){
                 words[i] = prefix;
@@ -49,13 +49,13 @@ public class Q648_Replace_Words {
      */
     public String replaceWords_a(List<String> dictionary, String sentence) {
         Trie2 trie2 = new Trie2();
-        for(String str : dictionary){  //构建字典树
+        for(String str : dictionary){  // 构建字典树
             trie2.insert(str);
         }
         StringBuffer ans = new StringBuffer();
         String[] words = sentence.split(" ");
-        //在字典树中查找每个单词是否有前缀存在
-        for(int i = 0; i < words.length; i++){
+
+        for(int i = 0; i < words.length; i++){  // 在字典树中查找每个单词是否有前缀存在
             String prefix = trie2.searchPrefix(words[i]);
             if(prefix != null){
                 ans.append(prefix).append(" ");
@@ -72,7 +72,7 @@ public class Q648_Replace_Words {
      * 如果这个前缀出现在哈希集合中，则我们找到了当前单词的最短词根，将这个词根替换原来的单词。最后返回重新拼接的句子。
      */
     public String replaceWords1(List<String> dictionary, String sentence) {
-        Set<String> dictionarySet = new HashSet<String>();
+        Set<String> dictionarySet = new HashSet<>();
         for (String root : dictionary) {
             dictionarySet.add(root);
         }
@@ -108,38 +108,39 @@ public class Q648_Replace_Words {
      * 只需在字典树上搜索出一条最短的前缀路径即可。
      */
     public String replaceWords2(List<String> dictionary, String sentence) {
-        Trie3 trie = new Trie3();
+        Trie3 root = new Trie3();
         for (String word : dictionary) {
-            Trie3 cur = trie;
+            Trie3 cur = root;
             for (int i = 0; i < word.length(); i++) {
                 char c = word.charAt(i);
-                cur.children.putIfAbsent(c, new Trie3());
-                cur = cur.children.get(c);
+             //   cur.children.putIfAbsent(c, new Trie3()); // works too
+             //   cur = cur.children.get(c);
+                cur =  cur.children.computeIfAbsent(c, e -> new Trie3());
             }
             cur.children.put('#', new Trie3());
         }
         String[] words = sentence.split(" ");
         for (int i = 0; i < words.length; i++) {
-            words[i] = findRoot(words[i], trie);
+            words[i] = findRoot(words[i], root);
         }
         return String.join(" ", words);
     }
 
-    public String findRoot(String word, Trie3 trie) {
-        StringBuffer root = new StringBuffer();
-        Trie3 cur = trie;
+    public String findRoot(String word, Trie3 root) {
+        StringBuffer sb = new StringBuffer();
+        Trie3 cur = root;
         for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
             if (cur.children.containsKey('#')) {
-                return root.toString();
+                return sb.toString();
             }
             if (!cur.children.containsKey(c)) {
                 return word;
             }
-            root.append(c);
+            sb.append(c);
             cur = cur.children.get(c);
         }
-        return root.toString();
+        return sb.toString();
     }
 }
 
@@ -148,7 +149,7 @@ class Trie2 {
     private boolean isPrefix; // 是否是前缀
 
     public Trie2() {
-        children = new Trie2[26]; //  //初始时每个都是26个小写字母
+        children = new Trie2[26]; //初始时每个都是26个小写字母
         isPrefix = false;
     }
 
@@ -160,7 +161,7 @@ class Trie2 {
             if (node.children[index] == null) {
                 node.children[index] = new Trie2();
             }
-            node = node.children[index];  //指针下移
+            node = node.children[index]; // 指针下移
         }
         node.isPrefix = true;
     }
@@ -174,13 +175,12 @@ class Trie2 {
                 return null;
             }
             node = node.children[index];
-            if(node.isPrefix == true){    //判断是否是前缀 是直接返回，一定是最短的
+            if(node.isPrefix == true){ // 判断是否是前缀 是直接返回，一定是最短的
                 return word.substring(0, i + 1);
             }
         }
         return null;
     }
-
 }
 
 class Trie3 {

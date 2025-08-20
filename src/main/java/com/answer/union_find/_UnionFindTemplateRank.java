@@ -1,6 +1,6 @@
 package com.answer.union_find;
 
-public class UnionFindTemplateRank {
+public class _UnionFindTemplateRank {
     /**
      * 另一种方法：按秩（rank）合并
      *            rank表示树的高度，即树中结点层次的最大值。
@@ -50,5 +50,4 @@ public class UnionFindTemplateRank {
         v = find(v);
         return u == v;
     }
-
 }

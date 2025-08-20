@@ -16,7 +16,6 @@ public class Q642_Design_Search_Autocomplete_System_1 {
 
     private TrieNode root;
     private StringBuilder currentInput;
-
     /**
      * 构造方法，初始化历史句子和热度
      */
@@ -27,7 +26,6 @@ public class Q642_Design_Search_Autocomplete_System_1 {
             add(sentences[i], times[i]);
         }
     }
-
     /**
      * 添加句子到 Trie 中，并记录热度
      */
@@ -40,7 +38,6 @@ public class Q642_Design_Search_Autocomplete_System_1 {
         }
         node.isWord = true;
     }
-
     /**
      * 处理用户输入字符
      * @param c 输入字符，若为 '#' 则提交当前前缀为新句子
@@ -56,15 +53,17 @@ public class Q642_Design_Search_Autocomplete_System_1 {
         currentInput.append(c);
         TrieNode node = root;
         for (char ch : currentInput.toString().toCharArray()) {
-            if (!node.children.containsKey(ch)) return new ArrayList<>();
+            if (!node.children.containsKey(ch)) {
+                return new ArrayList<>();
+            }
             node = node.children.get(ch);
         }
         // 优先队列，热度高优先，热度相同按字典序
         PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
-                (a, b) -> a.getValue().equals(b.getValue())
-                        ? a.getKey().compareTo(b.getKey())
-                        : b.getValue() - a.getValue()
-        );
+                                                            (a, b) -> a.getValue().equals(b.getValue())
+                                                                ? a.getKey().compareTo(b.getKey())
+                                                                : b.getValue() - a.getValue()
+                                                             );
         pq.addAll(node.counts.entrySet());
         List<String> res = new ArrayList<>();
         int k = 3;

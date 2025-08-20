@@ -84,7 +84,9 @@ public class Q425_Word_Squares { // Hard 困难
     // 主方法：返回所有单词方块
     public List<List<String>> wordSquares(String[] words) {
         results = new ArrayList<>();
-        if (words == null || words.length == 0) return results;
+        if (words == null || words.length == 0) {
+            return results;
+        }
         N = words[0].length();
         trie = new Trie(words); // 构建Trie
 

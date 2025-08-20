@@ -77,7 +77,7 @@ public class Q685_Redundant_Connection_II { // Hard 困难
     // 如果顺利将所有边的两端节点（除了要删除的边）加入了并查集，则说明 删除该条边 还是一个有向树
     public static boolean isTreeWithExclude(List<Edge> edges, Edge exculdEdge, Node[] nodeMap) { // 删一条边之后判断是不是树
         // 初始化并查集
-        DisJoint disjoint = new DisJoint(nodeMap.length + 1);
+        _UnionFindTemplate disjoint = new _UnionFindTemplate(nodeMap.length + 1);
 
         for (Edge edge : edges) {
             if (edge == exculdEdge) {
@@ -96,7 +96,7 @@ public class Q685_Redundant_Connection_II { // Hard 困难
     public static Edge getRemoveEdge(List<Edge> edges, Node[] nodeMap) { // 在有向图里找到删除的那条边，使其变成树
         int length = nodeMap.length;
         // 初始化并查集
-        DisJoint disjoint = new DisJoint(length);
+        _UnionFindTemplate disjoint = new _UnionFindTemplate(length);
 
         for (Edge edge : edges) {  // 遍历所有的边
             if (disjoint.isSame(edge.s, edge.t)){

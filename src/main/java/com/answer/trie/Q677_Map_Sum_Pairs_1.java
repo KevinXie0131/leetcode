@@ -3,6 +3,15 @@ package com.answer.trie;
 import java.util.*;
 
 public class Q677_Map_Sum_Pairs_1 {
+    public static void main(String[] args)  {
+        Q677_Map_Sum_Pairs_1 mapSum = new Q677_Map_Sum_Pairs_1();
+        mapSum.insert1("apple", 3);
+        System.out.println(mapSum.sum1("ap"));// 返回 3 (apple = 3)
+        mapSum.insert1("app", 2);
+        System.out.println( mapSum.sum1("ap"));  // 返回 5 (apple + app = 3 + 2 = 5)
+        mapSum.insert1("apple", 2);
+        System.out.println(mapSum.sum1("ap"));
+    }
     /**
      * 暴力扫描
      * 我们将所有的 key-val 键值进行存储，每次需要搜索给定的前缀 prefix 时，我们依次搜索所有的键值。
@@ -15,7 +24,7 @@ public class Q677_Map_Sum_Pairs_1 {
     }
 
     public void insert(String key, int val) {
-        map.put(key,val);
+        map.put(key, val);
     }
 
     public int sum(String prefix) {
@@ -40,13 +49,13 @@ public class Q677_Map_Sum_Pairs_1 {
     Map<String, Integer> map1;
     Map<String, Integer> prefixmap;
 
-    public void MapSum1() {
+    public Q677_Map_Sum_Pairs_1() {
         map1 = new HashMap<>();
         prefixmap = new HashMap<>();
     }
 
     public void insert1(String key, int val) {
-        int delta = val - map1.getOrDefault(key, 0);
+        int delta = val - map1.getOrDefault(key, 0); // [[],["apple",3],["ap"],["app",2],["apple",2],["ap"]]
         map1.put(key, val);
         for (int i = 1; i <= key.length(); ++i) {
             String curPrefix = key.substring(0, i);
@@ -83,6 +92,7 @@ public class Q677_Map_Sum_Pairs_1 {
         int delta = val - map2.getOrDefault(key, 0);
         map2.put(key, val);
         TrieNode node = root;
+
         for (char c : key.toCharArray()) {
             if (node.next[c - 'a'] == null) {
                 node.next[c - 'a'] = new TrieNode();

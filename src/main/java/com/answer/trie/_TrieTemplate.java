@@ -45,6 +45,10 @@ class MyTrie {
         return cur;
     }
 
+    public Node[] getChildren() {
+        return root.children;
+    }
+
     class Node {
         Node[] children = new Node[26];
         boolean isEnd;

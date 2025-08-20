@@ -1,7 +1,5 @@
 package com.answer.trie;
 
-import java.util.*;
-
 public class Q720_Longest_Word_in_Dictionary_1 {
     /**
      * 字典树

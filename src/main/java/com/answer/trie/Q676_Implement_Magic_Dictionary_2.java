@@ -17,15 +17,13 @@ public class Q676_Implement_Magic_Dictionary_2 {
     }
 
     public void buildDict(String[] dictionary) {
-        // 加入字典中所有单词
-        for(String word: dictionary){
+        for(String word: dictionary){ // 加入字典中所有单词
             addWord(word);
         }
     }
 
     public boolean search(String searchWord) {
-        // 搜索替换一个字符后的单词是否存在
-        return DFS_Search(searchWord, 0, root, false);
+        return DFS_Search(searchWord, 0, root, false);  // 搜索替换一个字符后的单词是否存在
     }
     /**
      * 插入一个字符串word到字典树中
@@ -34,8 +32,7 @@ public class Q676_Implement_Magic_Dictionary_2 {
         Node2 node = root;      // 从根节点开始构造这个word对应的路径节点
         int n = word.length();
         for(int i = 0; i < n; i++){
-            // 将当前字符添加到当前节点对应的子节点位置，然后递归更新
-            int id = word.charAt(i) - 'a';
+            int id = word.charAt(i) - 'a'; // 将当前字符添加到当前节点对应的子节点位置，然后递归更新
             if(node.children[id] == null){
                 node.children[id] = new Node2();
             }
@@ -51,16 +48,19 @@ public class Q676_Implement_Magic_Dictionary_2 {
      * @param isChanged: 是否已经替换字符
      */
     private boolean DFS_Search(String word, int idx, Node2 node, boolean isChanged){
-        if(idx == word.length())
+        if(idx == word.length()) {
             return node.isEnd && isChanged;     // 字符匹配结束，返回当前节点是否为尾节点，并且替换过字符
+        }
         if(!isChanged){
             // 当前尚未替换字符, 尝试替换word[idx]字符
             for(int i = 0; i < 26; i++){
                 // 替换的字符不可以是原来的字符且替换字符在字典树中存在
-                if(i == word.charAt(idx) - 'a' || node.children[i] == null)
+                if(i == word.charAt(idx) - 'a' || node.children[i] == null) {
                     continue;
-                if(DFS_Search(word, idx + 1, node.children[i], true))
+                }
+                if(DFS_Search(word, idx + 1, node.children[i], true)) {
                     return true;    // 匹配成功直接返回
+                }
             }
         }
         // 不管是否替换了字符，都可以不替换往下走
