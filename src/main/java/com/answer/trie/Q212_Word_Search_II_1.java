@@ -35,8 +35,10 @@ public class Q212_Word_Search_II_1 {
             for (int j = 0; j < n; j++) {
                 visited[i][j] = true;
                 sb.append(board[i][j]);
+
                 dfs(i, j, sb);
-                visited[i][j] = false;
+
+                visited[i][j] = false; // 回溯
                 sb.deleteCharAt(sb.length() - 1);
             }
         }
@@ -44,21 +46,27 @@ public class Q212_Word_Search_II_1 {
     }
 
     void dfs(int i, int j, StringBuilder sb) {
-        if (sb.length() > 10) return;
+        if (sb.length() > 10) {
+            return;
+        }
         if (set.contains(sb.toString())) {
             ans.add(sb.toString());
             set.remove(sb.toString());
         }
         for (int[] d : dirs) {
             int dx = i + d[0], dy = j + d[1];
-            if (dx < 0 || dx >= m || dy < 0 || dy >= n) continue;
+            if (dx < 0 || dx >= m || dy < 0 || dy >= n) {
+                continue;
+            }
             if (visited[dx][dy]) {
                 continue;
             }
             visited[dx][dy] = true;
             sb.append(board[dx][dy]);
+
             dfs(dx, dy, sb);
-            visited[dx][dy] = false;
+
+            visited[dx][dy] = false; // 回溯
             sb.deleteCharAt(sb.length() - 1);
         }
     }
@@ -68,23 +76,22 @@ public class Q212_Word_Search_II_1 {
      *
      * 我们可以使用 Trie 结构进行建树，对于任意一个当前位置 (i,j) 而言，
      * 只有在 Trie 中存在往从字符 a 到 b 的边时，我们才在棋盘上搜索从 a 到 b 的相邻路径。
-     *
      */
     class TrieNode {
-        String s;
-        TrieNode[] tns = new TrieNode[26];
+        String word;
+        TrieNode[] children = new TrieNode[26];
     }
 
     void insert(String s) {
         TrieNode p = root;
         for (int i = 0; i < s.length(); i++) {
             int u = s.charAt(i) - 'a';
-            if (p.tns[u] == null){
-                p.tns[u] = new TrieNode();
+            if (p.children[u] == null){
+                p.children[u] = new TrieNode();
             }
-            p = p.tns[u];
+            p = p.children[u];
         }
-        p.s = s;
+        p.word = s;
     }
 
     Set<String> set1 = new HashSet<>();
@@ -104,23 +111,26 @@ public class Q212_Word_Search_II_1 {
         for (int i = 0; i < m1; i++) {
             for (int j = 0; j < n1; j++) {
                 int u = board1[i][j] - 'a';
-                if (root.tns[u] != null) {
+                if (root.children[u] != null) {
                     vis[i][j] = true;
-                    dfs(i, j, root.tns[u]);
-                    vis[i][j] = false;
+
+                    dfs(i, j, root.children[u]);
+
+                    vis[i][j] = false; // 回溯
                 }
             }
         }
-        List<String> ans = new ArrayList<>();
+      /*  List<String> ans = new ArrayList<>(); // works too
         for (String s : set1){
             ans.add(s);
         }
-        return ans;
+        return ans;*/
+        return new ArrayList<>(set1);
     }
 
     void dfs(int i, int j, TrieNode node) {
-        if (node.s != null) {
-            set1.add(node.s);
+        if (node.word != null) {
+            set1.add(node.word);
         }
         for (int[] d : dirs1) {
             int dx = i + d[0], dy = j + d[1];
@@ -131,10 +141,12 @@ public class Q212_Word_Search_II_1 {
                 continue;
             }
             int u = board1[dx][dy] - 'a';
-            if (node.tns[u] != null) {
+            if (node.children[u] != null) {
                 vis[dx][dy] = true;
-                dfs(dx, dy, node.tns[u]);
-                vis[dx][dy] = false;
+
+                dfs(dx, dy, node.children[u]);
+
+                vis[dx][dy] = false; // 回溯
             }
         }
     }
