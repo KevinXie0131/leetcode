@@ -6,7 +6,7 @@ public class Q212_Word_Search_II_1 {
     /**
      * 回溯算法
      * 数据范围只有 12，且 words 中出现的单词长度不会超过 10，可以考虑使用「回溯算法」。
-     * <p>
+     *
      * 起始先将所有 words 出现的单词放到 Set 结构中，然后以 board 中的每个点作为起点进行爆搜（由于题目规定在一个单词中每个格子只能被使用一次，
      * 因此还需要一个 vis 数组来记录访问过的位置）：
      * 如果当前爆搜到的字符串长度超过 10，直接剪枝；
@@ -74,6 +74,7 @@ public class Q212_Word_Search_II_1 {
         String s;
         TrieNode[] tns = new TrieNode[26];
     }
+
     void insert(String s) {
         TrieNode p = root;
         for (int i = 0; i < s.length(); i++) {
@@ -85,6 +86,7 @@ public class Q212_Word_Search_II_1 {
         }
         p.s = s;
     }
+
     Set<String> set1 = new HashSet<>();
     char[][] board1;
     int n1, m1;
@@ -110,9 +112,12 @@ public class Q212_Word_Search_II_1 {
             }
         }
         List<String> ans = new ArrayList<>();
-        for (String s : set1) ans.add(s);
+        for (String s : set1){
+            ans.add(s);
+        }
         return ans;
     }
+
     void dfs(int i, int j, TrieNode node) {
         if (node.s != null) {
             set1.add(node.s);

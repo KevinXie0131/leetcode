@@ -12,6 +12,17 @@ public class Q212_Word_Search_II { // Hard 困难
      * 单词必须按照字母顺序，通过 相邻的单元格 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
      * 同一个单元格内的字母在一个单词中不允许被重复使用。
      * board[i][j] is a lowercase English letter.
+     *
+     * 示例 1：
+     * 输入：board = [["o","a","a","n"],
+     *               ["e","t","a","e"],
+     *               ["i","h","k","r"],
+     *               ["i","f","l","v"]],
+     *       words = ["oath","pea","eat","rain"]
+     * 输出：["eat","oath"]
+     */
+    /**
+     * 前缀树 + DFS
      */
     Set<String> res = new HashSet<>();
 
@@ -31,7 +42,7 @@ public class Q212_Word_Search_II { // Hard 困难
         return new ArrayList(res);
     }
 
-    public void  dfs(char[][] board, boolean[][] visited, String str, int i, int j, Trie trie){
+    public void dfs(char[][] board, boolean[][] visited, String str, int i, int j, Trie trie){
         if(i< 0 || i >= board.length || j < 0 || j >= board[0].length) {
             return;
         }
@@ -55,9 +66,11 @@ public class Q212_Word_Search_II { // Hard 困难
         dfs(board, visited, str, i, j - 1, trie);
         dfs(board, visited, str, i, j + 1, trie);
 
-        visited[i][j] = false;
+        visited[i][j] = false; // backtracking
     }
-    // The same Trie structure of Q208_Implement_Trie_Prefix_Tree
+    /**
+     * The same Trie structure of Q208_Implement_Trie_Prefix_Tree
+     */
     class Trie {
         private Trie[] children;
         private boolean isEnd;

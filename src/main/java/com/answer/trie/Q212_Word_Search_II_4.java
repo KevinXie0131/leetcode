@@ -1,9 +1,6 @@
 package com.answer.trie;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Q212_Word_Search_II_4 {
     /**
@@ -17,30 +14,22 @@ public class Q212_Word_Search_II_4 {
      *
      * 不使用visited数组也是可以的，直接把遍历过的节点改为“#”号，恢复状态的时候再改回来也是可以的，
      */
-    // 上下左右移动的方向
-    int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // 上下左右移动的方向
 
     public List<String> findWords(char[][] board, String[] words) {
-        // 结果集
-        List<String> resultList = new ArrayList<>();
-
-        // 构建字典树
-        TrieNode root = buildTrie(words);
+        List<String> resultList = new ArrayList<>();// 结果集
+        TrieNode root = buildTrie(words); // 构建字典树
 
         int m = board.length;
         int n = board[0].length;
-        // 记录沿途遍历到的元素
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(); // 记录沿途遍历到的元素
 
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                // 从每个元素开始遍历
-                dfs(resultList, result, board, i, j, root, root);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dfs(resultList, result, board, i, j, root, root); // 从每个元素开始遍历
             }
         }
-
-        // 题目要求返回List
-        return resultList;
+        return resultList; // 题目要求返回List
     }
 
     private void dfs(List<String> resultList, StringBuilder result, char[][] board,
@@ -52,33 +41,27 @@ public class Q212_Word_Search_II_4 {
             return;
         }
 
-        // 记录当前字符
-        char curr = board[i][j];
+        char curr = board[i][j]; // 记录当前字符
         result.append(curr);
 
-        // 如果有结束字符，加入结果集中
-        if (node.children[board[i][j] - 'a'].isEnd) {
+        if (node.children[board[i][j] - 'a'].isEnd) { // 如果有结束字符，加入结果集中
             String word = result.toString();
             resultList.add(word);
             deleteWordFromTrie(root, word);
         }
 
-        // 记录当前元素已访问
-        board[i][j] = '#';
+        board[i][j] = '#'; // 记录当前元素已访问
 
-        // 按四个方向去遍历
-        for (int[] dir : dirs) {
+        for (int[] dir : dirs) { // 按四个方向去遍历
             dfs(resultList, result, board, i + dir[0], j + dir[1], root, node.children[curr - 'a']);
         }
 
-        // 还原状态
-        board[i][j] = curr;
+        board[i][j] = curr;  // 还原状态
         result.deleteCharAt(result.length() - 1);
     }
 
     private void deleteWordFromTrie(TrieNode root, String word) {
-        // 删除并没有那么好搞，需要先找到最后一个字符，从下往上删除
-        delete(root, word, 0);
+        delete(root, word, 0);// 删除并没有那么好搞，需要先找到最后一个字符，从下往上删除
     }
 
     // 返回true表示可以把沿途节点删除，返回false表示不能删除沿途节点
@@ -133,9 +116,7 @@ public class Q212_Word_Search_II_4 {
     }
 
     class TrieNode {
-        // 记录到这个节点是否是一个完整的单词
-        boolean isEnd = false;
-        // 孩子节点，题目说了都是小写字母，所以用数组，否则可以用HashMap替换
-        TrieNode[] children = new TrieNode[26];
+        boolean isEnd = false;// 记录到这个节点是否是一个完整的单词
+        TrieNode[] children = new TrieNode[26]; // 孩子节点，题目说了都是小写字母，所以用数组，否则可以用HashMap替换
     }
 }

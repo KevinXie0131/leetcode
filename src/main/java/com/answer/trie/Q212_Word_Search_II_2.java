@@ -13,7 +13,7 @@ public class Q212_Word_Search_II_2 {
         int n = board[0].length;
         // 构建words的字典树
         root = new TrieNode();
-        for(String word: words){
+        for(String word : words){
             if(word.length() > m * n){
                 continue;  // 字符串长度超过二维矩阵尺寸，肯定无法构成
             }
@@ -34,14 +34,13 @@ public class Q212_Word_Search_II_2 {
     private void insert(String word) {
         TrieNode node = root;      // 从根节点开始构造这个word对应的路径节点
         int n = word.length();
+
         for(int i = 0; i < n; i++){
             char ch = word.charAt(i);
             if(!node.children.containsKey(ch)){
-                // 字符ch对应的节点不存在，新建一个
-                node.children.put(ch, new TrieNode());
+                node.children.put(ch, new TrieNode()); // 字符ch对应的节点不存在，新建一个
             }
-            // 更新node
-            node = node.children.get(ch);
+            node = node.children.get(ch);    // 更新node
         }
         node.str = word;   // 尾节点记录单词，用于后序查找的时候快速得到
     }
@@ -70,7 +69,7 @@ public class Q212_Word_Search_II_2 {
         };
         if(node.children.size() == 0){
             // 当前节点没有后序字符了，那么这个节点一定是某个单词最后一个字符对应的节点。
-            // 并且不是其他任何单词的前缀，因此匹配完了之后，可以将这个字符从其父节点的childran列表中删除。
+            // 并且不是其他任何单词的前缀，因此匹配完了之后，可以将这个字符从其父节点的children列表中删除。
             last.children.remove(ch);
             return;
         }
