@@ -1,7 +1,6 @@
 package com.answer.two_pointers;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class _TwoPointerTemplate {
     public static void main(String[] args) {
