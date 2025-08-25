@@ -8,7 +8,6 @@ public class Q143_Reorder_List_1 {
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1,node2);
-
         reorderList(node1);
         node1.print();
     }
@@ -23,35 +22,33 @@ public class Q143_Reorder_List_1 {
    }
 
     static private ListNode reorderList(ListNode head, ListNode tail) {
-        // 如果tail为null，说明已经递归到链表尾部，这时候需要重新连接尾部节点与头部节点，故返回head
-        if (tail == null) return head;
-        // 一直递归到尾部
-        ListNode returnNode = reorderList(head, tail.next);
+        if (tail == null){ // 如果tail为null，说明已经递归到链表尾部，这时候需要重新连接尾部节点与头部节点，故返回head
+            return head;
+        }
+        ListNode returnNode = reorderList(head, tail.next);// 一直递归到尾部
         // 回溯到方法，returnNode即为与tail对应的正向访问节点
-        // 如果returnNode是null，说明处理完成，直接返回
-        if (returnNode == null) {
+        if (returnNode == null) {// 如果returnNode是null，说明处理完成，直接返回
             return null;
         }
-        // 如果returnNode或returnNode的后继等于tail，说明完成，注意tail即为尾节点，next需要set null
-        if (returnNode == tail || returnNode.next == tail) {
+        if (returnNode == tail || returnNode.next == tail) {// 如果returnNode或returnNode的后继等于tail，说明完成，注意tail即为尾节点，next需要set null
             tail.next = null;
             return null;
         }
-        // 将尾部遍历节点指向对应的头部遍历节点的next，正向节点指向尾部遍历节点
-        tail.next = returnNode.next;
+        tail.next = returnNode.next; // 将尾部遍历节点指向对应的头部遍历节点的next，正向节点指向尾部遍历节点
         returnNode.next = tail;
-        // 返回头部向后访问的下一节点
-        return tail.next;
+        return tail.next; // 返回头部向后访问的下一节点
     }
     /**
-     * anther form
+     * another form
      */
     static private ListNode reorderList1(ListNode head, ListNode tail) {
         if (tail == null) {
             return head;
         }
         ListNode reverse = reorderList1(head, tail.next);
-        if(reverse == null) return null;
+        if(reverse == null) {
+            return null;
+        }
 
         if (reverse.next == tail || reverse == tail) {
             tail.next = null;

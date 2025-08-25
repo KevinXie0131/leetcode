@@ -11,7 +11,7 @@ public class Q143_Reorder_List {
      * You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln
      * Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
      * You may not modify the values in the list's nodes. Only nodes themselves may be changed.
-     * 示例 1：
+     * 示例：
      *  输入：head = [1,2,3,4]
      *  输出：[1,4,2,3]
      */
@@ -22,7 +22,6 @@ public class Q143_Reorder_List {
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1,node2);
-
         reorderList_1(node1);
         node1.print();
     }
@@ -44,7 +43,7 @@ public class Q143_Reorder_List {
         while(!list.isEmpty()){
             ListNode node;
             if(count % 2 != 0){
-                node = list.poll(); // 奇数，取出队列左边头部的值
+                node = list.pollFirst(); // 奇数，取出队列左边头部的值
             }else{
                 node = list.pollLast();  // 偶数，取出队列右边尾部的值
             }
