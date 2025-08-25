@@ -20,7 +20,6 @@ public class Offer_22_Get_Kth_From_End {
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1, node2);
-
         ListNode res = getKthFromEnd_8(node1 , 2);
         System.out.println(res);
     }
@@ -92,8 +91,9 @@ public class Offer_22_Get_Kth_From_End {
     static int size;
 
     static public ListNode getKthFromEnd_3(ListNode head, int k) {
-        if (head == null) //边界条件判断
+        if (head == null) {//边界条件判断
             return null;
+        }
         ListNode val = getKthFromEnd_3(head.next, k);
         ++size;
 
@@ -109,8 +109,9 @@ public class Offer_22_Get_Kth_From_End {
      * another form
      */
     static public ListNode getKthFromEnd_3a(ListNode head, int k) {
-        if (head == null) //边界条件判断
+        if (head == null) {//边界条件判断
             return null;
+        }
         ListNode val = getKthFromEnd_3a(head.next, k);
         ++size;
 
@@ -148,14 +149,21 @@ public class Offer_22_Get_Kth_From_End {
      * another form / from head to tail 链表中第k个节点
      */
     static public ListNode getKthFromEnd_8(ListNode head, int k) {
-        if (head == null) //边界条件判断
+        return recursion(head, k, 0, new int[]{0});
+    }
+
+    static public ListNode recursion(ListNode head, int k, int index, int[] len) {
+        if (head == null) {//边界条件判断
             return null;
-        size++;
-        if  (size == k) {
+        }
+        len[0]++;
+        index++;
+
+        ListNode val = recursion(head.next, k, index, len);
+
+        if(index + k - 1 == len[0]){
             return head;
         }
-        ListNode val = getKthFromEnd_8(head.next, k);
-
         return val;
     }
 }

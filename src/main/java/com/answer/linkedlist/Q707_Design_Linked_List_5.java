@@ -8,10 +8,13 @@ public class Q707_Design_Linked_List_5 {
     static class Node {
         private int val; //值
         private Node next;    //下一个结点
+
         public Node(int val) {
             this.val = val;
         }
+
         public Node() {
+
         }
     }
 

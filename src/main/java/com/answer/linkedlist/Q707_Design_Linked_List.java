@@ -44,7 +44,7 @@ public class Q707_Design_Linked_List {
         if(index < 0 || index >= size){
             return -1;
         }
-        ListNode cur =  head;
+        ListNode cur = head;
         for(int i = 0; i <= index; i++){
             cur = cur.next;
         }
@@ -60,10 +60,12 @@ public class Q707_Design_Linked_List {
     }
 
     public void addAtIndex(int index, int val) {
-        if(index > size) return;
+        if(index > size) {
+            return;
+        }
         index = Math.max(0, index);
         size++;
-        ListNode cur =  head;
+        ListNode cur = head;
         for(int i = 0; i < index; i++){
             cur = cur.next;
         }
@@ -77,7 +79,7 @@ public class Q707_Design_Linked_List {
             return;
         }
         size--;
-        ListNode cur =  head;
+        ListNode cur = head;
         for(int i = 0; i < index; i++){
             cur = cur.next;
         }

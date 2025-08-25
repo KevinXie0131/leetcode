@@ -133,13 +133,13 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
             newNode.next = newNode;
             return newNode;
         }
-        Node newnode = new Node(insertVal);
+        Node newNode = new Node(insertVal);
         Node biggest = head, cur = head;
         int biggestVal = head.val;//最大值
         while(true) {
             if(cur.val <= insertVal && cur.next.val >= insertVal) {	//找到了
-                newnode.next = cur.next;
-                cur.next = newnode;
+                newNode.next = cur.next;
+                cur.next = newNode;
                 return head;
             }
             if(cur.val >= biggestVal) {	//记录最大值节点
@@ -151,13 +151,16 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
             }
             cur = cur.next;
         }
-        newnode.next = biggest.next;//插入的是最大值或最小值
-        biggest.next = newnode;
+        newNode.next = biggest.next;//插入的是最大值或最小值
+        biggest.next = newNode;
         return head;
     }
 
+    // For testing
     public Node makeCircularList(int[] arr) {
-        if (arr.length == 0) return null;
+        if (arr.length == 0) {
+            return null;
+        }
         Node head = new Node(arr[0]);
         Node curr = head;
         for (int i = 1; i < arr.length; i++) {
@@ -186,6 +189,7 @@ public class Q708_Insert_into_a_Sorted_Circular_Linked_List {
     class Node {
         public int val;
         public Node next;
+
         public Node(int val) {
             this.val = val;
         }

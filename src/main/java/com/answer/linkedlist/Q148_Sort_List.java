@@ -1,7 +1,5 @@
 package com.answer.linkedlist;
 
-import java.util.*;
-
 public class Q148_Sort_List {
     /**
      * 排序链表
@@ -11,6 +9,14 @@ public class Q148_Sort_List {
      *  输入：head = [4,2,1,3]
      *  输出：[1,2,3,4]
      */
+    public static void main(String[] args) {
+        ListNode node4 = new ListNode(3, null);
+        ListNode node3 = new ListNode(1, node4);
+        ListNode node2 = new ListNode(2, node3);
+        ListNode node1 = new ListNode(4, node2);
+        ListNode node = sortList2(node1);
+        System.out.println(node);
+    }
     /**
      * 题目的进阶问题要求达到 O(nlogn) 的时间复杂度和 O(1) 的空间复杂度，时间复杂度是 O(nlogn) 的排序算法包括归并排序、堆排序和快速排序
      * (快速排序的最差时间复杂度是 O(n^2))，其中最适合链表的排序算法是归并排序。
@@ -18,7 +24,9 @@ public class Q148_Sort_List {
      * Merge sorting - from top to bottom 自顶向下归并排序
      */
     public ListNode sortList(ListNode head) {
-        if(head == null || head.next == null) return head;
+        if(head == null || head.next == null) {
+            return head;
+        }
         ListNode fast = head.next, slow = head;
         while(fast != null && fast.next != null){ // 找到链表的中点，以中点为分界，将链表拆分成两个子链表
             slow = slow.next;
@@ -97,16 +105,17 @@ public class Q148_Sort_List {
      * Approach 1: Top Down Merge Sort 自顶向下归并排序
      * Official answer
      */
-    public ListNode sortList2(ListNode head) {
-        if (head == null || head.next == null)
+   static public ListNode sortList2(ListNode head) {
+        if (head == null || head.next == null) {
             return head;
-        ListNode mid = getMid(head);
+        }
+        ListNode mid = getMid1(head);
         ListNode left = sortList2(head);
         ListNode right = sortList2(mid);
         return merge(left, right);
     }
 
-    ListNode merge(ListNode list1, ListNode list2) {
+    static ListNode merge(ListNode list1, ListNode list2) {
         ListNode dummyHead = new ListNode();
         ListNode tail = dummyHead;
         while (list1 != null && list2 != null) {
@@ -124,7 +133,7 @@ public class Q148_Sort_List {
         return dummyHead.next;
     }
 
-    ListNode getMid(ListNode head) {
+    static ListNode getMid(ListNode head) {
         ListNode midPrev = null;
         while (head != null && head.next != null) {
             midPrev = (midPrev == null) ? head : midPrev.next;
@@ -132,6 +141,24 @@ public class Q148_Sort_List {
         }
         ListNode mid = midPrev.next;
         midPrev.next = null;
+        return mid;
+    }
+    /**
+     * 同上
+     */
+    static ListNode getMid1(ListNode head) {
+        ListNode slow = head, fast = head;
+        ListNode dummy = new ListNode(-1, slow);
+        while (fast != null) {
+      //      slow = slow.next;
+            dummy = dummy.next;
+            fast = fast.next;
+            if (fast != null) {
+                fast = fast.next;
+            }
+        }
+        ListNode mid = dummy.next;
+        dummy.next = null;
         return mid;
     }
     /**

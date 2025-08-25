@@ -58,7 +58,7 @@ public class Q147_Insertion_Sort_List {
         return dummy.next;
     }
     /**
-     * 先找个排头dummy,然后依次从head节点放入dummy,只需要依次dummy现有节点比较,插入其中!
+     * 先找个排头dummy,然后依次从head节点放入dummy,只需要依次dummy现有节点比较,插入其中
      * 在模拟插入排序的过程中，一共要有三次改变节点指针的操作
      */
     public static ListNode insertionSortList8(ListNode head) {

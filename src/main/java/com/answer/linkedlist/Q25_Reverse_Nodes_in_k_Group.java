@@ -28,8 +28,8 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
-        //[1,2,3,4,5]
-        ListNode node = reverseKGroup4(node1, 2);
+        // [1,2,3,4,5]
+        ListNode node = reverseKGroup6a(node1, 2);
         node.print();
     }
     /**
@@ -44,7 +44,9 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
             for(int i = 0; i < k && cur != null; i++){ // 先走k步 cur不为空
                 cur = cur.next;
             }
-            if(cur == null) break; //需要翻转的链表的节点数小于k，不执行翻转。
+            if(cur == null) {
+                break; //需要翻转的链表的节点数小于k，不执行翻转。
+            }
 
             ListNode start = pre.next; // 确定边界
             ListNode end = cur.next; // cur 代表待翻转链表的末尾 end 记录待翻转链表的后继
@@ -176,9 +178,9 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
         return pre;
     }
     /**
-     * 递归同上 改进
+     * 递归 同上 改进
      */
-    public ListNode reverseKGroup6(ListNode head, int k) {
+   static public ListNode reverseKGroup6(ListNode head, int k) {
         ListNode tail = head;
         for (int i = 1; i < k; i++) { // 由于没有使用dummy节点，所以这里向后移动了k-1个节点
             if (tail == null) {
@@ -193,6 +195,27 @@ public class Q25_Reverse_Nodes_in_k_Group { // Hard 困难
         tail.next = null;
         ListNode curHead = reverseList(head);
         head.next = reverseKGroup6(next, k);
+        return curHead;
+    }
+    /**
+     * 递归 同上 改进
+     */
+    static public ListNode reverseKGroup6a(ListNode head, int k) {
+        if(k == 1) {
+            return head;
+        }
+        ListNode tail = head;
+        for (int i = 0; i < k - 1; i++) { // 由于没有使用dummy节点，所以这里向后移动了k-1个节点
+            if (tail == null || tail.next == null) {
+                return head;
+            }
+            tail = tail.next;
+        }
+
+        ListNode next = tail.next;  // next指向第k+1个节点
+        tail.next = null;
+        ListNode curHead = reverseList(head);
+        head.next = reverseKGroup6a(next, k);
         return curHead;
     }
 }

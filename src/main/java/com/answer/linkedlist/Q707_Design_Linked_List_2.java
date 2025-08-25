@@ -99,5 +99,4 @@ public class Q707_Design_Linked_List_2 {
         cur.next = cur.next.next;
         size--;
     }
-
 }

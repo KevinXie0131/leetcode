@@ -22,7 +22,6 @@ public class Q203_Remove_Linked_List_Elements {
         ListNode node1= new ListNode(1,node2);
       //  [1,2,6,3,4,5,6]
         int val = 6;
-
         ListNode node = removeElements_recursive_1(node1, val);
         node.print();
     }
@@ -67,7 +66,9 @@ public class Q203_Remove_Linked_List_Elements {
         while(head != null && head.val == val){
             head = head.next;
         }
-        if(head == null)  return head;
+        if(head == null)  {
+            return head;
+        }
         // 这里需要加入一个吻判断，head.next == null
         // 便于下面ListNode cur = pre.next;这一步的定义
         if(head.next == null){
@@ -114,7 +115,7 @@ public class Q203_Remove_Linked_List_Elements {
         return head;
     }
     /**
-     * 同上
+     * 同上 Recursive - from head to tail
      */
     public ListNode removeElements_recursive_2(ListNode head, int val) {
         if(head == null){
@@ -122,9 +123,32 @@ public class Q203_Remove_Linked_List_Elements {
         }
         if(head.val == val){
             head = removeElements_recursive_2(head.next, val); // the current node doesn't need to be kept.
+            //  return removeElements(head.next, val); // works too
         } else {
             head.next = removeElements_recursive_2(head.next, val);
         }
+        return head;
+    }
+    /**
+     * Recursive - from head to tail
+     */
+    public ListNode removeElements_recursive_3(ListNode head, int val) {
+        ListNode dummy = new ListNode (-1, head); // use dummy for input like head = [7,7,7,7], val = 7, Output = [7], Expected = []
+        removeElements_rec(dummy,   val);
+        return dummy.next;
+    }
+    // refer to Q83_Remove_Duplicates_from_Sorted_List
+    public ListNode removeElements_rec(ListNode head, int val) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode cur = head.next;
+        while(cur != null && cur.val == val){ // This part is different from Q83_Remove_Duplicates_from_Sorted_List
+            cur = cur.next;
+        }
+
+        head.next = removeElements_rec(cur, val);
         return head;
     }
     /**

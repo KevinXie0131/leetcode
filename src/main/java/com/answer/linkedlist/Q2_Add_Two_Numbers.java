@@ -34,8 +34,7 @@ public class Q2_Add_Two_Numbers {
         ListNode node3a = new ListNode(9, node4a);
         ListNode node2a = new ListNode(9, node3a);
         ListNode node1a = new ListNode(9,node2a);
-
-        ListNode result = addTwoNumbers_2(node1, node1a);
+        ListNode result = addTwoNumbers_1(node1, node1a);
         result.print();
     }
     /**
@@ -135,7 +134,7 @@ public class Q2_Add_Two_Numbers {
      */
     public static ListNode addTwoNumbers_2(ListNode l1, ListNode l2) {
         ListNode result = recursion0(l1, l2, 0);
-       return result;
+        return result;
     }
 
     public static ListNode recursion(ListNode l1, ListNode l2 , int carry){

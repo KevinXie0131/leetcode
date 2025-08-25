@@ -43,7 +43,9 @@ public class Q328_Odd_Even_Linked_List {
      * 请注意，偶数组和奇数组内部的相对顺序应该与输入时保持一致。
      */
     public ListNode oddEvenList_1(ListNode head) {
-        if (head == null || head.next == null || head.next.next == null) return head;
+        if (head == null || head.next == null || head.next.next == null){
+            return head;
+        }
         ListNode evenFirst = head.next;  // 记录偶数索引节点链表头节点
         ListNode odd = head, even = head.next; // odd奇数，even偶数
         boolean isOdd = true; // true为奇数，false偶数

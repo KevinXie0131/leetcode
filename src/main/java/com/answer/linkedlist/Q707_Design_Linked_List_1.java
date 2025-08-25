@@ -4,7 +4,6 @@ public class Q707_Design_Linked_List_1 {
 
     public static void main(String[] args) {
         Q707_Design_Linked_List_1 myLinkedList = new Q707_Design_Linked_List_1();
-
         myLinkedList.addAtHead(1);
         myLinkedList.addAtTail(3);
         myLinkedList.addAtIndex(1, 2);    // linked list becomes 1->2->3
@@ -54,7 +53,9 @@ public class Q707_Design_Linked_List_1 {
     }
 
     public void addAtIndex(int index, int val) {
-        if(index > size) return;
+        if(index > size) {
+            return;
+        }
         index = Math.max(0, index);
         size++;
         DoublyListNode pred, succ;

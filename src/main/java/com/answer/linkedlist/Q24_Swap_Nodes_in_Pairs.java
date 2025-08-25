@@ -15,7 +15,6 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
-
         ListNode node = swapPairs_Recursive(node1);
         node.print();
     }
@@ -26,14 +25,14 @@ public class Q24_Swap_Nodes_in_Pairs {
         ListNode dummy = new ListNode(-1, head);
         ListNode cur = dummy;
         while(cur.next != null && cur.next.next != null){
-            ListNode start = cur.next;
-            ListNode end = cur.next.next;
+            ListNode first = cur.next;
+            ListNode second = cur.next.next;
 
-            start.next = end.next;
-            end.next = start;
-            cur.next = end;
+            first.next = second.next;
+            second.next = first;
+            cur.next = second;
 
-            cur = start;
+            cur = first;
         }
         return dummy.next;
     }
@@ -206,24 +205,26 @@ public class Q24_Swap_Nodes_in_Pairs {
     /**
      * Recursive - from head to tail 递归
      */
-    public static ListNode swapPairs_Recursive(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
+    public static ListNode swapPairs_Recursive(ListNode first) {
+        if(first == null || first.next == null){
+            return first;
         }
-        ListNode nextNextNode = head.next.next;
+        ListNode third = first.next.next;
 
-        ListNode newNode = head.next;
-        newNode.next = head;
+        ListNode second = first.next;
+        second.next = first;
 
-        head.next = swapPairs_Recursive(nextNextNode); // head.next = swapPairs_Recursive(head.next.next); // not work
-        return newNode;
+        first.next = swapPairs_Recursive(third); // head.next = swapPairs_Recursive(head.next.next); // not work
+        return second;
     }
     /**
      * 递归 同上
      * 标记好1、2、3号节点
      */
     public ListNode swapPairs_5(ListNode head) {
-        if (head == null || head.next == null) return head;
+        if (head == null || head.next == null) {
+            return head;
+        }
         ListNode one = head;
         ListNode two = one.next;
         ListNode three = two.next;
@@ -236,17 +237,17 @@ public class Q24_Swap_Nodes_in_Pairs {
     /**
      * Recursive - from tail to head 递归
      */
-    public static ListNode swapPairs_Recursive_1(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
+    public static ListNode swapPairs_Recursive_1(ListNode first) {
+        if(first == null || first.next == null){
+            return first;
         }
 
-        ListNode temp = swapPairs_Recursive_1(head.next.next);
+        ListNode third = swapPairs_Recursive_1(first.next.next);
 
-        ListNode newNode = head.next;
-        newNode.next = head;
-        head.next = temp;
+        ListNode second = first.next;
+        second.next = first;
+        first.next = third;
 
-        return newNode;
+        return second;
     }
 }

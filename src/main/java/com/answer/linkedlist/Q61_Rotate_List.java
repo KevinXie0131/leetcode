@@ -28,8 +28,9 @@ public class Q61_Rotate_List {
      * 每移动一次,把头节点连接到尾节点
      */
     static public ListNode rotateRight(ListNode head, int k) {
-        if(head == null || head.next == null || k == 0) return head;
-
+        if(head == null || head.next == null || k == 0) {
+            return head;
+        }
         ListNode last = head;
         int length = 1;
         while(last.next != null){
@@ -88,8 +89,8 @@ public class Q61_Rotate_List {
     public ListNode rotateRight2(ListNode head, int k) {
         if(head == null || head.next == null) return head;
         if(k == 0) return head;
-        ListNode tail = head;
 
+        ListNode tail = head;
         int len = 1; // 链表长度
         while (tail.next != null){ // 找到链表的尾结点 之后指向头节点构成环
             tail = tail.next;
@@ -97,7 +98,7 @@ public class Q61_Rotate_List {
         }
         tail.next = head;
         // 之后从尾结点出发 移动 n-k%n 找到新的尾结点newtail(k%n避免无效旋转)
-        for(int i = 0;i < (len - k % len); i++){
+        for(int i = 0; i < (len - k % len); i++){
             tail = tail.next;
         }
         ListNode newtail = tail;
@@ -137,6 +138,7 @@ public class Q61_Rotate_List {
      */
     public ListNode rotateRight3(ListNode head, int k) {
         if(k == 0 || head == null || head.next == null) return head;
+
         List<ListNode> list = new ArrayList<>();
         ListNode li = head;
         while (li != null) {

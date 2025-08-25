@@ -118,7 +118,7 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
             }
             tail = tail.next;
         }
-        tail.next = l1 == null? l2: l1;
+        tail.next = l1 == null ? l2: l1;
         return dummyHead.next;
     }
     /**
@@ -223,9 +223,35 @@ public class Q23_Merge_k_Sorted_Lists { // Hard 困难
                 continue;
             } else {
                 while (keyArr[i]-- > 0) {    //在temp后面循环连接keyArr[i]个节点值为(i-10000)的节点
-                    temp.next = new ListNode(i-10000);
+                    temp.next = new ListNode(i - 10000);
                     temp = temp.next;
                 }
+            }
+        }
+        return dummy.next;
+    }
+    /**
+     * 同上 use TreeMap
+     */
+    public ListNode mergeKLists7a(ListNode[] lists) {
+        ListNode dummy = new ListNode();
+        Map<Integer, Integer> map = new TreeMap<>();
+
+        for (int i = 0; i < lists.length;i++) {
+            ListNode cur = lists[i];
+            while (cur != null) {
+                map.put(cur.val, map.getOrDefault(cur.val, 0) + 1);
+                cur = cur.next;
+            }
+        }
+
+        ListNode temp = dummy;
+
+        for (Integer key : map.keySet()) {
+            int count = map.get(key);
+            while (count-- > 0) {
+                temp.next = new ListNode(key);
+                temp = temp.next;
             }
         }
         return dummy.next;

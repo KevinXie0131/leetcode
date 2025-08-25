@@ -27,7 +27,6 @@ public class Q876_Middle_of_the_Linked_List {
             slow = slow.next;
             fast = fast.next.next;
         }
-
         return slow;
     }
     /**

@@ -21,9 +21,12 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         ListNode node3 = new ListNode(3, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(1, node2);
+        ListNode res = removeNthFromEnd11(node1 , 2);
+        System.out.println(res.val);
 
-        ListNode res = removeNthFromEnd10(node1 , 2);
-        System.out.println(res);
+        ListNode node1a = new ListNode(1, null);
+        ListNode res1 = removeNthFromEnd11(node1a , 1);
+        System.out.println(res1.val);
     }
     /**
      * 计算链表长度: 首先从头节点开始对链表进行一次遍历，得到链表的长度 L
@@ -52,7 +55,7 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
      */
     public ListNode removeNthFromEnd_0a(ListNode head, int n) {
         ListNode dummy = new ListNode(0, head);
-        Deque<ListNode> stack = new LinkedList<ListNode>();
+        Deque<ListNode> stack = new LinkedList<>();
         ListNode cur = dummy;
         while (cur != null) {
             stack.push(cur);
@@ -72,7 +75,7 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
      *   在头部插入一个虚拟结点，可以避免对头结点的特殊处理。
      *   边界情况可以测试几个 case 确定。
      */
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    static public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode (-1, head); // 增加虚拟节点
         ListNode slow = dummy;
         ListNode fast = head;
@@ -157,7 +160,7 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         ListNode dummyNode = new ListNode(0); // dummy node不需要对头节点进行特殊的判断
         dummyNode.next = head;
 
-        deleteNode(dummyNode, n); // for [1] , 1
+        deleteNode_1(dummyNode, n); // for [1] , 1
 
         return dummyNode.next;
     }
@@ -171,7 +174,9 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         deleteNode(head.next, n);
         size++;
         if(size == n + 1){
-            if (head.next != null) head.next = head.next.next; // head.next = head.next.next; // works too
+            if (head.next != null) {
+                head.next = head.next.next; // head.next = head.next.next; // works too
+            }
             return;
         }
     }
@@ -200,5 +205,32 @@ public class Q19_Remove_Nth_Node_From_End_of_List {
         }
         head.next = removeNthFromEnd10(head.next, n);
         return ++pos == n ? head.next : head;
+       // return pos++ == n -1 ? head.next : head; // works too
     }
+    /**
+     * 递归
+     */
+    static public ListNode removeNthFromEnd11(ListNode head, int n) {
+        ListNode dummyNode = new ListNode(0); // dummy node不需要对头节点进行特殊的判断
+        dummyNode.next = head;
+        recursion(dummyNode, n, 0, new int[]{0});
+        return dummyNode.next;
+    }
+
+    static public void recursion(ListNode head, int k, int index, int[] len) {
+        if (head == null) { // 边界条件判断
+            return;
+        }
+        len[0]++;
+        index++;
+
+        recursion(head.next, k, index, len);
+
+        if(index + k == len[0]){
+            if(head.next != null) {
+                head.next = head.next.next;
+            }
+        }
+    }
+
 }

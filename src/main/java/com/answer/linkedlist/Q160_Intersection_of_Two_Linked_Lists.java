@@ -65,7 +65,7 @@ public class Q160_Intersection_of_Two_Linked_Lists {
      * Use set 判断两个链表是否相交，可以使用哈希集合存储链表节点。
      */
     public ListNode getIntersectionNode_1(ListNode headA, ListNode headB) {
-        Set<ListNode> visited = new HashSet<ListNode>();
+        Set<ListNode> visited = new HashSet<>();
         ListNode cur = headA;
         while(cur != null){
             visited.add(cur);
@@ -79,7 +79,6 @@ public class Q160_Intersection_of_Two_Linked_Lists {
             }
             cur = cur.next;
         }
-
         return null;
     }
     /**

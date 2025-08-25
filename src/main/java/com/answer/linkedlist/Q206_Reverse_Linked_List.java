@@ -22,7 +22,7 @@ public class Q206_Reverse_Linked_List {
         ListNode node2 = new ListNode(2, node3);
         ListNode node1= new ListNode(1,node2);
         //[1,2,3,4,5]
-        ListNode node = reverseList_Recursive_3(node1);
+        ListNode node = reverseBetween_3(node1);
         node.print();
     }
     /**
@@ -60,7 +60,6 @@ public class Q206_Reverse_Linked_List {
     /**
      * Iterative 双指针法
      * 同上
-     * 用头插法依次把节点 1,2,3 插到这个新链表的头部，就得到了链表 3→2→1，这正是反转后的链表
      */
     public ListNode reverseList_Iterative1(ListNode head) {
         ListNode prev = null;
@@ -78,18 +77,19 @@ public class Q206_Reverse_Linked_List {
     /**
      * 头插法
      * refer to Q92_Reverse_Linked_List_II
+     * 用头插法依次把节点 1,2,3 插到这个新链表的头部，就得到了链表 3→2→1，这正是反转后的链表
      */
-    public ListNode reverseBetween_3(ListNode head, int left, int right) {
+    static public ListNode reverseBetween_3(ListNode head) {
         ListNode dummyNode = new ListNode(-1);   // 设置 dummyNode 是这一类问题的一般做法
         dummyNode.next = head;
         // curr: 指向待反转区域的第一个节点 left
         // next: 永远指向 curr 的下一个节点，循环过程中，curr 变化以后 next 会变化
         // pre/dummyNode: 永远指向待反转区域的第一个节点 left 的前一个节点，在循环过程中不变
         // 操作步骤:
-        // 先将 curr 的下一个节点记录为 next
-        // 执行操作1: 把 curr 的下一个节点指向 next 的下一个节点
-        // 执行操作2: 把 next 的下一个节点指向 pre/dummyNode 的下一个节点
-        // 执行操作3: 把 pre/dummyNode 的下一个节点指向 next
+        //  先将 curr 的下一个节点记录为 next
+        //   执行操作1: 把 curr 的下一个节点指向 next 的下一个节点
+        //   执行操作2: 把 next 的下一个节点指向 pre/dummyNode 的下一个节点
+        //   执行操作3: 把 pre/dummyNode 的下一个节点指向 next
         ListNode cur = dummyNode.next;
         ListNode next;
         while (cur != null && cur.next != null) {
@@ -136,6 +136,7 @@ public class Q206_Reverse_Linked_List {
     }
     /**
      * Recursive - from tail to head // 从后向前递归
+     * 同上
      */
     public static ListNode reverseList(ListNode head) {
         if(head == null || head.next == null) {  // 边缘条件判断
@@ -201,24 +202,28 @@ public class Q206_Reverse_Linked_List {
     }
     /**
      * another from 比较容易理解的递归
+     * 同上
      */
-    ListNode pre = null, tmp = null;
+    ListNode pre = null, nxt = null;
 
     public ListNode reverseList_Recursive_5(ListNode head) {
         if (head == null) {
             return pre;
         }
-
-        tmp = head.next;
+        nxt = head.next;
         head.next = pre;
         pre = head;
-        head = tmp;
+        head = nxt;
 
         return reverseList_Recursive_5(head);
     }
     /**
-     * another form 递归简洁易读的写法
+     * another form 递归简洁易读的写法 - from head to tail
      */
+    public ListNode reverseList9a(ListNode head) {
+        return reverse1(null, head);
+    }
+
     private ListNode reverse1(ListNode prev, ListNode curr) {
         if(curr == null) {
             return prev;
@@ -228,17 +233,18 @@ public class Q206_Reverse_Linked_List {
         return reverse1(curr, next);
     }
     /**
-     * another form
-     */
+     * another form - from tail to head
+     *
+     * */
     public ListNode reverseList9(ListNode head) {
-        return recur(head, null);    // 调用递归并返回
+        return recur(null, head);    // 调用递归并返回
     }
 
-    private ListNode recur(ListNode cur, ListNode pre) {
+    private ListNode recur(ListNode pre, ListNode cur) {
         if (cur == null) {
             return pre; // 终止条件
         }
-        ListNode newHead = recur(cur.next, cur);  // 递归后继节点
+        ListNode newHead = recur(cur, cur.next);  // 递归后继节点
         cur.next = pre;              // 修改节点引用指向
         return newHead;                  // 返回反转链表的头节点
     }

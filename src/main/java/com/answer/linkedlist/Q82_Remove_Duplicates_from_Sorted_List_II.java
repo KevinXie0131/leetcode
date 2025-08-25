@@ -3,7 +3,7 @@ package com.answer.linkedlist;
 public class Q82_Remove_Duplicates_from_Sorted_List_II {
     /**
      * 删除排序链表中的重复元素 II
-     * 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表
+     * 给定一个已排序的链表的头 head，删除原始链表中所有重复数字的节点，只留下不同的数字。返回 已排序的链表
      * Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
      * Return the linked list sorted as well.
      * 示例 1：
@@ -141,7 +141,6 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
         }else{
             head.next = deleteDuplicates_Recursive(head.next); //没有相同，那就比较下一个数
         }
-
         return head;
     }
     /**
@@ -149,7 +148,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
      * 利用递归去重。注意需要考虑头节点是重复元素时，需要更换头节点
      */
     public ListNode deleteDuplicates_8(ListNode head) {
-        if(head==null || head.next==null){
+        if(head == null || head.next == null){ // if(head == null ){ // works too
             return head;
         }
         ListNode next = head.next;
@@ -159,6 +158,7 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
                 next = next.next;
             }
             head = deleteDuplicates_8(next);
+            // return deleteDuplicates_8(next); // works too
         }else{
             head.next = deleteDuplicates_8(next);
         }
@@ -180,6 +180,29 @@ public class Q82_Remove_Duplicates_from_Sorted_List_II {
                 head.next == null || head.next.next == null? Integer.MAX_VALUE : head.next.next.val); // This part is different from Q83_Remove_Duplicates_from_Sorted_List
 
         if(head.val == preValue || head.val == nextValue){ // This part is different from Q83_Remove_Duplicates_from_Sorted_List
+            return head.next;
+        }else{
+            return head;
+        }
+    }
+    /**
+     * 递归 - from head to tail 递归
+     * refer to Q83_Remove_Duplicates_from_Sorted_List
+     */
+    public static ListNode deleteDuplicates_Recursive_3(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        boolean isSame = false;
+        ListNode cur = head.next;
+        while(cur != null && cur.val == head.val){
+            cur = cur.next;
+            isSame = true;
+        }
+
+        head.next = deleteDuplicates_Recursive_3(cur);  // 跳过所有重复节点
+        if(isSame){
             return head.next;
         }else{
             return head;

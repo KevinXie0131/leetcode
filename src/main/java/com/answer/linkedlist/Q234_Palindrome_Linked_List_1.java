@@ -81,7 +81,7 @@ public class Q234_Palindrome_Linked_List_1 {
             head = head.next;
         }
         int left = 0, right = list.size() - 1; // 使用双指针判断是否回文
-        while(left <= right){
+        while(left <= right){ // while(left <  right){ // works too
             if(list.get(left).val != list.get(right).val){
                 return false;
             }

@@ -26,7 +26,7 @@ public class Q707_Design_Linked_List_4 {
         if(index >= size / 2){
             //tail开始
             cur = tail;
-            for(int i = 0; i < size-index; i++){
+            for(int i = 0; i < size - index; i++){
                 cur = cur.prev;
             }
         }else{
@@ -48,13 +48,13 @@ public class Q707_Design_Linked_List_4 {
     }
 
     public void addAtIndex(int index, int val) {
-        if(index>size){  //index大于链表长度
+        if(index > size){  //index大于链表长度
             return;
         }
         size++;
         //找到前驱
         DoublyListNode1 pre = this.head;
-        for(int i=0; i < index; i++){
+        for(int i = 0; i < index; i++){
             pre = pre.next;
         }
         //新建结点
@@ -73,21 +73,23 @@ public class Q707_Design_Linked_List_4 {
         //删除操作
         size--;
         DoublyListNode1 pre = this.head;
-        for(int i=0; i<index; i++){
+        for(int i = 0; i < index; i++){
             pre = pre.next;
         }
         pre.next.next.prev = pre;
         pre.next = pre.next.next;
     }
-
 }
-
 
 //双链表
 class DoublyListNode1{
     int val;
     DoublyListNode1 next, prev;
-    DoublyListNode1() {};
+
+    DoublyListNode1() {
+
+    }
+
     DoublyListNode1(int val){
         this.val = val;
     }

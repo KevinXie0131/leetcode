@@ -27,7 +27,9 @@ public class Q234_Palindrome_Linked_List {
     ListNode root2 = null;
 
     public boolean isPalindrome_0(ListNode head) {
-        if(head == null || head.next == null) return true;
+        if(head == null || head.next == null) {
+            return true;
+        }
         root2 = head;
         return dfs_2(head);
     }
@@ -48,8 +50,11 @@ public class Q234_Palindrome_Linked_List {
      * 如果使用递归反向迭代节点，同时使用递归函数外的变量向前迭代，就可以判断链表是否为回文。
      */
     ListNode root3 = null;
+
     public boolean isPalindrome5(ListNode head) {
-        if(head == null || head.next == null) return true;
+        if(head == null || head.next == null) {
+            return true;
+        }
         root3 = head;
         return dfs_3(head);
     }
@@ -74,15 +79,21 @@ public class Q234_Palindrome_Linked_List {
     static boolean res = true; // 加一个全局变量
 
     static public boolean isPalindrome(ListNode head) {
-        if(head == null || head.next == null) return true;
+        if(head == null || head.next == null) {
+            return true;
+        }
         root = head;
         dfs(head);
         return res;
     }
 
     static public void dfs(ListNode node){
-        if(node == null) return;
-        if(res == false) return;
+        if(node == null) {
+            return;
+        }
+      /*  if(res == false) { // can be commented
+            return;
+        }*/
         dfs(node.next);
         if(root.val == node.val){
             root = root.next;
@@ -92,9 +103,13 @@ public class Q234_Palindrome_Linked_List {
     }
     // works too
     static public void dfs_a(ListNode node){
-        if(node == null) return;
+        if(node == null){
+            return;
+        }
         dfs_a(node.next);
-        if(res == false) return; // works too
+        if(res == false){
+            return; // works too
+        }
         if(root.val == node.val){
             root = root.next;
         }else {
@@ -107,13 +122,17 @@ public class Q234_Palindrome_Linked_List {
     static ListNode root1 = null;
 
     static public boolean isPalindrome_1(ListNode head) {
-        if(head == null || head.next == null) return true;
+        if(head == null || head.next == null) {
+            return true;
+        }
         root1 = head;
         return dfs_1(head);
     }
 
     static public boolean dfs_1(ListNode node){
-        if(node == null) return true;
+        if(node == null){
+            return true;
+        }
         boolean isFound = dfs_1(node.next);
         boolean res = true;
         if(root1.val != node.val){
@@ -152,7 +171,9 @@ public class Q234_Palindrome_Linked_List {
      * 按照cur1的长度，一次比较cur1和cur2的节点数值
      */
     public boolean isPalindrome3(ListNode head) {
-        if (head == null && head.next == null) return true;// 如果为空或者仅有一个节点，返回true
+        if (head == null && head.next == null) {
+            return true;// 如果为空或者仅有一个节点，返回true
+        }
         ListNode slow = head; // 慢指针，找到链表中间分位置，作为分割
         ListNode fast = head;
         ListNode pre = head;  // 记录慢指针的前一个节点，用来分割链表
@@ -169,7 +190,9 @@ public class Q234_Palindrome_Linked_List {
         ListNode cur2 = reverseList(slow); // 反转后半部分，总链表长度如果是奇数，cur2比cur1多一个节点
         // 开始两个链表的比较
         while (cur1 != null){
-            if (cur1.val != cur2.val) return false;
+            if (cur1.val != cur2.val) {
+                return false;
+            }
             // 注意要移动两个结点
             cur1 = cur1.next;
             cur2 = cur2.next;

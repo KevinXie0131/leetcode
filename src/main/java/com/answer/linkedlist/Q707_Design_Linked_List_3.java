@@ -5,7 +5,6 @@ public class Q707_Design_Linked_List_3 {
     int size;
     //虚拟头结点
     ListNode head;
-
     //初始化链表
     public Q707_Design_Linked_List_3() {
         size = 0;

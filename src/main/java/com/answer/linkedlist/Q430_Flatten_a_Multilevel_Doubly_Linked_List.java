@@ -12,6 +12,11 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
      *
      * 示例 1：
      *  输入：head = [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+     *  1 -> 2 -> 3 -> 4 -> 5 -> 6
+     *            |
+     *            7 -> 8 -> 9 -> 10
+     *                 |
+     *                 11 -> 12
      *  输出：[1,2,3,7,8,11,12,9,10,4,5,6]
      */
     /**
@@ -29,9 +34,13 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
                 head.next = chead;
                 chead.prev = head;
                 head.child = null;
-                while (head.next != null) head = head.next;
+                while (head.next != null) {
+                    head = head.next;
+                }
                 head.next = tmp;
-                if (tmp != null) tmp.prev = head;
+                if (tmp != null) {
+                    tmp.prev = head;
+                }
                 head = tmp;
             }
         }
@@ -58,8 +67,12 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
                 head.next = head.child;
                 head.child.prev = head;
                 head.child = null;
-                if (childLast != null) childLast.next = tmp;
-                if (tmp != null) tmp.prev = childLast;
+                if (childLast != null) {
+                    childLast.next = tmp;
+                }
+                if (tmp != null) {
+                    tmp.prev = childLast;
+                }
                 last = head;
                 head = childLast;
             }
@@ -80,7 +93,9 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
                 prev.next = node;
             }
             if (node.child != null) {
-                if (node.next != null) stack.push(node.next);
+                if (node.next != null){
+                    stack.push(node.next);
+                }
                 node.child.prev = node;
                 node.next = node.child;
                 node.child = null; // 把child设为null
@@ -105,9 +120,13 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
                 child.prev = head;
                 head.child = null;
                 Node last = head;
-                while (last.next != null) last = last.next;
+                while (last.next != null) {
+                    last = last.next;
+                }
                 last.next = tmp;
-                if (tmp != null) tmp.prev = last;
+                if (tmp != null){
+                    tmp.prev = last;
+                }
             }
         }
         return dummy.next;
@@ -157,7 +176,9 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
     }
 
     private void dfs1(Node head) {
-        if (head == null) return;
+        if (head == null) {
+            return;
+        }
         Node next = head.next;
         if (prev != null) {
             prev.next = head;
@@ -184,7 +205,9 @@ public class Q430_Flatten_a_Multilevel_Doubly_Linked_List {
     }
     //看成二叉树的前序遍历, 优先遍历左节点
     private void dfs2(Node node){
-        if(node == null) return;
+        if(node == null) {
+            return;
+        }
         //相当于前序遍历的主体，把遍历到的当前节点放入新的链表里
         if(cur == null){
             ans = new Node();
