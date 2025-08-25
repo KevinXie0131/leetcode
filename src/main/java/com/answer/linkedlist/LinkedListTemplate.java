@@ -17,6 +17,21 @@ public class LinkedListTemplate {
         return pre;
     }
     /**
+     * 反转链表 迭代 同上
+     */
+    public ListNode reverseList2a (ListNode head) {
+        if(head == null) return head;
+        ListNode pre = null;
+        ListNode nxt;
+        while(head != null){
+            nxt = head.next;
+            head.next= pre;
+            pre = head;
+            head = nxt;
+        }
+        return pre;
+    }
+    /**
      * 反转链表 递归 from tail to head
      */
     public ListNode reverseList(ListNode head) {
