@@ -31,7 +31,7 @@ public class Q234_Palindrome_Linked_List_1 {
         slow = reverse(slow);
 
         fast = head;  // 判断是否回文
-        while(slow != null){
+        while(slow != null){ //  while(fast != null && slow != null){ // works too
             if(slow.val != fast.val){
                 return false;
             }
