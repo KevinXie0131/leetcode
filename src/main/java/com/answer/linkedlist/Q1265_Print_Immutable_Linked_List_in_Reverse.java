@@ -1,7 +1,6 @@
 package com.answer.linkedlist;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 public class Q1265_Print_Immutable_Linked_List_in_Reverse {
     /**
