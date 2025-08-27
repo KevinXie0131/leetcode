@@ -11,9 +11,10 @@ public class Q959_Regions_Cut_By_Slashes {
      * 给定网格 grid 表示为一个字符串数组，返回 区域的数量 。
      * 请注意，反斜杠字符是转义的，因此 '\' 用 '\\' 表示。
      *
-     * 输入：grid = ["/\\","\\/"]
-     * 输出：5
-     * 解释：回想一下，因为 \ 字符是转义的，所以 "/\\" 表示 /\，而 "\\/" 表示 \/。
+     * 示例:
+     *  输入：grid = ["/\\","\\/"]
+     *  输出：5
+     *  解释：回想一下，因为 \ 字符是转义的，所以 "/\\" 表示 /\，而 "\\/" 表示 \/。
      */
     public static void main(String[] args) {
        String[] grid = {"/\\","\\/"};
@@ -41,7 +42,7 @@ public class Q959_Regions_Cut_By_Slashes {
             //  如果是空格：合并 0、1、2、3；
             //  如果是斜杠：合并 0、3，合并 1、2；
             //  如果是反斜杠：合并 0、1，合并 2、3。
-            for(int col = 0 ; col < n; col++){
+            for(int col = 0; col < n; col++){
                 int index = 4 * (row * n + col);  // 二维网格转换为一维表格，index 表示将单元格拆分成 4 个小三角形以后，编号为 0 的小三角形的在并查集中的下标
                 char c = ch[col];
                 // 单元格内合并
@@ -69,7 +70,9 @@ public class Q959_Regions_Cut_By_Slashes {
         }
         int count = 0;
         for(int i = 0 ; i < connected.length; i++){
-            if(connected[i] == i) count++;
+            if(connected[i] == i) {
+                count++;
+            }
         }
         return count;
     }
@@ -83,5 +86,21 @@ public class Q959_Regions_Cut_By_Slashes {
             connected[index] = find(connected[index]);
         }
         return connected[index];
+    }
+    /**
+     * refer to template
+     * works too
+     */
+    public void union1(int index1, int index2) {
+        index1 = find1(index1);
+        index2 = find1(index2);
+        if (index1 == index2) {
+            return;
+        }
+        connected[index2] = index1;
+    }
+
+    public int find1(int index) {
+        return index == connected[index] ? index : (connected[index] = find1(connected[index]));
     }
 }
