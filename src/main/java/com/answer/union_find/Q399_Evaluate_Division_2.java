@@ -33,7 +33,9 @@ public class Q399_Evaluate_Division_2 {
         // 对于每个query，寻找从起点qx到终点qy的最短路径，并计算权重积
         for(int i = 0; i < m; i++){
             String qx = queries.get(i).get(0), qy = queries.get(i).get(1);
-            if(!graph.containsKey(qx) || !graph.containsKey(qy))continue;   // 未出现的变量，跳过处理
+            if(!graph.containsKey(qx) || !graph.containsKey(qy)){
+                continue;   // 未出现的变量，跳过处理
+            }
             visited = new HashSet<>();                                      // 存储已处理的节点
             visited.add(qx);                                                // 初始化起点节点已处理
             ans[i] = dfs(qx, 1.0, qy, graph, visited);                      // DFS搜索答案
@@ -53,7 +55,9 @@ public class Q399_Evaluate_Division_2 {
             if(!visited.contains(ngh)){                                     // 找到一个未处理的邻节点
                 res = dfs(ngh, mul * weight, qy, graph, visited);           // 递归处理邻节点
             }
-            if(res != -1.0)break;                                           // 如果根据这个邻节点到目标节点，直接返回计算结果
+            if(res != -1.0){
+                break;                                           // 如果根据这个邻节点到目标节点，直接返回计算结果
+            }
         }
         return res;
     }

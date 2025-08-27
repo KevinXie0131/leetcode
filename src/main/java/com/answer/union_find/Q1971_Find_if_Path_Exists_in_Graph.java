@@ -37,6 +37,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
      * 简单实现并查集
      */
     int[] connected;
+
     public boolean validPath6(int n, int[][] edges, int source, int destination) {
         connected = new int[n];
         for(int i = 0; i < n; i++) {
@@ -49,8 +50,52 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
     }
 
     int find(int x) {
-        if(connected[x] == x) return x;
+        if(connected[x] == x) {
+            return x;
+        }
         return connected[x] = find(connected[x]);
+    }
+    /**
+     * 简单实现并查集
+     * refer to template
+     */
+    int[] connected1;
+
+    public boolean validPath6a(int n, int[][] edges, int source, int destination) {
+        connected1 = new int[n];
+        for(int i = 0; i < n; i++) {
+            connected1[i] = i;
+        }
+        for(int[] edge : edges) {
+            join(edge[0], edge[1]);
+        }
+        return isSame(source, destination);
+    }
+
+    public int find1(int n) {
+        return n == connected1[n] ? n : (connected1[n] = find1(connected1[n]));
+/*        if (connected1[n] == n){ // Time Limit Exceeded
+            return n;
+        }
+        // 否则，根据父节点继续往上找，直到找到根节点
+        else{
+            return find1(connected1[n]);
+        }*/
+    }
+
+    public void join (int n, int m) {
+        n = find1(n);
+        m = find1(m);
+        if (n == m) {
+            return;
+        }
+        connected1[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+    public boolean isSame(int n, int m){
+        n = find1(n);
+        m = find1(m);
+        return n == m;
     }
     /**
      * DFS深度优先搜索
@@ -64,6 +109,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
         visited = new boolean[n];
         graph = new ArrayList[n];
         Arrays.setAll(graph, k -> new ArrayList<>());
+
         for (int[] edge : edges) {
             graph[edge[0]].add(edge[1]);
             graph[edge[1]].add(edge[0]);
@@ -89,7 +135,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
     public boolean validPath5(int n, int[][] edges, int source, int destination) {
         ArrayList<Integer>[] adjacentArr = new ArrayList[n];
         for (int i = 0; i < n; i++) {
-            adjacentArr[i] = new ArrayList<Integer>();
+            adjacentArr[i] = new ArrayList<>();
         }
         for (int[] edge : edges) {
             adjacentArr[edge[0]].add(edge[1]);
@@ -98,7 +144,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
 
         boolean[] visited = new boolean[n];
         visited[source] = true;
-        Deque<Integer> stack = new ArrayDeque<Integer>();
+        Deque<Integer> stack = new ArrayDeque<>();
         stack.push(source);
 
         while (!stack.isEmpty() && !visited[destination]) { // 剪枝 !visited[destination]
@@ -119,7 +165,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
     public boolean validPath3(int n, int[][] edges, int source, int destination) {
         ArrayList<Integer>[] adjacentArr = new ArrayList[n];
         for (int i = 0; i < n; i++) {
-            adjacentArr[i] = new ArrayList<Integer>();
+            adjacentArr[i] = new ArrayList<>();
         }
         for (int[] edge : edges) {
             adjacentArr[edge[0]].add(edge[1]);
@@ -128,7 +174,7 @@ public class Q1971_Find_if_Path_Exists_in_Graph {
 
         boolean[] visited = new boolean[n];
         visited[source] = true;
-        Queue<Integer> queue = new ArrayDeque<Integer>();
+        Queue<Integer> queue = new ArrayDeque<>();
         queue.offer(source);
 
         while (!queue.isEmpty() && !visited[destination]) { // 剪枝 !visited[destination]

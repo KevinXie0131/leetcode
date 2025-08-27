@@ -24,8 +24,8 @@ public class Q685_Redundant_Connection_II { // Hard 困难
     public static int[] findRedundantDirectedConnection(int[][] inputEdges) {
         /*
          * 冗余连接II。主要问题是存在入度为2或者成环，也可能两个问题同时存在。
-         * 1.判断入度为2的边
-         * 2.判断是否成环（并查集）
+         *  1.判断入度为2的边
+         *  2.判断是否成环（并查集）
          */
         int n = inputEdges.length;
         List<Edge> edges = new ArrayList<>();

@@ -29,18 +29,18 @@ public class Q1319_Number_of_Operations_to_Make_Network_Connected_1 {
         int count = 0;
         for (int i = 0; i < n; ++i) {
             if (!used[i]) {
-                dfs(i);
+                used[i] = true;
                 ++count;
+                dfs(i);
             }
         }
-
         return count - 1;
     }
 
     public void dfs(int u) {
-        used[u] = true;
         for (int v : edges[u]) {
             if (!used[v]) {
+                used[v] = true;
                 dfs(v);
             }
         }

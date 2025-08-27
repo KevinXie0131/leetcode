@@ -18,7 +18,7 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
      *  输出：3
      *  解释：一种移除 3 块石头的方法如下所示：
      *  1. 移除石头 [2,2] ，因为它和 [2,0] 同行。
-     *   2. 移除石头 [2,0] ，因为它和 [0,0] 同列。
+     *  2. 移除石头 [2,0] ，因为它和 [0,0] 同列。
      *  3. 移除石头 [0,2] ，因为它和 [0,0] 同行。
      *  石头 [0,0] 和 [1,1] 不能移除，因为它们没有与另一块石头同行/列。
      */
@@ -44,23 +44,46 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
         for(int i = 0; i < n - 1; i++){
             for(int j = i + 1; j < n; j++){
                 if(stones[i][0] == stones[j][0]){
-                    union(i, j); // 「合并」的语义是：所有横坐标为 x 的石头和所有纵坐标为 y 的石头都属于同一个连通分量。
+                    join(i, j); // 「合并」的语义是：所有横坐标为 x 的石头和所有纵坐标为 y 的石头都属于同一个连通分量。
                 }
             }
         }
         for(int i = 0; i < n - 1; i++){
             for(int j = i + 1; j < n; j++){
                 if(stones[i][1] == stones[j][1]){
-                    union(i, j); // 两个 for 循环作用是将所有石子两两合并, 如果行或者列相同，将其联通成一个子图
+                    join(i, j); // 两个 for 循环作用是将所有石子两两合并, 如果行或者列相同，将其联通成一个子图
                 }
             }
         }
-
         int count = 0;
         for(int i = 0; i < n; i++){
-            if(parent[i] == i) count++;
+            if(parent[i] == i){
+                count++;
+            }
         }
         return n - count;
+    }
+    /**
+     * 简单实现并查集
+     * based on template
+     */
+    static public int find(int n) {
+        return n == parent[n] ? n : (parent[n] = find(parent[n]));
+ /*       if (parent[n] == n){ // works too
+            return n;
+        }
+        else{
+            return find(parent[n]);
+        }*/
+    }
+
+    static public void join (int n, int m) {
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        parent[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
     }
     /**
      * 并查集里如何区分横纵坐标
@@ -88,16 +111,16 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column {
         Set<Integer> set = new HashSet<>();
         for(int[] stone: stones){
             int x = stone[0]  + 10001;
-            set.add(find(x));
+            set.add(find1(x));
         }
         return n - set.size();
     }
 
     public static void union(int index1, int index2) {
-        parent[find(index2)] = find(index1);
+        parent[find1(index2)] = find1(index1);
     }
 
-    public static int find(int index) {
+    public static int find1(int index) {
         if (parent[index] != index) {
             parent[index] = find(parent[index]);
         }

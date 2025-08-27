@@ -25,8 +25,8 @@ public class Q1202_Smallest_String_With_Swaps {
         List<List<Integer>> pairs1 = new ArrayList<>();
         pairs1.add(Arrays.asList(0, 3));
         pairs1.add(Arrays.asList(1, 2));
-        pairs1.add(Arrays.asList(0, 2));
-        System.out.println(smallestStringWithSwaps(s, pairs1));
+      //  pairs1.add(Arrays.asList(0, 2));
+        System.out.println(smallestStringWithSwaps3(s, pairs1));
     }
     /**
      * 并查集
@@ -112,7 +112,7 @@ public class Q1202_Smallest_String_With_Swaps {
                     return c2 - c1;
                 }
             });*/
-            Collections.sort(entry.getValue(),  (c1, c2) -> Character.compare(c1, c2));
+            Collections.sort(entry.getValue(),  (c1, c2) -> Character.compare(c2, c1));
         }
 
         StringBuffer sb = new StringBuffer();
@@ -133,5 +133,61 @@ public class Q1202_Smallest_String_With_Swaps {
             parent[index] = find(parent, parent[index]);
         }
         return parent[index];
+    }
+    /**
+     * refer to template
+     */
+    static private int[] father;
+
+    static public String smallestStringWithSwaps3(String s, List<List<Integer>> pairs) {
+        int n = s.length();
+        father = new int[n];
+        for(int i = 0; i < n; i++) {
+            father[i] = i;
+        }
+
+        for(List<Integer> pair : pairs) {
+            if (!isSame(pair.get(0), pair.get(1))) {
+                join(pair.get(0), pair.get(1) );    //合并两个连通分量
+            }
+        }
+
+        Map<Integer, LinkedList<Character>> map = new HashMap<>();
+
+        for(int i = 0; i < n; i++){
+            int parent = find(i);
+            map.computeIfAbsent(parent, e-> new LinkedList<Character>()).add(s.charAt(i));
+        }
+        for (Map.Entry<Integer, LinkedList<Character>> entry : map.entrySet()) {
+            Collections.sort(entry.getValue(),  (c1, c2) -> c1 - c2);
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < n; i++){
+            int parent = find(i);
+            List<Character> list = map.get(parent);
+            sb.append(list.get(0));
+            list.remove(0);
+        }
+        return sb.toString();
+    }
+
+    static public int find(int n) {
+        return n == father[n] ? n : (father[n] = find(father[n]));
+    }
+
+    static public void join (int n, int m) {
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        father[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+    static public boolean isSame(int n, int m){
+        n = find(n);
+        m = find(m);
+        return n == m;
     }
 }

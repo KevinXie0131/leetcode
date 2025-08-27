@@ -41,10 +41,13 @@ public class Q399_Evaluate_Division_1 {
         // 对于每个query，寻找从起点qx到终点qy的最短路径，并计算权重积
         for(int i = 0; i < m; i++){
             String qx = queries.get(i).get(0), qy = queries.get(i).get(1);
-            if(!graph.containsKey(qx) || !graph.containsKey(qy))continue;  // 未出现的变量，跳过处理
+            if(!graph.containsKey(qx) || !graph.containsKey(qy)){
+                continue;  // 未出现的变量，跳过处理
+            }
             queue.offer(new NodeData(qx, 1.0));     // 初始将起点节点入队
             visited = new HashSet<>();      // 存储已处理的节点
             visited.add(qx);                // 初始化起点节点已处理
+
             while(!queue.isEmpty()){
                 NodeData nd = queue.poll();    // 获取当前处理的节点node以及到该节点所得到的权重积mul
                 for(Map.Entry<String, Double> entry: graph.get(nd.var).entrySet()){

@@ -46,7 +46,8 @@ public class Q685_Redundant_Connection_II_1 { // Hard 困难
             parent[i] = i;
         }
         for(int[] edge : edges){
-            int node1 = edge[0], node2 = edge[1];
+            int node1 = edge[0];
+            int node2 = edge[1];
             if(find(parent, node1) == find(parent, node2)){
                 return edge;
             }else{
@@ -62,8 +63,11 @@ public class Q685_Redundant_Connection_II_1 { // Hard 困难
             parent[i] = i;
         }
         for(int i = 0; i < n; i++){
-            if(i == index)continue;
-            int node1 = edges[i][0], node2 = edges[i][1];
+            if(i == index){
+                continue;
+            }
+            int node1 = edges[i][0];
+            int node2 = edges[i][1];
             if(find(parent, node1) == find(parent, node2)){
                 return false;
             }else{
@@ -78,5 +82,64 @@ public class Q685_Redundant_Connection_II_1 { // Hard 困难
             parent[index] = parent[find(parent, parent[index])];
         }
         return parent[index];
+    }
+    /**
+     * refer to template
+     * works too
+     */
+    public int[] getRemoveEdge1(int[][] edges){
+        int n = edges.length;
+        for(int i = 1; i <= n; i++){
+            parent[i] = i;
+        }
+        for(int[] edge : edges){
+            int node1 = edge[0];
+            int node2 = edge[1];
+            if(isSame(node1, node2)){
+                return edge;
+            }else{
+                join(node1, node2);
+            }
+        }
+        return new int[0];
+    }
+
+    public boolean isTreeAfterRemoveEdge1(int[][] edges, int index){
+        int n = edges.length;
+        for(int i = 1; i <= n; i++){
+            parent[i] = i;
+        }
+        for(int i = 0; i < n; i++){
+            if(i == index){
+                continue;
+            }
+            int node1 = edges[i][0];
+            int node2 = edges[i][1];
+            if(isSame(node1, node2)){
+                return false;
+            }else{
+               join(node1, node2);
+            }
+        }
+        return true;
+    }
+
+    public int find(int n) {
+        return n == parent[n] ? n : (parent[n] = find(parent[n]));
+    }
+
+    public void join (int n, int m) {
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        parent[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+    public boolean isSame(int n, int m){
+        n = find(n);
+        m = find(m);
+        return n == m;
     }
 }

@@ -1,6 +1,5 @@
 package com.answer.union_find;
 
-import java.util.Arrays;
 import java.util.*;
 
 public class Q684_Redundant_Connection {
@@ -24,7 +23,7 @@ public class Q684_Redundant_Connection {
     public static void main(String[] args) {
         int[][] edges = {{1,2},{1,3},{2,3}}; // 输出: [2,3]
      //   int[][] edges = {{1,2},{2,3},{3,4},{1,4},{1,5}}; // 输出: [1,4]
-        System.out.println(Arrays.toString(findRedundantConnection(edges)));
+        System.out.println(Arrays.toString(findRedundantConnection9(edges)));
     }
     /**
      * 并查集基础题目。并查集可以解决什么问题：两个节点是否在一个集合，也可以将两个节点添加到一个集合中。
@@ -75,6 +74,49 @@ public class Q684_Redundant_Connection {
         return parent[index];
     }
     /**
+     * 简单实现并查集
+     * based on template
+     */
+    static private int[] father;
+
+    static public int[] findRedundantConnection9(int[][] edges) {
+        int N = edges.length;
+        father = new int[N + 1]; // 节点值 1～n
+        for (int i = 1; i <= N; i++) {
+            father[i] = i;
+        }
+
+        for (int i = 0; i < N; i++) {
+            int[] edge = edges[i];
+            int node1 = edge[0], node2 = edge[1];
+            if (!isSame(node1, node2)) {
+                join(node1, node2);   // 如果两个节点不在一个树上，则合并
+            } else {
+                return edge;  // 如果两个节点已经在一个树上，则这条边就是那条多余的边
+            }
+        }
+        return new int[0];
+    }
+
+    static public int find(int n) {
+        return n == father[n] ? n : (father[n] = find(father[n]));
+    }
+
+    static public void join (int n, int m) {
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        father[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+    static public boolean isSame(int n, int m){
+        n = find(n);
+        m = find(m);
+        return n == m;
+    }
+    /**
      * Approach #1: DFS
      */
     Set<Integer> seen = new HashSet();
@@ -82,9 +124,10 @@ public class Q684_Redundant_Connection {
 
     public int[] findRedundantConnection_1(int[][] edges) {
         ArrayList<Integer>[] graph = new ArrayList[MAX_EDGE_VAL + 1];
-        for (int i = 0; i <= MAX_EDGE_VAL; i++) {
+/*        for (int i = 0; i <= MAX_EDGE_VAL; i++) { // works too
             graph[i] = new ArrayList();
-        }
+        }*/
+        Arrays.setAll(graph, i ->  new ArrayList());
 
         for (int[] edge: edges) {
             seen.clear();
@@ -119,36 +162,40 @@ public class Q684_Redundant_Connection {
         Map<Integer, List<Integer>> map = new HashMap<>(); // 首先初始化一个邻接表，用来存放每个节点的邻接节点Map
         for (int[] edge : edges) {
             int n = edge[0]; // 依次获取需要判断的每一个边edge ，将第一个（起始点）即为n，第二个（目标点）即为m。
-            int m  = edge[1];
+            int m = edge[1];
             //防治重复搜索已经dfs过的节点出现死循环
             Set<Integer> visited = new HashSet<>();
-            //dfs 判断 n m 是否可以连同
+            // dfs 判断 n m 是否可以连同
             // 进入dfs搜索邻接表的数据判断在邻接表中是否已经存在一条路径使得n可以到达m，如果存在说明当前需要判断的这个edge（n，m）是一个多余的即为题目需要找到的，如果dfs这没找到，我们需要更新邻接表，将当前的n与m更新进去
-            if(dfs(n,m,map,visited)){
+            if(dfs(n, m, map, visited)){
                 return edge;
             }
-            if(!map.containsKey(n)){
+         /*   if(!map.containsKey(n)){ // works too
                 map.put(n,new ArrayList<>());
             }
             map.get(n).add(m);
             if(!map.containsKey(m)){
                 map.put(m,new ArrayList<>());
             }
-            map.get(m).add(n);
+            map.get(m).add(n);*/
+            map.computeIfAbsent(n, i-> new ArrayList<>()).add(m);
+            map.computeIfAbsent(m, i-> new ArrayList<>()).add(n);
         }
         return new int[0];
     }
     // visited也是必要的，因为我们不能反复查询同一节点这样会陷入死循环
-    private boolean dfs(int n, int m, Map<Integer, List<Integer>> map, Set<Integer> visited) {
-        //同节点之间输出
-        if (n==m) return true;
-
-        visited.add(n);
-        List<Integer> neighbors  = map.get(n);
-        if (neighbors == null) return false;
+    private boolean dfs(int source, int target, Map<Integer, List<Integer>> map, Set<Integer> visited) {
+        if (source == target) { //同节点之间输出
+            return true;
+        }
+        visited.add(source);
+        List<Integer> neighbors  = map.get(source);
+        if (neighbors == null) {
+            return false;
+        }
         for (int i = 0; i < neighbors.size(); i++) {
             int neighbor = neighbors.get(i);
-            if(!visited.contains(neighbor) && dfs(neighbor,m,map,visited)){
+            if(!visited.contains(neighbor) && dfs(neighbor, target, map, visited)){
                 return true;
             }
         }
@@ -176,7 +223,9 @@ public class Q684_Redundant_Connection {
         // 拓扑排序思想：不断删掉度为1的节点
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 1; i <= n; i++) {
-            if (degree[i] == 1) queue.offer(i);
+            if (degree[i] == 1) {
+                queue.offer(i);
+            }
         }
 
         boolean[] removed = new boolean[n + 1]; // 节点值 1～n
@@ -186,7 +235,9 @@ public class Q684_Redundant_Connection {
             for (int neighbor : graph.get(node)) {
                 if (!removed[neighbor]) {
                     degree[neighbor]--;
-                    if (degree[neighbor] == 1) queue.offer(neighbor);
+                    if (degree[neighbor] == 1) {
+                        queue.offer(neighbor);
+                    }
                 }
             }
         }

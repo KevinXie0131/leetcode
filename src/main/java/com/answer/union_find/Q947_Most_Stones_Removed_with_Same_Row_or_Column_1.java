@@ -13,10 +13,11 @@ public class Q947_Most_Stones_Removed_with_Same_Row_or_Column_1 {
      */
     public int removeStones(int[][] stones) {
         int n = stones.length;
-        List<List<Integer>> edge = new ArrayList<List<Integer>>();
+        List<List<Integer>> edge = new ArrayList<>();
+
         for (int i = 0; i < n; i++) {
-            edge.add(new ArrayList<Integer>());
-            for (int j = 1; j < n; j++) {
+            edge.add(new ArrayList<>());
+            for (int j = 0; j < n; j++) {
                 if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
                     edge.get(i).add(j);
                 }

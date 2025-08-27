@@ -17,6 +17,7 @@ public class Q721_Accounts_Merge_1 {
         List<List<String>> ans = new ArrayList<>();
         boolean[] visited = new boolean[accounts.size()];
         Set<String> emailSet = new HashSet<>(); // 用于收集 DFS 中访问到的邮箱地址
+
         for (int i = 0; i < accounts.size(); i++) {
             if (visited[i]) {
                 continue;

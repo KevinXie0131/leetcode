@@ -21,8 +21,8 @@ public class Q721_Accounts_Merge {
          * 输出：[["John", 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com'],
          * ["John", "johnnybravo@mail.com"], ["Mary", "mary@mail.com"]]
          * 解释：
-         * 第一个和第三个 John 是同一个人，因为他们有共同的邮箱地址 "johnsmith@mail.com"。
-         * 第二个 John 和 Mary 是不同的人，因为他们的邮箱地址没有被其他帐户使用。
+         * 第一个和第二个 John 是同一个人，因为他们有共同的邮箱地址 "johnsmith@mail.com"。
+         * 第三个 John 和 Mary 是不同的人，因为他们的邮箱地址没有被其他帐户使用。
          * 可以以任何顺序返回这些列表，例如答案 [['Mary'，'mary@mail.com']，['John'，'johnnybravo@mail.com']，
          * ['John'，'john00@mail.com'，'john_newyork@mail.com'，'johnsmith@mail.com']] 也是正确的。
          */
@@ -67,7 +67,7 @@ public class Q721_Accounts_Merge {
         }
         //进行完上面的步骤，同一个用户的所有邮箱已经属于同一个连通域了，但是就算在同一个连通域，不同的邮箱还是可能会对应不同的id
         // 作用： 存储每个账户下的邮箱
-        // 格式： <账户id, 邮箱列表> >
+        // 格式： <账户id, 邮箱列表>
         // 注意：这里的key必须是账户id，不能是账户名称，名称可能相同，会造成覆盖
         Map<Integer, List<String>> idToEmails = new HashMap<>();
         //将同一个连通域内的邮箱对应到同一个id【也就是第一次出现的id，比如4、5在同一个连通域，那么这个连通域对应的id就是4】
@@ -158,7 +158,6 @@ public class Q721_Accounts_Merge {
         if (!adjacent.containsKey(email)) {
             return;
         }
-
         for (String neighbor : adjacent.get(email)) {
             if (!visited.contains(neighbor)) {
                 DFS(mergedAccount, neighbor);

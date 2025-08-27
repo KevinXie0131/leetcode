@@ -17,7 +17,7 @@ public class Q547_Number_of_Provinces {
          0 1 1 0
          0 1 1 0
          1 0 1 1  */
-        System.out.println(findCircleNum_0(isConnected));
+        System.out.println(findCircleNum_6(isConnected));
     }
     /**
      * Approach #1 Using Depth First Search
@@ -34,12 +34,15 @@ public class Q547_Number_of_Provinces {
         for(int i = 0; i < cityNum; i++){
             if(!hasChecked[i]){
                 stack.push(i);
+                hasChecked[i] = true;
                 while(!stack.isEmpty()){
                     int j = stack.pop();
-                    hasChecked[j] = true;
+
                     for(int k = 0; k < cityNum; k++){
-                        if(isConnected[j][k] == 1 && !hasChecked[k]){
+                      // if(j != k && isConnected[j][k] == 1 && !hasChecked[k]){ // works too
+                         if(isConnected[j][k] == 1 && !hasChecked[k]){
                             stack.push(k);
+                            hasChecked[k] = true;
                         }
                     }
                 }
@@ -54,15 +57,13 @@ public class Q547_Number_of_Provinces {
     public static int findCircleNum_0a(int[][] isConnected) {
         int cityNum = isConnected.length;
         Integer count = 0;
-
-        Deque<Integer> stack = new ArrayDeque<>();
         boolean[] hasChecked = new boolean[cityNum];
 
         for(int i = 0; i < cityNum; i++){
             if(!hasChecked[i]){
                 hasChecked[i] = true;
-                dfsRecursion(isConnected, hasChecked, i);
                 count++;  // 若当前顶点 i 未被访问，说明又是一个新的连通域，则遍历新的连通域且count+=1.
+                dfsRecursion(isConnected, hasChecked, i);
             }
         }
         return count;
@@ -70,6 +71,7 @@ public class Q547_Number_of_Provinces {
 
     public static void dfsRecursion(int[][] isConnected, boolean[] hasChecked, int i){
         for(int j = 0; j < isConnected.length; j++){
+        //  if(i != j && isConnected[i][j] == 1 && !hasChecked[j]){ // works too
             if(isConnected[i][j] == 1 && !hasChecked[j]){
                 hasChecked[j] = true;
                 dfsRecursion(isConnected, hasChecked, j);
@@ -89,12 +91,15 @@ public class Q547_Number_of_Provinces {
         for(int i = 0; i < cityNum; i++){
             if(!hasChecked[i]){
                 deque.offer(i);
+                hasChecked[i] = true;
                 while(!deque.isEmpty()){
                     int j = deque.poll();
-                    hasChecked[j] = true;
+
                     for(int k = 0; k < cityNum; k++){
-                        if(isConnected[j][k] == 1 && !hasChecked[k]){
+                     //  if(j != k && isConnected[j][k] == 1 && !hasChecked[k]){ // works too
+                         if(isConnected[j][k] == 1 && !hasChecked[k]){
                             deque.offer(k);
+                            hasChecked[k] = true;
                         }
                     }
                 }
@@ -110,6 +115,7 @@ public class Q547_Number_of_Provinces {
         int count = 0;
         int cityNum = isConnected.length;
         int[] parent = new int[cityNum];
+
         for(int i = 0; i < cityNum; i++){
             parent[i] = i;
         }
@@ -140,18 +146,21 @@ public class Q547_Number_of_Provinces {
     }
     /**
      * 简单实现并查集
+     * based on template
      */
-    int[] connected;
-    public int findCircleNum_6(int[][] isConnected) {
+   static int[] connected;
+
+    static public int findCircleNum_6(int[][] isConnected) {
         int n = isConnected.length;
         connected = new int[n];
         for(int i = 0; i < n; i++) {
             connected[i] = i;
         }
         for(int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 if (isConnected[i][j] == 1) {
-                    connected[find(i)] = find(j);
+                   // connected[find(i)] = find(j); // works too
+                    join(i, j);
                 }
             }
         }
@@ -164,9 +173,25 @@ public class Q547_Number_of_Provinces {
         return count;
     }
 
-    int find(int x) {
-        if(connected[x] == x) return x;
+    static int find(int x) {
+        if(connected[x] == x) {
+            return x;
+        }
         return connected[x] = find(connected[x]);
+      /*  if (connected[x] == x){ // works too
+            return x;
+        } else{
+            return find(connected[x]);
+        }*/
+    }
+
+    static void join (int n, int m) { // based on template
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        connected[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
     }
     /**
      * int find(int parent[], int i) {

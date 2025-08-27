@@ -17,6 +17,13 @@ public class Q990_Satisfiability_of_Equality_Equations {
      * equations[i][1] is either '=' or '!'.
      * equations[i][2] is '='.
      * equations[i][3] is a lowercase letter.
+     *
+     * Example 1:
+     *   Input: equations = ["a==b","b!=a"]
+     *   Output: false
+     * Example 2:
+     *   Input: equations = ["b==a","a==b"]
+     *   Output: true
      */
     public static void main(String[] args) {
      //   String[] equations = {"a==b","b!=a"};
@@ -73,6 +80,19 @@ public class Q990_Satisfiability_of_Equality_Equations {
         }
         return parent[index];
     }
+
+/*    public void union(int n, int m) { // works too
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        parent[m] = n;
+    }
+
+    public int find(int n) {
+        return n == parent[n] ? n : (parent[n] = find(parent[n]));
+    }*/
     /**
      * Approach 1: Depth-first Search (DFS)
      */
@@ -103,22 +123,22 @@ public class Q990_Satisfiability_of_Equality_Equations {
             if (eqn.charAt(1) == '!') {
                 int x = eqn.charAt(0) - 'a';
                 int y = eqn.charAt(3) - 'a';
-                if (unioned[x] == unioned[y])
+                if (unioned[x] == unioned[y]) {
                     return false;
+                }
             }
         }
         return true;
     }
-
     // mark the color of `node` as `c`
     private static void dfs(int node, int value, int[] unioned, List<Integer>[] graph) {
-        if (unioned[node] == -1) {
-            unioned[node] = value;
+        unioned[node] = value;
 
-            List<Integer> list = graph[node];
-            for (int child : list)
+        List<Integer> list = graph[node];
+        for (int child : list) {
+            if (unioned[child] == -1) {
                 dfs(child, value, unioned, graph);
+            }
         }
     }
-
 }

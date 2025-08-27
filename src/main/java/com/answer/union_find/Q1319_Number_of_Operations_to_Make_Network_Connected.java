@@ -34,8 +34,9 @@ public class Q1319_Number_of_Operations_to_Make_Network_Connected {
      * 所以在遍历Connections数组时，需要记录有多少根多余的网络连接线。
      */
     static public int makeConnected(int n, int[][] connections) {
-        if(connections.length < n - 1) return -1; // 如果初始布线数小于 n - 1，那么一定不能使所有计算机连通
-
+        if(connections.length < n - 1) {
+            return -1; // 如果初始布线数小于 n - 1，那么一定不能使所有计算机连通
+        }
         connected = new int[n];
         for(int i = 0; i < n; i++) {
             connected[i] = i;
@@ -63,32 +64,73 @@ public class Q1319_Number_of_Operations_to_Make_Network_Connected {
      *  2、其次，如果connections将这k个机器分为了m组，则只需要移动m - 1个connection就可以使整个网络联通。
      * 所以就只需要遍历一遍connections，将所有机器一一在并查集中合并，然后计算并查集中的集合个数，返回集合个数-1就好了。
      *
-     * 。如果其包含 n 个节点，那么初始时连通分量数为 n，每成功进行一次合并操作，连通分量数就会减少 1。
+     * 如果其包含 n 个节点，那么初始时连通分量数为 n，每成功进行一次合并操作，连通分量数就会减少 1。
      */
     public int makeConnected_1(int n, int[][] connections) {
-        if (connections.length < n - 1) return -1;
+        if (connections.length < n - 1) {
+            return -1;
+        }
         connected = new int[n];
         for (int i = 0; i < n; i++) {
             connected[i] = i;
         }
-        int group = n;
+        int group = n; // 统计连通分量
         for (int[] connection : connections) {
             if (find(connected, connection[0]) != find(connected, connection[1])) {
                 union(connected, connection[0], connection[1]);
                 group--;
             }
         }
-        return group - 1;
+        return group - 1;  // 最少需要的操作次数就是连通分量数量减1
     }
 
-    public static void union(int[] parent, int index1, int index2) {
+    static public void union(int[] parent, int index1, int index2) {
         parent[find(parent, index2)] = find(parent, index1);
     }
 
-    public static int find(int[] parent, int index) {
+    static public int find(int[] parent, int index) {
         if (parent[index] != index) {
             parent[index] = find(parent, parent[index]);
         }
         return parent[index];
+    }
+    /**
+     * refer to template
+     */
+    public int makeConnected_2(int n, int[][] connections) {
+        if (connections.length < n - 1) {
+            return -1;
+        }
+        connected = new int[n];
+        for (int i = 0; i < n; i++) {
+            connected[i] = i;
+        }
+        int group = n; // 统计连通分量
+        for (int[] connection : connections) {
+            if (!isSame(connection[0], connection[1])) {
+                join(connection[0], connection[1]);
+                group--;
+            }
+        }
+        return group - 1;  // 最少需要的操作次数就是连通分量数量减1
+    }
+
+     public int find1(int n) {
+        return n == connected[n] ? n : (connected[n] = find1(connected[n]));
+    }
+
+     public void join (int n, int m) {
+        n = find1(n);
+        m = find1(m);
+        if (n == m) {
+            return;
+        }
+        connected[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+      public boolean isSame(int n, int m){
+        n = find1(n);
+        m = find1(m);
+        return n == m;
     }
 }

@@ -37,7 +37,6 @@ public class Q399_Evaluate_Division {
         queries.add(new ArrayList<>(Arrays.asList(new String[]{"a","e"})));
         queries.add(new ArrayList<>(Arrays.asList(new String[]{"a","a"})));
         queries.add(new ArrayList<>(Arrays.asList(new String[]{"x","x"})));
-
         System.out.println(Arrays.toString(calcEquation(equations, values, queries)));
     }
     /**
