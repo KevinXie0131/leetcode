@@ -1,5 +1,6 @@
 package com.answer.monotonic;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -21,5 +22,39 @@ public class MonotonicTemplate {
             stack.push(i); //  注意，单调栈里 加入的元素是 下标。
         }
         return result;
+    }
+    /**
+     * 同上
+     */
+    public int[] dailyTemperatures2(int[] temperatures) {
+        int n = temperatures.length;
+        int[] result = new int[n];
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for(int i = 0; i < n; i++){
+            while(!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]){
+                int day = stack.pop();
+                result[day] = i - day;
+            }
+            stack.push(i);
+        }
+        return result;
+    }
+    /**
+     * 数组模拟单调栈
+     */
+    public int[] dailyTemperatures3(int[] temperatures) {
+        int n = temperatures.length;
+        int[] res = new int[n];
+        int[] stack = new int[n]; // 数组模拟，效率更高
+        int top = -1;
+        for (int i = 0; i < n; i++) {
+            while (top >= 0 && temperatures[stack[top]] < temperatures[i]) {
+                int j = stack[top--];
+                res[j] = i - j;
+            }
+            stack[++top] = i;
+        }
+        return res;
     }
 }
