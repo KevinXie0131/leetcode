@@ -6,9 +6,9 @@ import java.util.LinkedList;
 
 public class MonotonicTemplate {
     /**
-     * 单调栈
-     *  如果求一个元素右边第一个更大元素，单调栈就是递增的(从栈顶到栈底的顺序，即栈顶的元素比栈底的元素小)，
-     *  如果求一个元素右边第一个更小元素，单调栈就是递减的(从栈顶到栈底的顺序，即栈顶的元素比栈底的元素大)。
+     * 单调栈 (十六字真言：及时去掉无用数据，保证栈中元素有序)
+     * 如果求一个元素右边第一个更大元素，单调栈就是递增的(从栈顶到栈底的顺序，即栈顶的元素比栈底的元素小)，
+     * 如果求一个元素右边第一个更小元素，单调栈就是递减的(从栈顶到栈底的顺序，即栈顶的元素比栈底的元素大)。
      */
     public int[] dailyTemperatures1(int[] temperatures) {
         int[] result = new int[temperatures.length];
