@@ -1,9 +1,6 @@
 package com.answer.dfs_bfs;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class BfsDfsTemplate2 {
     /**
@@ -88,5 +85,88 @@ public class BfsDfsTemplate2 {
             }
         }
         return count;
+    }
+    /**
+     * 寻找图中是否存在路径 DFS - Iteration
+     */
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        Arrays.setAll(graph, k -> new ArrayList<>());
+
+        for (int[] edge : edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+
+        boolean[] visited = new boolean[n];
+        visited[source] = true;
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(source);
+
+        while (!stack.isEmpty() && !visited[destination]) { // 剪枝 !visited[destination]
+            int e = stack.pop();
+            for (int next : graph[e]) {
+                if (!visited[next]) {
+                    visited[next] = true;
+                    stack.push(next);
+                }
+            }
+        }
+        return visited[destination];
+    }
+    /**
+     * 寻找图中是否存在路径 DFS - Recursion
+     */
+    public boolean validPath1(int n, int[][] edges, int source, int destination) {
+        boolean[] visited = new boolean[n];
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        Arrays.setAll(graph, k -> new ArrayList<>());
+
+        for (int[] edge : edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+        return dfs(source, destination, graph, visited);
+    }
+
+    private boolean dfs(int source, int destination, ArrayList<Integer>[] graph, boolean[] visited) {
+        if (source == destination) {
+            return true;
+        }
+        visited[source] = true;
+        for (int next : graph[source]) {
+            if (!visited[next] && dfs(next, destination, graph, visited)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * 寻找图中是否存在路径 BFS - Iteration
+     */
+    public boolean validPath2(int n, int[][] edges, int source, int destination) {
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        Arrays.setAll(graph, k -> new ArrayList<>());
+
+        for (int[] edge : edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+
+        boolean[] visited = new boolean[n];
+        visited[source] = true;
+        Deque<Integer> queue = new ArrayDeque<>();
+        queue.offer(source);
+
+        while (!queue.isEmpty() && !visited[destination]) { // 剪枝 !visited[destination]
+            int e = queue.poll();
+            for (int next : graph[e]) {
+                if (!visited[next]) {
+                    visited[next] = true;
+                    queue.offer(next);
+                }
+            }
+        }
+        return visited[destination];
     }
 }
