@@ -19,11 +19,11 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
          * 解释：最大的矩形为图中红色区域，面积为 10
          */
         int[] heights = {2,1,5,6,2,3};
-        System.out.println(largestRectangleArea2(heights)); // 输出：10
+        System.out.println(largestRectangleArea(heights)); // 输出：10
     }
     /**
      * 暴力解法 (超时，因为时间复杂度是 O(n^2))
-     * 朴素的想法:遍历每一根柱子的高度然后向两边进行扩散找到最大宽度
+     * 朴素的想法: 遍历每一根柱子的高度然后向两边进行扩散找到最大宽度
      */
     public int largestRectangleArea1(int[] heights) {
         int sum = 0;
@@ -36,12 +36,16 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
             for (; right < heights.length; right++) {
                 if (heights[right] < heights[i]) break;
             }
-        /*    while ( left >= 0) {
-                if (heights[left] < heights[i]) break;
+         /* while(left >= 0) {
+                if (heights[left] < heights[i]) {
+                    break;
+                }
                 left--;
             }
-            while ( right < heights.length) {
-                if (heights[right] < heights[i]) break;
+            while(right < heights.length) {
+                if (heights[right] < heights[i]){
+                    break;
+                }
                 right++;
             }*/
             int w = right - left - 1;
@@ -97,10 +101,8 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
      * 栈顶和栈顶的下一个元素以及要入栈的三个元素组成了我们要求最大面积的高度和宽度
      */
     public static int  largestRectangleArea_1(int[] heights) {
-        Stack<Integer> st = new Stack<>();
-
-        // 数组扩容，在头和尾各加入一个元素
-        int [] newHeights = new int[heights.length + 2];
+        Deque<Integer> stack = new ArrayDeque<>();
+        int [] newHeights = new int[heights.length + 2];// 数组扩容，在头和尾各加入一个元素
         newHeights[0] = 0; // 数组头部加入元素0
         newHeights[newHeights.length - 1] = 0; // 数组尾部加入元素0
         for (int index = 0; index < heights.length; index++){
@@ -109,27 +111,25 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
 
         heights = newHeights;
 
-        st.push(0);
+        stack.push(0);
         int result = 0;
         // 第一个元素已经入栈，从下标1开始
         for (int i = 1; i < heights.length; i++) {
-            // 注意heights[i] 是和heights[st.top()] 比较 ，st.top()是下标
-            if (heights[i] > heights[st.peek()]) {
-                st.push(i);
-            } else if (heights[i] == heights[st.peek()]) {
-                st.pop(); // 这个可以加，可以不加，效果一样，思路不同
-                st.push(i);
+            if (heights[stack.peek()] < heights[i]) {// 注意heights[i] 是和heights[st.top()] 比较 ，st.top()是下标
+                stack.push(i);
+            } else if (heights[stack.peek()] == heights[i]) {
+                stack.pop(); // 这个可以加，可以不加，效果一样，思路不同
+                stack.push(i);
             } else {
-                while (heights[i] < heights[st.peek()]) { // 注意是while
-                    int mid = st.peek();
-                    st.pop();
-                    int left = st.peek();
+                while (heights[stack.peek()] > heights[i]) { // 注意是while
+                    int mid = stack.pop();
+                    int left = stack.peek();
                     int right = i;
                     int w = right - left - 1;
                     int h = heights[mid];
                     result = Math.max(result, w * h);
                 }
-                st.push(i);
+                stack.push(i);
             }
         }
         return result;
@@ -172,7 +172,6 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
      *  弹栈的时候，栈为空；
      *  遍历完成以后，栈中还有元素；
      * 为此可以我们可以在输入数组的两端加上两个高度为 0
-     *
      */
     public int largestRectangleArea2b(int[] heights) {
         Deque<Integer> stack = new ArrayDeque<>();
@@ -184,15 +183,13 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
 
             while(!stack.isEmpty() && heights[stack.peek()] > currHeight){  // 当前高度小于栈顶元素，弹出栈顶并计算面积
                 int cur = stack.pop();
-                int left ;
-
+                int left;
                 if(stack.isEmpty()){
                     left = -1;
                 }else {
                     left = stack.peek();
                 }
                 int width = i - left - 1;
-
                 int height = heights[cur];
                 sum = Math.max(sum, width * height);
             }
@@ -211,10 +208,10 @@ public class Q84_Largest_Rectangle_in_Histogram { // Hard 困难
 
         int[] newHeights = new int[heights.length + 1];
         newHeights = Arrays.copyOf(heights, heights.length + 1);
-        newHeights[newHeights.length - 1] = -1; // clear the stack
+        newHeights[newHeights.length - 1] = 0; // clear the stack
 
         for (int i = 0; i < newHeights.length; i++) {
-            while (!stack.isEmpty() && newHeights[i] < newHeights[stack.peek()]) {
+            while (!stack.isEmpty() && newHeights[stack.peek()] > newHeights[i] ) {
                 int idx = stack.pop();
                 int left = stack.isEmpty() ? -1 : stack.peek();
                 ans = Math.max(ans, (i - left - 1) * newHeights[idx]);
