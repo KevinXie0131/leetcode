@@ -80,7 +80,6 @@ class StockSpanner{
         return result;
     }
 }
-
 /**
  * 单调栈十六字真言：及时去掉无用数据，保证栈中元素有序。
  *

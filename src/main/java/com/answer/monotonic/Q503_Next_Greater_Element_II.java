@@ -79,7 +79,7 @@ public class Q503_Next_Greater_Element_II {
 
         for(int i = 0; i < size * 2; i++){
             while(!stack.isEmpty() && nums[stack.peek() % size] < nums[i % size] ){// 模拟遍历两遍nums，注意一下都是用i % nums.size()来操作
-                result[stack.peek() % nums.length] = nums[i % size];   //更新result
+                result[stack.peek() % size] = nums[i % size];   //更新result
                 stack.pop(); //弹出栈顶
             }
             stack.push(i);
@@ -112,15 +112,16 @@ public class Q503_Next_Greater_Element_II {
         int n = nums.length;
         int[] res = new int[n];
         Arrays.fill(res, -1);   // 初始结果都为-1
-        Stack<Integer> st = new Stack<>();              // 单调栈，从栈底到栈顶单调递减，存储的是元素索引
+        Stack<Integer> stack = new Stack<>();              // 单调栈，从栈底到栈顶单调递减，存储的是元素索引
+
         for(int i = 0; i < 2 * n; i++){
             int idx = i % n;    // 实际索引
-            // 弹出栈内比nums[idx]小的元素，nums[idx]就是弹出元素的下一个更大元素
-            while(!st.isEmpty() && nums[idx] > nums[st.peek()]){
-                res[st.pop()] = nums[idx];
+            while(!stack.isEmpty() && nums[idx] > nums[stack.peek()]){// 弹出栈内比nums[idx]小的元素，nums[idx]就是弹出元素的下一个更大元素
+                res[stack.pop()] = nums[idx];
             }
-            // 当i大于n，则已经在循环取之前的元素了，这些元素重复出现只是为了作为后面的元素的下一个更大值，而它们本身已经是出现过了的，无须再入栈处理
-            if(i < n)st.push(idx);
+            if(i < n){  // 当i大于n，则已经在循环取之前的元素了，这些元素重复出现只是为了作为后面的元素的下一个更大值，而它们本身已经是出现过了的，无须再入栈处理
+                stack.push(idx);
+            }
         }
         return res;
     }
@@ -132,12 +133,12 @@ public class Q503_Next_Greater_Element_II {
         int n = nums.length;
         int[] ans = new int[n];
         Arrays.fill(ans, -1);
-        // 使用数组模拟栈，bottom 代表栈底，top 代表栈顶
-        int[] stack = new int[n * 2];
-        int bottom = 0, top = -1;
+
+        int[] stack = new int[n * 2]; // 使用数组模拟栈，bottom 代表栈底，top 代表栈顶
+        int top = -1;
 
         for (int i = 0; i < n * 2; i++) {
-            while (bottom <= top && nums[i % n] > nums[stack[top]]) {
+            while (top >= 0 && nums[stack[top]] < nums[i % n]) {
                 int index = stack[top--];
                 ans[index] = nums[i % n];
             }

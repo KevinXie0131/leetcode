@@ -39,11 +39,11 @@ public class Q496_Next_Greater_Element_I {
         int[] res = new int[m];
         for (int i = 0; i < m; ++i) {
             int j = 0;
-            while (j < n && nums2[j] != nums1[i]) {
+            while (j < n && nums2[j] != nums1[i]) { // 找出满足 nums1[i] == nums2[j] 的下标 j
                 j++;
             }
             int k = j + 1;
-            while (k < n && nums2[k] < nums2[j]) {
+            while (k < n && nums2[k] < nums2[j]) { // 在 nums2 确定 nums2[j] 的 下一个更大元素
                 k++;
             }
             res[i] = k < n ? nums2[k] : -1;

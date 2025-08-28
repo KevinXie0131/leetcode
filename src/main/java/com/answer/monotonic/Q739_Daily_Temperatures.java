@@ -17,7 +17,7 @@ public class Q739_Daily_Temperatures {
          * 输出: [1,1,4,2,1,1,0,0]
          */
         int[] temperatures = {73,74,75,71,69,72,76,73};
-        System.out.println(Arrays.toString(dailyTemperatures0(temperatures)));
+        System.out.println(Arrays.toString(dailyTemperatures1(temperatures)));
     }
     /**
      * 暴力: 针对每个温度值 向后进行依次搜索 ，找到比当前温度更高的值
@@ -54,12 +54,12 @@ public class Q739_Daily_Temperatures {
 
         for(int i = 1; i < temperatures.length; i++){
             if(!stack.isEmpty()){
-                if( temperatures[stack.peek()] >= temperatures[i]){
+                if(temperatures[stack.peek()] >= temperatures[i]){
                     stack.push(i);
                 } else {
                     // 如果当前遍历的元素 大于栈顶元素，表示 栈顶元素的 右边的最大的元素就是 当前遍历的元素，所以弹出 栈顶元素，并记录
                     // 如果栈不空的话，还要考虑新的栈顶与当前元素的大小关系 否则的话，可以直接入栈。
-                    while(!stack.isEmpty() &&  temperatures[stack.peek()] < temperatures[i]){
+                    while(!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]){
                         result[stack.peek()] = i- stack.peek(); // 改为存储差值
                         stack.pop();
                     }
@@ -74,12 +74,12 @@ public class Q739_Daily_Temperatures {
     /**
      * 单调栈 版本 2
      */
-    public int[] dailyTemperatures1(int[] temperatures) {
+    static public int[] dailyTemperatures1(int[] temperatures) {
         int[] result = new int[temperatures.length];
         Deque<Integer> stack = new LinkedList<>();
 
         for(int i = 0; i < temperatures.length; i++){
-            while(!stack.isEmpty() &&  temperatures[stack.peek()] < temperatures[i]){
+            while(!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]){
                 result[stack.peek()] = i- stack.peek();
                 stack.pop();
             }
@@ -104,7 +104,8 @@ public class Q739_Daily_Temperatures {
      * 单调队列被广泛应用在求解给定长度为 k 的「窗口」内的元素最小 / 最大值。由于队列中元素的单调性成立，此时的队头元素即为所求。
      *
      * 使用单调队列时，需要注意维护队列的以下两种「特性」：
-     * 1. 单调性：自队头向队尾，元素值单调增加 / 单调减少。因此，若访问一个新的元素，应先将当前队列中比这个新元素更大 / 更小的元素及时从「队尾」出队，再将这个新元素从「队尾」入队；
+     * 1. 单调性：自队头向队尾，元素值单调增加 / 单调减少。因此，若访问一个新的元素，应先将当前队列中比这个新元素更大 / 更小的元素及时从「队尾」出队，
+     *           再将这个新元素从「队尾」入队；
      * 2. 元素有效性：若随着窗口的滑动，在窗口左边界左侧的元素，对于求解问题已经失效（过期），需及时从「队头」出队。
      */
     public int[] dailyTemperatures(int[] temperatures) { // 同版本2
