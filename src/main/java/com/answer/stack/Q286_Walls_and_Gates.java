@@ -36,7 +36,7 @@ public class Q286_Walls_and_Gates {
                          {INF, -1, INF, -1},
                          {0, -1, INF, INF}};
 
-        wallsAndGates3(rooms);
+        wallsAndGates1(rooms);
         for (int[] row : rooms) {
             for (int cell : row) {
                 System.out.print(cell + "\t");
@@ -49,7 +49,7 @@ public class Q286_Walls_and_Gates {
                 {INF, 0, INF},
                 {INF, INF, INF}
         };
-        wallsAndGates3(rooms1);
+        wallsAndGates1(rooms1);
         for (int[] row : rooms1) {
             for (int cell : row) {
                 System.out.print(cell + "\t");
@@ -149,7 +149,7 @@ public class Q286_Walls_and_Gates {
         for (int i = 0; i < rooms.length; ++i) {
             for (int j = 0; j < rooms[i].length; ++j) {
                 if (rooms[i][j] == 0) {
-                    dfs(rooms, i, j, 0);
+                    dfs1(rooms, i, j, 0);
                 }
             }
         }
@@ -167,6 +167,21 @@ public class Q286_Walls_and_Gates {
         dfs(rooms, i - 1, j, step + 1);
         dfs(rooms, i, j + 1, step + 1);
         dfs(rooms, i, j - 1, step + 1);
+    }
+    /**
+     * another form
+     */
+    static int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+    static void dfs1(int[][] rooms, int i, int j, int step) {
+        if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[i].length || rooms[i][j] < step) {
+            return;
+        }
+
+        rooms[i][j] = step;
+        for(int[] dir : dirs){
+            dfs(rooms, i + dir[0], j  + dir[1], step + 1);
+        }
     }
     /**
      * DFS iterative
