@@ -16,7 +16,7 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
          * 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
          */
         int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
-        System.out.println(trap2a(height)); // 输出：6
+        System.out.println(trap6(height)); // 输出：6
     }
     /**
      * 暴力解法(使用双指针) 时间复杂度为O(n^2)，空间复杂度为O(1), 超时
@@ -52,23 +52,21 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
     /**
      * 双指针优化 (时间复杂度为O(n)， 空间复杂度为O(n))
      * 为了得到两边的最高高度，使用了双指针来遍历，每到一个柱子都向两边遍历一遍，这其实是有重复计算的。
-     * 我们把每一个位置的左边最高高度记录在一个数组上（maxLeft），右边最高高度记录在一个数组上（maxRight），
-     * 这样就避免了重复计算。
+     * 我们把每一个位置的左边最高高度记录在一个数组上（maxLeft），右边最高高度记录在一个数组上（maxRight），这样就避免了重复计算。
      * 当前位置，左边的最高高度是前一个位置的左边最高高度和本高度的最大值。
      * 即从左向右遍历：maxLeft[i] = max(height[i], maxLeft[i - 1]);
      * 从右向左遍历：maxRight[i] = max(height[i], maxRight[i + 1]);
      */
    static public int trap2(int[] height) {
-        int[] maxLeft = new int[height.length];
+        int[] maxLeft = new int[height.length]; // {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
         int[] maxRight = new int[height.length];
-        int size = maxRight.length;
-
-        // 记录每个柱子左边柱子最大高度 [0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3]
+        int size = height.length;
+        // 记录每个柱子左边柱子最大高度               [0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3]
         maxLeft[0] = height[0];
         for (int i = 1; i < size; i++) {
             maxLeft[i] = Math.max(height[i], maxLeft[i - 1]);
         }
-        // 记录每个柱子右边柱子最大高度 [3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1]
+        // 记录每个柱子右边柱子最大高度               [3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1]
         maxRight[size - 1] = height[size - 1];
         for (int i = size - 2; i >= 0; i--) {
             maxRight[i] = Math.max(height[i], maxRight[i + 1]);
@@ -119,7 +117,8 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
         int sum = 0;
         // 单调栈的做法相当于「横着」计算面积. 这个方法可以总结成 16 个字：找上一个更大元素，在找的过程中填坑
         for(int i = 0; i < heights.length; i++){
-            while(!stack.isEmpty() && heights[stack.peek()] < heights[i]){  //如果栈不空并且当前指向的高度大于栈顶高度就一直循环 // heights[stack.peek()] <= heights[i] works too 注意 while 中加了等号，这可以让栈中没有重复元素，从而在有很多重复元素的情况下，使用更少的空间。
+        //  while(!stack.isEmpty() && heights[stack.peek()] <= heights[i]){ // works too 注意 while 中加了等号，这可以让栈中没有重复元素，从而在有很多重复元素的情况下，使用更少的空间。
+            while(!stack.isEmpty() && heights[stack.peek()] < heights[i]){ //如果栈不空并且当前指向的高度大于栈顶高度就一直循环
                 int cur = stack.pop(); // 低洼处弹出，尝试结算此低洼处能积攒的雨水
                 if(stack.isEmpty()){ // need to check if stack is empty  看看栈里还有没有东西（左墙是否存在）
                     break;           // 没有左墙+有低洼+有右墙=白搭
@@ -185,7 +184,7 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
         return ans;
     }
     /**
-     * Approach 3: Using stacks
+     * Approach 3: Using stacks 单调栈 同上
      * From 睡不醒的鲤鱼
      * 使用单调栈存储高度下标，按照行方向来计算雨水容量。
      *
@@ -244,18 +243,16 @@ public class Q42_Trapping_Rain_Water { // Hard 困难
     /**
      * 双指针，时间O(n)，空间O(1)
      */
-    public int trap6(int[] height) {
+    static public int trap6(int[] height) {
         int n = height.length;
         int res = 0;
-        // 左右指针：分别指向左右两边界的列
-        int left = 0, right = n - 1;
-        // 左指针的左边最大高度、右指针的右边最大高度
-        int leftMax = height[left], rightMax = height[right];
-        // 最两边的列存不了水
-        left++;
+        int left = 0, right = n - 1; // 左右指针：分别指向左右两边界的列
+        int leftMax = height[left], rightMax = height[right];   // 左指针的左边最大高度、右指针的右边最大高度
+
+        left++; // 最两边的列存不了水
         right--;
-        // 向中间靠拢
-        while(left <= right){
+
+        while(left <= right){  // 向中间靠拢
             leftMax = Math.max(leftMax, height[left]); //更新左边最大值
             rightMax = Math.max(rightMax, height[right]);  //更新右边最大值
             if(leftMax < rightMax){
