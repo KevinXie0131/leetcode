@@ -24,7 +24,7 @@ public class BfsDfsTemplate {
      *     level ++;
      */
     /**
-     * BFS
+     * BFS - iterative
      */
     public void wallsAndGates(int[][] rooms) {
         Queue<int[]> queue = new LinkedList<>();
@@ -46,7 +46,7 @@ public class BfsDfsTemplate {
         }
     }
     /**
-     * use level in BFS
+     * BFS - level iterative
      */
     public void wallsAndGates0(int[][] rooms) {
         Queue<int[]> queue = new LinkedList<>();
@@ -73,11 +73,10 @@ public class BfsDfsTemplate {
         }
     }
     /**
-     * DFS
+     * DFS - recursive
      */
      public void wallsAndGates1(int[][] rooms) {
         dfs(rooms, 0, 0, 0);
-
     }
 
     void dfs(int[][] rooms, int i, int j, int step) {
@@ -92,7 +91,22 @@ public class BfsDfsTemplate {
         dfs(rooms, i, j - 1, step + 1);
     }
     /**
-     * DFS iterative
+     * another form
+     */
+    int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+
+    void dfs1(int[][] rooms, int i, int j, int step) {
+        if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[i].length || rooms[i][j] < step) {
+            return;
+        }
+        rooms[i][j] = step;
+
+        for(int[] dir : dirs){
+            dfs(rooms, i + dir[0], j  + dir[1], step + 1);
+        }
+    }
+    /**
+     * DFS - iterative
      */
     public void wallsAndGates2(int[][] rooms) {
         Deque<int[]> stack = new LinkedList<>();
