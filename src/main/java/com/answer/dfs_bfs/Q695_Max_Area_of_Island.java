@@ -24,13 +24,14 @@ public class Q695_Max_Area_of_Island {
     /**
      * 深度优先搜索
      */
-    final int[][] dir={{0,1},{1,0},{0,-1},{-1,0}}; // 四个方向
+    final int[][] dir = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // 四个方向
 
     public int maxAreaOfIsland_0(int[][] grid) {
         int result = 0;
         int n = grid.length;
         int m = grid[0].length;
         boolean[][] visited = new boolean[n][m];
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if(!visited[i][j] && grid[i][j] == 1){  // 没有访问过的 同时 是陆地的
@@ -65,12 +66,12 @@ public class Q695_Max_Area_of_Island {
         int n = grid.length;
         int m = grid[0].length;
         boolean[][] visited = new boolean[n][m];
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (!visited[i][j] && grid[i][j] == 1) {  // 节点没有被访问过且是陆地
                     int max = bfs_visited(grid, visited, i, j);
                     result = Math.max(max, result);
-
                 }
             }
         }
@@ -82,12 +83,14 @@ public class Q695_Max_Area_of_Island {
         queue.offer(new int[]{x, y});  // 加入队列就意味节点是陆地可到达的点
         visited[x][y] = true;
         int count = 1;
+
         while (!queue.isEmpty()) {
             int[] node = queue.poll();
             for (int i = 0; i < 4; i++) {
                 int nextX = node[0] + dir[i][0];
                 int nextY = node[1] + dir[i][1];
-                if (nextX < 0 || nextY < 0 || nextX >= grid.length || nextY >= grid[0].length || visited[nextX][nextY] || grid[nextX][nextY] == 0){
+                if (nextX < 0 || nextY < 0 || nextX >= grid.length || nextY >= grid[0].length
+                        || visited[nextX][nextY] || grid[nextX][nextY] == 0){
                     continue;  // 越界
                 }
                 queue.offer(new int[]{nextX, nextY});
@@ -126,9 +129,9 @@ public class Q695_Max_Area_of_Island {
         }
         grid[i][j] = 2;  // 访问过的设置为2，下次不再访问
         return 1 + dfs(grid, i - 1, j) // 向四个方向发散求和
-                + dfs(grid, i + 1, j)
-                + dfs(grid, i, j - 1)
-                + dfs(grid, i, j + 1);
+                 + dfs(grid, i + 1, j)
+                 + dfs(grid, i, j - 1)
+                 + dfs(grid, i, j + 1);
     }
 
     public static boolean isWithin(int[][] grid, int x, int y){
@@ -142,23 +145,25 @@ public class Q695_Max_Area_of_Island {
      * 深度优先搜索 + 栈
      */
     public int maxAreaOfIsland_1(int[][] grid) {
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][] visited = new boolean[m][n];
         int max = 0;
 
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col < grid[0].length; col++) {
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
                 if (grid[row][col] == 1 && !visited[row][col]) {
                     int shape = 0;
-                    Stack<int[]> stack = new Stack();
+                    Deque<int[]> stack = new ArrayDeque<>();
                     stack.push(new int[]{row, col});
                     visited[row][col] = true;
 
-                    while (!stack.empty()) {
+                    while (!stack.isEmpty()) {
                         int[] cur = stack.pop();
                         shape++;
-                        for (int k = 0; k < 4; k++) {
-                            int newRow = cur[0] + dir[k][0];
-                            int newCol = cur[1] + dir[k][1];
+                        for (int d[] : dir) {
+                            int newRow = cur[0] + d[0];
+                            int newCol = cur[1] + d[1];
                             if (0 <= newRow && newRow < grid.length && 0 <= newCol && newCol < grid[0].length
                                     && grid[newRow][newCol] == 1 && !visited[newRow][newCol]) {
                                 stack.push(new int[]{newRow, newCol});

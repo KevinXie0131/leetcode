@@ -5,6 +5,18 @@ import java.util.*;
 public class Q417_Pacific_Atlanti_Water_Flow_1 {
     public static void main(String[] args) {
        int[][] heights = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
+    /* pacific
+        [true, true, true, true, true]
+        [true, true, true, true, true]
+        [true, true, true, false, false]
+        [true, true, false, false, false]
+        [true, false, false, false, false]*/
+    /* atlantic
+        [false, false, false, false, true]
+        [false, false, false, true, true]
+        [false, false, true, true, true]
+        [true, true, true, true, true]
+        [true, true, true, true, true]*/
        System.out.println(pacificAtlantic(heights));
     }
     /**
@@ -16,7 +28,6 @@ public class Q417_Pacific_Atlanti_Water_Flow_1 {
         // 初始化两个二位boolean数组，代表两个边界
         boolean[][] pacific = new boolean[m][n];
         boolean[][] atlantic = new boolean[m][n];
-
         // 从左右边界出发进行DFS
         for (int i = 0; i < m; i++) {
            bfs(heights, i, 0, pacific); // 从最左和最右列的节点出发，向高处遍历

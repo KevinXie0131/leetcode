@@ -37,24 +37,25 @@ public class Q200_Number_of_Islands {
      * Flood fill
      * 注意：DFS 的过程中，最重要的是不能重复访问之前访问过的格子。
      */
-    public int numIslands1(char[][] grid) {
+   static public int numIslands1(char[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
-        boolean[][]visited = new boolean[m][n];
+        boolean[][] visited = new boolean[m][n];
         int result = 0;
+
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if(!visited[i][j] && grid[i][j] == '1') { // 没有访问过的 同时 是陆地的
                     result++;
-                 //   visited[i][j] = true;  // uncomment for 版本二
-                    dfs_visited(visited, i, j, grid);
+                 //   visited[i][j] = true;  // uncomment for 版本一
+                    dfs_visited0(visited, i, j, grid);
                 }
             }
         }
         return result;
     }
     // 版本一的写法是 ：下一个节点是否能合法已经判断完了，传进dfs函数的就是合法节点。
-    void dfs_visited0(boolean[][] visited, int x, int y, char [][]grid) {
+    static void dfs_visited0(boolean[][] visited, int x, int y, char [][]grid) {
         if (visited[x][y] || grid[x][y] == 0) {
             return; // 终止条件：访问过的节点 或者 遇到海水
         }
@@ -109,6 +110,7 @@ public class Q200_Number_of_Islands {
         Deque<int[]> stack = new ArrayDeque<>();
         stack.push(new int[]{i, j});
         grid[i][j] = '2';  // 插旗！避免来回横跳无限递归
+
         while(!stack.isEmpty()){
             int[] cur = stack.pop();
             for(int index = 0; index < 4; index++){
@@ -153,6 +155,7 @@ public class Q200_Number_of_Islands {
         int n = grid[0].length;
         boolean[][]visited = new boolean[m][n];
         int result = 0;
+
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if(!visited[i][j] && grid[i][j] == '1') { // 没有访问过的 同时 是陆地的
@@ -209,6 +212,7 @@ public class Q200_Number_of_Islands {
         Deque<int[]> queue = new ArrayDeque<>();
         queue.offer(new int[]{i, j});
         grid[i][j] = '2';
+
         while(!queue.isEmpty()){
             int[] cur = queue.poll();
             for(int index = 0; index < 4; index++){
@@ -260,7 +264,7 @@ public class Q200_Number_of_Islands {
     }
 }
 /**
- *
+ * 并查集
  */
 class UnionFind_Simple {
     int count;
@@ -319,7 +323,7 @@ class UnionFind_Simple {
     }
 }
 /**
- *
+ * 并查集
  */
 class UnionFind {
     int count;

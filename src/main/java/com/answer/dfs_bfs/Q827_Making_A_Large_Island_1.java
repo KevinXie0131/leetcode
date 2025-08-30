@@ -1,11 +1,21 @@
 package com.answer.dfs_bfs;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public class Q827_Making_A_Large_Island_1 { // Hard 困难
+    public static void main(String[] args) {
+     /*   int[][] grid1 = {
+                {1, 1, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 1, 1}
+        };*/
+        int[][] grid1 = {{0,1},{1,1}};
+        System.out.println(new Q827_Making_A_Large_Island_1().largestIsland(grid1));
+    }
     /**
      * 并查集 + 枚举
+     * similar with Q200_Number_of_Islands
      */
     int[] connected;
     int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
@@ -51,8 +61,9 @@ public class Q827_Making_A_Large_Island_1 { // Hard 困难
         HashMap<Integer, Integer> map = new HashMap<>();
         for(int i = 0; i < connected.length; i++){
             if(connected[i] >= 0) {
-                map.put(connected[i], map.getOrDefault(connected[i], 0) + 1);
-             //   map.put(find(i), map.getOrDefault(find(i), 0) + 1);
+            //    find(i);
+            //    map.put(connected[i], map.getOrDefault(connected[i], 0) + 1); // cannot pass test case {{0,1},{1,1}}
+                map.put(find(i), map.getOrDefault(find(i), 0) + 1);
             }
         }
 
@@ -66,7 +77,7 @@ public class Q827_Making_A_Large_Island_1 { // Hard 困难
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
 
-                if (grid[i][j] == 0) {
+                if (connected[i * col + j] == -1) {
                     set.clear(); // 每次使用时，清空
                     int curSize = 1;// 当前水位置变更为岛屿，所以初始化为1
 
@@ -90,17 +101,19 @@ public class Q827_Making_A_Large_Island_1 { // Hard 困难
             }
         }
         return max;
-
     }
 
-    public void union(int index1, int index2) {
-        connected[find(index2)] = find(index1);
-    }
 
-    public int find(int index) {
-        if (connected[index] != index) {
-            connected[index] = find(connected[index]);
+    public void union (int n, int m) {
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
         }
-        return connected[index];
+        connected[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+    public int find(int n) {
+        return n == connected[n] ? n : (connected[n] = find(connected[n]));
     }
 }

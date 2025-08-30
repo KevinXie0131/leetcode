@@ -23,13 +23,13 @@ public class Q463_Island_Perimeter {
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == 1){
-                    for(int k =0 ;k < 4; k++){  // 上下左右四个方向
+                    for(int k = 0 ; k < 4; k++){  // 上下左右四个方向
                         int x = i + dirX[k];  // 计算周边坐标x,y
                         int y = j + dirY[k];
                         // 当前位置是陆地，并且从当前位置4个方向扩展的'新位置'是'水域'或'新位置'越界，则会为周长贡献一条边
                         if(x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == 0){ // x, y 在边界上或者是水域
                             sum++; // 遇到边界或者水，周长加一
-                            continue;
+                          //  continue; // can be commented
                         }
                     }
                 }
@@ -44,18 +44,18 @@ public class Q463_Island_Perimeter {
     public int islandPerimeter_4(int[][] grid) {
         // 计算岛屿的周长
         // 方法二 : 遇到相邻的陆地总周长就-2
-        int sum = 0;// 陆地数量
-        int connect = 0;// 相邻陆地数量
+        int sum = 0; // 陆地数量
+        int connect = 0; // 相邻陆地数量
 
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == 1){
                     sum++;
                     // 统计上面和左边的相邻陆地
-                    if(i >= 1 && grid[i-1][j] == 1){ // 统计上边相邻陆地
+                    if(i >= 1 && grid[i - 1][j] == 1){ // 统计上边相邻陆地
                         connect++;
                     }
-                    if(j >= 1 && grid[i][j-1] == 1){ // 统计左边相邻陆地
+                    if(j >= 1 && grid[i][j - 1] == 1){ // 统计左边相邻陆地
                         connect++;
                     }
                     // 为什么没统计下边和右边？ 因为避免重复计算
@@ -65,7 +65,7 @@ public class Q463_Island_Perimeter {
         return sum * 4 - connect * 2;
     }
     /**
-     * 延伸 - 传统DFS解法(使用visited数组)（遇到边界 或是 海水 就edge ++）
+     * 延伸 - 传统DFS解法(使用visited数组)（遇到边界 或是 海水 就edge++）
      */
     int result = 0;
     boolean visited[][];
@@ -78,7 +78,7 @@ public class Q463_Island_Perimeter {
 
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
-                if(visited[i][j] ==false && grid[i][j] == 1){
+                if(visited[i][j] == false && grid[i][j] == 1){
                     result += dfs1(grid,  i,  j);
                 }
             }
@@ -88,7 +88,7 @@ public class Q463_Island_Perimeter {
 
     public int dfs1(int[][] grid, int x, int y){
         // 如果遇到 边界（x < 0 || y < 0 || x >= grid.length || y >= grid[0].length）或是 遇到海水(grid[x][y] == 0)就return 1（edge + 1）
-        if(x < 0 || x >= grid.length || y < 0 || y >=grid[0].length || grid[x][y] == 0){
+        if(x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == 0){
             return 1;
         }
         if(visited[x][y] == true){   // 如果该地已经拜访过，就return 0 避免重复计算
@@ -96,7 +96,7 @@ public class Q463_Island_Perimeter {
         }
         int temp = 0;
         visited[x][y] = true;
-        for(int k =0; k < 4; k++){
+        for(int k = 0; k < 4; k++){
             temp += dfs1(grid,  x + dir[k][0],  y + dir[k][1]);  //用temp 把edge存起來
         }
         return temp;

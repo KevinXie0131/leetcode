@@ -1,10 +1,5 @@
 package com.answer.dfs_bfs;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Q200_Number_of_Islands_1 {
     public static void main(String[] args) {
         /**
@@ -61,7 +56,9 @@ public class Q200_Number_of_Islands_1 {
         }
         int count = 0;
         for(int i = 0; i < connected.length; i++){
-            if(i == connected[i]) count++;
+            if(i == connected[i]){
+                count++;
+            }
         }
         return count;
     }

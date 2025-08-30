@@ -5,16 +5,16 @@ import java.util.*;
 public class Q127_Word_Ladder { // Hard 困难
     /**
      * 单词接龙
-     * 字典 wordList 中从单词 beginWord 到 endWord 的 转换序列( transformation sequence) 是一个按下述规格形成的序列 beginWord -> s1 -> s2 -> ... -> sk：
+     * 字典 wordList 中从单词 beginWord 到 endWord 的 转换序列(transformation sequence) 是一个按下述规格形成的序列 beginWord -> s1 -> s2 -> ... -> sk：
      *  每一对相邻的单词只差一个字母。
      *  对于 1 <= i <= k 时，每个 si 都在 wordList 中。注意， beginWord 不需要在 wordList 中。
      *  sk == endWord
      * 给你两个单词 beginWord 和 endWord 和一个字典 wordList ，返回 从 beginWord 到 endWord 的 最短转换序列 中的 单词数目 。如果不存在这样的转换序列，返回 0 。
      * return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
-     *
-     * 输入：beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
-     * 输出：5
-     * 解释：一个最短转换序列是 "hit" -> "hot" -> "dot" -> "dog" -> "cog", 返回它的长度 5。
+     * 示例：
+     *  输入：beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+     *  输出：5
+     *  解释：一个最短转换序列是 "hit" -> "hot" -> "dot" -> "dog" -> "cog", 返回它的长度 5。
      */
     public static void main(String[] args) {
         String beginWord = "hit", endWord = "cog";
@@ -92,7 +92,9 @@ public class Q127_Word_Ladder { // Hard 困难
             dict.add(word);
         }
 
-        if (!dict.contains(endWord)) return 0; // 无法转换
+        if (!dict.contains(endWord)) {
+            return 0; // 无法转换
+        }
 
         Set<String> s1 = new HashSet<>();
         s1.add(beginWord);
@@ -109,15 +111,19 @@ public class Q127_Word_Ladder { // Hard 困难
                 s2 = temp;
             }
             // 已经转换的单词可以去除
-            for (String w: s1) dict.remove(w);
-            for (String w: s2) dict.remove(w);
+            for (String w: s1){
+                dict.remove(w);
+            }
+            for (String w: s2) {
+                dict.remove(w);
+            }
             // 存放转换后的单词
             Set<String> s = new HashSet<>();
 
             for (String word: s1) {
                 for (int i = 0; i < word.length(); i++) {
                     char[] wordArray = word.toCharArray();
-                //    char ch = wordArray[i];  // 可以不写
+
                     for (char j = 'a'; j <= 'z'; j++) {
                         wordArray[i] = j;
                         String newWord = new String(wordArray);
@@ -129,7 +135,6 @@ public class Q127_Word_Ladder { // Hard 困难
                         }
                         s.add(newWord); // 加入此单词
                     }
-                //    wordArray[i] = ch; // 可以不写
                 }
             }
             s1 = s; //当前层转换结束，s赋值给s1

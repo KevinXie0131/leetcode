@@ -1,10 +1,5 @@
 package com.answer.dfs_bfs;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
-
 public class Q785_Is_Graph_Bipartite_1 {
     /**
      * 并查集
@@ -18,13 +13,13 @@ public class Q785_Is_Graph_Bipartite_1 {
             connected[i] = i;
         }
         for(int i = 0; i < graph.length; i++){
-            int current = find(connected, i);
+            int current = find1(connected, i);
 
             for(int j = 0; j < graph[i].length; j++){
-                if(find(connected, graph[i][j]) == current){
+                if(find1(connected, graph[i][j]) == current){
                     return false;
                 }
-                union(connected, graph[i][0], graph[i][j]); // 如果是二分图的话，那么图中每个顶点的所有邻接点都应该属于同一集合，且不与顶点处于同一集合。
+                join(connected, graph[i][0], graph[i][j]); // 如果是二分图的话，那么图中每个顶点的所有邻接点都应该属于同一集合，且不与顶点处于同一集合。
             }
         }
         return true;
@@ -39,5 +34,21 @@ public class Q785_Is_Graph_Bipartite_1 {
             parent[index] = find(parent, parent[index]);
         }
         return parent[index];
+    }
+    /**
+     * refer to template
+     * works too
+     */
+    public int find1(int[] parent, int n) {
+        return n == parent[n] ? n : (parent[n] = find1(parent, parent[n]));
+    }
+
+    public void join (int[] parent, int n, int m) {
+        n = find1(parent, n);
+        m = find1(parent, m);
+        if (n == m) {
+            return;
+        }
+        parent[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
     }
 }

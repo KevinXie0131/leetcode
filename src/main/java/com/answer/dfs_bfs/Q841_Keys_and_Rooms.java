@@ -44,11 +44,12 @@ public class Q841_Keys_and_Rooms {
         visited = new boolean[rooms.size()];
         dfs(rooms, 0);
 
-      /*  for(int i = 1; i < visited.length; i++){    //检查是否都访问到了
-            if(visited[i] == false){
+   /*    for(int i = 1; i < visited.length; i++){  // works too
+            if(visited[i] == false){ // 检查是否都访问到了
                 return false;
             }
-        }*/
+        }
+        return true;*/
         return num == rooms.size();
     }
 
@@ -71,7 +72,9 @@ public class Q841_Keys_and_Rooms {
         dfs3(rooms, 0, visited);
         //检查是否都访问到了
         for (boolean i : visited) {
-            if (i == false) return false;
+            if (i == false) {
+                return false;
+            }
         }
         return true;
     }
@@ -100,8 +103,9 @@ public class Q841_Keys_and_Rooms {
      *  当这个栈为空的时候，说明遍历完成
      */
     public static boolean canVisitAllRooms_1(List<List<Integer>> rooms) {
-        if(rooms.size() == 0) return false;
-
+        if(rooms.size() == 0) {
+            return false;
+        }
         boolean[] visited = new boolean[rooms.size()];
         Arrays.fill(visited, false);
 
@@ -134,8 +138,9 @@ public class Q841_Keys_and_Rooms {
      * Approach 2: Breadth First Search
      */
     public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        if(rooms.size() == 0) return false;
-
+        if(rooms.size() == 0) {
+            return false;
+        }
         boolean[] visited = new boolean[rooms.size()];
         Arrays.fill(visited, false);
 
@@ -198,6 +203,12 @@ public class Q841_Keys_and_Rooms {
             }
         }
         return num == n;
+/*        for(int i = 1; i < visited.length; i++){ // works too
+            if(visited[i] == false){
+                return false;
+            }
+        }
+        return true;*/
     }
 
 }

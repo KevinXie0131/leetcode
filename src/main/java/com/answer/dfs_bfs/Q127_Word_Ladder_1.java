@@ -23,22 +23,18 @@ public class Q127_Word_Ladder_1 { // Hard 困难
             for (int i = 0; i < size; ++i) {
                 String cur = queue.poll();
                 for (String word : wordList) {
-                    // 已经遍历的不再重复遍历
-                    if (visited.contains(word)) {
+                    if (visited.contains(word)) { // 已经遍历的不再重复遍历
                         continue;
                     }
-                    // 不能转换的直接跳过
-                    if (!canConvert(cur, word)) {
+                    if (!canConvert(cur, word)) {  // 不能转换的直接跳过
                         continue;
                     }
                     // 用于调试
                     // System.out.println(count + ": " + start + "->" + s);
-                    // 可以转换，并且能转换成 endWord，则返回 count
-                    if (word.equals(endWord)) {
+                    if (word.equals(endWord)) {// 可以转换，并且能转换成 endWord，则返回 count
                         return count + 1;
                     }
-                    // 保存访问过的单词，同时把单词放进队列，用于下一层的访问
-                    visited.add(word);
+                    visited.add(word); // 保存访问过的单词，同时把单词放进队列，用于下一层的访问
                     queue.offer(word);
                 }
             }
@@ -47,7 +43,9 @@ public class Q127_Word_Ladder_1 { // Hard 困难
     }
 
     public boolean canConvert(String s1, String s2) {
-        if (s1.length() != s2.length()) return false;  // 因为题目说了单词长度相同，可以不考虑长度问题
+        if (s1.length() != s2.length()) { // 因为题目说了单词长度相同，可以不考虑长度问题
+            return false;
+        }
         int count = 0;
         for (int i = 0; i < s1.length(); ++i) {
             if (s1.charAt(i) != s2.charAt(i)) {
@@ -70,8 +68,9 @@ public class Q127_Word_Ladder_1 { // Hard 困难
         // visited 修改为 boolean 数组
         boolean[] visited = new boolean[wordList.size()];
         int idx = wordList.indexOf(beginWord);
-        if (idx != -1)  visited[idx] = true;
-
+        if (idx != -1)  {
+            visited[idx] = true;
+        }
         Queue<String> queue = new LinkedList<>();
         queue.offer(beginWord);
         int count = 0;
@@ -83,8 +82,7 @@ public class Q127_Word_Ladder_1 { // Hard 困难
             while (size-- > 0) {
                 String cur = queue.poll();
                 for (int i = 0; i < wordList.size(); ++i) {
-                    // 通过 index 判断是否已经访问
-                    if (visited[i]) {
+                    if (visited[i]) {  // 通过 index 判断是否已经访问
                         continue;
                     }
                     String word = wordList.get(i);
@@ -162,7 +160,6 @@ public class Q127_Word_Ladder_1 { // Hard 困难
             return 0;
         }
         wordList.add(beginWord);
-
         // 从两端 BFS 遍历要用的队列
         Queue<String> queue1 = new LinkedList<>();
         Queue<String> queue2 = new LinkedList<>();

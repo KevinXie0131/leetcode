@@ -135,7 +135,7 @@ public class Q994_Rotting_Oranges {
                     int y = cur[1] + dir[1];
                     if(x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 1) { //找到新感染的橘子
                         grid[x][y] = 2;
-                        queue.offer(new int[]{x,y});
+                        queue.offer(new int[]{x, y});
                         total--;
                     }
                 }

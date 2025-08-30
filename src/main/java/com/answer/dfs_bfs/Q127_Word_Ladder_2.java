@@ -12,13 +12,13 @@ public class Q127_Word_Ladder_2 { // Hard 困难
         if (!wordSet.contains(endWord)) {
             return 0;
         }
-
         Queue<String> queue = new LinkedList<>(); // 「队列」中存储的是当前单词
         queue.offer(beginWord);
         // 本题还可以不使用 visited，在访问完一个单词以后，从 wordSet 中删除，作用是一样的
         Set<String> visited = new HashSet<>(); // 由于「图」中存在环，因此访问过的单词需要标记，通常的做法是使用「哈希表」visited 记录已经访问的单词
         visited.add(beginWord);
         int step = 1; // 初始化的时候step 为 1
+
         while (!queue.isEmpty()) {
             int size = queue.size();
 
@@ -76,10 +76,8 @@ public class Q127_Word_Ladder_2 { // Hard 困难
         if (!wordSet.contains(endWord)) {
             return 0;
         }
-
         // 这是「广度优先遍历」要使用的 visited 变量
         Set<String> visited = new HashSet<>(); // 「哈希表」visited 的作用和「单向 BFS」一样，都是记录已经访问过的单词，避免重复访问。
-
         // 分别用左边和右边扩散的「哈希表」代替「单向 BFS」里的「队列」，它们在「双向 BFS」的过程中交替使用，这是因为需要快速判断某个单词是否在对面的「队列」中
         Set<String> beginVisited = new HashSet<>();
         beginVisited.add(beginWord);
@@ -93,7 +91,6 @@ public class Q127_Word_Ladder_2 { // Hard 困难
                 beginVisited = endVisited;
                 endVisited = temp;
             }
-
             // nextLevelVisited 在扩散完成以后，会成为新的 beginVisited
             Set<String> nextLevelVisited = new HashSet<>();
             for (String word : beginVisited) {
@@ -114,5 +111,4 @@ public class Q127_Word_Ladder_2 { // Hard 困难
         }
         return 0;
     }
-
 }

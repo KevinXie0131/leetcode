@@ -1,8 +1,6 @@
 package com.answer.dfs_bfs;
 
 import com.template.UnionFind;
-
-import java.util.Arrays;
 import java.util.*;
 
 public class Q130_Surrounded_Regions {
@@ -83,7 +81,7 @@ public class Q130_Surrounded_Regions {
     /**
      * dfs_1()的另一种形式
      */
-    final int[][] dir={{0,1},{1,0},{0,-1},{-1,0}}; // 四个方向
+    final int[][] dir = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // 四个方向
 
     void dfs_1a(char[][] board, int x, int y) {
         board[x][y] = '#';
@@ -125,28 +123,25 @@ public class Q130_Surrounded_Regions {
         Deque<Pos> stack = new ArrayDeque<>();
         stack.push(new Pos(i,j));
         board[i][j] = '#';
+
         while(!stack.isEmpty()){
             Pos current = stack.peek(); // 取出当前stack 顶, 不弹出.
-            if(current.i - 1 >= 0
-                    && board[current.i-1][current.j] == 'O'){
-                stack.push(new Pos(current.i-1,current.j));
-                board[current.i-1][current.j] = '#';
+            if(current.i - 1 >= 0 && board[current.i - 1][current.j] == 'O'){
+                stack.push(new Pos(current.i - 1,current.j));
+                board[current.i - 1][current.j] = '#';
                 continue; // 有continue.
             }
-            if (current.i + 1 <= board.length - 1
-                    && board[current.i + 1][current.j] == 'O') {
+            if (current.i + 1 <= board.length - 1 && board[current.i + 1][current.j] == 'O') {
                 stack.push(new Pos(current.i + 1, current.j));
                 board[current.i + 1][current.j] = '#';
                 continue;
             }
-            if (current.j - 1 >= 0
-                    && board[current.i][current.j - 1] == 'O') {
+            if (current.j - 1 >= 0 && board[current.i][current.j - 1] == 'O') {
                 stack.push(new Pos(current.i, current.j - 1));
                 board[current.i][current.j - 1] = '#';
                 continue;
             }
-            if (current.j + 1 <= board[0].length - 1
-                    && board[current.i][current.j + 1] == 'O') {
+            if (current.j + 1 <= board[0].length - 1 && board[current.i][current.j + 1] == 'O') {
                 stack.push(new Pos(current.i, current.j + 1));
                 board[current.i][current.j + 1] = '#';
                 continue;
@@ -159,28 +154,45 @@ public class Q130_Surrounded_Regions {
         Deque<Pos> stack = new ArrayDeque<>();
         stack.push(new Pos(i,j));
         board[i][j] = '#';
+
         while(!stack.isEmpty()){
             Pos current = stack.pop(); // 取出当前stack 顶
-            if(current.i - 1 >= 0
-                    && board[current.i-1][current.j] == 'O'){
-                stack.push(new Pos(current.i-1,current.j));
-                board[current.i-1][current.j] = '#';
+            if(current.i - 1 >= 0 && board[current.i - 1][current.j] == 'O'){
+                stack.push(new Pos(current.i - 1,current.j));
+                board[current.i - 1][current.j] = '#';
                 // 没有continue.
             }
-            if (current.i + 1 <= board.length - 1
-                    && board[current.i + 1][current.j] == 'O') {
+            if (current.i + 1 <= board.length - 1 && board[current.i + 1][current.j] == 'O') {
                 stack.push(new Pos(current.i + 1, current.j));
                 board[current.i + 1][current.j] = '#';
             }
-            if (current.j - 1 >= 0
-                    && board[current.i][current.j - 1] == 'O') {
+            if (current.j - 1 >= 0 && board[current.i][current.j - 1] == 'O') {
                 stack.push(new Pos(current.i, current.j - 1));
                 board[current.i][current.j - 1] = '#';
             }
-            if (current.j + 1 <= board[0].length - 1
-                    && board[current.i][current.j + 1] == 'O') {
+            if (current.j + 1 <= board[0].length - 1 && board[current.i][current.j + 1] == 'O') {
                 stack.push(new Pos(current.i, current.j + 1));
                 board[current.i][current.j + 1] = '#';
+            }
+        }
+    }
+    // 深度优先搜索 another form
+    public static void dfs_2b(char[][] board, int i, int j) {
+        int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+
+        Deque<Pos> stack = new ArrayDeque<>();
+        stack.push(new Pos(i,j));
+        board[i][j] = '#';
+
+        while(!stack.isEmpty()){
+            Pos current = stack.pop(); // 取出当前stack 顶
+            for(int[] dir : dirs){
+                int newI = current.i + dir[0];
+                int newJ = current.j + dir[1];
+                if (newI >= 0 && newI <= board.length - 1 && newJ >= 0 && newJ <= board[0].length - 1 && board[newI][newJ] == 'O') {
+                    stack.push(new Pos(newI,newJ));
+                    board[newI][newJ] = '#';
+                }
             }
         }
     }
@@ -214,26 +226,23 @@ public class Q130_Surrounded_Regions {
         Deque<Pos> queue = new ArrayDeque<>();
         queue.offer(new Pos(i,j));
         board[i][j] = '#';
+
         while(!queue.isEmpty()){
             Pos current = queue.poll();
-            if(current.i - 1 >= 0
-                    && board[current.i-1][current.j] == 'O'){
-                queue.offer(new Pos(current.i-1,current.j));
-                board[current.i-1][current.j] = '#';
+            if(current.i - 1 >= 0 && board[current.i - 1][current.j] == 'O'){
+                queue.offer(new Pos(current.i - 1,current.j));
+                board[current.i - 1][current.j] = '#';
                 // 没有continue.
             }
-            if (current.i + 1 <= board.length - 1
-                    && board[current.i + 1][current.j] == 'O') {
+            if (current.i + 1 <= board.length - 1 && board[current.i + 1][current.j] == 'O') {
                 queue.offer(new Pos(current.i + 1, current.j));
                 board[current.i + 1][current.j] = '#';
             }
-            if (current.j - 1 >= 0
-                    && board[current.i][current.j - 1] == 'O') {
+            if (current.j - 1 >= 0 && board[current.i][current.j - 1] == 'O') {
                 queue.offer(new Pos(current.i, current.j - 1));
                 board[current.i][current.j - 1] = '#';
             }
-            if (current.j + 1 <= board[0].length - 1
-                    && board[current.i][current.j + 1] == 'O') {
+            if (current.j + 1 <= board[0].length - 1 && board[current.i][current.j + 1] == 'O') {
                 queue.offer(new Pos(current.i, current.j + 1));
                 board[current.i][current.j + 1] = '#';
             }
@@ -242,7 +251,7 @@ public class Q130_Surrounded_Regions {
     /**
      * another form
      */
-  static  int[][] dirs1 = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+   static  int[][] dirs1 = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     public static void bfs_a(char[][] board, int i, int j) {
         Deque<Pos> queue = new ArrayDeque<>();
@@ -262,15 +271,36 @@ public class Q130_Surrounded_Regions {
         }
     }
     /**
+     * another form
+     */
+    public static void bfs_b(char[][] board, int i, int j) {
+        int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+
+        Deque<Pos> queue = new ArrayDeque<>();
+        queue.offer(new Pos(i,j));
+        board[i][j] = '#';
+
+        while(!queue.isEmpty()){
+            Pos current = queue.poll(); // 取出当前stack 顶
+            for(int[] dir : dirs){
+                int newI = current.i + dir[0];
+                int newJ = current.j + dir[1];
+                if (newI >= 0 && newI <= board.length - 1 && newJ >= 0 && newJ <= board[0].length - 1 && board[newI][newJ] == 'O') {
+                    queue.offer(new Pos(newI,newJ));
+                    board[newI][newJ] = '#';
+                }
+            }
+        }
+    }
+    /**
      * Approach 3: Union-Find
      */
     public static void solve_4(char[][] board) {
-        if (board == null || board.length == 0)
+        if (board == null || board.length == 0) {
             return;
-
+        }
         int rows = board.length;
         int cols = board[0].length;
-
         // 用一个虚拟节点, 边界上的O 的父节点都是这个虚拟节点
         UnionFind uf = new UnionFind(rows * cols + 1);
         int dummyNode = rows * cols;
@@ -312,6 +342,67 @@ public class Q130_Surrounded_Regions {
 
     static int node(int i, int j, int cols) {
         return i * cols + j;
+    }
+    /**
+     * 并查集
+     */
+    private int[] father;
+
+    public void solve_5(char[][] board) {
+        int rows = board.length;
+        int cols = board[0].length;
+        int N = rows * cols + 1;
+        father = new int[N];
+        for (int i = 0; i < N; ++i){
+            father[i] = i;    // 每个新元素的根节点一开始都是指向自己的
+        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (board[i][j] == 'O') {
+                    if (i == 0 || i == rows - 1 || j == 0 || j == cols - 1) {
+                        join(i * cols + j, N - 1);
+                    } else {
+                        if (i > 0 && board[i - 1][j] == 'O')
+                            join(i * cols + j, (i - 1) * cols + j);
+                        if (i < rows - 1 && board[i + 1][j] == 'O')
+                            join(i * cols + j, (i + 1) * cols + j);
+                        if (j > 0 && board[i][j - 1] == 'O')
+                            join(i * cols + j, i * cols + j - 1);
+                        if (j < cols - 1 && board[i][j + 1] == 'O')
+                            join(i * cols + j, i * cols + j + 1);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (isSame(i * cols + j, N - 1)) {
+                    board[i][j] = 'O';
+                } else {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+
+    public int find(int n) {
+        return n == father[n] ? n : (father[n] = find(father[n])); // 路径压缩
+    }
+
+    public void join (int n, int m) {
+        n = find(n);
+        m = find(m);
+        if (n == m) {
+            return;
+        }
+        father[m] = n; // 找到根节点后，x根做y根的子树，y根做x根的子树都可以
+    }
+
+    public boolean isSame(int n, int m){
+        n = find(n);
+        m = find(m);
+        return n == m;
     }
 }
 

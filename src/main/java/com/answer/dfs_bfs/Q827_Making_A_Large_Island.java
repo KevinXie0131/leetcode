@@ -24,8 +24,16 @@ public class Q827_Making_A_Large_Island { // Hard 困难
      * 整个解法的时间复杂度，为 n * n + n * n 也就是 n^2
      *
      * 这道题实际上是对网格做了两遍 DFS：第一遍 DFS 遍历陆地格子，计算每个岛屿的面积并标记岛屿；
-     * 第二遍 DFS 遍历海洋格子，观察每个海洋格子相邻的陆地格子。
+     *                                第二遍 DFS 遍历海洋格子，观察每个海洋格子相邻的陆地格子。
      */
+    /**
+     * 该方法采用 DFS
+     * 定义全局变量
+     */
+    int count; // 记录每次每个岛屿的面积
+    int mark;  // 对每个岛屿进行标记
+    int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; // 定义二维数组表示四个方位
+
     public int largestIsland(int[][] grid) { // 标记岛屿(对不同的岛屿进行编号) + 合并
         int m = grid.length;
         int n = grid[0].length;
@@ -85,16 +93,11 @@ public class Q827_Making_A_Large_Island { // Hard 困难
         }
         return result;
     }
-    // 该方法采用 DFS
-    // 定义全局变量
-    int count; // 记录每次每个岛屿的面积
-    int mark;  // 对每个岛屿进行标记
-    int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; // 定义二维数组表示四个方位
     /**
      * DFS 进行搜索，将每个岛屿标记为不同的数字
      */
     public void dfs_visited(int[][] grid, int x, int y, boolean[][] visited) {
-        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length) {// 当遇到边界，直接return
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length) { // 当遇到边界，直接return
             return;
         }
         if (visited[x][y] || grid[x][y] == 0){ // 遇到已经访问过的或者遇到海水，直接返回

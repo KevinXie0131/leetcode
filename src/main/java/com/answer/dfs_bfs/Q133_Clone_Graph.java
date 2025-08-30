@@ -40,7 +40,9 @@ public class Q133_Clone_Graph {
     Map<Node, Node> visitedMap1 = new HashMap<>();
 
     public Node cloneGraph_5(Node node) {
-        if(node == null) return null;
+        if(node == null) {
+            return null;
+        }
         dfs1(node);
 
         for(Map.Entry<Node, Node> entry : visitedMap1.entrySet()){
@@ -68,7 +70,9 @@ public class Q133_Clone_Graph {
     Map<Node, Node> visitedMap = new HashMap<>();
 
     public Node cloneGraph_0(Node node) {
-        if(node == null) return null;
+        if(node == null){
+            return null;
+        }
         return dfs(node);
     }
 
@@ -95,30 +99,25 @@ public class Q133_Clone_Graph {
      * Approach 1: Depth First Search - use stack
      */
     public Node cloneGraph_1(Node node) {
-        if(node == null) return null;
+        if(node == null){
+            return null;
+        }
         // 使用一个哈希表 visited 存储所有已被访问和克隆的节点。哈希表中的 key 是原始图中的节点，value 是克隆图中的对应节点。
-        HashMap <Node, Node> visitedMap = new HashMap <> ();
+        HashMap <Node, Node> visitedMap = new HashMap<>();
         Node clone = new Node(node.getValue());
-        // 克隆第一个节点并存储到哈希表中
-        visitedMap.put(node, clone);
+        visitedMap.put(node, clone); // 克隆第一个节点并存储到哈希表中
 
         Deque<Node> stack = new ArrayDeque<>();
-        // 将题目给定的节点添加到队列
-        stack.push(node);
-        // 广度优先搜索
-        while(!stack.isEmpty()){
-            // 取出队列的头节点
-            Node temp = stack.pop();
-            // 遍历该节点的邻居
-            for(Node n : temp.neighbors){
+        stack.push(node); // 将题目给定的节点添加到队列
+
+        while(!stack.isEmpty()){   // 广度优先搜索
+            Node temp = stack.pop();// 取出队列的头节点
+            for(Node n : temp.neighbors){   // 遍历该节点的邻居
                 if(!visitedMap.containsKey(n)){
-                    // 如果没有被访问过，就克隆并存储在哈希表中
-                    visitedMap.put(n, new Node(n.getValue()));
-                    // 将邻居节点加入队列中
-                    stack.push(n);
+                    visitedMap.put(n, new Node(n.getValue()));  // 如果没有被访问过，就克隆并存储在哈希表中
+                    stack.push(n);// 将邻居节点加入队列中
                 }
-                // 更新当前节点的邻居列表
-                visitedMap.get(temp).neighbors.add(visitedMap.get(n));
+                visitedMap.get(temp).neighbors.add(visitedMap.get(n));// 更新当前节点的邻居列表
             }
 
         }
@@ -128,7 +127,9 @@ public class Q133_Clone_Graph {
      * Approach 2: Breadth First Search
      */
     public Node cloneGraph(Node node) {
-        if(node == null) return null;
+        if(node == null){
+            return null;
+        }
        // 使用一个哈希表 visited 存储所有已被访问和克隆的节点。哈希表中的 key 是原始图中的节点，value 是克隆图中的对应节点。
         // Hash map to save the visited node and it's respective clone as key and value respectively. This helps to avoid cycles.
         HashMap <Node, Node> visitedMap = new HashMap <> ();
@@ -162,7 +163,6 @@ public class Q133_Clone_Graph {
                 // Add the clone of the neighbor to the neighbors of the clone node "n".
                 visitedMap.get(temp).neighbors.add(visitedMap.get(n));
             }
-
         }
         return clone;
     }

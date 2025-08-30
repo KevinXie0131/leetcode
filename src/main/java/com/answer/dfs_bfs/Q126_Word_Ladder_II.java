@@ -11,12 +11,12 @@ public class Q126_Word_Ladder_II { // Hard 困难
      *  sk == endWord
      * 给你两个单词 beginWord 和 endWord ，以及一个字典 wordList 。请你找出并返回所有从 beginWord 到 endWord 的 最短转换序列(shortest transformation sequences)，
      * 如果不存在这样的转换序列，返回一个空列表。每个序列都应该以单词列表 [beginWord, s1, s2, ..., sk] 的形式返回。
-     *
-     * 输入：beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
-     * 输出：[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]
-     * 解释：存在 2 种最短的转换序列：
-     *      "hit" -> "hot" -> "dot" -> "dog" -> "cog"
-     *      "hit" -> "hot" -> "lot" -> "log" -> "cog"
+     * 示例：
+     *  输入：beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+     *  输出：[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]
+     *  解释：存在 2 种最短的转换序列：
+     *       "hit" -> "hot" -> "dot" -> "dog" -> "cog"
+     *       "hit" -> "hot" -> "lot" -> "log" -> "cog"
      */
     public static void main(String[] args) {
      /*   String beginWord = "hit";
@@ -28,15 +28,15 @@ public class Q126_Word_Ladder_II { // Hard 困难
         List<List<String>> result = findLadders(beginWord, endWord, wordList);
         System.out.println(result);
     }
-    // Refer to Q127 Word Ladder
-    // Time Limit Exceeded
+    /** Refer to Q127 Word Ladder
+     * Time Limit Exceeded
+     */
     static public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         List<List<String>> result = new ArrayList<List<String>>();
         Set<String> wordSet = new HashSet<>(wordList); // 将 wordList 存储在一个「哈希表」 wordSet
         if (!wordSet.contains(endWord)) { // 如果不含有结束单词，直接结束，不然后边会造成死循环
             return result;
         }
-
         Deque<List<String>> queue = new ArrayDeque<>();
         queue.offer(new ArrayList<>(Arrays.asList(beginWord)));
 

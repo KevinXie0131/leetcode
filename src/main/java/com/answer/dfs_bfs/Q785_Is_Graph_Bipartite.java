@@ -14,18 +14,18 @@ public class Q785_Is_Graph_Bipartite {
      * 二分图bipartite 定义：如果能将一个图的节点集合分割成两个独立的子集(partitioned into two independent sets) A 和 B ，并使图中的每一条边的两个节点一个来自 A 集合，一个来自 B 集合，就将这个图称为 二分图 。
      * 如果图是二分图，返回 true ；否则，返回 false 。
      *
-     * 输入：graph = [[1,2,3],[0,2],[0,1,3],[0,2]]
-     * 输出：false
-     * 解释：不能将节点分割成两个独立的子集，以使每条边都连通一个子集中的一个节点与另一个子集中的一个节点。
-     *      There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other.
-     *
-     * 输入：graph = [[1,3],[0,2],[1,3],[0,2]]
-     * 输出：true
-     * 解释：可以将节点分成两组: {0, 2} 和 {1, 3} 。
+     * 示例：
+     *  输入：graph = [[1,2,3],[0,2],[0,1,3],[0,2]]
+     *  输出：false
+     *  解释：不能将节点分割成两个独立的子集，以使每条边都连通一个子集中的一个节点与另一个子集中的一个节点。
+     *       There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other.
+     * 示例：
+     *  输入：graph = [[1,3],[0,2],[1,3],[0,2]]
+     *  输出：true
+     *  解释：可以将节点分成两组: {0, 2} 和 {1, 3} 。
      */
     /**
      * Approach #1: Coloring by Depth-First Search - Recursion
-     *
      * 二分图定义：图中的顶点由两个集合组成，且所有边的两个顶点正好分别处在两个集合里
      * 更形象化地去表示：我们可以用两种颜色代表这两个集合，相邻的顶点不能是同一种颜色
      *
@@ -34,7 +34,7 @@ public class Q785_Is_Graph_Bipartite {
      *   1. 如果相邻节点 neighbor 没有被访问过, 那么应该给节点 neighbor 涂上和节点 v 不同的颜色
      *   2. 相邻节点 neighbor 已经被访问过, 那么应该比较节点 neighbor 和节点 v 的颜色, 若相同，则此图不是二分图
      */
-    //涂颜色使用的颜色，分别是：无色、红色和绿色
+    // 涂颜色使用的颜色，分别是：无色、红色和绿色
     private static final int UNCOLORED = 0;
     private static final int RED = 1;
     private static final int GREEN = 2;
@@ -90,11 +90,11 @@ public class Q785_Is_Graph_Bipartite {
 
         for (int start = 0; start < n; ++start) {
             if (color[start] == -1) {
-                Stack<Integer> stack = new Stack();
+                Deque<Integer> stack = new ArrayDeque();
                 stack.push(start);
                 color[start] = 0;
 
-                while (!stack.empty()) {
+                while (!stack.isEmpty()) {
                     Integer node = stack.pop();
                     for (int nei: graph[node]) {
                         if (color[nei] == -1) {
@@ -164,6 +164,34 @@ public class Q785_Is_Graph_Bipartite {
         visited[v] = color;
         for (int w: graph[v]) {
             if (!dfs4(graph, w, -color, visited)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * 深度优先搜索
+     * 同上
+     */
+    public boolean isBipartite5(int[][] graph) {
+        int[] color = new int[graph.length];
+        Arrays.fill(color, -1);
+
+        for (int i = 0; i < graph.length; i++) {
+            if (color[i] == -1 && !dfs5(graph, i, 0, color)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean dfs5(int[][] graph, int cur, int val, int[] color) {
+        color[cur] = val;
+
+        for (int neighbor : graph[cur]) {
+            if (color[neighbor] == - 1 && !dfs5(graph, neighbor, val ^ 1, color)) {
+                return false;
+            } else if (color[neighbor] == color[cur]){
                 return false;
             }
         }
