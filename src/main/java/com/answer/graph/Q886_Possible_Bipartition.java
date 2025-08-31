@@ -79,9 +79,9 @@ public class Q886_Possible_Bipartition {
     private boolean dfs1(ArrayList<Integer>[] dislikeStatus, int index, int[] groups, int group, int n) {
         groups[index] = group;      // 分组
         ArrayList<Integer> list = dislikeStatus[index];
-        // 遍历不喜欢人列表
-        for (int next : list) {
-          //如果不喜欢
+
+        for (int next : list) { // 遍历不喜欢人列表
+            //如果不喜欢
             if(groups[next] != 0 && groups[next] == group){ // 如果分组并且和当前不喜欢的人在一组，冲突
                 return false;
             }
@@ -98,9 +98,11 @@ public class Q886_Possible_Bipartition {
         int[] groups = new int[n + 1];
 
         ArrayList<Integer>[] dislikeStatus = new ArrayList[n + 1];
-        for(int i = 1; i <= n; i++){
+    /*    for(int i = 1; i <= n; i++){  // works too
             dislikeStatus[i] = new ArrayList<>();
-        }
+        }*/
+        Arrays.setAll(dislikeStatus, e -> new ArrayList<>());
+
         for(int[] dislike : dislikes){
             dislikeStatus[dislike[0]].add(dislike[1]);
             dislikeStatus[dislike[1]].add(dislike[0]);
@@ -108,7 +110,7 @@ public class Q886_Possible_Bipartition {
 
         for (int i = 1; i <= n; ++i) {
             if (groups[i] == 0) {
-                Queue<Integer> queue = new ArrayDeque<Integer>();
+                Queue<Integer> queue = new ArrayDeque<>();
                 queue.offer(i);
                 groups[i] = 1;
 
