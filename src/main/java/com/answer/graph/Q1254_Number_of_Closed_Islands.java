@@ -100,6 +100,7 @@ public class Q1254_Number_of_Closed_Islands {
         return b1 && b2 && b3 && b4;
         // 短路运算大坑，直接不计算后面的dfs了，导致相连的0没有设置为1，结果不对
         // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid); // doesn't work
+        // return b1 & b2 & b3 & b4; // works too
         // return dfs(i - 1, j, grid) & dfs(i + 1, j, grid) & dfs(i, j - 1, grid) & dfs(i, j + 1, grid); // works too
     }
     /**
