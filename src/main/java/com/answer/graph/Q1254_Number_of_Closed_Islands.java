@@ -59,42 +59,6 @@ public class Q1254_Number_of_Closed_Islands {
         System.out.println(f);
     }
     /**
-     * refer to Q1020_Number_of_Enclaves
-     */
-    public int numEnclaves(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        int res = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1) {
-                    int[] area = new int[]{0};
-                    if(dfs(i, j, grid, area)) {
-                        res += area[0];
-                    }
-                }
-            }
-        }
-        return res;
-    }
-
-    public boolean dfs(int i, int j, int[][] grid, int[] area) {
-        if(i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
-            return false;
-        }
-        if(grid[i][j] == 0){
-            return true;
-        }
-        grid[i][j] = 0;
-        area[0]++;
-        // must run the following function separately 避免短路运算
-        boolean b1 = dfs(i - 1, j, grid, area);
-        boolean b2 = dfs(i + 1, j, grid, area);
-        boolean b3 = dfs(i, j - 1, grid, area);
-        boolean b4 = dfs(i, j + 1, grid, area);
-        return b1 && b2 && b3 && b4;
-    }
-    /**
      * Similar with Q200 Number of Islands 本质是均为遍历图中的连通区域，唯一不同的是本题中的岛屿要求是「封闭」的
      */
     static public int closedIsland(int[][] grid) {
@@ -135,7 +99,8 @@ public class Q1254_Number_of_Closed_Islands {
 
         return b1 && b2 && b3 && b4;
         // 短路运算大坑，直接不计算后面的dfs了，导致相连的0没有设置为1，结果不对
-        // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid);
+        // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid); // doesn't work
+        // return dfs(i - 1, j, grid)  & dfs(i + 1, j, grid) & dfs(i, j - 1, grid) &  dfs(i, j + 1, grid); // works too
     }
     /**
      * another form

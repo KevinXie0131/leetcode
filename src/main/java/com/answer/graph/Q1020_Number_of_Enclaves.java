@@ -38,6 +38,42 @@ public class Q1020_Number_of_Enclaves {
         System.out.println(numEnclaves3(grid));
     }
     /**
+     * refer to Q1254_Number_of_Closed_Islands
+     */
+    public int numEnclaves_9(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    int[] area = new int[]{0};
+                    if(dfs(i, j, grid, area)) {
+                        res += area[0];
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+    public boolean dfs(int i, int j, int[][] grid, int[] area) {
+        if(i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
+            return false;
+        }
+        if(grid[i][j] == 0){
+            return true;
+        }
+        grid[i][j] = 0;
+        area[0]++;
+        // must run the following function separately 避免短路运算
+        boolean b1 = dfs(i - 1, j, grid, area);
+        boolean b2 = dfs(i + 1, j, grid, area);
+        boolean b3 = dfs(i, j - 1, grid, area);
+        boolean b4 = dfs(i, j + 1, grid, area);
+        return b1 && b2 && b3 && b4;
+    }
+    /**
      * DFS
      * 可以从网格边界上的每个陆地单元格开始深度优先搜索，遍历完边界之后，所有和网格边界相连的陆地单元格就都被访问过了。
      * 然后遍历整个网格，如果网格中的一个陆地单元格没有被访问过，则该陆地单元格不和网格的边界相连，是飞地。
