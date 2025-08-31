@@ -100,7 +100,7 @@ public class Q1254_Number_of_Closed_Islands {
         return b1 && b2 && b3 && b4;
         // 短路运算大坑，直接不计算后面的dfs了，导致相连的0没有设置为1，结果不对
         // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid); // doesn't work
-        // return dfs(i - 1, j, grid)  & dfs(i + 1, j, grid) & dfs(i, j - 1, grid) &  dfs(i, j + 1, grid); // works too
+        // return dfs(i - 1, j, grid) & dfs(i + 1, j, grid) & dfs(i, j - 1, grid) & dfs(i, j + 1, grid); // works too
     }
     /**
      * another form
@@ -125,6 +125,7 @@ public class Q1254_Number_of_Closed_Islands {
         for(int k = 0; k < 4; k++){
             // must use &, not &&. If && is used, it is the same as "dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid)"
             result = result & dfs_a(i + dirs[k][0], j + dirs[k][1], grid);  //关键步骤，与运算 &
+       //   result = result && dfs(i + dirs[k][0], j + dirs[k][1], grid); // doesn't work
         }
         return result;
     }
@@ -188,6 +189,9 @@ public class Q1254_Number_of_Closed_Islands {
         boolean ret3 = dfs1(i, j - 1, grid, visited);
         boolean ret4 = dfs1(i, j + 1, grid, visited);
         return ret1 && ret2 && ret3 && ret4;
+     // return ret1 & ret2 & ret3 & ret4; // works too
+     // return dfs1(i - 1, j, grid, visited) && dfs1(i + 1, j, grid, visited) && dfs1(i, j - 1, grid, visited) && dfs1(i, j + 1, grid, visited); // doesn't work
+     // return dfs1(i - 1, j, grid, visited) & dfs1(i + 1, j, grid, visited) & dfs1(i, j - 1, grid, visited) & dfs1(i, j + 1, grid, visited); // works too
     }
     /**
      * 先外后内
