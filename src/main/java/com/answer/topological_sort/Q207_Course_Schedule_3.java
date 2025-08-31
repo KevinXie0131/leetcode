@@ -75,8 +75,12 @@ public class Q207_Course_Schedule_3 {
      * i == 1  ：本节点启动的 DFS 访问过了，一旦遇到了也说明有环了
      */
     private boolean dfs(List<List<Integer>> adjacency, int[] flags, int i) {
-        if(flags[i] == 1) return false;  //先判断再修改标志位
-        if(flags[i] == -1) return true;  //别的dfs路径访问过了，我不需要访问了
+        if(flags[i] == 1) {
+            return false;  //先判断再修改标志位
+        }
+        if(flags[i] == -1) {
+            return true;  //别的dfs路径访问过了，我不需要访问了
+        }
         flags[i] = 1;   //只有这个标志位是干净的，别人还没有动过，我才能标记为1，说明本次dfs我遍历过它
         for(Integer j : adjacency.get(i))
             if(!dfs(adjacency, flags, j)) {

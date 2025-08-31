@@ -135,7 +135,6 @@ public class Q207_Course_Schedule {
                 }
             }
         }
-
         return visited == numCourses;
     }
 }
