@@ -11,7 +11,6 @@ public class Q802_Find_Eventual_Safe_States {
      * 有一个有 n 个节点的有向图，节点按 0 到 n - 1 编号。图由一个 索引从 0 开始 的 2D 整数数组 graph表示， graph[i]是与节点 i 相邻的节点的整数数组，这意味着从节点 i 到 graph[i]中的每个节点都有一条边。
      * 如果一个节点没有连出的有向边，则该节点是 终端节点 。如果从该节点开始的所有可能路径都通向 终端节点 ，则该节点为 终端节点（或另一个安全节点）。
      * 返回一个由图中所有 安全节点 组成的数组作为答案。答案数组中的元素应当按 升序 排列。
-     *
      * 示例 1：
      *  输入：graph = [[1,2],[2,3],[5],[0],[5],[],[]]
      *  输出：[2,4,5,6]
@@ -50,73 +49,75 @@ public class Q802_Find_Eventual_Safe_States {
             Indeg[i] = graph[i].length; // 原数组记录的节点出度，在反图中就是入度
         }
         // 拓扑排序
-        Queue<Integer> q = new LinkedList<Integer>();  // BFS 求反向图拓扑排序
+        Queue<Integer> queue = new LinkedList<Integer>();  // BFS 求反向图拓扑排序
         for(int i = 0; i < n; i++) {// 首先将入度为 0 的点存入队列
             if(Indeg[i] == 0) {
-                q.offer(i);
+                queue.offer(i);
             }
         }
-        while(!q.isEmpty()) {
-            int cur = q.poll(); // 每次弹出队头元素
+        while(!queue.isEmpty()) {
+            int cur = queue.poll(); // 每次弹出队头元素
             for(int x : new_graph.get(cur)) {
                 Indeg[x]--;// 将以其为起点的有向边删除，更新终点入度
                 if(Indeg[x] == 0) {
-                    q.offer(x);
+                    queue.offer(x);
                 }
             }
         }
         // 最终入度（原图中出度）为 0 的所有点均为安全点
         List<Integer> ret = new ArrayList<Integer>();
         for(int i = 0; i < n; i++) {// 遍历答案：如果某个节点出现在拓扑序列，说明其进入过队列，说明其入度为 0
-            if(Indeg[i] == 0) ret.add(i);
+            if(Indeg[i] == 0){
+                ret.add(i);
+            }
         }
         return ret;
     }
-    /*
-   拓扑排序:
-   前置定义:如果从该节点开始的所有可能路径都通向终端节点，则该节点为安全节点。
-   终端节点是指没有出边的节点，也就是出度为0的节点
-   所有可能的路径(注意是所有)都指向出度为0的节点，表明怎么走都是有出口的不会成环，那问题就简单了
-   不妨跟以往的常规拓扑排序反过来，我们以前是让入度为0的节点，最后检测出环
-   我们现在可以让出度为0的节点优先入队，然后弹出删除时将指向该节点的节点出度-1，然后有出度为0的继续入队，以此类推...
-   最后剩下的就是成环的节点，而我们要求的反过来的不成环的节点，最后进行排序
+    /**
+     * 拓扑排序
+     * 前置定义: 如果从该节点开始的所有可能路径都通向终端节点，则该节点为安全节点。终端节点是指没有出边的节点，也就是出度为0的节点
+     * 所有可能的路径(注意是所有)都指向出度为0的节点，表明怎么走都是有出口的不会成环，那问题就简单了
+     * 不妨跟以往的常规拓扑排序反过来，我们以前是让入度为0的节点，最后检测出环
+     *
+     *  我们现在可以让出度为0的节点优先入队，然后弹出删除时将指向该节点的节点出度-1，然后有出度为0的继续入队，以此类推...
+     * 最后剩下的就是成环的节点，而我们要求的反过来的不成环的节点，最后进行排序
     */
     public List<Integer> eventualSafeNodes1(int[][] graph) {
         int n = graph.length;
         boolean[] vis = new boolean[n]; // 标记访问的(不在环中的节点)
-        List<Integer>[] list = new ArrayList[n];    // idx:被指向的节点，list[idx]:出发指向idx的节点集合
+        List<Integer>[] list = new ArrayList[n]; // idx:被指向的节点，list[idx]:出发指向idx的节点集合
         for (int i = 0; i < n; i++) {
             list[i] = new ArrayList<>();
         }
         int[] outDegrees = new int[n];  // 出度数组
         for (int i = 0; i < n; i++) {
             outDegrees[i] = graph[i].length;
-            // 统计i指向的节点，终点的节点都是有i指向的
-            for (int j = 0; j < graph[i].length; j++) {
+            for (int j = 0; j < graph[i].length; j++) {   // 统计i指向的节点，终点的节点都是有i指向的
                 list[graph[i][j]].add(i);
             }
         }
-        // 出度为0的优先入度
-        Queue<Integer> que = new LinkedList<>();
+
+        Queue<Integer> queue = new LinkedList<>(); // 出度为0的优先入度
         for (int i = 0; i < n; i++) {
             if (outDegrees[i] == 0) {
-                que.add(i);
+                queue.add(i);
                 vis[i] = true;
             }
         }
-        while (!que.isEmpty()) {
-            int poll = que.poll();
-            // 删除节点poll后，原本指向poll的节点全部入度-1，若有入度为0马上入队
-            for (int num : list[poll]) {
+        while (!queue.isEmpty()) {
+            int poll = queue.poll();
+            for (int num : list[poll]) { // 删除节点poll后，原本指向poll的节点全部入度-1，若有入度为0马上入队
                 if (--outDegrees[num] == 0) {
-                    que.add(num);
+                    queue.add(num);
                     vis[num] = true;
                 }
             }
         }
         List<Integer> res = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (vis[i]) res.add(i); // 不在环中的节点就是所求
+            if (vis[i]) {
+                res.add(i); // 不在环中的节点就是所求
+            }
         }
         return res;
     }
@@ -143,8 +144,8 @@ public class Q802_Find_Eventual_Safe_States {
         if (visited[index] != 0) {
             return visited[index] == 2;  // 不是0，说明被访问过，判断是否为2
         }
-        // 说明未被访问过，设置为访问中
-        visited[index] = 1;
+
+        visited[index] = 1;  // 说明未被访问过，设置为访问中
         for (int next : graph[index]) {
             if (!safe(graph, next, visited)) { // DFS过程中再次遇到相同的节点，说明有环，即为不安全，直接返回false
                 return false;
@@ -170,33 +171,29 @@ public class Q802_Find_Eventual_Safe_States {
         for (int i = 0; i < n; i++) {
             list.add(new ArrayList<>());
         }
-        // 整理数据
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { // 整理数据
             deg[i] = graph[i].length;
             for (int j : graph[i]) {
                 list.get(j).add(i);
             }
         }
-        // BFS求拓扑排序的过程（此循环可以与上面的循环合并）
-        Queue<Integer> queue = new LinkedList<>();
+
+        Queue<Integer> queue = new LinkedList<>(); // BFS求拓扑排序的过程（此循环可以与上面的循环合并）
         for (int i = 0; i < n; i++) {
             if (deg[i] == 0) {
                 queue.offer(i);
             }
         }
-        // 循环找出所有符合的节点
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) {  // 循环找出所有符合的节点
             int index = queue.poll();
-            // 找出谁入了我，把他们的出度减一
-            List<Integer> whos = list.get(index);
+            List<Integer> whos = list.get(index); // 找出谁入了我，把他们的出度减一
             for (Integer who : whos) {
                 if (--deg[who] == 0) {
                     queue.offer(who);
                 }
             }
         }
-        // 最后，deg中为0的元素就是我们要找的安全节点
-        List<Integer> resultList = new ArrayList<>();
+        List<Integer> resultList = new ArrayList<>(); // 最后，deg中为0的元素就是我们要找的安全节点
         for (int i = 0; i < n; i++) {
             if (deg[i] == 0) {
                 resultList.add(i);

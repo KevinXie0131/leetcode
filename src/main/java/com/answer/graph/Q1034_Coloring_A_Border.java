@@ -19,7 +19,6 @@ public class Q1034_Coloring_A_Border {
      *  在网格的边界上（第一行/列或最后一行/列）
      * 请你使用指定颜色 color 为所有包含网格块 grid[row][col] 的 连通分量的边界 进行着色。
      * 并返回最终的网格 grid 。
-     *
      * 示例 1：
      *  输入：grid = [[1,1],[1,2]], row = 0, col = 0, color = 3
      *  输出：[[3,3],[3,2]]
@@ -43,7 +42,7 @@ public class Q1034_Coloring_A_Border {
     static public int[][] colorBorder(int[][] grid, int row, int col, int color) {
         int m = grid.length;
         int n = grid[0].length;
-        boolean[][] used=new boolean[m][n];
+        boolean[][] used = new boolean[m][n];
         dfs(row, col, color, grid[row][col], grid, used);
         return grid;
     }
@@ -77,11 +76,11 @@ public class Q1034_Coloring_A_Border {
         int[][] visited = new int[m][n];  // 创建一个与原网格相同大小的答案数组，初始值为0
         int[][] dirs = new int[][]{{1,0}, {-1,0}, {0,1}, {0,-1}};   // 定义四个方向的移动（下、上、右、左）
 
-        Deque<int[]> d = new ArrayDeque<>();// 使用双端队列进行广度优先搜索（BFS），并添加起始坐标
-        d.addLast(new int[]{row, col});
+        Deque<int[]> queue = new ArrayDeque<>();// 使用双端队列进行广度优先搜索（BFS），并添加起始坐标
+        queue.offer(new int[]{row, col});
 
-        while (!d.isEmpty()) {
-            int[] poll = d.pollFirst(); // 从队列头部取出元素
+        while (!queue.isEmpty()) {
+            int[] poll = queue.poll(); // 从队列头部取出元素
             int x = poll[0], y = poll[1], cnt = 0;
             // 遍历四个方向
             for (int[] di : dirs) {
@@ -97,7 +96,7 @@ public class Q1034_Coloring_A_Border {
                 if (visited[nx][ny] != 0) { // 如果该位置已经处理过，则跳过
                     continue;
                 }
-                d.addLast(new int[]{nx, ny}); // 将相邻且未访问过的同色格子加入队列
+                queue.offer(new int[]{nx, ny}); // 将相邻且未访问过的同色格子加入队列
             }
             // 如果cnt == 4，意味着所有相邻格子都是同色的，不是边界，保留原色；否则着新颜色
             visited[x][y] = cnt == 4 ? grid[x][y] : color;
@@ -115,7 +114,6 @@ public class Q1034_Coloring_A_Border {
     /**
      * DFS
      */
-
     int[][] dirs = new int[][]{{1,0}, {-1,0}, {0,1}, {0,-1}};
 
     public int[][] colorBorder3(int[][] grid, int row, int col, int color) {

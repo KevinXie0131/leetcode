@@ -18,7 +18,7 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
      *      |           |
      *      1 --- 2 --- 3
      * Output:  1
-     * ote:
+     * Note:
      * You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
      * 无向图中连通分量的数目
      * 有一个包含 n 个节点的图。给定一个整数 n 和一个数组 edges ，其中 edges[i] = [ai, bi] 表示图中 ai 和 bi 之间有一条边。
@@ -125,7 +125,6 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
      */
     static public int countComponents_4(int n, int[][] edges) {
         List<List<Integer>> graph = new ArrayList<>();
-
         for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
         }

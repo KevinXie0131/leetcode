@@ -30,7 +30,7 @@ public class Q1254_Number_of_Closed_Islands {
 /*        int[][]  grid = {{0,0,1,0,0},
                          {0,1,0,1,0},
                          {0,1,1,1,0}};*/
-        int[][]  grid = {{0,0,1,1,0,1,0,0,1,0},
+/*        int[][]  grid = {{0,0,1,1,0,1,0,0,1,0},
                          {1,1,0,1,1,0,1,1,1,0},
                          {1,0,1,1,1,0,0,1,1,0},
                          {0,1,1,0,0,0,0,1,0,1},
@@ -39,16 +39,60 @@ public class Q1254_Number_of_Closed_Islands {
                          {1,0,1,0,1,1,0,0,0,1},
                          {1,1,1,1,1,1,0,0,0,0},
                          {1,1,1,0,0,1,0,1,0,1},
-                         {1,1,1,0,1,1,0,1,1,0}};
-        int res = closedIsland2( grid);
+                         {1,1,1,0,1,1,0,1,1,0}};*/
+        int[][]   grid = {{1,1,1,1,1,1,1},
+                          {1,0,0,0,0,0,1},
+                          {1,0,1,1,1,0,1},
+                          {1,0,1,0,1,0,1},
+                          {1,0,1,1,1,0,1},
+                          {1,0,0,0,0,0,1},
+                          {1,1,1,1,1,1,1}};
+
+        int res = closedIsland1( grid);
         System.out.println(res);
 
         boolean[] r = new boolean[]{true, false, true, false};
-        boolean f= true;
+        boolean f = true;
         for(int i = 0; i < 4; i++){
             f = f && r[i];
         }
         System.out.println(f);
+    }
+    /**
+     * refer to Q1020_Number_of_Enclaves
+     */
+    public int numEnclaves(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    int[] area = new int[]{0};
+                    if(dfs(i, j, grid, area)) {
+                        res += area[0];
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+    public boolean dfs(int i, int j, int[][] grid, int[] area) {
+        if(i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1){
+            return false;
+        }
+        if(grid[i][j] == 0){
+            return true;
+        }
+        grid[i][j] = 0;
+        area[0]++;
+        // must run the following function separately 避免短路运算
+        boolean b1 = dfs(i - 1, j, grid, area);
+        boolean b2 = dfs(i + 1, j, grid, area);
+        boolean b3 = dfs(i, j - 1, grid, area);
+        boolean b4 = dfs(i, j + 1, grid, area);
+        return b1 && b2 && b3 && b4;
     }
     /**
      * Similar with Q200 Number of Islands 本质是均为遍历图中的连通区域，唯一不同的是本题中的岛屿要求是「封闭」的
@@ -83,14 +127,14 @@ public class Q1254_Number_of_Closed_Islands {
         }
 
         grid[i][j] = 1;
-        // must run the following function seperately 避免短路运算
+        // must run the following function separately 避免短路运算
         boolean b1 = dfs(i - 1, j, grid); //这种做法稳妥
         boolean b2 = dfs(i + 1, j, grid);
         boolean b3 = dfs(i, j - 1, grid);
         boolean b4 = dfs(i, j + 1, grid);
 
         return b1 && b2 && b3 && b4;
-        // ,短路运算大坑，直接不计算后面的dfs了，导致相连的0没有设置为1，结果不对
+        // 短路运算大坑，直接不计算后面的dfs了，导致相连的0没有设置为1，结果不对
         // return dfs(i - 1, j, grid) && dfs(i + 1, j, grid) && dfs(i, j - 1, grid) && dfs(i, j + 1, grid);
     }
     /**
@@ -133,12 +177,14 @@ public class Q1254_Number_of_Closed_Islands {
         grid[i][j] = 1;
         boolean result = true;
         for(int k = 0; k < 4; k++){
-            if(!dfs_b(i + dirs[k][0], j + dirs[k][1], grid)) result = false;  // 这里必须要将四个方向都跑完，不能遇到一个为false就返回
+            if(!dfs_b(i + dirs[k][0], j + dirs[k][1], grid)) {
+                result = false;  // 这里必须要将四个方向都跑完，不能遇到一个为false就返回
+            }
         }
         return result;
     }
     /**
-     * cannot pass all test cases
+     * 同上 works too
      */
     static public int closedIsland1(int[][] grid) {
         int m = grid.length;
@@ -173,7 +219,7 @@ public class Q1254_Number_of_Closed_Islands {
         visited[i][j] = true;
         // must run the following function seperately
         boolean ret1 = dfs1(i - 1, j, grid, visited);
-        boolean ret2 = dfs1(i + 1, i, grid, visited);
+        boolean ret2 = dfs1(i + 1, j, grid, visited);
         boolean ret3 = dfs1(i, j - 1, grid, visited);
         boolean ret4 = dfs1(i, j + 1, grid, visited);
         return ret1 && ret2 && ret3 && ret4;
@@ -219,11 +265,13 @@ public class Q1254_Number_of_Closed_Islands {
     }
 
     static public void dfs2(int i, int j, int[][] grid) {
-        if( i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1 || grid[i][j] == 1){
+        if( i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1
+                || grid[i][j] == 1){
             return;
         }
 
         grid[i][j] = 1;// 标记 (x,y) 被访问，避免重复访问
+
         dfs2(i - 1, j, grid);
         dfs2(i + 1, j, grid);
         dfs2(i, j - 1, grid);
@@ -238,8 +286,9 @@ public class Q1254_Number_of_Closed_Islands {
 
     public int closedIsland3(int[][] grid) {
         int m = grid.length, n = grid[0].length, ans = 0;
-        if (m < 3 || n < 3) return 0;
-
+        if (m < 3 || n < 3) {
+            return 0;
+        }
         for (int i = 1; i < m - 1; i++) {
             for (int j = 1; j < n - 1; j++) {
                 if (grid[i][j] == 0) { // 从没有访问过的 0 出发
@@ -284,13 +333,13 @@ public class Q1254_Number_of_Closed_Islands {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 0) {
-                    Queue<int[]> qu = new ArrayDeque<int[]>();
+                    Queue<int[]> queue = new ArrayDeque<int[]>();
+                    queue.offer(new int[]{i, j});
                     grid[i][j] = 1;
                     boolean closed = true;
 
-                    qu.offer(new int[]{i, j});
-                    while (!qu.isEmpty()) {
-                        int[] arr = qu.poll();
+                    while (!queue.isEmpty()) {
+                        int[] arr = queue.poll();
                         int cx = arr[0], cy = arr[1];
                         if (cx == 0 || cy == 0 || cx == m - 1 || cy == n - 1) {
                             closed = false;
@@ -300,7 +349,7 @@ public class Q1254_Number_of_Closed_Islands {
                             int ny = cy + dir[d][1];
                             if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == 0) {
                                 grid[nx][ny] = 1;
-                                qu.offer(new int[]{nx, ny});
+                                queue.offer(new int[]{nx, ny});
                             }
                         }
                     }
@@ -324,10 +373,10 @@ public class Q1254_Number_of_Closed_Islands {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 0) {
                     Deque<int[]> stack = new ArrayDeque<int[]>();
+                    stack.push(new int[]{i, j});
                     grid[i][j] = 1;
                     boolean closed = true;
 
-                    stack.push(new int[]{i, j});
                     while (!stack.isEmpty()) {
                         int[] cur = stack.pop();
                         int cx = cur[0], cy = cur[1];

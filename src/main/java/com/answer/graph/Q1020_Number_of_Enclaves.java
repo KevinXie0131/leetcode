@@ -1,8 +1,6 @@
 package com.answer.graph;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Queue;
+import java.util.*;
 
 public class Q1020_Number_of_Enclaves {
     /**
@@ -48,12 +46,20 @@ public class Q1020_Number_of_Enclaves {
         int m = grid.length;
         int n = grid[0].length;
         for (int i = 0; i < m; i++) {
-            if (grid[i][0] == 1 ) dfs(i, 0, grid);
-            if (grid[i][n - 1] == 1) dfs(i, n - 1, grid);
+            if (grid[i][0] == 1 ){
+                dfs(i, 0, grid);
+            }
+            if (grid[i][n - 1] == 1) {
+                dfs(i, n - 1, grid);
+            }
         }
         for (int j = 0; j < n; j++) {
-            if (grid[0][j] == 1 ) dfs(0, j, grid);
-            if (grid[m - 1][j] == 1) dfs(m - 1, j, grid);
+            if (grid[0][j] == 1 ) {
+                dfs(0, j, grid);
+            }
+            if (grid[m - 1][j] == 1) {
+                dfs(m - 1, j, grid);
+            }
         }
         int count = 0;
         for (int i = 1; i < m - 1; i++) { // 遍历网格统计飞地的数量时只需要遍历不在网格边界上的单元格。
@@ -72,6 +78,7 @@ public class Q1020_Number_of_Enclaves {
         }
 
         grid[i][j] = 0;// 标记 (x,y) 被访问，避免重复访问
+
         dfs(i - 1, j, grid);
         dfs(i + 1, j, grid);
         dfs(i, j - 1, grid);
@@ -132,10 +139,10 @@ public class Q1020_Number_of_Enclaves {
                 if (grid[i][j] == 1) {
                     Deque<int[]> stack = new ArrayDeque<int[]>();
                     grid[i][j] = 0;
+                    stack.push(new int[]{i, j});
                     boolean closed = true;
                     int count = 1;
 
-                    stack.push(new int[]{i, j});
                     while (!stack.isEmpty()) {
                         int[] cur = stack.pop();
                         int cx = cur[0], cy = cur[1];
@@ -172,14 +179,14 @@ public class Q1020_Number_of_Enclaves {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
-                    Queue<int[]> qu = new ArrayDeque<int[]>();
+                    Queue<int[]> queue = new ArrayDeque<int[]>();
+                    queue.offer(new int[]{i, j});
                     grid[i][j] = 0;
                     boolean closed = true;
                     int count = 1;
 
-                    qu.offer(new int[]{i, j});
-                    while (!qu.isEmpty()) {
-                        int[] arr = qu.poll();
+                    while (!queue.isEmpty()) {
+                        int[] arr = queue.poll();
                         int cx = arr[0], cy = arr[1];
                         if (cx == 0 || cy == 0 || cx == m - 1 || cy == n - 1) {
                             closed = false;
@@ -189,7 +196,7 @@ public class Q1020_Number_of_Enclaves {
                             int ny = cy + dir[d][1];
                             if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == 1) {
                                 grid[nx][ny] = 0;
-                                qu.offer(new int[]{nx, ny});
+                                queue.offer(new int[]{nx, ny});
                                 count++;
                             }
                         }
@@ -288,11 +295,9 @@ public class Q1020_Number_of_Enclaves {
                 }
             }
         }
-
         for(int i = 0; i < m * n + 1; i++) {
             connected[i] = find(connected, i);
         }
-
         int ans = 0;
         for (int i = 1; i < m - 1; ++i) {
             for (int j = 1; j < n - 1; ++j) {

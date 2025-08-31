@@ -1,9 +1,5 @@
 package com.answer.graph;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Queue;
-
 public class Q1254_Number_of_Closed_Islands_1 {
     public static void main(String[] args) {
         int[][] grid = {{1,1,1,1,1,1,1,0},
@@ -62,7 +58,7 @@ public class Q1254_Number_of_Closed_Islands_1 {
         return ans;
     }
 
-    static public void union(int[] parent, int index1, int index2) {
+/*  static public void union(int[] parent, int index1, int index2) { // works too
         parent[find(parent, index2)] = find(parent, index1);
     }
 
@@ -71,5 +67,21 @@ public class Q1254_Number_of_Closed_Islands_1 {
             parent[index] = find(parent, parent[index]);
         }
         return parent[index];
+    }*/
+    /**
+     * refer to template
+     * works too
+     */
+    static public int find(int[] parent, int index) {
+        return index == parent[index] ? index : (parent[index] = find(parent, parent[index]));
+    }
+
+    static public void union(int[] parent, int index1, int index2) {
+        index1 = find(parent, index1);
+        index2 = find(parent, index2);
+        if (index1 == index2) {
+            return;
+        }
+        parent[index2] = index1;
     }
 }
