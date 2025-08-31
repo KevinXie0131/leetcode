@@ -31,7 +31,7 @@ public class Q323_Number_of_Connected_Components_in_an_Undirected_Graph {
         System.out.println(countComponents_4(n, edges));
         int n1 = 5;
         int[][] edges1 = {{0, 1}, {1, 2}, {2, 3}, {3, 4}};
-     System.out.println(countComponents_4(n1, edges1));
+        System.out.println(countComponents_4(n1, edges1));
     }
     /**
      * 并查集
