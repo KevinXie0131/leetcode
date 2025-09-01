@@ -24,16 +24,18 @@ public class Q210_Course_Schedule_II_1 {
         // 入度为0的节点队列
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < inDegrees.length; i++) {
-            if (inDegrees[i] == 0) queue.offer(i);
+            if (inDegrees[i] == 0) {
+                queue.offer(i);
+            }
         }
         int count = 0;  // 记录可以学完的课程数量
         int[] res = new int[numCourses];  // 可以学完的课程
         // 根据提供的先修课列表，删除入度为 0 的节点
         while (!queue.isEmpty()){
-            int curr = queue.poll();
-            res[count++] = curr;   // 将可以学完的课程加入结果当中
+            int cur = queue.poll();
+            res[count++] = cur;   // 将可以学完的课程加入结果当中
             for (int[] p : prerequisites) {
-                if (p[1] == curr){
+                if (p[1] == cur){
                     inDegrees[p[0]]--;
                     if (inDegrees[p[0]] == 0){
                         queue.offer(p[0]);
@@ -86,8 +88,7 @@ public class Q210_Course_Schedule_II_1 {
         }
         status[i] = 1;
         for (int j = 0; j < graph.length; j++) {
-            // dfs 访问当前课程的后续课程，看是否存在环
-            if (graph[i][j] == 1 && !dfs(graph, status, j, stack)) {
+            if (graph[i][j] == 1 && !dfs(graph, status, j, stack)) {     // dfs 访问当前课程的后续课程，看是否存在环
                 return false;
             }
         }

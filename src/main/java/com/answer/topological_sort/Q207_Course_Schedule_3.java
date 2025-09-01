@@ -89,5 +89,4 @@ public class Q207_Course_Schedule_3 {
         flags[i] = -1;    //只有一次DFS完整结束了，才能执行到这一步，标记为-1，说明这条路没问题，再遇到不需要遍历了
         return true;
     }
-
 }

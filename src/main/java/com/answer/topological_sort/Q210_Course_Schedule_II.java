@@ -23,12 +23,13 @@ public class Q210_Course_Schedule_II {
     public static void main(String[] args) {
         int numCourses = 4;
         int[][] prerequisites = {{1,0},{2,0},{3,1},{3,2}};
-        System.out.println(Arrays.toString(findOrder(numCourses, prerequisites)));
+        System.out.println(Arrays.toString(findOrder1(numCourses, prerequisites)));
     }
     /**
      * 算法流程：
      *  1、在开始排序前，扫描对应的存储空间（使用邻接表），将入度为 0 的结点放入队列。
-     *  2、只要队列非空，就从队首取出入度为 0 的结点，将这个结点输出到结果集中，并且将这个结点的所有邻接结点（它指向的结点）的入度减 1，在减 1 以后，如果这个被减 1 的结点的入度为 0 ，就继续入队。
+     *  2、只要队列非空，就从队首取出入度为 0 的结点，将这个结点输出到结果集中，并且将这个结点的所有邻接结点（它指向的结点）的入度减 1，
+     *     在减 1 以后，如果这个被减 1 的结点的入度为 0 ，就继续入队。
      *  3、当队列为空的时候，检查结果集中的顶点个数是否和课程数相等即可。
      * （思考这里为什么要使用队列？如果不用队列，还可以怎么做，会比用队列的效果差还是更好？）
      * 在代码具体实现的时候，除了保存入度为 0 的队列，我们还需要两个辅助的数据结构：
@@ -83,7 +84,7 @@ public class Q210_Course_Schedule_II {
     /**
      * 深度优先遍历
      */
-    public int[] findOrder1(int numCourses, int[][] prerequisites) {
+   static public int[] findOrder1(int numCourses, int[][] prerequisites) {
         int[] marked = new int[numCourses];
         // 初始化有向图 begin
         HashSet<Integer>[] graph = new HashSet[numCourses];
@@ -124,35 +125,25 @@ public class Q210_Course_Schedule_II {
      * @param marked 如果 == 1 表示正在访问中，如果 == 2 表示已经访问完了
      * @return true 表示图中存在环，false 表示访问过了，不用再访问了
      */
-    private boolean dfs(int i,
-                        HashSet<Integer>[] graph,
-                        int[] marked,
-                        Stack<Integer> stack) {
-        // 如果访问过了，就不用再访问了
-        if (marked[i] == 1) {
-            // 从正在访问中，到正在访问中，表示遇到了环
-            return true;
+    static private boolean dfs(int i, HashSet<Integer>[] graph, int[] marked, Stack<Integer> stack) {
+        if (marked[i] == 1) { // 如果访问过了，就不用再访问了
+            return true;// 从正在访问中，到正在访问中，表示遇到了环
         }
         if (marked[i] == 2) {
-            // 表示在访问的过程中没有遇到环，这个节点访问过了
-            return false;
+            return false;  // 表示在访问的过程中没有遇到环，这个节点访问过了
         }
         // 走到这里，是因为初始化呢，此时 marked[i] == 0
-        // 表示正在访问中
-        marked[i] = 1;
+        marked[i] = 1;// 表示正在访问中
         // 后继结点的集合
         HashSet<Integer> successorNodes = graph[i];
         for (Integer successor : successorNodes) {
             if (dfs(successor, graph, marked, stack)) {
-                // 层层递归返回 true ，表示图中存在环
-                return true;
+                return true;  // 层层递归返回 true ，表示图中存在环
             }
         }
         // i 的所有后继结点都访问完了，都没有存在环，则这个结点就可以被标记为已经访问结束
-        // 状态设置为 2
-        marked[i] = 2;
+        marked[i] = 2; // 状态设置为 2
         stack.add(i);
-        // false 表示图中不存在环
-        return false;
+        return false;   // false 表示图中不存在环
     }
 }

@@ -97,9 +97,7 @@ public class Q207_Course_Schedule_1 {
      * @param marked 如果 == 1 表示正在访问中，如果 == 2 表示已经访问完了
      * @return true 表示图中存在环，false 表示访问过了，不用再访问了
      */
-    private boolean dfs(int i,
-                        HashSet<Integer>[] graph,
-                        int[] marked) {
+    private boolean dfs(int i, HashSet<Integer>[] graph, int[] marked) {
         if (marked[i] == 1) {// 如果访问过了，就不用再访问了
             return true;// 从正在访问中，到正在访问中，表示遇到了环
         }

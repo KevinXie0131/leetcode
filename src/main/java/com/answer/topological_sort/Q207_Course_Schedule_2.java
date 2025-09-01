@@ -82,6 +82,7 @@ public class Q207_Course_Schedule_2 {
             inDegree[prerequisites[i][0]]++;  //遍历依赖关系表；在入度数组对应索引处++
             map.putIfAbsent(prerequisites[i][1],new ArrayList<>()); //没有对map初始化，这里对map初始化一个list数组，存放依赖的课程
             map.get(prerequisites[i][1]).add(prerequisites[i][0]); //在对应被依赖课程key处添加依赖key的课程
+         //   map.computeIfAbsent(prerequisites[i][1], e->new ArrayList<>()).add(prerequisites[i][0]); // works too
         }
 
         Queue<Integer> que = new LinkedList<>(); //新建列表，把入度为0的课放进来
