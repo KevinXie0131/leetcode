@@ -4,7 +4,7 @@ import java.util.*;
 
 public class BacktrackingTemplate {
     /**
-     * "abc" -> [, c, b, bc, a, ac, ab, abc]
+     * 子集 "abc" -> [, c, b, bc, a, ac, ab, abc]
      */
     public List<String> subset(String s){
         List<String> res = new ArrayList<>();
