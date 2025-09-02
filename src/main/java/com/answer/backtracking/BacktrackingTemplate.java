@@ -1,7 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BacktrackingTemplate {
     /**
