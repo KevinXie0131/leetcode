@@ -14,8 +14,49 @@ public class Q148_Sort_List {
         ListNode node3 = new ListNode(1, node4);
         ListNode node2 = new ListNode(2, node3);
         ListNode node1 = new ListNode(4, node2);
-        ListNode node = sortList2(node1);
+        ListNode node = sortList0(node1);
         System.out.println(node);
+    }
+    /**
+     * 归并排序 + 递归
+     * 时间复杂度: O(nlogn)  空间复杂度: O(logn)
+     */
+    static public ListNode sortList0(ListNode head) {
+        if(head == null || head.next == null){ // put in this position
+            return head;
+        }
+        ListNode mid = getMid0(head);
+        ListNode left = sortList0(head) ;
+        ListNode right = sortList0(mid) ;
+        return merge0(left, right);
+    }
+
+    static private ListNode getMid0(ListNode head){
+        ListNode slow = head, fast = head.next;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode mid = slow.next;
+        slow.next = null;
+        return mid;
+    }
+
+    static private ListNode merge0(ListNode l1, ListNode l2){
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = dummy;
+        while(l1 != null && l2 != null){
+            if(l1.val < l2.val){
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = l1 != null ? l1 : l2;
+        return dummy.next;
     }
     /**
      * 题目的进阶问题要求达到 O(nlogn) 的时间复杂度和 O(1) 的空间复杂度，时间复杂度是 O(nlogn) 的排序算法包括归并排序、堆排序和快速排序
@@ -36,20 +77,20 @@ public class Q148_Sort_List {
         slow.next = null;
         ListNode left = sortList(head); // 对两个子链表分别排序
         ListNode right = sortList(temp); // recursion
-        ListNode h = new ListNode(0);
-        ListNode result = h;
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
         while(left != null && right != null){ // 将两个排序后的子链表合并，得到完整的排序后的链表
             if(left.val < right.val){
-                h.next = left;
+                cur.next = left;
                 left = left.next;
             }else{
-                h.next = right;
+                cur.next = right;
                 right = right.next;
             }
-            h = h.next;
+            cur = cur.next;
         }
-        h.next = left == null ? right : left;
-        return result.next;
+        cur.next = left == null ? right : left;
+        return dummy.next;
     }
     /**
      * 递归的终止条件是链表的节点个数小于或等于 1，即当链表为空或者链表只包含 1 个节点时，不需要对链表进行拆分和排序。
