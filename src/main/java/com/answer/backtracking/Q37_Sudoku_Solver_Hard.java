@@ -108,31 +108,37 @@ public class Q37_Sudoku_Solver_Hard {
 
         for (char c = '1'; c <= '9'; c++) {
             int numBit = 1 << (c - '1');
-            if (!isValid(numBit, row, col)) continue;
-            {
-                board[row][col] = c;    // 当前的数字放入到数组之中，
-                rowBit[row] ^= numBit; // 第一行rowBit[0],第一个元素eg: 1 , 0^1=1,第一个元素:4, 100^1=101,...
-                colBit[col] ^= numBit;
-                square9Bit[(row / 3) * 3 + col / 3] ^= numBit;
+            if (!isValid(numBit, row, col)) {
+                continue;
             }
-            if (backtrack(board, n + 1)) return true;
-            {
-                board[row][col] = '.';    // 不满足条件，回退成'.'
-                rowBit[row] &= ~numBit; // 第一行rowBit[0],第一个元素eg: 1 , 101&=~1==>101&111111110==>100
-                colBit[col] &= ~numBit;
-                square9Bit[(row / 3) * 3 + col / 3] &= ~numBit;
+            board[row][col] = c;    // 当前的数字放入到数组之中，
+            rowBit[row] ^= numBit; // 第一行rowBit[0],第一个元素eg: 1 , 0^1=1,第一个元素:4, 100^1=101,...
+            colBit[col] ^= numBit;
+            square9Bit[(row / 3) * 3 + col / 3] ^= numBit;
+
+            if (backtrack(board, n + 1)) {
+                return true;
             }
+
+            board[row][col] = '.';    // 不满足条件，回退成'.'
+            rowBit[row] &= ~numBit; // 第一行rowBit[0],第一个元素eg: 1 , 101&=~1==>101&111111110==>100
+            colBit[col] &= ~numBit;
+            square9Bit[(row / 3) * 3 + col / 3] &= ~numBit;
         }
         return false;
     }
 
     boolean isValid(int numBit, int row, int col) {
-        // 左右
-        if ((rowBit[row] & numBit) > 0) return false;
-        // 上下
-        if ((colBit[col] & numBit) > 0) return false;
+        if ((rowBit[row] & numBit) > 0) {  // 左右
+            return false;
+        }
+        if ((colBit[col] & numBit) > 0) {// 上下
+            return false;
+        }
         // 9宫格: 快速算出第n个九宫格,编号[0,8] , 编号=(row / 3) * 3 + col / 3
-        if ((square9Bit[(row / 3) * 3 + col / 3] & numBit) > 0) return false;
+        if ((square9Bit[(row / 3) * 3 + col / 3] & numBit) > 0){
+            return false;
+        }
         return true;
     }
 }

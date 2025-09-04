@@ -1,9 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Q17_Letter_Combinations_of_a_Phone_Number_1 {
     public static void main(String[] args) {
@@ -62,7 +59,7 @@ public class Q17_Letter_Combinations_of_a_Phone_Number_1 {
     /**
      *  版本二
      */
-    List<String> result1 = new ArrayList<String>();
+    List<String> result1 = new ArrayList<>();
 
     public List<String> letterCombinations1(String digits) {
         if(digits.length() == 0){

@@ -32,7 +32,7 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
         return result;
     }
 
-    public static void backtracking(String digits, List<String> result, int startIndex, StringBuffer path,  Map<Character, String> map ){
+    public static void backtracking(String digits, List<String> result, int startIndex, StringBuffer path,  Map<Character, String> map){
         if(path.length() == digits.length()){
             result.add(path.toString());
             return;
@@ -40,8 +40,9 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
         String str = map.get(digits.charAt(startIndex));
         for(int i = 0; i < str.length(); i++){
             path.append(str.charAt(i));
-            backtracking(digits, result, startIndex + 1,path,map);
+            backtracking(digits, result, startIndex + 1, path, map);
             path.deleteCharAt(startIndex);
+        //  path.deleteCharAt(path.length() - 1); // works too
         }
     }
     /**
@@ -57,7 +58,7 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
         return result;
     }
 
-    public  void backtracking1(String digits, List<String> result, int startIndex, StringBuffer path,  String[] map ){
+    public void backtracking1(String digits, List<String> result, int startIndex, StringBuffer path,  String[] map ){
         if(path.length() == digits.length()){
             result.add(path.toString());
             return;
@@ -65,8 +66,9 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
         String str = map[digits.charAt(startIndex) - '0'];
         for(int i = 0; i < str.length(); i++){
             path.append(str.charAt(i));
-            backtracking1(digits, result, startIndex + 1,path,map);
+            backtracking1(digits, result, startIndex + 1, path, map);
             path.deleteCharAt(startIndex);
+        //  path.deleteCharAt(path.length()- 1); // works too
         }
     }
     /**
@@ -76,7 +78,7 @@ public class Q17_Letter_Combinations_of_a_Phone_Number {
      * 按照同样的方式，再将"b"从队列中拿出，再跟3对应的字符"d","e","f"挨个拼接
      */
     static public List<String> letterCombinations2(String digits) {
-        if(digits==null || digits.length()==0) {
+        if(digits == null || digits.length() == 0) {
             return new ArrayList<String>();
         }
         //一个映射表，第二个位置是"abc“,第三个位置是"def"。。。

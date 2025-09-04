@@ -10,18 +10,17 @@ public class Q22_Generate_Parentheses {
      *   输出：["((()))","(()())","(())()","()(())","()()()"]
      */
     public List<String> generateParenthesis(int n) {
-        List<String> result = new ArrayList<String>();
-
+        List<String> result = new ArrayList<>();
         if(n == 0){
             return result;
         }
-        backtracking(new StringBuffer(), n,n, result);
+        backtracking(new StringBuffer(), n, n, result);
         return result;
     }
     /**
      * Backtracking 回溯
-     * l >= r Valid
-     * l < r Invalid
+     * l <= r Valid
+     * l > r Invalid
      * l == r == n Add in result
      */
     public void backtracking(StringBuffer sb, int left, int right, List<String> result){
@@ -29,12 +28,13 @@ public class Q22_Generate_Parentheses {
             result.add(sb.toString());
             return;
         }
-        if(right < left){ // 只有left >= right才有效，在这里剪枝
+        if(left > right){ // 只有left <= right才有效，在这里剪枝
             return;
         }
+    //  if(left <= right){ // works too
         if(left > 0){
             sb.append("(");
-            backtracking(sb, left-1, right, result);
+            backtracking(sb, left - 1, right, result);
             sb.deleteCharAt(sb.length() - 1);
         }
         if(right > 0){
@@ -42,6 +42,7 @@ public class Q22_Generate_Parentheses {
             backtracking(sb, left, right - 1, result);
             sb.deleteCharAt(sb.length() - 1);
         }
+     // }
     }
     /**
      * 另一种形式
@@ -51,11 +52,11 @@ public class Q22_Generate_Parentheses {
      * 因此只要在回溯的同时，记录当前状态已使用的左右括号数，根据使用情况决定下一步状态即可。
      */
     public List<String> generateParenthesis1(int n) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         if(n == 0){
             return result;
         }
-        backtracking1(new StringBuffer(), 0,0,n, result);
+        backtracking1(new StringBuffer(), 0,0, n, result);
         return result;
     }
 
@@ -69,11 +70,27 @@ public class Q22_Generate_Parentheses {
             backtracking1(sb, left + 1, right, n, result);
             sb.deleteCharAt(sb.length() - 1);
         }
-        // 只有left>= right才有效，在这里剪枝
-        if(right < n && left > right){ // if(right < left){ // 相同作用
+        // 只有left > right才有效，在这里剪枝
+        if(right < n && left > right){ // if(right < left){ // works too 相同作用
             sb.append(")");
-            backtracking1(sb, left, right + 1,n, result);
+            backtracking1(sb, left, right + 1, n, result);
             sb.deleteCharAt(sb.length() - 1);
         }
     }
+    /**
+     *  if(left >= right){ // works too
+     *      if(left < n) {
+     *      }
+     *      if(right < n ){
+     *      }
+     *  }
+     *
+     *  if(left < right){ // works too
+     *       return;
+     *  }
+     *  if(left < n) {
+     *  }
+     *  if(right < n ){
+     *  }
+     */
 }

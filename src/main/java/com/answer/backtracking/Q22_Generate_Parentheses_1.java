@@ -1,17 +1,15 @@
 package com.answer.backtracking;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Q22_Generate_Parentheses_1 {
 
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<String>();
-
         if(n == 0){
             return result;
         }
-        backtracking(new StringBuffer(), n,n, result);
+        backtracking(new StringBuffer(), n, n, result);
         return result;
     }
 
@@ -20,14 +18,13 @@ public class Q22_Generate_Parentheses_1 {
             if(valid(sb.toString().toCharArray())){
                 result.add(sb.toString());
             }
-
         }
         //  if(right < left){
         //       return;
         //   }
         if(left > 0){
             sb.append("(");
-            backtracking(sb, left-1, right, result);
+            backtracking(sb, left - 1, right, result);
             sb.deleteCharAt(sb.length() - 1);
         }
         if(right > 0){
