@@ -28,7 +28,6 @@ public class Q491_Non_decreasing_Subsequences {
             result.add(new ArrayList());
             return result;
         }
-
         backtracking(nums,0);
         return result;
     }
@@ -63,7 +62,7 @@ public class Q491_Non_decreasing_Subsequences {
     }
     // 使用map
 /*    HashMap<Integer, Integer> uset = new HashMap<>();
-        for (int i = startIndex; i < nums.length; i++) {
+      for (int i = startIndex; i < nums.length; i++) {
         if (!path.isEmpty() && nums[i] < path.getLast()){
             continue;
         }
@@ -75,5 +74,5 @@ public class Q491_Non_decreasing_Subsequences {
         path.add(nums[i]);
         backtracking(nums, i + 1);
         path.removeLast();
-    }*/
+      }*/
 }

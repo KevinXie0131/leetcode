@@ -1,6 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.HashSet;
+import java.util.*;
 
 public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
     /**
@@ -25,9 +25,9 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
     }
 
     static int maxSplit = 0;
+
     static public int maxUniqueSplit(String s) {
         HashSet<String> set = new HashSet<>();
-
         backtracking(s, 0, 0, set);
         return maxSplit;
     }
@@ -45,8 +45,9 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
      */
     static public void backtracking(String s, int start, int split, HashSet<String> set){
         // 判断剩余字符长度和已有答案，进行剪枝
-        if (s.length() - start + set.size() <= maxSplit) return;
-
+        if (s.length() - start + set.size() <= maxSplit){ //  if (s.length() - start - 1 + set.size() < maxSplit){ // works too
+            return;
+        }
         if(start == s.length()){
             maxSplit = Math.max(maxSplit, split);
             return;

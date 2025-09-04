@@ -2,7 +2,7 @@ package com.answer.backtracking;
 
 import java.util.*;
 
-public class Q332_Reconstruct_Itinerary {
+public class Q332_Reconstruct_Itinerary { // 困难 Hard
     /**
      * a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival airports of one flight.
      * Reconstruct the itinerary in order and return it.
@@ -12,7 +12,7 @@ public class Q332_Reconstruct_Itinerary {
      * 请你按字典排序返回最小的行程组合。
      * 假定所有机票至少存在一种合理的行程。且所有的机票 必须都用一次 且 只能用一次。
      */
-    public static void main(String[] args) { // 困难 Hard
+    public static void main(String[] args) {
         List<List<String>> tickets = new ArrayList<List<String>>();
         tickets.add(Arrays.asList("MUC","LHR"));
         tickets.add(Arrays.asList("JFK","MUC"));
@@ -26,8 +26,7 @@ public class Q332_Reconstruct_Itinerary {
      * 2.每张机票只能使用一次
      * 3.要找降落地字典序最小的路线结果
      */
-    //path记录路线，res存所有路线
-    List<String> path_5 = new ArrayList<>();
+    List<String> path_5 = new ArrayList<>();// path记录路线，res存所有路线
     List<List<String>> res_5 = new ArrayList<>();
     //used数组用于标记同一树枝不能重复使用！即不能重复使用一张票
     boolean[] used_5 = new boolean[301]; // 1 <= tickets.length <= 300
@@ -55,20 +54,17 @@ public class Q332_Reconstruct_Itinerary {
         }
         for (int i = 0; i < tickets.size(); i++) {
             if(i > 0 && tickets.get(i).get(0).equals(tickets.get(i - 1).get(0)) // 再添加一个筛选条件
-                    && tickets.get(i).get(1).equals(tickets.get(i - 1).get(1))
-                    && !used_5[i - 1]){
+                     && tickets.get(i).get(1).equals(tickets.get(i - 1).get(1))
+                     && !used_5[i - 1]){
                 continue;
             }
             //如果出发地和上一个的降落地相同 并且 同一条路线中没有重复使用一张票
             if(tickets.get(i).get(0).equals(outset)  && !used_5[i]){
-                //标记该票已经使用过
-                used_5[i]= true;
+                used_5[i] = true; //标记该票已经使用过
                 path_5.add(tickets.get(i).get(1));
-                //把现在的降落地加入递归函数
-                backTracking_5(tickets, tickets.get(i).get(1));
-                //回溯！ 该票标记为未使用 路线中移除该票
-                used_5[i]=false;
-                path_5.remove(path_5.size()-1);
+                backTracking_5(tickets, tickets.get(i).get(1)); //把现在的降落地加入递归函数
+                used_5[i] = false; //回溯！ 该票标记为未使用 路线中移除该票
+                path_5.remove(path_5.size() - 1);
             }
         }
     }
@@ -170,8 +166,7 @@ public class Q332_Reconstruct_Itinerary {
      *         1.添加终点时直接在对应位置添加节点，避免了TreeMap增元素时的频繁调整
      *         2.同时每次对终点进行增加删除查找时直接通过下标操作，避免hashMap反复计算hash
      */
-    //key为起点，value是有序的终点的列表
-    Map<String, LinkedList<String>> ticketMap = new HashMap<>();
+    Map<String, LinkedList<String>> ticketMap = new HashMap<>();//key为起点，value是有序的终点的列表
     LinkedList<String> result = new LinkedList<>();
     int total;
 
@@ -187,29 +182,22 @@ public class Q332_Reconstruct_Itinerary {
 
     boolean deal(String currentLocation) {
         result.add(currentLocation);
-        //机票全部用完，找到最小字符路径
-        if (result.size() == total) {
+        if (result.size() == total) {  //机票全部用完，找到最小字符路径
             return true;
         }
-        //当前位置的终点列表
-        LinkedList<String> targetLocations = ticketMap.get(currentLocation);
-        //没有从当前位置出发的机票了，说明这条路走不通
-        if (targetLocations != null && !targetLocations.isEmpty()) {
-            //终点列表中遍历到的终点
-            String targetLocation;
-            //遍历从当前位置出发的机票
-            for (int i = 0; i < targetLocations.size(); i++) {
-                //去重，否则在最后一个测试用例中遇到循环时会无限递归
-                if(i > 0 && targetLocations.get(i).equals(targetLocations.get(i - 1))) continue;
+        LinkedList<String> targetLocations = ticketMap.get(currentLocation);  //当前位置的终点列表
+        if (targetLocations != null && !targetLocations.isEmpty()) {  //没有从当前位置出发的机票了，说明这条路走不通
+            String targetLocation;//终点列表中遍历到的终点
+            for (int i = 0; i < targetLocations.size(); i++) {  //遍历从当前位置出发的机票
+                if(i > 0 && targetLocations.get(i).equals(targetLocations.get(i - 1))) {   //去重，否则在最后一个测试用例中遇到循环时会无限递归
+                    continue;
+                }
                 targetLocation = targetLocations.get(i);
-                //删除终点列表中当前的终点
-                targetLocations.remove(i);
-                //递归
-                if (deal(targetLocation)) {
+                targetLocations.remove(i);   //删除终点列表中当前的终点
+                if (deal(targetLocation)) { //递归
                     return true;
                 }
-                //路线走不通，将机票重新加回去
-                targetLocations.add(i, targetLocation);
+                targetLocations.add(i, targetLocation);  //路线走不通，将机票重新加回去
                 result.removeLast();
             }
         }
@@ -230,6 +218,8 @@ public class Q332_Reconstruct_Itinerary {
                 }
             }
             startAllEnd.add(startAllEnd.size(), end);
+       //     startAllEnd.add(end);  // works too
+       //     Collections.sort(startAllEnd);
         } else {
             startAllEnd.add(end);
             ticketMap.put(start, startAllEnd);

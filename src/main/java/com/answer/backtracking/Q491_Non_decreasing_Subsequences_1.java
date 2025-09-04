@@ -5,7 +5,7 @@ import java.util.*;
 public class Q491_Non_decreasing_Subsequences_1 {
     public static void main(String[] args) {
         int[]  nums = {4,7, 6,7};
-   //     System.out.println(findSubsequences(nums));
+    //    System.out.println(findSubsequences(nums));
     }
     /**
      * 这份代码在leetcode上提交，要⽐版本⼀耗时要好的多。
@@ -21,7 +21,6 @@ public class Q491_Non_decreasing_Subsequences_1 {
             result.add(new ArrayList());
             return result;
         }
-
         backtracking(nums,0);
         return result;
     }

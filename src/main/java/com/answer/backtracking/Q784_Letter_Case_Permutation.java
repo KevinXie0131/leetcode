@@ -1,7 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Q784_Letter_Case_Permutation {
     /**
@@ -12,7 +11,7 @@ public class Q784_Letter_Case_Permutation {
      * 返回 所有可能得到的字符串集合 。
      */
     public static void main(String[] args) {
-        System.out.println(letterCasePermutation_2("a1b2")); // ["a1b2", "a1B2", "A1b2", "A1B2"]
+        System.out.println(letterCasePermutation("a1b2")); // ["a1b2", "a1B2", "A1b2", "A1B2"]
     }
     /**
      * Backtracking
@@ -20,13 +19,14 @@ public class Q784_Letter_Case_Permutation {
      *    如果字符是小写字符，减去 32 得到大写字符；
      *    如果字符是大写字符，加上 32 得到小写字符。
      */
-    static List<String> result = new ArrayList<String>();
+    static List<String> result = new ArrayList<>();
+
     static public List<String> letterCasePermutation(String s) {
         char[] arr = s.toCharArray();
-
         backtracking(arr, 0);
         return result;
     }
+
     static void backtracking(char[] arr, int index){
         result.add(String.valueOf(arr));
 
@@ -40,6 +40,7 @@ public class Q784_Letter_Case_Permutation {
             arr[i] = changeLetter(arr[i]);
         }
     }
+
     static public char changeLetter(char c) {
         return (c >= 'a' && c <= 'z') ? (char) (c - 32) : (char) (c + 32);
     }
@@ -58,6 +59,7 @@ public class Q784_Letter_Case_Permutation {
      */
     static private List<String> ans = new ArrayList<>();//用于存储答案
     static private char[] path;//用于存储当前解
+
     public static List<String> letterCasePermutation_2(String s) {
         int n = s.length();
         path = new char[n];//因为当前解大小和s一样，所以提前分配好空间

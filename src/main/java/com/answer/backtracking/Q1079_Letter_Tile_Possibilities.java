@@ -19,20 +19,22 @@ public class Q1079_Letter_Tile_Possibilities {
         String tiles3 = "CDC";
         System.out.println(numTilePossibilities(tiles3)); // 1
     }
-
+    /**
+     * 要求统计所有可能的字母牌排列数（不重复）
+     */
     static public int numTilePossibilities(String tiles) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         StringBuffer path = new StringBuffer();
         int[] used = new int[tiles.length()];
 
         char[] array = tiles.toCharArray();
         Arrays.sort(array);  //排序将所有使得所有相同字符在数组中连续出现
-        backtracking( new String(array),  result, path, used);
+        backtracking(new String(array), result, path, used);
 
         return result.size();
     }
 
-    static public void backtracking(String tiles, List<String> result,   StringBuffer path ,  int[] used ){
+    static public void backtracking(String tiles, List<String> result, StringBuffer path, int[] used){
         if(path.length() > 0){
             result.add(path.toString());
         }
@@ -41,13 +43,13 @@ public class Q1079_Letter_Tile_Possibilities {
             if (used[i] == 1) { //一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
                 continue;
             }
-            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1)  && used[i - 1] == 0){//过滤掉重复的结果
+            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1) && used[i - 1] == 0){//过滤掉重复的结果
                 continue;
             }
 
             path.append(tiles.charAt(i));
             used[i] = 1;  //选择当前字符，并把它标记为已选择
-            backtracking( tiles,   result, path, used);
+            backtracking(tiles,  result, path, used);
             path.deleteCharAt(path.length() - 1);
             used[i] = 0;  //使用完之后再把它给复原。
         }
@@ -56,13 +58,13 @@ public class Q1079_Letter_Tile_Possibilities {
      * another form
      */
     int count = 0;
+
     public int numTilePossibilities1(String tiles) {
         StringBuffer path = new StringBuffer();
         int[] used = new int[tiles.length()];
         char[] array = tiles.toCharArray();
         Arrays.sort(array);
-        backtracking1( new String(array),  path, used);
-
+        backtracking1(new String(array), path, used);
         return count;
     }
 
@@ -75,13 +77,13 @@ public class Q1079_Letter_Tile_Possibilities {
             if (used[i] == 1) {
                 continue;
             }
-            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1)  && used[i - 1] == 0){
+            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1) && used[i - 1] == 0){
                 continue;
             }
 
             path.append(tiles.charAt(i));
             used[i] = 1;
-            backtracking1( tiles, path, used);
+            backtracking1(tiles, path, used);
             path.deleteCharAt(path.length() - 1);
             used[i] = 0;
         }
@@ -90,12 +92,12 @@ public class Q1079_Letter_Tile_Possibilities {
      * another form
      */
     int count1 = 0;
+
     public int numTilePossibilities1a(String tiles) {
         int[] used = new int[tiles.length()];
         char[] array = tiles.toCharArray();
         Arrays.sort(array);
-        backtracking1a( new String(array),   used);
-
+        backtracking1a( new String(array),  used);
         return count1;
     }
 
@@ -109,7 +111,7 @@ public class Q1079_Letter_Tile_Possibilities {
             }
             count1++; //选择一个字符，就多了一种结果
             used[i] = 1;
-            backtracking1a( tiles, used);
+            backtracking1a(tiles, used);
             used[i] = 0;
         }
     }
