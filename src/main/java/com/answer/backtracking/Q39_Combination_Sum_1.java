@@ -1,9 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.ArrayDeque;
 import java.util.*;
-import java.util.Deque;
-import java.util.List;
 
 public class Q39_Combination_Sum_1 {
     /**
@@ -20,14 +17,14 @@ public class Q39_Combination_Sum_1 {
 
     public void backtracking(int[] candidates, int target, int startIndex, List<List<Integer>> result, Deque<Integer> path ){
         if (0 == target) {
-            result.add(new ArrayList<Integer>(path));
+            result.add(new ArrayList<>(path));
             return;
         }
         if(target < 0){
             return;
         }
         // 对总集合排序之后，如果下一层的sum（就是本层的 sum + candidates[i]）已经大于target，就可以结束本轮for循环的遍历。
-       /* for(int i = startIndex; i < candidates.length && target >= candidates[i] ; i++){*/
+       /* for(int i = startIndex; i < candidates.length && target >= candidates[i]; i++){*/
         for(int i = startIndex; i < candidates.length; i++){
             if(target < candidates[i]){  // 剪枝优化 终⽌遍历
                 break;

@@ -1,9 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.ArrayDeque;
 import java.util.*;
-import java.util.Deque;
-import java.util.List;
 
 public class Q39_Combination_Sum_2 {
 
@@ -31,7 +28,7 @@ public class Q39_Combination_Sum_2 {
             if(target < candidates[i]){ // 剪枝优化 终⽌遍历
                 break;
             }
-            if(i > 0 && candidates[i-1] == candidates[i] && used[i] == 0){ // 没有发生作用
+            if(i > 0 && candidates[i - 1] == candidates[i] && used[i] == 0){ // 没有发生作用 (无重复元素 的整数数组 candidates)
                 break;
             }
             path.addLast(candidates[i]);
@@ -40,7 +37,7 @@ public class Q39_Combination_Sum_2 {
             backtracking(candidates, used, target, i, result, path); // 关键点:不⽤i+1了，表示可以重复读取当前的数
             path.removeLast();
             target += candidates[i];
-        //    used[i] = 1;
+        //    used[i] = 0;
         }
         return;
     }
