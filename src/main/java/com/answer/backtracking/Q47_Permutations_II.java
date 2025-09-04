@@ -1,9 +1,6 @@
 package com.answer.backtracking;
 
-import java.util.ArrayDeque;
 import java.util.*;
-import java.util.Deque;
-import java.util.List;
 
 public class Q47_Permutations_II {
     /**
@@ -30,7 +27,7 @@ public class Q47_Permutations_II {
      * 因此，在循环时增加判断前一个相等元素是否被使用，如果未被使用说明是乱序，跳过即可。
      */
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         Deque<Integer> path = new ArrayDeque<>();
         int[] used = new int[nums.length];
 
@@ -42,7 +39,7 @@ public class Q47_Permutations_II {
     // 与Q46 Permutations相比，有重复元素，所以需要去重
     public void backtracking(int[] nums, int[] used, List<List<Integer>> result, Deque<Integer> path) {
         if (path.size() == nums.length) { // 此时说明找到了⼀组
-            result.add(new ArrayList<Integer>(path));
+            result.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
@@ -52,12 +49,14 @@ public class Q47_Permutations_II {
             // used[i - 1] == true，说明同⼀树⽀nums[i - 1]使⽤过
             // used[i - 1] == false，说明同⼀树层nums[i - 1]使⽤过
             // 如果同⼀树层nums[i - 1]使⽤过则直接跳过
-            if(i> 0 && nums[i] == nums[i-1] && used[i-1] == 0) { //如果与上一个数值相同，但是上一个数值没有使用过，则跳过
+            if(i > 0 && nums[i] == nums[i - 1] && used[i - 1] == 0) { //如果与上一个数值相同，但是上一个数值没有使用过，则跳过
                 continue;
             }
             path.addLast(nums[i]);
             used[i] = 1;
+
             backtracking(nums, used, result, path);
+
             path.removeLast();
             used[i] = 0;
         }
@@ -112,16 +111,24 @@ public class Q47_Permutations_II {
             res1.add(new ArrayList<>(path1));
             return;
         }
+
         HashSet<Integer> hashSet = new HashSet<>();//层去重
+
         for (int i = 0; i < nums.length; i++) {
-            if (hashSet.contains(nums[i])) // 控制某一节点下的同一层元素不能重复
+            if (used1[i] == true) {//枝去重
                 continue;
-            if (used1[i] == true)//枝去重
+            }
+
+            if (hashSet.contains(nums[i])) {// 控制某一节点下的同一层元素不能重复
                 continue;
+            }
             hashSet.add(nums[i]);//记录元素
+
             used1[i] = true;
             path1.add(nums[i]);
+
             backtracking1(nums);
+
             path1.remove(path1.size() - 1);
             used1[i] = false;
         }
