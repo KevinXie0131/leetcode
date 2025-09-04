@@ -20,18 +20,16 @@ public class Q51_N_Queens_Hard {
      * 空间复杂度: O(n)
      */
     List<List<String>> res;
+
     public List<List<String>> solveNQueens(int n) {
         res = new ArrayList<>();
         char[][] board = new char[n][n];
-        for(char[] chars : board)
-        {
+        for(char[] chars : board) {
             Arrays.fill(chars,'.');
         }
-        //创建棋盘board，dfs从 第一行开始遍历
-        dfs(board,0, n);
+        dfs(board,0, n);  //创建棋盘board，dfs从 第一行开始遍历
         return res;
     }
-
     //dfs遍历每一行，其中的for循环遍历每一列
     public void dfs(char[][] board, int r, int n) { // 参数n是棋盘的大小，然后用row来记录当前遍历到棋盘的第几层了
         if(r == n) { // 当递归到棋盘最底层（也就是叶子节点）的时候，就可以收集结果并返回了
@@ -59,7 +57,7 @@ public class Q51_N_Queens_Hard {
             }
         }
         //检查左上45
-        for(int i = r - 1,j = c - 1; i >= 0 && j >= 0; i--, j--) {
+        for(int i = r - 1, j = c - 1; i >= 0 && j >= 0; i--, j--) {
             if(board[i][j] == 'Q') {
                 return false;
             }
@@ -86,18 +84,18 @@ public class Q51_N_Queens_Hard {
      */
     List<List<String>> res1 = new ArrayList<>();
     boolean[] usedCol, usedDiag45, usedDiag135;    // boolean数组中的每个元素代表一条直(斜)线
+
     public List<List<String>> solveNQueens1(int n) {
         usedCol = new boolean[n];                  // 列方向的直线条数为 n
         usedDiag45 = new boolean[2 * n - 1];       // 45°方向的斜线条数为 2 * n - 1
         usedDiag135 = new boolean[2 * n - 1];      // 135°方向的斜线条数为 2 * n - 1
-        //用于收集结果, 元素的index表示棋盘的row，元素的value代表棋盘的column
-        int[] board = new int[n];
+        int[] board = new int[n];//用于收集结果, 元素的index表示棋盘的row，元素的value代表棋盘的column
         backTracking(board, n, 0);
         return res1;
     }
+
     private void backTracking(int[] board, int n, int row) {
-        if (row == n) {
-            //收集结果
+        if (row == n) { //收集结果
             List<String> temp = new ArrayList<>();
             for (int i : board) {
                 char[] str = new char[n];
@@ -114,15 +112,14 @@ public class Q51_N_Queens_Hard {
                 continue;
             }
             board[row] = col;
-            // 标记该列出现过
-            usedCol[col] = true;
-            // 同一45°斜线上元素的row + col为定值, 且各不相同
-            usedDiag45[row + col] = true;
+
+            usedCol[col] = true;     // 标记该列出现过
+            usedDiag45[row + col] = true;  // 同一45°斜线上元素的row + col为定值, 且各不相同
             // 同一135°斜线上元素row - col为定值, 且各不相同
-            // row - col 值有正有负, 加 n - 1 是为了对齐零点
-            usedDiag135[row - col + n - 1] = true;
-            // 递归
-            backTracking(board, n, row + 1);
+            usedDiag135[row - col + n - 1] = true;// row - col 值有正有负, 加 n - 1 是为了对齐零点
+
+            backTracking(board, n, row + 1); // 递归
+
             usedCol[col] = false;
             usedDiag45[row + col] = false;
             usedDiag135[row - col + n - 1] = false;
