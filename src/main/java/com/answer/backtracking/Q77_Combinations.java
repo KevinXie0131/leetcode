@@ -9,8 +9,7 @@ public class Q77_Combinations {
      */
     public static void main(String[] args) {
         /**
-         * 输出：
-         * [
+         * 输出：[
          *   [2,4],
          *   [3,4],
          *   [2,3],
@@ -38,22 +37,21 @@ public class Q77_Combinations {
      *     }
      * }
      */
-    static List<List<Integer>> result = new ArrayList<List<Integer>>(); // 存放符合条件结果的集合
+    static List<List<Integer>> result = new ArrayList<>(); // 存放符合条件结果的集合
     static List<Integer> path = new ArrayList<>(); // 用来存放符合条件结果
 
     public static List<List<Integer>> combine(int n, int k) {
         backtracking(n, k, 1);
-
         return result;
     }
-    // 枚举每个位置可能出现的数字，由于要求的是组合数，不考虑元素顺序，因此还需要记录一个 start 参数，表示当前数字从几开始选择。
+    // 枚举每个位置可能出现的数字，由于要求的是组合数，不考虑元素顺序，因此还需要记录一个 startIndex 参数，表示当前数字从几开始选择。
     public static void backtracking(int n, int k, int startIndex){ // 未剪枝优化
         if (path.size() == k) {
-            result.add(new ArrayList<Integer>(path));
+            result.add(new ArrayList<>(path));
             return; // 不要省略
         }
         // i 是从startIndex开始的，这个和Permutation不同
-        for(int i = startIndex; i <= n - (k-path.size()) + 1; i++){
+        for(int i = startIndex; i <= n - (k - path.size()) + 1; i++){
             path.add(i);  // 处理节点
             backtracking(n, k, i + 1);  // 递归 / i + 1
             path.remove(path.size() - 1);  // 回溯，撤销处理的节点
