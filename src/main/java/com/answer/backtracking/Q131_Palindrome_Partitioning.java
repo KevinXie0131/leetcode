@@ -12,24 +12,24 @@ public class Q131_Palindrome_Partitioning {
        // System.out.println(partition("abcd"));
         System.out.println(partition("aab")); // 输出：[["a","a","b"],["aa","b"]]
     }
-    static List<List<String>> result = new ArrayList<List<String>>();
-    /**
-     * Deque<String> path = new LinkedList<>();
-     */
+    static List<List<String>> result = new ArrayList<>();
+   // Deque<String> path = new LinkedList<>(); // works too
     static Deque<String> path = new ArrayDeque<>(); // 放已经回⽂的⼦串
 
     static public List<List<String>> partition(String s) {
         backtracking(s, 0);
         return result;
     }
-    // 切割问题类似组合问题
-    //    例如对于字符串abcdef：
-    //    组合问题：选取一个a之后，在bcdef中再去选取第二个，选取b之后在cdef中再选取第三个.....。
-    //    切割问题：切割一个a之后，在bcdef中再去切割第二段，切割b之后在cdef中再切割第三段.....。
+    /**
+     * 切割问题类似组合问题
+     *   例如对于字符串abcdef：
+     *   组合问题：选取一个a之后，在bcdef中再去选取第二个，选取b之后在cdef中再选取第三个.....。
+     *   切割问题：切割一个a之后，在bcdef中再去切割第二段，切割b之后在cdef中再切割第三段.....。
+     */
     static public void backtracking(String s, int startIndex){
         // 如果起始位置已经⼤于s的⼤⼩，说明已经找到了⼀组分割⽅案了
         // 切割线切到了字符串最后面，说明找到了一种切割方法，此时就是本层递归的终止条件。
-        if(startIndex >= s.length()){ // 分割完毕
+        if(startIndex == s.length()){ // 分割完毕  //  if(startIndex >= s.length()){ // works too
             result.add(new ArrayList(path)); //注意创建一个新的copy
             return;
         }
@@ -66,6 +66,17 @@ public class Q131_Palindrome_Partitioning {
         }
         return true;
     }
+
+    public boolean isPalindrome2(String str, int start, int end){
+        while(start < end){
+            if(str.charAt(start) != str.charAt(end)){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
     /**
      * 回溯+动态规划优化回文串判断
      *
@@ -85,6 +96,7 @@ public class Q131_Palindrome_Partitioning {
         backtracking1(s, 0);
         return result1;
     }
+
     public void backtracking1(String str, int startIndex) {
         if (startIndex >= str.length()) {
             result1.add(new ArrayList<>(path1)); //如果起始位置大于s的大小，说明找到了一组分割方案
@@ -95,7 +107,6 @@ public class Q131_Palindrome_Partitioning {
                     backtracking1(str, i + 1);    //起始位置后移，保证不重复
                     path1.pollLast();
                 } else {
-
                     continue;//不是回文子串，跳过
                 }
             }

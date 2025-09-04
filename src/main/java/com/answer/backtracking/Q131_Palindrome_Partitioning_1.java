@@ -22,7 +22,7 @@ public class Q131_Palindrome_Partitioning_1 {
         return result;
     }
 
-    static public void backtracking(String str, int startIndex ,  StringBuilder sb) {
+    static public void backtracking(String str, int startIndex, StringBuilder sb) {
         //因为是起始位置一个一个加的，所以结束时start一定等于s.length,因为进入backtracking时一定末尾也是回文，所以path是满足条件的
         if(startIndex >= str.length()){
             result.add(new ArrayList(path));  //注意创建一个新的copy
@@ -76,7 +76,7 @@ public class Q131_Palindrome_Partitioning_1 {
             return;
         }
         // 切出的子串满足回文，将它加入部分解 temp 数组，并继续往下切（递归）
-        //  切出的子串不是回文，跳过该选择，不落入递归，继续下一轮迭代
+        // 切出的子串不是回文，跳过该选择，不落入递归，继续下一轮迭代
         for (int i = startIndex; i < str.length(); i++){  // 枚举子串的结束位置
             if (isPalindrome(str.substring(startIndex, i + 1))){
                 path.add(str.substring(startIndex, i + 1)); // 分割
@@ -88,7 +88,7 @@ public class Q131_Palindrome_Partitioning_1 {
 
     static public boolean isPalindrome(String str) {
         char[] ch = str.toCharArray();
-        for(int i= 0, j = ch.length -1; i <=j; i++, j--){
+        for(int i= 0, j = ch.length -1; i <= j; i++, j--){
             if(ch[i] != ch[j]){
                 return false;
             }
