@@ -29,7 +29,7 @@ public class Q216_Combination_Sum_III {
     }
 
     public static List<List<Integer>> combinationSum3(int k, int n) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>(); // 存放结果集
+        List<List<Integer>> result = new ArrayList<>(); // 存放结果集
         Deque<Integer> path = new ArrayDeque<>(); // 符合条件的结果
         int[] candidates = {1,2,3,4,5,6,7,8,9};
         // targetSum：⽬标和，也就是题⽬中的n。
@@ -40,9 +40,9 @@ public class Q216_Combination_Sum_III {
         return result;
     }
 
-    public static void backtracking(int[] candidates, int size, int target, int startIndex, List<List<Integer>> result, Deque<Integer> path ){
+    public static void backtracking(int[] candidates, int size, int target, int startIndex, List<List<Integer>> result, Deque<Integer> path){
         if (0 == target && path.size() == size) {
-            result.add(new ArrayList<Integer>(path));
+            result.add(new ArrayList<>(path));
             return;
         }
         if(target < 0){
@@ -76,8 +76,9 @@ public class Q216_Combination_Sum_III {
         }
         // 上面剪枝 i <= 9 - (k - path.size()) + 1; 如果还是不清楚
         // 也可以改为 if (path.size() > k) return; 执行效率上是一样的
-        if (path.size() > k) return;
-
+        if (path.size() > k) {
+            return;
+        }
         if(path.size() == k && sum == targetSum){
             result.add(new ArrayList(path)); // 如果path.size() == k 但sum != targetSum 直接返回
             return;
@@ -106,7 +107,7 @@ public class Q216_Combination_Sum_III {
             return;
         }
 
-        for(int i = startIndex; i <=9; i++){
+        for(int i = startIndex; i <= 9; i++){
             sum += i;
             path.add(i);
             backtracking2(k, targetSum, sum, i + 1);
