@@ -1,7 +1,10 @@
 package com.answer.backtracking;
 
 public class Q79_Word_Search_1 {
-
+    /**
+     * DFS + 回溯
+     * another form
+     */
     public boolean exist(char[][] board, String word) {
         int h = board.length, w = board[0].length;
         boolean[][] visited = new boolean[h][w];
@@ -16,20 +19,21 @@ public class Q79_Word_Search_1 {
         return false;
     }
 
-    public boolean check(char[][] board, boolean[][] visited, int i, int j, String s, int k) {
-        if (board[i][j] != s.charAt(k)) {
+    public boolean check(char[][] board, boolean[][] visited, int i, int j, String s, int index) {
+        if (board[i][j] != s.charAt(index)) {
             return false;
-        } else if (k == s.length() - 1) {
+        } else if (index == s.length() - 1) {
             return true;
         }
         visited[i][j] = true;
         int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
         boolean result = false;
+
         for (int[] dir : directions) {
             int newi = i + dir[0], newj = j + dir[1];
             if (newi >= 0 && newi < board.length && newj >= 0 && newj < board[0].length) {
                 if (!visited[newi][newj]) {
-                    boolean flag = check(board, visited, newi, newj, s, k + 1);
+                    boolean flag = check(board, visited, newi, newj, s, index + 1);
                     if (flag) {
                         result = true;
                         break;
