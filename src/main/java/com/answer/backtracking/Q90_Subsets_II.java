@@ -17,23 +17,22 @@ public class Q90_Subsets_II {
      * 这道题目和78.子集  区别就是集合里有重复元素了，而且求取的子集要去重。
      * 注意去重需要先对集合排序
      */
-    static List<List<Integer>> result = new ArrayList<List<Integer>>();
+    static List<List<Integer>> result = new ArrayList<>();
     static Deque<Integer> path = new LinkedList<>();
-    static int[] used;
 
     public static List<List<Integer>> subsetsWithDup(int[] nums) {
         if(nums.length == 0){
             result.add(new ArrayList());
             return result;
         }
-        int[]  used = new int[nums.length]; // 定义set对同⼀节点下的本层去重
-        used = new int[nums.length];
+        int[] used = new int[nums.length]; // 定义set对同⼀节点下的本层去重
         backtracking(nums, 0, used);  // 没有排序
         return result;
     }
 
     static public void backtracking(int[] nums, int startIndex, int[] used){
         result.add(new ArrayList(path));
+
         if(startIndex == nums.length){
             return;
         }
@@ -41,7 +40,7 @@ public class Q90_Subsets_II {
             int j = i;
             boolean isFoundSame = false; // 没有排序 所以需要这样做
             while (j > 0) {
-                if (nums[i] == nums[j - 1] && used[j-1] == 0) { //used[j-1] 没有使用过
+                if (nums[i] == nums[j - 1] && used[j - 1] == 0) { //used[j - 1] 没有使用过
                     isFoundSame = true;
                     break; // 因为在while里面，所以需要break
                 }
@@ -70,6 +69,7 @@ public class Q90_Subsets_II {
         dfs(nums, 0, res, subset);
         return res;
     }
+
     static void  dfs(int[] nums, int idx, List<List<Integer>> res, Deque<Integer> subset) {
         if (idx == nums.length) {
             res.add(new ArrayList(subset));
@@ -99,11 +99,11 @@ public class Q90_Subsets_II {
 
         Arrays.sort(nums); //排序. 如果不排序，如果输入为[2,1,2]，会产生[2,1]和[1,2]
 
-        for (Integer n : nums) {
+        for (Integer num : nums) {
             int size = res.size();
             for (int i = 0; i < size; i++) {
                 List<Integer> newSub = new ArrayList<Integer>(res.get(i));
-                newSub.add(n);
+                newSub.add(num);
                 if(set.add(newSub)){ //HashSet去重
                     res.add(newSub);
                 }
@@ -139,5 +139,31 @@ public class Q90_Subsets_II {
         }
         subset.add(nums[i]);
         inOrder(true, nums, i + 1, subset, res);  //选择
+    }
+    /**
+     * refer to template
+     */
+    public List<List<Integer>> subsetsWithDup_5(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Deque<Integer> path = new ArrayDeque<>();
+        Arrays.sort(nums); // 排序
+        buildSubset(res, nums, path, 0, false);
+        return res;
+    }
+
+    private void buildSubset(List<List<Integer>>  res, int[] nums,  Deque<Integer> path , int index, boolean choosePre){
+        if(index == nums.length){
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        // 不选
+        buildSubset(res, nums, path, index + 1, false);
+        // 选
+        if (!choosePre && index > 0 && nums[index] == nums[index - 1]) {
+            return; // 若发现没有选择上一个数，且当前数字与上一个数相同，则可以跳过当前生成的子集
+        }
+        path.addLast(nums[index]);
+        buildSubset(res, nums, path, index + 1, true);
+        path.removeLast();
     }
 }

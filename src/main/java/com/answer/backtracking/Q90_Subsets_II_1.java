@@ -17,7 +17,6 @@ public class Q90_Subsets_II_1 {
             return result;
         }
         boolean[] used = new boolean[nums.length];
-
         Arrays.sort(nums); // 去重需要排序
         backtracking(nums, 0, used);
         return result;
@@ -33,7 +32,7 @@ public class Q90_Subsets_II_1 {
             // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
             // used[i - 1] == false，说明同一树层candidates[i - 1]使用过
             // 而我们要对同一树层使用过的元素进行跳过
-            if(i > 0 && nums[i] == nums[i-1] && used[i-1] == false){
+            if(i > 0 && nums[i] == nums[i-1] && used[i - 1] == false){
                 continue;
             }
             path.add(nums[i]);
