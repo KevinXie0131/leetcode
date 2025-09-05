@@ -2,7 +2,7 @@ package com.answer.backtracking;
 
 import java.util.*;
 
-public class Q140_Word_Break_II {
+public class Q140_Word_Break_II { // 困难 Hard
     /**
      * Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence
      * where each word is a valid dictionary word. Return all such possible sentences in any order.
@@ -65,6 +65,7 @@ public class Q140_Word_Break_II {
         for (String word : wordDict) {
             wordSet.add(word);
         }
+      //  wordSet.addAll(wordDict); // works too
         backtrack(s, 0, new ArrayDeque<>());
         return res;
     }
@@ -125,5 +126,4 @@ public class Q140_Word_Break_II {
         }
         return map.get(index);
     }
-
 }
