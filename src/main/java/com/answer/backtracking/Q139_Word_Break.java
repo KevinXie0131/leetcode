@@ -15,7 +15,7 @@ public class Q139_Word_Break {
        List<String> wordDict = new ArrayList<>();
        wordDict.add("leet");
        wordDict.add("code");
-       boolean result =  wordBreak_4(s, wordDict);
+       boolean result = wordBreak_4(s, wordDict);
         System.out.println(result);
         s = "catsandog";
         wordDict.clear();
@@ -24,8 +24,63 @@ public class Q139_Word_Break {
         wordDict.add("sand");
         wordDict.add("and");
         wordDict.add("cat");
-        result =  wordBreak_4(s, wordDict);
+        result = wordBreak_4(s, wordDict);
         System.out.println(result);
+    }
+    /**
+     * refer to Q140_Word_Break_II
+     * Time Limit Exceeded
+     */
+    public boolean wordBreak0(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>();
+        wordSet.addAll(wordDict);
+        return backtracking(wordSet, s, 0);
+    }
+
+    private boolean backtracking(Set<String> wordSet, String s, int startIndex) {
+        if(startIndex == s.length()){
+            return true;
+        }
+
+        for(int i = startIndex; i < s.length(); i++){
+            String word = s.substring(startIndex, i + 1);
+            if(!wordSet.contains(word)){
+                continue;
+            }
+            if(backtracking(wordSet, s, i + 1)){
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Optimized by memorization 记忆化递归
+     */
+    public boolean wordBreak0a(String s, List<String> wordDict) {
+        Set<String> wordSet =  new HashSet<>();
+        wordSet.addAll(wordDict);
+        int[] memo =  new int[s.length()];
+        return backtracking(wordSet, s, 0, memo);
+    }
+
+    private boolean backtracking( Set<String> wordSet, String s, int startIndex,  int[] memo) {
+        if(startIndex == s.length()){
+            return true;
+        }
+        if (memo[startIndex] == -1) {
+            return false;
+        }
+        for(int i = startIndex; i < s.length(); i++){
+            String word = s.substring(startIndex, i + 1);
+            if(!wordSet.contains(word)){
+                continue;
+            }
+            if(backtracking(wordSet, s, i + 1, memo)){
+                return true;
+            }
+        }
+        memo[startIndex] = -1;
+        return false;
     }
     /**
      * DFS + Backtracking
@@ -65,16 +120,19 @@ public class Q139_Word_Break {
     //start表示的是从字符串s的哪个位置开始
     public static boolean dfs_1(String s, List<String> wordDict, HashSet<Integer> indexSet, int start){
         //字符串都拆分完了，返回true
-        if (start == s.length())
+        if (start == s.length()) {
             return true;
+        }
         for (int i = start + 1; i <= s.length(); i++) {
             //如果已经判断过了，就直接跳过，防止重复判断
-            if (indexSet.contains(i))
+            if (indexSet.contains(i)) {
                 continue;
+            }
             //截取子串，判断是否是在字典中
             if (wordDict.contains(s.substring(start, i))) {
-                if (dfs_1(s, wordDict, indexSet, i))
+                if (dfs_1(s, wordDict, indexSet, i)) {
                     return true;
+                }
                 //标记为已判断过
                 indexSet.add(i);
             }
@@ -91,10 +149,12 @@ public class Q139_Word_Break {
     }
    // 对未成功拆分的情况进行记忆，那么后续递归如果遇到相同情况即可提前结束递归
     public static boolean dfs_1a(String s, Set<String> words, Set<String> memory){
-        if(s.length() == 0) return true;
-
-        if(memory.contains(s)) return false;//如果记忆中存在此字符串，返回false，结束递归。
-
+        if(s.length() == 0) {
+            return true;
+        }
+        if(memory.contains(s)) {
+            return false;//如果记忆中存在此字符串，返回false，结束递归。
+        }
         StringBuilder strb = new StringBuilder();
         for(int i = 0; i < s.length(); i++){
             strb.append(s.charAt(i));
@@ -115,6 +175,7 @@ public class Q139_Word_Break {
      */
     private Set<String> set;
     private int[] memo; // 可以看到，做了大量重复计算, 加入记忆化. 用一个数组，存储计算的结果，数组索引为指针位置，值为计算的结果。下次遇到相同的子问题，直接返回命中的缓存值，就不用调重复的递归。
+
     public boolean wordBreak_8(String s, List<String> wordDict) {
         memo = new int[s.length()];
         set = new HashSet<>(wordDict);
@@ -136,7 +197,9 @@ public class Q139_Word_Break {
                 continue;
             }
             boolean res = backtracking(s, i + 1);
-            if (res) return true;
+            if (res) {
+                return true;
+            }
         }
         // 这里是关键，找遍了startIndex~s.length()也没能完全匹配，标记从startIndex开始不能找到
         memo[startIndex] = -1;
@@ -156,8 +219,9 @@ public class Q139_Word_Break {
         while (!queue.isEmpty()) {
             int index = queue.poll();
             //如果字符串到遍历完了，自己返回true
-            if (index == length)
+            if (index == length) {
                 return true;
+            }
             for (int i = index + 1; i <= length; i++) {
                 if (setDict.contains(s.substring(index, i))) {
                     queue.add(i);
@@ -183,11 +247,13 @@ public class Q139_Word_Break {
         while (!queue.isEmpty()) {
             int index = queue.poll();
             //如果字符串都遍历完了，直接返回true
-            if (index == length)
+            if (index == length) {
                 return true;
+            }
             //如果被访问过，则跳过
-            if (visited[index])
+            if (visited[index]) {
                 continue;
+            }
             //标记为访问过
             visited[index] = true;
             for (int i = index + 1; i <= length; i++) {
