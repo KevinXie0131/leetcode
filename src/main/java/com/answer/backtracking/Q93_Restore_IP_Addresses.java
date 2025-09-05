@@ -8,19 +8,60 @@ public class Q93_Restore_IP_Addresses {
      * (inclusive) and cannot have leading zeros.
      * 复原 IP 地址: 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 '.' 分隔。
      * 例如："0.1.2.201" 和 "192.168.1.1" 是 有效 IP 地址，但是 "0.011.255.245"、"192.168.1.312" 和 "192.168@1.1" 是 无效 IP 地址。
-     * 给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 '.' 来形成。你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。
+     * 给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 '.' 来形成。
+     * 你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。
      */
     public static void main(String[] args) {
        String s = "25525511135"; // 输出：["255.255.11.135","255.255.111.35"]
-       System.out.println(restoreIpAddresses(s));
+       System.out.println(restoreIpAddresses0(s));
+    }
+    /**
+     * 回溯
+     */
+    static public List<String> restoreIpAddresses0(String s) {
+        List<String> result = new ArrayList<String>();
+        backtracking0(result, new StringBuilder(s), 0, 0);
+        return result;
+    }
+
+    static void backtracking0(List<String> result, StringBuilder s, int startIndex, int pointNum) {
+        if (pointNum == 3) {
+            if (isValidPair(s.toString(), startIndex, s.length() - 1)) {
+                result.add(s.toString());
+            }
+            return;
+        }
+        for (int i = startIndex; i < s.length(); i++) {
+            if (isValidPair(s.toString(), startIndex, i)) {
+                s.insert(i + 1,  ".");
+                pointNum++;
+                backtracking0(result, s, i + 2, pointNum);
+                pointNum--;
+                s.deleteCharAt(i + 1);
+            } else {
+                break;
+            }
+        }
+    }
+
+    static private boolean isValidPair(String s, int start, int end) {
+        String str = s.substring(start, end + 1);
+        if(str.length() > 3
+           || str.length() == 0
+           || (str.length() > 1 && (Integer.parseInt(str) == 0 || str.charAt(0) == '0'))
+           || Integer.parseInt(str) < 0
+           || Integer.parseInt(str) > 255){
+            return false;
+        }
+        return true;
     }
     /**
      * 切割问题就可以使用回溯搜索法把所有可能性搜出来
      * 时间复杂度: O(3^4)，IP地址最多包含4个数字，每个数字最多有3种可能的分割方式，则搜索树的最大深度为4，每个节点最多有3个子节点。
      * 空间复杂度: O(n)
      */
-   static List<String> result = new ArrayList<String>(); // 记录结果
-    // startIndex: 搜索的起始位置，pointNum:添加逗点的数量
+    static List<String> result = new ArrayList<String>(); // 记录结果
+
     static public List<String> restoreIpAddresses(String s) {
         if(s.length() > 12 || s.length() < 4){
             return result; // 算是剪枝了
@@ -28,6 +69,7 @@ public class Q93_Restore_IP_Addresses {
         backtracking(s,0,0);
         return result;
     }
+
     // startIndex: 搜索的起始位置， pointNum:添加逗点的数量
     static public void backtracking(String s, int startIndex, int pointNum){
         // 逗点数量为3时，分隔结束
@@ -43,7 +85,7 @@ public class Q93_Restore_IP_Addresses {
         }
         for(int i = startIndex; i < s.length(); i++){
             if(isValid(s, startIndex, i)){ // 判断 [startIndex,i] 这个区间的⼦串是否合法
-                s= s.substring(0, i + 1) + "." + s.substring(i + 1); // 在i的后⾯插⼊⼀个逗点
+                s = s.substring(0, i + 1) + "." + s.substring(i + 1); // 在i的后⾯插⼊⼀个逗点
                 pointNum++;
                 backtracking(s,i + 2, pointNum); // 插⼊逗点之后下⼀个⼦串的起始位置为i+2
                 pointNum--; // 回溯
@@ -85,6 +127,7 @@ public class Q93_Restore_IP_Addresses {
         dfs(s, 0, 0);
         return ans;
     }
+
     static void dfs(String s, int idx, int start) {
         if (idx == 4 && start == s.length()) {
             String ip = String.valueOf(cur.get(0));
@@ -104,14 +147,19 @@ public class Q93_Restore_IP_Addresses {
         }
     }
     /**
-     * 方法一：但使用stringBuilder，故优化时间、空间复杂度，因为向字符串插入字符时无需复制整个字符串，从而减少了操作的时间复杂度，也不用开新空间存subString，从而减少了空间复杂度。
+     * 方法一：但使用stringBuilder，故优化时间、空间复杂度，因为向字符串插入字符时无需复制整个字符串，
+     *        从而减少了操作的时间复杂度，也不用开新空间存subString，从而减少了空间复杂度。
      */
     List<String> result1 = new ArrayList<String>();
+
     public List<String> restoreIpAddresses1(String s) {
-        if (s.length() < 4 || s.length() > 12) return result1;
+        if (s.length() < 4 || s.length() > 12){
+            return result1;
+        }
         backtracking1(new StringBuilder(s), 0, 0);
         return result1;
     }
+
     void backtracking1(StringBuilder s, int startIndex, int pointNum) {
         if (pointNum == 3) {
             if (isValid(s.toString(), startIndex, s.length() - 1)) {
@@ -125,7 +173,7 @@ public class Q93_Restore_IP_Addresses {
                 pointNum++;
                 backtracking1(s, i + 2, pointNum); // backtracking1(s, i + 2, pointNum + 1); // 隐藏回溯
                 pointNum--;
-                s.deleteCharAt(i + 1) ;
+                s.deleteCharAt(i + 1);
             } else {
                 break;
             }
