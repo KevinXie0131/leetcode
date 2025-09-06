@@ -43,18 +43,18 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
      * 当整个字符串拆分完毕时，计算拆分得到的非空子字符串的数目，并更新最大数目。
      * 时间复杂度是 O(2^n × n)
      */
-    static public void backtracking(String s, int start, int split, HashSet<String> set){
+    static public void backtracking(String s, int startIndex, int split, HashSet<String> set){
         // 判断剩余字符长度和已有答案，进行剪枝
-        if (s.length() - start + set.size() <= maxSplit){ //  if (s.length() - start - 1 + set.size() < maxSplit){ // works too
+        if (s.length() - startIndex + set.size() <= maxSplit){ //  if (s.length() - start - 1 + set.size() < maxSplit){ // works too
             return;
         }
-        if(start == s.length()){
+        if(startIndex == s.length()){
             maxSplit = Math.max(maxSplit, split);
             return;
         }
 
-        for(int i = start; i < s.length(); i++){
-            String subStr = s.substring(start, i + 1);
+        for(int i = startIndex; i < s.length(); i++){
+            String subStr = s.substring(startIndex, i + 1);
             if(!set.contains(subStr)){
                 set.add(subStr);
                 backtracking(s, i + 1, split + 1, set);
@@ -65,13 +65,13 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
     /**
      * another form
      */
-    public void backtracking2(String s, int start, int split, HashSet<String> set){
-        if(start == s.length()){
+    public void backtracking2(String s, int startIndex, int split, HashSet<String> set){
+        if(startIndex == s.length()){
             maxSplit = Math.max(maxSplit, split);
             return;
         }
-        for(int i = start; i < s.length(); i++){
-            String subStr = s.substring(start, i + 1);
+        for(int i = startIndex; i < s.length(); i++){
+            String subStr = s.substring(startIndex, i + 1);
             if(!set.contains(subStr)){
                 set.add(subStr);
                 split += 1;
@@ -79,6 +79,26 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
                 set.remove(subStr);
                 split -= 1;
             }
+        }
+    }
+    /**
+     * another form
+     */
+    public void backtracking3(String s, int startIndex, int split, HashSet<String> set){
+        if(startIndex == s.length()){
+            maxSplit = Math.max(maxSplit, split);
+            return;
+        }
+        for(int i = startIndex; i < s.length(); i++){
+            String subStr = s.substring(startIndex, i + 1);
+            if(set.contains(subStr)){
+                continue;
+            }
+            set.add(subStr);
+            split += 1;
+            backtracking(s, i + 1, split, set);
+            set.remove(subStr);
+            split -= 1;
         }
     }
 }
