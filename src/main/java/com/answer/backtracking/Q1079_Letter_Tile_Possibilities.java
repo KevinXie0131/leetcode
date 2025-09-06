@@ -30,7 +30,6 @@ public class Q1079_Letter_Tile_Possibilities {
         char[] array = tiles.toCharArray();
         Arrays.sort(array);  //排序将所有使得所有相同字符在数组中连续出现
         backtracking(new String(array), result, path, used);
-
         return result.size();
     }
 
@@ -49,7 +48,7 @@ public class Q1079_Letter_Tile_Possibilities {
 
             path.append(tiles.charAt(i));
             used[i] = 1;  //选择当前字符，并把它标记为已选择
-            backtracking(tiles,  result, path, used);
+            backtracking(tiles, result, path, used);
             path.deleteCharAt(path.length() - 1);
             used[i] = 0;  //使用完之后再把它给复原。
         }
@@ -61,6 +60,7 @@ public class Q1079_Letter_Tile_Possibilities {
         if(path.length() > 0){
             result.add(path.toString());
         }
+
         HashSet<Character> hashSet = new HashSet<>();//层去重
         for(int i = 0; i < tiles.length(); i++){
             if (used[i] == 1) { //一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
@@ -73,7 +73,7 @@ public class Q1079_Letter_Tile_Possibilities {
 
             path.append(tiles.charAt(i));
             used[i] = 1;  //选择当前字符，并把它标记为已选择
-            backtracking1(tiles,  result, path, used);
+            backtracking1(tiles, result, path, used);
             path.deleteCharAt(path.length() - 1);
             used[i] = 0;  //使用完之后再把它给复原。
         }
@@ -121,7 +121,7 @@ public class Q1079_Letter_Tile_Possibilities {
         int[] used = new int[tiles.length()];
         char[] array = tiles.toCharArray();
         Arrays.sort(array);
-        backtracking1a( new String(array),  used);
+        backtracking1a(new String(array), used);
         return count1;
     }
 
