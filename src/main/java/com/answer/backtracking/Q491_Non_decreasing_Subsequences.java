@@ -5,8 +5,7 @@ import java.util.*;
 public class Q491_Non_decreasing_Subsequences {
     /**
      * Non-decreasing Subsequences
-     * Given an integer array nums, return all the different possible non-decreasing subsequences of the given array
-     * with at least two elements.
+     * Given an integer array nums, return all the different possible non-decreasing subsequences of the given array with at least two elements.
      * 非递减子序列: 一个整数数组 nums ，找出并返回所有该数组中不同的递增子序列，递增子序列中 至少有两个元素 。你可以按 任意顺序 返回答案。
      * 数组中可能含有重复元素，如出现两个整数相等，也可以视作递增序列的一种特殊情况。
      * 示例 1：
@@ -15,7 +14,7 @@ public class Q491_Non_decreasing_Subsequences {
      */
     /**
      * 这个递增子序列比较像是取有序的子集。而且本题也要求不能有相同的递增子序列。
-     * 这又是子集，又是去重, 在90.子集II  中我们是通过排序，再加一个标记数组来达到去重的目的,
+     * 这又是子集，又是去重, 在90.子集II 中我们是通过排序，再加一个标记数组来达到去重的目的,
      * 而本题求自增子序列，是不能对原数组进行排序的, 所以不能使用之前的去重逻辑!
      * 时间复杂度: O(n * 2^n)
      * 空间复杂度: O(n)
