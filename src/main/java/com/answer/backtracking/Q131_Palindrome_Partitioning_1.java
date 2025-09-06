@@ -6,6 +6,14 @@ public class Q131_Palindrome_Partitioning_1 {
     public static void main(String[] args) {
        // System.out.println(partition("abcd"));
         System.out.println(partition("aab"));
+     /* 0 -> a
+        1 -> a
+        2 -> b
+        1 -> ab
+        0 -> aa
+        2 -> b
+        0 -> aab
+        [[a, a, b], [aa, b]] */
     }
     /**
      * 切割问题可以抽象为组合问题
@@ -23,15 +31,15 @@ public class Q131_Palindrome_Partitioning_1 {
     }
 
     static public void backtracking(String str, int startIndex, StringBuilder sb) {
-        //因为是起始位置一个一个加的，所以结束时start一定等于s.length,因为进入backtracking时一定末尾也是回文，所以path是满足条件的
-        if(startIndex >= str.length()){
+        //因为是起始位置一个一个加的，所以结束时start一定等于s.length, 因为进入backtracking时一定末尾也是回文, 所以path是满足条件的
+        if(startIndex == str.length()){ // if(startIndex >= str.length()){ // works too
             result.add(new ArrayList(path));  //注意创建一个新的copy
             return;
         }
-        //像前两题一样从前往后搜索，如果发现回文，进入backtracking,起始位置后移一位，循环结束照例移除path的末位
+        //像前两题一样从前往后搜索, 如果发现回文, 进入backtracking, 起始位置后移一位, 循环结束照例移除path的末位
         for (int i = startIndex; i < str.length(); i++){
             sb.append(str.charAt(i));
-            System.out.println(startIndex + " -> " +sb);
+            System.out.println(startIndex + " -> " + sb);
             if (isPalindrome(sb.toString())){
                 path.add(sb.toString());
                 backtracking(str, i + 1, new StringBuilder());
@@ -57,7 +65,7 @@ public class Q131_Palindrome_Partitioning_1 {
     /**
      * another form
      * 定义递归函数 ：
-     *    定义一个递归函数 backing(string s, int startIndex)，其中 startIndex 表示当前子串的起始位置。
+     *    定义一个递归函数 backtracking(string s, int startIndex)，其中 startIndex 表示当前子串的起始位置。
      *    每次进入递归时，将起始位置移动到当前位置的下一个位置（即 startIndex + 1），从而逐步探索从该位置出发的所有可能子串。
      * 递归终止条件 ：
      *    当 startIndex 达到字符串的长度 n 时，说明已经处理完所有可能的子串组合，递归终止。
@@ -71,7 +79,7 @@ public class Q131_Palindrome_Partitioning_1 {
     }
 
     public void backtracking_1(String str, int startIndex) {
-        if(startIndex >= str.length()){ //  分割完毕
+        if(startIndex == str.length()){ // 分割完毕 // if(startIndex >= str.length()){ // works too
             result.add(new ArrayList(path)); // 复制 path
             return;
         }

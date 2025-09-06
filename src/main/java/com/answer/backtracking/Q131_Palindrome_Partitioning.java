@@ -45,7 +45,6 @@ public class Q131_Palindrome_Partitioning {
             backtracking(s, i + 1); // 寻找i+1为起始位置的⼦串. 切割过的地方不能重复切割所以递归函数需要传入i + 1
             path.removeLast(); // 回溯过程，弹出本次已经填在的⼦串
         }
-
     }
 
     static public boolean isPalindrome(String str, int start, int end){
