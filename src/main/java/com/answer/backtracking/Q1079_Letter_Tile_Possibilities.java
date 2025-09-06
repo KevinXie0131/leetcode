@@ -28,7 +28,7 @@ public class Q1079_Letter_Tile_Possibilities {
         int[] used = new int[tiles.length()];
 
         char[] array = tiles.toCharArray();
-        Arrays.sort(array);  //排序将所有使得所有相同字符在数组中连续出现
+        Arrays.sort(array);  // 排序将所有使得所有相同字符在数组中连续出现
         backtracking(new String(array), result, path, used);
         return result.size();
     }
@@ -39,18 +39,18 @@ public class Q1079_Letter_Tile_Possibilities {
         }
 
         for(int i = 0; i < tiles.length(); i++){
-            if (used[i] == 1) { //一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
+            if (used[i] == 1) { // 一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
                 continue;
             }
-            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1) && used[i - 1] == 0){//过滤掉重复的结果
+            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1) && used[i - 1] == 0){ // 过滤掉重复的结果
                 continue;
             }
 
             path.append(tiles.charAt(i));
-            used[i] = 1;  //选择当前字符，并把它标记为已选择
+            used[i] = 1;  // 选择当前字符，并把它标记为已选择
             backtracking(tiles, result, path, used);
             path.deleteCharAt(path.length() - 1);
-            used[i] = 0;  //使用完之后再把它给复原。
+            used[i] = 0;  // 使用完之后再把它给复原。
         }
     }
     /**
@@ -61,21 +61,21 @@ public class Q1079_Letter_Tile_Possibilities {
             result.add(path.toString());
         }
 
-        HashSet<Character> hashSet = new HashSet<>();//层去重
+        HashSet<Character> hashSet = new HashSet<>(); // 层去重
         for(int i = 0; i < tiles.length(); i++){
-            if (used[i] == 1) { //一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
+            if (used[i] == 1) { // 一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
                 continue;
             }
-            if (hashSet.contains(tiles.charAt(i))) {// 控制某一节点下的同一层元素不能重复
+            if (hashSet.contains(tiles.charAt(i))) { // 控制某一节点下的同一层元素不能重复
                 continue;
             }
-            hashSet.add(tiles.charAt(i));//记录元素
+            hashSet.add(tiles.charAt(i)); // 记录元素
 
             path.append(tiles.charAt(i));
-            used[i] = 1;  //选择当前字符，并把它标记为已选择
+            used[i] = 1;  // 选择当前字符，并把它标记为已选择
             backtracking1(tiles, result, path, used);
             path.deleteCharAt(path.length() - 1);
-            used[i] = 0;  //使用完之后再把它给复原。
+            used[i] = 0;  // 使用完之后再把它给复原。
         }
     }
     /**
@@ -130,10 +130,10 @@ public class Q1079_Letter_Tile_Possibilities {
             if (used[i] == 1) {
                 continue;
             }
-            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1)  && used[i - 1] == 0){
+            if(i > 0 && tiles.charAt(i) == tiles.charAt(i - 1) && used[i - 1] == 0){
                 continue;
             }
-            count1++; //选择一个字符，就多了一种结果
+            count1++; // 选择一个字符，就多了一种结果
             used[i] = 1;
             backtracking1a(tiles, used);
             used[i] = 0;
@@ -177,7 +177,7 @@ public class Q1079_Letter_Tile_Possibilities {
      * 然后进行下一层搜索，在搜索结束后，累加返回的序列个数，然后将 cnt[i] 加 1（回溯，恢复现场）。最后返回序列个数。
      */
     public int numTilePossibilities3(String tiles) {
-        int[] counter = new int[26];   //统计每个字符的数量
+        int[] counter = new int[26]; // 统计每个字符的数量
         for (char c : tiles.toCharArray()) {
             ++counter[c - 'A'];
         }
@@ -187,9 +187,9 @@ public class Q1079_Letter_Tile_Possibilities {
     private int dfs1(int[] counter) {  //遍历所有的字符
         int res = 0; // 递归终止条件是：当前没有可以用的字符（没有显示递归终止条件）
         for (int i = 0; i < counter.length; ++i) {
-            if (counter[i] > 0) { //如果当前字符使用完了再查找下一个
-                res++;  //使用一个字符，子集数量就会多一个
-                counter[i]--; //如果没使用完就继续使用，然后把这个字符的数量减1
+            if (counter[i] > 0) { // 如果当前字符使用完了再查找下一个
+                res++;  // 使用一个字符，子集数量就会多一个
+                counter[i]--; // 如果没使用完就继续使用，然后把这个字符的数量减1
                 res += dfs1(counter);
                 counter[i]++;  // 只需要重置字符频数数组 //当前字符使用完之后，把它的数量还原
             }
