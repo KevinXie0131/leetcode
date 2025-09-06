@@ -17,7 +17,7 @@ public class Q1079_Letter_Tile_Possibilities {
         String tiles2 = "V";
         System.out.println(numTilePossibilities(tiles2)); // 1
         String tiles3 = "CDC";
-        System.out.println(numTilePossibilities(tiles3)); // 1
+        System.out.println(numTilePossibilities(tiles3)); // 8
     }
     /**
      * 要求统计所有可能的字母牌排列数（不重复）
