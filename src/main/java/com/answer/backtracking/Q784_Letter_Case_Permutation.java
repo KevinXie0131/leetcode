@@ -14,7 +14,7 @@ public class Q784_Letter_Case_Permutation {
         System.out.println(letterCasePermutation("a1b2")); // ["a1b2", "a1B2", "A1b2", "A1B2"]
     }
     /**
-     * Backtracking
+     * 子集型Backtracking
      * 大写字符与其对应的小写字符的 ASCII 的差为 32
      *    如果字符是小写字符，减去 32 得到大写字符；
      *    如果字符是大写字符，加上 32 得到小写字符。
