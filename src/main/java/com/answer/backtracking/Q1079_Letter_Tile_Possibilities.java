@@ -55,6 +55,30 @@ public class Q1079_Letter_Tile_Possibilities {
         }
     }
     /**
+     * another form 使用set去重的版本
+     */
+    public void backtracking1(String tiles, List<String> result, StringBuffer path, int[] used){
+        if(path.length() > 0){
+            result.add(path.toString());
+        }
+        HashSet<Character> hashSet = new HashSet<>();//层去重
+        for(int i = 0; i < tiles.length(); i++){
+            if (used[i] == 1) { //一个字符只能选择一次，如果当前字符已经选择了，就不能再选了。
+                continue;
+            }
+            if (hashSet.contains(tiles.charAt(i))) {// 控制某一节点下的同一层元素不能重复
+                continue;
+            }
+            hashSet.add(tiles.charAt(i));//记录元素
+
+            path.append(tiles.charAt(i));
+            used[i] = 1;  //选择当前字符，并把它标记为已选择
+            backtracking1(tiles,  result, path, used);
+            path.deleteCharAt(path.length() - 1);
+            used[i] = 0;  //使用完之后再把它给复原。
+        }
+    }
+    /**
      * another form
      */
     int count = 0;
