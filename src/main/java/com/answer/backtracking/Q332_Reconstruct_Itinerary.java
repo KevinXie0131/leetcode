@@ -81,29 +81,6 @@ public class Q332_Reconstruct_Itinerary { // 困难 Hard
     static private Deque<String> res;
     static private Map<String, Map<String, Integer>> map;
     // 方案2:
-    static private boolean backTracking(int ticketNum){
-        if(res.size() == ticketNum + 1){
-            return true;
-        }
-        String last = res.getLast();
-        if(map.containsKey(last)){//防止出现null
-            for(Map.Entry<String, Integer> target : map.get(last).entrySet()){
-                int count = target.getValue();
-                if(count > 0){
-                    res.add(target.getKey());
-                    target.setValue(count - 1);
-                    // backtracking
-                    if(backTracking(ticketNum)) {
-                        return true;
-                    }
-                    res.removeLast();
-                    target.setValue(count);
-                }
-            }
-        }
-        return false;
-    }
-
     static public List<String> findItinerary(List<List<String>> tickets) {
         /**
          * Adopted the hashmap (or dictionary) data structure, with each entry as <origin, [destinations]>.
@@ -123,10 +100,33 @@ public class Q332_Reconstruct_Itinerary { // 困难 Hard
             map.put(t.get(0), temp);
         }
         System.out.println(map);
-
+        // {LHR={SFO=1}, MUC={LHR=1}, SFO={SJC=1}, JFK={MUC=1}}
         res.add("JFK");
         backTracking(tickets.size());
         return new ArrayList<>(res);
+    }
+
+    static private boolean backTracking(int ticketNum){
+        if(res.size() == ticketNum + 1){
+            return true;
+        }
+        String last = res.getLast();
+        if(map.containsKey(last)){//防止出现null
+            for(Map.Entry<String, Integer> target : map.get(last).entrySet()){
+                int count = target.getValue();
+                if(count > 0){
+                    res.add(target.getKey());
+                    target.setValue(count - 1);
+
+                    if(backTracking(ticketNum)) { // backtracking
+                        return true;
+                    }
+                    res.removeLast();
+                    target.setValue(count);
+                }
+            }
+        }
+        return false;
     }
     /**
      * 方案1： Time Limit Exceeded
@@ -149,8 +149,8 @@ public class Q332_Reconstruct_Itinerary { // 困难 Hard
         }
         for (int i = 0; i < tickets.size(); i++) {
             if (!used[i] && tickets.get(i).get(0).equals(path1.getLast())) {
-                path1.add(tickets.get(i).get(1));
                 used[i] = true;
+                path1.add(tickets.get(i).get(1));
 
                 if (backTracking1(tickets, used)) {
                     return true;
@@ -163,10 +163,10 @@ public class Q332_Reconstruct_Itinerary { // 困难 Hard
     }
     /**
      * 该方法是对第二个方法的改进，主要变化在于将某点的所有终点变更为链表的形式，优点在于
-     *         1.添加终点时直接在对应位置添加节点，避免了TreeMap增元素时的频繁调整
-     *         2.同时每次对终点进行增加删除查找时直接通过下标操作，避免hashMap反复计算hash
+     *   1.添加终点时直接在对应位置添加节点，避免了TreeMap增元素时的频繁调整
+     *   2.同时每次对终点进行增加删除查找时直接通过下标操作，避免hashMap反复计算hash
      */
-    Map<String, LinkedList<String>> ticketMap = new HashMap<>();//key为起点，value是有序的终点的列表
+    Map<String, LinkedList<String>> ticketMap = new HashMap<>(); // key为起点，value是有序的终点的列表
     LinkedList<String> result = new LinkedList<>();
     int total;
 
@@ -178,30 +178,6 @@ public class Q332_Reconstruct_Itinerary { // 困难 Hard
         }
         deal("JFK");
         return result;
-    }
-
-    boolean deal(String currentLocation) {
-        result.add(currentLocation);
-        if (result.size() == total) {  //机票全部用完，找到最小字符路径
-            return true;
-        }
-        LinkedList<String> targetLocations = ticketMap.get(currentLocation);  //当前位置的终点列表
-        if (targetLocations != null && !targetLocations.isEmpty()) {  //没有从当前位置出发的机票了，说明这条路走不通
-            String targetLocation;//终点列表中遍历到的终点
-            for (int i = 0; i < targetLocations.size(); i++) {  //遍历从当前位置出发的机票
-                if(i > 0 && targetLocations.get(i).equals(targetLocations.get(i - 1))) {   //去重，否则在最后一个测试用例中遇到循环时会无限递归
-                    continue;
-                }
-                targetLocation = targetLocations.get(i);
-                targetLocations.remove(i);   //删除终点列表中当前的终点
-                if (deal(targetLocation)) { //递归
-                    return true;
-                }
-                targetLocations.add(i, targetLocation);  //路线走不通，将机票重新加回去
-                result.removeLast();
-            }
-        }
-        return false;
     }
     /**
      * 在map中按照字典顺序添加新元素
@@ -218,11 +194,35 @@ public class Q332_Reconstruct_Itinerary { // 困难 Hard
                 }
             }
             startAllEnd.add(startAllEnd.size(), end);
-       //     startAllEnd.add(end);  // works too
-       //     Collections.sort(startAllEnd);
+            //     startAllEnd.add(end);  // works too
+            //     Collections.sort(startAllEnd);
         } else {
             startAllEnd.add(end);
             ticketMap.put(start, startAllEnd);
         }
+    }
+
+    boolean deal(String currentLocation) {
+        result.add(currentLocation);
+        if (result.size() == total) { // 机票全部用完，找到最小字符路径
+            return true;
+        }
+        LinkedList<String> targetLocations = ticketMap.get(currentLocation); // 当前位置的终点列表
+        if (targetLocations != null && !targetLocations.isEmpty()) { // 没有从当前位置出发的机票了，说明这条路走不通
+            String targetLocation; // 终点列表中遍历到的终点
+            for (int i = 0; i < targetLocations.size(); i++) { // 遍历从当前位置出发的机票
+                if(i > 0 && targetLocations.get(i).equals(targetLocations.get(i - 1))) { // 去重，否则在最后一个测试用例中遇到循环时会无限递归
+                    continue;
+                }
+                targetLocation = targetLocations.get(i);
+                targetLocations.remove(i); // 删除终点列表中当前的终点
+                if (deal(targetLocation)) { // 递归
+                    return true;
+                }
+                targetLocations.add(i, targetLocation); // 路线走不通，将机票重新加回去
+                result.removeLast();
+            }
+        }
+        return false;
     }
 }
