@@ -62,4 +62,23 @@ public class Q1593_Split_a_String_Into_the_Max_Number_of_Unique_Substrings {
             }
         }
     }
+    /**
+     * another form
+     */
+    public void backtracking2(String s, int start, int split, HashSet<String> set){
+        if(start == s.length()){
+            maxSplit = Math.max(maxSplit, split);
+            return;
+        }
+        for(int i = start; i < s.length(); i++){
+            String subStr = s.substring(start, i + 1);
+            if(!set.contains(subStr)){
+                set.add(subStr);
+                split += 1;
+                backtracking(s, i + 1, split, set);
+                set.remove(subStr);
+                split -= 1;
+            }
+        }
+    }
 }
