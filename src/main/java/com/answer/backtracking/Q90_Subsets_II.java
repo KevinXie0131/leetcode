@@ -33,7 +33,7 @@ public class Q90_Subsets_II {
     static public void backtracking(int[] nums, int startIndex, int[] used){
         result.add(new ArrayList(path));
 
-        if(startIndex == nums.length){
+        if(startIndex == nums.length){ // can be commented
             return;
         }
         for(int i = startIndex; i < nums.length; i++){

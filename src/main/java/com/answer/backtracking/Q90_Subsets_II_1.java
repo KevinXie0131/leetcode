@@ -26,7 +26,7 @@ public class Q90_Subsets_II_1 {
         result.add(new ArrayList(path));
 
         if(startIndex == nums.length){ // if(nums.length == path.size()) return; // works too
-            return;
+            return; // can be commented
         }
         for(int i = startIndex; i < nums.length; i++){
             // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
@@ -54,10 +54,11 @@ public class Q90_Subsets_II_1 {
         backtracking2(nums,0);
         return result2;
     }
+
     public void backtracking2(int[] nums, int startIndex) {
         result2.add(new ArrayList(path2));
 
-        if (startIndex > nums.length) {
+        if (startIndex > nums.length) { // can be commented
             return;
         }
 
@@ -66,9 +67,9 @@ public class Q90_Subsets_II_1 {
             if (i > startIndex && nums[i] == nums[i - 1]) { // 注意这里使用i > startIndex
                 continue;
             }
-            path.add(nums[i]);
+            path2.add(nums[i]);
             backtracking2(nums, i + 1);
-            path.removeLast();
+            path2.removeLast();
         }
     }
     /**
@@ -76,9 +77,9 @@ public class Q90_Subsets_II_1 {
      * 不排序，子集会重复
      */
     public void backtracking3(int[] nums, int startIndex) {
-        result.add(new ArrayList(path));
+        result2.add(new ArrayList(path2));
 
-        if(startIndex >  nums.length ){
+        if(startIndex >  nums.length ){ // can be commented
             return;
         }
         HashSet<Integer> uset = new HashSet<>();  // 参考Q491使用HashSet本层去重
@@ -87,9 +88,9 @@ public class Q90_Subsets_II_1 {
                 continue;
             }
             uset.add(nums[i]); // set更新元素
-            path.add(nums[i]);
+            path2.add(nums[i]);
             backtracking3(nums, i + 1);
-            path.removeLast();
+            path2.removeLast();
         }
     }
     /**
