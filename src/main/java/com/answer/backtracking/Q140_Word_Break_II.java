@@ -33,7 +33,6 @@ public class Q140_Word_Break_II { // 困难 Hard
         wordDict1.add("a");
         List<String> res1 = wordBreak_1(s1, wordDict1);
         System.out.println(res1);
-
     }
     /**
      * 模板
