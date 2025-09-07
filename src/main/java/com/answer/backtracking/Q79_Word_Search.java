@@ -8,7 +8,6 @@ public class Q79_Word_Search {
      * 示例：
      *  输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
      *  输出：true
-     *
      */
     private static final int[][] DIRECTIONS = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
     private int rows;
