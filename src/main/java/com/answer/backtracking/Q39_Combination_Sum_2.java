@@ -13,7 +13,7 @@ public class Q39_Combination_Sum_2 {
         backtracking(candidates, used, target, 0, result, path);
         return result;
     }
-    // 应该是Q40的答案
+    // similar with answer of Q40
     // Have int[] used, but it works for Q39
     // 一个 无重复元素 的整数数组 candidates
     public void backtracking(int[] candidates, int[] used, int target, int startIndex, List<List<Integer>> result, Deque<Integer> path ){
@@ -28,8 +28,8 @@ public class Q39_Combination_Sum_2 {
             if(target < candidates[i]){ // 剪枝优化 终⽌遍历
                 break;
             }
-            if(i > 0 && candidates[i - 1] == candidates[i] && used[i] == 0){ // 没有发生作用 (无重复元素 的整数数组 candidates)
-                break;
+            if(i > 0 && candidates[i - 1] == candidates[i] && used[i - 1] == 0){ // 没有发生作用 (无重复元素 的整数数组 candidates)
+                continue;
             }
             path.addLast(candidates[i]);
             target -= candidates[i];
@@ -37,8 +37,7 @@ public class Q39_Combination_Sum_2 {
             backtracking(candidates, used, target, i, result, path); // 关键点:不⽤i+1了，表示可以重复读取当前的数
             path.removeLast();
             target += candidates[i];
-        //    used[i] = 0;
+            used[i] = 0;
         }
-        return;
     }
 }

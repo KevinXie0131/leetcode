@@ -4,6 +4,13 @@ import java.util.*;
 
 public class BacktrackingTemplate {
     /**
+     * 排列问题，讲究顺序（即 [2, 2, 3] 与 [2, 3, 2] 视为不同列表时），需要记录哪些数字已经使用过，此时用 used 数组；
+     * 组合问题，不讲究顺序（即 [2, 2, 3] 与 [2, 3, 2] 视为相同列表时），需要按照某种顺序搜索，此时使用 startIndex 变量。
+     *
+     * 如果是一个集合来求组合的话，就需要startIndex
+     * 如果是多个集合取组合，各个集合之间相互不影响，那么就不用startIndex
+     */
+    /**
      * 组合: 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合
      *       不含重复数字的数组
      */
@@ -47,7 +54,6 @@ public class BacktrackingTemplate {
             result.add(new ArrayList<>(path));
             return;
         }
-
         for(int i = 0; i < nums.length; i++){ // i 是从0开始的，这个和Combination不同, for循环里不用startIndex
             if(used[i] == 1){ // used数组，其实就是记录此时path里都有哪些元素使用了，一个排列里一个元素只能使用一次
                 continue;
@@ -151,7 +157,7 @@ public class BacktrackingTemplate {
     }
     /**
      * 电话号码的字母组合: 每一个数字代表的是不同集合，也就是求不同集合之间的组合
-     * 不需要startIndex来控制for循环的起始位置, 如果是多个集合取组合，各个集合之间相互不影响，那么就不用startIndex
+     * 不需要startIndex来控制for循环的起始位置. 果是多个集合取组合，各个集合之间相互不影响，那么就不用startIndex
      */
     public List<String> letterCombinations(String digits) {
         String[] map = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};

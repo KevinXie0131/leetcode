@@ -63,7 +63,7 @@ public class Q40_Combination_Sum_II {
         if(target < 0){
             return;
         }
-  /*    for(int i = startIndex; i < candidates.length && target >= candidates[i] ; i++){*/ //剪枝操作
+  //    for(int i = startIndex; i < candidates.length && target >= candidates[i] ; i++){ // 剪枝操作
         for(int i = startIndex; i < candidates.length; i++){
             if(target < candidates[i]){ // 剪枝操作
                 break;
@@ -94,7 +94,6 @@ public class Q40_Combination_Sum_II {
             target += candidates[i];
             used[i] = 0;
         }
-        return;
     }
     /**
      * 不使用标记数组
@@ -104,8 +103,8 @@ public class Q40_Combination_Sum_II {
     static int sum = 0;
 
     static public List<List<Integer>> combinationSum2_1( int[] candidates, int target ) {
-        Arrays.sort( candidates ); //为了将重复的数字都放到一起，所以先进行排序
-        backTracking1( candidates, target, 0 );
+        Arrays.sort(candidates); // 排序
+        backTracking1(candidates, target, 0);
         return res;
     }
 
@@ -142,7 +141,7 @@ public class Q40_Combination_Sum_II {
     public List<List<Integer>> combinationSum2b(int[] candidates, int target)    {
         List<List<Integer>> result = new ArrayList<>();
         Deque<Integer> path = new ArrayDeque<>();
-        Arrays.sort(candidates);
+        Arrays.sort(candidates); // 排序
         backtracking2(candidates, target, 0, result, path);
         return result;
     }
