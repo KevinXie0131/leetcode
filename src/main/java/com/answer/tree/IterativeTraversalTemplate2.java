@@ -30,9 +30,9 @@ public class IterativeTraversalTemplate2 {
      */
     public List<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> returnList = new ArrayList<Integer>();
-
-        if(root == null) return returnList;
-
+        if(root == null){
+            return returnList;
+        }
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 

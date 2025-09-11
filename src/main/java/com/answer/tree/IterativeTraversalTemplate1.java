@@ -29,9 +29,9 @@ public class IterativeTraversalTemplate1 {
      */
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> returnList = new ArrayList<Integer>();
-
-        if(root == null) return returnList;
-
+        if(root == null){
+            return returnList;
+        }
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 
