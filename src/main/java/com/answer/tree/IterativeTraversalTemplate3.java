@@ -21,7 +21,7 @@ public class IterativeTraversalTemplate3 {
             List<Integer> sublist = new ArrayList<>();
             int size = queue.size();  // 这里一定要使用固定大小size，不要使用queue.size()，因为queue.size是不断变化的
 
-            while (size > 0) {
+            while (size > 0) { //  while (size-- > 0) { // works too
                 TreeNode cur = queue.poll();
                 sublist.add(cur.value);
 
