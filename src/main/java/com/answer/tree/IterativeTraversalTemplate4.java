@@ -70,7 +70,7 @@ public class IterativeTraversalTemplate4 {
         if(root == null) {
             return false;
         }
-        return dfs(root, targetSum - root.value);
+        return dfs(root, targetSum - root.value); // 要先减掉root.value
     }
 
     private boolean dfs(TreeNode root, int targetSum) {
