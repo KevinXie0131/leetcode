@@ -62,4 +62,120 @@ public class IterativeTraversalTemplate4 {
         int right = maxDepth(root.right);  // 右
         return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度 / 二叉树的最大深度为左右子树的最大深度加1得到。
     }
+    /**
+     * 路径总和
+     * refer to Q113_Path_Sum_II
+     */
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null) {
+            return false;
+        }
+        return dfs(root, targetSum - root.value);
+    }
+
+    private boolean dfs(TreeNode root, int targetSum) {
+        if (root.left == null && root.right == null){
+            return targetSum == 0; // 直接判断 targetSum 是否等于 0 即可
+        }
+
+        if (root.left != null) {
+            if (dfs(root.left, targetSum - root.left.value)) {// 隐藏回溯
+                return true;
+            }
+        }
+        if (root.right != null) {
+            if (dfs(root.right, targetSum - root.right.value)) {// 隐藏回溯
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * 路径总和
+     * refer to Q113_Path_Sum_II_1
+     */
+    static public boolean hasPathSum1(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null){
+            return root.value == targetSum; // 直接判断 targetSum 是否等于 value 即可
+        }
+
+        if(hasPathSum1(root.left, targetSum - root.value)){// 隐藏回溯
+            return true;
+        }
+        if(hasPathSum1(root.right, targetSum - root.value)){// 隐藏回溯
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 路径总和 II
+     * refer to Q113_Path_Sum_II
+     */
+    public List<List<Integer>> pathSum2 (TreeNode root, int targetSum) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<Integer> path = new ArrayDeque<>();
+        path.add(root.value);
+        dfs(root, targetSum - root.value, path, res);
+        return res;
+    }
+
+    private void dfs(TreeNode root, int targetSum, Deque<Integer> path, List<List<Integer>> res) {
+        if (root.left == null && root.right == null) {
+            if(targetSum == 0) {
+                res.add(new ArrayList(path));  // 遇到了叶子节点且找到了和为sum的路径
+            }
+            return; // 遇到叶子节点而没有找到合适的边，直接返回
+        }
+        if (root.left != null) {  // 左 （空节点不遍历）
+            path.addLast(root.left.value);
+            dfs(root.left, targetSum - root.left.value, path, res);  // 递归
+            path.removeLast();  // 回溯
+
+        }
+        if (root.right != null) { // 右 （空节点不遍历）
+            path.addLast(root.right.value);
+            dfs(root.right, targetSum - root.right.value, path, res);  // 递归
+            path.removeLast(); // 回溯
+        }
+    }
+    /**
+     * 路径总和 II
+     * refer to Q113_Path_Sum_II_1
+     */
+    public List<List<Integer>> pathSum2a (TreeNode root, int sum) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<Integer> path = new ArrayDeque<>();
+        dfs2(root, sum, path, res);
+        return res;
+    }
+
+    private void dfs2(TreeNode node, int sum, Deque<Integer> path, List<List<Integer>> res) {
+        if (node == null) {  // 递归终止条件 1
+            return;
+        }
+        if (node.value == sum && node.left == null && node.right == null) { // 递归终止条件 2
+            path.addLast(node.value); // 当前结点的值还没添加到列表中，所以要先添加，然后再移除
+            res.add(new ArrayList<>(path));
+            path.removeLast();
+            return;
+        }
+
+        path.addLast(node.value);
+        dfs2(node.left, sum - node.value, path, res);
+        // 进入左右分支的 path 是一样的，这里不用写下面两行，因为一定会调用到 path.removeLast();
+        // path.removeLast();
+        // path.addLast(node.val);
+        dfs2(node.right, sum - node.value, path, res);
+        path.removeLast();
+    }
 }
