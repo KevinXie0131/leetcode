@@ -2,10 +2,7 @@ package com.answer.tree;
 
 import com.template.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class IterativeTraversalTemplate4 {
     /**
@@ -22,7 +19,7 @@ public class IterativeTraversalTemplate4 {
             return searchBST(root.right, val);
         }
         else if (root.value > val) {
-            return searchBST(root.left, val); // 不要忘了 递归函数还有返回值
+            return searchBST(root.left, val); // 不要忘了，递归函数还有返回值
         }
         return null;
     }
@@ -94,7 +91,7 @@ public class IterativeTraversalTemplate4 {
      * 路径总和
      * refer to Q113_Path_Sum_II_1
      */
-    static public boolean hasPathSum1(TreeNode root, int targetSum) {
+    public boolean hasPathSum1(TreeNode root, int targetSum) {
         if (root == null) {
             return false;
         }
@@ -122,7 +119,7 @@ public class IterativeTraversalTemplate4 {
         }
         Deque<Integer> path = new ArrayDeque<>();
         path.add(root.value);
-        dfs(root, targetSum - root.value, path, res);
+        dfs(root, targetSum - root.value, path, res); // 要先减掉root.value
         return res;
     }
 
