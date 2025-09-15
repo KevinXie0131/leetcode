@@ -47,6 +47,18 @@ public class IterativeTraversalTemplate4 {
         return p.value == q.value && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);  // 两个节点均不为空
     }
     /**
+     * 相同的树
+     */
+    public boolean isSameTree1 (TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }  else if (p == null || q == null || p.value != q.value) {
+            return false;
+        } else {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
+    }
+    /**
      * 二叉树的最大深度
      */
     public int maxDepth(TreeNode root) {
