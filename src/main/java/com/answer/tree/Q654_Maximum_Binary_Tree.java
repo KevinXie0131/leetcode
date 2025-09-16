@@ -70,13 +70,12 @@ public class Q654_Maximum_Binary_Tree {
         root.left = dfs(nums, left, maxIndex); // 2. 最⼤值所在的下表左区间 构造左⼦树
         // 左闭右开：[maxValueIndex + 1, right)
         root.right = dfs(nums, maxIndex + 1, right); // 3. 最⼤值所在的下表右区间 构造右⼦树
-
         return root;
     }
     /**
      * 递归 左闭右闭
      * 递归区间内找最大值为根节点，左边递归构建左子树，右边递归构建右子树。
-     * 时间复杂度：平均 O(n log n)，最坏 O(n²)。
+     * 时间复杂度：平均 O(n log n)，最坏 O(n^2)。
      */
     public TreeNode constructMaximumBinaryTree1(int[] nums) {
         return dfs1(nums, 0, nums.length - 1);
@@ -101,7 +100,6 @@ public class Q654_Maximum_Binary_Tree {
 
         root.left = dfs1(nums, left, maxIndex - 1);
         root.right = dfs1(nums, maxIndex + 1, right);
-
         return root;
     }
     /**
@@ -125,7 +123,9 @@ public class Q654_Maximum_Binary_Tree {
                     node.left = topNode;
                 }
             }
-            if (deque.isEmpty()) deque.addLast(node);
+            if (deque.isEmpty()) {
+                deque.addLast(node);
+            }
         }
         return deque.peek();
     }

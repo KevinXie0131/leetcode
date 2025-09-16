@@ -14,9 +14,7 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row {
      * 层序遍历，取每一层的最大值
      */
     public List<Integer> largestValues(TreeNode root) {
-
         List<Integer> list = new ArrayList<Integer>();
-
         if (root == null) {
             return list;
         }

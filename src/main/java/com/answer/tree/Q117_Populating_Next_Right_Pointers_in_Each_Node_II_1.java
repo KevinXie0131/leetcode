@@ -10,8 +10,9 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II_1 {
      * 每次只要知道下一层的最左边的节点，就可以从该节点开始，像遍历链表一样遍历该层的所有节点
      */
     public Node connect(Node root) {
-        if (root == null) return null;
-
+        if (root == null) {
+            return null;
+        }
         Node curr = root; // 当前层的节点
         Node dummy = new Node(0); // 下一层的虚拟头结点
         Node prev = dummy; // 下一层的上一个节点
@@ -40,8 +41,9 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II_1 {
      * another form
      */
     public Node connect1(Node root) {
-        if(root == null) return null;
-
+        if(root == null) {
+            return null;
+        }
         Node head = new Node(0);
         Node tail = head;
         Node cur = root;
@@ -62,7 +64,9 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II_1 {
             head.next = null;    //sanity clean
             tail = head;
 
-            if(cur == null) break;
+            if(cur == null) {
+                break;
+            }
         }
         return root;
     }

@@ -25,8 +25,12 @@ public class Q543_Diameter_of_Binary_Tree {
     }
 
     public int dfs(TreeNode root){
-        if (root == null) return 0; // 高度为0
-        if (root.left == null && root.right == null) return 1; // can be commented
+        if (root == null) {
+            return 0; // 高度为0
+        }
+        if (root.left == null && root.right == null) {
+            return 1; // can be commented
+        }
 
         int left = dfs(root.left); // 求左右子树的高度（递归）
         int right = dfs(root.right);

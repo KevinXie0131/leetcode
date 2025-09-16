@@ -19,6 +19,34 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
      * A leaf node is a node with no children.
      */
     /**
+     * refer to Q113_Path_Sum_II
+     */
+    int res3 = 0;
+
+    public int sumNumbers_0c(TreeNode root) {
+        Deque<String> path = new ArrayDeque<>();
+        path.add(root.value + "");
+        dfs_0c(root, path);
+        return res3;
+    }
+
+    private void dfs_0c(TreeNode root, Deque<String> path){
+        if(root.left == null && root.right == null){
+            res3 += Integer.valueOf(String.join("", path));
+            return;
+        }
+        if (root.left != null) {
+            path.addLast(root.left.value +"");
+            dfs_0c(root.left, path);
+            path.removeLast();
+        }
+        if (root.right != null) {
+            path.addLast(root.right.value +"");
+            dfs_0c(root.right, path);
+            path.removeLast();
+        }
+    }
+    /**
      * refer to Q113_Path_Sum_II_1
      */
     int res = 0;
@@ -30,8 +58,9 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
     }
 
     private void dfs_0(TreeNode root, Deque<String> path){
-        if(root == null) return;
-
+        if(root == null) {
+            return;
+        }
         if(root.left == null && root.right == null){
             path.addLast(root.value  + "");
             res += Integer.valueOf(String.join("", path));
@@ -44,6 +73,28 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
         path.removeLast();
     }
     /**
+     * refer to Q113_Path_Sum_II
+     */
+    int res4 = 0;
+
+    public int sumNumbers_0d(TreeNode root) {
+        dfs_0d(root, root.value);
+        return res4;
+    }
+
+    private void dfs_0d(TreeNode root, int value){
+        if(root.left == null && root.right == null){
+            res4 += value;
+            return;
+        }
+        if (root.left != null) {
+            dfs_0d(root.left, value * 10 + root.left.value);
+        }
+        if (root.right != null) {
+            dfs_0d(root.right, value * 10 + root.right.value);
+        }
+    }
+    /**
      * refer to Q113_Path_Sum_II_1
      */
     int res2 = 0;
@@ -54,8 +105,9 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
     }
 
     private void dfs_0a(TreeNode root, int value){
-        if(root == null) return;
-
+        if(root == null) {
+            return;
+        }
         if(root.left == null && root.right == null){
             res2 += value * 10 + root.value;
             return;
@@ -64,15 +116,16 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
         dfs_0a(root.right, value * 10 + root.value);
     }
     /**
-     * 逻辑简单的递归
+     * 逻辑简单的递归 同上
      */
     public int sumNumbers_0b(TreeNode root) {
         return helper(root, 0);
     }
 
     private int helper(TreeNode root, int value){ // 有返回值
-        if(root == null) return 0;
-
+        if(root == null) {
+            return 0;
+        }
         if(root.left == null && root.right == null){
             return value * 10 + root.value;
         }
@@ -91,11 +144,14 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
     // 回溯: 本题其实采用前中后序都不无所谓， 因为也没有中间几点的处理逻辑。
     //      主要是当左节点不为空，path收集路径，并递归左孩子，右节点同理
     public void dfs(TreeNode root){
-        if(root == null) return;
-
+        if(root == null){
+            return;
+        }
         sb.append(root.value); // 中
 
-        if(root.left == null && root.right == null) sum +=  Integer.valueOf(sb.toString());  // 遇到了叶子节点 累加结果
+        if(root.left == null && root.right == null) {
+            sum +=  Integer.valueOf(sb.toString());  // 遇到了叶子节点 累加结果
+        }
 
         if(root.left != null) { // 左 （空节点不遍历）
             dfs(root.left); // 递归
@@ -118,8 +174,9 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
     }
 
     public void dfs1(TreeNode root){
-        if(root == null) return;
-
+        if(root == null) {
+            return;
+        }
         path.add(root.value);
 
         if(root.left == null && root.right == null) {
@@ -166,13 +223,15 @@ public class Q129_Sum_Root_to_Leaf_Numbers {
      * 广度优先搜索, 需要维护两个队列，分别存储节点和节点对应的数字
      */
     public int sumNumbers7(TreeNode root) {
-        if (root == null) return 0;
-
+        if (root == null) {
+            return 0;
+        }
         int sum = 0;
         Queue<TreeNode> nodeQueue = new LinkedList<>();
         Queue<Integer> numQueue = new LinkedList<>();
         nodeQueue.offer(root);
         numQueue.offer(root.value);
+
         while (!nodeQueue.isEmpty()) {
             TreeNode node = nodeQueue.poll();
             int num = numQueue.poll();

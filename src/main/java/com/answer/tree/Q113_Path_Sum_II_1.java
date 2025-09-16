@@ -45,7 +45,6 @@ public class Q113_Path_Sum_II_1 {
      * 参考代码 2
      * 说明：由于先减去了当前非空结点的值，递归终止条件写 sum == 0。
      */
-
     public List<List<Integer>> pathSum1(TreeNode root, int sum) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
@@ -86,7 +85,6 @@ public class Q113_Path_Sum_II_1 {
         if (root == null) {
             return res;
         }
-
         Deque<Integer> path = new ArrayDeque<>();
         dfs2(root, sum, path, res);
         return res;

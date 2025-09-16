@@ -84,8 +84,11 @@ public class Q606_Construct_String_from_Binary_Tree {
     //    右子树：存在，保留(right->val)
     // 直接加到递归代码里面即可。
     public void buildTree(TreeNode root, StringBuilder sb){
-        if(root == null) return;
+        if(root == null){
+            return;
+        }
         sb.append(root.value);
+
         if(root.left != null || root.right != null){ // 左子树存在 或 右子树存在（为了保留空的左括号对）
             sb.append("(");
             buildTree(root.left, sb);
@@ -139,8 +142,10 @@ public class Q606_Construct_String_from_Binary_Tree {
 
         String left = tree2str2(root.left);
         String right = tree2str2(root.right);
+
         if (left == null && right == null){
             return String.valueOf(root.value);
+            //  return root.val +""; // works too
         }
         if (right == null){
             return root.value + "(" + left + ")";

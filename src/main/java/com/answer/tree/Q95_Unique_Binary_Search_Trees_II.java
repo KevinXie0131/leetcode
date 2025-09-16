@@ -24,7 +24,9 @@ public class Q95_Unique_Binary_Search_Trees_II {
      * 自底向上的递归(后序遍历)，组合所有的子树
      */
     static public List<TreeNode> generateTrees(int n) {
-        if(n < 1) return new ArrayList<>();
+        if(n < 1) {
+            return new ArrayList<>();
+        }
         return helper(1, n);
     }
 

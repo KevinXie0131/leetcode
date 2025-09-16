@@ -46,6 +46,25 @@ public class Q559_Maximum_Depth_of_N_ary_Tree {
         return depth + 1;
     }
     /**
+     * 前序遍历
+     */
+    int maxDepth1 (Node root) {
+        int[] result = {0};
+        getdepth_1(root, 1, result); //递归求解最大深度
+        return result[0];
+    }
+
+    public void getdepth_1(Node node, int depth, int[] result) {
+        if (node == null) {
+            return;
+        }
+        // 前序（中左右）
+        result[0] = Math.max(depth,  result[0]); // 中
+        for(Node child : node.children) {
+            getdepth_1(child, depth + 1, result);
+        }
+    }
+    /**
      * 前序遍历 / 自顶向下
      */
     private int ans;

@@ -14,8 +14,9 @@ public class Q101_Symmetric_Tree {
      * 正是因为要遍历两棵树而且要比较内侧和外侧节点，所以准确的来说是一个树的遍历顺序是左右中，一个树的遍历顺序是右左中。
      */
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return true;
-
+        if (root == null){
+            return true;
+        }
         return dfs(root.left, root.right);
     }
     /**
@@ -51,6 +52,38 @@ public class Q101_Symmetric_Tree {
         return isLeft && isRight; // 左⼦树：中、 右⼦树：中（逻辑处理）
     }
     /**
+     * refer to Q100_Same_Tree
+     */
+    public boolean isSymmetric_1e(TreeNode root) {
+        return compare(root.left, root.right);
+    }
+
+    boolean compare(TreeNode left, TreeNode right) {
+        if (left == null && right != null) {
+            return false;
+        } else if (left != null && right == null) {
+            return false;
+        } else if (left == null && right == null) {
+            return true;
+        } else if (left.value != right.value) {
+            return false;
+        } else {
+            return compare(left.left, right.right) && compare(left.right, right.left);
+        }
+    }
+    /**
+     * 精简 同上
+     */
+    boolean compare1(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }  else if (left == null || right == null || left.value != right.value) {
+            return false;
+        } else {
+            return compare1(left.left, right.right) && compare1(left.right, right.left);
+        }
+    }
+    /**
      * 精简之后代码
      * refer to Q100_Same_Tree
      */
@@ -61,12 +94,13 @@ public class Q101_Symmetric_Tree {
     }
     /**
      * 使⽤队列 迭代法 (但要注意，这里的迭代法可不是前中后序的迭代写法，因为本题的本质是判断两个树是否是相互翻转的，其实已经不是所谓二叉树遍历的前中后序的关系了)
-     * 在迭代法中我们使⽤了队列，需要注意的是这不是层序遍历，⽽且仅仅通过⼀个容器来成对
-     * 的存放我们要⽐较的元素，知道这⼀本质之后就发现，⽤队列，⽤栈，甚⾄⽤数组，都是可以的。
+     * 在迭代法中我们使⽤了队列，需要注意的是这不是层序遍历，⽽且仅仅通过⼀个容器来成对的存放我们要⽐较的元素，
+     * 知道这⼀本质之后就发现，⽤队列，⽤栈，甚⾄⽤数组，都是可以的。
      */
     public boolean isSymmetric_1c(TreeNode root) { // 通过队列来判断根节点的左子树和右子树的内侧和外侧是否相等
-        if (root == null) return true;
-
+        if (root == null) {
+            return true;
+        }
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offerFirst(root.left); // 将左⼦树头结点加⼊队列
         queue.offerLast(root.right); // 将右⼦树头结点加⼊队列
@@ -99,8 +133,9 @@ public class Q101_Symmetric_Tree {
      * 使用普通队列
      */
     public boolean isSymmetric_1d(TreeNode root) {
-        if (root == null) return true;
-
+        if (root == null){
+            return true;
+        }
         Deque<TreeNode> queue = new LinkedList<>();
         queue.offer(root.left);
         queue.offer(root.right);

@@ -8,9 +8,7 @@ public class Q145_Binary_Tree_Postorder_Traversal_1 {
 
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-
         inorder(root, result);
-
         return result;
     }
     /**

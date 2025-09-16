@@ -59,7 +59,9 @@ public class Q1367_Linked_List_in_Binary_Tree {
     }
 
     private void dfs(ListNode head, TreeNode root){
-        if(root == null) return;
+        if(root == null){
+            return;
+        }
         if(root.value == head.value && isSametree1(head, root)){
             found = true;
         }

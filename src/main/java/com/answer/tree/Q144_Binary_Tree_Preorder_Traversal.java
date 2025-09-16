@@ -17,7 +17,6 @@ public class Q144_Binary_Tree_Preorder_Traversal {
      */
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> returnList = new ArrayList<Integer>();
-
         if(root == null) {
             return returnList;
         }
@@ -70,13 +69,19 @@ public class Q144_Binary_Tree_Preorder_Traversal {
     public List<Integer> preorderTraversal_2(TreeNode root) {
         List<Integer> result = new LinkedList<>();
         Stack<TreeNode> st = new Stack<>();
-        if (root != null) st.push(root);
+        if (root != null) {
+            st.push(root);
+        }
         while (!st.empty()) {
             TreeNode node = st.peek();
             if (node != null) {
                 st.pop(); // 将该节点弹出，避免重复操作，下面再将右中左节点添加到栈中
-                if (node.right!=null) st.push(node.right);  // 添加右节点（空节点不入栈）
-                if (node.left!=null) st.push(node.left);    // 添加左节点（空节点不入栈）
+                if (node.right != null){
+                    st.push(node.right);  // 添加右节点（空节点不入栈）
+                }
+                if (node.left != null){
+                    st.push(node.left);    // 添加左节点（空节点不入栈）
+                }
                 st.push(node);                          // 添加中节点
                 st.push(null); // 中节点访问过，但是还没有处理，加入空节点做为标记。
 

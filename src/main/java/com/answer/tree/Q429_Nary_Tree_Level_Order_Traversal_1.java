@@ -14,7 +14,9 @@ public class Q429_Nary_Tree_Level_Order_Traversal_1 {
      * 递归
      */
     public void dfs(Node root, int deep) {
-        if (root == null) return;
+        if (root == null){
+            return;
+        }
         deep++;
 
         if (resListRec.size() < deep) {
@@ -55,9 +57,13 @@ public class Q429_Nary_Tree_Level_Order_Traversal_1 {
 
     public List<List<Integer>> levelOrder2(Node root) {
         List<List<Integer>> ans = new ArrayList<>();
-        if (root == null) return ans;
+        if (root == null){
+            return ans;
+        }
         dfs_2(root, 0);
-        for (int i = 0; i <= max; i++) ans.add(map.get(i));
+        for (int i = 0; i <= max; i++) {
+            ans.add(map.get(i));
+        }
         return ans;
     }
 
@@ -72,6 +78,25 @@ public class Q429_Nary_Tree_Level_Order_Traversal_1 {
 
         for (Node child : root.children) {
             dfs_2(child,  depth + 1);
+        }
+    }
+    /**
+     * another form
+     */
+    public List<List<Integer>> levelOrder3(Node root) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        dfs_3(root, 0, map);
+        return new ArrayList<>(map.values());
+    }
+
+    public void dfs_3(Node root, int depth, Map<Integer, List<Integer>> map) {
+        if (root == null) {
+            return;
+        }
+        map.computeIfAbsent(depth, e -> new ArrayList<>()).add(root.val);
+
+        for (Node child : root.children) {
+            dfs_3(child,  depth + 1, map);
         }
     }
 }

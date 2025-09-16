@@ -15,7 +15,9 @@ public class Q226_Invert_Binary_Tree {
      * 中序不行，因为先左孩子交换孩子，再根交换孩子（做完后，右孩子已经变成了原来的左孩子），再右孩子交换孩子（此时其实是对原来的左孩子做交换）
      */
     public TreeNode invertTree(TreeNode root) {
-        if (root == null) return root;
+        if (root == null) {
+            return root;
+        }
         // 前序遍历
         TreeNode temp = root.left;
         root.left = root.right;
@@ -32,10 +34,30 @@ public class Q226_Invert_Binary_Tree {
         return root; //函数返回时就表示当前这个节点，以及它的左右子树都已经交换完了
     }
     /**
+     * 前序遍历 another form
+     */
+    public TreeNode invertTree_0(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        // 前序遍历
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        root.right = left;
+        root.left = right;
+
+        invertTree_0(root.left);
+        invertTree_0(root.right);
+
+        return root;
+    }
+    /**
      * 后序遍历
      */
     public TreeNode invertTree1(TreeNode root) {
-        if (root == null) return root;
+        if (root == null) {
+            return root;
+        }
 
         invertTree(root.left);
         invertTree(root.right);
@@ -50,7 +72,9 @@ public class Q226_Invert_Binary_Tree {
      * another fornm
      */
     public TreeNode invertTree2(TreeNode root) {
-        if (root == null) return null;
+        if (root == null) {
+            return null;
+        }
 
         TreeNode left = invertTree2(root.left);
         TreeNode right = invertTree2(root.right);
@@ -63,7 +87,9 @@ public class Q226_Invert_Binary_Tree {
      * 如果非要使用递归中序的方式写，也可以，如下代码就可以避免节点左右孩子翻转两次的情况
      */
     public TreeNode invertTree_2(TreeNode root) {
-        if(root == null ) return root;
+        if(root == null ) {
+            return root;
+        }
 
         if(root.left != null){
             invertTree(root.left); // 左

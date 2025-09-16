@@ -59,6 +59,7 @@ public class Q998_Maximum_Binary_Tree_II {
     public TreeNode insertIntoMaxTree_1(TreeNode root, int val) {
         TreeNode newNode = new TreeNode(val);
         TreeNode cur = root, prev = null;
+
         while(cur != null && cur.value > val){
             prev = cur;
             cur = cur.right;

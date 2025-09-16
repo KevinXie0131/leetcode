@@ -137,12 +137,16 @@ public class Q285_Inorder_Successor_in_BST {
             return null;
         }
         TreeNode left = inorder1(root.left, p);   // 左
-        if(left != null) return left;
+        if(left != null) {
+            return left;
+        }
         if(left == null && root.value > p.value){  // 中
             return root;
         }
         TreeNode right = inorder1(root.right, p);// 右
-        if(right != null) return right;
+        if(right != null) {
+            return right;
+        }
         return null;
     }
     /**

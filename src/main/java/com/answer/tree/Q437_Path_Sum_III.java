@@ -36,7 +36,7 @@ public class Q437_Path_Sum_III {
     }
     /**
      * Recursion
-     * Time: N2
+     * Time: N^2
      * Space: N
      */
     static int res = 0;
@@ -61,6 +61,8 @@ public class Q437_Path_Sum_III {
         }
         if (node.left != null) dfs(node.left, targetSum - node.value);
         if (node.right != null) dfs(node.right, targetSum - node.value);
+        // dfs(node.left, targetSum - node.val ); // works too
+        // dfs(node.right, targetSum - node.val );
     }
     /**
      * 穷举所有的可能，我们访问每一个节点 node，检测以 node 为起始节点且向下延深的路径有多少种。我们递归遍历每一个节点的所有可能的路径，
@@ -68,8 +70,9 @@ public class Q437_Path_Sum_III {
      * 时间复杂度：O(N^2)
      */
     public int pathSum6(TreeNode root, long targetSum) {
-        if (root == null) return 0;
-
+        if (root == null) {
+            return 0;
+        }
         int ret = rootSum6(root, targetSum);
         ret += pathSum6(root.left, targetSum);
         ret += pathSum6(root.right, targetSum);
@@ -78,8 +81,9 @@ public class Q437_Path_Sum_III {
 
     public int rootSum6(TreeNode root, long targetSum) {
         int ret = 0;
-        if (root == null) return 0;
-
+        if (root == null) {
+            return 0;
+        }
         if (root.value == targetSum) {
             ret++;
         }
@@ -107,8 +111,9 @@ public class Q437_Path_Sum_III {
      * @return: 以当前节点为最后一个节点的，节点和等于目标和的路径数
      */
     public static int dfs_1(TreeNode node, Map<Long, Integer> prefix, long curr, long targetSum) {
-        if (node == null) return 0;  // 空节点，满足条件路径数为0
-
+        if (node == null) {
+            return 0;  // 空节点，满足条件路径数为0
+        }
         int ret = 0;
         curr += node.value;  // 更新节点和
         // 以当前节点为最后一个节点的，满足条件的路径数就等于根节点到当前节点路径上出现的前缀和 curr - target 的个数，通过哈希表 prefix，不存在则返回 0；

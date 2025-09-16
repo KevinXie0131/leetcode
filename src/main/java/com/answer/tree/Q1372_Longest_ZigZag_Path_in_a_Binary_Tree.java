@@ -38,7 +38,9 @@ public class Q1372_Longest_ZigZag_Path_in_a_Binary_Tree {
     // 思考：「重置」为什么是把 len 变成 1 而不是 0？ 因为当前的点下传到它的子节点的时候已经走了一条长度为 1 的边。
     // 那么为什么 main 函数中传入的 len 值是 0 而不是 1 呢？ 因为 main 函数中的 root 是没有父亲节点的，所以当前已经走过的路为 0。
     public void dfs(TreeNode root, boolean isLeft, int len) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         maxLen = Math.max(maxLen, len); // 更新最大路径长度
         if (isLeft) { // 如果当前方向是左，下一步应该是右
             dfs(root.right, false, len + 1); // 如果转向右，路径长度加1

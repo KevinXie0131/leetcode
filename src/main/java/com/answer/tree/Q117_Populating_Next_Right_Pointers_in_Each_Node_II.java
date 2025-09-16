@@ -41,7 +41,7 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II {
                 }
                 cur = cur.next; // cur 指针利用 next 不停的遍历当前层。
             }
-            cur = dummy .next; // 当前层遍历完毕， 更新 cur 到下一层
+            cur = dummy.next; // 当前层遍历完毕， 更新 cur 到下一层
         }
         return root;
     }
@@ -52,7 +52,7 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II {
      *       /  \         \
      *      4 -> 5   ->    7
      * 层次遍历
-     * 按照层的顺序遍历二叉树，在遍历第 i 层前，一定会遍历完第 i−1 层
+     * 按照层的顺序遍历二叉树，在遍历第 i 层前，一定会遍历完第i − 1层
      * 可以在遍历每一层的时候修改这一层节点的 next 指针，这样就可以把每一层都组织成链表
      */
     public Node connect(Node root) {
@@ -75,7 +75,6 @@ public class Q117_Populating_Next_Right_Pointers_in_Each_Node_II {
                 if (cur.right != null) queue.offer(cur.right);
             }
         }
-
         return root;
     }
     /**

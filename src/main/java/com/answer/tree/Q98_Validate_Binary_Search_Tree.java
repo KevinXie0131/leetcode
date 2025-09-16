@@ -40,15 +40,17 @@ public class Q98_Validate_Binary_Search_Tree {
     public boolean isValidBST_0(TreeNode root) {
         traversal(root);
         for (int i = 1; i < list.size(); i++) {
-            // 注意要⼩于等于，搜索树⾥不能有相同元素
-            if (list.get(i) <= list.get(i - 1)) return false;
+            if (list.get(i) <= list.get(i - 1)) {  // 注意要⼩于等于，搜索树⾥不能有相同元素
+                return false;
+            }
         }
         return true;
     }
 
     void traversal(TreeNode root) {
-        if (root == null) return;
-
+        if (root == null){
+            return;
+        }
         traversal(root.left);
         list.add(root.value); // 将⼆叉搜索树转换为有序数组
         traversal(root.right);
@@ -61,9 +63,11 @@ public class Q98_Validate_Binary_Search_Tree {
      */
     static double max = -Double.MAX_VALUE ;
     //  long max = Long.MIN_VALUE; // 这个也可以
-    public static boolean isValidBST5(TreeNode root) {
-        if(root == null) return true;
 
+    public static boolean isValidBST5(TreeNode root) {
+        if(root == null) {
+            return true;
+        }
         boolean left = isValidBST5(root.left); // 左
 /*        if (!left) {  // 可以加上
             return false;
@@ -73,7 +77,6 @@ public class Q98_Validate_Binary_Search_Tree {
         }else {
             return false;
         }
-
         boolean right = isValidBST5( root.right); // 右
         return left && right;
     }
@@ -82,6 +85,7 @@ public class Q98_Validate_Binary_Search_Tree {
      */
     public boolean isValidBST(TreeNode root) {
         double result = -Double.MAX_VALUE; // 因为后台测试数据中有int最⼩值
+       // long result = Long.MIN_VALUE; // works too
         Deque<TreeNode> stack = new ArrayDeque<>();
 
         while (!stack.isEmpty() || root != null) {
@@ -129,18 +133,19 @@ public class Q98_Validate_Binary_Search_Tree {
     TreeNode pre = null; // ⽤来记录前⼀个节点
 
     public boolean isValidBST2(TreeNode root) {
-
-        if (root == null) return true;
-
+        if (root == null) {
+            return true;
+        }
         boolean left = isValidBST(root.left);         // 左
-
+   //   if(!left){ // works too
+   //        return false;
+   //   }
         if (pre != null && pre.value >= root.value) { // 中序遍历，验证遍历的元素是不是从⼩到⼤
             return false;                             // 中
         }
         pre = root; // 记录前⼀个节点
 
         boolean right = isValidBST(root.right);      // 右
-
         return left && right;
     }
     /**
@@ -151,7 +156,7 @@ public class Q98_Validate_Binary_Search_Tree {
     }
 
     public boolean validBST(TreeNode root,  long lower, long upper){
-        if(root==null){
+        if(root == null){
             return true;
         }
         if (root.value >= upper || root.value <= lower){

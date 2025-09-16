@@ -39,9 +39,11 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
         find(root);
         return result;
     }
-    private void find(TreeNode root) {
-        if (root == null) return;
 
+    private void find(TreeNode root) {
+        if (root == null) {
+            return;
+        }
         find(root.left);  // 左
 
         if (pre != null) {  // 中
@@ -53,7 +55,6 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
         pre = root; // 记录前一个
 
         find(root.right); // 右
-
     }
     /**
      * 递归
@@ -63,18 +64,19 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
 
     public int getMinimumDifference1(TreeNode root) {
         double result = Double.MAX_VALUE;
+      //  int result = Integer.MAX_VALUE; // works too
         inOrder1(root);
 
         for (int i = 0; i < list.size() - 1; i++) { // 统计有序数组的最⼩差值
             result = Math.min(list.get(i + 1) - list.get(i), result);
         }
-
         return (int)result;
     }
 
     public void inOrder1 (TreeNode root) { // 中序遍历
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         inOrder1 (root.left);
         list.add(root.value); // 将⼆叉搜索树转换为有序数组
         inOrder1 (root.right);
@@ -92,8 +94,9 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
     }
 
     public void inOrder2 (TreeNode root) {
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         inOrder2 (root.left); // 左
 
         if (pre0 < 0) {      // 中
@@ -124,7 +127,7 @@ public class Q530_Minimum_Absolute_Difference_in_BST {
             if (pre1 < 0){
                 pre1 = cur.value; // 中
             } else {
-                result1 = Math.min(cur.value-pre1, result);
+                result1 = Math.min(cur.value - pre1, result);
                 pre1 = cur.value;
             }
 

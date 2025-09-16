@@ -48,7 +48,9 @@ public class Q572_Subtree_of_Another_Tree {
         boolean right = isSameTree(p.right, q.right);
         return left && right;
     }
-    // another form
+    /**
+     * another form
+     */
     public boolean isSametree1(TreeNode p, TreeNode q) {
         if(p == null && q == null) return true;
         if(p == null || q == null) return false;
@@ -62,7 +64,7 @@ public class Q572_Subtree_of_Another_Tree {
     public boolean isSubtree1(TreeNode root, TreeNode subRoot) {
         dfs(root, true);
 
-        String res =  dfs(root, false);
+        String res = dfs(root, false);
         if(seen.contains(res)){
             return true;
         } else {

@@ -71,7 +71,7 @@ public class Q145_Binary_Tree_Postorder_Traversal {
      * 参考Q144 Binary Tree Preorder Traversal
      */
     public List<Integer> postorderTraversal_1a(TreeNode node) {
-        List<Integer> list =  new LinkedList<>();
+        List<Integer> list = new LinkedList<>();
         Deque <TreeNode> stack = new ArrayDeque<>();
 
         while (node != null || !stack.isEmpty()) {

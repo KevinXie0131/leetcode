@@ -71,12 +71,24 @@ public class Q100_Same_Tree {
         }
     }
     /**
+     * 精简 同上
+     */
+    boolean compare1(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }  else if (left == null || right == null || left.value != right.value) {
+            return false;
+        } else {
+            return compare1(left.left, right.left) && compare1(left.right, right.right);
+        }
+    }
+    /**
      * 精简之后代码
      */
     public boolean isSameTree_1a(TreeNode p, TreeNode q) {
         if (p == null && q == null) return true; // 两个节点均为空
         if (p == null || q == null) return false; // 一个节点为空 一个节点不为空
-        return p.value == q.value && isSameTree_1a(p.left, q.left) &&  isSameTree_1a(p.right, q.right);  // 两个节点均不为空
+        return p.value == q.value && isSameTree_1a(p.left, q.left) && isSameTree_1a(p.right, q.right);  // 两个节点均不为空
     }
     /**
      * 迭代法
@@ -107,6 +119,7 @@ public class Q100_Same_Tree {
             }
             if(leftNode.left != null) que.offer(leftNode.left);
             if(rightNode.left != null) que.offer(rightNode.left);
+
             if((leftNode.right != null && rightNode.right == null) || leftNode.right == null && rightNode.right != null){
                 return false;
             }

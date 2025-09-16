@@ -60,7 +60,9 @@ public class Q426_Convert_Binary_Search_Tree_to_Sorted_Doubly_Linked_List {
      * 将二叉搜索树转化为排序的循环双向链表
      */
     public Node treeToDoublyList(Node root) {
-        if (root == null) return null;
+        if (root == null) {
+            return null;
+        }
         dfs(root);
         // 最后将首尾节点连接，形成循环双向链表
         prev.right = head;
@@ -94,17 +96,19 @@ public class Q426_Convert_Binary_Search_Tree_to_Sorted_Doubly_Linked_List {
      * 需要注意的是：在最后需要连接头指针和尾指针。
      */
     public Node treeToDoublyList1(Node root) {
-        if(root == null) return root;
+        if(root == null) {
+            return root;
+        }
         Node cur = root;
-        Deque<Node> stk = new ArrayDeque<>();
+        Deque<Node> stack = new ArrayDeque<>();
         Node head = null;
         Node prev = null;
-        while(cur != null || !stk.isEmpty()){
+        while(cur != null || !stack.isEmpty()){
             while(cur != null){
-                stk.push(cur);
+                stack.push(cur);
                 cur = cur.left;
             }
-            cur = stk.pop();
+            cur = stack.pop();
 
             if(head == null) { //头结点
                 head = cur;

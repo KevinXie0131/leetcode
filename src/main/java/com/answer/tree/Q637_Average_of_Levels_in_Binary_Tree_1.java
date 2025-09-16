@@ -12,6 +12,7 @@ public class Q637_Average_of_Levels_in_Binary_Tree_1 {
 
     public List<Double> averageOfLevels(TreeNode root) {
         dfs(root, 0);
+
         for (int i = 0; i < resListRec.size(); i++) {
             resListRec.set(i, sum.get(i) / count.get(i));
         }
@@ -44,7 +45,6 @@ public class Q637_Average_of_Levels_in_Binary_Tree_1 {
         if (root == null) {
             return;
         }
-
         if (resListRec.size() == deep) {
             count.add(0);
             sum.add(1.0 * 0);

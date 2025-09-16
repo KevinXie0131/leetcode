@@ -42,7 +42,9 @@ public class Q116_Populating_Next_Right_Pointers_in_Each_Node {
      *  p.right.next = p.next.left
      */
     public void trasverse(Node root) {
-        if(root == null) return; // 中
+        if(root == null) {
+            return; // 中
+        }
         if(root.left != null){
             root.left.next = root.right; // 操作1
         }
@@ -53,6 +55,9 @@ public class Q116_Populating_Next_Right_Pointers_in_Each_Node {
                 root.right.next = null;
             }
         }
+/*        if(root.right != null && root.next != null){ // works too
+            root.right.next = root.next.left;  //操作2
+        }*/
         trasverse(root.left);  // 左
         trasverse(root.right); //右
     }
@@ -61,7 +66,9 @@ public class Q116_Populating_Next_Right_Pointers_in_Each_Node {
      * 把完美二叉树劈成两半，先处理大的两半二叉树中间的左右连接，然后递归处理小的连接
      */
     public Node connect4(Node root) {
-        if (root == null) return root;
+        if (root == null) {
+            return root;
+        }
         Node leftNode = root.left;
         Node rightNode = root.right;
         while(leftNode != null) {

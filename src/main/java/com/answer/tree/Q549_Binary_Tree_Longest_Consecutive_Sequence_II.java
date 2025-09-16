@@ -66,7 +66,7 @@ public class Q549_Binary_Tree_Longest_Consecutive_Sequence_II {
     static int maxLen = 0;
 
     static public int longestConsecutive(TreeNode root) {
-        dfs(root);
+        dfs1(root);
         return maxLen;
     }
     /**
@@ -75,31 +75,62 @@ public class Q549_Binary_Tree_Longest_Consecutive_Sequence_II {
      * int[1] - 以当前节点为根的递减长度
      */
     static public int[] dfs(TreeNode root) {
-        if(root == null) return new int[]{0, 0};
+        if(root == null){
+            return new int[]{0, 0};
+        }
         int incr = 1, decr = 1;
         int[] left = dfs(root.left);
         int[] right = dfs(root.right);
 
         if(root.left != null){
             if(root.left.value + 1 == root.value) {
-             //   incr = left[0] + 1; // works too
-                incr =  Math.max(incr, left[0] + 1);
+                incr = left[0] + 1; // works too
+             //   incr =  Math.max(incr, left[0] + 1);
             }
             if(root.left.value - 1 == root.value){
-            //    decr = left[1] + 1; // works too
-                decr =  Math.max(decr, left[1] + 1);
+                decr = left[1] + 1; // works too
+            //    decr =  Math.max(decr, left[1] + 1);
             }
         }
         if(root.right != null){
             if(root.right.value + 1 == root.value) {
-                incr =  Math.max(incr, right[0] + 1);
+             //   incr = Math.max(incr, right[0] + 1);
+                incr = right[0] + 1;
             }
             if(root.right.value - 1 == root.value){
-                decr =  Math.max(decr, right[1] + 1);
+             //   decr =  Math.max(decr, right[1] + 1);
+                decr = right[1] + 1;
             }
         }
         // 经过当前节点的最长连续路径（可能从左子树递增到当前节点再递减到右子树，或反之）
         maxLen = Math.max(maxLen, incr + decr - 1);  // 经过当前节点的最长路径：inc + dec - 1
+        return new int[]{incr, decr};
+    }
+    /**
+     * another form
+     */
+    static public int[] dfs1(TreeNode root) {
+        if(root == null){
+            return new int[]{0, 0};
+        }
+        int[] left = dfs1(root.left);
+        int[] right = dfs1(root.right);
+
+        int incr = 1, decr = 1;
+        if(root.left != null && root.left.value + 1 == root.value){
+            incr = Math.max(incr, left[0] + 1);
+        }
+        if(root.left != null && root.left.value - 1 == root.value){
+            decr = Math.max(decr, left[1] + 1);
+        }
+
+        if(root.right != null && root.right.value + 1 == root.value){
+            incr = Math.max(incr, right[0] + 1);
+        }
+        if(root.right != null && root.right.value - 1 == root.value){
+            decr = Math.max(decr, right[1] + 1);
+        }
+        maxLen = Math.max(maxLen, incr + decr - 1);
         return new int[]{incr, decr};
     }
 }

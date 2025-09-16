@@ -24,8 +24,8 @@ public class Q951_Flip_Equivalent_Binary_Trees {
         if (root1 == null && root2 == null) return true;  // 都为空，等价
         if (root1 == null || root2 == null || root1.value != root2.value) return false; // 有一个为空或值不同，不等价
         // 两种情况：不翻转 或 翻转
-        boolean notFlipped = flipEquiv0(root1.left, root2.left) && flipEquiv(root1.right, root2.right);
-        boolean flipped = flipEquiv0(root1.left, root2.right) && flipEquiv(root1.right, root2.left);
+        boolean notFlipped = flipEquiv0(root1.left, root2.left) && flipEquiv0(root1.right, root2.right);
+        boolean flipped = flipEquiv0(root1.left, root2.right) && flipEquiv0(root1.right, root2.left);
         return notFlipped || flipped;
     }
     /**
@@ -34,7 +34,8 @@ public class Q951_Flip_Equivalent_Binary_Trees {
     public boolean flipEquiv0a(TreeNode root1, TreeNode root2) {
         if (root1 == null && root2 == null) return true;
         if (root1 == null || root2 == null) return false;
-        return  root1.value == root2.value && ((flipEquiv0a(root1.left, root2.left) && flipEquiv0a(root1.right, root2.right)) || (flipEquiv0a(root1.left, root2.right) && flipEquiv0a(root1.right, root2.left)));
+        return  root1.value == root2.value && ((flipEquiv0a(root1.left, root2.left) && flipEquiv0a(root1.right, root2.right))
+                                            || (flipEquiv0a(root1.left, root2.right) && flipEquiv0a(root1.right, root2.left)));
     }
     /**
      * There are 3 cases:
@@ -47,11 +48,12 @@ public class Q951_Flip_Equivalent_Binary_Trees {
      *   如果以上条件都不满足，也就是当 root1 和 root2 的值相等的情况下，需要继续判断 root1 的孩子节点是不是跟 root2 的孩子节点相当。因为可以做翻转操作，所以这里有两种情况需要去判断。
      */
     public boolean flipEquiv(TreeNode root1, TreeNode root2) {
-        if (root1 == root2)
+        if (root1 == root2) { //  if (root1 == null && root2 == null) { // works too
             return true;
-        if (root1 == null || root2 == null || root1.value != root2.value)
+        }
+        if (root1 == null || root2 == null || root1.value != root2.value) {
             return false;
-
+        }
         return (flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right) ||
                 flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left));
     }
@@ -59,18 +61,16 @@ public class Q951_Flip_Equivalent_Binary_Trees {
      * another form
      */
     public boolean flipEquiv_1(TreeNode root1, TreeNode root2) {
-        if (root1 == root2)
+        if (root1 == root2) {  //  if (root1 == null && root2 == null) { // works too
             return true;
-
-        if (root1 == null || root2 == null)
+        }
+        if (root1 == null || root2 == null) {
             return false;
-
+        }
         boolean d1 = flipEquiv(root1.left, root2.left);
         boolean d2 = flipEquiv(root1.right, root2.right);
         boolean d3 = flipEquiv(root1.left, root2.right);
         boolean d4 = flipEquiv(root1.right, root2.left);
-        return root1.value == root2.value &&
-                ((d1 && d2) || (d3 && d4));
-
+        return root1.value == root2.value && ((d1 && d2) || (d3 && d4));
     }
 }

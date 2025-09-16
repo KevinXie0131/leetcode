@@ -28,17 +28,18 @@ public class Q270_Closest_Binary_Search_Tree_Value {
         node2.left = node4;
         node2.right = node5;
     //    System.out.println(closestValue_4(node1, 3.714286));
-        System.out.println(closestValue(node1, 3.714286)); // Test 1: target = 3.714286, closest is 4
-        System.out.println(closestValue(node1, 2.5));   // Test 2: target = 2.5, closest is 2
-        System.out.println(closestValue(node1, 1)); // Test 3: target = 1, closest is 1
-        System.out.println(closestValue(node1, 5)); // Test 4: target = 5, closest is 5
-        System.out.println(closestValue(node1, 2.9));   // Test 5: target = 2.9, closest is 3
+        System.out.println(closestValue_6(node1, 3.714286)); // Test 1: target = 3.714286, closest is 4
+        System.out.println(closestValue_6(node1, 2.5));   // Test 2: target = 2.5, closest is 2
+        System.out.println(closestValue_6(node1, 1)); // Test 3: target = 1, closest is 1
+        System.out.println(closestValue_6(node1, 5)); // Test 4: target = 5, closest is 5
+        System.out.println(closestValue_6(node1, 2.9));   // Test 5: target = 2.9, closest is 3
     }
     /**
      * Recursion
      */
     static int res = Integer.MAX_VALUE;
     static double closest = Integer.MAX_VALUE;
+
     public static int closestValue(TreeNode root, double target) {
         dfs(root, target);
         return res;
@@ -99,7 +100,9 @@ public class Q270_Closest_Binary_Search_Tree_Value {
      * 利用二叉搜索树的性质，根据 target 和当前节点值的大小，决定向左还是向右遍历。
      */
     static public int closestValue_5(TreeNode root, double target) {
-        if(root.value == target) return root.value;
+        if(root.value == target) {
+            return root.value;
+        }
         int res = root.value;
         while(root != null){
             if(Math.abs(root.value - target) < Math.abs(res - target)){
@@ -112,6 +115,30 @@ public class Q270_Closest_Binary_Search_Tree_Value {
             }
         }
         return res;
+    }
+    /**
+     * another form 递归
+     */
+    static public int closestValue_6(TreeNode root, double target) {
+        if(root.value == target) {
+            return root.value;
+        }
+        dfs0(root, target);
+        return res;
+    }
+
+    static private void dfs0(TreeNode root, double target){
+        if(root == null) {
+            return;
+        }
+        if(Math.abs(root.value - target) < Math.abs(res - target)) {
+            res = root.value;
+        }
+        if (root.value < target) {
+            dfs0(root.right, target);
+        } else if (root.value > target) {
+            dfs0(root.left, target);
+        }
     }
     /**
      * Approach 1: Recursive Inorder + Linear search, O(N) time

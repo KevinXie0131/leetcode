@@ -52,19 +52,19 @@ public class Q107_Binary_Tree_Level_Order_Traversal_II {
     public List<List<Integer>> levelOrderBottom_1(TreeNode root) {
         // 利用链表可以进行 O(1) 头部插入, 这样最后答案不需要再反转
         LinkedList<List<Integer>> ans = new LinkedList<>();
-        Queue<TreeNode> q = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         if (root != null) {
-            q.offer(root);
+            queue.offer(root);
         }
-        while (!q.isEmpty()) {
-            int size = q.size();
+        while (!queue.isEmpty()) {
+            int size = queue.size();
             List<Integer> temp = new ArrayList<>();
 
             for (int i = 0; i < size; i ++) {
-                TreeNode node = q.poll();
+                TreeNode node = queue.poll();
                 temp.add(node.value);
-                if (node.left != null) q.offer(node.left);
-                if (node.right != null) q.offer(node.right);
+                if (node.left != null) queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);
             }
             // 新遍历到的层插到头部, 这样就满足按照层次反序的要求
             ans.addFirst(temp);

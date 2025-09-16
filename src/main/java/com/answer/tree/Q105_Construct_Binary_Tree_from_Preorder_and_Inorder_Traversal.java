@@ -118,7 +118,7 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
         }
         return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
     }
-
+    // 左闭右闭
     public TreeNode myBuildTree(int[] preorder, int[] inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
         if (preorder_left > preorder_right || inorder_left > inorder_right) {
       //  if (preorder_left > preorder_right) { // works too
@@ -148,7 +148,7 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
         }
         return findNode(preorder, 0, preorder.length, inorder,  0, inorder.length);  // 前闭后开
     }
-
+    // 左闭右开
     public TreeNode findNode(int[] preorder, int preBegin, int preEnd, int[] inorder, int inBegin, int inEnd) {
         // 参数里的范围都是前闭后开
         if (preBegin >= preEnd || inBegin >= inEnd) {  // 不满足左闭右开，说明没有元素，返回空树
@@ -184,8 +184,9 @@ public class Q105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
     }
 
     public TreeNode helper(int in_left, int in_right) {
-        if (in_left > in_right) return null;// if there is no elements to construct subtrees
-
+        if (in_left > in_right) {
+            return null;// if there is no elements to construct subtrees
+        }
         int root_val = preorder[pre_idx];// pick up post_idx element as a root
         TreeNode root = new TreeNode(root_val);
         int index = idx_map.get(root_val); // root splits inorder list into left and right subtrees

@@ -111,7 +111,7 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
     }
 
     public void getdepth2(TreeNode node, int depth) {
-        if (node == null || depth >= result1) { //  最优性剪枝 depth>= result1, 如果递归中发现 depth >= result1，由于继续向下递归也不会让 result1 变小，直接返回
+        if (node == null || depth >= result1) { //  最优性剪枝 depth >= result1, 如果递归中发现 depth >= result1，由于继续向下递归也不会让 result1 变小，直接返回
             return;
         }
         // 中，处理逻辑：判断是不是叶子结点
@@ -135,7 +135,9 @@ public class Q111_Minimum_Depth_of_Binary_Tree {
     }
 
     void dep(TreeNode root){
-        if(root == null) return;
+        if(root == null) {
+            return;
+        }
         // 递归开始，深度增加
         depth++;
         dep(root.left);

@@ -47,7 +47,9 @@ public class Q501_Find_Mode_in_Binary_Search_Tree_1 {
     public int[] findMode1(TreeNode root) {
         Map<Integer, Integer> map = new HashMap<>();
         List<Integer> list = new ArrayList<>();
-        if (root == null) return list.stream().mapToInt(Integer::intValue).toArray();
+        if (root == null){
+            return list.stream().mapToInt(Integer::intValue).toArray();
+        }
         // 获得频率 Map
         searchBST1(root, map);
 
@@ -67,7 +69,9 @@ public class Q501_Find_Mode_in_Binary_Search_Tree_1 {
     }
 
     void searchBST1(TreeNode curr, Map<Integer, Integer> map) {
-        if (curr == null) return;
+        if (curr == null) {
+            return;
+        }
         map.put(curr.value, map.getOrDefault(curr.value, 0) + 1);
         searchBST1(curr.left, map);
         searchBST1(curr.right, map);

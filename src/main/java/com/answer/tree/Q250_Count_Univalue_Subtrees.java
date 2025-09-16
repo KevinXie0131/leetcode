@@ -57,15 +57,21 @@ public class Q250_Count_Univalue_Subtrees {
     static int res = 0;
 
     static public int countUnivalSubtrees(TreeNode root) {
-        if(root == null) return 0;
-        if(inUniVal(root, root.value)) res++;
+        if(root == null) {
+            return 0;
+        }
+        if(inUniVal(root, root.value)) {
+            res++;
+        }
         countUnivalSubtrees(root.left);
         countUnivalSubtrees(root.right);
         return res;
     }
 
     static private boolean inUniVal(TreeNode root, int value){
-        if(root == null) return true;
+        if(root == null){
+            return true;
+        }
         boolean middle = root.value == value;
         boolean left = inUniVal(root.left, value);
         boolean right = inUniVal(root.right, value);
@@ -88,7 +94,7 @@ public class Q250_Count_Univalue_Subtrees {
             return true;
         }
         // 从下往上 check，采用后序遍历
-        boolean left = isUnival1(node.left);//左子树都一样吗？
+        boolean left = isUnival1(node.left); // 左子树都一样吗？
         boolean right = isUnival1(node.right);
 
         if (!left || !right) { //左右子树有不一样

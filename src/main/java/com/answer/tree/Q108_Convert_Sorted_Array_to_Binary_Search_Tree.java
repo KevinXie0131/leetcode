@@ -16,6 +16,8 @@ public class Q108_Convert_Sorted_Array_to_Binary_Search_Tree {
         int[] nums = {-10,-3,0,5,9};
         TreeNode root  = sortedArrayToBST_1(nums);
         System.out.println(root);
+        List<List<String>> result = PrintTree.treeToMatrix(root);
+        PrintTree.print2DArray(result);
     }
     /**
      * 将有序数组转换为⼆叉搜索树 (构造⼀棵⼆叉平衡搜索树)

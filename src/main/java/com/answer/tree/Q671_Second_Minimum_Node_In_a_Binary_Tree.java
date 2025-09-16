@@ -10,7 +10,10 @@ public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
      * 更正式地说，即 root.val = min(root.left.val, root.right.val) 总成立。
      * 给出这样的一个二叉树，你需要输出所有节点中的 第二小的值 。
      * 如果第二小的值不存在的话，输出 -1 。
-     * Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.
+     * Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node.
+     * If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes.
+     * More formally, the property root.val = min(root.left.val, root.right.val) always holds.
+     *
      * Given such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.
      * If no such second minimum value exists, output -1 instead.
      */
@@ -46,11 +49,13 @@ public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
     public static int findSecondMinimumValue(TreeNode root) {
         firstMin = root.value;
         dfs(root);
-        return  secondMin < Long.MAX_VALUE ? (int) secondMin : -1;
+        return secondMin < Long.MAX_VALUE ? (int) secondMin : -1;
     }
 
     public static void dfs(TreeNode root){
-        if(root == null) return;
+        if(root == null) {
+            return;
+        }
 
         if(firstMin < root.value && root.value < secondMin){
             secondMin = root.value;
@@ -64,8 +69,9 @@ public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
      */
     static Set<Integer> uniques = new TreeSet<>();
 
-    public  static int findSecondMinimumValue_1(TreeNode root) {
+    public static int findSecondMinimumValue_1(TreeNode root) {
         dfs0(root);
+
         List<Integer> sortedList = new ArrayList<>(uniques);
         Collections.sort(sortedList);
         if(sortedList.size() < 2){
@@ -74,9 +80,10 @@ public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
         return sortedList.get(1);
     }
 
-    public static  void dfs0(TreeNode root){
+    public static void dfs0(TreeNode root){
         if (root != null) {
             uniques.add(root.value);
+
             dfs0(root.left);
             dfs0(root.right);
         }
@@ -86,12 +93,14 @@ public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
      */
     public int findSecondMinimumValue_2(TreeNode root) {
         TreeSet<Integer> treeSet = new TreeSet<>();
+
         dfs1(root, treeSet);
+
         if(treeSet.size() < 2){
             return -1;
         }
         treeSet.pollFirst();
-        return treeSet.pollFirst();
+        return treeSet.first(); //  return treeSet.pollFirst(); // works too
     }
 
     public void dfs1(TreeNode root, TreeSet<Integer> treeSet){
@@ -108,14 +117,16 @@ public class Q671_Second_Minimum_Node_In_a_Binary_Tree {
      * 递归中止条件：碰到叶子节点直接返回-1。
      *
      * 按照上面规则求出左右子树的对应的left和right值后进行比较：
-     *  left=-1&&right=-1 => return -1
+     *  left=-1 && right=-1 => return -1
      *  left=-1 => return right
      *  right=-1 => return left
      *  else => return min(left, right)
      * 这样可以在非极端情况下少些遍历
      */
     public int findSecondMinimumValue3(TreeNode root) {
-        if (root.left == null || root.right == null) return -1;
+        if (root.left == null || root.right == null) {
+            return -1;
+        }
         // 第二小的值存在于左右子树不同于当前节点的最小值
         int left = root.left.value == root.value ? findSecondMinimumValue3(root.left) : root.left.value;
         int right = root.right.value == root.value ? findSecondMinimumValue3(root.right) : root.right.value;

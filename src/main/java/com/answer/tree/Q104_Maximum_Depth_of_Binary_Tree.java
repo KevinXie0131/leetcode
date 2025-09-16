@@ -27,8 +27,8 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         if (root == null) {
             return 0; // 确定终⽌条件：如果为空节点的话，就返回0，表⽰⾼度为0
         }
-        // 确定单层递归的逻辑：先求它的左⼦树的深度，再求的右⼦树的深度，最后取左右
-        //                    深度最⼤的数值 再+1 （加1是因为算上当前中间节点）就是⽬前节点为根节点的树的深度
+        // 确定单层递归的逻辑：先求它的左⼦树的深度，再求的右⼦树的深度，最后取左右深度最⼤的数值 再+1
+        //                  （加1是因为算上当前中间节点）就是⽬前节点为根节点的树的深度
         int left = maxDepth(root.left);    // 左
         int right = maxDepth(root.right);  // 右
         return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度 / 二叉树的最大深度为左右子树的最大深度加1得到。
@@ -42,6 +42,24 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
             return 0;
         }
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+    /**
+     * 前序遍历
+     */
+    int maxDepth_0 (TreeNode root) {
+        int[] result = {0};
+        getdepth_0(root, 1, result); //递归求解最大深度
+        return result[0];
+    }
+
+    public void getdepth_0(TreeNode node, int depth, int[] result) {
+        if (node == null) {
+            return;
+        }
+        // 前序（中左右）
+        result[0] = Math.max(depth,  result[0]); // 中
+        getdepth_0(node.left, depth + 1, result);
+        getdepth_0(node.right, depth + 1, result);
     }
     /**
      * 前序遍历 / 自顶向下
@@ -101,12 +119,12 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
     }
 
     public void dfs(TreeNode root, int deep) {
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         if (depth == deep) {
             depth++;
         }
-
         dfs(root.left,  deep + 1);
         dfs(root.right, deep + 1);
     }
@@ -118,7 +136,9 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
 
     int maxDepth4(TreeNode root) {
         result = 0;
-        if (root == null) return result;
+        if (root == null){
+            return result;
+        }
         getdepth(root, 1);
         return result;
     }
@@ -126,8 +146,9 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
     public void getdepth(TreeNode node, int depth) {
         result = Math.max(result, depth); // 中
 
-        if (node.left == null && node.right == null) return;
-
+        if (node.left == null && node.right == null){
+            return;
+        }
         if (node.left != null) { // 左
             depth++;    // 深度+1
             getdepth(node.left, depth);
@@ -144,7 +165,7 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         if (node.right != null) {
             getdepth(node.right, depth + 1);
         }*/
-        return ;
+       // return;
     }
     /**
      * 递归法(求深度法)
@@ -155,17 +176,16 @@ public class Q104_Maximum_Depth_of_Binary_Tree {
         if (root == null) {
             return result1;
         }
-        getdepth(root, 1);
+        getdepth2(root, 1); //递归求解最大深度
         return result1;
     }
 
     public void getdepth2(TreeNode node, int depth) {
-        //递归求解最大深度
         if (node == null) {
             return;
         }
         // 前序（中左右）
-        result1 = Math.max(depth ,result1); // 中
+        result1 = Math.max(depth, result1); // 中
         depth++;
         getdepth2(node.left, depth);
         getdepth2(node.right, depth);

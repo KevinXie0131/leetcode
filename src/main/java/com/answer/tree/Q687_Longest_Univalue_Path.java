@@ -17,17 +17,24 @@ public class Q687_Longest_Univalue_Path {
         TreeNode node2 = new TreeNode(5);
         TreeNode node3 = new TreeNode(4);
         TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
+        TreeNode node5 = new TreeNode(4);
         root.left = node1;
         root.right = node2;
         node1.left = node3;
         node1.right = node4;
-        node2.right = node4;
+     //   node2.right = node4;
         node4.right = node5;
+     /*   1
+         /  \
+        4    5
+       / \
+      4   4
+           \
+            4  */
    /*     TreeNode root = new TreeNode(1);
         TreeNode node1 = new TreeNode(1);
         root.left = node1;*/
-        System.out.println(longestUnivaluePath0(root));
+        System.out.println(longestUnivaluePath_2(root));
     }
     /**
      * 路径长度是边数，不是节点数。
@@ -41,11 +48,14 @@ public class Q687_Longest_Univalue_Path {
         return maxLen;
     }
     // 返回以当前节点为起点的、向下的同值路径最长边数
-    // 递归函数功能：搜寻以node为起点的最长同值路径:要么是以node为起点的左子树，要么是以node为起点的右子树
+    // 递归函数功能：搜寻以node为起点的最长同值路径: 要么是以node为起点的左子树，要么是以node为起点的右子树
+    // similar with Q298_Binary_Tree_Longest_Consecutive_Sequence
     static private int dfs0(TreeNode node) {
-        if (node == null) return 0;
-        int left = dfs0(node.left); //node左子树的最长同值路径
-        int right = dfs0(node.right); //node右子树的最长同值路径
+        if (node == null) {
+            return 0;
+        }
+        int left = dfs0(node.left); // node左子树的最长同值路径
+        int right = dfs0(node.right); // node右子树的最长同值路径
 
         int leftPath = 0, rightPath = 0;
         if (node.left != null && node.left.value == node.value) {  // 如果左子节点和当前节点值相等，可以向左延伸
@@ -54,10 +64,10 @@ public class Q687_Longest_Univalue_Path {
         if (node.right != null && node.right.value == node.value) {  // 如果右子节点和当前节点值相等，可以向右延伸
             rightPath = right + 1;
         }
-        maxLen = Math.max(maxLen, leftPath + rightPath);// 更新全局最长路径（可能穿过当前节点，左+右）
+        maxLen = Math.max(maxLen, leftPath + rightPath); // 更新全局最长路径（可能穿过当前节点，左+右）
         // 返回 左 '/'或 右'\'中分支的长度 最长的 一支长度
         // 递归函数的功能其实就是从左子树和右子树中返回一个最大的同值路径，这也就是为什么我们return的是max(leftPath, rightPath)，即node左子树或右子树的最长同值路径
-        return Math.max(leftPath, rightPath);// 返回当前节点可向父节点延续的最长同值路径
+        return Math.max(leftPath, rightPath); // 返回当前节点可向父节点延续的最长同值路径
     }
     /**
      * Recursion 同上
@@ -95,15 +105,17 @@ public class Q687_Longest_Univalue_Path {
     /**
      * 递归分治 ，简约代码
      */
-    int ans = 0;
+    static int ans = 0;
 
-    public int longestUnivaluePath_2(TreeNode root) {
-        if (root == null) return 0;
+    static public int longestUnivaluePath_2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
         dfs_2(root, Integer.MAX_VALUE);
         return ans;
     }
 
-    int dfs_2(TreeNode root, int val) {
+    static int dfs_2(TreeNode root, int val) {
         if (root == null) {
             return 0;
         }

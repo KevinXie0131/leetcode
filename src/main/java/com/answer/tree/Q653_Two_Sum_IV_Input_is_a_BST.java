@@ -18,6 +18,7 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
         List<Integer> list = new ArrayList<>();
 
         dfs(root, list);
+
         int i = 0, j = list.size() - 1;
         while(i < j){
             if(list.get(i) + list.get(j) > k){
@@ -32,8 +33,9 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
     }
 
     public void dfs(TreeNode root, List<Integer> list){
-        if(root == null) return;
-
+        if(root == null) {
+            return;
+        }
         dfs(root.left, list);
         list.add(root.value);
         dfs(root.right, list);
@@ -47,8 +49,9 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
     }
 
     public boolean dfs(TreeNode root, Set<Integer> set, int k){
-        if(root == null) return false;
-
+        if(root == null) {
+            return false;
+        }
         if(set.contains(k - root.value)){
             return true;
         }
@@ -59,6 +62,43 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
         return left || right;
     }
     /**
+     * inorder 同上
+     */
+    public boolean dfs1(TreeNode root, Set<Integer> set, int k){
+        if(root == null) {
+            return false;
+        }
+        if(dfs1(root.left, set, k)){
+            return true;
+        }
+        if(set.contains(k - root.value)){
+            return true;
+        }
+        set.add(root.value);
+
+        if(dfs1(root.right, set, k)){
+            return true;
+        }
+        return false;
+    }
+    /**
+     * postorder 同上
+     */
+    public boolean dfs2(TreeNode root, Set<Integer> set, int k){
+        if(root == null) {
+            return false;
+        }
+        boolean left = dfs2(root.left, set, k);
+        boolean right = dfs2(root.right, set, k);
+
+        boolean res = false;
+        if(set.contains(k - root.value)){
+            res = true;
+        }
+        set.add(root.value);
+        return res || left || right;
+    }
+    /**
      * Approach #2 Using Iteration and HashSet
      */
     public boolean findTarget_2(TreeNode root, int k) {
@@ -66,7 +106,6 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
         if (root == null){
             return false;
         }
-
         Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode cur = root;
         while (cur != null || !stack.isEmpty()){
@@ -91,7 +130,9 @@ public class Q653_Two_Sum_IV_Input_is_a_BST {
      */
     public boolean findTarget_2a(TreeNode root, int k) {
         Set<Integer> set = new HashSet();
-        if (root == null) return false;
+        if (root == null) {
+            return false;
+        }
         Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode cur = root;
         while (cur != null || !stack.isEmpty()){

@@ -15,10 +15,10 @@ public class Q429_Nary_Tree_Level_Order_Traversal {
      * 解法1：队列，迭代。
      */
     public List<List<Integer>> levelOrder(Node root) {
-
         List<List<Integer>> list = new ArrayList<>();
-        if (root == null) return list;
-
+        if (root == null) {
+            return list;
+        }
         Deque<Node> queue = new ArrayDeque<>();
         queue.offer(root);
 

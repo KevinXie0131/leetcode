@@ -47,7 +47,41 @@ public class Q938_Range_Sum_of_BST {
         return root.value + rangeSumBST_5(root.left, L, R) + rangeSumBST_5(root.right, L, R); // 当前节点 X >= L 且 X <= R 时则返回：当前节点值 + 左子树之和 + 右子树之和
     }
     /**
-     * Recursive 递归
+     * Preorder Recursive 递归
+     */
+    public static int rangeSumBST0(TreeNode root, int low, int high) {
+        if(root == null){
+            return 0;
+        }
+        int sum = 0;
+        if(root.value >= low && root.value <= high){
+            sum = root.value;
+        }
+        sum += rangeSumBST0(root.left, low, high);
+        sum += rangeSumBST0(root.right, low, high);
+        return sum;
+    }
+    /**
+     * Preorder Recursive 递归 / Improved
+     */
+    public static int rangeSumBST0a(TreeNode root, int low, int high) {
+        if(root == null){
+            return 0;
+        }
+        int sum = 0;
+        if(root.value >= low && root.value <= high){
+            sum = root.value;
+        }
+        if(root.value >= low){
+            sum += rangeSumBST0a(root.left, low, high);
+        }
+        if(root.value <= high){
+            sum += rangeSumBST0a(root.right, low, high);
+        }
+        return sum;
+    }
+    /**
+     * Postorder Recursive 递归
      */
     public static int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null){
@@ -94,8 +128,9 @@ public class Q938_Range_Sum_of_BST {
     }
 
     public static void dfs(TreeNode node, int low, int high){
-        if(node == null) return;
-
+        if(node == null) {
+            return;
+        }
         dfs(node.left, low, high);
         if(node.value >= low && node.value <= high){
             result += node.value;
@@ -105,8 +140,27 @@ public class Q938_Range_Sum_of_BST {
     /**
      * another form
      */
+    public int rangeSumBST6a(TreeNode root, int low, int high) {
+        if(root == null){
+            return 0;
+        }
+        int sum = 0;
+        sum += rangeSumBST6a(root.left, low, high);
+
+        if(low <= root.value && root.value <= high) {
+            sum += root.value;
+        }
+
+        sum += rangeSumBST6a(root.right, low, high);
+        return sum;
+    }
+    /**
+     * another form / Improved
+     */
     public int rangeSumBST6(TreeNode root, int low, int high) {
-        if(root == null) return 0;
+        if(root == null){
+            return 0;
+        }
         int sum = 0;
         if(low <= root.value) { // 剪枝
             sum += rangeSumBST6(root.left, low, high);
@@ -152,9 +206,13 @@ public class Q938_Range_Sum_of_BST {
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             if(node.value > high){
-                if(node.left != null) queue.offer(node.left);
+                if(node.left != null) {
+                    queue.offer(node.left);
+                }
             } else if (node.value < low){
-                if(node.right != null) queue.offer(node.right);
+                if(node.right != null){
+                    queue.offer(node.right);
+                }
             } else {
                 sum += node.value;
                 if(node.left != null) queue.offer(node.left);

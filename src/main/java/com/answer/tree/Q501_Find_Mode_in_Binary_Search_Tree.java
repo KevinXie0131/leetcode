@@ -107,6 +107,5 @@ public class Q501_Find_Mode_in_Binary_Search_Tree {
 
         }
         return list.stream().mapToInt(i -> i).toArray();
-
     }
 }

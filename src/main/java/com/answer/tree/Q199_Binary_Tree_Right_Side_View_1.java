@@ -19,7 +19,6 @@ public class Q199_Binary_Tree_Right_Side_View_1 {
         if (root == null) {
             return;
         }
-
         if (depth == list.size()) {  // 这个深度首次遇到
             list.add(root.value);
         }

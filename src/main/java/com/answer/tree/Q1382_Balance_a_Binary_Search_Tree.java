@@ -25,8 +25,9 @@ public class Q1382_Balance_a_Binary_Search_Tree {
     }
 
     void traversal(TreeNode root) { // 递归中序遍历将⼆叉搜索树转变成⼀个数组
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         traversal(root.left);
         list.add(root.value); // 将⼆叉搜索树转换为有序数组
         traversal(root.right);
@@ -38,7 +39,7 @@ public class Q1382_Balance_a_Binary_Search_Tree {
         }
         int mid = (left + right) >>> 1;
         TreeNode root = new TreeNode(nums[mid]);
-        root.left = build(nums, left, mid -1);
+        root.left = build(nums, left, mid - 1);
         root.right = build(nums, mid + 1, right);
 
         return root;
@@ -52,7 +53,7 @@ public class Q1382_Balance_a_Binary_Search_Tree {
         }
         int mid = (left + right) >>> 1;
         TreeNode root = new TreeNode(nums.get(mid));
-        root.left = build1(nums, left, mid -1);
+        root.left = build1(nums, left, mid - 1);
         root.right = build1(nums, mid + 1, right);
 
         return root;

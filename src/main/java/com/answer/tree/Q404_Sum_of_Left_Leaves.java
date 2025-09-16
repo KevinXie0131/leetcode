@@ -21,7 +21,9 @@ public class Q404_Sum_of_Left_Leaves {
     }
 
     public void dfs(TreeNode root) {
-        if (root == null) return;
+        if (root == null){
+            return;
+        }
         // 中
         if (root.left != null && root.left.left == null && root.left.right == null) { // 左叶⼦节点处理逻辑
             sum += root.left.value;
@@ -33,8 +35,10 @@ public class Q404_Sum_of_Left_Leaves {
      * 前序遍历 another form
      */
     public int sumOfLeftLeaves_8(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
         int sum = 0;
-        if (root == null) return 0;
         // 中
         if (root.left != null && root.left.left == null && root.left.right == null) { // 左叶⼦节点处理逻辑
             sum += root.left.value;
@@ -74,7 +78,9 @@ public class Q404_Sum_of_Left_Leaves {
         if (root == null) {
             return 0; // 如果遍历到空节点，那么左叶子值一定是0
         }
-        if (root.left == null && root.right== null) return 0; //其实这个也可以不写，如果不写不影响结果，但就会让递归多进行了一层。
+        if (root.left == null && root.right== null) {
+            return 0; //其实这个也可以不写，如果不写不影响结果，但就会让递归多进行了一层。
+        }
 
         int leftValue = sumOfLeftLeaves(root.left);    // 左
         int rightValue = sumOfLeftLeaves(root.right);  // 右
@@ -88,8 +94,9 @@ public class Q404_Sum_of_Left_Leaves {
      * 递归 （另一种形式的后序遍历）
      */
     public int sumOfLeftLeaves1(TreeNode root) {
-        if (root == null) return 0;
-
+        if (root == null) {
+            return 0;
+        }
         int leftValue = sumOfLeftLeaves(root.left);
         int rightValue = sumOfLeftLeaves(root.right);
 
@@ -104,8 +111,12 @@ public class Q404_Sum_of_Left_Leaves {
      * 递归 （中序遍历）也是可以的
      */
     public int sumOfLeftLeaves_2(TreeNode root) {
-        if (root == null) return 0;
-        if (root.left == null && root.right== null) return 0;
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right== null){ // can be commented
+            return 0;
+        }
         int leftValue = sumOfLeftLeaves(root.left);    // 左
         // 通过节点的父节点来判断其左孩子是不是左叶子
         if (root.left != null && root.left.left == null && root.left.right == null) { // 左子树就是一个左叶子的情况
@@ -120,7 +131,9 @@ public class Q404_Sum_of_Left_Leaves {
      * 通过节点的⽗节点来判断其左孩⼦是不是左叶⼦
      */
     public int sumOfLeftLeaves2(TreeNode root) {
-        if (root == null) return 0;
+        if (root == null) {
+            return 0;
+        }
         int sum = 0;
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
@@ -164,12 +177,12 @@ public class Q404_Sum_of_Left_Leaves {
                         sum += cur.left.value;
                     }
                 }
-                if (cur.right != null) queue.offer(cur.right);
-
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
                 size--;
             }
         }
         return sum;
-
     }
 }

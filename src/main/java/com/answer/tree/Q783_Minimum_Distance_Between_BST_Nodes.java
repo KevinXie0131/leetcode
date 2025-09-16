@@ -25,7 +25,7 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
     }
     /**
      * Approach 2: In-order Traversal Without List 中序遍历
-     * Recursion - Inorder:  The in-order traversal of a binary search tree produces a sorted array.
+     * Recursion - Inorder: The in-order traversal of a binary search tree produces a sorted array.
      */
     static int min = Integer.MAX_VALUE;
     static int pre = Integer.MAX_VALUE;
@@ -60,17 +60,17 @@ public class Q783_Minimum_Distance_Between_BST_Nodes {
     static int result =  Integer.MAX_VALUE;
 
     public static int minDiffInBST_3(TreeNode root) {
-        if(root == null) return result;
-
-        int left = minDiffInBST(root.left);
+        if(root == null) {
+            return result;
+        }
+        int left = minDiffInBST_3(root.left);
 
         if(pre1 != null){
             result = Math.min(left, root.value - pre1.value);
         }
         pre1 = root;
 
-        int right = minDiffInBST(root.right);
-
+        int right = minDiffInBST_3(root.right);
         result = Math.min(right, result);
         return result;
     }

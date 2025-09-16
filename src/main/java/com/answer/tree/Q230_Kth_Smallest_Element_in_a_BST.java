@@ -31,6 +31,7 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
         recursion(root);
         return res;
     }
+
     static public void recursion(TreeNode root){
         if(root == null) {
             return;
@@ -54,7 +55,9 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
                 root = root.left;
             }
             TreeNode cur = stack.pop();
-            if(k == 1) return cur.value;
+            if(k == 1) {
+                return cur.value;
+            }
             k--;
             root = cur.right;
         }
@@ -64,17 +67,18 @@ public class Q230_Kth_Smallest_Element_in_a_BST {
      * Another form of recursion
      */
     public int kthSmallest_1(TreeNode root, int k) {
-        ArrayList<Integer> nums = inorder(root, new ArrayList<Integer>());
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        inorder(root, nums);
         return nums.get(k - 1);
     }
 
-    public ArrayList<Integer> inorder(TreeNode root, ArrayList<Integer> arr) {
-        if (root == null) return arr;
-
+    public void inorder(TreeNode root, ArrayList<Integer> arr) {
+        if (root == null) {
+            return;
+        }
         inorder(root.left, arr);
         arr.add(root.value);
         inorder(root.right, arr);
-        return arr;
     }
     /**
      * Another form of iteration

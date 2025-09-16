@@ -21,8 +21,9 @@ public class Q1008_Construct_Binary_Search_Tree_from_Preorder_Traversal {
     }
     // 二分法构造
     private TreeNode build2(int[] vals, int left, int right) {
-        if(left > right) return null;
-
+        if(left > right) {
+            return null;
+        }
         int val = vals[left];
         TreeNode node = new TreeNode(val);
         int j = left + 1;

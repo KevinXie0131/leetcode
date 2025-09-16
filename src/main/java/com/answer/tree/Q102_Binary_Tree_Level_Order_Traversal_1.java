@@ -45,7 +45,7 @@ public class Q102_Binary_Tree_Level_Order_Traversal_1 {
 
         resListRec.get(level).add(root.value);
 
-        dfs(root.left,  level + 1);
-        dfs(root.right, level + 1);
+        dfs_1(root.left,  level + 1);
+        dfs_1(root.right, level + 1);
     }
 }

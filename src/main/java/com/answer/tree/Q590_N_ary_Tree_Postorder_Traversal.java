@@ -15,14 +15,14 @@ public class Q590_N_ary_Tree_Postorder_Traversal {
      */
     public List<Integer> postorder(Node root) {
         List list = new LinkedList();
-
         recursion(root, list);
-
         return list;
     }
 
     private void recursion(Node root, List list){
-        if(root == null) return;
+        if(root == null) {
+            return;
+        }
 
         for(Node node : root.children){
             recursion(node, list);
@@ -37,7 +37,9 @@ public class Q590_N_ary_Tree_Postorder_Traversal {
         LinkedList list = new LinkedList();
         Deque<Node> stack = new ArrayDeque<>();
 
-        if(root == null) return list;
+        if(root == null) {
+            return list;
+        }
         stack.push(root);
 
         while(!stack.isEmpty()){

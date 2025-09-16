@@ -39,8 +39,9 @@ public class Q113_Path_Sum_II {
     }
     // 使用 dfs 来搜索二叉树的每个分支，当搜索到叶子结点时，如果路径和等于目标值，把它加入结果就可以了。
     public void dfs(TreeNode root, int targetSum){ // 递归函数不需要返回值，因为我们要遍历整个树
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         pathSum.add(root.value);
         if (root.left == null && root.right == null) { // 遇到了叶⼦节点切找到了和为sum的路径
             if(pathSum.stream().reduce(0, (a, b) -> a + b) == targetSum){
@@ -61,8 +62,9 @@ public class Q113_Path_Sum_II {
      * 另一种不同形式
      */
     public void dfs_1(TreeNode root, int targetSum){
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         pathSum.add(root.value);
         if (root.left == null && root.right == null) {
             if (targetSum == root.value) {
@@ -83,8 +85,9 @@ public class Q113_Path_Sum_II {
      * 另一种不同形式
      */
     public void dfs_4(TreeNode root, int targetSum){
-        if (root == null) return;
-
+        if (root == null){
+            return;
+        }
         pathSum.add(root.value);
         targetSum -= root.value;
 
@@ -106,7 +109,9 @@ public class Q113_Path_Sum_II {
     static List<Integer> path = new ArrayList<>();
 
     public static List<List<Integer>> pathSum1(TreeNode root, int targetSum) {
-        if (root == null) return result1;
+        if (root == null) {
+            return result1;
+        }
         path.add(root.value);// 把根节点放进路径
         dfs(root, path, targetSum - root.value);
         return result1;
@@ -135,7 +140,43 @@ public class Q113_Path_Sum_II {
             dfs(root.right,  path, targetSum);  // 递归
             path.remove(path.size() - 1);  // 回溯
             targetSum += root.right.value;  // 回溯
-
         }
     }
+    /**
+     * another form
+     */
+    public List<List<Integer>> pathSum8 (TreeNode root, int targetSum) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<Integer> path = new ArrayDeque<>();
+        path.add(root.value);
+        dfs(root, targetSum - root.value, path, res);
+        return res;
+    }
+
+    private void dfs(TreeNode root, int targetSum, Deque<Integer> path, List<List<Integer>> res) {
+        if (root.left == null && root.right == null) {
+            if(targetSum == 0) {
+                res.add(new ArrayList(path));  // 遇到了叶子节点且找到了和为sum的路径
+            }
+            return; // 遇到叶子节点而没有找到合适的边，直接返回
+        }
+        if (root.left != null) {  // 左 （空节点不遍历）
+            path.addLast(root.left.value);
+            dfs(root.left, targetSum - root.left.value, path, res);  // 递归
+            path.removeLast();  // 回溯
+
+        }
+        if (root.right != null) { // 右 （空节点不遍历）
+            path.addLast(root.right.value);
+            dfs(root.right, targetSum - root.right.value, path, res);  // 递归
+            path.removeLast(); // 回溯
+        }
+    }
+    /**
+     * if List<Integer> path = new ArrayList<>() or new LinkedList<>(); use path.remove(path.size() - 1);
+     * if Deque<Integer> path = new ArrayDeque<>(); use path.removeLast();
+     */
 }

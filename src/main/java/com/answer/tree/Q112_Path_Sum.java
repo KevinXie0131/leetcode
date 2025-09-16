@@ -11,6 +11,21 @@ public class Q112_Path_Sum {
      * Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
      * A leaf is a node with no children.
      */
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(5);
+        TreeNode root1 = new TreeNode(4);
+        TreeNode root2 = new TreeNode(8);
+        TreeNode root3 = new TreeNode(11);
+        TreeNode root4 = new TreeNode(7);
+        TreeNode root5 = new TreeNode(2);
+        root3.left = root4;
+        root3.right = root5;
+        root1.left = root3;
+        root.left = root1;
+        root.right = root2;
+        boolean res = hasPathSum9a(root, 22);
+        System.out.println(res);
+    }
     /**
      * refer to Q113_Path_Sum_II_1
      */
@@ -22,8 +37,9 @@ public class Q112_Path_Sum {
     }
 
     private void dfs_0(TreeNode root, int targetSum){
-        if(root == null) return;
-
+        if(root == null){
+            return;
+        }
         if(root.left == null && root.right == null){
             if(targetSum == root.value){
                 hasFound = true;
@@ -34,6 +50,53 @@ public class Q112_Path_Sum {
         dfs_0(root.right, targetSum - root.value);
     }
     /**
+     * another form
+     */
+    static public boolean hasPathSum9(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null){
+            return root.value == targetSum; // 直接判断 targetSum 是否等于 value 即可
+        }
+
+        if(hasPathSum9(root.left, targetSum - root.value)){// 隐藏回溯
+            return true;
+        }
+        if(hasPathSum9(root.right, targetSum - root.value)){// 隐藏回溯
+            return true;
+        }
+        return false;
+    }
+    /**
+     * another form
+     * refer to Q113_Path_Sum_II
+     */
+    static public boolean hasPathSum9a(TreeNode root, int targetSum) {
+        if(root == null) {
+            return false;
+        }
+        return dfs(root, targetSum - root.value);
+    }
+
+    static private boolean dfs(TreeNode root, int targetSum) {
+        if (root.left == null && root.right == null){
+            return targetSum == 0; // 直接判断 targetSum 是否等于 0 即可
+        }
+
+        if (root.left != null) {
+            if (dfs(root.left, targetSum - root.left.value)) {// 隐藏回溯
+                return true;
+            }
+        }
+        if (root.right != null) {
+            if (dfs(root.right, targetSum - root.right.value)) {// 隐藏回溯
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
      * 路径总和
      * 说明: 叶⼦节点是指没有⼦节点的节点
      *
@@ -41,7 +104,9 @@ public class Q112_Path_Sum {
      * 可将问题转化为判断左子树或者右子树是否存在一个节点和为 target - val 的路径。
      */
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if (root == null) return false;
+        if (root == null){
+            return false;
+        }
         /**
          * 不要去累加然后判断是否等于目标和，那么代码比较麻烦，可以用递减，让计数器count初始为目标和，然后每次减去遍历路径节点上的数值
          */
@@ -70,22 +135,24 @@ public class Q112_Path_Sum {
     /**
      * 递归
      *
-     * 如果需要搜索整颗⼆叉树，那么递归函数就不要返回值，如果要搜索其中⼀条符合条件的路径，
-     * 递归函数就需要返回值，因为遇到符合条件的路径了就要及时返回
+     * 如果需要搜索整颗⼆叉树，那么递归函数就不要返回值，如果要搜索其中⼀条符合条件的路径，递归函数就需要返回值，
+     * 因为遇到符合条件的路径了就要及时返回
      *
      * 本题我们要找⼀条符合条件的路径，所以递归函数需要返回值，及时返回
      * 遍历的路线，并不要遍历整棵树，所以递归函数需要返回值，可以⽤bool类型表⽰。
      */
     public boolean hasPathSum1(TreeNode root, int targetSum) {
-        if (root == null) return false;
-
+        if (root == null) {
+            return false;
+        }
         return dfs(root, 0, targetSum);
     }
 
     public boolean dfs(TreeNode node, int sum, int targetSum){ // 注意函数的返回类型
-        if (node == null)  return false;
-
-        if (node.left == null && node.right== null){
+        if (node == null) {
+            return false;
+        }
+        if (node.left == null && node.right == null){
             return node.value == targetSum; // 直接判断 targetSum 是否等于 value 即可
         }
 
@@ -109,15 +176,18 @@ public class Q112_Path_Sum {
     ArrayList<Integer> pathSum = new ArrayList<>();
 
     public boolean hasPathSum2(TreeNode root, int targetSum) {
-        if (root == null) return false;
-
+        if (root == null) {
+            return false;
+        }
         return dfs3(root, pathSum, targetSum);
     }
+
     public boolean dfs3(TreeNode node, ArrayList<Integer> pathSum, int targetSum){
-
-        if (node == null)  return false;
-
+        if (node == null) {
+            return false;
+        }
         pathSum.add(node.value);
+
         if (node.left == null && node.right == null) {
             return pathSum.stream().reduce(0, (a, b) -> a + b) == targetSum;
         }
@@ -135,10 +205,45 @@ public class Q112_Path_Sum {
         return left || right;
     }
     /**
-     * 迭代 广度优先搜索
+     *  another form
+     */
+    public boolean hasPathSum2a(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        pathSum.add(root.value);
+        return dfs3a(root, pathSum, targetSum);
+    }
+
+    public boolean dfs3a(TreeNode node, ArrayList<Integer> pathSum, int targetSum){
+        if (node == null) {
+            return false;
+        }
+        if (node.left == null && node.right == null) {
+            return pathSum.stream().reduce(0, (a, b) -> a + b) == targetSum;
+        }
+
+        boolean left = false;
+        if (node.left != null) {
+            pathSum.add(node.left.value);
+            left = dfs3(node.left, pathSum, targetSum);
+            pathSum.remove(pathSum.size() - 1); // 回溯
+        }
+        boolean right = false;
+        if (node.right != null) {
+            pathSum.add(node.right.value);
+            right = dfs3(node.right, pathSum, targetSum);
+            pathSum.remove(pathSum.size() - 1); // 回溯
+        }
+        return left || right;
+    }
+    /**
+     * 迭代
      */
     public boolean hasPathSum3(TreeNode root, int targetSum) {
-        if (root == null) return false;
+        if (root == null){
+            return false;
+        }
        // 此时栈⾥要放的是<节点指针，路径数值>
         Deque<TreeNode> stackNode = new ArrayDeque<>();
         Deque<Integer> stackVal = new ArrayDeque<>();
@@ -150,7 +255,9 @@ public class Q112_Path_Sum {
             TreeNode tmpNode = stackNode.pop();
 
             if (tmpNode.left == null & tmpNode.right == null) { // 如果该节点是叶⼦节点了，同时该节点的路径数值等于sum，那么就返回true
-                if (tmpVal == targetSum) return true;
+                if (tmpVal == targetSum){
+                    return true;
+                }
             }
             // 右节点，压进去⼀个节点的时候，将该节点的路径数值也记录下来
             if (tmpNode.right != null) {

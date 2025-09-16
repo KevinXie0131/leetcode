@@ -19,20 +19,22 @@ public class Q700_Search_in_a_Binary_Search_Tree {
      *    它的左、右⼦树也分别为⼆叉搜索树
      */
     public TreeNode searchBST(TreeNode root, int val) {
-        if (root == null)
+        if (root == null) {
             return null;
-        if (root.value == val)
+        }
+        if (root.value == val) {
             return root;
+        }
         // 如果root->val > val，搜索左⼦树，如果root->val < val，就搜索右⼦树，最后如果都没有搜索到，就返回NULL。
         TreeNode result = null;
-        if (root.value > val)
+        if (root.value > val) {
             result = searchBST(root.left, val);
+        }
         // 递归函数的返回值是什么? 是 左子树如果搜索到了val，要将该节点返回。 如果不用一个变量将其接住，那么返回值不就没了
-        if (root.value < val)
+        if (root.value < val) {
             result = searchBST(root.right, val);
-
+        }
         return result;
-
     }
     /**
      * 递归遍历
@@ -55,8 +57,9 @@ public class Q700_Search_in_a_Binary_Search_Tree {
      * 另一种形式  递归，利用二叉搜索树特点，优化
      */
     public TreeNode searchBST_3(TreeNode root, int val) {
-        if(root == null) return null;
-
+        if(root == null) {
+            return null;
+        }
         if(root.value == val){
             return root;
         } else if(root.value > val){

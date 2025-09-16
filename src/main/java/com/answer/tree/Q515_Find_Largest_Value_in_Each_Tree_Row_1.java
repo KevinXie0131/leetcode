@@ -15,8 +15,9 @@ public class Q515_Find_Largest_Value_in_Each_Tree_Row_1 {
      * 递归
      */
     public void dfs(TreeNode root, int deep) {
-        if (root == null) return;
-
+        if (root == null){
+            return;
+        }
         if (resListRec.size() == deep) {
             resListRec.add(Integer.MIN_VALUE);
         }

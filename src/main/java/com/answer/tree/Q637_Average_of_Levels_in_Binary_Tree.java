@@ -59,8 +59,9 @@ public class Q637_Average_of_Levels_in_Binary_Tree {
     }
 
     public void dfs(TreeNode root, int level, List<Integer> counts, List<Double> sums) {
-        if (root == null) return;
-
+        if (root == null){
+            return;
+        }
         if(counts.size() > level){
             counts.set(level, counts.get(level) + 1);
             sums.set(level, sums.get(level) + root.value);
@@ -79,6 +80,7 @@ public class Q637_Average_of_Levels_in_Binary_Tree {
 
     public List<Double> averageOfLevels2(TreeNode root) {
         dfs(root, 0);
+
         List<Double> list = new ArrayList<>();
         for (int i = 0; i < result.size(); i++) {
             double val = 0;
@@ -94,10 +96,10 @@ public class Q637_Average_of_Levels_in_Binary_Tree {
         if (root == null) {
             return;
         }
-
         List<Integer> list = result.getOrDefault(index, new ArrayList<>());
         list.add(root.value);
         result.put(index, list);
+
         dfs(root.left, index + 1);
         dfs(root.right, index + 1);
     }

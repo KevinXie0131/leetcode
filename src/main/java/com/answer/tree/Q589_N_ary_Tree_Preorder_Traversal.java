@@ -17,16 +17,17 @@ public class Q589_N_ary_Tree_Preorder_Traversal {
      */
     public List<Integer> preorder(Node root) {
         List list = new LinkedList();
-
         recursion(root, list);
-
         return list;
     }
 
     private void recursion(Node root, List list){
-        if(root == null) return;
+        if(root == null){
+            return;
+        }
 
         list.add(root.val);
+
         for(Node node : root.children){
             recursion(node, list);
         }
@@ -39,7 +40,9 @@ public class Q589_N_ary_Tree_Preorder_Traversal {
         List list = new LinkedList();
         Deque<Node> stack = new ArrayDeque<>();
 
-        if(root == null) return list;
+        if(root == null){
+            return list;
+        }
         stack.push(root);  // 首先把根节点入栈
 
         while(!stack.isEmpty()){

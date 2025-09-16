@@ -21,7 +21,6 @@ public class Q257_Binary_Tree_Paths {
         if(root == null){
             return result;
         }
-
         List<String> path = new ArrayList<>(); // ，记录每⼀条路径的path
         dfs(root, path, result);
         return result;
@@ -33,7 +32,7 @@ public class Q257_Binary_Tree_Paths {
         if (node == null) {
             return;
         }
-        if ( node.left == null && node.right == null) {
+        if (node.left == null && node.right == null) {
             path.add(node.value + "");
 
             result.add(path.stream().collect(Collectors.joining("")));
@@ -43,9 +42,40 @@ public class Q257_Binary_Tree_Paths {
             return;
         }
         path.add(node.value + "");
-        dfs(node.left,  path, result);
-        dfs(node.right,  path, result);
+        dfs(node.left, path, result);
+        dfs(node.right, path, result);
         path.remove(path.size() - 1);
+    }
+    /**
+     * Another form
+     * refer to Q113_Path_Sum_II
+     */
+    public List<String> binaryTreePaths0(TreeNode root) {
+        List<String> result = new ArrayList<>(); // 存放结果集的result
+        if(root == null){
+            return result;
+        }
+        Deque<String> path = new ArrayDeque<>(); // ，记录每⼀条路径的path
+        path.add(root.value + "");
+        dfs1(root, path, result);
+        return result;
+    }
+
+    public void dfs1(TreeNode node, Deque<String> path, List<String> result)     {
+        if (node.left == null && node.right == null) {
+            result.add(String.join("->", path));
+            return;
+        }
+        if(node.left != null){
+            path.addLast(node.left.value + "");
+            dfs1(node.left, path, result);
+            path.removeLast();
+        }
+        if(node.right != null) {
+            path.addLast(node.right.value + "");
+            dfs1(node.right, path, result);
+            path.removeLast();
+        }
     }
     /**
      * 前序遍历 + 回溯
@@ -133,8 +163,8 @@ public class Q257_Binary_Tree_Paths {
         dfs1(node.left, path + node.value + "->", res); // 隐藏着回溯
         dfs1(node.right, path + node.value + "->", res);
 /*        String tmp = new StringBuilder(s).append(node.val).append("->").toString();
-        deal(node.left, tmp);
-        deal(node.right, tmp);*/
+        dfs1(node.left, tmp);
+        dfs1(node.right, tmp);*/
     }
     /**
      * 迭代法 使用stack
@@ -145,11 +175,10 @@ public class Q257_Binary_Tree_Paths {
             return res;
         }
         Stack<Object> stack = new Stack<>(); // 保存树的遍历节点  保存遍历路径的节点
-
         stack.push(root);
         stack.push(root.value + "");
-        while (!stack.isEmpty()) {
 
+        while (!stack.isEmpty()) {
             String path = (String) stack.pop(); // 取出节点 中
             TreeNode node = (TreeNode) stack.pop(); // 取出该节点对应的路径
 
@@ -178,6 +207,7 @@ public class Q257_Binary_Tree_Paths {
         Queue<Object> queue = new LinkedList<>();
         queue.add(root);
         queue.add(root.value + "");
+
         while (!queue.isEmpty()) {
             TreeNode node = (TreeNode) queue.poll();
             String path = (String) queue.poll();

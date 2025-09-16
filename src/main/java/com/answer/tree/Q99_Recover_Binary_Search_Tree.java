@@ -18,11 +18,11 @@ public class Q99_Recover_Binary_Search_Tree {
         List<TreeNode> list = new ArrayList<>();
         dfs(root, list);
 
-        TreeNode x= null;
+        TreeNode x = null;
         TreeNode y = null;
         // 第一个节点，是第一个按照中序遍历时候前一个节点大于后一个节点，我们选取前一个节点
         // 第二个节点，是在第一个节点找到之后，后面出现前一个节点大于后一个节点，我们选择后一个节点
-        for(int i =0 ;i < list.size()-1; i++){
+        for(int i = 0 ; i < list.size() - 1; i++){
             if(list.get(i).value > list.get(i + 1).value){
                 y = list.get(i + 1);//有可能两个节点相邻
                 if(x == null) {
@@ -35,7 +35,7 @@ public class Q99_Recover_Binary_Search_Tree {
                 }*/
             }
         }
-        if(x!= null && y != null){
+        if(x != null && y != null){
             int temp = x.value;
             x.value = y.value;
             y.value = temp;
@@ -43,8 +43,9 @@ public class Q99_Recover_Binary_Search_Tree {
     }
 
     public void dfs(TreeNode node, List<TreeNode> list) {
-        if (node== null) return;
-
+        if (node== null){
+            return;
+        }
         dfs(node.left, list);
         list.add(node);
         dfs(node.right, list);
@@ -64,7 +65,9 @@ public class Q99_Recover_Binary_Search_Tree {
     }
 
     private void in_order(TreeNode root) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         in_order(root.left);
         if (firstNode == null && preNode.value > root.value) {
             firstNode = preNode;

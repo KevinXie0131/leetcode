@@ -38,10 +38,12 @@ public class Q173_Binary_Search_Tree_Iterator_1 {
      * 思路: 因为要中序遍历, 所以把根节点先入栈然后入栈左孩子, 每当输出一个节点后把那个节点的右孩子以及右孩子的所有左边的孩子加入进栈
      */
     Deque<TreeNode> stack1;
+
     // 构造方法：一路到底，把根节点和它的所有左节点放到栈中；栈中只保留左节点。
     public void BSTIterator1(TreeNode root) {
         stack1 = new LinkedList<>();
         TreeNode cur = root;
+
         while(cur != null){ //初始化栈：把根节点和根节点的所有左孩子及左孩子的左孩子加入进栈
             stack1.push(cur);
             cur = cur.left;
@@ -69,6 +71,7 @@ public class Q173_Binary_Search_Tree_Iterator_1 {
      */
     public int next2() {
         TreeNode node = stack.pop();
+
         if(node.right != null) {
             TreeNode cur = node.right;
             while(cur != null) {

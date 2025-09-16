@@ -6,9 +6,7 @@ import java.util.*;
 public class Q94_Binary_Tree_Inorder_Traversal_1 {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-
         inorder(root, result);
-
         return result;
     }
     /**

@@ -56,7 +56,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
     public TreeNode buildTree0(int[] inorder, int[] postorder) {
         return buildHelper(inorder, 0, inorder.length, postorder, 0, postorder.length);
     }
-
+    // 左闭右开
     private TreeNode buildHelper(int[] inorder, int inorderStart, int inorderEnd, int[] postorder, int postorderStart, int postorderEnd){
         if(postorderStart == postorderEnd){
             return null;
@@ -96,7 +96,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         }
         return myBuildTree(postorder, inorder, 0, n - 1, 0, n - 1);
     }
-
+    // 左闭右闭
     static public TreeNode myBuildTree(int[] postorder, int[] inorder, int postorder_left, int postorder_right, int inorder_left, int inorder_right) {
         if (postorder_left > postorder_right || inorder_left > inorder_right) {
             return null;
@@ -121,7 +121,7 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         }
         return findNode(inorder,  0, inorder.length, postorder,0, postorder.length);  // 前闭后开
     }
-
+    // 左闭右开
     public TreeNode findNode(int[] inorder, int inBegin, int inEnd, int[] postorder, int postBegin, int postEnd) {
         // 参数里的范围都是前闭后开
         if (inBegin >= inEnd || postBegin >= postEnd) {  // 不满足左闭右开，说明没有元素，返回空树
@@ -155,10 +155,11 @@ public class Q106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         }
         return helper(0, inorder.length - 1);
     }
-
+    // 左闭右闭
     public TreeNode helper(int in_left, int in_right) {
-        if (in_left > in_right) return null;// if there is no elements to construct subtrees
-
+        if (in_left > in_right) {
+            return null;// if there is no elements to construct subtrees
+        }
         int root_val = postorder[post_idx];// pick up post_idx element as a root
         TreeNode root = new TreeNode(root_val);
         int index = idx_map.get(root_val);// root splits inorder list into left and right subtrees

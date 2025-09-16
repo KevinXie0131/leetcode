@@ -17,7 +17,6 @@ public class Q538_Convert_BST_to_Greater_Tree {
      *  The left subtree of a node contains only nodes with keys less than the node's key.
      *  The right subtree of a node contains only nodes with keys greater than the node's key.
      *  Both the left and right subtrees must also be binary search trees.
-     *
      */
     /**
      * 把⼆叉搜索树转换为累加树（Greater Sum Tree）
@@ -41,8 +40,9 @@ public class Q538_Convert_BST_to_Greater_Tree {
     // 也就是说，若求中间节点的值必须要先遍历完右子节点，而若求左子节点的值必须要遍历完中间节点和右子节点。因此，我们只需要进行一次
     // 反向中序遍历（即遍历顺序为右子树-->根节点-->左子树），在遍历过程中需要将已经遍历的节点的值进行累加，然后再赋值给当前节点。
     public void traversal(TreeNode node){  // 右中左遍历. 不需要递归函数的返回值做什么操作了，要遍历整棵树
-        if(node == null) return;
-
+        if(node == null) {
+            return;
+        }
         traversal(node.right); // 右
 
         node.value += pre; // 中  按右中左顺序遍历，累加即可
@@ -60,6 +60,7 @@ public class Q538_Convert_BST_to_Greater_Tree {
     public TreeNode convertBST1(TreeNode root) {
         TreeNode cur = root;
         Deque<TreeNode> stack = new ArrayDeque<>();
+
         while(cur != null || !stack.isEmpty()){
             while(cur != null){
                 stack.push(cur);

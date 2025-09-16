@@ -149,6 +149,7 @@ public class Q331_Verify_Preorder_Serialization_of_a_Binary_Tree {
 
         for(String node : nodes){
             stack.add(node);
+
             while(stack.size() >= 3 && stack.get(stack.size() - 1).equals("#") && stack.get(stack.size() - 2).equals("#")
                     && !stack.get(stack.size() - 3).equals("#")){
                 stack.remove(stack.size() - 1);
@@ -166,6 +167,7 @@ public class Q331_Verify_Preorder_Serialization_of_a_Binary_Tree {
         LinkedList<String> stack = new LinkedList<>();
         for (String s : preorder.split(",")) {
             stack.push(s);
+
             while (stack.size() >= 3 && stack.get(0).equals("#") && stack.get(1).equals("#") && !stack.get(2).equals("#")) {
                 stack.pop();
                 stack.pop();

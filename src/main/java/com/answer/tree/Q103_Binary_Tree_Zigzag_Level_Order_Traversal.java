@@ -23,16 +23,15 @@ public class Q103_Binary_Tree_Zigzag_Level_Order_Traversal {
      * 递归
      */
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> res = new LinkedList<>();
         dfs(root, res, 0);
         return res;
     }
 
-    public void dfs(TreeNode root,  List<List<Integer>> res, int level) {
+    public void dfs(TreeNode root, List<List<Integer>> res, int level) {
         if (root == null) {
             return;
         }
-
         if (res.size() == level) {
             List<Integer> sublist = new LinkedList<>();
             res.add(sublist);
@@ -51,8 +50,9 @@ public class Q103_Binary_Tree_Zigzag_Level_Order_Traversal {
      */
     public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
         List<List<Integer>> list = new ArrayList<>();
-        if (root == null) return list;
-
+        if (root == null) {
+            return list;
+        }
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
 
