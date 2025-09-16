@@ -43,7 +43,7 @@ public class Q344_Reverse_String {
         s[left] = s[right];
         s[right] = temp;
 
-        recursion(s, left+1, right-1);
+        recursion(s, left + 1, right - 1);
     }
     /**
      * Approach 2: Two Pointers, Iteration, O(1) Space 双指针
