@@ -14,19 +14,19 @@ public class Q110_Balanced_Binary_Tree {
      * 总时间复杂度为 O(nlogn)，其中 n 是二叉树中的节点个数。满二叉树高度的复杂度 O(logN)
      * 最坏情况下，二叉树是满二叉树，需要遍历二叉树中的所有节点，时间复杂度是 O(n)。
      */
-    public boolean isBalanced_0(TreeNode root) {
+    public boolean isBalanced0(TreeNode root) {
         if (root == null) {
             return true;
         } else {
-            return Math.abs(height_0(root.left) - height_0(root.right)) <= 1 && isBalanced_0(root.left) && isBalanced_0(root.right);
+            return Math.abs(height0(root.left) - height0(root.right)) <= 1 && isBalanced0(root.left) && isBalanced0(root.right);
         }
     }
 
-    public int height_0(TreeNode root) {
+    public int height0(TreeNode root) {
         if (root == null) {
             return 0;
         } else {
-            return Math.max(height_0(root.left), height_0(root.right)) + 1;
+            return Math.max(height0(root.left), height0(root.right)) + 1;
         }
     }
     /**
@@ -34,16 +34,16 @@ public class Q110_Balanced_Binary_Tree {
      * 由于是自顶向下递归，因此对于同一个节点，函数 height 会被重复调用，导致时间复杂度较高。如果使用自底向上的做法，则对于每个节点，函数 height 只会被调用一次。
      * 时间复杂度：O(n)
      */
-    public boolean isBalanced_0a(TreeNode root) {
-        return height_0a(root) >= 0;
+    public boolean isBalanced0a(TreeNode root) {
+        return height0a(root) >= 0; // return height0a(root) != -1; // works too
     }
 
-    public int height_0a(TreeNode root) {
+    public int height0a(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        int leftHeight = height_0a(root.left);
-        int rightHeight = height_0a(root.right);
+        int leftHeight = height0a(root.left);
+        int rightHeight = height0a(root.right);
         if (leftHeight == -1 || rightHeight == -1 || Math.abs(leftHeight - rightHeight) > 1) {
             return -1;
         } else {
@@ -63,13 +63,15 @@ public class Q110_Balanced_Binary_Tree {
     }
 
     public int maxDepth(TreeNode root) {
-        if (root == null) return 0;
-        int l = maxDepth(root.left);
-        int r = maxDepth(root.right);
-        if (Math.abs(l - r) > 1) {
+        if (root == null){
+            return 0;
+        }
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        if (Math.abs(left - right) > 1) {
             ans = false;
         }
-        return Math.max(l, r) + 1;
+        return Math.max(left, right) + 1;
     }
     /**
      * ⼀棵⾼度平衡⼆叉树定义为：⼀个⼆叉树每个节点的左右两个⼦树的⾼度差的绝对值不超过1
@@ -238,8 +240,9 @@ public class Q110_Balanced_Binary_Tree {
      * 空间复杂度：O(N)，栈和哈希表在最坏情况下都需要存储N个节点。
      */
     public boolean isBalanced_7(TreeNode root) {
-        if (root == null) return true;
-
+        if (root == null) {
+            return true;
+        }
         Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
         TreeNode lastVisited = null;
