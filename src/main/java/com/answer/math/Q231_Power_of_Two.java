@@ -74,6 +74,7 @@ public class Q231_Power_of_Two {
         }
         while (n % 2 == 0) {
             n >>= 1; // 通过右位操作，把n做2的幂次方的逆逻辑 (相当于除法)
+            //  n = n / 2;  // works too
         }
         return n == 1; // 尝试将 n 除干净，如果最后剩余数值为 1 则说明开始是 2 的幂。
     }
