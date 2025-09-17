@@ -51,7 +51,6 @@ public class Q222_Count_Complete_Tree_Nodes {
         if (root == null){
             return 0;
         }
-
         Queue<TreeNode> que = new LinkedList<>();
         que.offer(root);
         int size = 0;
@@ -80,9 +79,9 @@ public class Q222_Count_Complete_Tree_Nodes {
         int rightDepth = getDepth(root.right);
         if (leftDepth == rightDepth) {// 左子树是满二叉树
             // 2^leftDepth其实是 （2^leftDepth - 1） + 1 ，左子树 + 根结点
-            return (1 << leftDepth) + countNodes(root.right);
+            return (1 << leftDepth) + countNodes_3(root.right);
         } else {// 右子树是满二叉树
-            return (1 << rightDepth) + countNodes(root.left);
+            return (1 << rightDepth) + countNodes_3(root.left);
         }
     }
 
@@ -108,7 +107,9 @@ public class Q222_Count_Complete_Tree_Nodes {
      *  如果不是 perfect binary tree，那就是规模小一点的完全二叉树，递归处理。
      */
     public int countNodes_5(TreeNode root) {
-        if (root == null) return 0;
+        if (root == null) {
+            return 0;
+        }
         TreeNode left = root.left;
         TreeNode right = root.right;
 
