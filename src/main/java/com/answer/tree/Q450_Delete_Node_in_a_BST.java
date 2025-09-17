@@ -30,8 +30,9 @@ public class Q450_Delete_Node_in_a_BST {
      *                 返回删除节点右孩⼦为新的根节点。
      */
     public TreeNode deleteNode0(TreeNode root, int key) { // 递归解法1(最好理解的版本)
-        if(root == null) return null;
-
+        if(root == null) {
+            return null;
+        }
         if(root.value == key){
             if(root.left == null && root.right == null){
                 return null;
@@ -49,8 +50,8 @@ public class Q450_Delete_Node_in_a_BST {
                 return root;
             }
         }
-        if(key < root.value) root.left =  deleteNode( root.left,  key);
-        if(key > root.value) root.right =  deleteNode( root.right,  key);
+        if(key < root.value) root.left = deleteNode(root.left,  key);
+        if(key > root.value) root.right = deleteNode(root.right,  key);
         return root;
     }
     /**
