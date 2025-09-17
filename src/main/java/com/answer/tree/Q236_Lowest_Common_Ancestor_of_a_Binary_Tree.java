@@ -42,9 +42,12 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         // 从底向上遍历, 遍历整棵树, 把结果传到根节点的
-        if (root == null) return null;
-
-        if (root == p || root == q) return root; // 如果找到了 节点p或者q，或者遇到空节点，就返回
+        if (root == null){
+            return null;
+        }
+        if (root == p || root == q) {
+            return root; // 如果找到了 节点p或者q，或者遇到空节点，就返回
+        }
         // left = 递归函数(root->left);
         // right = 递归函数(root->right);
         // left与right的逻辑处理
@@ -68,12 +71,16 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
      */
     public TreeNode lowestCommonAncestor5(TreeNode root, TreeNode p, TreeNode q) {
         // 如果当前节点是 null，或者当前节点就是 p 或 q，直接返回
-        if (root == null || root == p || root == q) return root;
+        if (root == null || root == p || root == q){
+            return root;
+        }
         // 递归左右子树
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         // 左右两边都找到，说明当前节点是最近公共祖先
-        if (left != null && right != null) return root;
+        if (left != null && right != null) {
+            return root;
+        }
         // 只在一边找到，说明公共祖先在这一边
         return left != null ? left : right;
      //   if (left == null) return right;  // works too
@@ -130,6 +137,8 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
 
     public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         dfs(root);
+    //    dfs1(root, null); // works too
+
         while(p != null){
             visited.add(p.value);
             p = parent.get(p.value);
@@ -147,13 +156,27 @@ public class Q236_Lowest_Common_Ancestor_of_a_Binary_Tree {
         if(root == null){
             return;
         }
-        if(root.left!=null){
+        if(root.left != null){
             parent.put(root.left.value, root);
             dfs(root.left);
         }
-        if(root.right!=null){
+        if(root.right != null){
             parent.put(root.right.value, root);
             dfs(root.right);
+        }
+    }
+    // 同上
+    public void dfs1(TreeNode root, TreeNode parentNode){ // works too
+        if(root == null){
+            return;
+        }
+        parent.put(root.value, parentNode);
+
+        if(root.left != null){
+            dfs1(root.left, root);
+        }
+        if(root.right != null){
+            dfs1(root.right, root);
         }
     }
 }

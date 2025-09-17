@@ -60,8 +60,9 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
      * 如果 cur.val ⼩于 p.val，同时 cur.val ⼩于 q.val，那么就应该向右遍历（⽬标区间在右⼦树）。
      */
     public TreeNode lowestCommonAncestor_0(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null) return null; // 可省略 不存在遇到空的情况
-
+        if(root == null) {
+            return null; // 可省略 不存在遇到空的情况
+        }
         if (p.value < root.value && q.value < root.value) {
             TreeNode left = lowestCommonAncestor_0(root.left, p, q);
             if(left != null) {
@@ -89,9 +90,9 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
         if (p.value > root.value && q.value > root.value) {
             right = lowestCommonAncestor_1(root.right, p, q);
         }
-        if(left!= null){
+        if(left != null){
             return left;
-        } else if(right!= null) {
+        } else if(right != null) {
             return right;
         } else{
             return root;
@@ -101,8 +102,9 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
      * 精简后代码
      */
     public TreeNode lowestCommonAncestor3(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) return null; // 可省略 不存在遇到空的情况
-
+        if (root == null) {
+            return null; // 可省略 不存在遇到空的情况
+        }
         if(root.value > p.value && root.value > q.value){ // 第二种情况，p和q都在左子树，应该把视角放在左边，去左子树找第三种情况
             return lowestCommonAncestor3(root.left, p,q);
         }else if(root.value < p.value && root.value < q.value){ // 第一种情况，p和q都在右子树，应该把视角放在右边，去右子树找第三种情况
@@ -152,10 +154,12 @@ public class Q235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree {
      * refer to Q236_Lowest_Common_Ancestor_of_a_Binary_Tree
      */
     public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) return null;
-
-        if (root == p || root == q) return root;
-
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
         TreeNode left = lowestCommonAncestor2(root.left, p,  q);
         TreeNode right = lowestCommonAncestor2(root.right, p,  q);
 
