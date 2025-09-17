@@ -16,19 +16,21 @@ public class Q669_Trim_a_Binary_Search_Tree {
      * 如果当前节点值 > high，整个右子树都大于 high，需要修剪整个右子树，递归处理左子树，并返回新的根。
      * 如果当前节点值在 [low, high] 内，递归修剪左右子树，返回当前节点
      */
-    public TreeNode trimBST_0(TreeNode root, int low, int high) {
-        if (root == null) return null;
+    public TreeNode trimBST0(TreeNode root, int low, int high) {
+        if (root == null) {
+            return null;
+        }
         if(root.value < low){
-            TreeNode right = trimBST_0( root.right,  low,  high); // 当前节点太小，修剪其右子树
+            TreeNode right = trimBST0(root.right, low, high); // 当前节点太小，修剪其右子树
             return right;
         }
         else if(root.value > high){
-            TreeNode left = trimBST_0( root.left,  low,  high);  // 当前节点太大，修剪其左子树
+            TreeNode left = trimBST0(root.left, low, high);  // 当前节点太大，修剪其左子树
             return left;
         }
         else { // root在[low,high]范围内
-            root.left = trimBST_0(root.left, low, high);  // 当前节点在区间内，递归修剪两边
-            root.right = trimBST_0(root.right, low, high);
+            root.left = trimBST0(root.left, low, high);  // 当前节点在区间内，递归修剪两边
+            root.right = trimBST0(root.right, low, high);
         }
         return root;
     }
@@ -36,19 +38,20 @@ public class Q669_Trim_a_Binary_Search_Tree {
      * 递归
      */
     public TreeNode trimBST(TreeNode root, int low, int high) {
-        if(root == null) return null;
-
+        if(root == null) {
+            return null;
+        }
         // 如果root（当前节点）的元素⼩于low的数值，那么应该递归右⼦树，并返回右⼦树符合条件的头结点。
         if (root.value < low) {
-            return trimBST( root.right,  low,  high); // 寻找符合区间[low, high]的节点
+            return trimBST(root.right, low, high); // 寻找符合区间[low, high]的节点
         }
         // 如果root(当前节点)的元素⼤于high的，那么应该递归左⼦树，并返回左⼦树符合条件的头结点
         else if (root.value > high) {
-            return trimBST( root.left,  low,  high); // 寻找符合区间[low,high]的节点
+            return trimBST(root.left, low, high); // 寻找符合区间[low,high]的节点
         }
         else if (root.value >= low && root.value <= high) {
-            root.left = trimBST( root.left,  low,  high); // root.left接⼊符合条件的左孩⼦
-            root.right = trimBST( root.right,  low,  high); // root.right接⼊符合条件的右孩⼦
+            root.left = trimBST(root.left, low, high); // root.left接⼊符合条件的左孩⼦
+            root.right = trimBST(root.right, low, high); // root.right接⼊符合条件的右孩⼦
         }
         return root;
     }
@@ -64,8 +67,9 @@ public class Q669_Trim_a_Binary_Search_Tree {
         if (root == null) {  // 如果遇到空节点，直接返回空
             return null;
         }
-        root.left = trimBST(root.left, low, high); // 先递归修剪左子树，修剪后的左子树接回 root->left
-        root.right = trimBST(root.right, low, high); // 再递归修剪右子树，修剪后的右子树接回 root->right
+        root.left = trimBST7(root.left, low, high); // 先递归修剪左子树，修剪后的左子树接回 root->left
+        root.right = trimBST7(root.right, low, high); // 再递归修剪右子树，修剪后的右子树接回 root->right
+
         if (root.value < low) {// 当前节点值小于 low，说明整棵左子树都比 low 小（BST 的性质），整个左子树和当前节点都要丢弃，返回修剪后的右子树
             return root.right;
         }
@@ -99,7 +103,7 @@ public class Q669_Trim_a_Binary_Search_Tree {
         TreeNode cur = root;
         // 此时root已经在[L, R] 范围内，处理左孩⼦元素⼩于L的情况
         // 修剪 root 的左子树，将 < low 的节点删除
-        while(cur != null){ // //deal with root's left sub-tree, and deal with the value smaller than low.
+        while(cur != null){ // deal with root's left sub-tree, and deal with the value smaller than low.
             while(cur.left != null && cur.left.value < low){
                 cur.left = cur.left.right;
             }
