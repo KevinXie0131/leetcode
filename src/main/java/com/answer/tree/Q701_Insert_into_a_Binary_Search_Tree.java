@@ -24,7 +24,6 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
     }
     /**
      * ⼆叉搜索树中的插⼊操作 (递归法)
-     *
      * 注意，可能存在多种有效的插⼊⽅式，只要树在插⼊后仍保持为⼆叉搜索树即可。 你可以返回任意有效的结果
      * 只要遍历⼆叉搜索树，找到空节点 插⼊元素就可以了，那么这道题其实就简单了. 需要调整⼆叉树的结构么？ 并不需要
      */
@@ -62,8 +61,11 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
     void traversal(TreeNode cur, int val) {
         if (cur == null) {
             TreeNode node = new TreeNode(val);
-            if (val > parent.value) parent.right = node;
-            else parent.left = node;
+            if (val > parent.value) {
+                parent.right = node;
+            } else {
+                parent.left = node;
+            }
             return;
         }
 
@@ -95,8 +97,7 @@ public class Q701_Insert_into_a_Binary_Search_Tree {
         // 此时是⽤parent节点的进⾏赋值
         if(parent.value > val){
             parent.left =  node;
-        }
-        else if(parent.value < val){
+        } else if(parent.value < val){
             parent.right = node;
         }
         return root;
