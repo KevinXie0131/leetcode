@@ -17,7 +17,6 @@ public class Q865_Smallest_Subtree_with_all_the_Deepest_Nodes {
     /**
      * similar with Q1123 最深叶节点的最近公共祖先. The same solution can be used
      * refer to Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves
-     *
      * 思路：从每个树开始，获得当前节点的左右子树的最大深度
      *      深度相同，说明最深的节点在这个节点两边，那这个节点就是结果
      *      如果深度不相同，则去深度大的子树继续判断，最终就能得到结果

@@ -39,7 +39,6 @@ public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
         node5.right = node9;
         TreeNode node = lcaDeepestLeaves(node1);
         System.out.println(node.value);
-
         TreeNode node1a = new TreeNode(0);
         TreeNode node2a = new TreeNode(1);
         TreeNode node3a = new TreeNode(3);
@@ -98,7 +97,8 @@ public class Q1123_Lowest_Common_Ancestor_of_Deepest_Leaves {
      *  从根节点开始递归，同时维护全局最大深度 maxDepth。
      *  在「递」的时候往下传 depth，用来表示当前节点的深度。
      *  在「归」的时候往上传当前子树最深的空节点的深度。这里为了方便，用空节点代替叶子，因为最深的空节点的上面一定是最深的叶子。
-     *  设左子树最深空节点的深度为 leftMaxDepth，右子树最深空节点的深度为 rightMaxDepth。如果最深的空节点左右子树都有，即 leftMaxDepth=rightMaxDepth=maxDepth，那么更新答案为当前节点。注意这并不代表我们找到了答案，如果后面发现了更深的空节点，答案还会更新。另外注意，这个判断方式在只有一个最深叶子的情况下，也是正确的
+     *  设左子树最深空节点的深度为 leftMaxDepth，右子树最深空节点的深度为 rightMaxDepth。如果最深的空节点左右子树都有，即 leftMaxDepth = rightMaxDepth = maxDepth，那么更新答案为当前节点。
+     *  注意这并不代表我们找到了答案，如果后面发现了更深的空节点，答案还会更新。另外注意，这个判断方式在只有一个最深叶子的情况下，也是正确的
      */
     static private TreeNode ans;
     static private int maxDepth = -1; // 全局最大深度
