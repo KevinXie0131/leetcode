@@ -72,6 +72,29 @@ public class IterativeTraversalTemplate4 {
         return Math.max(left, right) + 1;  // 中 用后序遍历（左右中）来计算树的高度 / 二叉树的最大深度为左右子树的最大深度加1得到。
     }
     /**
+     * 二叉树的最近公共祖先
+     */
+    public TreeNode lowestCommonAncestor (TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p,  q);
+        TreeNode right = lowestCommonAncestor(root.right, p,  q);
+
+        if (left != null && right != null) {
+            return root;
+        } else if(left != null && right == null) {
+            return left;
+        } else if(right != null && left == null) {
+            return right;
+        } else {
+            return null;
+        }
+    }
+    /**
      * 路径总和
      * refer to Q113_Path_Sum_II
      */
