@@ -90,8 +90,9 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
      * 如果有左孩子有右孩子，就找一个结点指向左孩子的最右叶子结点，然后把这一串插入父结点和右孩子中间。
      */
     public void flatten5(TreeNode root) {
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         if (root.left != null) {
             TreeNode cur = root.left;
             while (cur.right != null) {
@@ -115,8 +116,9 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
     private TreeNode pre = null;
 
     public void flatten1(TreeNode root) {
-        if (root == null) return;
-
+        if (root == null) {
+            return;
+        }
         flatten1(root.right);
         flatten1(root.left);
         root.right = pre; // 利用一个全局变量 pre，更新当前根节点的右指针为 pre，左指针为 null。
@@ -157,7 +159,9 @@ public class Q114_Flatten_Binary_Tree_to_Linked_List {
      * 因为我们用栈保存了右孩子，所以不需要担心右孩子丢失了。用一个 pre 变量保存上次遍历的节点。
      */
     public void flatten4(TreeNode root) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.push(root);
         TreeNode pre = null;
